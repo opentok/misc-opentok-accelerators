@@ -48,6 +48,12 @@
 		648BE9551C5F0FB500669C04 /* TextChatComponetSample.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 648BE9531C5F0FB500669C04 /* TextChatComponetSample.xcdatamodeld */; };
 		648BE9571C5F0FB500669C04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 648BE9561C5F0FB500669C04 /* Assets.xcassets */; };
 		648BE95A1C5F0FB500669C04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 648BE9581C5F0FB500669C04 /* LaunchScreen.storyboard */; };
+		64B632BD1C626F0C00FAD0A4 /* close x white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B632B71C626F0C00FAD0A4 /* close x white.png */; };
+		64B632BE1C626F0C00FAD0A4 /* close x white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B632B81C626F0C00FAD0A4 /* close x white@2x.png */; };
+		64B632BF1C626F0C00FAD0A4 /* close x white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B632B91C626F0C00FAD0A4 /* close x white@3x.png */; };
+		64B632C01C626F0C00FAD0A4 /* minimize.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B632BA1C626F0C00FAD0A4 /* minimize.png */; };
+		64B632C11C626F0C00FAD0A4 /* minimize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B632BB1C626F0C00FAD0A4 /* minimize@2x.png */; };
+		64B632C21C626F0C00FAD0A4 /* minimize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B632BC1C626F0C00FAD0A4 /* minimize@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +124,12 @@
 		648BE9561C5F0FB500669C04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		648BE9591C5F0FB500669C04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		648BE95B1C5F0FB500669C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64B632B71C626F0C00FAD0A4 /* close x white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close x white.png"; sourceTree = "<group>"; };
+		64B632B81C626F0C00FAD0A4 /* close x white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close x white@2x.png"; sourceTree = "<group>"; };
+		64B632B91C626F0C00FAD0A4 /* close x white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close x white@3x.png"; sourceTree = "<group>"; };
+		64B632BA1C626F0C00FAD0A4 /* minimize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minimize.png; sourceTree = "<group>"; };
+		64B632BB1C626F0C00FAD0A4 /* minimize@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minimize@2x.png"; sourceTree = "<group>"; };
+		64B632BC1C626F0C00FAD0A4 /* minimize@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minimize@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,13 +177,19 @@
 				645730201C5FCD20009690A4 /* TextChatComponentTableViewCell.m */,
 				645730211C5FCD20009690A4 /* TextChatComponentChatView.h */,
 				645730221C5FCD20009690A4 /* TextChatComponentChatView.m */,
-				645730231C5FCD20009690A4 /* TextChatComponentSentShortTableViewCell.xib */,
 				645730241C5FCD20009690A4 /* TextChatComponentSentTableViewCell.xib */,
 				645730251C5FCD20009690A4 /* TextChatComponentRecvTableViewCell.xib */,
+				645730231C5FCD20009690A4 /* TextChatComponentSentShortTableViewCell.xib */,
 				645730261C5FCD20009690A4 /* TextChatComponentRecvShortTableViewCell.xib */,
 				645730271C5FCD20009690A4 /* TextChatComponent.xib */,
 				645730281C5FCD20009690A4 /* TextChatComponentDivTableViewCell.xib */,
 				645730351C5FCD20009690A4 /* Info.plist */,
+				64B632B71C626F0C00FAD0A4 /* close x white.png */,
+				64B632B81C626F0C00FAD0A4 /* close x white@2x.png */,
+				64B632B91C626F0C00FAD0A4 /* close x white@3x.png */,
+				64B632BA1C626F0C00FAD0A4 /* minimize.png */,
+				64B632BB1C626F0C00FAD0A4 /* minimize@2x.png */,
+				64B632BC1C626F0C00FAD0A4 /* minimize@3x.png */,
 			);
 			name = TextChatComponent;
 			path = Framework;
@@ -348,10 +366,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64B632BE1C626F0C00FAD0A4 /* close x white@2x.png in Resources */,
+				64B632C11C626F0C00FAD0A4 /* minimize@2x.png in Resources */,
+				64B632C01C626F0C00FAD0A4 /* minimize.png in Resources */,
 				6413726F1C6253E400A38834 /* Info.plist in Resources */,
 				648BE95A1C5F0FB500669C04 /* LaunchScreen.storyboard in Resources */,
 				648BE9571C5F0FB500669C04 /* Assets.xcassets in Resources */,
+				64B632BF1C626F0C00FAD0A4 /* close x white@3x.png in Resources */,
+				64B632BD1C626F0C00FAD0A4 /* close x white.png in Resources */,
 				648BE9521C5F0FB500669C04 /* Main.storyboard in Resources */,
+				64B632C21C626F0C00FAD0A4 /* minimize@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
