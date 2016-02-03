@@ -1,4 +1,4 @@
-package com.opentok.android.im.sample;
+package com.opentok.android.textchat.sample;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity implements Session.SignalLis
     private Session mSession = null;
 
     // Replace with a generated Session ID
-    public static final String SESSION_ID = "2_MX4xMDB-fjE0NTQwNTg5MjU1MjZ-VmZNMG1pNUtwaXNNOHVYeUh5aWZqV3Bqfn4";
+    public static final String SESSION_ID = "";
     // Replace with a generated token (from the dashboard or using an OpenTok server SDK)
-    public static final String TOKEN = "T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9Y2UyYmIwMzI5ODlhYzhhMWNkYzUyODMwMmQ1OGRjZjQxZDZiYmE4ODpzZXNzaW9uX2lkPTJfTVg0eE1EQi1makUwTlRRd05UZzVNalUxTWpaLVZtWk5NRzFwTlV0d2FYTk5PSFZZZVVoNWFXWnFWM0JxZm40JmNyZWF0ZV90aW1lPTE0NTQwNTcwOTYmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ1NDA1NzA5Ni4zODE0MTMxMTE5ODMwMyZleHBpcmVfdGltZT0xNDU2NjQ5MDk2JmNvbm5lY3Rpb25fZGF0YT1tYXJpbmFz";
+    public static final String TOKEN = "";
     // Replace with your OpenTok API key
-    public static final String API_KEY = "100";
+    public static final String API_KEY = "";
 
 
     private boolean msgError = false;
