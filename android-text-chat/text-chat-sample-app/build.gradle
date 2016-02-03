@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "im.android.opentok.com.im_sample_app"
+        applicationId "com.opentok.android.textchat.sample"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -17,6 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -24,5 +30,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.+'
     compile 'com.android.support:design:23.+'
-    compile project(':text-chat-component')
+    compile (name: 'opentok-text-chat-1.0', ext:'aar')
 }
