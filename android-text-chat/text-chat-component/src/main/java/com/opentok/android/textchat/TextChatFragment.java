@@ -56,7 +56,7 @@ public class TextChatFragment extends Fragment{
     private List<ChatMessage> messagesList = new ArrayList<ChatMessage>();;
     private MessagesAdapter mMessageAdapter;
 
-    private boolean minimized = false;
+    private boolean isMinimized = false;
 
     public TextChatFragment() {
         //Init the sender information for the output messages
@@ -108,7 +108,12 @@ public class TextChatFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Minimize onClick");
-                    minimize();
+                if(isMinimized){
+                    minimize(false);
+                }
+                else {
+                    minimize(true);
+                }
             }
         });
 
@@ -116,11 +121,11 @@ public class TextChatFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Close onClick");
-                rootView.setVisibility(View.GONE);
+                close();
             }
         });
 
-        updateTitle();
+        updateTitle(defaultTitle());
 
         return rootView;
     }
@@ -188,7 +193,7 @@ public class TextChatFragment extends Fragment{
 
             if (!senders.containsKey(msg.getSenderId())) {
                 senders.put(msg.getSenderId(), msg.getSenderAlias());
-                updateTitle();
+                updateTitle(defaultTitle());
             }
 
             //generate message timestamp
@@ -249,8 +254,7 @@ public class TextChatFragment extends Fragment{
         }
         return false;
     }
-
-    void updateTitle(){
+    private String defaultTitle(){
         String title = "";
         Iterator it = senders.entrySet().iterator();
         while (it.hasNext()) {
@@ -260,12 +264,18 @@ public class TextChatFragment extends Fragment{
             }
             title = title + e.getValue();
         }
-
+        return title;
+    }
+    public void updateTitle(String title){
         mTitleBar.setText(title);
     }
 
-     void minimize (){
-        if (minimized){
+    public void close() {
+        rootView.setVisibility(View.GONE);
+    }
+
+     public void minimize (boolean minimized){
+        if (!minimized){
             //maximize text-chat
             mMinimizeBtn.setBackgroundResource(R.drawable.minimize);
             mContentView.setVisibility(View.VISIBLE);
@@ -276,7 +286,7 @@ public class TextChatFragment extends Fragment{
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
             mActionBarLayout.setLayoutParams(params);
 
-            minimized = false;
+            isMinimized = false;
         }
         else {
             //minimize text-chat
@@ -288,15 +298,20 @@ public class TextChatFragment extends Fragment{
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
             mActionBarLayout.setLayoutParams(params);
-
-            minimized = true;
+            isMinimized = true;
         }
     }
 
+    /**
+     * Set text-chat alert text
+     */
     public void setTextAlert(String text) {
         mAlert.setText(text);
     }
 
+    /**
+     * Show text-chat alert.
+     */
     public void showAlert(boolean show){
         if (show){
             mAlert.setVisibility(View.VISIBLE);
