@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/msg_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif"
+        android:paddingBottom="3dp"
+        android:singleLine="true"
+        android:textColor="@color/info_text"
+        android:textSize="@dimen/info_text" />
+
+    <TextView
+        android:id="@+id/msg_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/msg_info"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="22.5dp"
+        android:background="@drawable/gray_bubble"
+        android:fontFamily="sans-serif"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/initial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/msg_info"
+        android:layout_marginLeft="25dp"
+        android:background="@drawable/gray_chat"
+        android:gravity="center"
+        android:paddingBottom="14dp"
+        android:paddingRight="7dp"
+        android:paddingTop="7dp"
+        android:text="M"
+        android:textColor="@color/white"
+        android:textSize="@dimen/initial_letter" />
+
+</RelativeLayout>
