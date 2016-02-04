@@ -17,7 +17,6 @@
 
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, strong) IBOutlet TextChatComponentChatView *textChatView;
-@property (weak, nonatomic) IBOutlet UINavigationBar *topNavBar;
 
 @end
 
@@ -128,27 +127,30 @@ typedef enum : NSUInteger {
   
   cell = [tableView dequeueReusableCellWithIdentifier:cellId
                                          forIndexPath:indexPath];
+  _textChatView.topNavBar.topItem.title = @"Bill, Esteban";
   
-  if (cell.username) {
-    cell.username.text = msg.senderAlias;
-  } else {
-    cell.username.text = @"You";
-  }
+//  if (cell.username) {
+//    cell.username.text = msg.senderAlias;
+//  } else {
+//    cell.username.text = @"You";
+//  }
   
   if (cell.time) {
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
     timeFormatter.dateFormat = @"hh:mma";
     NSDate *start = [NSDate date];
     NSTimeInterval timeInterval = ([start timeIntervalSinceDate:msg.dateTime] / 60);
-  
+//    cell.UserLetterLabel.text = [myAlias substringToIndex:1];
+
     if (timeInterval <= 1) {
-      cell.time.text = @"just now";
+      cell.time.text = [NSString stringWithFormat:@"just now"];
     } else if (timeInterval > 1.0f && timeInterval < 2.0f) {
-      cell.time.text = @"1 min ago";
+      cell.time.text = [NSString stringWithFormat:@"1 min ago"];
     } else {
-      cell.time.text = [timeFormatter stringFromDate:msg.dateTime];
+      cell.time.text = [NSString stringWithFormat:@"%@", [timeFormatter stringFromDate:msg.dateTime]];
     }
   }
+  
   
   if (cell.message) {
     cell.message.text = msg.text;
@@ -331,17 +333,6 @@ typedef enum : NSUInteger {
     [_textChatView.countLabel setTextColor:[UIColor colorWithWhite:1 alpha:1]];
   }
 }
-//- (IBAction)toggleWindow:(UIBarButtonItem *)sender {
-//  UIImage* maximize = [UIImage imageNamed:@"maximize.png"];
-//  UIImage* minimize = [UIImage imageNamed:@"minimize.png"];
-
-//  if ([sender.image.description  isEqual: @"minimize.png"]){
-//    sender.image = maximize
-//  } else {
-//    sender.image = minimize
-//  }
-//}
-
 
 
 @end

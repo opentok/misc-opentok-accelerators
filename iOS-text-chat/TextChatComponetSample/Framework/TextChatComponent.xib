@@ -88,17 +88,26 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </textAttributes>
                     <items>
-                        <navigationItem title="Bill, Esteban" id="K5U-gV-ghG">
+                        <navigationItem title="Esteban, Bill" id="K5U-gV-ghG">
                             <rightBarButtonItems>
                                 <barButtonItem tag="2" image="close x white.png" id="0li-cP-dDd" userLabel="close">
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <action selector="closeButton:" destination="iN0-l3-epB" id="0D4-fF-jvy"/>
+                                    </connections>
                                 </barButtonItem>
                                 <barButtonItem tag="1" image="minimize.png" id="ePd-L1-9TQ" userLabel="minimize">
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <action selector="minimizeView:" destination="iN0-l3-epB" id="sV5-yh-sJR"/>
+                                    </connections>
                                 </barButtonItem>
                             </rightBarButtonItems>
                         </navigationItem>
                     </items>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Qd8-CT-wTD"/>
+                    </connections>
                 </navigationBar>
             </subviews>
             <color key="backgroundColor" red="0.078431372549019607" green="0.20784313725490197" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
@@ -123,13 +132,16 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="closeButton" destination="0li-cP-dDd" id="Eaj-qh-NKB"/>
                 <outlet property="countLabel" destination="fN9-Sh-1Cb" id="yoc-si-ktb"/>
                 <outlet property="errorMessage" destination="sda-ij-nTc" id="2P3-R6-HnH"/>
                 <outlet property="messageBanner" destination="oX6-Zz-0cb" id="skQ-HJ-G1S"/>
+                <outlet property="minimizeView" destination="ePd-L1-9TQ" id="dC8-RQ-7O7"/>
                 <outlet property="tableView" destination="vkl-Dd-Rd9" id="4V5-1Y-hag"/>
                 <outlet property="textField" destination="lMY-oW-XdU" id="hvS-7D-6bc"/>
+                <outlet property="topNavBar" destination="ZDc-px-bQF" id="RvE-LV-LSm"/>
             </connections>
-            <point key="canvasLocation" x="180" y="349"/>
+            <point key="canvasLocation" x="370" y="346"/>
         </view>
     </objects>
     <resources>

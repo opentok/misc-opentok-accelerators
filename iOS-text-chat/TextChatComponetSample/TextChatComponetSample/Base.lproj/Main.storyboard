@@ -26,20 +26,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yCH-75-Tgk">
-                                <rect key="frame" x="150" y="352" width="240" height="128"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yCH-75-Tgk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="150" id="B8x-0v-6pI"/>
-                            <constraint firstItem="yCH-75-Tgk" firstAttribute="top" secondItem="jcV-He-nOx" secondAttribute="bottom" constant="26" id="T1D-tg-9Yy"/>
                             <constraint firstItem="jcV-He-nOx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TS0-Ra-Lfb"/>
                             <constraint firstItem="jcV-He-nOx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="254" id="U6s-Fx-ApB"/>
-                            <constraint firstAttribute="trailing" secondItem="yCH-75-Tgk" secondAttribute="trailing" constant="210" id="WnG-ZN-WHv"/>
                             <constraint firstItem="jcV-He-nOx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rkv-cM-iCg"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yCH-75-Tgk" secondAttribute="bottom" constant="120" id="xIo-Ks-3Jf"/>
                         </constraints>
                     </view>
                     <connections>

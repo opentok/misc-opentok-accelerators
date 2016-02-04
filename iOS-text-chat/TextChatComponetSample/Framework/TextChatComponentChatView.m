@@ -10,6 +10,7 @@
 
 @implementation TextChatComponentChatView {
   BOOL anchorToBottom;
+  BOOL minimized;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -47,4 +48,23 @@
   }
 }
 
+- (IBAction)minimizeView:(UIBarButtonItem *)sender {
+  UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
+  UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
+  CGRect r = [self.layer frame];
+  if (minimized) {
+    sender.image = minimize_image;
+    r.origin.y = (_topNavBar.layer.bounds.size.height - _topNavBar.layer.bounds.size.height/2);
+    minimized = NO;
+  } else {
+    sender.image = maximize_image;
+    r.origin.y = (self.layer.bounds.size.height - _topNavBar.layer.bounds.size.height);
+    minimized = YES;
+  }
+  [self.layer setFrame:r];
+}
+
+- (IBAction)closeButton:(UIBarButtonItem *)sender {
+  [self removeFromSuperview];
+}
 @end

@@ -19,4 +19,5 @@
 @property (weak, nonatomic) IBOutlet UIView *cornerUp;
 @property (weak, nonatomic) IBOutlet UIView *cornerUpLeft;
 
+@property (weak, nonatomic) IBOutlet UIView *textChatView;
 @end

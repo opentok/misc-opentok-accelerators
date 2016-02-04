@@ -12,11 +12,12 @@
 
 - (void)awakeFromNib {
   // Initialization code
-  //self.message.textContainer.lineFragmentPadding = 0;
+  self.message.textContainer.lineFragmentPadding = 20;
   //self.message.textContainerInset = UIEdgeInsetsZero;
   
   self.userFirstLetter.layer.cornerRadius = 25.0f;
   self.userFirstLetter.layer.masksToBounds = YES;
+
   
   UIBezierPath *path = [UIBezierPath new];
   [path moveToPoint:(CGPoint){0, 0}];

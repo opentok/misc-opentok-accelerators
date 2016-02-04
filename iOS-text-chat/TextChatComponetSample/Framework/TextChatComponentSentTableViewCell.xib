@@ -45,15 +45,25 @@
                         <rect key="frame" x="269" y="32" width="30" height="29"/>
                         <color key="backgroundColor" red="0.83921568629999999" green="0.91764705879999997" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Esteban," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9e1-U2-esR">
+                        <rect key="frame" x="91" y="5" width="60" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="5BW-h1-EHl" secondAttribute="bottom" constant="0.5" id="1j5-fJ-Pxr"/>
                     <constraint firstItem="f9g-Mz-ubs" firstAttribute="top" secondItem="53N-qh-HZ7" secondAttribute="topMargin" constant="24" id="6cD-qd-xzJ"/>
                     <constraint firstAttribute="trailingMargin" secondItem="f9g-Mz-ubs" secondAttribute="trailing" constant="48" id="6ya-vy-O1H"/>
                     <constraint firstItem="eKA-KN-ulA" firstAttribute="leading" secondItem="5BW-h1-EHl" secondAttribute="trailing" constant="22" id="7qZ-oZ-OTQ"/>
+                    <constraint firstItem="rZH-nB-dQX" firstAttribute="leading" secondItem="9e1-U2-esR" secondAttribute="trailing" constant="-143" id="9yx-Vi-soJ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="f9g-Mz-ubs" secondAttribute="bottom" constant="80.5" id="AeS-76-BXV"/>
+                    <constraint firstItem="9e1-U2-esR" firstAttribute="top" secondItem="53N-qh-HZ7" secondAttribute="topMargin" constant="-3" id="Mjz-Xw-rTK"/>
                     <constraint firstItem="5BW-h1-EHl" firstAttribute="top" secondItem="53N-qh-HZ7" secondAttribute="topMargin" constant="24" id="UXE-Mr-1S2"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="9e1-U2-esR" secondAttribute="bottom" constant="115.5" id="VHn-LQ-JkX"/>
                     <constraint firstItem="f9g-Mz-ubs" firstAttribute="leading" secondItem="5BW-h1-EHl" secondAttribute="trailing" constant="-6" id="bcl-IN-XsP"/>
+                    <constraint firstItem="9e1-U2-esR" firstAttribute="leading" secondItem="53N-qh-HZ7" secondAttribute="leadingMargin" constant="83" id="cFZ-nS-31f"/>
                     <constraint firstAttribute="leadingMargin" secondItem="5BW-h1-EHl" secondAttribute="leading" id="hMf-Nn-0eJ"/>
                     <constraint firstAttribute="topMargin" secondItem="rZH-nB-dQX" secondAttribute="top" id="kTy-ZG-J8b"/>
                     <constraint firstAttribute="trailingMargin" secondItem="5BW-h1-EHl" secondAttribute="trailing" constant="72" id="ncf-wt-DSJ"/>
@@ -68,6 +78,7 @@
                 <outlet property="message" destination="5BW-h1-EHl" id="qQC-GE-gXm"/>
                 <outlet property="time" destination="rZH-nB-dQX" id="3IB-NM-EvD"/>
                 <outlet property="userFirstLetter" destination="eKA-KN-ulA" id="CKc-GW-AXE"/>
+                <outlet property="username" destination="9e1-U2-esR" id="N18-7a-S8L"/>
             </connections>
             <point key="canvasLocation" x="191.5" y="168"/>
         </tableViewCell>
