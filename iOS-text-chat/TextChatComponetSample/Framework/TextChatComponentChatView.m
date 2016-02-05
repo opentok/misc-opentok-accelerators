@@ -58,7 +58,7 @@
     minimized = NO;
   } else {
     sender.image = maximize_image;
-    r.origin.y = (self.layer.bounds.size.height - _topNavBar.layer.bounds.size.height);
+    r.origin.y = (self.layer.bounds.size.height - (_topNavBar.layer.bounds.size.height /2));
     minimized = YES;
   }
   [self.layer setFrame:r];

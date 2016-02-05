@@ -108,12 +108,14 @@ typedef enum : NSUInteger {
   switch (type) {
     case OTK_SENT_MESSAGE:
       cellId = @"SentChatMessage";
+      myAlias = @"Esteban"; //TODO: NEEDS TO BE REMOVE - ONLY FOR DEMO PURPOSES
       break;
     case OTK_SENT_MESSAGE_SHORT:
       cellId = @"SentChatMessageShort";
       break;
     case OTK_RECEIVED_MESSAGE:
       cellId = @"RecvChatMessage";
+      myAlias = @"Bill"; //TODO: NEEDS TO BE REMOVE - ONLY FOR DEMO PURPOSES
       break;
     case OTK_RECEIVED_MESSAGE_SHORT:
       cellId = @"RecvChatMessageShort";
@@ -127,7 +129,7 @@ typedef enum : NSUInteger {
   
   cell = [tableView dequeueReusableCellWithIdentifier:cellId
                                          forIndexPath:indexPath];
-  _textChatView.topNavBar.topItem.title = @"Bill, Esteban";
+  _textChatView.topNavBar.topItem.title = @"Bill, Esteban"; //TODO: NEEDS TO BE REMOVE - ONLY FOR DEMO PURPOSES
   
 //  if (cell.username) {
 //    cell.username.text = msg.senderAlias;
@@ -140,14 +142,14 @@ typedef enum : NSUInteger {
     timeFormatter.dateFormat = @"hh:mma";
     NSDate *start = [NSDate date];
     NSTimeInterval timeInterval = ([start timeIntervalSinceDate:msg.dateTime] / 60);
-//    cell.UserLetterLabel.text = [myAlias substringToIndex:1];
+    cell.UserLetterLabel.text = [myAlias substringToIndex:1];
 
     if (timeInterval <= 1) {
-      cell.time.text = [NSString stringWithFormat:@"just now"];
+      cell.time.text = [NSString stringWithFormat:@"%@, just now", myAlias];
     } else if (timeInterval > 1.0f && timeInterval < 2.0f) {
-      cell.time.text = [NSString stringWithFormat:@"1 min ago"];
+      cell.time.text = [NSString stringWithFormat:@"%@, 1 min ago", myAlias];
     } else {
-      cell.time.text = [NSString stringWithFormat:@"%@", [timeFormatter stringFromDate:msg.dateTime]];
+      cell.time.text = [NSString stringWithFormat:@"%@, %@", myAlias, [timeFormatter stringFromDate:msg.dateTime]];
     }
   }
   

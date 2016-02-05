@@ -17,11 +17,11 @@
 // *** Fill the following variables using your own Project info  ***
 // ***          https://dashboard.tokbox.com/projects            ***
 // Replace with your OpenTok API key
-static NSString* const kApiKey = @"45477012";
+static NSString* const kApiKey = @"";
 // Replace with your generated session ID
-static NSString* const kSessionId = @"2_MX40NTQ3NzAxMn5-MTQ1NDU0NDA4MzAyM345SjlWTi9BaE9SWnNyODhyUXdPbm1qNHV-UH4";
+static NSString* const kSessionId = @"";
 // Replace with your generated token
-static NSString* const kToken = @"T1==cGFydG5lcl9pZD00NTQ3NzAxMiZzaWc9NGMxNjMwZTg4OGE3Yjg5Nzg5NzA0ZTlhMGE5ZTE2ZDQ4NTdkZTVjMDpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5UUTNOekF4TW41LU1UUTFORFUwTkRBNE16QXlNMzQ1U2psV1RpOUJhRTlTV25OeU9EaHlVWGRQYm0xcU5IVi1VSDQmY3JlYXRlX3RpbWU9MTQ1NDU0NDA5NiZub25jZT0wLjg5MDM2NzM1ODg5NjE1NjQmZXhwaXJlX3RpbWU9MTQ1NzEzNjA3OCZjb25uZWN0aW9uX2RhdGE9";
+static NSString* const kToken = @"";
 // ===============================================================================================//
 static NSString* const kTextChatType = @"TextChat";
 

@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="366" height="149"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EF7-f3-rVW" id="9d6-74-pns">
-                <rect key="frame" x="0.0" y="0.0" width="366" height="149"/>
+                <rect key="frame" x="0.0" y="0.0" width="366" height="148.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbu-Kn-Zb6" userLabel="Message">
@@ -36,7 +36,7 @@
                         <color key="backgroundColor" red="0.64313725489999995" green="0.64313725489999995" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bill, 10:00PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtI-Gu-ipU" userLabel="UserTime">
-                        <rect key="frame" x="281" y="8" width="78" height="21"/>
+                        <rect key="frame" x="280" y="8" width="77.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
                         <color key="textColor" red="0.64313725489999995" green="0.64313725489999995" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -45,27 +45,15 @@
                         <rect key="frame" x="46" y="30" width="30" height="29"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bill," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZa-CH-Gup">
-                        <rect key="frame" x="281" y="8" width="28" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="28" id="DjY-TK-K5r"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="WT6-Jr-DsS" firstAttribute="top" secondItem="9d6-74-pns" secondAttribute="topMargin" constant="22" id="6o5-Vp-EJe"/>
                     <constraint firstItem="WT6-Jr-DsS" firstAttribute="leading" secondItem="9d6-74-pns" secondAttribute="leadingMargin" constant="38" id="DWB-9n-gIf"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="dZa-CH-Gup" secondAttribute="trailing" constant="49" id="Fpy-HA-Iah"/>
                     <constraint firstAttribute="bottomMargin" secondItem="WT6-Jr-DsS" secondAttribute="bottom" constant="79.5" id="HxT-O4-snA"/>
                     <constraint firstAttribute="trailingMargin" secondItem="hbu-Kn-Zb6" secondAttribute="trailing" constant="-1" id="JJG-Nv-t6A"/>
-                    <constraint firstItem="dZa-CH-Gup" firstAttribute="centerY" secondItem="wtI-Gu-ipU" secondAttribute="centerY" constant="1.5" id="OR6-8a-c6Q"/>
                     <constraint firstAttribute="topMargin" secondItem="wtI-Gu-ipU" secondAttribute="top" id="X5g-NM-Z54"/>
                     <constraint firstItem="hbu-Kn-Zb6" firstAttribute="top" secondItem="9d6-74-pns" secondAttribute="topMargin" constant="22" id="eRi-Qs-N6R"/>
                     <constraint firstAttribute="bottomMargin" secondItem="hbu-Kn-Zb6" secondAttribute="bottom" constant="-0.5" id="eZF-1Q-GPk"/>
-                    <constraint firstItem="dZa-CH-Gup" firstAttribute="top" secondItem="9d6-74-pns" secondAttribute="topMargin" id="gjP-Ul-Seg"/>
                     <constraint firstAttribute="trailingMargin" secondItem="wtI-Gu-ipU" secondAttribute="trailing" id="kaW-6x-8Fr"/>
                     <constraint firstItem="hbu-Kn-Zb6" firstAttribute="top" secondItem="wtI-Gu-ipU" secondAttribute="bottom" constant="1" id="lm9-mH-8h0"/>
                     <constraint firstItem="hbu-Kn-Zb6" firstAttribute="leading" secondItem="9d6-74-pns" secondAttribute="leadingMargin" constant="65" id="rMo-yi-xeD"/>
@@ -79,7 +67,6 @@
                 <outlet property="message" destination="hbu-Kn-Zb6" id="eVs-TL-zze"/>
                 <outlet property="time" destination="wtI-Gu-ipU" id="BqS-wQ-aWo"/>
                 <outlet property="userFirstLetter" destination="F2U-h0-jFC" id="NeC-Ww-ttJ"/>
-                <outlet property="username" destination="dZa-CH-Gup" id="bwp-Ee-ihl"/>
             </connections>
             <point key="canvasLocation" x="263" y="283.5"/>
         </tableViewCell>
