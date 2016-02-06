@@ -30,5 +30,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.+'
     compile 'com.android.support:design:23.+'
-    compile (name: 'opentok-text-chat-1.0', ext:'aar')
+    compile project(':text-chat-component')
 }
