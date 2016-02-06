@@ -43,11 +43,7 @@
             android:layout_below="@+id/msg_info"
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"
-            android:paddingRight="10dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="10dp"
             android:gravity="center"
-            android:text="M"
             android:textColor="@color/white"
             android:textSize="@dimen/initial_letter"
             android:background="@drawable/blue_chat" />
