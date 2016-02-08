@@ -89,4 +89,10 @@
  */
 - (void)setSenderId:(NSString *)senderId alias:(NSString *)alias;
 
+/**
+ * Set the participants of the chat
+ *
+ * @param title, the string with the name of the participants
+ */
+-(void) setTitleToTopBar: (NSString *)title;
 @end
