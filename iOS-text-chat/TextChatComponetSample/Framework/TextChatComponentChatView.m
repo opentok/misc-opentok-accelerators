@@ -48,23 +48,23 @@
   }
 }
 
-- (IBAction)minimizeView:(UIBarButtonItem *)sender {
+- (IBAction)minimizeView:(UIButton *)sender {
   UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
   UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
   CGRect r = [self.layer frame];
   if (minimized) {
-    sender.image = minimize_image;
+    [sender setImage:minimize_image forState:UIControlStateNormal];
     r.origin.y = (_topNavBar.layer.bounds.size.height - _topNavBar.layer.bounds.size.height/2);
     minimized = NO;
   } else {
-    sender.image = maximize_image;
+    [sender setImage:maximize_image forState:UIControlStateNormal];
     r.origin.y = (self.layer.bounds.size.height - (_topNavBar.layer.bounds.size.height /2));
     minimized = YES;
   }
   [self.layer setFrame:r];
 }
 
-- (IBAction)closeButton:(UIBarButtonItem *)sender {
+- (IBAction)closeButton:(UIButton *)sender {
   [self removeFromSuperview];
 }
 @end

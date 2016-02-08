@@ -156,7 +156,7 @@ static NSString* const kTextChatType = @"TextChat";
     _connectingLabel.alpha = 0;
     _textChat.view.alpha = 1;
   }];
-  
+  [_textChat setTitleToTopBar:@"Bill, Esteban"];
 }
 
 - (void)sessionDidDisconnect:(OTSession*)session {
@@ -192,6 +192,5 @@ static NSString* const kTextChatType = @"TextChat";
     [self.textChat addMessage:msg];
   }
 }
-
 
 @end
