@@ -45,10 +45,6 @@
         android:layout_marginLeft="25dp"
         android:background="@drawable/gray_chat"
         android:gravity="center"
-        android:paddingBottom="14dp"
-        android:paddingRight="7dp"
-        android:paddingTop="7dp"
-        android:text="M"
         android:textColor="@color/white"
         android:textSize="@dimen/initial_letter" />
 
