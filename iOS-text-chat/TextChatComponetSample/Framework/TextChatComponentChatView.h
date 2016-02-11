@@ -16,9 +16,10 @@
 @property (nonatomic, weak) IBOutlet UIButton *errorMessage;
 @property (nonatomic, weak) IBOutlet UIButton *messageBanner;
 
-@property (weak, nonatomic) IBOutlet UINavigationBar *topNavBar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *minimizeView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
+@property (weak, nonatomic) IBOutlet UIView *topNavBar;
+@property (weak, nonatomic) IBOutlet UILabel *topNavBarTitle;
+@property (weak, nonatomic) IBOutlet UIButton *minimizeView;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 
 -(void)disableAnchorToBottom;

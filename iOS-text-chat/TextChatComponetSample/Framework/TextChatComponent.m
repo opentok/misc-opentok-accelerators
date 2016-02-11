@@ -129,13 +129,6 @@ typedef enum : NSUInteger {
   
   cell = [tableView dequeueReusableCellWithIdentifier:cellId
                                          forIndexPath:indexPath];
-  _textChatView.topNavBar.topItem.title = @"Bill, Esteban"; //TODO: NEEDS TO BE REMOVE - ONLY FOR DEMO PURPOSES
-  
-//  if (cell.username) {
-//    cell.username.text = msg.senderAlias;
-//  } else {
-//    cell.username.text = @"You";
-//  }
   
   if (cell.time) {
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
@@ -152,7 +145,6 @@ typedef enum : NSUInteger {
       cell.time.text = [NSString stringWithFormat:@"%@, %@", myAlias, [timeFormatter stringFromDate:msg.dateTime]];
     }
   }
-  
   
   if (cell.message) {
     cell.message.text = msg.text;
@@ -182,9 +174,9 @@ typedef enum : NSUInteger {
   }
   
   float extras = 140.0f;
-  float normal_space = 123.0f;
+  float normal_space = 133.0f;
   if (msg.type == OTK_RECEIVED_MESSAGE_SHORT || msg.type == OTK_SENT_MESSAGE_SHORT) {
-    extras = 20.0f;
+    extras = 30.0f;
   }
   
   NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg.text attributes:@{ NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:14.0] }];
@@ -334,6 +326,10 @@ typedef enum : NSUInteger {
   } else {
     [_textChatView.countLabel setTextColor:[UIColor colorWithWhite:1 alpha:1]];
   }
+}
+
+-(void) setTitleToTopBar: (NSString *)title {
+  _textChatView.topNavBarTitle.text = title;
 }
 
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -24,8 +24,8 @@
                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Esteban, 10:00PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZH-nB-dQX" userLabel="userTime">
-                        <rect key="frame" x="152" y="10" width="111" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="8" y="10" width="267" height="16"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -57,8 +57,8 @@
                     <constraint firstAttribute="leadingMargin" secondItem="5BW-h1-EHl" secondAttribute="leading" id="hMf-Nn-0eJ"/>
                     <constraint firstAttribute="topMargin" secondItem="rZH-nB-dQX" secondAttribute="top" constant="-2" id="kTy-ZG-J8b"/>
                     <constraint firstAttribute="trailingMargin" secondItem="5BW-h1-EHl" secondAttribute="trailing" constant="72" id="ncf-wt-DSJ"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="rZH-nB-dQX" secondAttribute="trailing" constant="84" id="otD-n6-219"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="rZH-nB-dQX" secondAttribute="leading" constant="-144" id="pdZ-ix-upx"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="rZH-nB-dQX" secondAttribute="trailing" constant="72" id="otD-n6-219"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="rZH-nB-dQX" secondAttribute="leading" id="pdZ-ix-upx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="eKA-KN-ulA" secondAttribute="trailing" id="vh7-9V-H2l"/>
                 </constraints>
             </tableViewCellContentView>
