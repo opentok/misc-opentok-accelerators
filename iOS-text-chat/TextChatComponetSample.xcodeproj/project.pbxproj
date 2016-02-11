@@ -36,7 +36,6 @@
 		645730411C5FCD20009690A4 /* TextChatComponentDivTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 645730281C5FCD20009690A4 /* TextChatComponentDivTableViewCell.xib */; };
 		645730501C5FCF0E009690A4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6457304F1C5FCF0E009690A4 /* libsqlite3.tbd */; };
 		645730511C5FCFAF009690A4 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64572FB71C5FB59F009690A4 /* OpenTok.framework */; };
-		645730521C5FCFAF009690A4 /* OpenTok.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 64572FB71C5FB59F009690A4 /* OpenTok.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		645730531C5FD049009690A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 648BE94E1C5F0FB500669C04 /* ViewController.m */; };
 		645730551C5FD147009690A4 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645730541C5FD147009690A4 /* AVKit.framework */; };
 		645730571C5FD169009690A4 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645730561C5FD169009690A4 /* VideoToolbox.framework */; };
@@ -81,7 +80,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				645730191C5FCCAE009690A4 /* TextChatComponent.framework in Embed Frameworks */,
-				645730521C5FCFAF009690A4 /* OpenTok.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,13 +163,13 @@
 				64572F941C5FAECE009690A4 /* CoreTelephony.framework in Frameworks */,
 				645730181C5FCCAE009690A4 /* TextChatComponent.framework in Frameworks */,
 				64572F921C5FAEC5009690A4 /* GLKit.framework in Frameworks */,
-				645730511C5FCFAF009690A4 /* OpenTok.framework in Frameworks */,
 				64572F901C5FAEBC009690A4 /* CoreMedia.framework in Frameworks */,
 				64572F8E1C5FAEAF009690A4 /* UIKit.framework in Frameworks */,
 				64572F8C1C5FAE9F009690A4 /* SystemConfiguration.framework in Frameworks */,
 				64572F8A1C5FAE8F009690A4 /* AVFoundation.framework in Frameworks */,
 				64572F881C5FAE86009690A4 /* OpenGLES.framework in Frameworks */,
 				64572F861C5FAE7D009690A4 /* libc++.tbd in Frameworks */,
+				645730511C5FCFAF009690A4 /* OpenTok.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,7 +335,7 @@
 					};
 					648BE9431C5F0FB500669C04 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = THS7L9WEMN;
+						DevelopmentTeam = 246HEUPQZ9;
 					};
 				};
 			};
@@ -584,6 +582,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -608,6 +607,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
