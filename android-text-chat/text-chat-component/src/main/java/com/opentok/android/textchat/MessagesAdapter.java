@@ -36,8 +36,13 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
         ChatMessage message = messagesList.get(position);
         SimpleDateFormat ft =
                 new SimpleDateFormat("hh:mm a");
-        holder.msgInfo.setText(message.getSenderAlias() + ", " + ft.format(new Date(message.getTimestamp())).toString());
-        holder.initial.setText(String.valueOf(Character.toUpperCase((message.getSenderAlias().charAt(0)))));
+        if ( message.getSenderAlias() != null && !message.getSenderAlias().isEmpty()) {
+            holder.msgInfo.setText(message.getSenderAlias() + ", " + ft.format(new Date(message.getTimestamp())).toString());
+            holder.initial.setText(String.valueOf(Character.toUpperCase((message.getSenderAlias().charAt(0)))));
+        }
+        else {
+            holder.msgInfo.setText(ft.format(new Date(message.getTimestamp())).toString());
+        }
         holder.messageText.setText(message.getText());
 
     }
