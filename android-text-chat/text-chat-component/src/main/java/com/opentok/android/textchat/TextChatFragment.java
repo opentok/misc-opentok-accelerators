@@ -192,8 +192,10 @@ public class TextChatFragment extends Fragment{
         if (msg != null) {
 
             if (!senders.containsKey(msg.getSenderId())) {
-                senders.put(msg.getSenderId(), msg.getSenderAlias());
-                updateTitle(defaultTitle());
+                if ( msg.getSenderAlias() != null && !msg.getSenderAlias().isEmpty() ) {
+                    senders.put(msg.getSenderId(), msg.getSenderAlias());
+                    updateTitle(defaultTitle());
+                }
             }
 
             //generate message timestamp

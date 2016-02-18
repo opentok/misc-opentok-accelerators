@@ -18,8 +18,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_size"
             android:fontFamily="sans-serif"
-            android:paddingTop="12.5dp"
-            android:paddingBottom="9dp"
+            android:gravity="center"
             android:layout_centerHorizontal="true"></TextView>
 
         <ImageButton
