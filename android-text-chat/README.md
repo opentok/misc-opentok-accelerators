@@ -17,7 +17,7 @@ Feel free to provide any feedback or ask questions at text-chat-beta@tokbox.com.
 
 To learn more about Text Chat, see the following:
 
-* [Sample App](/text-chat-sample/) -- Sample Android App using the OpenTok Android Text Chat widget.
+* [Sample App](/text-chat-sample-app/) -- Sample Android App using the OpenTok Android Text Chat widget.
   See the [README.md file](/text-chat-sample/README.md) for documentation.
 
-* [Source code](/text-chat/) -- Source code for the OpenTok Android Text Chat widget.
+* [Source code](/text-chat-component/) -- Source code for the OpenTok Android Text Chat widget.
