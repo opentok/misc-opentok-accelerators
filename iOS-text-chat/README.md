@@ -14,10 +14,7 @@ Feel free to provide any feedback or ask questions at text-chat-beta@tokbox.com.
 
 To learn more about the OpenTok iOS Text Chat Component, see the following:
 
-* [Sample App](/samples/TextChatSample/) -- A sample iOS app using the OpenTok iOS Text Chat
+* [Sample App](/TextChatSample/) -- A sample iOS app using the OpenTok iOS Text Chat
   Component. See the [README.md file](/text-chat-sample/README.md) for documentation.
 
-* [Documentation](/TextChat-docs/) -- Includes a README file and API reference for
-  the OpenTok iOS Text Chat Component.
-
-* [Source code](/OTKTextChat/) -- Source code for the OpenTok iOS Text Chat Component.
+* [Source code](/TextChatComponent/) -- Source code for the OpenTok iOS Text Chat Component.
