@@ -1,25 +1,19 @@
 package com.opentok.android.textchat;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -68,6 +62,7 @@ public class TextChatFragment extends Fragment{
     public interface TextChatListener {
         public boolean onMessageReadyToSend(ChatMessage msg);
         public void onTextChatError(String error);
+        public void onClose();
     }
 
     @Override
@@ -273,7 +268,8 @@ public class TextChatFragment extends Fragment{
     }
 
     public void close() {
-        rootView.setVisibility(View.GONE);
+        //rootView.setVisibility(View.GONE);
+        listener.onClose();
     }
 
      public void minimize (boolean minimized){
