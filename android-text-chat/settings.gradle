@@ -1,1 +1,1 @@
-include ':text-chat-component', ':text-chat-sample-app', ':opentok-text-chat-1.0', ':TextChatSample'
+include ':text-chat-component', ':text-chat-sample-app', ':TextChatSample'
