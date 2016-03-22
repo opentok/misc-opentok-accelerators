@@ -17,9 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.opentok.android.textchat.ChatMessage;
-import com.opentok.android.textchat.TextChatFragment;
-import com.tokbox.android.textchatsample.R;
+import com.tokbox.android.textchat.ChatMessage;
+import com.tokbox.android.textchat.TextChatFragment;
 import com.tokbox.android.textchatsample.ui.PreviewCameraFragment;
 import com.tokbox.android.textchatsample.ui.PreviewControlFragment;
 import com.tokbox.android.textchatsample.ui.RemoteControlFragment;
@@ -44,11 +43,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private RelativeLayout.LayoutParams layoutParamsPreview;
     private FrameLayout mTextChatContainer;
     private RelativeLayout mCameraFragmentContainer;
+    private RelativeLayout mActionBarContainer;
+    private RelativeLayout.LayoutParams mTextChatLayoutParams;
 
     private TextView mAlert;
     private ImageView mAudioOnlyImage;
 
-    //UI fragments
+    //UI control bars fragments
     private PreviewControlFragment mPreviewFragment;
     private RemoteControlFragment mRemoteFragment;
     private PreviewCameraFragment mCameraFragment;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mLocalAudioOnlyView = (RelativeLayout) findViewById(R.id.localAudioOnlyView);
         mTextChatContainer = (FrameLayout) findViewById(R.id.textchat_fragment_container);
         mCameraFragmentContainer = (RelativeLayout) findViewById(R.id.camera_preview_fragment_container);
+        mActionBarContainer = (RelativeLayout) findViewById(R.id.actionbar_preview_fragment_container);
 
         //request Marshmallow camera permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             initCameraFragment(); //to swap camera
             initPreviewFragment(); //to enable/disable local media
             initRemoteFragment(); //to enable/disable remote media
-            initTextChatFragment();
+            initTextChatFragment(); //to send/receive text-messages
             mFragmentTransaction.commitAllowingStateLoss();
         }
     }
@@ -158,10 +160,10 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 .add(R.id.camera_preview_fragment_container, mCameraFragment).commit();
     }
 
-    // Initialize a TextChatFragment instance and add it to the UI
     private void initTextChatFragment(){
         mTextChatFragment = new TextChatFragment();
         mTextChatFragment.setMaxTextLength(1050);
+        mTextChatFragment.setSenderInfo(UUID.randomUUID().toString(), "me");
         mTextChatFragment.setListener(this);
 
         getSupportFragmentManager().beginTransaction()
@@ -206,6 +208,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
+    //AudioVideoCall callback
     @Override
     public void onCall() {
         if (mComm != null && mComm.isStarted()) {
@@ -219,22 +222,18 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
+    //TextChat callback
     @Override
     public void onTextChat() {
 
         if (mTextChatContainer.getVisibility() == View.VISIBLE){
             mTextChatContainer.setVisibility(View.GONE);
-            mPreviewViewContainer.setVisibility(View.VISIBLE);
-            mRemoteViewContainer.setVisibility(View.VISIBLE);
-            mCameraFragmentContainer.setVisibility(View.VISIBLE);
+            showAVCall(true);
         }
         else {
-            mPreviewViewContainer.setVisibility(View.GONE);
-            mRemoteViewContainer.setVisibility(View.GONE);
-            mCameraFragmentContainer.setVisibility(View.GONE);
+            showAVCall(false);
             mTextChatContainer.setVisibility(View.VISIBLE);
         }
-
     }
 
     //Remote control callbacks
@@ -264,12 +263,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         if (mComm != null) {
             mComm.swapCamera();
         }
-    }
-
-    //cleans views and controls
-    private void cleanViewsAndControls() {
-        mPreviewFragment.restartFragment(true);
-        mTextChatContainer.setVisibility(View.GONE);
     }
 
     //OneToOneCommunication callbacks
@@ -377,9 +370,75 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onClose() {
+        Log.i(LOGTAG, "OnClose text-chat");
         mTextChatContainer.setVisibility(View.GONE);
-        mPreviewViewContainer.setVisibility(View.VISIBLE);
-        mRemoteViewContainer.setVisibility(View.VISIBLE);
-        mCameraFragmentContainer.setVisibility(View.VISIBLE);
+        showAVCall(true);
+        restartTextChatLayout(true);
+    }
+
+    @Override
+    public void onMinimize() {
+        Log.i(LOGTAG, "OnMinimize text-chat");
+        showAVCall(true);
+        restartTextChatLayout(false);
+    }
+
+    @Override
+    public void onMaximize() {
+        Log.i(LOGTAG, "OnMaximize text-chat");
+        showAVCall(false);
+        restartTextChatLayout(true);
+    }
+
+    //cleans views and controls
+    private void cleanViewsAndControls() {
+        mPreviewFragment.restartFragment(true);
+        mTextChatFragment.restartFragment();
+        restartTextChatLayout(true);
+        mTextChatContainer.setVisibility(View.GONE);
+    }
+
+    private void showAVCall(boolean show){
+        if(show) {
+            mActionBarContainer.setVisibility(View.VISIBLE);
+            mPreviewViewContainer.setVisibility(View.VISIBLE);
+            mRemoteViewContainer.setVisibility(View.VISIBLE);
+            mCameraFragmentContainer.setVisibility(View.VISIBLE);
+        }
+        else {
+            mActionBarContainer.setVisibility(View.GONE);
+            mPreviewViewContainer.setVisibility(View.GONE);
+            mRemoteViewContainer.setVisibility(View.GONE);
+            mCameraFragmentContainer.setVisibility(View.GONE);
+        }
+    }
+
+    private void restartTextChatLayout(boolean restart) {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mTextChatContainer.getLayoutParams();
+
+        if (restart) {
+            //restart to the original size
+            params.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+            params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+        } else {
+            //go to the minimized size
+            params.height = dpToPx(40);
+            params.addRule(RelativeLayout.ABOVE, R.id.actionbar_preview_fragment_container);
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        }
+        mTextChatContainer.setLayoutParams(params);
+    }
+
+    /**
+     * Converts dp to real pixels, according to the screen density.
+     *
+     * @param dp A number of density-independent pixels.
+     * @return The equivalent number of real pixels.
+     */
+    private int dpToPx(int dp) {
+        double screenDensity = this.getResources().getDisplayMetrics().density;
+        return (int) (screenDensity * (double) dp);
     }
 }

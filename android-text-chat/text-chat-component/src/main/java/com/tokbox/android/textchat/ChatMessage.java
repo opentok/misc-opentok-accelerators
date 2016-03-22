@@ -1,4 +1,4 @@
-package com.opentok.android.textchat;
+package com.tokbox.android.textchat;
 
 
 import android.util.Log;
