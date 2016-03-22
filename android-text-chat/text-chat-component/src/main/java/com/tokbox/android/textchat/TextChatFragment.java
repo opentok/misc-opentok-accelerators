@@ -1,4 +1,4 @@
-package com.opentok.android.textchat;
+package com.tokbox.android.textchat;
 
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,19 +28,19 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
-public class TextChatFragment extends Fragment{
+public class TextChatFragment extends Fragment {
 
-    private final static String LOG_TAG = "text-chat-fragment";
+    private final static String LOG_TAG = Fragment.class.getName();
 
     private RecyclerView mRecyclerView;
-    private View mContentView;
-    private View rootView;
-    private RelativeLayout mActionBarLayout;
+    private LinearLayout mContentView;
+    private ViewGroup rootView;
+    private ViewGroup mActionBarView;
+    private ViewGroup mSendMessageView;
     private EditText mMsgEditText;
     private TextView mTitleBar;
     private ImageButton mMinimizeBtn;
     private ImageButton mCloseBtn;
-    private TextView mAlert;
 
     private int maxTextLength = 1000; // By default the maximum length is 1000.
     private TextChatListener listener;
@@ -47,47 +48,84 @@ public class TextChatFragment extends Fragment{
     private String senderAlias;
     private HashMap<String, String> senders = new HashMap<>();
 
-    private List<ChatMessage> messagesList = new ArrayList<ChatMessage>();;
+    private List<ChatMessage> messagesList = new ArrayList<ChatMessage>();
+
     private MessagesAdapter mMessageAdapter;
 
     private boolean isMinimized = false;
 
+    /*
+    * Constructor
+    */
     public TextChatFragment() {
         //Init the sender information for the output messages
         this.senderId = UUID.randomUUID().toString();
         this.senderAlias = "me";
         Log.i(LOG_TAG, "senderstuff  " + this.senderId + this.senderAlias);
-    };
+    }
 
+
+    /**
+     * Monitors state changes in the TextChatFragment.
+     *
+     */
     public interface TextChatListener {
-        public boolean onMessageReadyToSend(ChatMessage msg);
-        public void onTextChatError(String error);
-        public void onClose();
+
+        /**
+         * Invoked when a new message is ready to be sent.
+         *
+         * @param msg The ChatMessage to be sent.
+         */
+        boolean onMessageReadyToSend(ChatMessage msg);
+
+        /**
+         * Invoked when there is an error on the text-chat.
+         *
+         * @param error The error message
+         */
+        void onTextChatError(String error);
+
+        /**
+         * Invoked when the close button is clicked
+         *
+         */
+        void onClose();
+
+        /**
+         * Invoked when the minimize button is clicked
+         *
+         */
+        void onMinimize();
+
+        /**
+         * Invoked when the maximize button is clicked
+         *
+         */
+        void onMaximize();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.main_layout, container, false);
+        rootView = (ViewGroup) inflater.inflate(R.layout.main_layout, container, false);
 
         mMsgEditText = (EditText) rootView.findViewById(R.id.edit_msg);
         mTitleBar = (TextView) rootView.findViewById(R.id.titlebar);
         mMinimizeBtn = (ImageButton) rootView.findViewById(R.id.minimize);
         mCloseBtn = (ImageButton) rootView.findViewById(R.id.close);
-        mActionBarLayout = (RelativeLayout) rootView.findViewById(R.id.action_bar);
+        mActionBarView = (ViewGroup) rootView.findViewById(R.id.action_bar);
+        mSendMessageView = (ViewGroup) rootView.findViewById(R.id.send_msg);
 
-        mContentView = rootView.findViewById(R.id.content_layout);
+        mContentView = (LinearLayout) rootView.findViewById(R.id.content_layout);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAlert = (TextView) mContentView.findViewById(R.id.alert);
-
-        mMsgEditText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+        mMsgEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     sendMessage();
                     return true;
@@ -103,11 +141,12 @@ public class TextChatFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Minimize onClick");
-                if(isMinimized){
+                if (isMinimized) {
                     minimize(false);
-                }
-                else {
+                    onMaximize();
+                } else {
                     minimize(true);
+                    onMinimize();
                 }
             }
         });
@@ -116,7 +155,7 @@ public class TextChatFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Close onClick");
-                close();
+                onClose();
             }
         });
 
@@ -125,16 +164,34 @@ public class TextChatFragment extends Fragment{
         return rootView;
     }
 
+
+    /**
+     * Sets a {@link TextChatListener} object to monitor state changes for this
+     * TextChatFragment object.
+     *
+     * @param listener The {@link TextChatListener} instance.
+     */
     public void setListener(TextChatListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * Set the maximum length of a text chat message (in characters).
+     *
+     * @param length The maximum length
+     */
     public void setMaxTextLength(int length) {
         maxTextLength = length;
     }
 
+    /**
+     * Set the sender alias and the sender ID of the outgoing messages.
+     *
+     * @param senderId The id for the sender
+     * @param senderAlias The alias for the sender
+     */
     public void setSenderInfo(String senderId, String senderAlias) {
-        if ( senderAlias == null || senderId == null ) {
+        if (senderAlias == null || senderId == null) {
             throw new IllegalArgumentException("The sender alias and the sender id cannot be null");
         }
         this.senderAlias = senderAlias;
@@ -142,44 +199,8 @@ public class TextChatFragment extends Fragment{
         senders.put(senderId, senderAlias);
     }
 
-    // Called when the user clicks the send button.
-    private void sendMessage() {
-        //checkMessage
-        mMsgEditText.setEnabled(false);
-        String msgStr = mMsgEditText.getText().toString();
-        if (!msgStr.isEmpty()) {
-
-            if ( msgStr.length() > maxTextLength ) {
-                onError("Your chat message is over size limit");
-            }
-            else {
-                UUID messageId = UUID.randomUUID();
-                ChatMessage myMsg = new ChatMessage.ChatMessageBuilder(senderId, messageId, ChatMessage.MessageStatus.SENT_MESSAGE)
-                        .senderAlias(senderAlias)
-                        .text(msgStr)
-                        .build();
-                if (myMsg == null){
-                    onError("Error building ChatMessage");
-                }
-                boolean msgError = onMessageReadyToSend(myMsg);
-
-                if (msgError) {
-                    onError("Error sending a message");
-                } else {
-                    mMsgEditText.setEnabled(true);
-                    mMsgEditText.setFocusable(true);
-                    mMsgEditText.setText("");
-                    addMessage(myMsg);
-                }
-            }
-        }
-        else{
-            mMsgEditText.setEnabled(true);
-        }
-    }
-
     /**
-     * Add a message to the TextChatListener received message list.
+     * Add a message to the message list.
      */
     public void addMessage(ChatMessage msg) {
         Log.i(LOG_TAG, "New message " + msg.getText() + " is ready to be added.");
@@ -187,7 +208,7 @@ public class TextChatFragment extends Fragment{
         if (msg != null) {
 
             if (!senders.containsKey(msg.getSenderId())) {
-                if ( msg.getSenderAlias() != null && !msg.getSenderAlias().isEmpty() ) {
+                if (msg.getSenderAlias() != null && !msg.getSenderAlias().isEmpty()) {
                     senders.put(msg.getSenderId(), msg.getSenderAlias());
                     updateTitle(defaultTitle());
                 }
@@ -202,17 +223,56 @@ public class TextChatFragment extends Fragment{
             if (!checkMessageGroup(msg)) {
                 messagesList.add(msg);
                 mMessageAdapter.notifyDataSetChanged();
-            }
-            else {
+            } else {
                 //concat text for the messages group
-                String msgText = messagesList.get(messagesList.size()-1).getText() + '\n' + msg.getText();
+                String msgText = messagesList.get(messagesList.size() - 1).getText() + '\n' + msg.getText();
                 msg.setText(msgText);
-                messagesList.set(messagesList.size()-1, msg);
+                messagesList.set(messagesList.size() - 1, msg);
                 mMessageAdapter.notifyDataSetChanged();
             }
             mRecyclerView.smoothScrollToPosition(mMessageAdapter.getItemCount() - 1); //update based on adapter
 
         }
+    }
+
+    /**
+     * Get action bar to be customized
+     */
+    public ViewGroup getActionBar() {
+        return mActionBarView;
+    }
+
+    /**
+     * Set a customized action bar.
+     * @param actionBar a customized action bar
+     */
+    public void setActionBar(ViewGroup actionBar) {
+        mActionBarView = actionBar;
+    }
+
+    /**
+     * Get the send message area view to be customized.
+     */
+    public ViewGroup getSendMessageView() {
+        return mSendMessageView;
+    }
+
+    /**
+     * Set a customized send message area view
+     * @param sendMessageView a customized send message area view
+     */
+    public void setSendMessageView(ViewGroup sendMessageView) {
+        mSendMessageView = sendMessageView;
+    }
+
+    /**
+     * Restart to the origin status: removing all the messages
+     */
+    public void restartFragment(){
+        minimize(false);
+        messagesList = new ArrayList<ChatMessage>();
+        mMessageAdapter = new MessagesAdapter(messagesList);
+        mRecyclerView.setAdapter(mMessageAdapter);
     }
 
     protected void onError(String error) {
@@ -230,6 +290,60 @@ public class TextChatFragment extends Fragment{
         return false;
     }
 
+    protected void onClose() {
+        //rootView.setVisibility(View.GONE);
+        if (this.listener != null) {
+            listener.onClose();
+        }
+        minimize(false);
+    }
+
+    protected void onMinimize(){
+        if (this.listener != null) {
+            listener.onMinimize();
+        }
+    }
+
+    protected void onMaximize(){
+        if (this.listener != null) {
+            listener.onMaximize();
+        }
+    }
+
+    // Called when the user clicks the send button.
+    private void sendMessage() {
+        //checkMessage
+        mMsgEditText.setEnabled(false);
+        String msgStr = mMsgEditText.getText().toString();
+        if (!msgStr.isEmpty()) {
+
+            if (msgStr.length() > maxTextLength) {
+                onError("Your chat message is over size limit");
+            } else {
+                UUID messageId = UUID.randomUUID();
+                ChatMessage myMsg = new ChatMessage.ChatMessageBuilder(senderId, messageId, ChatMessage.MessageStatus.SENT_MESSAGE)
+                        .senderAlias(senderAlias)
+                        .text(msgStr)
+                        .build();
+                if (myMsg == null) {
+                    onError("Error building ChatMessage");
+                }
+                boolean msgError = onMessageReadyToSend(myMsg);
+
+                if (msgError) {
+                    onError("Error sending a message");
+                } else {
+                    mMsgEditText.setEnabled(true);
+                    mMsgEditText.setFocusable(true);
+                    mMsgEditText.setText("");
+                    addMessage(myMsg);
+                }
+            }
+        } else {
+            mMsgEditText.setEnabled(true);
+        }
+    }
+
     //Check the time between the current new message and the last added message
     private boolean checkTimeMsg(long lastMsgTime, long newMsgTime) {
         if (lastMsgTime - newMsgTime <= TimeUnit.MINUTES.toMillis(2)) {
@@ -240,8 +354,8 @@ public class TextChatFragment extends Fragment{
 
     private boolean checkMessageGroup(ChatMessage msg) {
         int size = messagesList.size();
-        if (size >= 1 ) {
-            ChatMessage lastAdded = messagesList.get(size-1);
+        if (size >= 1) {
+            ChatMessage lastAdded = messagesList.get(size - 1);
 
             //check source
             if (lastAdded.getSenderId().equals(msg.getSenderId())) {
@@ -251,71 +365,48 @@ public class TextChatFragment extends Fragment{
         }
         return false;
     }
-    private String defaultTitle(){
+
+    private String defaultTitle() {
         String title = "";
         Iterator it = senders.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry e = (Map.Entry)it.next();
-            if ( !title.isEmpty() ) {
+            Map.Entry e = (Map.Entry) it.next();
+            if (!title.isEmpty()) {
                 title = title + ", ";
             }
             title = title + e.getValue();
         }
         return title;
     }
-    public void updateTitle(String title){
+
+    private void updateTitle(String title) {
         mTitleBar.setText(title);
     }
 
-    public void close() {
-        //rootView.setVisibility(View.GONE);
-        listener.onClose();
-    }
-
-     public void minimize (boolean minimized){
-        if (!minimized){
+    private void minimize(boolean minimized) {
+        if (!minimized) {
             //maximize text-chat
             mMinimizeBtn.setBackgroundResource(R.drawable.minimize);
             mContentView.setVisibility(View.VISIBLE);
             mMsgEditText.setVisibility(View.VISIBLE);
 
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mActionBarLayout.getLayoutParams();
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mActionBarView.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
-            mActionBarLayout.setLayoutParams(params);
+            mActionBarView.setLayoutParams(params);
 
             isMinimized = false;
-        }
-        else {
+        } else {
             //minimize text-chat
             mMinimizeBtn.setBackgroundResource(R.drawable.maximize);
             mContentView.setVisibility(View.GONE);
             mMsgEditText.setVisibility(View.GONE);
 
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mActionBarLayout.getLayoutParams();
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mActionBarView.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-            mActionBarLayout.setLayoutParams(params);
+            mActionBarView.setLayoutParams(params);
             isMinimized = true;
-        }
-    }
-
-    /**
-     * Set text-chat alert text
-     */
-    public void setTextAlert(String text) {
-        mAlert.setText(text);
-    }
-
-    /**
-     * Show text-chat alert.
-     */
-    public void showAlert(boolean show){
-        if (show){
-            mAlert.setVisibility(View.VISIBLE);
-        }
-        else {
-            mAlert.setVisibility(View.GONE);
         }
     }
 }

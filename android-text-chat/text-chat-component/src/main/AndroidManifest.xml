@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.opentok.android.textchat">
+    package="com.tokbox.android.textchat">
 
     <application
         android:allowBackup="true"
