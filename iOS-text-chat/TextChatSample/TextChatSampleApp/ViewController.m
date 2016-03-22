@@ -157,7 +157,9 @@ static NSString* const kTextChatType = @"TextChat";
     _connectingLabel.alpha = 0;
     _textChat.view.alpha = 1;
   }];
-  [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: session.connection.data}]];
+//  [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: session.connection.data}]];
+    
+    [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: @"TextMessaging"}]];
 }
 
 - (void)sessionDidDisconnect:(OTSession*)session {
