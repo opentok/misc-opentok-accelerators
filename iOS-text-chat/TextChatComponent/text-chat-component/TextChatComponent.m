@@ -133,8 +133,9 @@ typedef enum : NSUInteger {
   if (cell.time) {
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
     timeFormatter.dateFormat = @"hh:mm a";
-    cell.UserLetterLabel.text = [msg.senderAlias substringToIndex:1];
-    cell.time.text = [NSString stringWithFormat:@"%@, %@", msg.senderAlias, [timeFormatter stringFromDate:msg.dateTime]];
+    NSString *msg_sender = [msg.senderAlias length] > 0 ? msg.senderAlias : @"A";
+    cell.UserLetterLabel.text = [msg_sender substringToIndex:1];
+    cell.time.text = [NSString stringWithFormat:@"%@, %@", msg_sender, [timeFormatter stringFromDate:msg.dateTime]];
   }
   
   if (cell.message) {
@@ -241,7 +242,7 @@ typedef enum : NSUInteger {
 
 - (void)setSenderId:(NSString *)senderId alias:(NSString *)alias {
   mySenderId = senderId;
-  myAlias = alias;
+  myAlias = [alias length] > 0 ? alias : @"";
   if (![senders objectForKey: mySenderId]){
     [senders setObject:myAlias forKey:mySenderId];
   }
@@ -328,6 +329,10 @@ typedef enum : NSUInteger {
 }
 
 -(void) setTitleToTopBar: (NSMutableDictionary *)title {
+  if (title == nil) {
+    _textChatView.topNavBarTitle.text = @"";
+    return;
+  }
   NSMutableString *real_title = [NSMutableString string];
   for(NSString *key in title) {
     if ([real_title length] > 0) {
