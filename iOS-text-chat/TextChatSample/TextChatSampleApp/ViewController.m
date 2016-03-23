@@ -157,9 +157,7 @@ static NSString* const kTextChatType = @"TextChat";
     _connectingLabel.alpha = 0;
     _textChat.view.alpha = 1;
   }];
-//  [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: session.connection.data}]];
-    
-    [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: @"TextMessaging"}]];
+  [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: ([session.connection.data length] > 0 ? session.connection.data : @"")}]];
 }
 
 - (void)sessionDidDisconnect:(OTSession*)session {
@@ -189,11 +187,11 @@ static NSString* const kTextChatType = @"TextChat";
      withString:(NSString*)string {
   if (![connection.connectionId isEqualToString:_session.connection.connectionId]) {
     TextChatComponentMessage *msg = [[TextChatComponentMessage alloc]init];
-    msg.senderAlias = connection.data;
+    msg.senderAlias = [connection.data length] > 0 ? connection.data : @"";
     msg.senderId = connection.connectionId;
     msg.text = string;
     [self.textChat addMessage:msg];
-    [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: session.connection.data}]];
+    [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{msg.senderId: msg.senderAlias}]];
   }
 }
 
