@@ -31,7 +31,6 @@
 		64605EC71C7D4B69008DFF64 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64605EC61C7D4B69008DFF64 /* OpenGLES.framework */; };
 		64605EC91C7D4B75008DFF64 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64605EC81C7D4B75008DFF64 /* libc++.tbd */; };
 		64605EDF1C7D51A4008DFF64 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64605EDC1C7D5185008DFF64 /* OpenTok.framework */; };
-		64A1A3F31C7ED69B00F37263 /* text-chat-component-bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 64A1A3F21C7ED69B00F37263 /* text-chat-component-bundle.bundle */; };
 		64FB1D7F1C7D5AF200528C0E /* TextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64FB1D7E1C7D5AF200528C0E /* TextChatKit.framework */; };
 		64FB1D801C7D5C6400528C0E /* TextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64FB1D7E1C7D5AF200528C0E /* TextChatKit.framework */; };
 		64FB1D811C7D5C6400528C0E /* TextChatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 64FB1D7E1C7D5AF200528C0E /* TextChatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -80,7 +79,6 @@
 		64605EC61C7D4B69008DFF64 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		64605EC81C7D4B75008DFF64 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		64605EDC1C7D5185008DFF64 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
-		64A1A3F21C7ED69B00F37263 /* text-chat-component-bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "text-chat-component-bundle.bundle"; sourceTree = "<group>"; };
 		64FB1D7E1C7D5AF200528C0E /* TextChatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TextChatKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,7 +115,6 @@
 		64605E841C7D4924008DFF64 = {
 			isa = PBXGroup;
 			children = (
-				64A1A3F21C7ED69B00F37263 /* text-chat-component-bundle.bundle */,
 				64FB1D7E1C7D5AF200528C0E /* TextChatKit.framework */,
 				64605EDC1C7D5185008DFF64 /* OpenTok.framework */,
 				64605EC81C7D4B75008DFF64 /* libc++.tbd */,
@@ -235,7 +232,6 @@
 			files = (
 				64605EA31C7D4925008DFF64 /* LaunchScreen.storyboard in Resources */,
 				64605EA01C7D4925008DFF64 /* Assets.xcassets in Resources */,
-				64A1A3F31C7ED69B00F37263 /* text-chat-component-bundle.bundle in Resources */,
 				64605E9B1C7D4925008DFF64 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
