@@ -22,58 +22,19 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		64657F891C7EC38700A225FE /* close x white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F741C7EC38700A225FE /* close x white.png */; };
-		64657F8A1C7EC38700A225FE /* close x white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F751C7EC38700A225FE /* close x white@2x.png */; };
-		64657F8B1C7EC38700A225FE /* close x white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F761C7EC38700A225FE /* close x white@3x.png */; };
-		64657F8C1C7EC38700A225FE /* maximize.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F771C7EC38700A225FE /* maximize.png */; };
-		64657F8D1C7EC38700A225FE /* maximize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F781C7EC38700A225FE /* maximize@2x.png */; };
-		64657F8E1C7EC38700A225FE /* maximize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F791C7EC38700A225FE /* maximize@3x.png */; };
-		64657F8F1C7EC38700A225FE /* minimize.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F7A1C7EC38700A225FE /* minimize.png */; };
-		64657F901C7EC38700A225FE /* minimize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F7B1C7EC38700A225FE /* minimize@2x.png */; };
-		64657F911C7EC38700A225FE /* minimize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F7C1C7EC38700A225FE /* minimize@3x.png */; };
 		64657F921C7EC38700A225FE /* TextChatComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 64657F7D1C7EC38700A225FE /* TextChatComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		64657F931C7EC38700A225FE /* TextChatComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 64657F7E1C7EC38700A225FE /* TextChatComponent.m */; };
-		64657F941C7EC38700A225FE /* TextChatComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F7F1C7EC38700A225FE /* TextChatComponent.xib */; };
 		64657F951C7EC38700A225FE /* TextChatComponentChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = 64657F801C7EC38700A225FE /* TextChatComponentChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		64657F961C7EC38700A225FE /* TextChatComponentChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64657F811C7EC38700A225FE /* TextChatComponentChatView.m */; };
-		64657F971C7EC38700A225FE /* TextChatComponentDivTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F821C7EC38700A225FE /* TextChatComponentDivTableViewCell.xib */; };
-		64657F981C7EC38700A225FE /* TextChatComponentRecvShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F831C7EC38700A225FE /* TextChatComponentRecvShortTableViewCell.xib */; };
-		64657F991C7EC38700A225FE /* TextChatComponentRecvTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F841C7EC38700A225FE /* TextChatComponentRecvTableViewCell.xib */; };
-		64657F9A1C7EC38700A225FE /* TextChatComponentSentShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F851C7EC38700A225FE /* TextChatComponentSentShortTableViewCell.xib */; };
-		64657F9B1C7EC38700A225FE /* TextChatComponentSentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F861C7EC38700A225FE /* TextChatComponentSentTableViewCell.xib */; };
 		64657F9C1C7EC38700A225FE /* TextChatComponentTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 64657F871C7EC38700A225FE /* TextChatComponentTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		64657F9D1C7EC38700A225FE /* TextChatComponentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64657F881C7EC38700A225FE /* TextChatComponentTableViewCell.m */; };
-		64657FA41C7EC41A00A225FE /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FA21C7EC41A00A225FE /* CoreVideo.framework */; };
-		64657FA51C7EC41A00A225FE /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FA31C7EC41A00A225FE /* VideoToolbox.framework */; };
-		64657FA71C7EC42300A225FE /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FA61C7EC42300A225FE /* AVKit.framework */; };
-		64657FA91C7EC42C00A225FE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FA81C7EC42C00A225FE /* libsqlite3.tbd */; };
-		64657FAB1C7EC43400A225FE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FAA1C7EC43400A225FE /* AudioToolbox.framework */; };
-		64657FAD1C7EC43D00A225FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FAC1C7EC43D00A225FE /* CoreGraphics.framework */; };
-		64657FAF1C7EC44500A225FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FAE1C7EC44500A225FE /* QuartzCore.framework */; };
-		64657FB01C7EC44E00A225FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FA01C7EC3AC00A225FE /* Foundation.framework */; };
-		64657FB21C7EC45700A225FE /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FB11C7EC45700A225FE /* CoreTelephony.framework */; };
-		64657FB41C7EC45E00A225FE /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FB31C7EC45E00A225FE /* GLKit.framework */; };
-		64657FB61C7EC46600A225FE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FB51C7EC46600A225FE /* CoreMedia.framework */; };
-		64657FB71C7EC46C00A225FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657F9E1C7EC3A300A225FE /* UIKit.framework */; };
-		64657FB91C7EC47600A225FE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FB81C7EC47600A225FE /* SystemConfiguration.framework */; };
-		64657FBB1C7EC47D00A225FE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FBA1C7EC47D00A225FE /* AVFoundation.framework */; };
-		64657FBD1C7EC48500A225FE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FBC1C7EC48500A225FE /* OpenGLES.framework */; };
-		64657FBF1C7EC48D00A225FE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64657FBE1C7EC48D00A225FE /* libc++.tbd */; };
-		64A1A3E11C7ED49300F37263 /* close x white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F741C7EC38700A225FE /* close x white.png */; };
-		64A1A3E21C7ED49300F37263 /* close x white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F751C7EC38700A225FE /* close x white@2x.png */; };
-		64A1A3E31C7ED49300F37263 /* close x white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F761C7EC38700A225FE /* close x white@3x.png */; };
-		64A1A3E41C7ED49300F37263 /* maximize.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F771C7EC38700A225FE /* maximize.png */; };
-		64A1A3E51C7ED49300F37263 /* maximize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F781C7EC38700A225FE /* maximize@2x.png */; };
-		64A1A3E61C7ED49300F37263 /* maximize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F791C7EC38700A225FE /* maximize@3x.png */; };
-		64A1A3E71C7ED49300F37263 /* minimize.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F7A1C7EC38700A225FE /* minimize.png */; };
-		64A1A3E81C7ED49300F37263 /* minimize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F7B1C7EC38700A225FE /* minimize@2x.png */; };
-		64A1A3E91C7ED49300F37263 /* minimize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64657F7C1C7EC38700A225FE /* minimize@3x.png */; };
-		64A1A3EA1C7ED49300F37263 /* TextChatComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F7F1C7EC38700A225FE /* TextChatComponent.xib */; };
-		64A1A3EB1C7ED49300F37263 /* TextChatComponentDivTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F821C7EC38700A225FE /* TextChatComponentDivTableViewCell.xib */; };
-		64A1A3EC1C7ED49300F37263 /* TextChatComponentRecvShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F831C7EC38700A225FE /* TextChatComponentRecvShortTableViewCell.xib */; };
-		64A1A3ED1C7ED49300F37263 /* TextChatComponentRecvTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F841C7EC38700A225FE /* TextChatComponentRecvTableViewCell.xib */; };
-		64A1A3EE1C7ED49300F37263 /* TextChatComponentSentShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F851C7EC38700A225FE /* TextChatComponentSentShortTableViewCell.xib */; };
-		64A1A3EF1C7ED49300F37263 /* TextChatComponentSentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64657F861C7EC38700A225FE /* TextChatComponentSentTableViewCell.xib */; };
+		A0AC9FCC1CAB4F050085BFB1 /* TextChatComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0AC9FC61CAB4F050085BFB1 /* TextChatComponent.xib */; };
+		A0AC9FCD1CAB4F050085BFB1 /* TextChatComponentDivTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0AC9FC71CAB4F050085BFB1 /* TextChatComponentDivTableViewCell.xib */; };
+		A0AC9FCE1CAB4F050085BFB1 /* TextChatComponentRecvShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0AC9FC81CAB4F050085BFB1 /* TextChatComponentRecvShortTableViewCell.xib */; };
+		A0AC9FCF1CAB4F050085BFB1 /* TextChatComponentRecvTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0AC9FC91CAB4F050085BFB1 /* TextChatComponentRecvTableViewCell.xib */; };
+		A0AC9FD01CAB4F050085BFB1 /* TextChatComponentSentShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0AC9FCA1CAB4F050085BFB1 /* TextChatComponentSentShortTableViewCell.xib */; };
+		A0AC9FD11CAB4F050085BFB1 /* TextChatComponentSentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0AC9FCB1CAB4F050085BFB1 /* TextChatComponentSentTableViewCell.xib */; };
+		A0AC9FD31CAB4F1D0085BFB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AC9FD21CAB4F1D0085BFB1 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,84 +45,28 @@
 			remoteGlobalIDString = 6479BFA21C7EC2FF00462678;
 			remoteInfo = "text-chat-component";
 		};
-		64A1A3F01C7ED4A600F37263 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6479BF9A1C7EC2FF00462678 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6479BFA21C7EC2FF00462678;
-			remoteInfo = TextChatKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		64657F741C7EC38700A225FE /* close x white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close x white.png"; path = "../text-chat-component/close x white.png"; sourceTree = "<group>"; };
-		64657F751C7EC38700A225FE /* close x white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close x white@2x.png"; path = "../text-chat-component/close x white@2x.png"; sourceTree = "<group>"; };
-		64657F761C7EC38700A225FE /* close x white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close x white@3x.png"; path = "../text-chat-component/close x white@3x.png"; sourceTree = "<group>"; };
-		64657F771C7EC38700A225FE /* maximize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = maximize.png; path = "../text-chat-component/maximize.png"; sourceTree = "<group>"; };
-		64657F781C7EC38700A225FE /* maximize@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "maximize@2x.png"; path = "../text-chat-component/maximize@2x.png"; sourceTree = "<group>"; };
-		64657F791C7EC38700A225FE /* maximize@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "maximize@3x.png"; path = "../text-chat-component/maximize@3x.png"; sourceTree = "<group>"; };
-		64657F7A1C7EC38700A225FE /* minimize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = minimize.png; path = "../text-chat-component/minimize.png"; sourceTree = "<group>"; };
-		64657F7B1C7EC38700A225FE /* minimize@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "minimize@2x.png"; path = "../text-chat-component/minimize@2x.png"; sourceTree = "<group>"; };
-		64657F7C1C7EC38700A225FE /* minimize@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "minimize@3x.png"; path = "../text-chat-component/minimize@3x.png"; sourceTree = "<group>"; };
 		64657F7D1C7EC38700A225FE /* TextChatComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatComponent.h; sourceTree = "<group>"; };
 		64657F7E1C7EC38700A225FE /* TextChatComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatComponent.m; sourceTree = "<group>"; };
-		64657F7F1C7EC38700A225FE /* TextChatComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextChatComponent.xib; path = "../text-chat-component/TextChatComponent.xib"; sourceTree = "<group>"; };
 		64657F801C7EC38700A225FE /* TextChatComponentChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatComponentChatView.h; sourceTree = "<group>"; };
 		64657F811C7EC38700A225FE /* TextChatComponentChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatComponentChatView.m; sourceTree = "<group>"; };
-		64657F821C7EC38700A225FE /* TextChatComponentDivTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextChatComponentDivTableViewCell.xib; path = "../text-chat-component/TextChatComponentDivTableViewCell.xib"; sourceTree = "<group>"; };
-		64657F831C7EC38700A225FE /* TextChatComponentRecvShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextChatComponentRecvShortTableViewCell.xib; path = "../text-chat-component/TextChatComponentRecvShortTableViewCell.xib"; sourceTree = "<group>"; };
-		64657F841C7EC38700A225FE /* TextChatComponentRecvTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextChatComponentRecvTableViewCell.xib; path = "../text-chat-component/TextChatComponentRecvTableViewCell.xib"; sourceTree = "<group>"; };
-		64657F851C7EC38700A225FE /* TextChatComponentSentShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextChatComponentSentShortTableViewCell.xib; path = "../text-chat-component/TextChatComponentSentShortTableViewCell.xib"; sourceTree = "<group>"; };
-		64657F861C7EC38700A225FE /* TextChatComponentSentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextChatComponentSentTableViewCell.xib; path = "../text-chat-component/TextChatComponentSentTableViewCell.xib"; sourceTree = "<group>"; };
 		64657F871C7EC38700A225FE /* TextChatComponentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatComponentTableViewCell.h; sourceTree = "<group>"; };
 		64657F881C7EC38700A225FE /* TextChatComponentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatComponentTableViewCell.m; sourceTree = "<group>"; };
-		64657F9E1C7EC3A300A225FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		64657FA01C7EC3AC00A225FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		64657FA21C7EC41A00A225FE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		64657FA31C7EC41A00A225FE /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		64657FA61C7EC42300A225FE /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		64657FA81C7EC42C00A225FE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		64657FAA1C7EC43400A225FE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		64657FAC1C7EC43D00A225FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		64657FAE1C7EC44500A225FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		64657FB11C7EC45700A225FE /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		64657FB31C7EC45E00A225FE /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		64657FB51C7EC46600A225FE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		64657FB81C7EC47600A225FE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		64657FBA1C7EC47D00A225FE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		64657FBC1C7EC48500A225FE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		64657FBE1C7EC48D00A225FE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		6479BFA31C7EC2FF00462678 /* TextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6479BFA81C7EC2FF00462678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		64A1A3DB1C7ED41400F37263 /* text-chat-component-bundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "text-chat-component-bundle.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		64A1A3DD1C7ED41400F37263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0AC9FC61CAB4F050085BFB1 /* TextChatComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponent.xib; sourceTree = "<group>"; };
+		A0AC9FC71CAB4F050085BFB1 /* TextChatComponentDivTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentDivTableViewCell.xib; sourceTree = "<group>"; };
+		A0AC9FC81CAB4F050085BFB1 /* TextChatComponentRecvShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentRecvShortTableViewCell.xib; sourceTree = "<group>"; };
+		A0AC9FC91CAB4F050085BFB1 /* TextChatComponentRecvTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentRecvTableViewCell.xib; sourceTree = "<group>"; };
+		A0AC9FCA1CAB4F050085BFB1 /* TextChatComponentSentShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentSentShortTableViewCell.xib; sourceTree = "<group>"; };
+		A0AC9FCB1CAB4F050085BFB1 /* TextChatComponentSentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentSentTableViewCell.xib; sourceTree = "<group>"; };
+		A0AC9FD21CAB4F1D0085BFB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6479BF9F1C7EC2FF00462678 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				64657FBF1C7EC48D00A225FE /* libc++.tbd in Frameworks */,
-				64657FBD1C7EC48500A225FE /* OpenGLES.framework in Frameworks */,
-				64657FBB1C7EC47D00A225FE /* AVFoundation.framework in Frameworks */,
-				64657FB91C7EC47600A225FE /* SystemConfiguration.framework in Frameworks */,
-				64657FB71C7EC46C00A225FE /* UIKit.framework in Frameworks */,
-				64657FB61C7EC46600A225FE /* CoreMedia.framework in Frameworks */,
-				64657FB41C7EC45E00A225FE /* GLKit.framework in Frameworks */,
-				64657FB21C7EC45700A225FE /* CoreTelephony.framework in Frameworks */,
-				64657FB01C7EC44E00A225FE /* Foundation.framework in Frameworks */,
-				64657FAF1C7EC44500A225FE /* QuartzCore.framework in Frameworks */,
-				64657FAD1C7EC43D00A225FE /* CoreGraphics.framework in Frameworks */,
-				64657FAB1C7EC43400A225FE /* AudioToolbox.framework in Frameworks */,
-				64657FA91C7EC42C00A225FE /* libsqlite3.tbd in Frameworks */,
-				64657FA71C7EC42300A225FE /* AVKit.framework in Frameworks */,
-				64657FA41C7EC41A00A225FE /* CoreVideo.framework in Frameworks */,
-				64657FA51C7EC41A00A225FE /* VideoToolbox.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		64A1A3D81C7ED41400F37263 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -174,24 +79,7 @@
 		6479BF991C7EC2FF00462678 = {
 			isa = PBXGroup;
 			children = (
-				64657FBE1C7EC48D00A225FE /* libc++.tbd */,
-				64657FBC1C7EC48500A225FE /* OpenGLES.framework */,
-				64657FBA1C7EC47D00A225FE /* AVFoundation.framework */,
-				64657FB81C7EC47600A225FE /* SystemConfiguration.framework */,
-				64657FB51C7EC46600A225FE /* CoreMedia.framework */,
-				64657FB31C7EC45E00A225FE /* GLKit.framework */,
-				64657FB11C7EC45700A225FE /* CoreTelephony.framework */,
-				64657FAE1C7EC44500A225FE /* QuartzCore.framework */,
-				64657FAC1C7EC43D00A225FE /* CoreGraphics.framework */,
-				64657FAA1C7EC43400A225FE /* AudioToolbox.framework */,
-				64657FA81C7EC42C00A225FE /* libsqlite3.tbd */,
-				64657FA61C7EC42300A225FE /* AVKit.framework */,
-				64657FA21C7EC41A00A225FE /* CoreVideo.framework */,
-				64657FA31C7EC41A00A225FE /* VideoToolbox.framework */,
-				64657FA01C7EC3AC00A225FE /* Foundation.framework */,
-				64657F9E1C7EC3A300A225FE /* UIKit.framework */,
 				6479BFA51C7EC2FF00462678 /* text-chat-component */,
-				64A1A3DC1C7ED41400F37263 /* text-chat-component-bundle */,
 				6479BFA41C7EC2FF00462678 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -200,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				6479BFA31C7EC2FF00462678 /* TextChatKit.framework */,
-				64A1A3DB1C7ED41400F37263 /* text-chat-component-bundle.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -214,32 +101,16 @@
 				64657F811C7EC38700A225FE /* TextChatComponentChatView.m */,
 				64657F871C7EC38700A225FE /* TextChatComponentTableViewCell.h */,
 				64657F881C7EC38700A225FE /* TextChatComponentTableViewCell.m */,
+				A0AC9FC61CAB4F050085BFB1 /* TextChatComponent.xib */,
+				A0AC9FC71CAB4F050085BFB1 /* TextChatComponentDivTableViewCell.xib */,
+				A0AC9FC81CAB4F050085BFB1 /* TextChatComponentRecvShortTableViewCell.xib */,
+				A0AC9FC91CAB4F050085BFB1 /* TextChatComponentRecvTableViewCell.xib */,
+				A0AC9FCA1CAB4F050085BFB1 /* TextChatComponentSentShortTableViewCell.xib */,
+				A0AC9FCB1CAB4F050085BFB1 /* TextChatComponentSentTableViewCell.xib */,
+				A0AC9FD21CAB4F1D0085BFB1 /* Assets.xcassets */,
 				6479BFA81C7EC2FF00462678 /* Info.plist */,
 			);
 			path = "text-chat-component";
-			sourceTree = "<group>";
-		};
-		64A1A3DC1C7ED41400F37263 /* text-chat-component-bundle */ = {
-			isa = PBXGroup;
-			children = (
-				64657F741C7EC38700A225FE /* close x white.png */,
-				64657F751C7EC38700A225FE /* close x white@2x.png */,
-				64657F761C7EC38700A225FE /* close x white@3x.png */,
-				64657F771C7EC38700A225FE /* maximize.png */,
-				64657F781C7EC38700A225FE /* maximize@2x.png */,
-				64657F791C7EC38700A225FE /* maximize@3x.png */,
-				64657F7A1C7EC38700A225FE /* minimize.png */,
-				64657F7B1C7EC38700A225FE /* minimize@2x.png */,
-				64657F7C1C7EC38700A225FE /* minimize@3x.png */,
-				64657F7F1C7EC38700A225FE /* TextChatComponent.xib */,
-				64657F821C7EC38700A225FE /* TextChatComponentDivTableViewCell.xib */,
-				64657F831C7EC38700A225FE /* TextChatComponentRecvShortTableViewCell.xib */,
-				64657F841C7EC38700A225FE /* TextChatComponentRecvTableViewCell.xib */,
-				64657F851C7EC38700A225FE /* TextChatComponentSentShortTableViewCell.xib */,
-				64657F861C7EC38700A225FE /* TextChatComponentSentTableViewCell.xib */,
-				64A1A3DD1C7ED41400F37263 /* Info.plist */,
-			);
-			path = "text-chat-component-bundle";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,24 +147,6 @@
 			productReference = 6479BFA31C7EC2FF00462678 /* TextChatKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		64A1A3DA1C7ED41400F37263 /* text-chat-component-bundle */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 64A1A3DE1C7ED41400F37263 /* Build configuration list for PBXNativeTarget "text-chat-component-bundle" */;
-			buildPhases = (
-				64A1A3D71C7ED41400F37263 /* Sources */,
-				64A1A3D81C7ED41400F37263 /* Frameworks */,
-				64A1A3D91C7ED41400F37263 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				64A1A3F11C7ED4A600F37263 /* PBXTargetDependency */,
-			);
-			name = "text-chat-component-bundle";
-			productName = "text-chat-component-bundle";
-			productReference = 64A1A3DB1C7ED41400F37263 /* text-chat-component-bundle.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -307,9 +160,6 @@
 						CreatedOnToolsVersion = 7.2.1;
 					};
 					6479BFA21C7EC2FF00462678 = {
-						CreatedOnToolsVersion = 7.2.1;
-					};
-					64A1A3DA1C7ED41400F37263 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
@@ -328,7 +178,6 @@
 			targets = (
 				6479BFA21C7EC2FF00462678 /* TextChatKit */,
 				64657FC01C7EC52900A225FE /* Make Framework */,
-				64A1A3DA1C7ED41400F37263 /* text-chat-component-bundle */,
 			);
 		};
 /* End PBXProject section */
@@ -338,43 +187,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64657F8B1C7EC38700A225FE /* close x white@3x.png in Resources */,
-				64657F911C7EC38700A225FE /* minimize@3x.png in Resources */,
-				64657F991C7EC38700A225FE /* TextChatComponentRecvTableViewCell.xib in Resources */,
-				64657F941C7EC38700A225FE /* TextChatComponent.xib in Resources */,
-				64657F981C7EC38700A225FE /* TextChatComponentRecvShortTableViewCell.xib in Resources */,
-				64657F9A1C7EC38700A225FE /* TextChatComponentSentShortTableViewCell.xib in Resources */,
-				64657F8D1C7EC38700A225FE /* maximize@2x.png in Resources */,
-				64657F9B1C7EC38700A225FE /* TextChatComponentSentTableViewCell.xib in Resources */,
-				64657F8A1C7EC38700A225FE /* close x white@2x.png in Resources */,
-				64657F8E1C7EC38700A225FE /* maximize@3x.png in Resources */,
-				64657F891C7EC38700A225FE /* close x white.png in Resources */,
-				64657F8F1C7EC38700A225FE /* minimize.png in Resources */,
-				64657F971C7EC38700A225FE /* TextChatComponentDivTableViewCell.xib in Resources */,
-				64657F901C7EC38700A225FE /* minimize@2x.png in Resources */,
-				64657F8C1C7EC38700A225FE /* maximize.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		64A1A3D91C7ED41400F37263 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				64A1A3E11C7ED49300F37263 /* close x white.png in Resources */,
-				64A1A3E21C7ED49300F37263 /* close x white@2x.png in Resources */,
-				64A1A3E31C7ED49300F37263 /* close x white@3x.png in Resources */,
-				64A1A3E41C7ED49300F37263 /* maximize.png in Resources */,
-				64A1A3E51C7ED49300F37263 /* maximize@2x.png in Resources */,
-				64A1A3E61C7ED49300F37263 /* maximize@3x.png in Resources */,
-				64A1A3E71C7ED49300F37263 /* minimize.png in Resources */,
-				64A1A3E81C7ED49300F37263 /* minimize@2x.png in Resources */,
-				64A1A3E91C7ED49300F37263 /* minimize@3x.png in Resources */,
-				64A1A3EA1C7ED49300F37263 /* TextChatComponent.xib in Resources */,
-				64A1A3EB1C7ED49300F37263 /* TextChatComponentDivTableViewCell.xib in Resources */,
-				64A1A3EC1C7ED49300F37263 /* TextChatComponentRecvShortTableViewCell.xib in Resources */,
-				64A1A3ED1C7ED49300F37263 /* TextChatComponentRecvTableViewCell.xib in Resources */,
-				64A1A3EE1C7ED49300F37263 /* TextChatComponentSentShortTableViewCell.xib in Resources */,
-				64A1A3EF1C7ED49300F37263 /* TextChatComponentSentTableViewCell.xib in Resources */,
+				A0AC9FD01CAB4F050085BFB1 /* TextChatComponentSentShortTableViewCell.xib in Resources */,
+				A0AC9FCE1CAB4F050085BFB1 /* TextChatComponentRecvShortTableViewCell.xib in Resources */,
+				A0AC9FCD1CAB4F050085BFB1 /* TextChatComponentDivTableViewCell.xib in Resources */,
+				A0AC9FCF1CAB4F050085BFB1 /* TextChatComponentRecvTableViewCell.xib in Resources */,
+				A0AC9FD31CAB4F1D0085BFB1 /* Assets.xcassets in Resources */,
+				A0AC9FD11CAB4F050085BFB1 /* TextChatComponentSentTableViewCell.xib in Resources */,
+				A0AC9FCC1CAB4F050085BFB1 /* TextChatComponent.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,13 +226,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		64A1A3D71C7ED41400F37263 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -421,11 +233,6 @@
 			isa = PBXTargetDependency;
 			target = 6479BFA21C7EC2FF00462678 /* TextChatKit */;
 			targetProxy = 64657FC41C7EC53B00A225FE /* PBXContainerItemProxy */;
-		};
-		64A1A3F11C7ED4A600F37263 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6479BFA21C7EC2FF00462678 /* TextChatKit */;
-			targetProxy = 64A1A3F01C7ED4A600F37263 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -587,40 +394,6 @@
 			};
 			name = Release;
 		};
-		64A1A3DF1C7ED41400F37263 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "text-chat-component-bundle/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.agilityfeat.text-chat-component.text-chat-component-bundle";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos9.2;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		64A1A3E01C7ED41400F37263 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "text-chat-component-bundle/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.agilityfeat.text-chat-component.text-chat-component-bundle";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos9.2;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -650,14 +423,6 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-		};
-		64A1A3DE1C7ED41400F37263 /* Build configuration list for PBXNativeTarget "text-chat-component-bundle" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				64A1A3DF1C7ED41400F37263 /* Debug */,
-				64A1A3E01C7ED41400F37263 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
