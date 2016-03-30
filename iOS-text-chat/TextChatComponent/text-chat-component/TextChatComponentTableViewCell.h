@@ -17,5 +17,4 @@
 @property (weak, nonatomic) IBOutlet UIView *userFirstLetter;
 @property (weak, nonatomic) IBOutlet UIView *cornerUp;
 @property (weak, nonatomic) IBOutlet UIView *cornerUpLeft;
-
 @end
