@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lba-EX-1uV">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="vrc-pA-nNs">
+            <objects>
+                <viewController id="lba-EX-1uV" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nox-N3-gHq"/>
+                        <viewControllerLayoutGuide type="bottom" id="rBm-PQ-bEW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pzI-lV-Sxu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8Q-gs-Apy" userLabel="connectingLabel">
+                                <rect key="frame" x="220" y="289" width="160" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="YQK-sO-ZWc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="s8Q-gs-Apy" firstAttribute="centerX" secondItem="pzI-lV-Sxu" secondAttribute="centerX" id="4ua-QK-iE7"/>
+                            <constraint firstItem="s8Q-gs-Apy" firstAttribute="top" secondItem="nox-N3-gHq" secondAttribute="bottom" constant="269" id="PmO-Lj-O4s"/>
+                            <constraint firstItem="s8Q-gs-Apy" firstAttribute="centerY" secondItem="pzI-lV-Sxu" secondAttribute="centerY" id="Vsb-j2-tT2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="connectingLabel" destination="s8Q-gs-Apy" id="t3A-Wp-71D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aio-Hp-HUJ" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="274" y="419"/>
+        </scene>
+    </scenes>
+</document>
