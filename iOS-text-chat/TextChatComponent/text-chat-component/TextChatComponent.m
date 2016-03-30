@@ -52,8 +52,7 @@ typedef enum : NSUInteger {
   if (self)  {
     _messages = [[NSMutableArray alloc] init];
     maxLength = DEFAULT_MAX_LENGTH;
-    
-//    NSBundle *bundle =[NSBundle bundleWithPath:[NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] bundlePath], @"TextChatComponentBundle.bundle"]];
+
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     
     UINib *viewNIB = [UINib nibWithNibName:@"TextChatComponent" bundle:bundle];
@@ -343,6 +342,5 @@ typedef enum : NSUInteger {
   }
   _textChatView.topNavBarTitle.text = real_title;
 }
-
 
 @end
