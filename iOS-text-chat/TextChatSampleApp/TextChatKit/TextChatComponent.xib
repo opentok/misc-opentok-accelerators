@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextChatComponentComponent">
@@ -31,23 +32,13 @@
                     </connections>
                 </tableView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lMY-oW-XdU">
-                    <rect key="frame" x="8" y="562" width="584" height="30"/>
+                    <rect key="frame" x="8" y="562" width="479" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="Tep-Vg-Mhi"/>
                     </connections>
                 </textField>
-                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcY-dh-e4I">
-                    <rect key="frame" x="495" y="540" width="97" height="35"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
-                    <state key="normal" title="Send">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="onSendButton:" destination="-1" eventType="touchUpInside" id="Hno-I2-VW8"/>
-                    </connections>
-                </button>
                 <button opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oX6-Zz-0cb" userLabel="Message Banner">
                     <rect key="frame" x="0.0" y="525" width="600" height="29"/>
                     <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -119,6 +110,23 @@
                         <constraint firstAttribute="trailing" secondItem="o0Y-DI-2dJ" secondAttribute="trailing" constant="50" id="xzB-9o-tr8"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcY-dh-e4I">
+                    <rect key="frame" x="495" y="559" width="97" height="35"/>
+                    <color key="backgroundColor" red="0.34509803919999998" green="0.6705882353" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="lcY-dh-e4I" secondAttribute="height" multiplier="97:35" id="sBh-in-LGD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                    <state key="normal" title="Send">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRound" value="4"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onSendButton:" destination="-1" eventType="touchUpInside" id="Hno-I2-VW8"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.078431372549019607" green="0.20784313725490197" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -126,6 +134,7 @@
                 <constraint firstItem="lMY-oW-XdU" firstAttribute="top" secondItem="vkl-Dd-Rd9" secondAttribute="bottom" constant="8" id="BkV-qN-iCy"/>
                 <constraint firstItem="lMY-oW-XdU" firstAttribute="top" secondItem="oX6-Zz-0cb" secondAttribute="bottom" constant="8" symbolic="YES" id="HJ8-8f-W6x"/>
                 <constraint firstItem="sda-ij-nTc" firstAttribute="top" secondItem="vkl-Dd-Rd9" secondAttribute="top" id="Wu8-Nl-fRu"/>
+                <constraint firstAttribute="bottom" secondItem="lcY-dh-e4I" secondAttribute="bottom" constant="6" id="X2s-Gw-uMx"/>
                 <constraint firstItem="sda-ij-nTc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="aQy-H5-hjA"/>
                 <constraint firstItem="d14-QU-ZHB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="beF-wl-sBz"/>
                 <constraint firstAttribute="trailing" secondItem="vkl-Dd-Rd9" secondAttribute="trailing" id="gFQ-YQ-QDC"/>
@@ -133,8 +142,9 @@
                 <constraint firstItem="vkl-Dd-Rd9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jTI-Gj-iLA"/>
                 <constraint firstAttribute="trailing" secondItem="d14-QU-ZHB" secondAttribute="trailing" id="lXq-kh-44e"/>
                 <constraint firstItem="lMY-oW-XdU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="lqy-aB-Icf"/>
+                <constraint firstAttribute="trailing" secondItem="lcY-dh-e4I" secondAttribute="trailing" constant="8" id="oJh-8z-zZS"/>
                 <constraint firstItem="oX6-Zz-0cb" firstAttribute="leading" secondItem="sda-ij-nTc" secondAttribute="leading" id="slz-er-hgj"/>
-                <constraint firstAttribute="trailing" secondItem="lMY-oW-XdU" secondAttribute="trailing" constant="8" id="tOD-jr-4JM"/>
+                <constraint firstAttribute="trailing" secondItem="lMY-oW-XdU" secondAttribute="trailing" constant="113" id="tOD-jr-4JM"/>
                 <constraint firstItem="d14-QU-ZHB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xhI-Wp-YRV"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
