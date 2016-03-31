@@ -59,7 +59,7 @@
     minimized = NO;
   } else {
     [sender setImage:maximize_image forState:UIControlStateNormal];
-    r.origin.y = (self.layer.bounds.size.height - _topNavBar.layer.bounds.size.height);
+    r.origin.y = (self.superview.bounds.size.height - _topNavBar.layer.bounds.size.height);
     r.size.height = _topNavBar.layer.bounds.size.height;
     minimized = YES;
   }
