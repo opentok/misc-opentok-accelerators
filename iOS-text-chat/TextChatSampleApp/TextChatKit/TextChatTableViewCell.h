@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TextChatComponentTableViewCell : UITableViewCell
+@interface TextChatTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *time;
 @property (nonatomic, weak) IBOutlet UITextView *message;

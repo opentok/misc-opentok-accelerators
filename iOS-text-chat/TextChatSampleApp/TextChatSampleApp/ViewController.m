@@ -87,11 +87,6 @@ static NSString* const kTextChatType = @"TextChat";
   [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
-
 - (void)keyboardWillShow:(NSNotification*)aNotification {
   NSDictionary* info = [aNotification userInfo];
   CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -118,7 +113,7 @@ static NSString* const kTextChatType = @"TextChat";
   }];
 }
 
-- (BOOL)onMessageReadyToSend:(TextChatComponentMessage *)message {
+- (BOOL)onMessageReadyToSend:(TextChat *)message {
   OTError *error = nil;
   [_session signalWithType:kTextChatType string:message.text connection:nil error:&error];
   if (error) {
@@ -186,7 +181,7 @@ static NSString* const kTextChatType = @"TextChat";
  fromConnection:(OTConnection*)connection
      withString:(NSString*)string {
   if (![connection.connectionId isEqualToString:_session.connection.connectionId]) {
-    TextChatComponentMessage *msg = [[TextChatComponentMessage alloc]init];
+    TextChat *msg = [[TextChat alloc]init];
     msg.senderAlias = [connection.data length] > 0 ? connection.data : @"";
     msg.senderId = connection.connectionId;
     msg.text = string;

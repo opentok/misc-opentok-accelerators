@@ -7,8 +7,9 @@
 //
 
 #import "TextChatComponent.h"
-#import "TextChatComponentTableViewCell.h"
-#import "TextChatComponentChatView.h"
+#import "TextChat.h"
+#import "TextChatTableViewCell.h"
+#import "TextChatView.h"
 
 #define DEFAULT_MAX_LENGTH 1000
 #define DEFAULT_TTextChatE_SPAN 120
@@ -16,28 +17,9 @@
 @interface TextChatComponent ()
 
 @property (nonatomic, strong) NSMutableArray *messages;
-@property (nonatomic, strong) IBOutlet TextChatComponentChatView *textChatView;
+@property (nonatomic, strong) IBOutlet TextChatView *textChatView;
 
 @end
-
-typedef enum : NSUInteger {
-  OTK_SENT_MESSAGE,
-  OTK_SENT_MESSAGE_SHORT,
-  OTK_RECEIVED_MESSAGE,
-  OTK_RECEIVED_MESSAGE_SHORT,
-  OTK_DIVIDER
-} OTK_MESSAGE_TYPES;
-
-
-@interface TextChatComponentMessage ()
-
-@property (nonatomic) OTK_MESSAGE_TYPES type;
-
-@end
-
-@implementation TextChatComponentMessage
-@end
-
 
 @implementation TextChatComponent {
   int maxLength;
@@ -55,7 +37,7 @@ typedef enum : NSUInteger {
 
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     
-    UINib *viewNIB = [UINib nibWithNibName:@"TextChatComponent" bundle:bundle];
+    UINib *viewNIB = [UINib nibWithNibName:@"TextChatViewController" bundle:bundle];
     [viewNIB instantiateWithOwner:self options:nil];
     
     UINib *cellNIB = [UINib nibWithNibName:@"TextChatComponentSentTableViewCell" bundle:bundle];
@@ -93,9 +75,9 @@ typedef enum : NSUInteger {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  TextChatComponentMessage *msg;
+  TextChat *msg;
   
-  OTK_MESSAGE_TYPES type = OTK_DIVIDER;
+  TCMessageTypes type = TCMessageTypesDivider;
   
   // check if final divider
   if (indexPath.row < [_messages count]) {
@@ -104,22 +86,22 @@ typedef enum : NSUInteger {
   }
   
   NSString *cellId;
-  TextChatComponentTableViewCell *cell;
+  TextChatTableViewCell *cell;
   
   switch (type) {
-    case OTK_SENT_MESSAGE:
+    case TCMessageTypesSent:
       cellId = @"SentChatMessage";
       break;
-    case OTK_SENT_MESSAGE_SHORT:
+    case TCMessageTypesSentShort:
       cellId = @"SentChatMessageShort";
       break;
-    case OTK_RECEIVED_MESSAGE:
+    case TCMessageTypesReceived:
       cellId = @"RecvChatMessage";
       break;
-    case OTK_RECEIVED_MESSAGE_SHORT:
+    case TCMessageTypesReceivedShort:
       cellId = @"RecvChatMessageShort";
       break;
-    case OTK_DIVIDER:
+    case TCMessageTypesDivider:
       cellId = @"Divider";
       break;
     default:
@@ -158,15 +140,15 @@ typedef enum : NSUInteger {
     return 1;
   }
   
-  TextChatComponentMessage *msg = [_messages objectAtIndex:indexPath.row];
+  TextChat *msg = [_messages objectAtIndex:indexPath.row];
   
-  if (msg.type == OTK_DIVIDER) {
+  if (msg.type == TCMessageTypesDivider) {
     return 1;
   }
   
   float extras = 140.0f;
   float normal_space = 133.0f;
-  if (msg.type == OTK_RECEIVED_MESSAGE_SHORT || msg.type == OTK_SENT_MESSAGE_SHORT) {
+  if (msg.type == TCMessageTypesSentShort || msg.type == TCMessageTypesReceivedShort) {
     extras = 30.0f;
   }
   
@@ -210,9 +192,9 @@ typedef enum : NSUInteger {
 
 #pragma mark Public API
 
-- (BOOL)addMessage:(TextChatComponentMessage *)message {
+- (BOOL)addMessage:(TextChat *)message {
   
-  message.type = OTK_RECEIVED_MESSAGE;
+  message.type = TCMessageTypesReceived;
   if (!message.dateTime) {
     message.dateTime = [[NSDate alloc] init];
   }
@@ -249,20 +231,20 @@ typedef enum : NSUInteger {
 
 #pragma mark Implementation
 
-- (void)pushBackMessage:(TextChatComponentMessage *)message {
+- (void)pushBackMessage:(TextChat *)message {
   if ([_messages count] > 0) {
-    TextChatComponentMessage *prev = [_messages objectAtIndex:[_messages count] -1];
+    TextChat *prev = [_messages objectAtIndex:[_messages count] -1];
     
     if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN &&
         [prev.senderId isEqualToString:message.senderId]) {
-      if (message.type == OTK_RECEIVED_MESSAGE) {
-        message.type = OTK_RECEIVED_MESSAGE_SHORT;
+      if (message.type == TCMessageTypesReceived) {
+        message.type = TCMessageTypesReceivedShort;
       } else {
-        message.type = OTK_SENT_MESSAGE_SHORT;
+        message.type = TCMessageTypesSentShort;
       }
     } else {
-      TextChatComponentMessage *div = [[TextChatComponentMessage alloc] init];
-      div.type = OTK_DIVIDER;
+      TextChat *div = [[TextChat alloc] init];
+      div.type = TCMessageTypesDivider;
       [_messages addObject:div];
     }
   }
@@ -274,11 +256,11 @@ typedef enum : NSUInteger {
 
 - (IBAction)onSendButton:(id)sender {
   if ([_textChatView.textField.text length] > 0) {
-    TextChatComponentMessage *msg = [[TextChatComponentMessage alloc] init];
+    TextChat *msg = [[TextChat alloc] init];
     msg.senderAlias = myAlias;
     msg.senderId = mySenderId;
     msg.text = _textChatView.textField.text;
-    msg.type = OTK_SENT_MESSAGE;
+    msg.type = TCMessageTypesSent;
     msg.dateTime = [[NSDate alloc] init];
     
     if([self.delegate onMessageReadyToSend:msg]) {

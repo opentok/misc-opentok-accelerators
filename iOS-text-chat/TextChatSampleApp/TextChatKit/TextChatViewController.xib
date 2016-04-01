@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextChatComponentComponent">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextChatViewController">
             <connections>
                 <outlet property="textChatView" destination="iN0-l3-epB" id="JZl-Pr-f2s"/>
                 <outlet property="view" destination="iN0-l3-epB" id="6eZ-SU-soW"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="TextChat Component View" customClass="TextChatComponentChatView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="TextChat Component View" customClass="TextChatView">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -72,7 +72,7 @@
                                 <constraint firstAttribute="width" constant="20" id="IO1-n2-KtN"/>
                                 <constraint firstAttribute="height" constant="20" id="PLq-Ol-4iY"/>
                             </constraints>
-                            <state key="normal" image="close x white.png"/>
+                            <state key="normal" image="close_x_white"/>
                             <connections>
                                 <action selector="closeButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="arQ-2O-yqV"/>
                             </connections>
@@ -92,7 +92,7 @@
                                 <constraint firstAttribute="height" constant="19" id="qMK-vA-ni2"/>
                                 <constraint firstAttribute="width" constant="20" id="vhY-4W-c95"/>
                             </constraints>
-                            <state key="normal" image="minimize.png"/>
+                            <state key="normal" image="minimize"/>
                             <connections>
                                 <action selector="minimizeView:" destination="iN0-l3-epB" eventType="touchUpInside" id="QD7-Px-dWj"/>
                             </connections>
@@ -160,11 +160,11 @@
                 <outlet property="topNavBar" destination="d14-QU-ZHB" id="5zP-1B-AA7"/>
                 <outlet property="topNavBarTitle" destination="rt0-vx-EzT" id="sCc-u6-Mse"/>
             </connections>
-            <point key="canvasLocation" x="370" y="346"/>
+            <point key="canvasLocation" x="281" y="368"/>
         </view>
     </objects>
     <resources>
-        <image name="close x white.png" width="27" height="27"/>
-        <image name="minimize.png" width="26" height="27"/>
+        <image name="close_x_white" width="27" height="27"/>
+        <image name="minimize" width="26" height="27"/>
     </resources>
 </document>

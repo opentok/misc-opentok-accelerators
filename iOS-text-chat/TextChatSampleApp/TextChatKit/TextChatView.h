@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TextChatComponentChatView : UIView
+@interface TextChatView : UIView
 
 @property (nonatomic, weak) IBOutlet UITextField *textField;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;

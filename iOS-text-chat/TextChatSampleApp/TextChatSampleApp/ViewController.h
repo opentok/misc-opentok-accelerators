@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TextChatKit/TextChatComponent.h>
+#import <TextChatKit/TextChatKit.h>
 
 @interface ViewController : UIViewController <TextChatComponentDelegate>
 

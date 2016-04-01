@@ -6,9 +6,9 @@
 //  Copyright © 2016 AgilityFeat. All rights reserved.
 //
 
-#import "TextChatComponentChatView.h"
+#import "TextChatView.h"
 
-@implementation TextChatComponentChatView {
+@implementation TextChatView {
   BOOL anchorToBottom;
   BOOL minimized;
 }

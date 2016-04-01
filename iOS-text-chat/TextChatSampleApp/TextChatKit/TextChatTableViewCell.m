@@ -6,19 +6,16 @@
 //  Copyright © 2016 AgilityFeat. All rights reserved.
 //
 
-#import "TextChatComponentTableViewCell.h"
+#import "TextChatTableViewCell.h"
 
-@implementation TextChatComponentTableViewCell
+@implementation TextChatTableViewCell
 
 - (void)awakeFromNib {
-  // Initialization code
+    
   self.message.textContainer.lineFragmentPadding = 20;
-  //self.message.textContainerInset = UIEdgeInsetsZero;
-  
   self.userFirstLetter.layer.cornerRadius = 25.0f;
   self.userFirstLetter.layer.masksToBounds = YES;
 
-  
   UIBezierPath *path = [UIBezierPath new];
   [path moveToPoint:(CGPoint){0, 0}];
   [path addLineToPoint:(CGPoint){0, 30}];
@@ -29,7 +26,6 @@
   mask.frame = self.cornerUp.bounds;
   mask.path = path.CGPath;
   self.cornerUp.layer.mask = mask;
-  
   
   UIBezierPath *pathleft = [UIBezierPath new];
   [pathleft moveToPoint:(CGPoint){0, 0}];

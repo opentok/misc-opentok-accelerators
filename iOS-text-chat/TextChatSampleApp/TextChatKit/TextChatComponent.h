@@ -10,31 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-/**
- * Defines the chat message object that you pass into the
- * <[TextChatComponent addMessage:]> method.
- */
-
-@interface TextChatComponentMessage : NSObject
-
-/**
- * The sender alias for the message.
- */
-@property (nonatomic, copy) NSString *senderAlias;
-/**
- * The unique ID of the sender.
- */
-@property (nonatomic, copy) NSString *senderId;
-/**
- * The text of the message.
- */
-@property (nonatomic, copy) NSString *text;
-/**
- * The timestamp for the message.
- */
-@property (nonatomic, copy) NSDate *dateTime;
-
-@end
+@class TextChat;
 
 /**
  * A delegate for receiving events when a text chat message is ready to send.
@@ -46,7 +22,7 @@
  * is ready to send when the user clicks the Send button in the
  * IMComponentComponent user interface.
  */
-- (BOOL)onMessageReadyToSend:(TextChatComponentMessage *)message;
+- (BOOL)onMessageReadyToSend:(TextChat *)message;
 
 @end
 
@@ -58,7 +34,7 @@
 /**
  * The view containing the TextChatComponent user interface.
  */
-@property (nonatomic, strong) IBOutlet UIView * view;
+@property (nonatomic, strong) UIView * view;
 
 /**
  * Set to the delegate object that receives events for this TextChatComponent.
@@ -70,7 +46,7 @@
  *
  * @param message The message to send.
  */
-- (BOOL)addMessage:(TextChatComponentMessage *)message;
+- (BOOL)addMessage:(TextChat *)message;
 
 /**
  * Set the maximum length of a text chat message.
@@ -94,6 +70,6 @@
  *
  * @param title, the string with the name of the participants
  */
-
 -(void) setTitleToTopBar: (NSMutableDictionary *)title;
+
 @end
