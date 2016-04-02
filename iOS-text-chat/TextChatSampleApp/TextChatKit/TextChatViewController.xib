@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -17,12 +17,6 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100 Characters left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fN9-Sh-1Cb" userLabel="Count Label">
-                    <rect key="frame" x="8" y="576" width="158" height="16"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vkl-Dd-Rd9">
                     <rect key="frame" x="0.0" y="44" width="600" height="510"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -39,7 +33,7 @@
                         <outlet property="delegate" destination="-1" id="Tep-Vg-Mhi"/>
                     </connections>
                 </textField>
-                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oX6-Zz-0cb" userLabel="Message Banner">
+                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oX6-Zz-0cb" userLabel="Message Banner">
                     <rect key="frame" x="0.0" y="525" width="600" height="29"/>
                     <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
@@ -51,7 +45,7 @@
                         <action selector="onNewMessageButton:" destination="-1" eventType="touchUpInside" id="Ax1-B7-d7Q"/>
                     </connections>
                 </button>
-                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sda-ij-nTc" userLabel="Error Message">
+                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sda-ij-nTc" userLabel="Error Message">
                     <rect key="frame" x="0.0" y="44" width="600" height="29"/>
                     <color key="backgroundColor" red="0.9882352941176471" green="0.98431372549019602" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
@@ -61,6 +55,25 @@
                     </state>
                     <connections>
                         <action selector="onSendButton:" destination="-1" eventType="touchUpInside" id="Wnw-Cc-HhN"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcY-dh-e4I">
+                    <rect key="frame" x="495" y="559" width="97" height="35"/>
+                    <color key="backgroundColor" red="0.34509803919999998" green="0.6705882353" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="lcY-dh-e4I" secondAttribute="height" multiplier="97:35" id="sBh-in-LGD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                    <state key="normal" title="Send">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onSendButton:" destination="-1" eventType="touchUpInside" id="Hno-I2-VW8"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d14-QU-ZHB">
@@ -110,29 +123,13 @@
                         <constraint firstAttribute="trailing" secondItem="o0Y-DI-2dJ" secondAttribute="trailing" constant="50" id="xzB-9o-tr8"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcY-dh-e4I">
-                    <rect key="frame" x="495" y="559" width="97" height="35"/>
-                    <color key="backgroundColor" red="0.34509803919999998" green="0.6705882353" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="lcY-dh-e4I" secondAttribute="height" multiplier="97:35" id="sBh-in-LGD"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
-                    <state key="normal" title="Send">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRound" value="4"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="onSendButton:" destination="-1" eventType="touchUpInside" id="Hno-I2-VW8"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="0.078431372549019607" green="0.20784313725490197" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="oX6-Zz-0cb" firstAttribute="trailing" secondItem="vkl-Dd-Rd9" secondAttribute="trailing" id="3hX-oT-hdy"/>
+                <constraint firstItem="lMY-oW-XdU" firstAttribute="top" secondItem="oX6-Zz-0cb" secondAttribute="bottom" constant="8" symbolic="YES" id="1ar-oq-3jg"/>
+                <constraint firstItem="oX6-Zz-0cb" firstAttribute="leading" secondItem="sda-ij-nTc" secondAttribute="leading" id="1iM-Sd-jsU"/>
                 <constraint firstItem="lMY-oW-XdU" firstAttribute="top" secondItem="vkl-Dd-Rd9" secondAttribute="bottom" constant="8" id="BkV-qN-iCy"/>
-                <constraint firstItem="lMY-oW-XdU" firstAttribute="top" secondItem="oX6-Zz-0cb" secondAttribute="bottom" constant="8" symbolic="YES" id="HJ8-8f-W6x"/>
+                <constraint firstItem="oX6-Zz-0cb" firstAttribute="trailing" secondItem="vkl-Dd-Rd9" secondAttribute="trailing" id="GWf-l7-dzR"/>
                 <constraint firstItem="sda-ij-nTc" firstAttribute="top" secondItem="vkl-Dd-Rd9" secondAttribute="top" id="Wu8-Nl-fRu"/>
                 <constraint firstAttribute="bottom" secondItem="lcY-dh-e4I" secondAttribute="bottom" constant="6" id="X2s-Gw-uMx"/>
                 <constraint firstItem="sda-ij-nTc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="aQy-H5-hjA"/>
@@ -140,18 +137,18 @@
                 <constraint firstAttribute="trailing" secondItem="vkl-Dd-Rd9" secondAttribute="trailing" id="gFQ-YQ-QDC"/>
                 <constraint firstAttribute="bottom" secondItem="lMY-oW-XdU" secondAttribute="bottom" constant="8" id="jJe-IQ-E8D"/>
                 <constraint firstItem="vkl-Dd-Rd9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jTI-Gj-iLA"/>
+                <constraint firstItem="oX6-Zz-0cb" firstAttribute="leading" secondItem="vkl-Dd-Rd9" secondAttribute="leading" id="kt1-Nh-1jw"/>
                 <constraint firstAttribute="trailing" secondItem="d14-QU-ZHB" secondAttribute="trailing" id="lXq-kh-44e"/>
                 <constraint firstItem="lMY-oW-XdU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="lqy-aB-Icf"/>
                 <constraint firstAttribute="trailing" secondItem="lcY-dh-e4I" secondAttribute="trailing" constant="8" id="oJh-8z-zZS"/>
-                <constraint firstItem="oX6-Zz-0cb" firstAttribute="leading" secondItem="sda-ij-nTc" secondAttribute="leading" id="slz-er-hgj"/>
                 <constraint firstAttribute="trailing" secondItem="lMY-oW-XdU" secondAttribute="trailing" constant="113" id="tOD-jr-4JM"/>
+                <constraint firstItem="oX6-Zz-0cb" firstAttribute="trailing" secondItem="sda-ij-nTc" secondAttribute="trailing" id="x5f-Di-8Xc"/>
                 <constraint firstItem="d14-QU-ZHB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xhI-Wp-YRV"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="closeButton" destination="OFm-Hr-FhA" id="OlS-LN-eY9"/>
-                <outlet property="countLabel" destination="fN9-Sh-1Cb" id="yoc-si-ktb"/>
                 <outlet property="errorMessage" destination="sda-ij-nTc" id="2P3-R6-HnH"/>
                 <outlet property="messageBanner" destination="oX6-Zz-0cb" id="skQ-HJ-G1S"/>
                 <outlet property="minimizeView" destination="o0Y-DI-2dJ" id="FOc-fI-pwW"/>
