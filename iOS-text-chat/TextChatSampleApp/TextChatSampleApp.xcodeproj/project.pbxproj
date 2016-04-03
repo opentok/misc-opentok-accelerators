@@ -37,9 +37,9 @@
 		A022993A1CAC9B4C00585F66 /* TextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A02299341CAC9B4C00585F66 /* TextChatTableViewCell.m */; };
 		A02299411CAC9B5300585F66 /* TextChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993B1CAC9B5300585F66 /* TextChatViewController.xib */; };
 		A02299421CAC9B5300585F66 /* TextChatComponentDivTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993C1CAC9B5300585F66 /* TextChatComponentDivTableViewCell.xib */; };
-		A02299431CAC9B5300585F66 /* TextChatComponentRecvShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993D1CAC9B5300585F66 /* TextChatComponentRecvShortTableViewCell.xib */; };
+		A02299431CAC9B5300585F66 /* TextChatReceivedShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993D1CAC9B5300585F66 /* TextChatReceivedShortTableViewCell.xib */; };
 		A02299441CAC9B5300585F66 /* TextChatComponentRecvTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993E1CAC9B5300585F66 /* TextChatComponentRecvTableViewCell.xib */; };
-		A02299451CAC9B5300585F66 /* TextChatComponentSentShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993F1CAC9B5300585F66 /* TextChatComponentSentShortTableViewCell.xib */; };
+		A02299451CAC9B5300585F66 /* TextChatSentShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993F1CAC9B5300585F66 /* TextChatSentShortTableViewCell.xib */; };
 		A02299461CAC9B5300585F66 /* TextChatComponentSentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02299401CAC9B5300585F66 /* TextChatComponentSentTableViewCell.xib */; };
 		A02299481CAC9B5700585F66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02299471CAC9B5700585F66 /* Assets.xcassets */; };
 		A022994B1CAC9B8C00585F66 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A022994A1CAC9B8C00585F66 /* ViewController.m */; };
@@ -93,9 +93,9 @@
 		A02299341CAC9B4C00585F66 /* TextChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatTableViewCell.m; sourceTree = "<group>"; };
 		A022993B1CAC9B5300585F66 /* TextChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatViewController.xib; sourceTree = "<group>"; };
 		A022993C1CAC9B5300585F66 /* TextChatComponentDivTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentDivTableViewCell.xib; sourceTree = "<group>"; };
-		A022993D1CAC9B5300585F66 /* TextChatComponentRecvShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentRecvShortTableViewCell.xib; sourceTree = "<group>"; };
+		A022993D1CAC9B5300585F66 /* TextChatReceivedShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatReceivedShortTableViewCell.xib; sourceTree = "<group>"; };
 		A022993E1CAC9B5300585F66 /* TextChatComponentRecvTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentRecvTableViewCell.xib; sourceTree = "<group>"; };
-		A022993F1CAC9B5300585F66 /* TextChatComponentSentShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentSentShortTableViewCell.xib; sourceTree = "<group>"; };
+		A022993F1CAC9B5300585F66 /* TextChatSentShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatSentShortTableViewCell.xib; sourceTree = "<group>"; };
 		A02299401CAC9B5300585F66 /* TextChatComponentSentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentSentTableViewCell.xib; sourceTree = "<group>"; };
 		A02299471CAC9B5700585F66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A02299491CAC9B8C00585F66 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -184,9 +184,9 @@
 				A02299331CAC9B4C00585F66 /* TextChatTableViewCell.h */,
 				A02299341CAC9B4C00585F66 /* TextChatTableViewCell.m */,
 				A022993C1CAC9B5300585F66 /* TextChatComponentDivTableViewCell.xib */,
-				A022993D1CAC9B5300585F66 /* TextChatComponentRecvShortTableViewCell.xib */,
+				A022993D1CAC9B5300585F66 /* TextChatReceivedShortTableViewCell.xib */,
 				A022993E1CAC9B5300585F66 /* TextChatComponentRecvTableViewCell.xib */,
-				A022993F1CAC9B5300585F66 /* TextChatComponentSentShortTableViewCell.xib */,
+				A022993F1CAC9B5300585F66 /* TextChatSentShortTableViewCell.xib */,
 				A02299401CAC9B5300585F66 /* TextChatComponentSentTableViewCell.xib */,
 				A02299471CAC9B5700585F66 /* Assets.xcassets */,
 			);
@@ -306,11 +306,11 @@
 			files = (
 				A02299461CAC9B5300585F66 /* TextChatComponentSentTableViewCell.xib in Resources */,
 				A02299441CAC9B5300585F66 /* TextChatComponentRecvTableViewCell.xib in Resources */,
-				A02299451CAC9B5300585F66 /* TextChatComponentSentShortTableViewCell.xib in Resources */,
+				A02299451CAC9B5300585F66 /* TextChatSentShortTableViewCell.xib in Resources */,
 				A02299421CAC9B5300585F66 /* TextChatComponentDivTableViewCell.xib in Resources */,
 				A02299411CAC9B5300585F66 /* TextChatViewController.xib in Resources */,
 				A02299481CAC9B5700585F66 /* Assets.xcassets in Resources */,
-				A02299431CAC9B5300585F66 /* TextChatComponentRecvShortTableViewCell.xib in Resources */,
+				A02299431CAC9B5300585F66 /* TextChatReceivedShortTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
