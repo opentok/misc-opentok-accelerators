@@ -40,13 +40,13 @@
     UINib *viewNIB = [UINib nibWithNibName:@"TextChatViewController" bundle:bundle];
     [viewNIB instantiateWithOwner:self options:nil];
     
-    UINib *cellNIB = [UINib nibWithNibName:@"TextChatComponentSentTableViewCell" bundle:bundle];
+    UINib *cellNIB = [UINib nibWithNibName:@"TextChatSentTableViewCell" bundle:bundle];
     [_textChatView.tableView registerNib:cellNIB forCellReuseIdentifier:@"SentChatMessage"];
     
     cellNIB = [UINib nibWithNibName:@"TextChatSentShortTableViewCell" bundle:bundle];
     [_textChatView.tableView registerNib:cellNIB forCellReuseIdentifier:@"SentChatMessageShort"];
     
-    cellNIB = [UINib nibWithNibName:@"TextChatComponentRecvTableViewCell" bundle:bundle];
+    cellNIB = [UINib nibWithNibName:@"TextChatReceivedTableViewCell" bundle:bundle];
     [_textChatView.tableView registerNib:cellNIB forCellReuseIdentifier:@"RecvChatMessage"];
     
     cellNIB = [UINib nibWithNibName:@"TextChatReceivedShortTableViewCell" bundle:bundle];
