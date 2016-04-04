@@ -324,6 +324,7 @@
         msg.text = self.textField.text;
         msg.type = TCMessageTypesSent;
         msg.dateTime = [[NSDate alloc] init];
+
         if(![self.textChatComponent sendMessage:msg]) {
             
             [self pushBackMessage:msg];
