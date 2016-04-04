@@ -1,7 +1,7 @@
-var Sample = (function () {
+var Communication = (function () {
 
   // Constructor
-  var SampleComponent = function (options) {
+  var CommunicationComponent = function (options) {
     if (!options || !options.session) {
       throw new Error('No session provided.');
     }
@@ -348,8 +348,8 @@ var Sample = (function () {
 
   //    **************************************************************************************************************
   // Prototype methods
-  SampleComponent.prototype = {
-    constructor: Sample,
+  CommunicationComponent.prototype = {
+    constructor: Communication,
 
     onStarted: function () {
     },
@@ -484,6 +484,6 @@ var Sample = (function () {
   }
   };
 
-  return SampleComponent;
+  return CommunicationComponent;
 
 })();

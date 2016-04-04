@@ -4,9 +4,9 @@ var app = (function() {
     var _communication;
 
     var _options = {
-        apiKey: '100',
-        sessionId: '2_MX4xMDB-fjE0NTc1NTU4Mjk4NDN-M0RvR0JjMFlUSFp1SkdzbUZzRmd4UEhmfn4',
-        token: 'T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9NTIxNjk1MmNiNDViZjgxZDdlZmI2M2Q0MmU5YzZiMWFlYTgwNWYxNjpzZXNzaW9uX2lkPTJfTVg0eE1EQi1makUwTlRjMU5UVTRNams0TkROLU0wUnZSMEpqTUZsVVNGcDFTa2R6YlVaelJtZDRVRWhtZm40JmNyZWF0ZV90aW1lPTE0NTg2NjYwMTUmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ1ODY2NjAxNS44MDUxNDc1Njg4NDcyJmV4cGlyZV90aW1lPTE0NjEyNTgwMTUmY29ubmVjdGlvbl9kYXRhPW1hcmNvMg==',
+        apiKey: '',
+        sessionId: '',
+        token: '',
         publishers: {},
         subscribers: [],
         streams: [],
