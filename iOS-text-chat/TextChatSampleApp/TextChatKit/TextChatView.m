@@ -52,10 +52,16 @@
   UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
   UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
   CGRect r = [self.layer frame];
+  CGFloat rect;
+  if ([[UIApplication sharedApplication] isStatusBarHidden]) {
+    rect = 0;
+  } else {
+    rect = [[UIApplication sharedApplication] statusBarFrame].size.height;
+  }
   if (minimized) {
     [sender setImage:minimize_image forState:UIControlStateNormal];
-    r.origin.y = 0;
-    r.size.height = self.superview.bounds.size.height;
+    r.origin.y = rect;
+    r.size.height = self.superview.bounds.size.height - rect;
     minimized = NO;
   } else {
     [sender setImage:maximize_image forState:UIControlStateNormal];
