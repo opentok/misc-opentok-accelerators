@@ -12,6 +12,7 @@
 
 @property (nonatomic, weak) IBOutlet UITextField *textField;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UILabel *countLabel;
 @property (nonatomic, weak) IBOutlet UIButton *errorMessage;
 @property (nonatomic, weak) IBOutlet UIButton *messageBanner;
 
