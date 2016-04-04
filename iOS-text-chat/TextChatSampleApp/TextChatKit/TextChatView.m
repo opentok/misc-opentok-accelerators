@@ -7,11 +7,66 @@
 //
 
 #import "TextChatView.h"
+#import "TextChatTableViewCell.h"
+#import "TextChatComponent.h"
+
+#define DEFAULT_TTextChatE_SPAN 120
+
+@interface TextChatView() <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@property (strong, nonatomic) TextChatComponent *textChatComponent;
+@end
 
 @implementation TextChatView {
   BOOL anchorToBottom;
   BOOL minimized;
 }
+
+//- (instancetype)init {
+//    if (self = [super init])  {
+//        self.textChatComponent.messages = [[NSMutableArray alloc] init];
+//        UINib *viewNIB = [UINib nibWithNibName:@"TextChatView" bundle:[NSBundle mainBundle]];
+//        [viewNIB instantiateWithOwner:self options:nil];
+//    }
+//    return self;
+//}
+
++ (instancetype)textChatView {
+    TextChatView *textChatView = (TextChatView *)[[[NSBundle mainBundle] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
+    textChatView.textChatComponent = [[TextChatComponent alloc] init];
+    return textChatView;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.textField.delegate = self;
+    [self anchorToBottom];
+    
+    // work on instantiation and port it to sample app, done
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TextChatSentTableViewCell"
+                                               bundle:mainBundle]
+         forCellReuseIdentifier:@"SentChatMessage"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"TextChatSentShortTableViewCell"
+                                               bundle:mainBundle]
+         forCellReuseIdentifier:@"SentChatMessageShort"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"TextChatReceivedTableViewCell"
+                                               bundle:mainBundle]
+         forCellReuseIdentifier:@"RecvChatMessage"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"TextChatReceivedShortTableViewCell"
+                                               bundle:mainBundle]
+         forCellReuseIdentifier:@"RecvChatMessageShort"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"TextChatComponentDivTableViewCell"
+                                               bundle:mainBundle]
+         forCellReuseIdentifier:@"Divider"];
+}
+
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
   [_textField resignFirstResponder];
@@ -77,5 +132,236 @@
   [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
   minimized = NO;
   [self removeFromSuperview];
+}
+
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.textChatComponent.messages count] > 0 ? [self.textChatComponent.messages count] + 1 : 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TextChat *msg;
+    
+    TCMessageTypes type = TCMessageTypesDivider;
+    
+    // check if final divider
+    if (indexPath.row < [self.textChatComponent.messages count]) {
+        msg = [self.textChatComponent.messages objectAtIndex:indexPath.row];
+        type = msg.type;
+    }
+    
+    NSString *cellId;
+    TextChatTableViewCell *cell;
+    
+    switch (type) {
+        case TCMessageTypesSent:
+            cellId = @"SentChatMessage";
+            break;
+        case TCMessageTypesSentShort:
+            cellId = @"SentChatMessageShort";
+            break;
+        case TCMessageTypesReceived:
+            cellId = @"RecvChatMessage";
+            break;
+        case TCMessageTypesReceivedShort:
+            cellId = @"RecvChatMessageShort";
+            break;
+        case TCMessageTypesDivider:
+            cellId = @"Divider";
+            break;
+        default:
+            break;
+    }
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:cellId
+                                           forIndexPath:indexPath];
+    
+    if (cell.time) {
+        NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
+        timeFormatter.dateFormat = @"hh:mm a";
+        NSString *msg_sender = [msg.senderAlias length] > 0 ? msg.senderAlias : @"A";
+        cell.UserLetterLabel.text = [msg_sender substringToIndex:1];
+        cell.time.text = [NSString stringWithFormat:@"%@, %@", msg_sender, [timeFormatter stringFromDate:msg.dateTime]];
+    }
+    
+    if (cell.message) {
+        cell.message.text = msg.text;
+        cell.message.layer.cornerRadius = 6.0f;
+    }
+    return cell;
+}
+
+#pragma mark UITableViewDelegate
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.textField resignFirstResponder];
+    return NO;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // final divider
+    if (indexPath.row >= [self.textChatComponent.messages count]) {
+        return 1;
+    }
+    
+    TextChat *msg = [self.textChatComponent.messages objectAtIndex:indexPath.row];
+    
+    if (msg.type == TCMessageTypesDivider) {
+        return 1;
+    }
+    
+    float extras = 140.0f;
+    float normal_space = 133.0f;
+    if (msg.type == TCMessageTypesSentShort || msg.type == TCMessageTypesReceivedShort) {
+        extras = 30.0f;
+    }
+    
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg.text attributes:@{ NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:14.0] }];
+    CGRect rect = [attributedText boundingRectWithSize:(CGSize){(tableView.bounds.size.width - normal_space), CGFLOAT_MAX}
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                               context:nil];
+    return rect.size.height + extras;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self disableAnchorToBottom];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.messageBanner.alpha = 0.0f;
+    }];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([self isAtBottom]) {
+        [self anchorToBottomAnimated:YES];
+    }
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self onSendButton:textField];
+    return NO;
+}
+
+#pragma mark Public API
+
+- (BOOL)addMessage:(TextChat *)message {
+    
+    message.type = TCMessageTypesReceived;
+    if (!message.dateTime) {
+        message.dateTime = [[NSDate alloc] init];
+    }
+    
+    if (![self.textChatComponent.senders objectForKey: message.senderId]){
+        [self.textChatComponent.senders setObject: message.senderAlias forKey: message.senderId];
+        [self setTitleToTopBar: self.textChatComponent.senders];
+    }
+    
+    [self pushBackMessage:message];
+    
+    if (self.isAnchoredToBottom) {
+        [self anchorToBottomAnimated:YES];
+    } else {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.messageBanner.alpha = 1.0f;
+        }];
+    }
+    return YES;
+}
+
+- (void)setSenderId:(NSString *)senderId alias:(NSString *)alias {
+    self.textChatComponent.senderId = senderId;
+    self.textChatComponent.alias = [alias length] > 0 ? alias : @"";
+    if (!self.textChatComponent.senders[self.textChatComponent.senderId]) {
+        self.textChatComponent.senders[self.textChatComponent.senderId] = self.textChatComponent.alias;
+    }
+}
+
+#pragma mark Implementation
+
+- (void)pushBackMessage:(TextChat *)message {
+    if ([self.textChatComponent.messages count] > 0) {
+        TextChat *prev = [self.textChatComponent.messages objectAtIndex:[self.textChatComponent.messages count] -1];
+        
+        if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN &&
+            [prev.senderId isEqualToString:message.senderId]) {
+            if (message.type == TCMessageTypesReceived) {
+                message.type = TCMessageTypesReceivedShort;
+            } else {
+                message.type = TCMessageTypesSentShort;
+            }
+        } else {
+            TextChat *div = [[TextChat alloc] init];
+            div.type = TCMessageTypesDivider;
+            [self.textChatComponent.messages addObject:div];
+        }
+    }
+    
+    [self.textChatComponent.messages addObject:message];
+    
+    [self.tableView reloadData];
+}
+
+- (IBAction)onSendButton:(id)sender {
+    if ([self.textField.text length] > 0) {
+        TextChat *msg = [[TextChat alloc] init];
+        msg.senderAlias = self.textChatComponent.alias;
+        msg.senderId = self.textChatComponent.senderId;
+        msg.text = self.textField.text;
+        msg.type = TCMessageTypesSent;
+        msg.dateTime = [[NSDate alloc] init];
+        
+        if([self.delegate onMessageReadyToSend:msg]) {
+            
+            [self pushBackMessage:msg];
+            
+            [self anchorToBottomAnimated:YES];
+            [UIView animateWithDuration:0.5 animations:^{
+                self.messageBanner.alpha = 0.0f;
+            }];
+            
+            self.textField.text = nil;
+        } else {
+            // Show error message
+            self.errorMessage.alpha = 0.0f;
+            [UIView animateWithDuration:0.5 animations:^{
+                self.errorMessage.alpha = 1.0f;
+            }];
+            
+            [UIView animateWithDuration:0.5
+                                  delay:4
+                                options:UIViewAnimationOptionTransitionNone
+                             animations:^{
+                                 self.errorMessage.alpha = 0.0f;
+                             } completion:nil];
+            
+        }
+    }
+}
+
+- (IBAction)onNewMessageButton:(id)sender {
+    [self anchorToBottomAnimated:YES];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.messageBanner.alpha = 0.0f;
+    }];
+}
+
+-(void) setTitleToTopBar: (NSMutableDictionary *)title {
+    if (title == nil) {
+        self.textChatTopViewTitle.text = @"";
+        return;
+    }
+    NSMutableString *real_title = [NSMutableString string];
+    for(NSString *key in title) {
+        if ([real_title length] > 0) {
+            [real_title appendFormat:@"%@, ", title[key]];
+        } else {
+            real_title = title[key];
+        }
+    }
+    self.textChatTopViewTitle.text = real_title;
 }
 @end

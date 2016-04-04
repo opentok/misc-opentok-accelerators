@@ -6,12 +6,7 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextChatViewController">
-            <connections>
-                <outlet property="textChatView" destination="iN0-l3-epB" id="JZl-Pr-f2s"/>
-                <outlet property="view" destination="iN0-l3-epB" id="6eZ-SU-soW"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextChatViewController"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="TextChat Component View" customClass="TextChatView">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -24,9 +19,6 @@
                             <rect key="frame" x="8" y="10" width="480" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="Tep-Vg-Mhi"/>
-                            </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcY-dh-e4I">
                             <rect key="frame" x="496" y="8" width="96" height="34"/>
@@ -39,7 +31,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="4"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="onSendButton:" destination="-1" eventType="touchUpInside" id="Hno-I2-VW8"/>
+                                <action selector="onSendButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="w1u-WW-50z"/>
                             </connections>
                         </button>
                     </subviews>
@@ -110,7 +102,7 @@
                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
-                        <action selector="onNewMessageButton:" destination="-1" eventType="touchUpInside" id="Ax1-B7-d7Q"/>
+                        <action selector="onNewMessageButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="Qnw-A9-XyJ"/>
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sda-ij-nTc" userLabel="Error Message">
@@ -125,16 +117,12 @@
                         <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="onSendButton:" destination="-1" eventType="touchUpInside" id="Wnw-Cc-HhN"/>
+                        <action selector="onSendButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="MqG-7Q-TCW"/>
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vkl-Dd-Rd9">
                     <rect key="frame" x="0.0" y="44" width="600" height="506"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="83H-gj-oCB"/>
-                        <outlet property="delegate" destination="-1" id="18N-d4-bsl"/>
-                    </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.078431372549019607" green="0.20784313725490197" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
@@ -171,7 +159,7 @@
                 <outlet property="textChatTopViewTitle" destination="rt0-vx-EzT" id="7oR-41-IzR"/>
                 <outlet property="textField" destination="lMY-oW-XdU" id="hvS-7D-6bc"/>
             </connections>
-            <point key="canvasLocation" x="281" y="368"/>
+            <point key="canvasLocation" x="-70" y="314"/>
         </view>
     </objects>
     <resources>

@@ -11,7 +11,7 @@
 
 @interface ViewController : UIViewController <TextChatComponentDelegate>
 
-@property (strong) TextChatComponent *textChat;
+//@property (strong) TextChatComponent *textChat;
 @property (strong, nonatomic) IBOutlet UILabel *connectingLabel;
 
 @end

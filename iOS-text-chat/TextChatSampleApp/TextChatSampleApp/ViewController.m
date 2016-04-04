@@ -8,9 +8,10 @@
 
 #import "ViewController.h"
 #import <OpenTok/OpenTok.h>
+#import "TextChatView.h"
 
 @interface ViewController ()<OTSessionDelegate>
-
+@property (strong, nonatomic) TextChatView *textChatView;
 @end
 
 // ===============================================================================================//
@@ -96,7 +97,7 @@ static NSString* const kTextChatType = @"TextChat";
     CGRect r = self.view.bounds;
     r.origin.y += 20;
     r.size.height -= 20 + kbSize.height;
-    _textChat.view.frame = r;
+    self.textChatView.frame = r;
   }];
 }
 
@@ -108,7 +109,7 @@ static NSString* const kTextChatType = @"TextChat";
     CGRect r = self.view.bounds;
     r.origin.y += 20;
     r.size.height -= 20;
-    _textChat.view.frame = r;
+    self.textChatView.frame = r;
 
   }];
 }
@@ -129,30 +130,29 @@ static NSString* const kTextChatType = @"TextChat";
 - (void)sessionDidConnect:(OTSession*)session {
 
   // When we've connected to the session, we can create the chat component.
-  _textChat = [[TextChatComponent alloc] init];
+    self.textChatView = [TextChatView textChatView];
+//  _textChat = [[TextChatComponent alloc] init];
 
-  _textChat.delegate = self;
-
-  [_textChat setMaxLength:1050];
-  [_textChat setSenderId:session.connection.connectionId alias:session.connection.data];
+  self.textChatView.delegate = self;
+  [self.textChatView setSenderId:session.connection.connectionId alias:session.connection.data];
 
   CGRect r = self.view.bounds;
   r.origin.y += 20;
   r.size.height -= 20;
-  [_textChat.view setFrame:r];
-  [self.view addSubview:_textChat.view];
+  [self.textChatView setFrame:r];
+  [self.view addSubview:self.textChatView];
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
   // fade in
-  _textChat.view.alpha = 0;
+  self.textChatView.alpha = 0;
 
   [UIView animateWithDuration:0.5 animations:^() {
     _connectingLabel.alpha = 0;
-    _textChat.view.alpha = 1;
+    self.textChatView.alpha = 1;
   }];
-  [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: ([session.connection.data length] > 0 ? session.connection.data : @"")}]];
+  [self.textChatView setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: ([session.connection.data length] > 0 ? session.connection.data : @"")}]];
 }
 
 - (void)sessionDidDisconnect:(OTSession*)session {
@@ -185,8 +185,8 @@ static NSString* const kTextChatType = @"TextChat";
     msg.senderAlias = [connection.data length] > 0 ? connection.data : @"";
     msg.senderId = connection.connectionId;
     msg.text = string;
-    [self.textChat addMessage:msg];
-    [_textChat setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{msg.senderId: msg.senderAlias}]];
+    [self.textChatView addMessage:msg];
+    [self.textChatView setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{msg.senderId: msg.senderAlias}]];
   }
 }
 
