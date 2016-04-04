@@ -29,21 +29,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-// top view
-@property (weak, nonatomic) IBOutlet UIView *textChatTopView;
-@property (weak, nonatomic) IBOutlet UILabel *textChatTopViewTitle;
-@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
-
-// input view
-@property (weak, nonatomic) IBOutlet UIView *textChatInputView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet UIButton *sendButton;
-
-// other UIs
-@property (weak, nonatomic) IBOutlet UIButton *errorMessage;
-@property (weak, nonatomic) IBOutlet UIButton *messageBanner;
-
 -(void)disableAnchorToBottom;
 
 -(void)anchorToBottom;
@@ -53,18 +38,6 @@
 -(BOOL)isAnchoredToBottom;
 
 -(BOOL)isAtBottom;
-
-
-#warning temp
-/**
- * The view containing the TextChatComponent user interface.
- */
-//@property (nonatomic, strong) UIView * view;
-
-/**
- * Set to the delegate object that receives events for this TextChatComponent.
- */
-@property (nonatomic, weak) id<TextChatComponentDelegate> delegate;
 
 /**
  * Add a message to the TextChatListener received message list.

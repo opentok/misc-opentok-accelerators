@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <TextChatKit/TextChatKit.h>
 
-@interface ViewController : UIViewController <TextChatComponentDelegate>
+@interface ViewController : UIViewController
 
 //@property (strong) TextChatComponent *textChat;
 @property (strong, nonatomic) IBOutlet UILabel *connectingLabel;

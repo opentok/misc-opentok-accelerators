@@ -8,16 +8,17 @@
 
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
 #import "TextChat.h"
+#import "TextChatView.h"
 
+typedef void (^TextChatBlock)(NSError *error);
 
-@interface TextChatComponent : NSObject <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
-
-@property (nonatomic, strong) NSMutableArray *messages;
+@interface TextChatComponent : NSObject
+@property (strong, nonatomic) NSMutableArray<TextChat *> *messages;
 @property (strong, nonatomic) NSMutableDictionary *senders;
 @property (strong, nonatomic) NSString *senderId;
 @property (strong, nonatomic) NSString *alias;
-
+- (void)connectWithHandler:(TextChatBlock)handler;
+- (NSError *)sendMessage:(TextChat *)message;
 @end
