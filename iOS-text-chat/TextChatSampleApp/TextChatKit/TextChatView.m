@@ -65,8 +65,8 @@
     minimized = NO;
   } else {
     [sender setImage:maximize_image forState:UIControlStateNormal];
-    r.origin.y = (self.superview.bounds.size.height - _topNavBar.layer.bounds.size.height);
-    r.size.height = _topNavBar.layer.bounds.size.height;
+    r.origin.y = (self.superview.bounds.size.height - _textChatTopView.layer.bounds.size.height);
+    r.size.height = _textChatTopView.layer.bounds.size.height;
     minimized = YES;
   }
   self.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height);
@@ -74,7 +74,7 @@
 
 - (IBAction)closeButton:(UIButton *)sender {
   // to reset the minimize button that can be on a different state when close button is hit
-  [self.minimizeView setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
+  [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
   minimized = NO;
   [self removeFromSuperview];
 }

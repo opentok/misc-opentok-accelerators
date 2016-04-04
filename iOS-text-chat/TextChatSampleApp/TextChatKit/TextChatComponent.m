@@ -295,7 +295,7 @@
 
 -(void) setTitleToTopBar: (NSMutableDictionary *)title {
   if (title == nil) {
-    _textChatView.topNavBarTitle.text = @"";
+    _textChatView.textChatTopViewTitle.text = @"";
     return;
   }
   NSMutableString *real_title = [NSMutableString string];
@@ -306,7 +306,7 @@
       real_title = title[key];
     }
   }
-  _textChatView.topNavBarTitle.text = real_title;
+  _textChatView.textChatTopViewTitle.text = real_title;
 }
 
 @end

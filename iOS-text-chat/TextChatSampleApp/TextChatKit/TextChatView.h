@@ -10,16 +10,23 @@
 
 @interface TextChatView : UIView
 
-@property (nonatomic, weak) IBOutlet UITextField *textField;
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UIButton *errorMessage;
-@property (nonatomic, weak) IBOutlet UIButton *messageBanner;
 
-@property (weak, nonatomic) IBOutlet UIView *topNavBar;
-@property (weak, nonatomic) IBOutlet UILabel *topNavBarTitle;
-@property (weak, nonatomic) IBOutlet UIButton *minimizeView;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+
+// top view
+@property (weak, nonatomic) IBOutlet UIView *textChatTopView;
+@property (weak, nonatomic) IBOutlet UILabel *textChatTopViewTitle;
+@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
+// input view
+@property (weak, nonatomic) IBOutlet UIView *textChatInputView;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
+
+// other UIs
+@property (weak, nonatomic) IBOutlet UIButton *errorMessage;
+@property (weak, nonatomic) IBOutlet UIButton *messageBanner;
 
 -(void)disableAnchorToBottom;
 
