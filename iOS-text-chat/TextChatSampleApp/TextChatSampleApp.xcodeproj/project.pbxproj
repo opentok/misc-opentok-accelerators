@@ -173,7 +173,6 @@
 		A022991F1CAC9B2B00585F66 /* TextChatKit */ = {
 			isa = PBXGroup;
 			children = (
-				A022992B1CAC9B3E00585F66 /* Info.plist */,
 				A022992C1CAC9B3E00585F66 /* TextChatKit.h */,
 				A02299DB1CAEEEA000585F66 /* TextChat.h */,
 				A02299DC1CAEEEA000585F66 /* TextChat.m */,
@@ -190,6 +189,7 @@
 				A022993F1CAC9B5300585F66 /* TextChatSentShortTableViewCell.xib */,
 				A02299401CAC9B5300585F66 /* TextChatSentTableViewCell.xib */,
 				A02299471CAC9B5700585F66 /* Assets.xcassets */,
+				A022992B1CAC9B3E00585F66 /* Info.plist */,
 			);
 			path = TextChatKit;
 			sourceTree = "<group>";

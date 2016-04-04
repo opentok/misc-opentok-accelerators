@@ -1,6 +1,6 @@
 platform :ios, '9.0'
 inhibit_all_warnings!
 
-target 'TextChatSampleApp' do 
+target 'TextChatKit' do
   pod 'OpenTok'
 end

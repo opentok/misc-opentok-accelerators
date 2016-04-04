@@ -14,6 +14,21 @@
 
 @interface TextChatView() <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) TextChatComponent *textChatComponent;
+
+// top view
+@property (weak, nonatomic) IBOutlet UIView *textChatTopView;
+@property (weak, nonatomic) IBOutlet UILabel *textChatTopViewTitle;
+@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+
+// input view
+@property (weak, nonatomic) IBOutlet UIView *textChatInputView;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
+
+// other UIs
+@property (weak, nonatomic) IBOutlet UIButton *errorMessage;
+@property (weak, nonatomic) IBOutlet UIButton *messageBanner;
 @end
 
 @implementation TextChatView {
@@ -21,19 +36,8 @@
   BOOL minimized;
 }
 
-//- (instancetype)init {
-//    if (self = [super init])  {
-//        self.textChatComponent.messages = [[NSMutableArray alloc] init];
-//        UINib *viewNIB = [UINib nibWithNibName:@"TextChatView" bundle:[NSBundle mainBundle]];
-//        [viewNIB instantiateWithOwner:self options:nil];
-//    }
-//    return self;
-//}
-
 + (instancetype)textChatView {
-    TextChatView *textChatView = (TextChatView *)[[[NSBundle mainBundle] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
-    textChatView.textChatComponent = [[TextChatComponent alloc] init];
-    return textChatView;
+    return (TextChatView *)[[[NSBundle mainBundle] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
 }
 
 - (void)awakeFromNib {
@@ -42,6 +46,7 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.textField.delegate = self;
+    self.textChatComponent = [[TextChatComponent alloc] init];
     [self anchorToBottom];
     
     // work on instantiation and port it to sample app, done
@@ -67,6 +72,12 @@
          forCellReuseIdentifier:@"Divider"];
 }
 
+- (void)didMoveToSuperview {
+    [self.textChatComponent connectWithHandler:^(NSError *error) {
+        
+        
+    }];
+}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
   [_textField resignFirstResponder];
@@ -314,7 +325,7 @@
         msg.type = TCMessageTypesSent;
         msg.dateTime = [[NSDate alloc] init];
         
-        if([self.delegate onMessageReadyToSend:msg]) {
+        if(![self.textChatComponent sendMessage:msg]) {
             
             [self pushBackMessage:msg];
             
