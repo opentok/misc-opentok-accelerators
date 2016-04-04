@@ -61,9 +61,6 @@
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 20)];
     _textChatView.textField.leftView = paddingView;
     _textChatView.textField.leftViewMode = UITextFieldViewModeAlways;
-    
-    [self updateCounter:maxLength];
-    
   }
   return self;
 }
@@ -180,7 +177,6 @@
   if (textLength > maxLength) {
     return NO;
   } else {
-    [self updateCounter:maxLength - textLength];
     return YES;
   }
 }
@@ -218,7 +214,6 @@
 
 - (void)setMaxLength:(int) length {
   maxLength = length;
-  [self updateCounter:maxLength - (int)[_textChatView.textField.text length]];
 }
 
 - (void)setSenderId:(NSString *)senderId alias:(NSString *)alias {
@@ -273,7 +268,6 @@
       }];
       
       _textChatView.textField.text = nil;
-      [self updateCounter:maxLength];
     } else {
       // Show error message
       _textChatView.errorMessage.alpha = 0.0f;
@@ -297,16 +291,6 @@
   [UIView animateWithDuration:0.5 animations:^{
     _textChatView.messageBanner.alpha = 0.0f;
   }];
-}
-
-- (void)updateCounter:(int)count {
-  _textChatView.countLabel.text = [NSString stringWithFormat:@"%d Characters left", count];
-  
-  if (count <= 10) {
-    [_textChatView.countLabel setTextColor:[UIColor redColor]];
-  } else {
-    [_textChatView.countLabel setTextColor:[UIColor colorWithWhite:1 alpha:1]];
-  }
 }
 
 -(void) setTitleToTopBar: (NSMutableDictionary *)title {

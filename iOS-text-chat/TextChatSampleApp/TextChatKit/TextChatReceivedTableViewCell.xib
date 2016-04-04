@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -35,14 +35,6 @@
                             <constraint firstAttribute="width" constant="50" id="zZt-QW-8D3"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WT6-Jr-DsS" userLabel="cornetUpleft">
-                        <rect key="frame" x="66" y="32" width="30" height="30"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="WT6-Jr-DsS" secondAttribute="height" multiplier="1:1" id="JSQ-14-zy6"/>
-                            <constraint firstAttribute="width" constant="30" id="Rj8-Rl-Qhp"/>
-                        </constraints>
-                    </view>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbu-Kn-Zb6" userLabel="Message">
                         <rect key="frame" x="96" y="32" width="256" height="239.5"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,17 +49,25 @@
                         <color key="textColor" red="0.64313725489999995" green="0.64313725489999995" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WT6-Jr-DsS" userLabel="cornetUpleft">
+                        <rect key="frame" x="71" y="32" width="30" height="30"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="WT6-Jr-DsS" secondAttribute="height" multiplier="1:1" id="JSQ-14-zy6"/>
+                            <constraint firstAttribute="width" constant="30" id="Rj8-Rl-Qhp"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="F2U-h0-jFC" firstAttribute="top" secondItem="wtI-Gu-ipU" secondAttribute="bottom" constant="8" id="3Ob-T6-uXy"/>
                     <constraint firstAttribute="trailing" secondItem="hbu-Kn-Zb6" secondAttribute="trailing" constant="8" id="4PE-0D-f6p"/>
                     <constraint firstAttribute="bottom" secondItem="hbu-Kn-Zb6" secondAttribute="bottom" constant="8" id="Afg-i2-yVs"/>
                     <constraint firstItem="F2U-h0-jFC" firstAttribute="leading" secondItem="9d6-74-pns" secondAttribute="leading" constant="8" id="PRj-9U-Rbq"/>
-                    <constraint firstItem="WT6-Jr-DsS" firstAttribute="leading" secondItem="F2U-h0-jFC" secondAttribute="trailing" constant="8" id="VsD-yb-yvv"/>
+                    <constraint firstItem="WT6-Jr-DsS" firstAttribute="leading" secondItem="F2U-h0-jFC" secondAttribute="trailing" constant="13" id="VsD-yb-yvv"/>
                     <constraint firstAttribute="trailing" secondItem="wtI-Gu-ipU" secondAttribute="trailing" constant="8" id="g1e-X3-EiG"/>
                     <constraint firstItem="wtI-Gu-ipU" firstAttribute="top" secondItem="9d6-74-pns" secondAttribute="top" constant="8" id="gIk-Kt-b8x"/>
                     <constraint firstItem="WT6-Jr-DsS" firstAttribute="top" secondItem="F2U-h0-jFC" secondAttribute="top" id="mfW-e4-zaY"/>
-                    <constraint firstItem="hbu-Kn-Zb6" firstAttribute="leading" secondItem="WT6-Jr-DsS" secondAttribute="trailing" id="n39-SD-Slx"/>
+                    <constraint firstItem="hbu-Kn-Zb6" firstAttribute="leading" secondItem="WT6-Jr-DsS" secondAttribute="trailing" constant="-5" id="n39-SD-Slx"/>
                     <constraint firstItem="hbu-Kn-Zb6" firstAttribute="top" secondItem="wtI-Gu-ipU" secondAttribute="bottom" constant="8" id="vqY-Kc-CFU"/>
                 </constraints>
             </tableViewCellContentView>
