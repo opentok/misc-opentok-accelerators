@@ -78,7 +78,7 @@ var Sample = (function () {
   var _subscribeToStream = function (stream) {
     var self = this;
     var handler = this.onError;
-    if (stream.videoType == "screen") {
+    if (stream.videoType === "screen") {
       var options = self.options.localScreenProperties
     } else {
       var options = self.options.localCallProperties
@@ -159,7 +159,7 @@ var Sample = (function () {
     var index = self.options.subscribers.indexOf(event.stream);
     self.options.subscribers.splice(index, 1);
 
-    if (streamDestroyedType == 'camera') {
+    if (streamDestroyedType === 'camera') {
 
       this.subscriber = null; //to review
       self._remoteParticipant = null;
@@ -187,7 +187,7 @@ var Sample = (function () {
   var _handleLocalPropertyChanged = function (event) {
     console.log('Local property changed');
     var handler = this.onEnableLocalMedia;
-    if (event.changedProperty == 'hasAudio') {
+    if (event.changedProperty === 'hasAudio') {
       var eventData = {
         property: 'Audio',
         enabled: event.newValue
@@ -221,7 +221,7 @@ var Sample = (function () {
   //textChat Events and functions
 
   var _shouldAppendMessage = function (data) {
-    return this.lastMessage && this.lastMessage.user.id == data.user.id && moment(this.lastMessage.sentOn).fromNow() == moment(data.sentOn).fromNow();
+    return this.lastMessage && this.lastMessage.user.id === data.user.id && moment(this.lastMessage.sentOn).fromNow() === moment(data.sentOn).fromNow();
   };
 
   var _sendTxtMessage = function (text) {
@@ -321,7 +321,7 @@ var Sample = (function () {
   };
   var _renderChatMessage = function (user, message, sentOn) {
     var self = this;
-    var sent_by_class = user.id == self.options.user.id ? 'wms-message-item wms-message-sent' : 'wms-message-item';
+    var sent_by_class = user.id === self.options.user.id ? 'wms-message-item wms-message-sent' : 'wms-message-item';
 
     var view = this._textChat.getBubbleHtml({
       username: user.name,
@@ -388,7 +388,7 @@ var Sample = (function () {
       });
 
       this.publisher.session.on('streamPropertyChanged', function (event) {
-        if (self.publisher.stream == event.stream)
+        if (self.publisher.stream === event.stream)
           self._handleLocalPropertyChanged(event)
       }); //to handle audio/video changes
 

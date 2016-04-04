@@ -1,7 +1,7 @@
 var app = (function() {
 
     // Sample component
-    var _sample;
+    var _communication;
 
     var _options = {
         apiKey: '100',
@@ -25,7 +25,7 @@ var app = (function() {
         }
     };
 
-    var _sampleElements = {
+    var _communicationElements = {
         startEndCall: document.getElementById('callActive'),
         localVideo: document.getElementById('videoHolderSmall'),
         remoteVideo: document.getElementById('videoHolderBig'),
@@ -38,7 +38,7 @@ var app = (function() {
         textChatDiv: document.getElementById('chat-container')
     };
 
-    var _sampleProperties = {
+    var _communicationProperties = {
         callActive: false,
         remoteParticipant: false,
         enableLocalAudio: true,
@@ -81,22 +81,22 @@ var app = (function() {
 
         if (type === 'start' || type === 'joined') {
 
-            _toggleClass(_sampleElements.localVideo, 'secondary-video');
-            _toggleClass(_sampleElements.localVideo, 'primary-video');
-            _toggleClass(_sampleElements.remoteVideo, 'secondary-video');
-            _toggleClass(_sampleElements.remoteVideo, 'primary-video');
+            _toggleClass(_communicationElements.localVideo, 'secondary-video');
+            _toggleClass(_communicationElements.localVideo, 'primary-video');
+            _toggleClass(_communicationElements.remoteVideo, 'secondary-video');
+            _toggleClass(_communicationElements.remoteVideo, 'primary-video');
 
-            _show(_sampleElements.remoteControls);
+            _show(_communicationElements.remoteControls);
 
 
         } else if (type === 'end' || type === 'left') {
 
-            _toggleClass(_sampleElements.remoteVideo, 'secondary-video');
-            _toggleClass(_sampleElements.remoteVideo, 'primary-video');
-            _toggleClass(_sampleElements.localVideo, 'secondary-video');
-            _toggleClass(_sampleElements.localVideo, 'primary-video');
+            _toggleClass(_communicationElements.remoteVideo, 'secondary-video');
+            _toggleClass(_communicationElements.remoteVideo, 'primary-video');
+            _toggleClass(_communicationElements.localVideo, 'secondary-video');
+            _toggleClass(_communicationElements.localVideo, 'primary-video');
 
-            _hide(_sampleElements.remoteControls);
+            _hide(_communicationElements.remoteControls);
 
         }
 
@@ -105,37 +105,37 @@ var app = (function() {
     // Toggle local or remote audio/video
     var _toggleMediaProperties = function(type) {
 
-        _sampleProperties[type] = !_sampleProperties[type];
+        _communicationProperties[type] = !_communicationProperties[type];
 
-        _sample[type](_sampleProperties[type]);
+        _communication[type](_communicationProperties[type]);
 
-        _updateClassList(_sampleElements[type], 'disabled', !_sampleProperties[type]);
+        _updateClassList(_communicationElements[type], 'disabled', !_communicationProperties[type]);
 
     };
 
     var _addEventListeners = function() {
 
         // Call events
-        _sample.onParticipantJoined = function(event) {
+        _communication.onParticipantJoined = function(event) {
 
             // Not doing anything with the event
-            _sampleProperties.remoteParticipant = true;
-            _sampleProperties.callActive && _swapVideoPositions('joined');
+            _communicationProperties.remoteParticipant = true;
+            _communicationProperties.callActive && _swapVideoPositions('joined');
 
         };
 
-        _sample.onParticipantLeft = function(event) {
+        _communication.onParticipantLeft = function(event) {
             // Not doing anything with the event  
-            _sampleProperties.remoteParticipant = false;
-            _sampleProperties.callActive && _swapVideoPositions('left');
+            _communicationProperties.remoteParticipant = false;
+            _communicationProperties.callActive && _swapVideoPositions('left');
 
         };
 
         // Start or end call
-        _sampleElements.startEndCall.onclick = _connectCall;
+        _communicationElements.startEndCall.onclick = _connectCall;
 
         // Start or end text chat
-        _sampleElements.enableTextChat.onclick = _connectTextChat;
+        _communicationElements.enableTextChat.onclick = _connectTextChat;
 
         // Click events for enabling/disabling audio/video
         var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
@@ -150,64 +150,64 @@ var app = (function() {
     var _startCall = function() {
 
         // Start call
-        _sample.start();
-        _sampleProperties.callActive = true;
+        _communication.start();
+        _communicationProperties.callActive = true;
 
 
         // Update UI
-        [_sampleElements.startEndCall, _sampleElements.localVideo].forEach(function(element) {
+        [_communicationElements.startEndCall, _communicationElements.localVideo].forEach(function(element) {
             _updateClassList(element, 'active', true);
         });
 
-        _show(_sampleElements.enableLocalAudio, _sampleElements.enableLocalVideo, _sampleElements.enableTextChat);
+        _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.enableTextChat);
 
-        _sampleProperties.remoteParticipant && _swapVideoPositions('start');
+        _communicationProperties.remoteParticipant && _swapVideoPositions('start');
     };
 
     var _endCall = function() {
 
         // End call
-        _sample.end();
-        _sampleProperties.callActive = false;
+        _communication.end();
+        _communicationProperties.callActive = false;
 
         // Update UI    
-        _toggleClass(_sampleElements.startEndCall, 'active');
+        _toggleClass(_communicationElements.startEndCall, 'active');
 
-        _hide(_sampleElements.enableLocalAudio, _sampleElements.enableLocalVideo);
+        _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo);
 
-        !!(_sampleProperties.callActive || _sampleProperties.remoteParticipant) && _swapVideoPositions('end');
+        !!(_communicationProperties.callActive || _communicationProperties.remoteParticipant) && _swapVideoPositions('end');
     };
 
     var _startTextChat = function() {
 
         // Start call
-        _sample.startTextChat();
-        _sampleProperties.enableTextChat = true;
-        _sampleProperties.displayTextChat = true;
+        _communication.startTextChat();
+        _communicationProperties.enableTextChat = true;
+        _communicationProperties.displayTextChat = true;
 
         // Update UI
-        _updateClassList(_sampleElements.enableTextChat, 'active', true);
+        _updateClassList(_communicationElements.enableTextChat, 'active', true);
     };
 
     var _showTextChat = function(){
-        _sampleElements.textChatDiv.classList.remove('hidden');
-        _sampleProperties.displayTextChat = true;
+        _communicationElements.textChatDiv.classList.remove('hidden');
+        _communicationProperties.displayTextChat = true;
     };
 
     var _hideTextChat = function() {
-        _sampleElements.textChatDiv.classList.add('hidden');
-        _sampleProperties.displayTextChat = false;
+        _communicationElements.textChatDiv.classList.add('hidden');
+        _communicationProperties.displayTextChat = false;
     };
 
     var _connectCall = function() {
 
-        !_sampleProperties.callActive ? _startCall() : _endCall();
+        !_communicationProperties.callActive ? _startCall() : _endCall();
 
     };
 
     var _connectTextChat = function() {
-        if(_sampleProperties.enableTextChat){
-            if(_sampleProperties.displayTextChat)
+        if(_communicationProperties.enableTextChat){
+            if(_communicationProperties.displayTextChat)
                 _hideTextChat();
             else
                 _showTextChat();
@@ -227,7 +227,7 @@ var app = (function() {
             if (error) {
                 console.log('Session failed to connect');
             } else {
-                _sample = new Sample(_options);
+                _communication = new Sample(_options);
                 _addEventListeners();
             }
         });
