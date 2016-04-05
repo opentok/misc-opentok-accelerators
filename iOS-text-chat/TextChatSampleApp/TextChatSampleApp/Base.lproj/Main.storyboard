@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lba-EX-1uV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lba-EX-1uV">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -20,7 +21,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8Q-gs-Apy" userLabel="connectingLabel">
                                 <rect key="frame" x="220" y="289" width="160" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="YQK-sO-ZWc"/>
+                                    <constraint firstAttribute="width" secondItem="s8Q-gs-Apy" secondAttribute="height" multiplier="160:21" id="C94-1Y-Dlb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -29,9 +30,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="s8Q-gs-Apy" firstAttribute="centerX" secondItem="pzI-lV-Sxu" secondAttribute="centerX" id="4ua-QK-iE7"/>
-                            <constraint firstItem="s8Q-gs-Apy" firstAttribute="top" secondItem="nox-N3-gHq" secondAttribute="bottom" constant="269" id="PmO-Lj-O4s"/>
-                            <constraint firstItem="s8Q-gs-Apy" firstAttribute="centerY" secondItem="pzI-lV-Sxu" secondAttribute="centerY" id="Vsb-j2-tT2"/>
+                            <constraint firstItem="s8Q-gs-Apy" firstAttribute="centerX" secondItem="pzI-lV-Sxu" secondAttribute="centerX" id="SwR-Go-Ihu"/>
+                            <constraint firstItem="s8Q-gs-Apy" firstAttribute="centerY" secondItem="pzI-lV-Sxu" secondAttribute="centerY" id="qzi-Q6-3q3"/>
                         </constraints>
                     </view>
                     <connections>
