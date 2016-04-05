@@ -303,7 +303,7 @@
 - (void)pushBackMessage:(TextChat *)message {
     if ([self.textChatComponent.messages count] > 0) {
         TextChat *prev = [self.textChatComponent.messages objectAtIndex:[self.textChatComponent.messages count] - 1];
-        if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN && [prev.senderId isEqualToString:message.senderId]) {
+        if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN && prev.senderId == message.senderId) {
             if (message.type == TCMessageTypesReceived) {
                 message.type = TCMessageTypesReceivedShort;
             } else {
