@@ -6,13 +6,12 @@
 //  Copyright © 2016 AgilityFeat. All rights reserved.
 //
 
+#import "TextChat.h"
 #import "TextChatView.h"
 #import "TextChatTableViewCell.h"
 #import "TextChatComponent.h"
 
-#define DEFAULT_TTextChatE_SPAN 120
-
-@interface TextChatView() <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface TextChatView() <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, TextChatComponentDelegate>
 @property (strong, nonatomic) TextChatComponent *textChatComponent;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -32,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *errorMessage;
 @property (weak, nonatomic) IBOutlet UIButton *messageBanner;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *TextChatInputViewHeightConstrain;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *TextChatInputViewHeightConstrain;
 
 @end
 
@@ -52,6 +51,7 @@
     self.tableView.delegate = self;
     self.textField.delegate = self;
     self.textChatComponent = [[TextChatComponent alloc] init];
+    self.textChatComponent.delegate = self;
     
     [self anchorToBottom];
     
@@ -79,10 +79,7 @@
 }
 
 - (void)didMoveToSuperview {
-    [self.textChatComponent connectWithHandler:^(NSError *error) {
-        
-        
-    }];
+    [self.textChatComponent connect];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -133,13 +130,13 @@
     r.origin.y = rect;
     r.size.height = self.superview.bounds.size.height - rect;
     minimized = NO;
-    _TextChatInputViewHeightConstrain.constant = 50;
+//    _TextChatInputViewHeightConstrain.constant = 50;
   } else {
     [sender setImage:maximize_image forState:UIControlStateNormal];
     r.origin.y = (self.superview.bounds.size.height - _textChatTopView.layer.bounds.size.height);
     r.size.height = _textChatTopView.layer.bounds.size.height;
     minimized = YES;
-    _TextChatInputViewHeightConstrain.constant = 0;
+//    _TextChatInputViewHeightConstrain.constant = 0;
     
   }
 
@@ -153,7 +150,7 @@
   [self removeFromSuperview];
 }
 
-#pragma mark UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.textChatComponent.messages count] > 0 ? [self.textChatComponent.messages count] + 1 : 0;
@@ -211,7 +208,7 @@
     return cell;
 }
 
-#pragma mark UITableViewDelegate
+#pragma mark - UITableViewDelegate
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.textField resignFirstResponder];
@@ -257,104 +254,57 @@
     }
 }
 
-#pragma mark UITextFieldDelegate
+#pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self onSendButton:textField];
     return NO;
 }
 
-#pragma mark Public API
+#pragma mark - TextChatComponentDelegate
+- (void)didConnectWithError:(NSError *)error {
+    
+    [self refreshTitleBar];
+}
 
-- (BOOL)addMessage:(TextChat *)message {
-    
-    message.type = TCMessageTypesReceived;
-    if (!message.dateTime) {
-        message.dateTime = [[NSDate alloc] init];
-    }
-    
-    if (![self.textChatComponent.senders objectForKey: message.senderId]){
-        [self.textChatComponent.senders setObject: message.senderAlias forKey: message.senderId];
-        [self setTitleToTopBar: self.textChatComponent.senders];
-    }
-    
-    [self pushBackMessage:message];
-    
-    if (self.isAtBottom) {
+- (void)didAddMessageWithError:(NSError *)error {
+    if(!error) {
+        
+        [self refreshTitleBar];
+        [self.tableView reloadData];
+        
         [self anchorToBottomAnimated:YES];
-    } else {
         [UIView animateWithDuration:0.5 animations:^{
-            self.messageBanner.alpha = 1.0f;
+            self.messageBanner.alpha = 0.0f;
         }];
+        
+        self.textField.text = nil;
+    } else {
+        
+        self.errorMessage.alpha = 0.0f;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.errorMessage.alpha = 1.0f;
+        }];
+        
+        [UIView animateWithDuration:0.5
+                              delay:4
+                            options:UIViewAnimationOptionTransitionNone
+                         animations:^{
+                             self.errorMessage.alpha = 0.0f;
+                         }
+                         completion:nil];
     }
-    return YES;
 }
 
-- (void)setSenderId:(NSString *)senderId alias:(NSString *)alias {
-    self.textChatComponent.senderId = senderId;
-    self.textChatComponent.alias = [alias length] > 0 ? alias : @"";
-    if (!self.textChatComponent.senders[self.textChatComponent.senderId]) {
-        self.textChatComponent.senders[self.textChatComponent.senderId] = self.textChatComponent.alias;
-    }
-}
-
-#pragma mark Implementation
-
-- (void)pushBackMessage:(TextChat *)message {
-    if ([self.textChatComponent.messages count] > 0) {
-        TextChat *prev = [self.textChatComponent.messages objectAtIndex:[self.textChatComponent.messages count] - 1];
-        if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN && [prev.senderId isEqualToString:message.senderId]) {
-            if (message.type == TCMessageTypesReceived) {
-                message.type = TCMessageTypesReceivedShort;
-            } else {
-                message.type = TCMessageTypesSentShort;
-            }
-        } else {
-            TextChat *div = [[TextChat alloc] init];
-            div.type = TCMessageTypesDivider;
-            [self.textChatComponent.messages addObject:div];
-        }
-    }
-    
-    [self.textChatComponent.messages addObject:message];
-    
+- (void)didReceiveMessage {
     [self.tableView reloadData];
 }
 
+#pragma mark - IBActions
+
 - (IBAction)onSendButton:(id)sender {
     if ([self.textField.text length] > 0) {
-        TextChat *msg = [[TextChat alloc] init];
-        msg.senderAlias = [self.textChatComponent.alias length]> 0 ? self.textChatComponent.alias : @"";
-        msg.senderId = [self.textChatComponent.senderId length] > 0 ? self.textChatComponent.senderId : @"";
-        msg.text = self.textField.text;
-        msg.type = TCMessageTypesSent;
-        msg.dateTime = [[NSDate alloc] init];
-
-        if(![self.textChatComponent sendMessage:msg]) {
-            
-            [self pushBackMessage:msg];
-            
-            [self anchorToBottomAnimated:YES];
-            [UIView animateWithDuration:0.5 animations:^{
-                self.messageBanner.alpha = 0.0f;
-            }];
-            
-            self.textField.text = nil;
-        } else {
-            // Show error message
-            self.errorMessage.alpha = 0.0f;
-            [UIView animateWithDuration:0.5 animations:^{
-                self.errorMessage.alpha = 1.0f;
-            }];
-            
-            [UIView animateWithDuration:0.5
-                                  delay:4
-                                options:UIViewAnimationOptionTransitionNone
-                             animations:^{
-                                 self.errorMessage.alpha = 0.0f;
-                             } completion:nil];
-            
-        }
+        [self.textChatComponent sendMessage:self.textField.text];
     }
 }
 
@@ -365,19 +315,18 @@
     }];
 }
 
--(void) setTitleToTopBar: (NSMutableDictionary *)title {
-    if (title == nil) {
+- (void)refreshTitleBar {
+    if (self.textChatComponent.senders == nil) {
         self.textChatTopViewTitle.text = @"";
         return;
     }
-    NSMutableString *real_title = [NSMutableString string];
-    for(NSString *key in title) {
-        if ([real_title length] > 0) {
-            [real_title appendFormat:@"%@, ", title[key]];
-        } else {
-            real_title = title[key];
+    
+    NSMutableString *title = [NSMutableString string];
+    for(NSString *sender in self.textChatComponent.senders) {
+        if ([sender length] > 0) {
+            [title appendFormat:@"%@, ", sender];
         }
     }
-    self.textChatTopViewTitle.text = real_title;
+    self.textChatTopViewTitle.text = title;
 }
 @end

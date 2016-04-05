@@ -16,7 +16,4 @@ FOUNDATION_EXPORT const unsigned char TextChatKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <TextChatKit/PublicHeader.h>
 
-#import <TextChatKit/TextChat.h>
-#import <TextChatKit/TextChatComponent.h>
 #import <TextChatKit/TextChatView.h>
-#import <TextChatKit/TextChatTableViewCell.h>

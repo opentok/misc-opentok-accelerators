@@ -16,10 +16,6 @@ typedef NS_ENUM(NSUInteger, TCMessageTypes) {
     TCMessageTypesDivider,
 };
 
-/**
- * Defines the chat message object that you pass into the
- * <[TextChatComponent addMessage:]> method.
- */
 @interface TextChat : NSObject
 
 /**

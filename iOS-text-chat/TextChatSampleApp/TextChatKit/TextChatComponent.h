@@ -8,21 +8,29 @@
 
 
 #import <Foundation/Foundation.h>
+#import <OpenTok/OpenTok.h>
 
 #import "TextChat.h"
 #import "TextChatView.h"
 
-typedef void (^TextChatBlock)(NSError *error);
+@protocol TextChatComponentDelegate <NSObject>
+- (void)didConnectWithError:(NSError *)error;
+- (void)didAddMessageWithError:(NSError *)error;
+- (void)didReceiveMessage;
+@end
 
 @interface TextChatComponent : NSObject
 
-@property (strong, nonatomic) NSMutableArray<TextChat *> *messages;
-@property (strong, nonatomic) NSMutableDictionary *senders;
-@property (strong, nonatomic) NSString *senderId;
-@property (strong, nonatomic) NSString *alias;
+@property (weak, nonatomic) id<TextChatComponentDelegate> delegate;
 
-- (void)connectWithHandler:(TextChatBlock)handler;
+@property (readonly, nonatomic) OTSession *session;
+@property (readonly, nonatomic) NSArray<TextChat *> *messages;
+@property (readonly, nonatomic) NSSet<NSString *> *senders;
+@property (readonly, nonatomic) NSString *senderId;
+@property (readonly, nonatomic) NSString *alias;
 
-- (NSError *)sendMessage:(TextChat *)message;
+- (void)connect;
+
+- (void)sendMessage:(NSString *)message;
 
 @end

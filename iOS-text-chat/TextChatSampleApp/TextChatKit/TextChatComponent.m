@@ -7,12 +7,17 @@
 //
 
 #import "TextChatComponent.h"
-#import <OpenTok/OpenTok.h>
+
+#define DEFAULT_TTextChatE_SPAN 120
 
 @interface TextChatComponent() <OTSessionDelegate>
-@property (strong, nonatomic) OTSession *session;
-@property (strong, nonatomic) TextChatView *textChatView;
-@property (strong, nonatomic) TextChatBlock handler;
+@property (nonatomic) OTSession *session;
+
+@property (nonatomic) NSMutableArray<TextChat *> *mutableMessages;
+@property (nonatomic) NSMutableSet<NSString *> *mutableSenders;
+
+@property (nonatomic) NSString *senderId;
+@property (nonatomic) NSString *alias;
 @end
 
 // ===============================================================================================//
@@ -29,9 +34,17 @@ static NSString* const kTextChatType = @"TextChat";
 
 @implementation TextChatComponent
 
+- (NSArray<TextChat *> *)messages {
+    return [self.mutableMessages copy];
+}
+
+- (NSSet<NSString *> *)senders {
+    return [self.mutableSenders copy];
+}
+
 - (instancetype)init {
     if (self = [super init]) {
-        _messages = [[NSMutableArray alloc] init];
+        _mutableMessages = [[NSMutableArray alloc] init];
         _session= [[OTSession alloc] initWithApiKey:kApiKey
                                           sessionId:kSessionId
                                            delegate:self];
@@ -39,29 +52,59 @@ static NSString* const kTextChatType = @"TextChat";
     return self;
 }
 
-- (void)connectWithHandler:(TextChatBlock)handler {
-    self.handler = handler;
-    if (self.session) {
-        OTError *error = nil;
-        [self.session connectWithToken:kToken error:&error];
-        
-        if (error) {
-            self.handler(error);
-        }
-    } else {
-        self.handler([NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"connectWithHandler is empty"}]);
+- (void)connect {
+    OTError *error = nil;
+    [self.session connectWithToken:kToken error:&error];
+    
+    if (self.delegate && error) {
+        [self.delegate didConnectWithError:error];
     }
 }
 
-- (NSError *)sendMessage:(TextChat *)message {
-    OTError *error = nil;
-    if (!self.session.sessionId) { //if connection wasn't already open
+- (void)sendMessage:(NSString *)message {
+    NSError *error = nil;
+    if (self.session.sessionId) {
+        
+        TextChat *textChat = [[TextChat alloc] init];
+        textChat.senderAlias = [self.alias length]> 0 ? self.alias : @"";
+        textChat.senderId = [self.senderId length] > 0 ? self.senderId : @"";
+        textChat.text = message;
+        textChat.type = TCMessageTypesSent;
+        textChat.dateTime = [[NSDate alloc] init];
         [self.session signalWithType:kTextChatType
-                              string:message.text
+                              string:message
                           connection:nil
                                error:&error];
+        
+        // determine new type
+        if ([self.messages count] > 0) {
+            
+            TextChat *prev = self.messages[self.messages.count - 1];
+            if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN &&
+                [textChat.senderId isEqualToString:prev.senderId]) {
+                
+                if (textChat.type == TCMessageTypesReceived) {
+                    textChat.type = TCMessageTypesReceivedShort;
+                }
+                else {
+                    textChat.type = TCMessageTypesSentShort;
+                }
+            }
+            else {
+                TextChat *div = [[TextChat alloc] init];
+                div.type = TCMessageTypesDivider;
+                [self.mutableMessages addObject:div];
+            }
+        }
+        [self.mutableMessages addObject:textChat];
     }
-    return error;
+    else {
+        error = [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"OTSession did not connect"}];
+    }
+    
+    if (self.delegate) {
+        [self.delegate didAddMessageWithError:error];
+    }
 }
 
 #pragma mark - OTSessionDelegate
@@ -69,13 +112,15 @@ static NSString* const kTextChatType = @"TextChat";
     
     NSLog(@"session sessionDidConnect (%@)", session.sessionId);
     // When we've connected to the session, we can create the chat component.
-    self.textChatView = [TextChatView textChatView];
-    [self.textChatView setSenderId:session.connection.connectionId
-                        alias:session.connection.data];
-    [self.textChatView setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{session.connection.connectionId: ([session.connection.data length] > 0 ? session.connection.data : @"")}]];
     
-    if (self.handler) {
-        self.handler(nil);
+    self.senderId = session.connection.connectionId;
+    self.alias = session.connection.data;
+    if (![self.mutableSenders containsObject:self.senderId]) {
+        [self.mutableSenders addObject:self.senderId];
+    }
+    
+    if (self.delegate) {
+        [self.delegate didConnectWithError:nil];
     }
 }
 
@@ -109,12 +154,36 @@ receivedSignalType:(NSString*)type
      withString:(NSString*)string {
     
     if (![connection.connectionId isEqualToString:self.session.connection.connectionId]) {
-        TextChat *msg = [[TextChat alloc]init];
-        msg.senderAlias = [connection.data length] > 0 ? connection.data : @"";
-        msg.senderId = connection.connectionId;
-        msg.text = string;
-        [self.textChatView addMessage:msg];
-        [self.textChatView setTitleToTopBar: [[NSMutableDictionary alloc] initWithDictionary:@{msg.senderId: msg.senderAlias}]];
+        TextChat *textChat = [[TextChat alloc]init];
+        textChat.senderAlias = [connection.data length] > 0 ? connection.data : @"";
+        textChat.senderId = connection.connectionId;
+        textChat.text = string;
+        
+        // determine new type
+        if ([self.messages count] > 0) {
+            
+            TextChat *prev = self.messages[self.messages.count - 1];
+            if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN &&
+                [textChat.senderId isEqualToString:prev.senderId]) {
+                
+                if (textChat.type == TCMessageTypesReceived) {
+                    textChat.type = TCMessageTypesReceivedShort;
+                }
+                else {
+                    textChat.type = TCMessageTypesSentShort;
+                }
+            }
+            else {
+                TextChat *div = [[TextChat alloc] init];
+                div.type = TCMessageTypesDivider;
+                [self.mutableMessages addObject:div];
+            }
+        }
+        
+        [self.mutableMessages addObject:textChat];
+        if (self.delegate) {
+            [self.delegate didReceiveMessage];
+        }
     }
 }
 @end
