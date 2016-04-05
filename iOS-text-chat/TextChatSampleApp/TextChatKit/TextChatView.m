@@ -199,7 +199,7 @@
     if (cell.time) {
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
         timeFormatter.dateFormat = @"hh:mm a";
-        NSString *msg_sender = [msg.senderAlias length] > 0 ? msg.senderAlias : @"A";
+        NSString *msg_sender = [msg.senderAlias length] > 0 ? msg.senderAlias : @" ";
         cell.UserLetterLabel.text = [msg_sender substringToIndex:1];
         cell.time.text = [NSString stringWithFormat:@"%@, %@", msg_sender, [timeFormatter stringFromDate:msg.dateTime]];
     }
@@ -303,7 +303,7 @@
 - (void)pushBackMessage:(TextChat *)message {
     if ([self.textChatComponent.messages count] > 0) {
         TextChat *prev = [self.textChatComponent.messages objectAtIndex:[self.textChatComponent.messages count] - 1];
-        if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN && prev.senderId == message.senderId) {
+        if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN && [prev.senderId isEqualToString:message.senderId]) {
             if (message.type == TCMessageTypesReceived) {
                 message.type = TCMessageTypesReceivedShort;
             } else {
@@ -324,8 +324,8 @@
 - (IBAction)onSendButton:(id)sender {
     if ([self.textField.text length] > 0) {
         TextChat *msg = [[TextChat alloc] init];
-        msg.senderAlias = self.textChatComponent.alias;
-        msg.senderId = self.textChatComponent.senderId;
+        msg.senderAlias = [self.textChatComponent.alias length]> 0 ? self.textChatComponent.alias : @"";
+        msg.senderId = [self.textChatComponent.senderId length] > 0 ? self.textChatComponent.senderId : @"";
         msg.text = self.textField.text;
         msg.type = TCMessageTypesSent;
         msg.dateTime = [[NSDate alloc] init];
