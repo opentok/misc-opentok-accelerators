@@ -65,9 +65,8 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rt0-vx-EzT" userLabel="topNavBarTitle">
-                            <rect key="frame" x="150" y="9" width="300" height="26"/>
+                            <rect key="frame" x="120" y="9" width="360" height="26"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="300" id="X01-4s-u00"/>
                                 <constraint firstAttribute="height" constant="26" id="Y35-4L-duU"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
@@ -82,6 +81,7 @@
                         <constraint firstAttribute="trailing" secondItem="OFm-Hr-FhA" secondAttribute="trailing" constant="8" id="JNQ-mZ-ItC"/>
                         <constraint firstItem="o0Y-DI-2dJ" firstAttribute="top" secondItem="d14-QU-ZHB" secondAttribute="top" constant="8" id="Y0j-Ir-AJx"/>
                         <constraint firstItem="OFm-Hr-FhA" firstAttribute="centerY" secondItem="d14-QU-ZHB" secondAttribute="centerY" id="jNU-Ev-oGN"/>
+                        <constraint firstItem="rt0-vx-EzT" firstAttribute="width" secondItem="d14-QU-ZHB" secondAttribute="width" multiplier="0.6" id="nHi-hW-wXb"/>
                         <constraint firstItem="OFm-Hr-FhA" firstAttribute="leading" secondItem="o0Y-DI-2dJ" secondAttribute="trailing" constant="16" id="okO-u1-PlH"/>
                         <constraint firstAttribute="height" constant="44" id="tYj-8i-1bl"/>
                         <constraint firstItem="o0Y-DI-2dJ" firstAttribute="centerY" secondItem="d14-QU-ZHB" secondAttribute="centerY" id="vDj-N0-0k9"/>

@@ -9,49 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "TextChat.h"
 
-/**
- * A delegate for receiving events when a text chat message is ready to send.
- */
-@protocol TextChatComponentDelegate <NSObject>
-
-/**
- * Called when a message in the TextChatComponent is ready to send. A message
- * is ready to send when the user clicks the Send button in the
- * IMComponentComponent user interface.
- */
-- (BOOL)onMessageReadyToSend:(TextChat *)message;
-
-@end
-
-
 @interface TextChatView : UIView
-
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-// top view
-@property (weak, nonatomic) IBOutlet UIView *textChatTopView;
-@property (weak, nonatomic) IBOutlet UILabel *textChatTopViewTitle;
-@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
-
-// input view
-@property (weak, nonatomic) IBOutlet UIView *textChatInputView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet UIButton *sendButton;
-
-// other UIs
-@property (weak, nonatomic) IBOutlet UIButton *errorMessage;
-@property (weak, nonatomic) IBOutlet UIButton *messageBanner;
 
 -(void)anchorToBottom;
 
 -(void)anchorToBottomAnimated:(BOOL)animated;
 
 -(BOOL)isAtBottom;
-
-
-#warning temp
 
 /**
  * Add a message to the TextChatListener received message list.

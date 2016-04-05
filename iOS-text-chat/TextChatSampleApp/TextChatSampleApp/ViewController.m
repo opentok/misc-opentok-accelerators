@@ -24,7 +24,7 @@
     r.origin.y += 20;
     r.size.height -= 20;
     [self.textChatView setFrame:r];
-    [self.view addSubview:self.textChatView];
+    [self.view insertSubview:self.textChatView belowSubview:self.connectingLabel];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

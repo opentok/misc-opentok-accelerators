@@ -15,6 +15,23 @@
 @interface TextChatView() <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) TextChatComponent *textChatComponent;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+// top view
+@property (weak, nonatomic) IBOutlet UIView *textChatTopView;
+@property (weak, nonatomic) IBOutlet UILabel *textChatTopViewTitle;
+@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+
+// input view
+@property (weak, nonatomic) IBOutlet UIView *textChatInputView;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
+
+// other UIs
+@property (weak, nonatomic) IBOutlet UIButton *errorMessage;
+@property (weak, nonatomic) IBOutlet UIButton *messageBanner;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *TextChatInputViewHeightConstrain;
 
 @end
