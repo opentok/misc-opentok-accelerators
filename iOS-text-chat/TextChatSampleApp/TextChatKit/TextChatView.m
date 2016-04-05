@@ -15,20 +15,8 @@
 @interface TextChatView() <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) TextChatComponent *textChatComponent;
 
-// top view
-@property (weak, nonatomic) IBOutlet UIView *textChatTopView;
-@property (weak, nonatomic) IBOutlet UILabel *textChatTopViewTitle;
-@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *TextChatInputViewHeightConstrain;
 
-// input view
-@property (weak, nonatomic) IBOutlet UIView *textChatInputView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet UIButton *sendButton;
-
-// other UIs
-@property (weak, nonatomic) IBOutlet UIButton *errorMessage;
-@property (weak, nonatomic) IBOutlet UIButton *messageBanner;
 @end
 
 @implementation TextChatView {
@@ -47,6 +35,7 @@
     self.tableView.delegate = self;
     self.textField.delegate = self;
     self.textChatComponent = [[TextChatComponent alloc] init];
+    
     [self anchorToBottom];
     
     // work on instantiation and port it to sample app, done
@@ -84,10 +73,6 @@
   [super touchesBegan:touches withEvent:event];
 }
 
--(void)disableAnchorToBottom {
-  anchorToBottom = NO;
-}
-
 -(void)anchorToBottom {
   [self anchorToBottomAnimated:false];
 }
@@ -100,12 +85,14 @@
 }
 
 -(BOOL)isAtBottom {
-    return _tableView.contentOffset.y >=  _tableView.contentSize.height - _tableView.bounds.size.height;
-}
-
--(BOOL)isAnchoredToBottom {
+  if (_tableView.contentOffset.y >=  _tableView.contentSize.height - _tableView.bounds.size.height) {
+    anchorToBottom = NO;
+  } else {
+    anchorToBottom = YES;
+  }
   return anchorToBottom;
 }
+
 
 - (void)layoutSubviews {
   [super layoutSubviews];
@@ -129,12 +116,16 @@
     r.origin.y = rect;
     r.size.height = self.superview.bounds.size.height - rect;
     minimized = NO;
+    _TextChatInputViewHeightConstrain.constant = 50;
   } else {
     [sender setImage:maximize_image forState:UIControlStateNormal];
     r.origin.y = (self.superview.bounds.size.height - _textChatTopView.layer.bounds.size.height);
     r.size.height = _textChatTopView.layer.bounds.size.height;
     minimized = YES;
+    _TextChatInputViewHeightConstrain.constant = 0;
+    
   }
+
   self.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height);
 }
 
@@ -238,7 +229,6 @@
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self disableAnchorToBottom];
     [UIView animateWithDuration:0.5 animations:^{
         self.messageBanner.alpha = 0.0f;
     }];
@@ -273,7 +263,7 @@
     
     [self pushBackMessage:message];
     
-    if (self.isAnchoredToBottom) {
+    if (self.isAtBottom) {
         [self anchorToBottomAnimated:YES];
     } else {
         [UIView animateWithDuration:0.5 animations:^{
@@ -295,10 +285,8 @@
 
 - (void)pushBackMessage:(TextChat *)message {
     if ([self.textChatComponent.messages count] > 0) {
-        TextChat *prev = [self.textChatComponent.messages objectAtIndex:[self.textChatComponent.messages count] -1];
-        
-        if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN &&
-            [prev.senderId isEqualToString:message.senderId]) {
+        TextChat *prev = [self.textChatComponent.messages objectAtIndex:[self.textChatComponent.messages count] - 1];
+        if ([message.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN && [prev.senderId isEqualToString:message.senderId]) {
             if (message.type == TCMessageTypesReceived) {
                 message.type = TCMessageTypesReceivedShort;
             } else {

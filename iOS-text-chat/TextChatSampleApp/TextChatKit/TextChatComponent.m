@@ -40,27 +40,27 @@ static NSString* const kTextChatType = @"TextChat";
 }
 
 - (void)connectWithHandler:(TextChatBlock)handler {
-    
     self.handler = handler;
     if (self.session) {
         OTError *error = nil;
         [self.session connectWithToken:kToken error:&error];
         
         if (error) {
-            handler(error);
+            self.handler(error);
         }
-    }
-    else {
-        handler([NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"connectWithHandler is empty"}]);
+    } else {
+        self.handler([NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"connectWithHandler is empty"}]);
     }
 }
 
 - (NSError *)sendMessage:(TextChat *)message {
     OTError *error = nil;
-    [self.session signalWithType:kTextChatType
-                          string:message.text
-                      connection:nil
-                           error:&error];
+    if (!self.session.sessionId) { //if connection wasn't already open
+        [self.session signalWithType:kTextChatType
+                              string:message.text
+                          connection:nil
+                               error:&error];
+    }
     return error;
 }
 
