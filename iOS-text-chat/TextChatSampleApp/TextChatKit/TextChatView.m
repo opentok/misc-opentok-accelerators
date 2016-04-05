@@ -72,6 +72,12 @@
          forCellReuseIdentifier:@"Divider"];
 }
 
+- (void)didMoveToSuperview {
+    [self.textChatComponent connectWithHandler:^(NSError *error) {
+        
+        
+    }];
+}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
   [_textField resignFirstResponder];
@@ -318,8 +324,7 @@
         msg.text = self.textField.text;
         msg.type = TCMessageTypesSent;
         msg.dateTime = [[NSDate alloc] init];
-        
-        if([self.textChatComponent sendMessage:msg]) {
+        if(![self.textChatComponent sendMessage:msg]) {
             
             [self pushBackMessage:msg];
             

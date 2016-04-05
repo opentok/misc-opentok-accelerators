@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import <OpenTok/OpenTok.h>
 #import "TextChatView.h"
 
 @interface ViewController ()
