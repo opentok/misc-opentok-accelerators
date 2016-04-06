@@ -37,4 +37,5 @@
 - (void)removePlaceHolderImage;
 
 - (void) TextChatButtonPressed: (UIView *)textChat;
+
 @end
