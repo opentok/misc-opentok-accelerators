@@ -263,11 +263,12 @@ static const CGFloat TextChatInputViewHeight = 50.0;
                                            forIndexPath:indexPath];
     
     if (cell.time) {
+        NSDate *current_date = msg.dateTime == nil ? [[NSDate alloc] init] : msg.dateTime;
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
         timeFormatter.dateFormat = @"hh:mm a";
         NSString *msg_sender = [msg.senderAlias length] > 0 ? msg.senderAlias : @" ";
         cell.UserLetterLabel.text = [msg_sender substringToIndex:1];
-        cell.time.text = [NSString stringWithFormat:@"%@, %@", msg_sender, [timeFormatter stringFromDate:msg.dateTime]];
+        cell.time.text = [NSString stringWithFormat:@"%@, %@", msg_sender, [timeFormatter stringFromDate: current_date]];
     }
     
     if (cell.message) {
