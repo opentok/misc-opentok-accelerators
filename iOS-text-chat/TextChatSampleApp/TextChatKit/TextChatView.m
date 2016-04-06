@@ -11,6 +11,8 @@
 #import "TextChatTableViewCell.h"
 #import "TextChatComponent.h"
 
+static const CGFloat TextChatInputViewHeight = 50.0;
+
 @interface TextChatView() <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, TextChatComponentDelegate>
 @property (strong, nonatomic) TextChatComponent *textChatComponent;
 
@@ -31,29 +33,42 @@
 @property (weak, nonatomic) IBOutlet UIButton *errorMessage;
 @property (weak, nonatomic) IBOutlet UIButton *messageBanner;
 
-//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *TextChatInputViewHeightConstrain;
+@property (nonatomic) BOOL minimized;
 
+// constraints
+@property (strong, nonatomic) NSLayoutConstraint *topViewLayoutConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *bottomViewLayoutConstraint;
 @end
 
 @implementation TextChatView {
   BOOL anchorToBottom;
-  BOOL minimized;
 }
 
 + (instancetype)textChatView {
-    return (TextChatView *)[[[NSBundle mainBundle] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
+    return (TextChatView *)[[[NSBundle bundleForClass:[self class]] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
+}
+
+- (instancetype)init {
+    return [TextChatView textChatView];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    TextChatView *textChatView = [TextChatView textChatView];
+    [textChatView setFrame:frame];
+    return textChatView;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    self.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.textField.delegate = self;
     self.textChatComponent = [[TextChatComponent alloc] init];
     self.textChatComponent.delegate = self;
     
-    [self anchorToBottom];
+//    [self anchorToBottom];
     
     // work on instantiation and port it to sample app, done
     NSBundle *mainBundle = [NSBundle mainBundle];
@@ -79,7 +94,48 @@
 }
 
 - (void)didMoveToSuperview {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
     [self.textChatComponent connect];
+    [self addAttachedLayoutConstraintsToSuperview];
+}
+
+- (void)removeFromSuperview {
+    [super removeFromSuperview];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (anchorToBottom) {
+        [self anchorToBottomAnimated:YES];
+    }
+}
+
+- (void)keyboardWillShow:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    double duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView animateWithDuration:duration animations:^{
+    
+        self.bottomViewLayoutConstraint.constant = -kbSize.height;
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    double duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView animateWithDuration:duration animations:^{
+        
+        self.bottomViewLayoutConstraint.constant = 0;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -107,46 +163,29 @@
   return anchorToBottom;
 }
 
-
-- (void)layoutSubviews {
-  [super layoutSubviews];
-  if (anchorToBottom) {
-    [self anchorToBottomAnimated:YES];
-  }
-}
-
 - (IBAction)minimizeView:(UIButton *)sender {
-  UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
-  UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
-  CGRect r = [self.layer frame];
-  CGFloat rect;
-  if ([[UIApplication sharedApplication] isStatusBarHidden]) {
-    rect = 0;
-  } else {
-    rect = [[UIApplication sharedApplication] statusBarFrame].size.height;
-  }
-  if (minimized) {
-    [sender setImage:minimize_image forState:UIControlStateNormal];
-    r.origin.y = rect;
-    r.size.height = self.superview.bounds.size.height - rect;
-    minimized = NO;
-//    _TextChatInputViewHeightConstrain.constant = 50;
-  } else {
-    [sender setImage:maximize_image forState:UIControlStateNormal];
-    r.origin.y = (self.superview.bounds.size.height - _textChatTopView.layer.bounds.size.height);
-    r.size.height = _textChatTopView.layer.bounds.size.height;
-    minimized = YES;
-//    _TextChatInputViewHeightConstrain.constant = 0;
-    
-  }
 
-  self.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height);
+#warning the AutoLayout system is going to complain and it's okay so far
+    if (self.minimized) {
+        UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
+        [sender setImage:minimize_image forState:UIControlStateNormal];
+        
+        
+        self.topViewLayoutConstraint.constant = 0;
+    }
+    else {
+        UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
+        [sender setImage:maximize_image forState:UIControlStateNormal];
+        
+        self.topViewLayoutConstraint.constant = CGRectGetHeight(self.tableView.bounds) + TextChatInputViewHeight;
+    }
+    
+    self.minimized = !self.minimized;
 }
 
 - (IBAction)closeButton:(UIButton *)sender {
-  // to reset the minimize button that can be on a different state when close button is hit
   [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
-  minimized = NO;
+  self.minimized = NO;
   [self removeFromSuperview];
 }
 
@@ -272,7 +311,6 @@
         
         [self refreshTitleBar];
         [self.tableView reloadData];
-        
         [self anchorToBottomAnimated:YES];
         [UIView animateWithDuration:0.5 animations:^{
             self.messageBanner.alpha = 0.0f;
@@ -328,5 +366,45 @@
         }
     }
     self.textChatTopViewTitle.text = title;
+}
+
+#pragma mark - Auto Layout helper
+- (void)addAttachedLayoutConstraintsToSuperview {
+    
+    if (!self.superview) {
+        NSLog(@"Could not addAttachedLayoutConstantsToSuperview, superview is nil");
+        return;
+    }
+    
+    self.topViewLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self.superview
+                                                           attribute:NSLayoutAttributeTopMargin
+                                                          multiplier:1.0
+                                                            constant:0.0];
+    
+    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self
+                                                               attribute:NSLayoutAttributeLeading
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.superview
+                                                               attribute:NSLayoutAttributeLeading
+                                                              multiplier:1.0
+                                                                constant:0.0];
+    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self
+                                                                attribute:NSLayoutAttributeTrailing
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:self.superview
+                                                                attribute:NSLayoutAttributeTrailing
+                                                               multiplier:1.0
+                                                                 constant:0.0];
+    self.bottomViewLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.superview
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:0.0];
+    [NSLayoutConstraint activateConstraints:@[self.topViewLayoutConstraint, leading, trailing, self.bottomViewLayoutConstraint]];
 }
 @end
