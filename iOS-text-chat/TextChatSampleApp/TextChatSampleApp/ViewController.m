@@ -10,18 +10,12 @@
 #import <TextChatkit/TextChatKit.h>
 #import "ViewController.h"
 
-@interface ViewController ()
-@property (strong, nonatomic) TextChatView *textChatView;
-@end
-
-
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.textChatView = [TextChatView textChatView];
-    [self.view addSubview:self.textChatView];
+    [TextChatView textChatView];
 }
 
 @end

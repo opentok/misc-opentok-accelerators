@@ -46,12 +46,10 @@
 		A02299DD1CAEEEA000585F66 /* TextChat.h in Headers */ = {isa = PBXBuildFile; fileRef = A02299DB1CAEEEA000585F66 /* TextChat.h */; };
 		A02299DE1CAEEEA000585F66 /* TextChat.m in Sources */ = {isa = PBXBuildFile; fileRef = A02299DC1CAEEEA000585F66 /* TextChat.m */; };
 		A05186741CB2D97100E6E29A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02299471CAC9B5700585F66 /* Assets.xcassets */; };
-		A086B6391CB2EADC005440C2 /* TextChatComponentDivTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993C1CAC9B5300585F66 /* TextChatComponentDivTableViewCell.xib */; };
-		A086B63A1CB2EADC005440C2 /* TextChatReceivedShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993D1CAC9B5300585F66 /* TextChatReceivedShortTableViewCell.xib */; };
-		A086B63B1CB2EADC005440C2 /* TextChatReceivedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993E1CAC9B5300585F66 /* TextChatReceivedTableViewCell.xib */; };
-		A086B63C1CB2EADC005440C2 /* TextChatSentShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993F1CAC9B5300585F66 /* TextChatSentShortTableViewCell.xib */; };
-		A086B63D1CB2EADC005440C2 /* TextChatSentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02299401CAC9B5300585F66 /* TextChatSentTableViewCell.xib */; };
-		A086B63E1CB2FE8C005440C2 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A022993B1CAC9B5300585F66 /* TextChatView.xib */; };
+		A0D242321CB4E30F00936505 /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0D242301CB4E30F00936505 /* UIViewController+Helper.h */; };
+		A0D242331CB4E30F00936505 /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D242311CB4E30F00936505 /* UIViewController+Helper.m */; };
+		A0D242361CB4E7F100936505 /* GCDHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0D242341CB4E7F100936505 /* GCDHelper.h */; };
+		A0D242371CB4E7F100936505 /* GCDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D242351CB4E7F100936505 /* GCDHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +105,10 @@
 		A022994A1CAC9B8C00585F66 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A02299DB1CAEEEA000585F66 /* TextChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChat.h; sourceTree = "<group>"; };
 		A02299DC1CAEEEA000585F66 /* TextChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChat.m; sourceTree = "<group>"; };
+		A0D242301CB4E30F00936505 /* UIViewController+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Helper.h"; sourceTree = "<group>"; };
+		A0D242311CB4E30F00936505 /* UIViewController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Helper.m"; sourceTree = "<group>"; };
+		A0D242341CB4E7F100936505 /* GCDHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDHelper.h; sourceTree = "<group>"; };
+		A0D242351CB4E7F100936505 /* GCDHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,10 @@
 				A022993E1CAC9B5300585F66 /* TextChatReceivedTableViewCell.xib */,
 				A022993F1CAC9B5300585F66 /* TextChatSentShortTableViewCell.xib */,
 				A02299401CAC9B5300585F66 /* TextChatSentTableViewCell.xib */,
+				A0D242301CB4E30F00936505 /* UIViewController+Helper.h */,
+				A0D242311CB4E30F00936505 /* UIViewController+Helper.m */,
+				A0D242341CB4E7F100936505 /* GCDHelper.h */,
+				A0D242351CB4E7F100936505 /* GCDHelper.m */,
 				A02299471CAC9B5700585F66 /* Assets.xcassets */,
 				A022992B1CAC9B3E00585F66 /* Info.plist */,
 			);
@@ -206,6 +212,8 @@
 				A02299DD1CAEEEA000585F66 /* TextChat.h in Headers */,
 				A02299391CAC9B4C00585F66 /* TextChatTableViewCell.h in Headers */,
 				A02299351CAC9B4C00585F66 /* TextChatComponent.h in Headers */,
+				A0D242361CB4E7F100936505 /* GCDHelper.h in Headers */,
+				A0D242321CB4E30F00936505 /* UIViewController+Helper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,15 +303,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A02299121CAC9AE700585F66 /* LaunchScreen.storyboard in Resources */,
-				A086B63C1CB2EADC005440C2 /* TextChatSentShortTableViewCell.xib in Resources */,
-				A086B6391CB2EADC005440C2 /* TextChatComponentDivTableViewCell.xib in Resources */,
 				A022990F1CAC9AE700585F66 /* Assets.xcassets in Resources */,
 				A05186741CB2D97100E6E29A /* Assets.xcassets in Resources */,
-				A086B63A1CB2EADC005440C2 /* TextChatReceivedShortTableViewCell.xib in Resources */,
-				A086B63D1CB2EADC005440C2 /* TextChatSentTableViewCell.xib in Resources */,
-				A086B63E1CB2FE8C005440C2 /* TextChatView.xib in Resources */,
 				A022990D1CAC9AE600585F66 /* Main.storyboard in Resources */,
-				A086B63B1CB2EADC005440C2 /* TextChatReceivedTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +356,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0D242331CB4E30F00936505 /* UIViewController+Helper.m in Sources */,
 				A02299361CAC9B4C00585F66 /* TextChatComponent.m in Sources */,
+				A0D242371CB4E7F100936505 /* GCDHelper.m in Sources */,
 				A022993A1CAC9B4C00585F66 /* TextChatTableViewCell.m in Sources */,
 				A02299DE1CAEEEA000585F66 /* TextChat.m in Sources */,
 				A02299381CAC9B4C00585F66 /* TextChatView.m in Sources */,

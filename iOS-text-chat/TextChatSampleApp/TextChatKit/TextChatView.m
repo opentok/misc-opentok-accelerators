@@ -11,9 +11,13 @@
 #import "TextChatTableViewCell.h"
 #import "TextChatComponent.h"
 
+#import "GCDHelper.h"
+#import "UIViewController+Helper.h"
+
+static const CGFloat StatusBarHeight = 20.0;
 static const CGFloat TextChatInputViewHeight = 50.0;
 
-@interface TextChatView() <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, TextChatComponentDelegate>
+@interface TextChatView() <UITableViewDataSource, UITextFieldDelegate, TextChatComponentDelegate>
 @property (strong, nonatomic) TextChatComponent *textChatComponent;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -33,16 +37,12 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 @property (weak, nonatomic) IBOutlet UIButton *errorMessage;
 @property (weak, nonatomic) IBOutlet UIButton *messageBanner;
 
-@property (nonatomic) BOOL minimized;
-
 // constraints
 @property (strong, nonatomic) NSLayoutConstraint *topViewLayoutConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *bottomViewLayoutConstraint;
 @end
 
-@implementation TextChatView {
-  BOOL anchorToBottom;
-}
+@implementation TextChatView
 
 + (instancetype)textChatView {
     return (TextChatView *)[[[NSBundle bundleForClass:[self class]] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
@@ -51,6 +51,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 - (instancetype)init {
     return [TextChatView textChatView];
 }
+
 
 - (instancetype)initWithFrame:(CGRect)frame {
     TextChatView *textChatView = [TextChatView textChatView];
@@ -63,35 +64,46 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.dataSource = self;
-    self.tableView.delegate = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 30.0;
     self.textField.delegate = self;
     self.textChatComponent = [[TextChatComponent alloc] init];
     self.textChatComponent.delegate = self;
     
     // work on instantiation and port it to sample app, done
-    NSBundle *mainBundle = [NSBundle mainBundle];
+    NSBundle *textChatViewBundle = [NSBundle bundleForClass:[TextChatView class]];
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatSentTableViewCell"
-                                               bundle:mainBundle]
+                                               bundle:textChatViewBundle]
          forCellReuseIdentifier:@"SentChatMessage"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatSentShortTableViewCell"
-                                               bundle:mainBundle]
+                                               bundle:textChatViewBundle]
          forCellReuseIdentifier:@"SentChatMessageShort"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatReceivedTableViewCell"
-                                               bundle:mainBundle]
+                                               bundle:textChatViewBundle]
          forCellReuseIdentifier:@"RecvChatMessage"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatReceivedShortTableViewCell"
-                                               bundle:mainBundle]
+                                               bundle:textChatViewBundle]
          forCellReuseIdentifier:@"RecvChatMessageShort"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatComponentDivTableViewCell"
-                                               bundle:mainBundle]
+                                               bundle:textChatViewBundle]
          forCellReuseIdentifier:@"Divider"];
+    
+    
+    [GCDHelper executeDelayedWithBlock:^(){
+        UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
+        if (topViewController) {
+            [topViewController.view addSubview:self];
+        }
+    }];
 }
 
 - (void)didMoveToSuperview {
+    
+    [super didMoveToSuperview];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -104,13 +116,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     [super removeFromSuperview];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (anchorToBottom) {
-        [self anchorToBottomAnimated:YES];
-    }
 }
 
 - (void)keyboardWillShow:(NSNotification*)aNotification {
@@ -135,26 +140,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }];
 }
 
--(void)anchorToBottom {
-  [self anchorToBottomAnimated:false];
-}
-
--(void)anchorToBottomAnimated:(BOOL)animated {
-  anchorToBottom = YES;
-  if (![self isAtBottom]) {
-    [_tableView setContentOffset:CGPointMake(0, MAX(0, _tableView.contentSize.height - self.layer.bounds.size.height)) animated:animated];
-  }
-}
-
--(BOOL)isAtBottom {
-  if (_tableView.contentOffset.y >=  _tableView.contentSize.height - _tableView.bounds.size.height) {
-    anchorToBottom = NO;
-  } else {
-    anchorToBottom = YES;
-  }
-  return anchorToBottom;
-}
-
+#pragma mark - Private methods
 - (void)refreshTitleBar {
     if (self.textChatComponent.senders == nil) {
         self.textChatTopViewTitle.text = @"";
@@ -183,26 +169,25 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 - (IBAction)minimizeView:(UIButton *)sender {
 
 #warning the AutoLayout system is going to complain and it's okay so far
-    if (self.minimized) {
+    if (self.topViewLayoutConstraint.constant != StatusBarHeight) {
         UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
         [sender setImage:minimize_image forState:UIControlStateNormal];
         
-        
-        self.topViewLayoutConstraint.constant = 0;
+        self.topViewLayoutConstraint.constant = StatusBarHeight;
     }
     else {
         UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
         [sender setImage:maximize_image forState:UIControlStateNormal];
         
-        self.topViewLayoutConstraint.constant = CGRectGetHeight(self.tableView.bounds) + TextChatInputViewHeight;
+        [self.textField resignFirstResponder];
+        [GCDHelper executeDelayedWithBlock:^(){
+            self.topViewLayoutConstraint.constant = CGRectGetHeight(self.tableView.bounds) + TextChatInputViewHeight + StatusBarHeight;
+        }];
     }
-    
-    self.minimized = !self.minimized;
 }
 
 - (IBAction)closeButton:(UIButton *)sender {
   [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
-  self.minimized = NO;
   [self removeFromSuperview];
 }
 
@@ -213,7 +198,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (IBAction)onNewMessageButton:(id)sender {
-    [self anchorToBottomAnimated:YES];
     [UIView animateWithDuration:0.5 animations:^{
         self.messageBanner.alpha = 0.0f;
     }];
@@ -278,45 +262,9 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     return cell;
 }
 
-#pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // final divider
-    if (indexPath.row >= [self.textChatComponent.messages count]) {
-        return 1;
-    }
-    
-    TextChat *msg = [self.textChatComponent.messages objectAtIndex:indexPath.row];
-    
-    if (msg.type == TCMessageTypesDivider) {
-        return 1;
-    }
-    
-    float extras = 140.0f;
-    float normal_space = 133.0f;
-    if (msg.type == TCMessageTypesSentShort || msg.type == TCMessageTypesReceivedShort) {
-        extras = 30.0f;
-    }
-    
-    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg.text attributes:@{ NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:14.0] }];
-    CGRect rect = [attributedText boundingRectWithSize:(CGSize){(tableView.bounds.size.width - normal_space), CGFLOAT_MAX}
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                               context:nil];
-    return rect.size.height + extras;
-}
-
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [UIView animateWithDuration:0.5 animations:^{
-        self.messageBanner.alpha = 0.0f;
-    }];
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if ([self isAtBottom]) {
-        [self anchorToBottomAnimated:YES];
-    }
+    [self makeTableViewScrollToBottom];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -338,7 +286,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         [self refreshTitleBar];
         [self.tableView reloadData];
         [self makeTableViewScrollToBottom];
-        [self anchorToBottomAnimated:YES];
         [UIView animateWithDuration:0.5 animations:^{
             self.messageBanner.alpha = 0.0f;
         }];
@@ -380,7 +327,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
                                                               toItem:self.superview
                                                            attribute:NSLayoutAttributeTopMargin
                                                           multiplier:1.0
-                                                            constant:0.0];
+                                                            constant:StatusBarHeight];
     
     NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self
                                                                attribute:NSLayoutAttributeLeading
