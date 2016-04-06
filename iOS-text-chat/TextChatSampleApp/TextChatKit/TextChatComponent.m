@@ -18,6 +18,7 @@
 
 @property (nonatomic) NSString *senderId;
 @property (nonatomic) NSString *alias;
+
 @end
 
 // ===============================================================================================//
