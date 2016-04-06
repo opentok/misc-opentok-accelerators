@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E5F88A967C3DCC7E25ED4DE /* libPods-OneToOneTextChatSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F32EFD942573EE57DD20DAD /* libPods-OneToOneTextChatSample.a */; };
 		6405A5B81C696BE600441745 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6405A5B71C696BE600441745 /* main.m */; };
 		6405A5BB1C696BE600441745 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6405A5BA1C696BE600441745 /* AppDelegate.m */; };
 		6405A5BE1C696BE600441745 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6405A5BD1C696BE600441745 /* MainViewController.m */; };
@@ -20,7 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		47B361B9D88D45470ED849E7 /* Pods-OneToOneTextChatSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneToOneTextChatSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OneToOneTextChatSample/Pods-OneToOneTextChatSample.debug.xcconfig"; sourceTree = "<group>"; };
 		6405A5B31C696BE600441745 /* OneToOneTextChatSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneToOneTextChatSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6405A5B71C696BE600441745 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SampleApp/main.m; sourceTree = SOURCE_ROOT; };
 		6405A5B91C696BE600441745 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -33,12 +31,10 @@
 		6405A5CA1C696BE600441745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		648024DB1CB5963C00751E16 /* TextChatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TextChatKit.framework; sourceTree = "<group>"; };
 		64DEEA681CA9F02900E26435 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
-		9F32EFD942573EE57DD20DAD /* libPods-OneToOneTextChatSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneToOneTextChatSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0ADEF8A1C9FB2DE00D1A471 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
 		A0ADEF8D1C9FB40700D1A471 /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneCommunicator.h; sourceTree = "<group>"; };
 		A0ADEF8E1C9FB40700D1A471 /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneCommunicator.m; sourceTree = "<group>"; };
-		B9E3709D3D77C75D738ECBA6 /* Pods-OneToOneTextChatSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneToOneTextChatSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-OneToOneTextChatSample/Pods-OneToOneTextChatSample.release.xcconfig"; sourceTree = "<group>"; };
 		F4B49EBA1C9028FD003331B5 /* OTKAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OTKAnalytics.h; sourceTree = "<group>"; };
 		F4B49EBB1C90291F003331B5 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTKAnalytics.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,30 +44,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E5F88A967C3DCC7E25ED4DE /* libPods-OneToOneTextChatSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		409E58F49F76F248A98E5471 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				47B361B9D88D45470ED849E7 /* Pods-OneToOneTextChatSample.debug.xcconfig */,
-				B9E3709D3D77C75D738ECBA6 /* Pods-OneToOneTextChatSample.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
+
 		6405A5AA1C696BE600441745 = {
 			isa = PBXGroup;
 			children = (
-				648024DB1CB5963C00751E16 /* TextChatKit.framework */,
 				6405A5B51C696BE600441745 /* SampleApp */,
 				6405A5B41C696BE600441745 /* Products */,
-				409E58F49F76F248A98E5471 /* Pods */,
-				B2B08D495034AD5976BC352E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,14 +128,6 @@
 				64DEEA681CA9F02900E26435 /* config.h */,
 			);
 			name = Helpers;
-			sourceTree = "<group>";
-		};
-		B2B08D495034AD5976BC352E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9F32EFD942573EE57DD20DAD /* libPods-OneToOneTextChatSample.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,7 +316,6 @@
 		};
 		6405A5CE1C696BE600441745 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47B361B9D88D45470ED849E7 /* Pods-OneToOneTextChatSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -361,7 +336,6 @@
 		};
 		6405A5CF1C696BE600441745 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9E3709D3D77C75D738ECBA6 /* Pods-OneToOneTextChatSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
