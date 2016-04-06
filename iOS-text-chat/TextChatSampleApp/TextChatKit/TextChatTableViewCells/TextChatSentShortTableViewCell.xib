@@ -42,7 +42,7 @@
             <connections>
                 <outlet property="message" destination="bgc-jc-U9g" id="dKT-bi-G5H"/>
             </connections>
-            <point key="canvasLocation" x="516.5" y="537"/>
+            <point key="canvasLocation" x="314.5" y="466"/>
         </tableViewCell>
     </objects>
 </document>
