@@ -35,7 +35,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 // other UIs
 @property (weak, nonatomic) IBOutlet UIButton *errorMessage;
-@property (weak, nonatomic) IBOutlet UIButton *messageBanner;
 
 // constraints
 @property (strong, nonatomic) NSLayoutConstraint *topViewLayoutConstraint;
@@ -197,11 +196,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }
 }
 
-- (IBAction)onNewMessageButton:(id)sender {
-    [UIView animateWithDuration:0.5 animations:^{
-        self.messageBanner.alpha = 0.0f;
-    }];
-}
 
 #pragma mark - UITableViewDataSource
 
@@ -286,10 +280,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         [self refreshTitleBar];
         [self.tableView reloadData];
         [self makeTableViewScrollToBottom];
-        [UIView animateWithDuration:0.5 animations:^{
-            self.messageBanner.alpha = 0.0f;
-        }];
-        
         self.textField.text = nil;
     } else {
         
