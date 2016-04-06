@@ -14,26 +14,10 @@
 		6405A5C11C696BE600441745 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5BF1C696BE600441745 /* Main.storyboard */; };
 		6405A5C61C696BE600441745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C51C696BE600441745 /* Assets.xcassets */; };
 		6405A5C91C696BE600441745 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C71C696BE600441745 /* LaunchScreen.storyboard */; };
-		648024DD1CB5964300751E16 /* TextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 648024DB1CB5963C00751E16 /* TextChatKit.framework */; };
-		648024DE1CB5964300751E16 /* TextChatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 648024DB1CB5963C00751E16 /* TextChatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */; };
 		A0ADEF8F1C9FB40700D1A471 /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ADEF8E1C9FB40700D1A471 /* OneToOneCommunicator.m */; };
 		F4B49EBC1C90291F003331B5 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B49EBB1C90291F003331B5 /* OTKAnalytics.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		6405A5E11C696BF700441745 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				648024DE1CB5964300751E16 /* TextChatKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		47B361B9D88D45470ED849E7 /* Pods-OneToOneTextChatSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneToOneTextChatSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OneToOneTextChatSample/Pods-OneToOneTextChatSample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -64,7 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				648024DD1CB5964300751E16 /* TextChatKit.framework in Frameworks */,
 				1E5F88A967C3DCC7E25ED4DE /* libPods-OneToOneTextChatSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,13 +161,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6405A5CD1C696BE600441745 /* Build configuration list for PBXNativeTarget "OneToOneTextChatSample" */;
 			buildPhases = (
-				F9EDCCB80ED5E817B9CB4304 /* Check Pods Manifest.lock */,
 				6405A5AF1C696BE600441745 /* Sources */,
 				6405A5B01C696BE600441745 /* Frameworks */,
 				6405A5B11C696BE600441745 /* Resources */,
-				6405A5E11C696BF700441745 /* Embed Frameworks */,
-				2F0AC4468334D4F205E0AABF /* Embed Pods Frameworks */,
-				76B42CB62A109F3EB71B4A8D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -240,54 +219,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2F0AC4468334D4F205E0AABF /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OneToOneTextChatSample/Pods-OneToOneTextChatSample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		76B42CB62A109F3EB71B4A8D /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OneToOneTextChatSample/Pods-OneToOneTextChatSample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F9EDCCB80ED5E817B9CB4304 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6405A5AF1C696BE600441745 /* Sources */ = {
