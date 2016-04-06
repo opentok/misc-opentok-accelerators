@@ -159,7 +159,7 @@ receivedSignalType:(NSString*)type
         textChat.senderAlias = [connection.data length] > 0 ? connection.data : @"";
         textChat.senderId = connection.connectionId;
         textChat.text = string;
-        
+        textChat.type = TCMessageTypesReceived;
         // determine new type
         if ([self.messages count] > 0) {
             
