@@ -38,9 +38,11 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="lMY-oW-XdU" firstAttribute="leading" secondItem="sMg-0x-Pl4" secondAttribute="leading" constant="8" id="AZn-O9-BIH"/>
+                        <constraint firstAttribute="bottom" secondItem="lMY-oW-XdU" secondAttribute="bottom" constant="8" id="BN0-fx-4Xl"/>
                         <constraint firstAttribute="height" constant="50" id="ExH-oG-bpy"/>
                         <constraint firstItem="lMY-oW-XdU" firstAttribute="centerY" secondItem="sMg-0x-Pl4" secondAttribute="centerY" id="H1X-BR-9d8"/>
                         <constraint firstItem="lcY-dh-e4I" firstAttribute="leading" secondItem="lMY-oW-XdU" secondAttribute="trailing" constant="8" id="VTw-Uy-yIp"/>
+                        <constraint firstItem="lMY-oW-XdU" firstAttribute="top" secondItem="sMg-0x-Pl4" secondAttribute="top" constant="8" id="i9A-P4-jgA"/>
                         <constraint firstItem="lcY-dh-e4I" firstAttribute="top" secondItem="sMg-0x-Pl4" secondAttribute="top" constant="8" id="ieV-1c-mhP"/>
                         <constraint firstAttribute="trailing" secondItem="lcY-dh-e4I" secondAttribute="trailing" constant="8" id="uNi-fP-xOY"/>
                         <constraint firstAttribute="bottom" secondItem="lcY-dh-e4I" secondAttribute="bottom" constant="8" id="uso-i3-cuO"/>

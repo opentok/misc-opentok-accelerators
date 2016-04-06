@@ -40,12 +40,23 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 // constraints
 @property (strong, nonatomic) NSLayoutConstraint *topViewLayoutConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *bottomViewLayoutConstraint;
+
+//@property (strong, nonatomic) UIView *attachedTopView;
+@property (strong, nonatomic) UIView *attachedBottomView;
 @end
 
 @implementation TextChatView
 
 + (instancetype)textChatView {
     return (TextChatView *)[[[NSBundle bundleForClass:[self class]] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
+}
+
++ (instancetype)textChatViewWithBottomView:(UIView *)bottomView {
+    
+    TextChatView *textChatView = [TextChatView textChatView];
+//    textChatView.attachedTopView = topView;
+    textChatView.attachedBottomView = bottomView;
+    return textChatView;
 }
 
 - (instancetype)init {
@@ -101,9 +112,18 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+//    [self attachToTopView];
+    [self attachToBottomView];
+}
+
 - (void)didMoveToSuperview {
     
     [super didMoveToSuperview];
+    
+    if (self.superview == nil) return;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -140,6 +160,54 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }];
 }
 
+#pragma mark - Public methods
+//- (void)attachToTopView {
+//    
+//    if (!self.attachedTopView) return;
+//    
+//    UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
+//    if (!topViewController) return;
+//    
+//    if (![topViewController.view.subviews containsObject:self.attachedTopView]) return;
+//    
+//    if (self.topViewLayoutConstraint) {
+//        self.topViewLayoutConstraint.active = NO;
+//        self.topViewLayoutConstraint = nil;
+//    }
+//    
+//    self.topViewLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
+//                                                                attribute:NSLayoutAttributeTop
+//                                                                relatedBy:NSLayoutRelationEqual
+//                                                                   toItem:self.attachedTopView
+//                                                                attribute:NSLayoutAttributeBottom
+//                                                               multiplier:1.0
+//                                                                 constant:0];
+//    self.topViewLayoutConstraint.active = YES;
+//}
+
+- (void)attachToBottomView {
+    if (!self.attachedBottomView) return;
+    
+    UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
+    if (!topViewController) return;
+    
+    if (![topViewController.view.subviews containsObject:self.attachedBottomView]) return;
+    
+    if (self.bottomViewLayoutConstraint) {
+        self.bottomViewLayoutConstraint.active = NO;
+        self.bottomViewLayoutConstraint = nil;
+    }
+    
+    self.bottomViewLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.attachedBottomView
+                                                                   attribute:NSLayoutAttributeTop
+                                                                  multiplier:1.0
+                                                                    constant:0];
+    self.bottomViewLayoutConstraint.active = YES;
+}
+
 #pragma mark - Private methods
 - (void)refreshTitleBar {
     if (self.textChatComponent.senders == nil) {
@@ -167,7 +235,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 #pragma mark - IBActions
 - (IBAction)minimizeView:(UIButton *)sender {
-
+    
 #warning the AutoLayout system is going to complain and it's okay so far
     if (self.topViewLayoutConstraint.constant != StatusBarHeight) {
         UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
@@ -325,7 +393,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
                                                            attribute:NSLayoutAttributeTop
                                                            relatedBy:NSLayoutRelationEqual
                                                               toItem:self.superview
-                                                           attribute:NSLayoutAttributeTopMargin
+                                                           attribute:NSLayoutAttributeTop
                                                           multiplier:1.0
                                                             constant:StatusBarHeight];
     

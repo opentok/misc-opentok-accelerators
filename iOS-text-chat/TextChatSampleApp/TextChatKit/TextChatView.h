@@ -12,4 +12,5 @@
 
 + (instancetype)textChatView;
 
++ (instancetype)textChatViewWithBottomView:(UIView *)bottomView;
 @end
