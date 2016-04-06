@@ -21,20 +21,7 @@
     [super viewDidLoad];
     
     self.textChatView = [TextChatView textChatView];
-    [self.view insertSubview:self.textChatView belowSubview:self.connectingLabel];
+    [self.view addSubview:self.textChatView];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    
-    
-    // fade in
-    self.textChatView.alpha = 0;
-    
-    [UIView animateWithDuration:0.5 animations:^() {
-        _connectingLabel.alpha = 0;
-        self.textChatView.alpha = 1;
-    }];
-}
 @end

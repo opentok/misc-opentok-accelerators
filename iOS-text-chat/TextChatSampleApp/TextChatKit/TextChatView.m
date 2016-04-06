@@ -68,8 +68,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     self.textChatComponent = [[TextChatComponent alloc] init];
     self.textChatComponent.delegate = self;
     
-//    [self anchorToBottom];
-    
     // work on instantiation and port it to sample app, done
     NSBundle *mainBundle = [NSBundle mainBundle];
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatSentTableViewCell"
@@ -123,7 +121,8 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     
         self.bottomViewLayoutConstraint.constant = -kbSize.height;
     } completion:^(BOOL finished) {
-
+        
+        [self makeTableViewScrollToBottom];
     }];
 }
 
@@ -133,14 +132,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     [UIView animateWithDuration:duration animations:^{
         
         self.bottomViewLayoutConstraint.constant = 0;
-    } completion:^(BOOL finished) {
-        
     }];
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-  [_textField resignFirstResponder];
-  [super touchesBegan:touches withEvent:event];
 }
 
 -(void)anchorToBottom {
@@ -163,6 +155,31 @@ static const CGFloat TextChatInputViewHeight = 50.0;
   return anchorToBottom;
 }
 
+- (void)refreshTitleBar {
+    if (self.textChatComponent.senders == nil) {
+        self.textChatTopViewTitle.text = @"";
+        return;
+    }
+    
+    NSMutableString *title = [NSMutableString string];
+    for(NSString *sender in self.textChatComponent.senders) {
+        if ([sender length] > 0) {
+            [title appendFormat:@"%@, ", sender];
+        }
+    }
+    self.textChatTopViewTitle.text = title;
+}
+
+- (void)makeTableViewScrollToBottom {
+    
+    NSInteger count = self.textChatComponent.messages.count;
+    if (count == 0) return;
+    
+    NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:count - 1 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+#pragma mark - IBActions
 - (IBAction)minimizeView:(UIButton *)sender {
 
 #warning the AutoLayout system is going to complain and it's okay so far
@@ -187,6 +204,19 @@ static const CGFloat TextChatInputViewHeight = 50.0;
   [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
   self.minimized = NO;
   [self removeFromSuperview];
+}
+
+- (IBAction)onSendButton:(id)sender {
+    if ([self.textField.text length] > 0) {
+        [self.textChatComponent sendMessage:self.textField.text];
+    }
+}
+
+- (IBAction)onNewMessageButton:(id)sender {
+    [self anchorToBottomAnimated:YES];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.messageBanner.alpha = 0.0f;
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -249,11 +279,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 #pragma mark - UITableViewDelegate
 
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.textField resignFirstResponder];
-    return NO;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // final divider
@@ -311,6 +336,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         
         [self refreshTitleBar];
         [self.tableView reloadData];
+        [self makeTableViewScrollToBottom];
         [self anchorToBottomAnimated:YES];
         [UIView animateWithDuration:0.5 animations:^{
             self.messageBanner.alpha = 0.0f;
@@ -336,36 +362,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 - (void)didReceiveMessage {
     [self.tableView reloadData];
-}
-
-#pragma mark - IBActions
-
-- (IBAction)onSendButton:(id)sender {
-    if ([self.textField.text length] > 0) {
-        [self.textChatComponent sendMessage:self.textField.text];
-    }
-}
-
-- (IBAction)onNewMessageButton:(id)sender {
-    [self anchorToBottomAnimated:YES];
-    [UIView animateWithDuration:0.5 animations:^{
-        self.messageBanner.alpha = 0.0f;
-    }];
-}
-
-- (void)refreshTitleBar {
-    if (self.textChatComponent.senders == nil) {
-        self.textChatTopViewTitle.text = @"";
-        return;
-    }
-    
-    NSMutableString *title = [NSMutableString string];
-    for(NSString *sender in self.textChatComponent.senders) {
-        if ([sender length] > 0) {
-            [title appendFormat:@"%@, ", sender];
-        }
-    }
-    self.textChatTopViewTitle.text = title;
+    [self makeTableViewScrollToBottom];
 }
 
 #pragma mark - Auto Layout helper
