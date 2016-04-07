@@ -33,6 +33,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 @property (weak, nonatomic) IBOutlet UIView *textChatInputView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
+@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
 
 // other UIs
 @property (weak, nonatomic) IBOutlet UIButton *errorMessage;
@@ -219,6 +220,8 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (IBAction)closeButton:(UIButton *)sender {
+  [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
+  [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
   [self removeFromSuperview];
 }
 
