@@ -366,4 +366,12 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     
     [NSLayoutConstraint activateConstraints:@[self.topViewLayoutConstraint, leading, trailing, self.bottomViewLayoutConstraint]];
 }
+
+/**
+ * This function will allow me to know if the view im asking was already added
+ * to the current superView, so readding the view can be prevented
+ */
+- (BOOL) isViewAttached; {
+    return self.superview ? YES : NO;
+}
 @end
