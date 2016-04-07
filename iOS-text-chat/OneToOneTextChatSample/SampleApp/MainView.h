@@ -37,4 +37,6 @@
 - (void)removePlaceHolderImage;
 
 - (void) TextChatButtonPressed: (UIView *)textChat;
+
+@property (weak, nonatomic) IBOutlet UIView *actionButtonsHolder;
 @end

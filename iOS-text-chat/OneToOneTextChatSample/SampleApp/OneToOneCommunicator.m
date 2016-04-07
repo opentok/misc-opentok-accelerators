@@ -222,15 +222,4 @@
     [logging logEventAction:@"one-to-one-textchat-sample-app" variation:@""]; 
 }
 
-#pragma mark - TextChat Methods
-- (BOOL) readyToSendMessage: (NSString *) message; {
-    OTError *error = nil;
-    [self.session signalWithType:@"TextChat" string:message connection:nil error:&error];
-    if (error) {
-        return NO;
-    } else {
-        return YES;
-    }
-
-}
 @end

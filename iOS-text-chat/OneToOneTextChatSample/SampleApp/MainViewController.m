@@ -1,13 +1,11 @@
 #import "MainView.h"
 #import "MainViewController.h"
 #import "OneToOneCommunicator.h"
-#import "TextChat.h"
+#import <TextChatKit/TextChatKit.h>
 
 @interface MainViewController ()
 @property (nonatomic) MainView *mainView;
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
-@property (nonatomic) TextChatComponent *textChat;
-@property (nonatomic) TextChat *textChatDelegate;
 @end
 
 @implementation MainViewController
@@ -17,11 +15,6 @@
     
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
-    self.textChatDelegate = [[TextChat alloc] initWithCommunicator: self.oneToOneCommunicator];
-    // When we've connected to the session, we can create the chat component.
-    self.textChat = [[TextChatComponent alloc] init];
-    self.textChat.delegate = self.textChatDelegate;
-    [self.textChat setMaxLength:1050];
 }
 
 /** 
@@ -191,47 +184,8 @@
  * and set the title for the top bar in the text chat component
  */
 - (IBAction)textChatButtonPressed:(UIButton *)sender {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [self.textChatDelegate setListenersAndTitle: self.textChat];
-    [self.mainView TextChatButtonPressed: self.textChat.view];
-}
-
-/**
- * functions to handle the show of the keyboard
- */
-- (void)keyboardWillShow:(NSNotification*)aNotification {
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    double duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    [UIView animateWithDuration:duration animations:^{
-        CGRect r = self.mainView.bounds;
-        r.origin.y += 20;
-        r.size.height -= 20 + kbSize.height;
-        _textChat.view.frame = r;
-    }];
-}
-
-/**
- * functions to handle the hide of the keyboard
- */
-- (void)keyboardWillHide:(NSNotification*)aNotification {
-    NSDictionary* info = [aNotification userInfo];
-    double duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    [UIView animateWithDuration:duration animations:^{
-        CGRect r = self.mainView.bounds;
-        r.origin.y += 20;
-        r.size.height -= 20;
-        _textChat.view.frame = r;
-        
-    }];
-}
-
-/**
- * Method that invoque the signal for the messages to be push onto the TextChat component window
- */
-- (BOOL)onMessageReadyToSend:(TextChatComponentMessage *)message {
-    return [self.textChatDelegate onMessageReadyToSend: message];
+    // creating the instance of the component.
+    [TextChatView textChatViewWithBottomView: self.mainView.actionButtonsHolder];
 }
 
 /**

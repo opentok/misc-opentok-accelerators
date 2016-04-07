@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -173,6 +174,7 @@
                             <constraint firstItem="zJt-pm-lIX" firstAttribute="bottom" secondItem="g1w-3N-XuV" secondAttribute="top" id="zkr-w7-zTS"/>
                         </constraints>
                         <connections>
+                            <outlet property="actionButtonsHolder" destination="QaT-qb-Mgd" id="yzf-5K-3Tg"/>
                             <outlet property="callHolder" destination="8fW-9l-wlb" id="XCG-GA-mhl"/>
                             <outlet property="connectingLabel" destination="OVp-7r-YQ1" id="h0T-KE-ktG"/>
                             <outlet property="errorMessage" destination="ixE-LP-kFk" id="ymp-Ex-BqK"/>
