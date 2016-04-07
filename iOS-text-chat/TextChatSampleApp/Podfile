@@ -1,6 +1,0 @@
-platform :ios, '9.0'
-inhibit_all_warnings!
-
-target 'TextChatKit' do
-  pod 'OpenTok'
-end
