@@ -14,4 +14,6 @@
 
 + (instancetype)textChatViewWithBottomView:(UIView *)bottomView;
 
+- (BOOL) isViewAttached;
+
 @end
