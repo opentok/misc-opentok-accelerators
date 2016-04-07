@@ -174,6 +174,7 @@
                             <constraint firstItem="zJt-pm-lIX" firstAttribute="bottom" secondItem="g1w-3N-XuV" secondAttribute="top" id="zkr-w7-zTS"/>
                         </constraints>
                         <connections>
+                            <outlet property="actionButtonsHolder" destination="QaT-qb-Mgd" id="yzf-5K-3Tg"/>
                             <outlet property="callHolder" destination="8fW-9l-wlb" id="XCG-GA-mhl"/>
                             <outlet property="connectingLabel" destination="OVp-7r-YQ1" id="h0T-KE-ktG"/>
                             <outlet property="errorMessage" destination="ixE-LP-kFk" id="ymp-Ex-BqK"/>

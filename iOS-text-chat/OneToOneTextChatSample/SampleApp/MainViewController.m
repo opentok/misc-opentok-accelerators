@@ -185,7 +185,7 @@
  */
 - (IBAction)textChatButtonPressed:(UIButton *)sender {
     // creating the instance of the component.
-    [TextChatView textChatView];
+    [TextChatView textChatViewWithBottomView: self.mainView.actionButtonsHolder];
 }
 
 /**
