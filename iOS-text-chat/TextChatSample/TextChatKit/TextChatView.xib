@@ -129,6 +129,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="errorMessage" destination="sda-ij-nTc" id="2P3-R6-HnH"/>
+                <outlet property="minimizeButton" destination="o0Y-DI-2dJ" id="4ph-HN-q1E"/>
                 <outlet property="sendButton" destination="lcY-dh-e4I" id="Dxg-bH-j1O"/>
                 <outlet property="tableView" destination="vkl-Dd-Rd9" id="4V5-1Y-hag"/>
                 <outlet property="textChatInputView" destination="sMg-0x-Pl4" id="El9-Y4-8zP"/>
