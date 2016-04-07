@@ -25,8 +25,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 // top view
 @property (weak, nonatomic) IBOutlet UIView *textChatTopView;
 @property (weak, nonatomic) IBOutlet UILabel *textChatTopViewTitle;
-@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 // input view
 @property (weak, nonatomic) IBOutlet UIView *textChatInputView;
@@ -180,16 +178,17 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 #pragma mark - IBActions
 - (IBAction)minimizeView:(UIButton *)sender {
     
-#warning the AutoLayout system is going to complain and it's okay so far
     if (self.topViewLayoutConstraint.constant != StatusBarHeight) {
         UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
         [sender setImage:minimize_image forState:UIControlStateNormal];
+        [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
         
         self.topViewLayoutConstraint.constant = StatusBarHeight;
     }
     else {
         UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
         [sender setImage:maximize_image forState:UIControlStateNormal];
+        [self.sendButton setTitle:@"" forState:UIControlStateNormal];
         
         [self.textField resignFirstResponder];
         [GCDHelper executeDelayedWithBlock:^(){
@@ -199,7 +198,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (IBAction)closeButton:(UIButton *)sender {
-  [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
   [self removeFromSuperview];
 }
 
