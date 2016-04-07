@@ -10,10 +10,12 @@
 
 @interface TextChatView : UIView
 
+@property (readonly, nonatomic) BOOL isViewAttached;
+
 + (instancetype)textChatView;
 
 + (instancetype)textChatViewWithBottomView:(UIView *)bottomView;
 
-- (BOOL) isViewAttached;
+- (void)showTextChatView;
 
 @end

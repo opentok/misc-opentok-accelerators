@@ -5,10 +5,18 @@
 
 @interface MainViewController ()
 @property (nonatomic) MainView *mainView;
+@property (nonatomic) TextChatView *textChatView;
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
 @end
 
 @implementation MainViewController
+
+- (TextChatView *)textChatView {
+    if (!_textChatView) {
+        _textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
+    }
+    return _textChatView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -184,8 +192,10 @@
  * and set the title for the top bar in the text chat component
  */
 - (IBAction)textChatButtonPressed:(UIButton *)sender {
-    // creating the instance of the component.
-    [TextChatView textChatViewWithBottomView: self.mainView.actionButtonsHolder];
+    
+    if (!self.textChatView.isViewAttached) {
+        [self.textChatView showTextChatView];
+    }
 }
 
 /**

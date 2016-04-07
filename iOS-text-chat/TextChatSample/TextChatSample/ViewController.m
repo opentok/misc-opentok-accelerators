@@ -10,15 +10,29 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (strong, nonatomic) TextChatView *textChatView;
 @end
 
 @implementation ViewController
 
+- (TextChatView *)textChatView {
+    if (!_textChatView) {
+        _textChatView = [TextChatView textChatViewWithBottomView:self.bottomView];
+    }
+    return _textChatView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    [TextChatView textChatView];
+    self.textChatView;
 }
+
+- (IBAction)buttonPressed:(id)sender {
+    if (!self.textChatView.isViewAttached) {
+        [self.textChatView showTextChatView];
+    }
+}
+
 
 @end

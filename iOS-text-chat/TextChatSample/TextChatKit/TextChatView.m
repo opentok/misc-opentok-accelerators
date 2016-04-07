@@ -18,8 +18,11 @@ static const CGFloat StatusBarHeight = 20.0;
 static const CGFloat TextChatInputViewHeight = 50.0;
 
 @interface TextChatView() <UITableViewDataSource, UITextFieldDelegate, TextChatComponentDelegate>
+
+@property (nonatomic) BOOL isViewAttached;
 @property (strong, nonatomic) TextChatComponent *textChatComponent;
 
+#pragma mark - UIs
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 // top view
@@ -39,19 +42,14 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 @property (strong, nonatomic) NSLayoutConstraint *bottomViewLayoutConstraint;
 
 @property (strong, nonatomic) UIView *attachedBottomView;
+
+
 @end
 
 @implementation TextChatView
 
-+ (instancetype)textChatView {
-    return (TextChatView *)[[[NSBundle bundleForClass:[self class]] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
-}
-
-+ (instancetype)textChatViewWithBottomView:(UIView *)bottomView {
-    
-    TextChatView *textChatView = [TextChatView textChatView];
-    textChatView.attachedBottomView = bottomView;
-    return textChatView;
+- (BOOL)isViewAttached {
+    return self.superview ? YES : NO;
 }
 
 - (instancetype)init {
@@ -148,6 +146,29 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         
         self.bottomViewLayoutConstraint.constant = 0;
     }];
+}
+
+#pragma mark - Public methods
++ (instancetype)textChatView {
+    return (TextChatView *)[[[NSBundle bundleForClass:[self class]] loadNibNamed:@"TextChatView" owner:nil options:nil] lastObject];
+}
+
++ (instancetype)textChatViewWithBottomView:(UIView *)bottomView {
+    
+    TextChatView *textChatView = [TextChatView textChatView];
+    textChatView.attachedBottomView = bottomView;
+    return textChatView;
+}
+
+- (void)showTextChatView {
+    
+    if ([self isViewAttached]) return;
+    
+    UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
+    if (topViewController) {
+        [topViewController.view addSubview:self];
+    }
+    [self makeTableViewScrollToBottom];
 }
 
 #pragma mark - Private methods
@@ -365,13 +386,5 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }
     
     [NSLayoutConstraint activateConstraints:@[self.topViewLayoutConstraint, leading, trailing, self.bottomViewLayoutConstraint]];
-}
-
-/**
- * This function will allow me to know if the view im asking was already added
- * to the current superView, so readding the view can be prevented
- */
-- (BOOL) isViewAttached; {
-    return self.superview ? YES : NO;
 }
 @end
