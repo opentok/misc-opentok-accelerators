@@ -1,3 +1,5 @@
+#import <Opentok/OpenTok.h>
+
 #import "OneToOneCommunicator.h"
 #import "OTKAnalytics.h"
 
@@ -6,8 +8,10 @@
 @property (nonatomic) NSString *sessionId;
 @property (nonatomic) NSString *token;
 
+@property (nonatomic) BOOL isCallEnabled;
 @property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTPublisher *publisher;
+@property (nonatomic) OTSession *session;
 @property (nonatomic) BOOL isSelfSubscribed;
 
 @property (strong, nonatomic) OneToOneCommunicatorBlock handler;
@@ -18,7 +22,6 @@
 
 - (OTPublisher *)publisher {
     if (!_publisher) {
-        
         NSString *deviceName = [UIDevice currentDevice].name;
         _publisher = [[OTPublisher alloc] initWithDelegate:self name:deviceName];
     }
@@ -30,7 +33,7 @@
 }
 
 + (instancetype)sharedInstance {
-    
+
     static OneToOneCommunicator *sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -44,13 +47,13 @@
                sessionId:(NSString *)sessionId
                    token:(NSString *)token
           selfSubscribed:(BOOL)isSelfSubscribed {
-    
+
     OneToOneCommunicator *sharedInstance = [OneToOneCommunicator sharedInstance];
     sharedInstance.apiKey = apiKey;
     sharedInstance.sessionId = sessionId;
     sharedInstance.token = token;
     sharedInstance.isSelfSubscribed = isSelfSubscribed;
-    
+
     NSAssert(sharedInstance.apiKey.length != 0, @"OpenTok: API key can not be empty, please add it to OneToOneCommunicator");
     NSAssert(sharedInstance.sessionId.length != 0, @"OpenTok: Session Id can not be empty, please add it to OneToOneCommunicator");
     NSAssert(sharedInstance.token.length != 0, @"OpenTok: Token can not be empty, please add it to OneToOneCommunicator");
@@ -58,50 +61,55 @@
 }
 
 - (void)connectWithHandler:(OneToOneCommunicatorBlock)handler {
-    
+
     self.handler = handler;
-    
+
     if (!self.session) {
-        
+
         OneToOneCommunicator *sharedInstance = [OneToOneCommunicator sharedInstance];
         NSString *apiKey = sharedInstance.apiKey;
         NSString *sessionId = sharedInstance.sessionId;
         NSString *token = sharedInstance.token;
-        
+
         self.session = [[OTSession alloc] initWithApiKey:apiKey sessionId:sessionId delegate:self];
-        
+
         OTError *error;
         [self.session connectWithToken:token error:&error];
-        
+
         if (error) {
             self.session = nil;
         }
         else {
-            NSLog(@"%@", error);
+            self.isCallEnabled = NO;
         }
     }
 }
 
 - (void)disconnect {
-    
+
     if (self.session) {
-        
+
         OTError *error;
         [self.session disconnect:&error];
+        self.session = nil;
+        self.isCallEnabled = YES;
+        if (error) {
+            NSLog(@"%@", error);
+        }
     }
 }
 
 #pragma mark - OTSessionDelegate
 -(void)sessionDidConnect:(OTSession*)session {
-    
+
     if (!self.session) {
         return;
     }
-    
+
     OTError *error;
     [self.session publish:self.publisher error:&error];
     if (error) {
-        
+
     }
     else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
@@ -115,9 +123,9 @@
     if (!self.session) {
         return;
     }
-    
+
     if (self.publisher) {
-        
+
         OTError *error = nil;
         [self.session unpublish:self.publisher error:&error];
         [self.publisher.view removeFromSuperview];
@@ -125,9 +133,9 @@
             NSLog(@"%@", error);
         }
     }
-    
+
     if (self.subscriber) {
-        
+
         OTError *error = nil;
         [self.session unsubscribe:self.subscriber error:&error];
         [self.subscriber.view removeFromSuperview];
@@ -135,7 +143,7 @@
             NSLog(@"%@", error);
         }
     }
-    
+
     self.publisher = nil;
     self.subscriber = nil;
     self.session = nil;
@@ -143,20 +151,20 @@
 }
 
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
-    
+
     NSLog(@"session streamCreated (%@)", stream.streamId);
     if (!self.session || self.isSelfSubscribed) {
         return;
     }
-    
+
     OTError *error;
     if (!self.subscriber) {
         self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
     }
-    
+
     [self.session subscribe:self.subscriber error:&error];
     if (error) {
-        
+
     }
     else {
         self.handler(OneToOneCommunicationSignalSessionStreamCreated, nil);
@@ -165,14 +173,14 @@
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
     NSLog(@"session streamDestroyed (%@)", stream.streamId);
-    
+
     if ([self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
 
         [self.session unsubscribe:self.subscriber error:nil];
         [self.subscriber.view removeFromSuperview];
         self.subscriber = nil;
     }
-    
+
     self.handler(OneToOneCommunicationSignalSessionStreamDestroyed, nil);
 }
 
@@ -218,8 +226,57 @@
     NSString *apiKey = [OneToOneCommunicator sharedInstance].apiKey;
     NSString *sessionId = [OneToOneCommunicator sharedInstance].sessionId;
     NSInteger partner = [apiKey integerValue];
-    OTKAnalytics *logging = [[OTKAnalytics alloc] initWithSessionId:sessionId connectionId:self.session.connection.connectionId partnerId:partner clientVersion:@"1.0.0"];
-    [logging logEventAction:@"one-to-one-textchat-sample-app" variation:@""]; 
+    OTKAnalytics *logging = [[OTKAnalytics alloc] initWithSessionId:sessionId connectionId:self.session.connection.connectionId partnerId:partner clientVersion:@"ios-vsol-1.0.0"];
+    [logging logEventAction:@"one-to-one-sample-app" variation:@""];
+}
+
+#pragma mark - Setters and Getters
+- (UIView *)subscriberView {
+    return self.subscriber.view;
+}
+
+- (UIView *)publisherView {
+    return self.publisher.view;
+}
+
+- (void)setSubscribeToAudio:(BOOL)subscribeToAudio {
+    _subscriber.subscribeToAudio = subscribeToAudio;
+}
+
+- (BOOL)subscribeToAudio {
+    return _subscriber.subscribeToAudio;
+}
+
+- (void)setSubscribeToVideo:(BOOL)subscribeToVideo {
+    _subscriber.subscribeToVideo = subscribeToVideo;
+}
+
+- (BOOL)subscribeToVideo {
+    return _subscriber.subscribeToVideo;
+}
+
+- (void)setPublishAudio:(BOOL)publishAudio {
+    _publisher.publishAudio = publishAudio;
+}
+
+- (BOOL)publishAudio {
+    return _publisher.publishAudio;
+}
+
+- (void)setPublishVideo:(BOOL)publishVideo {
+    _publisher.publishVideo = publishVideo;
+}
+
+- (BOOL)publishVideo {
+    return _publisher.publishVideo;
+}
+
+- (AVCaptureDevicePosition)cameraPosition {
+    return _publisher.cameraPosition;
+}
+
+- (void)setCameraPosition:(AVCaptureDevicePosition)cameraPosition {
+    _publisher.cameraPosition = cameraPosition;
 }
 
 @end
