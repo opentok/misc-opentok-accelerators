@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <Opentok/OpenTok.h>
+#import <AVFoundation/AVFoundation.h>
 
 typedef NS_ENUM(NSUInteger, OneToOneCommunicationSignal) {
     OneToOneCommunicationSignalSessionDidConnect = 0,
@@ -20,11 +20,6 @@ typedef void (^OneToOneCommunicatorBlock)(OneToOneCommunicationSignal signal, NS
 
 @interface OneToOneCommunicator : NSObject
 
-@property (nonatomic) BOOL isCallEnabled;
-@property (readonly, nonatomic) OTSubscriber *subscriber;
-@property (readonly, nonatomic) OTPublisher *publisher;
-@property (nonatomic) OTSession *session;
-
 + (instancetype)oneToOneCommunicator;
 + (void)setOpenTokApiKey:(NSString *)apiKey
                sessionId:(NSString *)sessionId
@@ -34,6 +29,18 @@ typedef void (^OneToOneCommunicatorBlock)(OneToOneCommunicationSignal signal, NS
 - (void)connectWithHandler:(OneToOneCommunicatorBlock)handler;
 - (void)disconnect;
 
-- (BOOL) readyToSendMessage: (NSString *) message;
+// CALL
+@property (readonly, nonatomic) BOOL isCallEnabled;
+
+// SUBSCRIBER
+@property (readonly, nonatomic) UIView *subscriberView;
+@property (nonatomic) BOOL subscribeToAudio;
+@property (nonatomic) BOOL subscribeToVideo;
+
+// PUBLISHER
+@property (readonly, nonatomic) UIView *publisherView;
+@property (nonatomic) BOOL publishAudio;
+@property (nonatomic) BOOL publishVideo;
+@property (nonatomic) AVCaptureDevicePosition cameraPosition;
 
 @end

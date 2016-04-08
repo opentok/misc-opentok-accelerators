@@ -127,21 +127,6 @@
     [self drawBorderOn: self.textChatHolder withWhiteBorder: YES widthColorBorder: nil];
 }
 
-- (void) TextChatButtonPressed: (UIView *) TextChat {
-    if (![self checkIfViewAlreadyAttached:TextChat]) {
-        [TextChat setFrame: self.textChatContainer.bounds];
-        [self.textChatContainer addSubview: TextChat];
-        // fade in
-        TextChat.alpha = 0;
-        [UIView animateWithDuration:0.1 animations:^() {
-            _connectingLabel.alpha = 0;
-            TextChat.alpha = 1;
-        }];
-    } else {
-        [TextChat removeFromSuperview];
-    }
-}
-
 #pragma mark - subscriber view
 - (void)addSubscribeView:(UIView *)subsciberView {
     subsciberView.frame = CGRectMake(0, 0, CGRectGetWidth(self.subscriberView.bounds), CGRectGetHeight(self.subscriberView.bounds));
@@ -277,19 +262,6 @@
     [NSLayoutConstraint activateConstraints:@[top, leading, trailing, bottom]];
 }
 
-#pragma mark TextChatComponet Methods
-
-/**
- * This function will allow me to know if the view im asking was already added
- * to the current self.view, so readding the view can be prevented
- */
--(BOOL) checkIfViewAlreadyAttached: (UIView *) checkingView {
-    if(![checkingView isDescendantOfView: self]) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
 
 
 @end
