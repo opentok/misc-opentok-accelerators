@@ -67,6 +67,12 @@
 		A04178F81CB6C94B009B9225 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A04178F71CB6C94B009B9225 /* TextChatView.xib */; };
 		A04179041CB6C95B009B9225 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04179031CB6C95B009B9225 /* OpenTok.framework */; };
 		A04179051CB6C976009B9225 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553891CB6A54E00643E2F /* VideoToolbox.framework */; };
+		A0DF6DFE1CB8D7A600A0A5F8 /* OneToOneCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DF6DFA1CB8D7A600A0A5F8 /* OneToOneCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0DF6DFF1CB8D7A600A0A5F8 /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF6DFB1CB8D7A600A0A5F8 /* OneToOneCommunicator.m */; };
+		A0DF6E001CB8D7A600A0A5F8 /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DF6DFC1CB8D7A600A0A5F8 /* OTKAnalytics.h */; };
+		A0DF6E011CB8D7A600A0A5F8 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF6DFD1CB8D7A600A0A5F8 /* OTKAnalytics.m */; };
+		A0DF6E091CB8DAB600A0A5F8 /* AcceleratorPackSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DF6E071CB8DAB600A0A5F8 /* AcceleratorPackSession.h */; };
+		A0DF6E0A1CB8DAB600A0A5F8 /* AcceleratorPackSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF6E081CB8DAB600A0A5F8 /* AcceleratorPackSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +156,12 @@
 		643553891CB6A54E00643E2F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		A04178F71CB6C94B009B9225 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
 		A04179031CB6C95B009B9225 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
+		A0DF6DFA1CB8D7A600A0A5F8 /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneCommunicator.h; sourceTree = "<group>"; };
+		A0DF6DFB1CB8D7A600A0A5F8 /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneCommunicator.m; sourceTree = "<group>"; };
+		A0DF6DFC1CB8D7A600A0A5F8 /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTKAnalytics.h; sourceTree = "<group>"; };
+		A0DF6DFD1CB8D7A600A0A5F8 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTKAnalytics.m; sourceTree = "<group>"; };
+		A0DF6E071CB8DAB600A0A5F8 /* AcceleratorPackSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceleratorPackSession.h; sourceTree = "<group>"; };
+		A0DF6E081CB8DAB600A0A5F8 /* AcceleratorPackSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceleratorPackSession.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,10 +246,13 @@
 		6435533D1CB69CBE00643E2F /* TextChatKit */ = {
 			isa = PBXGroup;
 			children = (
+				A0DF6E071CB8DAB600A0A5F8 /* AcceleratorPackSession.h */,
+				A0DF6E081CB8DAB600A0A5F8 /* AcceleratorPackSession.m */,
 				A04178F71CB6C94B009B9225 /* TextChatView.xib */,
 				643553621CB69D2300643E2F /* TextChatKit.h */,
 				6435534D1CB69CFB00643E2F /* TextChatView.h */,
 				6435534E1CB69CFB00643E2F /* TextChatView.m */,
+				A0DF6DF91CB8D7A600A0A5F8 /* OneToOne */,
 				643553751CB69D4700643E2F /* Helpers */,
 				6435536C1CB69D3A00643E2F /* TextChatComponent */,
 				643553611CB69D1400643E2F /* TextChatTableViewCells */,
@@ -379,6 +394,17 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		A0DF6DF91CB8D7A600A0A5F8 /* OneToOne */ = {
+			isa = PBXGroup;
+			children = (
+				A0DF6DFA1CB8D7A600A0A5F8 /* OneToOneCommunicator.h */,
+				A0DF6DFB1CB8D7A600A0A5F8 /* OneToOneCommunicator.m */,
+				A0DF6DFC1CB8D7A600A0A5F8 /* OTKAnalytics.h */,
+				A0DF6DFD1CB8D7A600A0A5F8 /* OTKAnalytics.m */,
+			);
+			path = OneToOne;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -388,9 +414,12 @@
 			files = (
 				643553631CB69D2300643E2F /* TextChatKit.h in Headers */,
 				643553501CB69CFB00643E2F /* TextChatView.h in Headers */,
+				A0DF6E091CB8DAB600A0A5F8 /* AcceleratorPackSession.h in Headers */,
+				A0DF6DFE1CB8D7A600A0A5F8 /* OneToOneCommunicator.h in Headers */,
 				643553681CB69D2C00643E2F /* TextChat.h in Headers */,
 				6435536A1CB69D2C00643E2F /* TextChatComponent.h in Headers */,
 				6435535F1CB69D0600643E2F /* TextChatTableViewCell.h in Headers */,
+				A0DF6E001CB8D7A600A0A5F8 /* OTKAnalytics.h in Headers */,
 				643553731CB69D4300643E2F /* UIViewController+Helper.h in Headers */,
 				643553711CB69D4300643E2F /* GCDHelper.h in Headers */,
 			);
@@ -534,12 +563,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DF6E0A1CB8DAB600A0A5F8 /* AcceleratorPackSession.m in Sources */,
 				643553601CB69D0600643E2F /* TextChatTableViewCell.m in Sources */,
 				643553511CB69CFB00643E2F /* TextChatView.m in Sources */,
 				643553741CB69D4300643E2F /* UIViewController+Helper.m in Sources */,
 				6435536B1CB69D2C00643E2F /* TextChatComponent.m in Sources */,
 				643553721CB69D4300643E2F /* GCDHelper.m in Sources */,
 				643553691CB69D2C00643E2F /* TextChat.m in Sources */,
+				A0DF6DFF1CB8D7A600A0A5F8 /* OneToOneCommunicator.m in Sources */,
+				A0DF6E011CB8D7A600A0A5F8 /* OTKAnalytics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

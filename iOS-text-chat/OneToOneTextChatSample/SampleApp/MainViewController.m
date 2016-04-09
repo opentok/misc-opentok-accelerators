@@ -1,6 +1,5 @@
 #import "MainView.h"
 #import "MainViewController.h"
-#import "OneToOneCommunicator.h"
 #import <TextChatKit/TextChatKit.h>
 
 @interface MainViewController ()

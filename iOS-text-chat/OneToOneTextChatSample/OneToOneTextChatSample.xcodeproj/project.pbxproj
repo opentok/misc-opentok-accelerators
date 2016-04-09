@@ -14,9 +14,23 @@
 		6405A5C61C696BE600441745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C51C696BE600441745 /* Assets.xcassets */; };
 		6405A5C91C696BE600441745 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C71C696BE600441745 /* LaunchScreen.storyboard */; };
 		A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */; };
-		A0ADEF8F1C9FB40700D1A471 /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ADEF8E1C9FB40700D1A471 /* OneToOneCommunicator.m */; };
-		F4B49EBC1C90291F003331B5 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B49EBB1C90291F003331B5 /* OTKAnalytics.m */; };
+		A0DF6E041CB8D88C00A0A5F8 /* TextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */; };
+		A0DF6E051CB8D88C00A0A5F8 /* TextChatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A0DF6E061CB8D88C00A0A5F8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A0DF6E051CB8D88C00A0A5F8 /* TextChatKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6405A5B31C696BE600441745 /* OneToOneTextChatSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneToOneTextChatSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,14 +43,10 @@
 		6405A5C51C696BE600441745 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6405A5C81C696BE600441745 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6405A5CA1C696BE600441745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		648024DB1CB5963C00751E16 /* TextChatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TextChatKit.framework; sourceTree = "<group>"; };
 		64DEEA681CA9F02900E26435 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		A0ADEF8A1C9FB2DE00D1A471 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
-		A0ADEF8D1C9FB40700D1A471 /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneCommunicator.h; sourceTree = "<group>"; };
-		A0ADEF8E1C9FB40700D1A471 /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneCommunicator.m; sourceTree = "<group>"; };
-		F4B49EBA1C9028FD003331B5 /* OTKAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OTKAnalytics.h; sourceTree = "<group>"; };
-		F4B49EBB1C90291F003331B5 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTKAnalytics.m; sourceTree = "<group>"; };
+		A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TextChatKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,16 +54,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DF6E041CB8D88C00A0A5F8 /* TextChatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-
 		6405A5AA1C696BE600441745 = {
 			isa = PBXGroup;
 			children = (
+				A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */,
 				6405A5B51C696BE600441745 /* SampleApp */,
 				6405A5B41C696BE600441745 /* Products */,
 			);
@@ -75,7 +86,6 @@
 				64DEEA691CA9F02C00E26435 /* Helpers */,
 				64B917111CAAD9E200674F7E /* Controllers */,
 				64B917101CAAD9DA00674F7E /* Views */,
-				64B9170F1CAAD9D200674F7E /* Models */,
 				6405A5BF1C696BE600441745 /* Main.storyboard */,
 				6405A5C51C696BE600441745 /* Assets.xcassets */,
 				6405A5C71C696BE600441745 /* LaunchScreen.storyboard */,
@@ -91,17 +101,6 @@
 				6405A5B71C696BE600441745 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		64B9170F1CAAD9D200674F7E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				F4B49EBA1C9028FD003331B5 /* OTKAnalytics.h */,
-				F4B49EBB1C90291F003331B5 /* OTKAnalytics.m */,
-				A0ADEF8D1C9FB40700D1A471 /* OneToOneCommunicator.h */,
-				A0ADEF8E1C9FB40700D1A471 /* OneToOneCommunicator.m */,
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 		64B917101CAAD9DA00674F7E /* Views */ = {
@@ -140,6 +139,7 @@
 				6405A5AF1C696BE600441745 /* Sources */,
 				6405A5B01C696BE600441745 /* Frameworks */,
 				6405A5B11C696BE600441745 /* Resources */,
+				A0DF6E061CB8D88C00A0A5F8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -201,12 +201,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4B49EBC1C90291F003331B5 /* OTKAnalytics.m in Sources */,
 				6405A5BE1C696BE600441745 /* MainViewController.m in Sources */,
 				6405A5BB1C696BE600441745 /* AppDelegate.m in Sources */,
 				6405A5B81C696BE600441745 /* main.m in Sources */,
 				A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */,
-				A0ADEF8F1C9FB40700D1A471 /* OneToOneCommunicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

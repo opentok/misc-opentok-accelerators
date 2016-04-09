@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-#import "OneToOneCommunicator.h"
+#import <TextChatKit/TextChatKit.h>
 #import "config.h"
 
 @interface AppDelegate ()
