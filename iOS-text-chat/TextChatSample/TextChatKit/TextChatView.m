@@ -161,7 +161,19 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     return textChatView;
 }
 
-- (void)showTextChatView {
+
+- (void)minimize {
+    [self.textField resignFirstResponder];
+    [GCDHelper executeDelayedWithBlock:^(){
+        self.topViewLayoutConstraint.constant = CGRectGetHeight(self.tableView.bounds) + TextChatInputViewHeight + StatusBarHeight;
+    }];
+}
+
+- (void)maximize {
+    self.topViewLayoutConstraint.constant = StatusBarHeight;
+}
+
+- (void)show {
     
     if ([self isViewAttached]) return;
     
@@ -170,6 +182,14 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         [topViewController.view addSubview:self];
     }
     [self makeTableViewScrollToBottom];
+}
+
+- (void)dismiss {
+    if ([self isViewAttached]) {
+        [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
+        [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
+        [self removeFromSuperview];
+    }
 }
 
 #pragma mark - Private methods
@@ -204,25 +224,17 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
         [sender setImage:minimize_image forState:UIControlStateNormal];
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
-        
-        self.topViewLayoutConstraint.constant = StatusBarHeight;
-    }
-    else {
+        [self maximize];
+    } else {
         UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
         [sender setImage:maximize_image forState:UIControlStateNormal];
         [self.sendButton setTitle:@"" forState:UIControlStateNormal];
-        
-        [self.textField resignFirstResponder];
-        [GCDHelper executeDelayedWithBlock:^(){
-            self.topViewLayoutConstraint.constant = CGRectGetHeight(self.tableView.bounds) + TextChatInputViewHeight + StatusBarHeight;
-        }];
+        [self minimize];
     }
 }
 
 - (IBAction)closeButton:(UIButton *)sender {
-  [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
-  [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
-  [self removeFromSuperview];
+    [self dismiss];
 }
 
 - (IBAction)onSendButton:(id)sender {
@@ -316,8 +328,9 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         [self.tableView reloadData];
         [self makeTableViewScrollToBottom];
         self.textField.text = nil;
-    } else {
-        
+    }
+    else {
+
         self.errorMessage.alpha = 0.0f;
         [UIView animateWithDuration:0.5 animations:^{
             self.errorMessage.alpha = 1.0f;
@@ -330,6 +343,10 @@ static const CGFloat TextChatInputViewHeight = 50.0;
                              self.errorMessage.alpha = 0.0f;
                          }
                          completion:nil];
+    }
+    
+    if (self.delegate) {
+        [self.delegate textChatViewDidSendMessage:self error:error];
     }
 }
 

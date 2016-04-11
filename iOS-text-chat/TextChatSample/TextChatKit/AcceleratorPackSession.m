@@ -13,7 +13,7 @@
 @property (nonatomic) NSString *sessionId;
 @property (nonatomic) NSString *token;
 
-@property (nonatomic) NSMutableSet<__weak id<APBroadcastDelegate>> *delegates;
+@property (nonatomic) NSMutableSet<id<APBroadcastDelegate>> *delegates;
 @property (nonatomic) OTSession *oneSharedSession;
 @end
 

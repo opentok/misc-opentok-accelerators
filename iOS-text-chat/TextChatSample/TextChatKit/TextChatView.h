@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class TextChatView;
+@protocol TextChatViewDelegate <NSObject>
+- (void)textChatViewDidSendMessage:(TextChatView *)textChatView
+                             error:(NSError *)error;
+@end
+
 @interface TextChatView : UIView
+
+@property (weak, nonatomic) id<TextChatViewDelegate> delegate;
 
 @property (readonly, nonatomic) BOOL isViewAttached;
 
@@ -16,6 +24,12 @@
 
 + (instancetype)textChatViewWithBottomView:(UIView *)bottomView;
 
-- (void)showTextChatView;
+- (void)minimize;
+
+- (void)maximize;
+
+- (void)show;
+
+- (void)dismiss;
 
 @end
