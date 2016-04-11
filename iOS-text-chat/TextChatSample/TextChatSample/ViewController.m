@@ -25,12 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.textChatView;
+    [self.textChatView show];
 }
 
 - (IBAction)buttonPressed:(id)sender {
     if (!self.textChatView.isViewAttached) {
-        [self.textChatView showTextChatView];
+        [self.textChatView show];
     }
 }
 
