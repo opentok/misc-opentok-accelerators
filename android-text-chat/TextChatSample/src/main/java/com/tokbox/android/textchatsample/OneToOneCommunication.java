@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.opentok.android.BaseVideoRenderer;
-import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
@@ -13,6 +12,7 @@ import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
+import com.tokbox.android.accpack.AccPackSession;
 import com.tokbox.android.textchatsample.config.OpenTokConfig;
 import com.tokbox.android.textchatsample.logging.OTKAnalytics;
 import com.tokbox.android.textchatsample.logging.OTKAnalyticsData;
@@ -20,18 +20,19 @@ import com.tokbox.android.textchatsample.logging.OTKAnalyticsData;
 import java.util.ArrayList;
 
 public class OneToOneCommunication implements
-        Session.SessionListener, Session.SignalListener, Publisher.PublisherListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
+        AccPackSession.SessionListener, Publisher.PublisherListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
 
     private static final String LOGTAG = MainActivity.class.getName();;
     private static final String SIGNAL_TYPE = "TextChat";
 
     private Context mContext;
 
-    private Session mSession;
+    private AccPackSession mSession;
     private Publisher mPublisher;
     private Subscriber mSubscriber;
     private ArrayList<Stream> mStreams;
 
+    private boolean isInitialized = false;
     private boolean isStarted = false;
     private boolean mLocalAudio = true;
     private boolean mLocalVideo = true;
@@ -57,6 +58,12 @@ public class OneToOneCommunication implements
      *
      */
     public static interface Listener {
+
+        /**
+         * Invoked when the onetoonecommunicator is initialized
+         */
+        void onInitialized();
+
         /**
          * Invoked when there is an error trying to connect to the session, publishing or subscribing.
          *
@@ -95,15 +102,6 @@ public class OneToOneCommunication implements
          */
         void onRemoteViewReady(View remoteView);
 
-        /**
-         * Invoked when a new text-chat message is received.
-         *
-         * @param fromId Indicates the senderId.
-         * @param fromAlias Indicates the senderAlias.
-         * @param messageStr Indicates the subscriber view.
-         */
-        void onNewMessageReceived(String fromId, String fromAlias, String messageStr);
-
     }
 
     public OneToOneCommunication(Context context) {
@@ -119,16 +117,28 @@ public class OneToOneCommunication implements
         mListener = listener;
     }
 
+    public void init() {
+        if (mSession == null) {
+            mSession = new AccPackSession(mContext,
+                    OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID);
+
+            //mSession.addSessionListener(this);
+            mSession.setSessionListener(this);
+            mSession.connect(OpenTokConfig.TOKEN);
+        }
+    }
+
     /**
      * Start the communication.
      */
     public void start() {
-        if (mSession == null) {
-            mSession = new Session(mContext,
-                    OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID);
-            mSession.setSessionListener(this);
-            mSession.setSignalListener(this);
-            mSession.connect(OpenTokConfig.TOKEN);
+        if (mSession != null && isInitialized) {
+            if (mPublisher == null) {
+                mPublisher = new Publisher(mContext, "myPublisher");
+                mPublisher.setPublisherListener(this);
+                attachPublisherView();
+                mSession.publish(mPublisher);
+            }
         }
     }
 
@@ -136,7 +146,31 @@ public class OneToOneCommunication implements
      * End the communication.
      */
     public void end() {
-        if (mSession != null) {
+        if (mPublisher != null ){
+            mSession.unpublish(mPublisher);
+            mPublisher = null;
+        }
+        if ( mSubscriber != null ){
+            mSession.unsubscribe(mSubscriber);
+            mSubscriber = null;
+        }
+        isStarted = false;
+        restartViews();
+    }
+
+    /**
+     * Destroy the communication.
+     */
+    public void destroy() {
+        if (mPublisher != null ){
+            mSession.unpublish(mPublisher);
+            mPublisher = null;
+        }
+        if ( mSubscriber != null ){
+            mSession.unsubscribe(mSubscriber);
+            mSubscriber = null;
+        }
+        if ( mSession != null ){
             mSession.disconnect();
         }
     }
@@ -204,13 +238,12 @@ public class OneToOneCommunication implements
     }
 
     /**
-     * Send message
+     * Check if the communication started
+     *
+     * @return true if the session is connected; false if it is not.
      */
-    public boolean sendMessage(String messageStr) {
-        if (mSession != null) {
-            mSession.sendSignal(SIGNAL_TYPE, messageStr);
-        }
-        return mError;
+    public boolean isStarted() {
+        return isStarted;
     }
 
     /**
@@ -218,8 +251,8 @@ public class OneToOneCommunication implements
      *
      * @return true if the session is connected; false if it is not.
      */
-    public boolean isStarted() {
-        return isStarted;
+    public boolean isInitialized() {
+        return isInitialized;
     }
 
     /**
@@ -321,6 +354,8 @@ public class OneToOneCommunication implements
     private void restartComm(){
         mSubscriber = null;
         isRemote = false;
+        isInitialized = false;
+        isStarted = false;
         mPublisher = null;
         mStreams.clear();
         mSession = null;
@@ -338,6 +373,15 @@ public class OneToOneCommunication implements
 
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
+
+        isStarted = true;
+
+        if (mStreams.size() > 0){
+            for(Stream stream1: mStreams){
+                subscribeToStream(stream1);
+            }
+        }
+
         if (OpenTokConfig.SUBSCRIBE_TO_SELF) {
             mStreams.add(stream);
             if (mSubscriber == null) {
@@ -364,26 +408,16 @@ public class OneToOneCommunication implements
     @Override
     public void onConnected(Session session) {
         Log.i(LOGTAG, "Connected to the session.");
-        isStarted = true;
-
+        isInitialized = true;
+        mListener.onInitialized();
         //add analytics log
         addLogEvent(session.getConnection().getConnectionId());
-
-        if (mPublisher == null) {
-            mPublisher = new Publisher(mContext, "myPublisher");
-            mPublisher.setPublisherListener(this);
-            attachPublisherView();
-            mSession.publish(mPublisher);
-        }
-
     }
 
     @Override
     public void onDisconnected(Session session) {
         Log.i(LOGTAG, "Disconnected to the session.");
-        isStarted = false;
-        mListener.onPreviewReady(null);
-        mListener.onRemoteViewReady(null);
+        restartViews();
         restartComm();
     }
 
@@ -392,7 +426,7 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "New remote is connected to the session");
         if (!OpenTokConfig.SUBSCRIBE_TO_SELF) {
             mStreams.add(stream);
-            if (mSubscriber == null) {
+            if (mSubscriber == null && isStarted) {
                 subscribeToStream(stream);
             }
         }
@@ -472,15 +506,12 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "Video may no longer be disabled as stream quality improved.");
     }
 
-    @Override
-    public void onSignalReceived(Session session, String type, String data, Connection connection) {
-
-        if (!connection.getConnectionId().equals(mSession.getConnection().getConnectionId())) {
-            // The signal was sent from another participant. The sender ID is set to the sender's
-            // connection ID. The sender alias is the value added as connection data when you
-            // created the user's token.
-            mListener.onNewMessageReceived(connection.getConnectionId(), connection.getData(), data);
-        }
+    public AccPackSession getSession() {
+        return mSession;
     }
 
+    private void restartViews(){
+        mListener.onRemoteViewReady(null);
+        mListener.onPreviewReady(null);
+    }
 }

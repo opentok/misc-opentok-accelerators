@@ -143,7 +143,6 @@ public class PreviewControlFragment extends Fragment {
                 ? R.drawable.end_call_button
                 : R.drawable.initiate_call_button);
 
-        mCallBtn.setOnClickListener(mBtnClickListener);
         setEnabled(mActivity.getComm().isStarted());
 
         return rootView;
@@ -183,11 +182,19 @@ public class PreviewControlFragment extends Fragment {
     }
 
     public void updateTextChat() {
-        Log.i(LOGTAG, "MARINAS UPDATE TEXTCHAT");
         mControlCallbacks.onTextChat();
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setCallEnabled(boolean enabled) {
+        if (enabled){
+            mCallBtn.setOnClickListener(mBtnClickListener);
+        }
+        else {
+            mCallBtn.setOnClickListener(null);
+        }
+    }
+        public void setEnabled(boolean enabled) {
+
         if (mVideoBtn != null && mAudioBtn != null) {
             if (enabled) {
                 mAudioBtn.setOnClickListener(mBtnClickListener);
