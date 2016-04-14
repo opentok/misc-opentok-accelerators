@@ -214,139 +214,6 @@ var Communication = (function () {
     }
   };
 
-  //    **************************************************************************************************************
-  //    **************************************************************************************************************
-  //    **************************************************************************************************************
-
-  //textChat Events and functions
-
-  var _shouldAppendMessage = function (data) {
-    return this.lastMessage && this.lastMessage.user.id === data.user.id && moment(this.lastMessage.sentOn).fromNow() === moment(data.sentOn).fromNow();
-  };
-
-  var _sendTxtMessage = function (text) {
-    var self = this;
-    if (!_.isEmpty(text)) {
-      $.when(self._sendMessage(self._remoteParticipant, text))
-        .then(function (data) {
-          self._handleMessageSent({user: self.options.user, message: text, sentOn: new Date()});
-          if (this.futureMessageNotice)
-            this.futureMessageNotice = false;
-        }, function (error) {
-          self._handleMessageError(error);
-        });
-    }
-  };
-
-  var _sendMessage = function (recipient, message) {
-    var deferred = new $.Deferred();
-    var self = this;
-    var message_data = {
-      message: arguments[1],
-      user: this.options.user,
-      sentOn: new Date()
-    };
-    console.log(self._session);
-    if (recipient === undefined) {
-      self._session.signal({
-          type: 'chat',
-          data: message_data,
-        },
-        function (error) {
-          if (error) {
-            error.message = "Error sending a message. ";
-            if (error.code === 413) {
-              var errorStr = error.message + "The chat message is over size limit."
-              error.message = errorStr;
-            }
-            else {
-              if (error.code === 500) {
-                var errorStr = error.message + "Check your network connection."
-                error.message = errorStr;
-              }
-            }
-            deferred.reject(error);
-          } else {
-            console.log('Message sent');
-            deferred.resolve(message_data);
-          }
-        }
-      );
-    }
-    else {
-      self._session.signal({
-          type: 'chat',
-          data: message_data,
-          to: recipient
-        }, function (error) {
-          if (error) {
-            console.log('Error sending a message');
-            deferred.resolve(error);
-          } else {
-            console.log('Message sent');
-            deferred.resolve(message_data);
-          }
-        }
-      );
-    }
-
-    return deferred.promise();
-  };
-  var _handleMessageSent = function (data) {
-    if (this._shouldAppendMessage(data)) {
-      $('.wms-item-text').last().append('<span>' + data.message + '</span>');
-      var chatholder = $(this._textChat._newMessages);
-      chatholder[0].scrollTop = chatholder[0].scrollHeight;
-      this._textChat._cleanComposer();
-
-    } else {
-      this._renderChatMessage(data.user, data.message, data.sentOn);
-    }
-    this.lastMessage = data;
-  };
-  var _onIncomingMessage = function (signal) {
-    if (this._shouldAppendMessage(signal.data)) {
-      $(".wms-item-text").last().append('<span>' + signal.data.message + '</span>');
-    } else {
-      this._renderChatMessage(signal.data.user, signal.data.message, signal.data.sentOn);
-    }
-    this.lastMessage = signal.data;
-  };
-  var _handleMessageError = function (error) {
-    console.log(error.code, error.message);
-    if (error.code === 500) {
-      var view = _.template($('#chatError').html());
-      $(this.comms_elements.messagesView).append(view());
-    }
-  };
-  var _renderChatMessage = function (user, message, sentOn) {
-    var self = this;
-    var sent_by_class = user.id === self.options.user.id ? 'wms-message-item wms-message-sent' : 'wms-message-item';
-
-    var view = this._textChat.getBubbleHtml({
-      username: user.name,
-      message: message,
-      message_class: sent_by_class,
-      time: sentOn
-    });
-    var chatholder = $(this._textChat._newMessages);
-    chatholder.append(view);
-    this._textChat._cleanComposer();
-    chatholder[0].scrollTop = chatholder[0].scrollHeight;
-  };
-
-  var _handleTextChat = function (event) {
-    var me = this._session.connection.connectionId;
-    var from = event.from.connectionId;
-    if (from !== me) {
-      var handler = this._onIncomingMessage(event);
-      if (handler && typeof handler === 'function') {
-        handler(event);
-      }
-    }
-  };
-
-  //    **************************************************************************************************************
   // Prototype methods
   CommunicationComponent.prototype = {
     constructor: Communication,
@@ -403,12 +270,6 @@ var Communication = (function () {
       this._unpublish('camera');
       this._unsubscribeStreams();
     },
-    startTextChat: function(){
-      this.options.widget = this;
-      this.options.text_chat_widget_holder = "#chat-container";
-      this._textChat = new OTSolution.TextChat.ChatUI(this.options);
-      this._session.on('signal:chat', this._handleTextChat.bind(this));
-    },
     enableLocalAudio: function (enabled) {
       this.options.publishers['camera'].publishAudio(enabled);
     },
@@ -457,31 +318,7 @@ var Communication = (function () {
     },
     _handleRemotePropertyChanged: function (data) {
       _handleRemotePropertyChanged.call(this, data);
-    },
-    _handleTextChat: function (data) {
-      _handleTextChat.call(this, data);
-    },
-    _sendTxtMessage: function (data) {
-      _sendTxtMessage.call(this, data);
-    },
-    _sendMessage: function (recipient, message) {
-      _sendMessage.call(this, recipient, message);
-    },
-    _handleMessageSent: function (data) {
-      _handleMessageSent.call(this, data);
-    },
-    _shouldAppendMessage: function (data) {
-      return _shouldAppendMessage.call(this, data);
-    },
-    _renderChatMessage: function (user, message, sentOn) {
-      _renderChatMessage.call(this, user, message, sentOn);
-    },
-    _onIncomingMessage: function (data) {
-      _onIncomingMessage.call(this, data);
-    },
-    _handleMessageError: function (data) {
-      _handleMessageError.call(this, data);
-  }
+    }
   };
 
   return CommunicationComponent;
