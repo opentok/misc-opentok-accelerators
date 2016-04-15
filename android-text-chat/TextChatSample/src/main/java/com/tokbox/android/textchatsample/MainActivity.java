@@ -160,6 +160,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         return mComm;
     }
 
+    public void showRemoteControlBar(View v) {
+        if (mRemoteFragment != null && mComm.isRemote()) {
+            mRemoteFragment.show();
+        }
+    }
+
     //Video local button event
     @Override
     public void onDisableLocalVideo(boolean video) {
@@ -252,6 +258,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     public void onError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_LONG).show();
         mComm.end(); //end communication
+        mProgressDialog.dismiss();
         cleanViewsAndControls(); //restart views
     }
 
