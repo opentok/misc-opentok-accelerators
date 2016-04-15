@@ -1,4 +1,4 @@
-package logging.android.opentok.com.textchatsample;
+package com.tokbox.android.accpack.textchat;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
