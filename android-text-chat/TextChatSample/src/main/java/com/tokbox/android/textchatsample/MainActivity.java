@@ -1,6 +1,7 @@
 package com.tokbox.android.textchatsample;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -17,18 +18,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tokbox.android.textchat.ChatMessage;
-import com.tokbox.android.textchat.TextChatFragment;
+import com.tokbox.android.accpack.textchat.ChatMessage;
+import com.tokbox.android.accpack.textchat.TextChatFragment;
 import com.tokbox.android.textchatsample.ui.PreviewCameraFragment;
 import com.tokbox.android.textchatsample.ui.PreviewControlFragment;
 import com.tokbox.android.textchatsample.ui.RemoteControlFragment;
 
-import java.util.UUID;
-
-
 public class MainActivity extends AppCompatActivity implements OneToOneCommunication.Listener, PreviewControlFragment.PreviewControlCallbacks,
         RemoteControlFragment.RemoteControlCallbacks, PreviewCameraFragment.PreviewCameraCallbacks, TextChatFragment.TextChatListener{
-    private final String LOGTAG = MainActivity.class.getName();
+
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA};
     private final int permsRequestCode = 200;
@@ -58,9 +57,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //TextChat fragment
     private TextChatFragment mTextChatFragment;
 
+    //Dialog
+    ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(LOGTAG, "onCreate");
+        Log.i(LOG_TAG, "onCreate");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mComm = new OneToOneCommunication(MainActivity.this);
         //set listener to receive the communication events, and add UI to these events
         mComm.setListener(this);
+        mComm.init();
 
         //init controls fragments
         if (savedInstanceState == null) {
@@ -94,6 +97,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             initTextChatFragment(); //to send/receive text-messages
             mFragmentTransaction.commitAllowingStateLoss();
         }
+
+        //show connecting dialog
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("Please wait");
+        mProgressDialog.setMessage("Connecting...");
+        mProgressDialog.show();
     }
 
     @Override
@@ -127,14 +136,18 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         if (mComm != null) {
             mComm.reloadViews(); //reload the local preview and the remote views
         }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mComm.destroy();
     }
 
     @Override
     public void onRequestPermissionsResult(int permsRequestCode, String[] permissions,
                                            int[] grantResults) {
         switch (permsRequestCode) {
-
             case 200:
                 boolean video = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 boolean audio = grantResults[1] == PackageManager.PERMISSION_GRANTED;
@@ -142,46 +155,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
-    private void initPreviewFragment() {
-        mPreviewFragment = new PreviewControlFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.actionbar_preview_fragment_container, mPreviewFragment).commit();
-    }
-
-    private void initRemoteFragment() {
-        mRemoteFragment = new RemoteControlFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.actionbar_remote_fragment_container, mRemoteFragment).commit();
-    }
-
-    private void initCameraFragment() {
-        mCameraFragment = new PreviewCameraFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.camera_preview_fragment_container, mCameraFragment).commit();
-    }
-
-    private void initTextChatFragment(){
-        mTextChatFragment = new TextChatFragment();
-        mTextChatFragment.setMaxTextLength(1050);
-        mTextChatFragment.setSenderInfo(UUID.randomUUID().toString(), "me");
-        mTextChatFragment.setListener(this);
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
-    }
-
+    //Get OneToOneCommunicator object
     public OneToOneCommunication getComm() {
         return mComm;
     }
 
-    //Local control callbacks
-    @Override
-    public void onDisableLocalAudio(boolean audio) {
-        if (mComm != null) {
-            mComm.enableLocalMedia(OneToOneCommunication.MediaType.AUDIO, audio);
-        }
-    }
-
+    //Video local button event
     @Override
     public void onDisableLocalVideo(boolean video) {
         if (mComm != null) {
@@ -208,24 +187,25 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
-    //AudioVideoCall callback
+    //Call button event
     @Override
     public void onCall() {
         if (mComm != null && mComm.isStarted()) {
             mComm.end();
             cleanViewsAndControls();
         } else {
-            mComm.start();
-            if (mPreviewFragment != null) {
-                mPreviewFragment.setEnabled(true);
+            if (mComm.isInitialized()) {
+                mComm.start();
+                if (mPreviewFragment != null) {
+                    mPreviewFragment.setEnabled(true);
+                }
             }
         }
     }
 
-    //TextChat callback
+    //TextChat button event
     @Override
     public void onTextChat() {
-
         if (mTextChatContainer.getVisibility() == View.VISIBLE){
             mTextChatContainer.setVisibility(View.GONE);
             showAVCall(true);
@@ -236,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
-    //Remote control callbacks
+    //Audio remote button event
     @Override
     public void onDisableRemoteAudio(boolean audio) {
         if (mComm != null) {
@@ -244,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
+    //Video remote button event
     @Override
     public void onDisableRemoteVideo(boolean video) {
         if (mComm != null) {
@@ -251,18 +232,19 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
-    public void showRemoteControlBar(View v) {
-        if (mRemoteFragment != null && mComm.isRemote()) {
-            mRemoteFragment.show();
-        }
-    }
-
-    //Camera control callback
+    //Camera control button event
     @Override
     public void onCameraSwap() {
         if (mComm != null) {
             mComm.swapCamera();
         }
+    }
+
+    //OneToOneCommunicator listener events
+    @Override
+    public void onInitialized() {
+        mPreviewFragment.setCallEnabled(true);
+        mProgressDialog.dismiss();
     }
 
     //OneToOneCommunication callbacks
@@ -344,33 +326,25 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
+    //TextChat Fragment listener events
     @Override
-    public void onNewMessageReceived(String fromId, String fromAlias, String messageStr) {
-        ChatMessage msg = new ChatMessage.ChatMessageBuilder(fromId, UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)
-                .senderAlias(fromAlias)
-                .text(messageStr)
-                .build();
-        // Add the new ChatMessage to the text-chat component
-        mTextChatFragment.addMessage(msg);
+    public void onNewSentMessage(ChatMessage message) {
+        Log.i(LOG_TAG, "New sent message");
     }
 
-    //textchat callbacks
     @Override
-    public boolean onMessageReadyToSend(ChatMessage chatMessage) {
-        if (mComm != null ){
-            return mComm.sendMessage(chatMessage.getText());
-        }
-        return false;
+    public void onNewReceivedMessage(ChatMessage message) {
+        Log.i(LOG_TAG, "New received message");
     }
 
     @Override
     public void onTextChatError(String error) {
-        Log.i(LOGTAG, "Error on text chat "+error);
+        Log.i(LOG_TAG, "Error on text chat "+error);
     }
 
     @Override
     public void onClose() {
-        Log.i(LOGTAG, "OnClose text-chat");
+        Log.i(LOG_TAG, "OnClose text-chat");
         mTextChatContainer.setVisibility(View.GONE);
         showAVCall(true);
         restartTextChatLayout(true);
@@ -378,23 +352,61 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onMinimize() {
-        Log.i(LOGTAG, "OnMinimize text-chat");
+        Log.i(LOG_TAG, "OnMinimize text-chat");
         showAVCall(true);
         restartTextChatLayout(false);
     }
 
     @Override
     public void onMaximize() {
-        Log.i(LOGTAG, "OnMaximize text-chat");
+        Log.i(LOG_TAG, "OnMaximize text-chat");
         showAVCall(false);
         restartTextChatLayout(true);
+    }
+
+    //Private methods
+
+    private void initPreviewFragment() {
+        mPreviewFragment = new PreviewControlFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.actionbar_preview_fragment_container, mPreviewFragment).commit();
+    }
+
+    private void initRemoteFragment() {
+        mRemoteFragment = new RemoteControlFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.actionbar_remote_fragment_container, mRemoteFragment).commit();
+    }
+
+    private void initCameraFragment() {
+        mCameraFragment = new PreviewCameraFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.camera_preview_fragment_container, mCameraFragment).commit();
+    }
+
+    private void initTextChatFragment(){
+        mTextChatFragment = new TextChatFragment(mComm.getSession());
+        mTextChatFragment.setMaxTextLength(1050);
+        mTextChatFragment.setSenderAlias("user1");
+        mTextChatFragment.setListener(this);
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
+    }
+
+    //Audio local button event
+    @Override
+    public void onDisableLocalAudio(boolean audio) {
+        if (mComm != null) {
+            mComm.enableLocalMedia(OneToOneCommunication.MediaType.AUDIO, audio);
+        }
     }
 
     //cleans views and controls
     private void cleanViewsAndControls() {
         mPreviewFragment.restartFragment(true);
-        mTextChatFragment.restartFragment();
         restartTextChatLayout(true);
+        mTextChatFragment.restart();
         mTextChatContainer.setVisibility(View.GONE);
     }
 

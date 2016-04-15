@@ -1,1 +1,1 @@
-include ':text-chat-component', ':text-chat-sample-app', ':TextChatSample'
+include ':text-chat-acc-pack', ':TextChatSample'
