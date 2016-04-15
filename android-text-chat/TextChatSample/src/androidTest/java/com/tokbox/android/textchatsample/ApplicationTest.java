@@ -1,4 +1,4 @@
-package im.android.opentok.com.im_component;
+package com.tokbox.android.textchatsample;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
