@@ -117,17 +117,16 @@ div {
 
 .video-control.share-screen {
   margin-left: 10px;
-  background-image: url("../images/message.png");
+  background-image: url("../images/screen-share.png");
 }
 
 .video-control.share-screen.disabled,
 .video-control.share-screen:hover {
-  background-image: url("../images/message.png");
-  background-color: brown;
+  background-image: url("../images/screen-share.png");
 }
 .video-control.share-screen.active {
-  background-color: brown;
-  background-image: url("../images/message.png");
+  background-color: red;
+  background-image: url("../images/screen-share.png");
 }
 /**/
 .video-control.video {
