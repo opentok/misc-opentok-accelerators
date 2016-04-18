@@ -2,7 +2,7 @@ var app = (function() {
 
   // Sample component
   var _communication;
-  var _accelerator_pack;
+  var _acceleratorPack;
 
   var _options = {
     apiKey: '100',
@@ -35,7 +35,7 @@ var app = (function() {
     enableLocalVideo: document.getElementById('enableLocalVideo'),
     enableRemoteAudio: document.getElementById('enableRemoteAudio'),
     enableRemoteVideo: document.getElementById('enableRemoteVideo'),
-    enableTextChat: document.getElementById('enableTextChat')
+    startScreenSharing: document.getElementById('startScreenSharing')
   };
 
   var _communicationProperties = {
@@ -132,11 +132,6 @@ var app = (function() {
     // Start or end call
     _communicationElements.startEndCall.onclick = _connectCall;
 
-    // Start or end text chat
-    _communicationElements.enableTextChat.onclick = function(){
-      _accelerator_pack.connectTextChat();
-    };
-
     // Click events for enabling/disabling audio/video
     var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
     controls.forEach(function(control) {
@@ -158,7 +153,7 @@ var app = (function() {
       _updateClassList(element, 'active', true);
     });
 
-    _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.enableTextChat);
+    _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.startScreenSharing);
 
     _communicationProperties.remoteParticipant && _swapVideoPositions('start');
   };
@@ -185,8 +180,8 @@ var app = (function() {
 
   var init = function() {
     // Get session
-    _accelerator_pack = new AcceleratorPack(_options.apiKey, _options.sessionId, _options.token);
-    _options.session = _accelerator_pack.getSession();
+    _acceleratorPack = new AcceleratorPack(_options.apiKey, _options.sessionId, _options.token);
+    _options.session = _acceleratorPack.getSession();
 
     _options.session.on({
       connectionCreated: function (event) {
