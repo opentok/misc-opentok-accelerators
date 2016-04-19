@@ -188,6 +188,7 @@ var AnnotationAccPack = (function() {
      * @param {String} [options.toolbarId] - If the container has an id other than 'toolbar'
      * @param {Array} [options.items] - Custom set of tools
      * @param {Array} [options.colors] - Custom color palette
+     * @returns {Promise} < Resolve: undefined | {Object} Reference to external annotation window >
      */
     var start = function(session, options) {
 
@@ -198,7 +199,7 @@ var AnnotationAccPack = (function() {
                 .then(function(externalWindow) {
                     _createToolbar(session, options, externalWindow);
                     toolbar.createPanel(externalWindow);
-                    deferred.resolve();
+                    deferred.resolve(externalWindow);
                 });
         } else {
             _createToolbar(session, options);
