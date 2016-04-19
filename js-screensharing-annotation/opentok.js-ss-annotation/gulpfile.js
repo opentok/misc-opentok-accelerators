@@ -8,7 +8,7 @@ gulp.task('default', ['js', 'css']);
 
 gulp.task('js', function () {
   return gulp.src('src/*.js')
-    .pipe(concat('screensharing-annotation.js'))
+    .pipe(concat('screenshare-annotation-acc-pack.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
