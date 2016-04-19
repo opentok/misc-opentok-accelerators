@@ -23,6 +23,21 @@ var app = (function() {
       style: {
         buttonDisplayMode: 'off'
       }
+    },
+    localScreenProperties: {
+      insertMode: 'append',
+      width: '100%',
+      height: '100%',
+      videoSource: 'window',
+      showControls: false,
+      style: {
+        buttonDisplayMode: 'off'
+      }
+    },
+    screensharing: {      
+      extensionID: 'idhnlbjlmkghinljcijgljbmcoonppgi',
+      extensionPathFF: 'ff-extension/wms-screensharing.xpi',
+      annotation: false
     }
   };
 
@@ -35,7 +50,7 @@ var app = (function() {
     enableLocalVideo: document.getElementById('enableLocalVideo'),
     enableRemoteAudio: document.getElementById('enableRemoteAudio'),
     enableRemoteVideo: document.getElementById('enableRemoteVideo'),
-    startScreenSharing: document.getElementById('startScreenSharing')
+    shareScreen: document.getElementById('shareScreen')
   };
 
   var _communicationProperties = {
@@ -44,7 +59,8 @@ var app = (function() {
     enableLocalAudio: true,
     enableLocalVideo: true,
     enableRemoteAudio: true,
-    enableRemoteVideo: true
+    enableRemoteVideo: true,
+    sharingScreen: false
   };
 
   // DOM helper functions
@@ -132,6 +148,8 @@ var app = (function() {
     // Start or end call
     _communicationElements.startEndCall.onclick = _connectCall;
 
+    _communicationElements.shareScreen.onclick = _shareScreen;
+
     // Click events for enabling/disabling audio/video
     var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
     controls.forEach(function(control) {
@@ -153,7 +171,7 @@ var app = (function() {
       _updateClassList(element, 'active', true);
     });
 
-    _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.startScreenSharing);
+    _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.shareScreen);
 
     _communicationProperties.remoteParticipant && _swapVideoPositions('start');
   };
@@ -178,13 +196,27 @@ var app = (function() {
 
   };
 
+  var _startScreenShare = function() {
+    _acceleratorPack.startScreenSharing();
+  };
+
+  var _endScreenShare = function() {
+
+  };
+
+  var _shareScreen = function() {
+
+    !_communicationProperties.sharingScreen ? _startScreenShare() : _endScreenShare();
+  }
+
   var init = function() {
     // Get session
-    _acceleratorPack = new AcceleratorPack(_options.apiKey, _options.sessionId, _options.token);
+    var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'screensharing']);
+    _acceleratorPack = new AcceleratorPack(accPackOptions);
     _options.session = _acceleratorPack.getSession();
 
     _options.session.on({
-      connectionCreated: function (event) {
+      connectionCreated: function(event) {
         _communication = new Communication(_options);
         _addEventListeners();
       }
@@ -193,4 +225,5 @@ var app = (function() {
 
   return init;
 })();
+
 app();
