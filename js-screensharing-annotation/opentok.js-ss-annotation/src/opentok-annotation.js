@@ -2,12 +2,21 @@ var AnnotationAccPack = (function() {
 
     var self;
 
-    // Constructor
-    var accPack = function(options) {
-        this.options = options;
-        this.widget = this.options.widget;
+    
+    /** 
+     * Annotation Accelerator Pack Constructor
+     * @param {Object} options
+     * @param {String} options.canvasContainer - The id of the parent element for the annotation canvas
+     */
+    var Annotation = function(options) {
+        
+        if ( !options || !this.options.canvasContainer ) {
+            throw new Error('Annotation requires')
+        }
+        
+        this.options = options || {};
         // UPDATE FROM WMS       
-        this.elements = { canvasContainer : this.options.comms_elements.callFeedWrap };
+        this.elements = { canvasContainer : this.options.canvasContainer };
         self = this;
     };
 
@@ -173,12 +182,12 @@ var AnnotationAccPack = (function() {
     /**
      * Creates an external window (if required) and links the annotation toolbar
      * to the session
-     * @param {object} session
-     * @param {object} [options]
-     * @param {boolean} [options.externalWindow] - Using an external window ?
-     * @param {string} [options.toolbarId] - If the container has an id other than 'toolbar'
-     * @param {array} [options.items] - Custom set of tools
-     * @param {array} [options.colors] - Custom color palette
+     * @param {Object} session
+     * @param {Object} [options]
+     * @param {Boolean} [options.externalWindow] - Using an external window ?
+     * @param {String} [options.toolbarId] - If the container has an id other than 'toolbar'
+     * @param {Array} [options.items] - Custom set of tools
+     * @param {Array} [options.colors] - Custom color palette
      */
     var start = function(session, options) {
 
@@ -187,7 +196,6 @@ var AnnotationAccPack = (function() {
         if (_.property('externalWindow')(options)) {
             _createExternalWindow()
                 .then(function(externalWindow) {
-                    self.widget.comms_elements.annotationWindow = externalWindow;
                     _createToolbar(session, options, externalWindow);
                     toolbar.createPanel(externalWindow);
                     deferred.resolve();
@@ -293,18 +301,17 @@ var AnnotationAccPack = (function() {
         delete self.elements;
         if (!!self.elements.externalWindow) {
             self.elements.externalWindow.close();
-            delete self.widget.comms_elements.annotationWindow;
         }
     };
 
-    accPack.prototype = {
-        constructor: annotationComponent,
+    Annotation.prototype = {
+        constructor: Annotation,
         start: start,
         linkCanvas: linkCanvas,
         resizeCanvas: resizeCanvas,
         end: end
     };
 
-    return accPack;
+    return Annotation;
 
 })();
