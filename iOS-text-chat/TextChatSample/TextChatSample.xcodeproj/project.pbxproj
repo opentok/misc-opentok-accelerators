@@ -30,8 +30,6 @@
 		643553301CB69CA400643E2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6435532E1CB69CA400643E2F /* LaunchScreen.storyboard */; };
 		643553431CB69CBE00643E2F /* TextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6435533C1CB69CBE00643E2F /* TextChatKit.framework */; };
 		643553441CB69CBE00643E2F /* TextChatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6435533C1CB69CBE00643E2F /* TextChatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		643553501CB69CFB00643E2F /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6435534D1CB69CFB00643E2F /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		643553511CB69CFB00643E2F /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6435534E1CB69CFB00643E2F /* TextChatView.m */; };
 		6435535A1CB69D0600643E2F /* TextChatComponentDivTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 643553531CB69D0600643E2F /* TextChatComponentDivTableViewCell.xib */; };
 		6435535B1CB69D0600643E2F /* TextChatReceivedShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 643553541CB69D0600643E2F /* TextChatReceivedShortTableViewCell.xib */; };
 		6435535C1CB69D0600643E2F /* TextChatReceivedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 643553551CB69D0600643E2F /* TextChatReceivedTableViewCell.xib */; };
@@ -64,15 +62,22 @@
 		643553961CB6A54E00643E2F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553861CB6A54E00643E2F /* QuartzCore.framework */; };
 		643553971CB6A54E00643E2F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553871CB6A54E00643E2F /* SystemConfiguration.framework */; };
 		643553981CB6A54E00643E2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553881CB6A54E00643E2F /* UIKit.framework */; };
-		A04178F81CB6C94B009B9225 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A04178F71CB6C94B009B9225 /* TextChatView.xib */; };
+		A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
+		A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */; };
+		A03B1F641CC0B0C800D765F7 /* TextChatView_AutoLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F5C1CC0B0C800D765F7 /* TextChatView_AutoLayout.h */; };
+		A03B1F651CC0B0C800D765F7 /* TextChatView_UserInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F5D1CC0B0C800D765F7 /* TextChatView_UserInterface.h */; };
+		A03B1F721CC0B26400D765F7 /* TextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A03B1F731CC0B26400D765F7 /* TextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */; };
+		A03B1F741CC0B26400D765F7 /* TextChatUICustomizator_Properties.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F711CC0B26400D765F7 /* TextChatUICustomizator_Properties.h */; };
+		A03EA5FC1CC18C2400A205AE /* AcceleratorPackSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A03EA5FA1CC18C2400A205AE /* AcceleratorPackSession.h */; };
+		A03EA5FD1CC18C2400A205AE /* AcceleratorPackSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A03EA5FB1CC18C2400A205AE /* AcceleratorPackSession.m */; };
+		A03EA6051CC197A300A205AE /* OneToOneCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = A03EA6011CC197A300A205AE /* OneToOneCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A03EA6061CC197A300A205AE /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A03EA6021CC197A300A205AE /* OneToOneCommunicator.m */; };
+		A03EA6071CC197A300A205AE /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A03EA6031CC197A300A205AE /* OTKAnalytics.h */; };
+		A03EA6081CC197A300A205AE /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A03EA6041CC197A300A205AE /* OTKAnalytics.m */; };
 		A04179041CB6C95B009B9225 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04179031CB6C95B009B9225 /* OpenTok.framework */; };
 		A04179051CB6C976009B9225 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553891CB6A54E00643E2F /* VideoToolbox.framework */; };
-		A0DF6DFE1CB8D7A600A0A5F8 /* OneToOneCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DF6DFA1CB8D7A600A0A5F8 /* OneToOneCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0DF6DFF1CB8D7A600A0A5F8 /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF6DFB1CB8D7A600A0A5F8 /* OneToOneCommunicator.m */; };
-		A0DF6E001CB8D7A600A0A5F8 /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DF6DFC1CB8D7A600A0A5F8 /* OTKAnalytics.h */; };
-		A0DF6E011CB8D7A600A0A5F8 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF6DFD1CB8D7A600A0A5F8 /* OTKAnalytics.m */; };
-		A0DF6E091CB8DAB600A0A5F8 /* AcceleratorPackSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DF6E071CB8DAB600A0A5F8 /* AcceleratorPackSession.h */; };
-		A0DF6E0A1CB8DAB600A0A5F8 /* AcceleratorPackSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF6E081CB8DAB600A0A5F8 /* AcceleratorPackSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,8 +124,6 @@
 		643553311CB69CA400643E2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6435533C1CB69CBE00643E2F /* TextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		643553401CB69CBE00643E2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6435534D1CB69CFB00643E2F /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
-		6435534E1CB69CFB00643E2F /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
 		643553531CB69D0600643E2F /* TextChatComponentDivTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentDivTableViewCell.xib; sourceTree = "<group>"; };
 		643553541CB69D0600643E2F /* TextChatReceivedShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatReceivedShortTableViewCell.xib; sourceTree = "<group>"; };
 		643553551CB69D0600643E2F /* TextChatReceivedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatReceivedTableViewCell.xib; sourceTree = "<group>"; };
@@ -154,14 +157,21 @@
 		643553871CB6A54E00643E2F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		643553881CB6A54E00643E2F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		643553891CB6A54E00643E2F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		A04178F71CB6C94B009B9225 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
+		A03B1F591CC0B0C800D765F7 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
+		A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
+		A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
+		A03B1F5C1CC0B0C800D765F7 /* TextChatView_AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView_AutoLayout.h; sourceTree = "<group>"; };
+		A03B1F5D1CC0B0C800D765F7 /* TextChatView_UserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView_UserInterface.h; sourceTree = "<group>"; };
+		A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatUICustomizator.h; sourceTree = "<group>"; };
+		A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatUICustomizator.m; sourceTree = "<group>"; };
+		A03B1F711CC0B26400D765F7 /* TextChatUICustomizator_Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatUICustomizator_Properties.h; sourceTree = "<group>"; };
+		A03EA5FA1CC18C2400A205AE /* AcceleratorPackSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AcceleratorPackSession.h; path = "acc-pack-common/iOS/AcceleratorSession/Pod/Classes/AcceleratorPackSession.h"; sourceTree = "<group>"; };
+		A03EA5FB1CC18C2400A205AE /* AcceleratorPackSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AcceleratorPackSession.m; path = "acc-pack-common/iOS/AcceleratorSession/Pod/Classes/AcceleratorPackSession.m"; sourceTree = "<group>"; };
+		A03EA6011CC197A300A205AE /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
+		A03EA6021CC197A300A205AE /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
+		A03EA6031CC197A300A205AE /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.h"; sourceTree = "<group>"; };
+		A03EA6041CC197A300A205AE /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A04179031CB6C95B009B9225 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
-		A0DF6DFA1CB8D7A600A0A5F8 /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneCommunicator.h; sourceTree = "<group>"; };
-		A0DF6DFB1CB8D7A600A0A5F8 /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneCommunicator.m; sourceTree = "<group>"; };
-		A0DF6DFC1CB8D7A600A0A5F8 /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTKAnalytics.h; sourceTree = "<group>"; };
-		A0DF6DFD1CB8D7A600A0A5F8 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTKAnalytics.m; sourceTree = "<group>"; };
-		A0DF6E071CB8DAB600A0A5F8 /* AcceleratorPackSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceleratorPackSession.h; sourceTree = "<group>"; };
-		A0DF6E081CB8DAB600A0A5F8 /* AcceleratorPackSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceleratorPackSession.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,12 +256,11 @@
 		6435533D1CB69CBE00643E2F /* TextChatKit */ = {
 			isa = PBXGroup;
 			children = (
-				A0DF6E071CB8DAB600A0A5F8 /* AcceleratorPackSession.h */,
-				A0DF6E081CB8DAB600A0A5F8 /* AcceleratorPackSession.m */,
-				A04178F71CB6C94B009B9225 /* TextChatView.xib */,
+				A03EA5FA1CC18C2400A205AE /* AcceleratorPackSession.h */,
+				A03EA5FB1CC18C2400A205AE /* AcceleratorPackSession.m */,
 				643553621CB69D2300643E2F /* TextChatKit.h */,
-				6435534D1CB69CFB00643E2F /* TextChatView.h */,
-				6435534E1CB69CFB00643E2F /* TextChatView.m */,
+				A03B1F6E1CC0B26400D765F7 /* TextChatUICustomizator */,
+				A03B1F551CC0B0C800D765F7 /* TextChatView */,
 				A0DF6DF91CB8D7A600A0A5F8 /* OneToOne */,
 				643553751CB69D4700643E2F /* Helpers */,
 				6435536C1CB69D3A00643E2F /* TextChatComponent */,
@@ -312,6 +321,28 @@
 				643553701CB69D4300643E2F /* UIViewController+Helper.m */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A03B1F551CC0B0C800D765F7 /* TextChatView */ = {
+			isa = PBXGroup;
+			children = (
+				A03B1F5C1CC0B0C800D765F7 /* TextChatView_AutoLayout.h */,
+				A03B1F5D1CC0B0C800D765F7 /* TextChatView_UserInterface.h */,
+				A03B1F591CC0B0C800D765F7 /* TextChatView.h */,
+				A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */,
+				A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */,
+			);
+			path = TextChatView;
+			sourceTree = "<group>";
+		};
+		A03B1F6E1CC0B26400D765F7 /* TextChatUICustomizator */ = {
+			isa = PBXGroup;
+			children = (
+				A03B1F711CC0B26400D765F7 /* TextChatUICustomizator_Properties.h */,
+				A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */,
+				A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */,
+			);
+			path = TextChatUICustomizator;
 			sourceTree = "<group>";
 		};
 		A04178F91CB6C95B009B9225 /* OpenTok-iOS-2.7.1 */ = {
@@ -397,10 +428,10 @@
 		A0DF6DF91CB8D7A600A0A5F8 /* OneToOne */ = {
 			isa = PBXGroup;
 			children = (
-				A0DF6DFA1CB8D7A600A0A5F8 /* OneToOneCommunicator.h */,
-				A0DF6DFB1CB8D7A600A0A5F8 /* OneToOneCommunicator.m */,
-				A0DF6DFC1CB8D7A600A0A5F8 /* OTKAnalytics.h */,
-				A0DF6DFD1CB8D7A600A0A5F8 /* OTKAnalytics.m */,
+				A03EA6011CC197A300A205AE /* OneToOneCommunicator.h */,
+				A03EA6021CC197A300A205AE /* OneToOneCommunicator.m */,
+				A03EA6031CC197A300A205AE /* OTKAnalytics.h */,
+				A03EA6041CC197A300A205AE /* OTKAnalytics.m */,
 			);
 			path = OneToOne;
 			sourceTree = "<group>";
@@ -412,14 +443,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A03EA6071CC197A300A205AE /* OTKAnalytics.h in Headers */,
 				643553631CB69D2300643E2F /* TextChatKit.h in Headers */,
-				643553501CB69CFB00643E2F /* TextChatView.h in Headers */,
-				A0DF6E091CB8DAB600A0A5F8 /* AcceleratorPackSession.h in Headers */,
-				A0DF6DFE1CB8D7A600A0A5F8 /* OneToOneCommunicator.h in Headers */,
+				A03EA6051CC197A300A205AE /* OneToOneCommunicator.h in Headers */,
+				A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */,
+				A03B1F651CC0B0C800D765F7 /* TextChatView_UserInterface.h in Headers */,
+				A03B1F721CC0B26400D765F7 /* TextChatUICustomizator.h in Headers */,
+				6435535F1CB69D0600643E2F /* TextChatTableViewCell.h in Headers */,
+				A03B1F741CC0B26400D765F7 /* TextChatUICustomizator_Properties.h in Headers */,
 				643553681CB69D2C00643E2F /* TextChat.h in Headers */,
 				6435536A1CB69D2C00643E2F /* TextChatComponent.h in Headers */,
-				6435535F1CB69D0600643E2F /* TextChatTableViewCell.h in Headers */,
-				A0DF6E001CB8D7A600A0A5F8 /* OTKAnalytics.h in Headers */,
+				A03B1F641CC0B0C800D765F7 /* TextChatView_AutoLayout.h in Headers */,
+				A03EA5FC1CC18C2400A205AE /* AcceleratorPackSession.h in Headers */,
 				643553731CB69D4300643E2F /* UIViewController+Helper.h in Headers */,
 				643553711CB69D4300643E2F /* GCDHelper.h in Headers */,
 			);
@@ -526,7 +561,7 @@
 				6435535B1CB69D0600643E2F /* TextChatReceivedShortTableViewCell.xib in Resources */,
 				643553771CB69D5B00643E2F /* Assets.xcassets in Resources */,
 				6435535C1CB69D0600643E2F /* TextChatReceivedTableViewCell.xib in Resources */,
-				A04178F81CB6C94B009B9225 /* TextChatView.xib in Resources */,
+				A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,7 +579,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nFRAMEWORK_NAME=\"TextChatKit\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\"\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\"\n\n# 5\n# Remove .framework file if exists on Desktop from previous run.\nif [ -d \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to Desktop.\ncp -r \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n";
+			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nFRAMEWORK_NAME=\"TextChatKit\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\"\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\"\n\n# 5\n# Remove .framework file if exists on Desktop from previous run.\nif [ -d \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to Desktop.\ncp -r \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -563,15 +598,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0DF6E0A1CB8DAB600A0A5F8 /* AcceleratorPackSession.m in Sources */,
+				A03EA6061CC197A300A205AE /* OneToOneCommunicator.m in Sources */,
 				643553601CB69D0600643E2F /* TextChatTableViewCell.m in Sources */,
-				643553511CB69CFB00643E2F /* TextChatView.m in Sources */,
+				A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */,
 				643553741CB69D4300643E2F /* UIViewController+Helper.m in Sources */,
+				A03B1F731CC0B26400D765F7 /* TextChatUICustomizator.m in Sources */,
 				6435536B1CB69D2C00643E2F /* TextChatComponent.m in Sources */,
 				643553721CB69D4300643E2F /* GCDHelper.m in Sources */,
+				A03EA6081CC197A300A205AE /* OTKAnalytics.m in Sources */,
 				643553691CB69D2C00643E2F /* TextChat.m in Sources */,
-				A0DF6DFF1CB8D7A600A0A5F8 /* OneToOneCommunicator.m in Sources */,
-				A0DF6E011CB8D7A600A0A5F8 /* OTKAnalytics.m in Sources */,
+				A03EA5FD1CC18C2400A205AE /* AcceleratorPackSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +767,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OpenTok-iOS-2.7.1",
+					"$(PROJECT_DIR)/TextChatKit/acc-pack-common/iOS/AcceleratorSession/Example/Pods/OpenTok",
 				);
 				INFOPLIST_FILE = TextChatKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -757,6 +794,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OpenTok-iOS-2.7.1",
+					"$(PROJECT_DIR)/TextChatKit/acc-pack-common/iOS/AcceleratorSession/Example/Pods/OpenTok",
 				);
 				INFOPLIST_FILE = TextChatKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

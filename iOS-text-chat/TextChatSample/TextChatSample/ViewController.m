@@ -9,9 +9,10 @@
 #import <TextChatkit/TextChatKit.h>
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <TextChatViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (strong, nonatomic) TextChatView *textChatView;
+@property (strong, nonatomic) OneToOneCommunicator *oneToOneCommunicator;
 @end
 
 @implementation ViewController
@@ -23,16 +24,61 @@
     return _textChatView;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.textChatView show];
+- (OneToOneCommunicator *)oneToOneCommunicator {
+    if (!_oneToOneCommunicator) {
+        _oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
+    }
+    return _oneToOneCommunicator;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.textChatView setDelegate:self];
+    [self.textChatView setMaximumTextMessageLength:30];
+    [self.textChatView setAlias:@"Lucas"];
+    [self.textChatView connect];
+}
+
+- (IBAction)connectToAVButtonPressed:(id)sender {
+    [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
+        
+    }];
+}
+
+- (IBAction)disconnectToAVButtonPressed:(id)sender {
+    [self.oneToOneCommunicator disconnect];
+}
+
+- (IBAction)changeRedButtonPressed:(id)sender {
+    [TextChatUICustomizator setTableViewCellSendTextColor:[UIColor orangeColor]];
+    [TextChatUICustomizator setTableViewCellSendBackgroundColor:[UIColor greenColor]];
+}
+
+- (IBAction)changeBlueButtonPressed:(id)sender {
+    [TextChatUICustomizator setTableViewCellSendTextColor:[UIColor redColor]];
+    [TextChatUICustomizator setTableViewCellSendBackgroundColor:[UIColor yellowColor]];
+}
+
+
 - (IBAction)buttonPressed:(id)sender {
-    if (!self.textChatView.isViewAttached) {
+    if (!self.textChatView.isShown) {
         [self.textChatView show];
     }
 }
 
+- (IBAction)hideButtonPressed:(id)sender {
+    
+    [self.textChatView dismiss];
+}
+
+- (void)textChatViewDidSendMessage:(TextChatView *)textChatView
+                             error:(NSError *)error {
+
+    NSLog(@"error: %@", error.localizedDescription);
+}
+
+- (void)textChatViewDidReceiveMessage:(TextChatView *)textChatView {
+    
+}
 
 @end

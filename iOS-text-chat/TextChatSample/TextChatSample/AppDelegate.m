@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <TextChatKit/TextChatKit.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [TextChatView setOpenTokApiKey:@"" sessionId:@"" token:@""];
     return YES;
 }
 

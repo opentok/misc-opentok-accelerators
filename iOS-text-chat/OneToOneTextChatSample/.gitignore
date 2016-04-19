@@ -19,7 +19,4 @@ DerivedData
 # Pods - for those of you who use CocoaPods
 Pods
 
-*.framework
-*.bundle
-
 iOS/SampleApp.xcodeproj/project.*

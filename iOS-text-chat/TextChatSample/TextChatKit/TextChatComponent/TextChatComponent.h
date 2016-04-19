@@ -6,15 +6,12 @@
 //  Copyright © 2016 AgilityFeat. All rights reserved.
 //
 
-
-#import <Foundation/Foundation.h>
-#import <OpenTok/OpenTok.h>
-
 #import "TextChat.h"
 #import "TextChatView.h"
 
 @protocol TextChatComponentDelegate <NSObject>
 - (void)didConnectWithError:(NSError *)error;
+- (void)didDisConnectWithError:(NSError *)error;
 - (void)didAddMessageWithError:(NSError *)error;
 - (void)didReceiveMessage;
 @end
@@ -23,14 +20,21 @@
 
 @property (weak, nonatomic) id<TextChatComponentDelegate> delegate;
 
-@property (readonly, nonatomic) OTSession *session;
 @property (readonly, nonatomic) NSArray<TextChat *> *messages;
-@property (readonly, nonatomic) NSSet<NSString *> *senders;
-@property (readonly, nonatomic) NSString *senderId;
 @property (readonly, nonatomic) NSString *alias;
+@property (readonly, nonatomic) NSString *receiverAlias;
+@property (readonly, nonatomic) NSUInteger maximumTextMessageLength;
 
 - (void)connect;
 
+- (void)disconnect;
+
 - (void)sendMessage:(NSString *)message;
+
+- (TextChat *)getTextChatFromIndexPath:(NSIndexPath *)indexPath;
+
+- (void)setAlias:(NSString *)alias;
+
+- (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength;
 
 @end

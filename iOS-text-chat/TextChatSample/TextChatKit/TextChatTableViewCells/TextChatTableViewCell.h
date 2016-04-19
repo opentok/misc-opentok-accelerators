@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TextChat.h"
 
 @interface TextChatTableViewCell : UITableViewCell
 
@@ -17,4 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIView *userFirstLetter;
 @property (weak, nonatomic) IBOutlet UIView *cornerUp;
 @property (weak, nonatomic) IBOutlet UIView *cornerUpLeft;
+
+- (void)updateCellFromTextChat:(TextChat *)textChat;
+
 @end

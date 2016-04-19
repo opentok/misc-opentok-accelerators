@@ -1,6 +1,7 @@
 #import "MainView.h"
 #import "MainViewController.h"
 #import <TextChatKit/TextChatKit.h>
+#import "SVProgressHUD.h"
 
 @interface MainViewController ()
 @property (nonatomic) MainView *mainView;
@@ -10,30 +11,31 @@
 
 @implementation MainViewController
 
-- (TextChatView *)textChatView {
-    if (!_textChatView) {
-        _textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
-    }
-    return _textChatView;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
+    self.textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
+
+    // optional config for set the max amount of character permited per message
+    [self.textChatView setMaximumTextMessageLength:200];
+    // optional to be able to set the Alias for show in the top bar and on the messages (Name of the sender)
+    [self.textChatView setAlias:@"Tokboxer"];
 }
 
 /**
  * toggles the call start/end handles the color of the buttons
  */
 - (IBAction)publisherCallButtonPressed:(UIButton *)sender {
-    if (self.oneToOneCommunicator.isCallEnabled) {
+    if (!self.oneToOneCommunicator.isCallEnabled) {
         [self.mainView callHolderDisconnected];
-        [self.mainView showConnectingLabel];
+        [SVProgressHUD show];
+        [self.mainView setTextChatHolderUserInteractionEnabled:YES];
+        [self.textChatView connect];
         [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
 
-            [self.mainView hideConnectingLabel];
+            [SVProgressHUD dismiss];
             if (!error) {
                 [self handleCommunicationSignal:signal];
             }
@@ -42,10 +44,13 @@
     else {
         [self.mainView callHolderConnected];
         [self.oneToOneCommunicator disconnect];
+        [self.textChatView disconnect];
 
         [self.mainView removePublisherView];
-        [self.mainView hideErrorMessageLabel];
+        [SVProgressHUD dismiss];
         [self.mainView removePlaceHolderImage];
+        [self.mainView setTextChatHolderUserInteractionEnabled:NO];
+        [self.textChatView dismiss];
     }
 }
 
@@ -63,7 +68,7 @@
             break;
         }
         case OneToOneCommunicationSignalSessionDidFail:{
-            [self.mainView hideConnectingLabel];
+            [SVProgressHUD dismiss];
             break;
         }
         case OneToOneCommunicationSignalSessionStreamCreated:{
@@ -74,7 +79,7 @@
             break;
         }
         case OneToOneCommunicationSignalPublisherDidFail:{
-            [self.mainView showErrorMessageLabelWithMessage:@"Problem when publishing" dismissAfter:4.0];
+            [SVProgressHUD showErrorWithStatus:@"Problem when publishing"];
             break;
         }
         case OneToOneCommunicationSignalSubscriberConnect:{
@@ -82,7 +87,7 @@
             break;
         }
         case OneToOneCommunicationSignalSubscriberDidFail:{
-            [self.mainView showErrorMessageLabelWithMessage:@"Problem when subscribing" dismissAfter:4.0];
+            [SVProgressHUD showErrorWithStatus:@"Problem when subscribing"];
             break;
         }
         case OneToOneCommunicationSignalSubscriberVideoDisabled:{
@@ -90,18 +95,18 @@
             break;
         }
         case OneToOneCommunicationSignalSubscriberVideoEnabled:{
-            [self.mainView hideErrorMessageLabel];
+            [SVProgressHUD dismiss];
             [self.mainView addSubscribeView:self.oneToOneCommunicator.subscriberView];
             break;
         }
         case OneToOneCommunicationSignalSubscriberVideoDisableWarning:{
             [self.mainView addPlaceHolderToSubscriberView];
             self.oneToOneCommunicator.subscribeToVideo = NO;
-            [self.mainView showErrorMessageLabelWithMessage:@"Network connection is unstable." dismissAfter:0.0];
+            [SVProgressHUD showErrorWithStatus:@"Network connection is unstable."];
             break;
         }
         case OneToOneCommunicationSignalSubscriberVideoDisableWarningLifted:{
-            [self.mainView hideErrorMessageLabel];
+            [SVProgressHUD dismiss];
             [self.mainView addSubscribeView:self.oneToOneCommunicator.subscriberView];
             break;
         }
@@ -188,9 +193,12 @@
  */
 - (IBAction)textChatButtonPressed:(UIButton *)sender {
     
-    if (!self.textChatView.isViewAttached) {
-        [self.textChatView showTextChatView];
+    if (!self.textChatView.isShown) {
+        [self.textChatView show];
     }
+    // OPTIONAL COLOR CHANGING 
+    // [TextChatUICustomizator setTableViewCellSendBackgroundColor:[UIColor orangeColor]];
+    // [TextChatUICustomizator setTableViewCellReceiveBackgroundColor:[UIColor yellowColor]];
 }
 
 /**

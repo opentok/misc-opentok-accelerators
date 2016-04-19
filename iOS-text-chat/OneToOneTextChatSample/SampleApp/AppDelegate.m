@@ -1,6 +1,5 @@
 #import "AppDelegate.h"
 #import <TextChatKit/TextChatKit.h>
-#import "config.h"
 
 @interface AppDelegate ()
 
@@ -11,11 +10,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.
     
-    [OneToOneCommunicator setOpenTokApiKey: KAPIKEY
-                                 sessionId: KSESSIONID
-                                     token: KTOKEN
-                            selfSubscribed:NO];
-  return YES;
+    [TextChatView setOpenTokApiKey: @""
+                         sessionId: @""
+                             token: @""];
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

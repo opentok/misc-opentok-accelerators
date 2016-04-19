@@ -13,13 +13,17 @@ typedef NS_ENUM(NSUInteger, TCMessageTypes) {
     TCMessageTypesSentShort,
     TCMessageTypesReceived,
     TCMessageTypesReceivedShort,
-    TCMessageTypesDivider,
 };
 
 @interface TextChat : NSObject
-@property (nonatomic, copy) NSString *senderAlias;
+@property (nonatomic, copy) NSString *alias;
 @property (nonatomic, copy) NSString *senderId;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSDate *dateTime;
 @property (nonatomic) TCMessageTypes type;
+- (instancetype)initWithMessage:(NSString *)message
+                          alias:(NSString *)alias
+                       senderId:(NSString *)senderId;
+- (instancetype)initWithJSONString:(NSString *)jsonString;
+- (NSString *)getTextChatSignalJSONString;
 @end
