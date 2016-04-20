@@ -70,14 +70,14 @@
 		A03B1F721CC0B26400D765F7 /* TextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F731CC0B26400D765F7 /* TextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */; };
 		A03B1F741CC0B26400D765F7 /* TextChatUICustomizator_Properties.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F711CC0B26400D765F7 /* TextChatUICustomizator_Properties.h */; };
-		A03EA5FC1CC18C2400A205AE /* AcceleratorPackSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A03EA5FA1CC18C2400A205AE /* AcceleratorPackSession.h */; };
-		A03EA5FD1CC18C2400A205AE /* AcceleratorPackSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A03EA5FB1CC18C2400A205AE /* AcceleratorPackSession.m */; };
 		A03EA6051CC197A300A205AE /* OneToOneCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = A03EA6011CC197A300A205AE /* OneToOneCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03EA6061CC197A300A205AE /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A03EA6021CC197A300A205AE /* OneToOneCommunicator.m */; };
 		A03EA6071CC197A300A205AE /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A03EA6031CC197A300A205AE /* OTKAnalytics.h */; };
 		A03EA6081CC197A300A205AE /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A03EA6041CC197A300A205AE /* OTKAnalytics.m */; };
 		A04179041CB6C95B009B9225 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04179031CB6C95B009B9225 /* OpenTok.framework */; };
 		A04179051CB6C976009B9225 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553891CB6A54E00643E2F /* VideoToolbox.framework */; };
+		A0C9A18A1CC81EED0026D458 /* AcceleratorPackSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C9A1881CC81EED0026D458 /* AcceleratorPackSession.h */; };
+		A0C9A18B1CC81EED0026D458 /* AcceleratorPackSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C9A1891CC81EED0026D458 /* AcceleratorPackSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,13 +165,13 @@
 		A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatUICustomizator.h; sourceTree = "<group>"; };
 		A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatUICustomizator.m; sourceTree = "<group>"; };
 		A03B1F711CC0B26400D765F7 /* TextChatUICustomizator_Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatUICustomizator_Properties.h; sourceTree = "<group>"; };
-		A03EA5FA1CC18C2400A205AE /* AcceleratorPackSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AcceleratorPackSession.h; path = "acc-pack-common/iOS/AcceleratorSession/Pod/Classes/AcceleratorPackSession.h"; sourceTree = "<group>"; };
-		A03EA5FB1CC18C2400A205AE /* AcceleratorPackSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AcceleratorPackSession.m; path = "acc-pack-common/iOS/AcceleratorSession/Pod/Classes/AcceleratorPackSession.m"; sourceTree = "<group>"; };
 		A03EA6011CC197A300A205AE /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
 		A03EA6021CC197A300A205AE /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
 		A03EA6031CC197A300A205AE /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.h"; sourceTree = "<group>"; };
 		A03EA6041CC197A300A205AE /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A04179031CB6C95B009B9225 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
+		A0C9A1881CC81EED0026D458 /* AcceleratorPackSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AcceleratorPackSession.h; path = "acc-pack-common/iOS/Pod/Classes/AcceleratorPackSession.h"; sourceTree = "<group>"; };
+		A0C9A1891CC81EED0026D458 /* AcceleratorPackSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AcceleratorPackSession.m; path = "acc-pack-common/iOS/Pod/Classes/AcceleratorPackSession.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,8 +256,8 @@
 		6435533D1CB69CBE00643E2F /* TextChatKit */ = {
 			isa = PBXGroup;
 			children = (
-				A03EA5FA1CC18C2400A205AE /* AcceleratorPackSession.h */,
-				A03EA5FB1CC18C2400A205AE /* AcceleratorPackSession.m */,
+				A0C9A1881CC81EED0026D458 /* AcceleratorPackSession.h */,
+				A0C9A1891CC81EED0026D458 /* AcceleratorPackSession.m */,
 				643553621CB69D2300643E2F /* TextChatKit.h */,
 				A03B1F6E1CC0B26400D765F7 /* TextChatUICustomizator */,
 				A03B1F551CC0B0C800D765F7 /* TextChatView */,
@@ -453,8 +453,8 @@
 				A03B1F741CC0B26400D765F7 /* TextChatUICustomizator_Properties.h in Headers */,
 				643553681CB69D2C00643E2F /* TextChat.h in Headers */,
 				6435536A1CB69D2C00643E2F /* TextChatComponent.h in Headers */,
+				A0C9A18A1CC81EED0026D458 /* AcceleratorPackSession.h in Headers */,
 				A03B1F641CC0B0C800D765F7 /* TextChatView_AutoLayout.h in Headers */,
-				A03EA5FC1CC18C2400A205AE /* AcceleratorPackSession.h in Headers */,
 				643553731CB69D4300643E2F /* UIViewController+Helper.h in Headers */,
 				643553711CB69D4300643E2F /* GCDHelper.h in Headers */,
 			);
@@ -605,9 +605,9 @@
 				A03B1F731CC0B26400D765F7 /* TextChatUICustomizator.m in Sources */,
 				6435536B1CB69D2C00643E2F /* TextChatComponent.m in Sources */,
 				643553721CB69D4300643E2F /* GCDHelper.m in Sources */,
+				A0C9A18B1CC81EED0026D458 /* AcceleratorPackSession.m in Sources */,
 				A03EA6081CC197A300A205AE /* OTKAnalytics.m in Sources */,
 				643553691CB69D2C00643E2F /* TextChat.m in Sources */,
-				A03EA5FD1CC18C2400A205AE /* AcceleratorPackSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
