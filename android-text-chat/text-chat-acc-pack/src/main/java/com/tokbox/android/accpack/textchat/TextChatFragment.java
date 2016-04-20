@@ -395,11 +395,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                 try {
                     sender.put("id", senderId);
                     sender.put("alias", senderAlias);
-
-                    JSONArray senderObj = new JSONArray();
-                    senderObj.put(sender);
-
-                    messageObj.put("sender", senderObj);
+                    messageObj.put("sender", sender);
                     messageObj.put("text", msgStr);
                     messageObj.put("sentOn", System.currentTimeMillis());
 
@@ -575,11 +571,9 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                 json = new JSONObject(data);
                 text = json.getString("text");
                 date = json.getString("sentOn");
-                JSONArray sender = json.getJSONArray("sender");
-                JSONObject first = sender.getJSONObject(0);
-                senderId = first.getString("id");
-                senderAlias = first.getString("alias");
-
+                JSONObject sender = json.getJSONObject("sender");
+                senderId = sender.getString("id");
+                senderAlias = sender.getString("alias");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
