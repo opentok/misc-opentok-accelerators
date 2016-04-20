@@ -29,6 +29,7 @@
 // other controls
 - (void)setTextChatHolderUserInteractionEnabled:(BOOL)enabled;
 - (void)removePlaceHolderImage;
+- (void) buttonsStatusSetter: (BOOL)status;
 
 @property (weak, nonatomic) IBOutlet UIView *actionButtonsHolder;
 @end
