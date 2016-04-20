@@ -132,7 +132,8 @@ public class OneToOneCommunication implements
      * Start the communication.
      */
     public void start() {
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        //add START_COMM attempt log event
+        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
 
         if (mSession != null && isInitialized) {
             if (mPublisher == null) {
@@ -152,7 +153,9 @@ public class OneToOneCommunication implements
      * End the communication.
      */
     public void end() {
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        //add END_COMM attempt log event
+        addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
         if (mPublisher != null) {
             mSession.unpublish(mPublisher);
             mPublisher = null;
@@ -387,7 +390,7 @@ public class OneToOneCommunication implements
             }
         }
         //add START_COMM success log event
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
+        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     @Override
@@ -396,7 +399,7 @@ public class OneToOneCommunication implements
             unsubscribeFromStream(stream);
         }
         //add END_COMM success log event
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
+        addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     @Override
@@ -406,7 +409,7 @@ public class OneToOneCommunication implements
         restartComm();
 
         //add START_COMM error log event
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ERROR);
+        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ERROR);
     }
 
     @Override
@@ -419,7 +422,7 @@ public class OneToOneCommunication implements
         mAnalytics = new OTKAnalytics(mAnalyticsData);
 
         //add INITIALIZE attempt log event
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
 
         onInitialized();
 
@@ -460,8 +463,9 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "Session error: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
         onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
+
         //add INITIALIZE error log event
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR);
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR );
     }
 
     @Override
@@ -534,8 +538,9 @@ public class OneToOneCommunication implements
         if (this.mListener != null) {
             this.mListener.onInitialized();
         }
+
         //add INITIALIZE success log event
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     protected void onError(String error) {
@@ -565,6 +570,12 @@ public class OneToOneCommunication implements
     protected void onRemoteViewReady(View remoteView) {
         if (this.mListener != null) {
             this.mListener.onRemoteViewReady(remoteView);
+        }
+    }
+
+    private void addLogEvent(String action, String variation){
+        if ( mAnalytics!= null ) {
+            mAnalytics.logEvent(action, variation);
         }
     }
 }
