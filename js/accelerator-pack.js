@@ -1,7 +1,7 @@
 var AcceleratorPack = (function() {
 
   var _textChat;
-  var _session;
+  var _session, self;
   var _isConnected = false;
 
   // Constructor
