@@ -2,7 +2,7 @@ var app = (function() {
 
   // Sample component
   var _communication;
-  var _accelerator_pack;
+  var _acceleratorPack;
 
   var _options = {
     apiKey: '100',
@@ -130,7 +130,7 @@ var app = (function() {
 
     // Start or end text chat
     _communicationElements.enableTextChat.onclick = function(){
-      _accelerator_pack.connectTextChat();
+      _acceleratorPack.connectTextChat();
     };
 
     // Click events for enabling/disabling audio/video
@@ -181,8 +181,8 @@ var app = (function() {
 
   var init = function() {
     // Get session
-    _accelerator_pack = new AcceleratorPack(_options.apiKey, _options.sessionId, _options.token);
-    _options.session = _accelerator_pack.getSession();
+    _acceleratorPack = new AcceleratorPack(_options.apiKey, _options.sessionId, _options.token);
+    _options.session = _acceleratorPack.getSession();
 
     _options.session.on({
       connectionCreated: function (event) {
