@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.tokbox.android.accpack.textchat.ChatMessage;
 import com.tokbox.android.accpack.textchat.TextChatFragment;
+import com.tokbox.android.textchatsample.config.OpenTokConfig;
 import com.tokbox.android.textchatsample.ui.PreviewCameraFragment;
 import com.tokbox.android.textchatsample.ui.PreviewControlFragment;
 import com.tokbox.android.textchatsample.ui.RemoteControlFragment;
@@ -249,7 +250,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //OneToOneCommunicator listener events
     @Override
     public void onInitialized() {
-        mPreviewFragment.setCallEnabled(true);
         mProgressDialog.dismiss();
     }
 
@@ -392,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     private void initTextChatFragment(){
-        mTextChatFragment = new TextChatFragment(mComm.getSession());
+        mTextChatFragment = new TextChatFragment(mComm.getSession(), OpenTokConfig.API_KEY);
         mTextChatFragment.setMaxTextLength(1050);
         mTextChatFragment.setSenderAlias("user1");
         mTextChatFragment.setListener(this);

@@ -40,9 +40,12 @@ public class OneToOneCommunication implements
     private boolean mRemoteVideo = true;
 
     private boolean isRemote = false;
-    private boolean mError = false;
+    private boolean startPublish = false;
 
     protected Listener mListener;
+
+    private OTKAnalyticsData mAnalyticsData;
+    private OTKAnalytics mAnalytics;
 
     /**
      * Defines values for the {@link #enableLocalMedia(MediaType, boolean)}
@@ -122,11 +125,10 @@ public class OneToOneCommunication implements
             mSession = new AccPackSession(mContext,
                     OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID);
 
-            //mSession.addSessionListener(this);
             mSession.setSessionListener(this);
             mSession.connect(OpenTokConfig.TOKEN);
         }
-    }
+     }
 
     /**
      * Start the communication.
@@ -138,7 +140,12 @@ public class OneToOneCommunication implements
                 mPublisher.setPublisherListener(this);
                 attachPublisherView();
                 mSession.publish(mPublisher);
+                startPublish = false;
             }
+        }
+        else {
+            startPublish = true;
+            init();
         }
     }
 
@@ -317,15 +324,17 @@ public class OneToOneCommunication implements
     }
 
     private void unsubscribeFromStream(Stream stream) {
-        mStreams.remove(stream);
-        isRemote = false;
-        if (mSubscriber.getStream().equals(stream)) {
-            mSubscriber = null;
-            if (!mStreams.isEmpty()) {
-                subscribeToStream(mStreams.get(0));
+        if (mStreams.size() > 0) {
+            mStreams.remove(stream);
+            isRemote = false;
+            if (mSubscriber != null && mSubscriber.getStream().equals(stream)) {
+                mSubscriber = null;
+                if (!mStreams.isEmpty()) {
+                    subscribeToStream(mStreams.get(0));
+                }
             }
+            mListener.onRemoteViewReady(null);
         }
-        mListener.onRemoteViewReady(null);
     }
 
     private void attachPublisherView() {
@@ -365,15 +374,14 @@ public class OneToOneCommunication implements
         String sessionID = OpenTokConfig.SESSION_ID;
         String partnerId = OpenTokConfig.API_KEY;
 
-        OTKAnalyticsData data = new OTKAnalyticsData.Builder(sessionID, partnerId, connectionId, OpenTokConfig.LOG_CLIENT_VERSION).build();
-        OTKAnalytics logging = new OTKAnalytics(data);
+        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.SESSION_ID, OpenTokConfig.API_KEY, mSession.getConnection().getConnectionId(), OpenTokConfig.LOG_CLIENT_VERSION, OpenTokConfig.LOG_SOURCE).build();
+        mAnalytics = new OTKAnalytics(mAnalyticsData);
 
-        logging.logEvent(OpenTokConfig.LOG_ACTION, OpenTokConfig.LOG_VARIATION);
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZED, OpenTokConfig.LOG_VARIATION_ATTEMPT);
     }
 
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
-
         isStarted = true;
 
         if (mStreams.size() > 0){
@@ -402,7 +410,6 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "Error publishing: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
         mListener.onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
-        mError = true;
     }
 
     @Override
@@ -412,6 +419,10 @@ public class OneToOneCommunication implements
         mListener.onInitialized();
         //add analytics log
         addLogEvent(session.getConnection().getConnectionId());
+
+        if (startPublish){
+            start();
+        }
     }
 
     @Override
@@ -446,7 +457,6 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "Session error: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
         mListener.onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
-        mError = true;
     }
 
     @Override
@@ -468,7 +478,7 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "Error subscribing: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
         mListener.onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
-        mError = true;
+
     }
 
     @Override
