@@ -38,12 +38,10 @@ var AcceleratorPack = (function() {
         });
     };
 
-    var addScreenSharingListeners = function() {
-        var dialog;
-        var self = this;
-
-        $(self.options.comms_elements.installButtonPluginChrome).bind('click', function() {
-            chrome.webstore.install('https://chrome.google.com/webstore/detail/' + self.options.extensionID,
+    var _addScreenSharingListeners = function() {
+      
+        $('#btn-install-plugin-chrome').on('click', function() {
+            chrome.webstore.install('https://chrome.google.com/webstore/detail/' + self.extensionID,
                 function(success) {
                     console.log('success', success);
                 },
@@ -52,14 +50,14 @@ var AcceleratorPack = (function() {
                 });
             $('#dialog-form-chrome').toggle();
         });
-        $(self.options.comms_elements.cancelButtonPluginChrome).bind('click', function() {
+        $('#btn-cancel-plugin-chrome').on('click', function() {
             $('#dialog-form-chrome').toggle();
         });
-        $(self.comms_elements.installButtonPluginFF).prop('href', this.options.mainPath + self.options.extensionPathFF);
-        $(self.options.comms_elements.installButtonPluginFF).bind('click', function() {
+        $('#btn-install-plugin-ff').prop('href', this.options.mainPath + self.options.extensionPathFF);
+        $(self.options.comms_elements.installButtonPluginFF).on('click', function() {
             $('#dialog-form-ff').toggle();
         });
-        $(self.options.comms_elements.cancelButtonPluginFF).bind('click', function() {
+        $('#btn-cancel-plugin-ff').on('click', function() {
             $('#dialog-form-ff').toggle();
         });
     };
@@ -206,10 +204,12 @@ var AcceleratorPack = (function() {
         }
         _screensharing = _screensharing || new AccPackScreenSharing(options);
         
+        _addScreenSharingListeners();
+        
         
         _screensharing.start();
     };
-
+    
     var endScreenSharing = function() {
         _screensharing.end();
     };
