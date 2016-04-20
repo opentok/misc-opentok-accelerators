@@ -1,4 +1,4 @@
-var AnnotationAccPack = (function() {
+var AccPackAnnotation = (function() {
 
     var self;
 

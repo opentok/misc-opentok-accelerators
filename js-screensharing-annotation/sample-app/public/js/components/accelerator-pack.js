@@ -159,6 +159,9 @@ var AcceleratorPack = (function() {
         self._annotation.resizeCanvas();
     };
     
+    var getSession  = function() {
+        return _session;
+    };
     
     /** 
      * Initialize the annotation component
@@ -167,7 +170,7 @@ var AcceleratorPack = (function() {
      * @returns {Promise} < Resolve: [Object] External annotation window >    
      */
     var initAnnotation = function (screensharing) {
-        _annotation = _annotation || new AnnotationAccPack(options);
+        _annotation = _annotation || new AccPackAnnotation(options);
         
         return _annotation.start(_session, {screensharing: screensharing});
         
@@ -184,9 +187,6 @@ var AcceleratorPack = (function() {
         _annotation.linkCanvas(pubSub, annotationContainer, externalWindow);
     };
     
-    
-
-    // Start from WMS
     var startScreenSharing = function() { 
         
         var optionsProps = [
@@ -203,10 +203,8 @@ var AcceleratorPack = (function() {
         if ( !!options.annotation ) {
             // Need to see what these options need to be
             _initAnnotation(options);
-            // Pass the annotation acc pack to the screensharing acc pack (I DONT Like this)cc
-            // options.annotation = _annotation;
         }
-        _screensharing = _screensharing || new ScreenSharingAccPack(options);
+        _screensharing = _screensharing || new AccPackScreenSharing(options);
         
         
         _screensharing.start();
