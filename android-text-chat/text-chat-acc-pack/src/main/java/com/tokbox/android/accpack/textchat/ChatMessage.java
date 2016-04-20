@@ -16,6 +16,9 @@ public class ChatMessage {
     private String text; //optional
     private long timestamp; //optional
 
+    /**
+     * Enumerations for sent and received message status.
+     */
     public static enum MessageStatus {
         /**
          * The status for a sent message.
@@ -28,6 +31,9 @@ public class ChatMessage {
     }
 
 
+    /**
+     * Constructor.
+     */
     public ChatMessage(ChatMessageBuilder builder) {
         this.senderId = builder.senderId;
         this.messageId = builder.messageId;
@@ -37,42 +43,81 @@ public class ChatMessage {
         this.timestamp = builder.timestamp;
     }
 
+    /**
+     * Get the sender ID.
+     * @return The sender ID.
+     */
     public String getSenderId() {
         return senderId;
     }
 
+    /**
+     * Get the message ID.
+     * @return The message ID.
+     */
     public UUID getMessageId() {
         return messageId;
     }
 
+    /**
+     * Get the message status.
+     * @return The message status.
+     */
     public MessageStatus getMessageStatus() {
         return messageStatus;
     }
 
+    /**
+     * Get the sender alias.
+     * @return The sender alias.
+     */
     public String getSenderAlias() {
         return senderAlias;
     }
 
+    /**
+     * Get the message text.
+     * @return The message text.
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Get the message timestamp.
+     * @return The message timestamp.
+     */
     public long getTimestamp() {
         return timestamp;
     }
 
+    /**
+     * Set the message timestamp.
+     * @param timestamp The message timestamp.
+     */
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
+    /**
+     * Set the sender alias.
+     * @param senderAlias The sender alias.
+     */
     public void setSenderAlias(String senderAlias) {
         this.senderAlias = senderAlias;
     }
 
+    /**
+     * Set the message text.
+     * @param text The message text.
+     */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * ChatMessageBuilder static class used in the ChatMessage constructor to instantiate a chat message.
+     */
     public static class ChatMessageBuilder {
 
         private final String senderId;
@@ -82,6 +127,12 @@ public class ChatMessage {
         private String text;
         private long timestamp;
 
+        /**
+         * Constructor.
+         * @param senderId The sender ID.
+         * @param messageId The message ID.
+         * @param messageStatus The message status.
+         */
         public ChatMessageBuilder(String senderId, UUID messageId, MessageStatus messageStatus) {
             this.senderId = senderId;
             this.messageId = messageId;
@@ -91,21 +142,36 @@ public class ChatMessage {
             this.text = "";
         }
 
+        /**
+         * Constructor.
+         * @param senderAlias The sender alias.
+         */
         public ChatMessageBuilder senderAlias(String senderAlias) {
             this.senderAlias = senderAlias;
             return this;
         }
 
+        /**
+         * Constructor.
+         * @param text The message text.
+         */
         public ChatMessageBuilder text(String text) {
             this.text = text;
             return this;
         }
 
+        /**
+         * Constructor.
+         * @param timestamp The message timestamp.
+         */
         public ChatMessageBuilder timestamp(long timestamp) {
             this.timestamp = timestamp;
             return this;
         }
 
+        /**
+         * Build a chat message.
+         */
         public ChatMessage build() {
             ChatMessage message = new ChatMessage(this);
 
