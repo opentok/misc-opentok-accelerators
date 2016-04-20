@@ -27,6 +27,11 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/notice.txt'
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {

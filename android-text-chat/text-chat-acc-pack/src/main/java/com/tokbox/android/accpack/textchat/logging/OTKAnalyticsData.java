@@ -1,4 +1,4 @@
-package com.tokbox.android.textchatsample.logging;
+package com.tokbox.android.accpack.textchat.logging;
 
 
 import android.os.Build;

@@ -143,10 +143,11 @@ public class PreviewControlFragment extends Fragment {
                 ? R.drawable.end_call_button
                 : R.drawable.initiate_call_button);
 
+        mCallBtn.setOnClickListener(mBtnClickListener);
+
         setEnabled(mActivity.getComm().isStarted());
 
         return rootView;
-
     }
 
     public void updateLocalAudio() {
@@ -173,11 +174,9 @@ public class PreviewControlFragment extends Fragment {
         mCallBtn.setImageResource(!mActivity.getComm().isStarted()
                 ? R.drawable.hang_up
                 : R.drawable.start_call);
-
         mCallBtn.setBackgroundResource(!mActivity.getComm().isStarted()
                 ? R.drawable.end_call_button
                 : R.drawable.initiate_call_button);
-
         mControlCallbacks.onCall();
     }
 
@@ -185,16 +184,7 @@ public class PreviewControlFragment extends Fragment {
         mControlCallbacks.onTextChat();
     }
 
-    public void setCallEnabled(boolean enabled) {
-        if (enabled){
-            mCallBtn.setOnClickListener(mBtnClickListener);
-        }
-        else {
-            mCallBtn.setOnClickListener(null);
-        }
-    }
-        public void setEnabled(boolean enabled) {
-
+    public void setEnabled(boolean enabled) {
         if (mVideoBtn != null && mAudioBtn != null) {
             if (enabled) {
                 mAudioBtn.setOnClickListener(mBtnClickListener);
@@ -210,11 +200,10 @@ public class PreviewControlFragment extends Fragment {
         }
     }
 
-    public void restartFragment(boolean restart){
-        if ( restart ) {
-            setEnabled(false);
-            mCallBtn.setBackgroundResource(R.drawable.initiate_call_button);
-            mCallBtn.setImageResource(R.drawable.start_call);
-        }
+    public void restart() {
+        setEnabled(false);
+        mCallBtn.setBackgroundResource(R.drawable.initiate_call_button);
+        mCallBtn.setImageResource(R.drawable.start_call);
+
     }
 }

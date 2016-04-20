@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.tokbox.android.accpack.textchat.ChatMessage;
 import com.tokbox.android.accpack.textchat.TextChatFragment;
+import com.tokbox.android.textchatsample.config.OpenTokConfig;
 import com.tokbox.android.textchatsample.ui.PreviewCameraFragment;
 import com.tokbox.android.textchatsample.ui.PreviewControlFragment;
 import com.tokbox.android.textchatsample.ui.RemoteControlFragment;
@@ -249,8 +250,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //OneToOneCommunicator listener events
     @Override
     public void onInitialized() {
-        mPreviewFragment.setCallEnabled(true);
         mProgressDialog.dismiss();
+
+        //Init TextChat values
+        mTextChatFragment.setMaxTextLength(1050);
+        mTextChatFragment.setSenderAlias("user1");
+        mTextChatFragment.setListener(this);
     }
 
     //OneToOneCommunication callbacks
@@ -350,29 +355,33 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     @Override
-    public void onClose() {
-        Log.i(LOG_TAG, "OnClose text-chat");
+    public void onClosed() {
+        Log.i(LOG_TAG, "OnClosed text-chat");
         mTextChatContainer.setVisibility(View.GONE);
         showAVCall(true);
         restartTextChatLayout(true);
     }
 
     @Override
-    public void onMinimize() {
-        Log.i(LOG_TAG, "OnMinimize text-chat");
-        showAVCall(true);
+    public void onMinimized() {
+        Log.i(LOG_TAG, "OnMinimized text-chat");
         restartTextChatLayout(false);
+        showAVCall(true);
     }
 
     @Override
-    public void onMaximize() {
-        Log.i(LOG_TAG, "OnMaximize text-chat");
+    public void onMaximized() {
+        Log.i(LOG_TAG, "OnMaximized text-chat");
         showAVCall(false);
         restartTextChatLayout(true);
     }
 
-    //Private methods
+    @Override
+    public void onRestarted() {
+        Log.i(LOG_TAG, "OnRestarted text-chat");
+    }
 
+    //Private methods
     private void initPreviewFragment() {
         mPreviewFragment = new PreviewControlFragment();
         getSupportFragmentManager().beginTransaction()
@@ -392,10 +401,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     private void initTextChatFragment(){
-        mTextChatFragment = new TextChatFragment(mComm.getSession());
-        mTextChatFragment.setMaxTextLength(1050);
-        mTextChatFragment.setSenderAlias("user1");
-        mTextChatFragment.setListener(this);
+        mTextChatFragment = new TextChatFragment(mComm.getSession(), OpenTokConfig.API_KEY);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
@@ -411,7 +417,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     //cleans views and controls
     private void cleanViewsAndControls() {
-        mPreviewFragment.restartFragment(true);
+        mPreviewFragment.restart();
         restartTextChatLayout(true);
         mTextChatFragment.restart();
         mTextChatContainer.setVisibility(View.GONE);
