@@ -4,9 +4,9 @@ public class OpenTokConfig {
 
     // For internal use only. Please do not modify or remove this code.
     public static final String LOGGING_BASE_URL = "https://hlg.tokbox.com/prod/logging/ClientEvent";
-    public static final String LOG_SOURCE = "text_chat_acc_pack";
     public static final String LOG_CLIENT_VERSION = "1.0";
-    public static final String LOG_ACTION_INITIALIZED = "initialize";
+    public static final String LOG_SOURCE = "text_chat_acc_pack";
+    public static final String LOG_ACTION_INITIALIZE = "initialize";
     public static final String LOG_ACTION_SEND_MESSAGE = "send_message";
     public static final String LOG_ACTION_RECEIVE_MESSAGE = "receive_message";
     public static final String LOG_ACTION_MINIMIZE = "minimize";
@@ -19,6 +19,6 @@ public class OpenTokConfig {
     public static final String LOG_ACTION_RESTART = "restart";
 
     public static final String LOG_VARIATION_ATTEMPT = "Attempt";
-    public static final String LOG_VARIATION_ERROR = "Error";
+    public static final String LOG_VARIATION_ERROR = "Failure";
     public static final String LOG_VARIATION_SUCCESS = "Success";
 }

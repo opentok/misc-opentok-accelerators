@@ -22,9 +22,8 @@ import java.util.ArrayList;
 public class OneToOneCommunication implements
         AccPackSession.SessionListener, Publisher.PublisherListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
 
-    private static final String LOGTAG = MainActivity.class.getName();;
-    private static final String SIGNAL_TYPE = "TextChat";
-
+    private static final String LOGTAG = MainActivity.class.getName();
+    ;
     private Context mContext;
 
     private AccPackSession mSession;
@@ -58,7 +57,6 @@ public class OneToOneCommunication implements
 
     /**
      * Monitors OpenTok actions which should be notified to the activity.
-     *
      */
     public static interface Listener {
 
@@ -85,7 +83,7 @@ public class OneToOneCommunication implements
         /**
          * Invoked when the remote video is disabled.
          * Reasons: the remote stops to publish the video, the quality is wrong and the platform has disabled the video
-         *          or the video remote control has disabled.
+         * or the video remote control has disabled.
          *
          * @param enabled Indicates the status of the remote video.
          */
@@ -128,12 +126,14 @@ public class OneToOneCommunication implements
             mSession.setSessionListener(this);
             mSession.connect(OpenTokConfig.TOKEN);
         }
-     }
+    }
 
     /**
      * Start the communication.
      */
     public void start() {
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
         if (mSession != null && isInitialized) {
             if (mPublisher == null) {
                 mPublisher = new Publisher(mContext, "myPublisher");
@@ -142,8 +142,7 @@ public class OneToOneCommunication implements
                 mSession.publish(mPublisher);
                 startPublish = false;
             }
-        }
-        else {
+        } else {
             startPublish = true;
             init();
         }
@@ -153,11 +152,12 @@ public class OneToOneCommunication implements
      * End the communication.
      */
     public void end() {
-        if (mPublisher != null ){
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        if (mPublisher != null) {
             mSession.unpublish(mPublisher);
             mPublisher = null;
         }
-        if ( mSubscriber != null ){
+        if (mSubscriber != null) {
             mSession.unsubscribe(mSubscriber);
             mSubscriber = null;
         }
@@ -169,15 +169,15 @@ public class OneToOneCommunication implements
      * Destroy the communication.
      */
     public void destroy() {
-        if (mPublisher != null ){
+        if (mPublisher != null) {
             mSession.unpublish(mPublisher);
             mPublisher = null;
         }
-        if ( mSubscriber != null ){
+        if (mSubscriber != null) {
             mSession.unsubscribe(mSubscriber);
             mSubscriber = null;
         }
-        if ( mSession != null ){
+        if (mSession != null) {
             mSession.disconnect();
         }
     }
@@ -333,34 +333,34 @@ public class OneToOneCommunication implements
                     subscribeToStream(mStreams.get(0));
                 }
             }
-            mListener.onRemoteViewReady(null);
+            onRemoteViewReady(null);
         }
     }
 
     private void attachPublisherView() {
         mPublisher.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
                 BaseVideoRenderer.STYLE_VIDEO_FILL);
-        mListener.onPreviewReady(mPublisher.getView());
+        onPreviewReady(mPublisher.getView());
     }
 
     private void attachSubscriberView(Subscriber subscriber) {
         subscriber.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
                 BaseVideoRenderer.STYLE_VIDEO_FILL);
         isRemote = true;
-        mListener.onRemoteViewReady(subscriber.getView());
+        onRemoteViewReady(subscriber.getView());
     }
 
     private void setRemoteAudioOnly(boolean audioOnly) {
         if (!audioOnly) {
             mSubscriber.getView().setVisibility(View.VISIBLE);
-            mListener.onAudioOnly(false);
+            onAudioOnly(false);
         } else {
             mSubscriber.getView().setVisibility(View.GONE);
-            mListener.onAudioOnly(true);
+            onAudioOnly(true);
         }
     }
 
-    private void restartComm(){
+    private void restartComm() {
         mSubscriber = null;
         isRemote = false;
         isInitialized = false;
@@ -370,22 +370,12 @@ public class OneToOneCommunication implements
         mSession = null;
     }
 
-    private void addLogEvent(String connectionId){
-        String sessionID = OpenTokConfig.SESSION_ID;
-        String partnerId = OpenTokConfig.API_KEY;
-
-        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.SESSION_ID, OpenTokConfig.API_KEY, mSession.getConnection().getConnectionId(), OpenTokConfig.LOG_CLIENT_VERSION, OpenTokConfig.LOG_SOURCE).build();
-        mAnalytics = new OTKAnalytics(mAnalyticsData);
-
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZED, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-    }
-
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         isStarted = true;
 
-        if (mStreams.size() > 0){
-            for(Stream stream1: mStreams){
+        if (mStreams.size() > 0) {
+            for (Stream stream1 : mStreams) {
                 subscribeToStream(stream1);
             }
         }
@@ -396,6 +386,8 @@ public class OneToOneCommunication implements
                 subscribeToStream(stream);
             }
         }
+        //add START_COMM success log event
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     @Override
@@ -403,24 +395,35 @@ public class OneToOneCommunication implements
         if (OpenTokConfig.SUBSCRIBE_TO_SELF && mSubscriber != null) {
             unsubscribeFromStream(stream);
         }
+        //add END_COMM success log event
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         Log.i(LOGTAG, "Error publishing: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
-        mListener.onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
+        onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
+
+        //add START_COMM error log event
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ERROR);
     }
 
     @Override
     public void onConnected(Session session) {
         Log.i(LOGTAG, "Connected to the session.");
         isInitialized = true;
-        mListener.onInitialized();
-        //add analytics log
-        addLogEvent(session.getConnection().getConnectionId());
 
-        if (startPublish){
+        //Init the analytics logging
+        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.SESSION_ID, OpenTokConfig.API_KEY, mSession.getConnection().getConnectionId(), OpenTokConfig.LOG_CLIENT_VERSION, OpenTokConfig.LOG_SOURCE).build();
+        mAnalytics = new OTKAnalytics(mAnalyticsData);
+
+        //add INITIALIZE attempt log event
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
+        onInitialized();
+
+        if (startPublish) {
             start();
         }
     }
@@ -455,14 +458,16 @@ public class OneToOneCommunication implements
     @Override
     public void onError(Session session, OpentokError opentokError) {
         Log.i(LOGTAG, "Session error: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
-        mListener.onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
+        onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
+        //add INITIALIZE error log event
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR);
     }
 
     @Override
     public void onConnected(SubscriberKit subscriberKit) {
         Log.i(LOGTAG, "Subscriber connected.");
-        if (!subscriberKit.getStream().hasVideo()){
+        if (!subscriberKit.getStream().hasVideo()) {
             attachSubscriberView(mSubscriber);
             setRemoteAudioOnly(true);
         }
@@ -476,7 +481,7 @@ public class OneToOneCommunication implements
     @Override
     public void onError(SubscriberKit subscriberKit, OpentokError opentokError) {
         Log.i(LOGTAG, "Error subscribing: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
-        mListener.onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
+        onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
 
     }
@@ -493,7 +498,7 @@ public class OneToOneCommunication implements
                 "Video disabled:" + reason);
         setRemoteAudioOnly(true); //enable audio only status
         if (reason.equals("quality")) {  //network quality alert
-            mListener.onQualityWarning(false);
+            onQualityWarning(false);
         }
     }
 
@@ -508,7 +513,7 @@ public class OneToOneCommunication implements
     public void onVideoDisableWarning(SubscriberKit subscriberKit) {
         Log.i(LOGTAG, "Video may be disabled soon due to network quality degradation.");
         //network quality warning
-        mListener.onQualityWarning(true);
+        onQualityWarning(true);
     }
 
     @Override
@@ -520,8 +525,46 @@ public class OneToOneCommunication implements
         return mSession;
     }
 
-    private void restartViews(){
-        mListener.onRemoteViewReady(null);
-        mListener.onPreviewReady(null);
+    private void restartViews() {
+        onRemoteViewReady(null);
+        onPreviewReady(null);
+    }
+
+    protected void onInitialized() {
+        if (this.mListener != null) {
+            this.mListener.onInitialized();
+        }
+        //add INITIALIZE success log event
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+    }
+
+    protected void onError(String error) {
+        if (this.mListener != null) {
+            this.mListener.onError(error);
+        }
+    }
+
+    protected void onQualityWarning(boolean warning) {
+        if (this.mListener != null) {
+            this.mListener.onQualityWarning(warning);
+        }
+    }
+
+    protected void onAudioOnly(boolean enabled) {
+        if (this.mListener != null) {
+            this.mListener.onAudioOnly(enabled);
+        }
+    }
+
+    protected void onPreviewReady(View preview) {
+        if (this.mListener != null) {
+            this.mListener.onPreviewReady(preview);
+        }
+    }
+
+    protected void onRemoteViewReady(View remoteView) {
+        if (this.mListener != null) {
+            this.mListener.onRemoteViewReady(remoteView);
+        }
     }
 }

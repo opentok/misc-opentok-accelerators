@@ -648,8 +648,8 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     public void onConnected(Session session) {
         mAnalyticsData = new OTKAnalyticsData.Builder(session.getSessionId(), mApiKey, session.getConnection().getConnectionId(), OpenTokConfig.LOG_CLIENT_VERSION, OpenTokConfig.LOG_SOURCE).build();
         mAnalytics = new OTKAnalytics(mAnalyticsData);
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZED, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZED, OpenTokConfig.LOG_VARIATION_SUCCESS);
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
 
         //TO IMPROVE: add pending log events --> recall methods
         if ( this.maxTextLength != MAX_DEFAULT_LENGTH ){
@@ -686,7 +686,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_SEND_MESSAGE, OpenTokConfig.LOG_VARIATION_ERROR);
         }
         else {
-            mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZED, OpenTokConfig.LOG_VARIATION_ERROR);
+            mAnalytics.logEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR);
         }
     }
 }
