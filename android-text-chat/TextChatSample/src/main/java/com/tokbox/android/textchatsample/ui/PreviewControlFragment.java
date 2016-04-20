@@ -200,11 +200,10 @@ public class PreviewControlFragment extends Fragment {
         }
     }
 
-    public void restartFragment(boolean restart){
-        if ( restart ) {
-            setEnabled(false);
-            mCallBtn.setBackgroundResource(R.drawable.initiate_call_button);
-            mCallBtn.setImageResource(R.drawable.start_call);
-        }
+    public void restart() {
+        setEnabled(false);
+        mCallBtn.setBackgroundResource(R.drawable.initiate_call_button);
+        mCallBtn.setImageResource(R.drawable.start_call);
+
     }
 }
