@@ -159,12 +159,35 @@ var AcceleratorPack = (function() {
         self._annotation.resizeCanvas();
     };
     
-    var _startAnnotation = function (options) {
-        _annotation = new AnnotationAccPack(options);
+    
+    /** 
+     * Initialize the annotation component
+     * @param {Boolean} screensharing - If annotation is being done over the shared screen,
+     * the annotation component will need to create an external window.
+     * @returns {Promise} < Resolve: [Object] External annotation window >    
+     */
+    var initAnnotation = function (screensharing) {
+        _annotation = _annotation || new AnnotationAccPack(options);
+        
+        return _annotation.start(_session, {screensharing: screensharing});
+        
     };
+    
+    /** 
+     * Connect the annotation canvas to the publisher or subscriber
+     * @param {Object} pubSub - The publisher or subscriber
+     * @param {Object} annotationContainer
+     * @param [Object] externalWindow
+     * 
+     */
+    var linkAnnotation = function(pubSub, annotationContainer, externalWindow){
+        _annotation.linkCanvas(pubSub, annotationContainer, externalWindow);
+    };
+    
+    
 
     // Start from WMS
-    var _startScreenSharing = function() { 
+    var startScreenSharing = function() { 
         
         var optionsProps = [
             'sessionID',
@@ -175,33 +198,31 @@ var AcceleratorPack = (function() {
             'screensharingContainer'
         ];
         
-        var options = _.extend(_.pick(self.options, 'sessionId'), self.options.screensharing);
+        var options = _.extend(_.pick(self.options, 'sessionId'), self.options.screensharing, {session: _session, acceleratorPack: self});
         
+        if ( !!options.annotation ) {
+            // Need to see what these options need to be
+            _initAnnotation(options);
+            // Pass the annotation acc pack to the screensharing acc pack (I DONT Like this)cc
+            // options.annotation = _annotation;
+        }
         _screensharing = _screensharing || new ScreenSharingAccPack(options);
+        
+        
         _screensharing.start();
     };
 
-    var _endScreenSharing = function() {
+    var endScreenSharing = function() {
         _screensharing.end();
     };
 
     AcceleratorPackLayer.prototype = {
         constructor: AcceleratorPack,
-
-        getSession: function() {
-            return _session;
-        },
-        startScreenSharing: function() {
-            _startScreenSharing();
-        },
-        endScreenSharing: function() {
-            _endScreenSharing();
-        },
-        connectAnnotation: function() {
-
-            // Need to pass container
-
-        }
+        getSession: getSession,
+        startScreenSharing: startScreenSharing,
+        endScreenSharing: endScreenSharing,
+        initAnnotation: initAnnotation,
+        linkAnnotation: linkAnnotation
     };
     return AcceleratorPackLayer;
 })();

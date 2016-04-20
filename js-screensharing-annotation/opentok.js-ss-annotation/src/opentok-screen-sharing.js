@@ -3,7 +3,16 @@ var ScreenSharingAccPack = (function() {
 
     var self;
     var _annotation;
-    var extensionAvailable;
+    var _localScreenProperties = {
+      insertMode: 'append',
+      width: '100%',
+      height: '100%',
+      videoSource: 'window',
+      showControls: false,
+      style: {
+        buttonDisplayMode: 'off'
+      }
+    };
 
     /** 
      * Screensharing accerlator pack constructor
@@ -30,11 +39,12 @@ var ScreenSharingAccPack = (function() {
             'extensionURL',
             'extensionID',
             'extensionPathFF',
-            'screensharingParent'
+            'screensharingParent',
+            'acceleratorPack'
         ];
 
         _.extend(this, _.defaults(_.pick(options, optionsProps)), { screenSharingParent: '#videoContainer' });
-        
+
         // Register Chrome extension
         _registerExtension(this.extensionID);
 
@@ -104,18 +114,25 @@ var ScreenSharingAccPack = (function() {
         '</div>',
         '</div>'
     ].join('\n');
-
-    var _initPublisherScreen = function(annotation) {
+    
+    
+    /**
+     * Create a publisher for the screen.  If we're using annotation, we first need
+     * to create the annotion window and get a reference to its annotation container
+     * element so that we can pass it to the initPublisher function.
+     * @returns {Promise} < Resolve: [Object] Container element for annotation in external window >
+     */
+    var _initPublisher = function() {
+        
         var self = this;
-        var handler = this.onError;
-
+        
         var createPublisher = function(publisherDiv) {
 
             var innerDeferred = $.Deferred();
 
             publisherDiv = publisherDiv || 'videoHolderScreenShare';
 
-            self.options.publishers.screen = OT.initPublisher(publisherDiv, self.options.localScreenProperties, function(error) {
+            self.publisher = OT.initPublisher(publisherDiv, _localScreenProperties, function(error) {
                 if (error) {
                     error.message = 'Error starting the screen sharing';
                     innerDeferred.reject(error);
@@ -134,29 +151,80 @@ var ScreenSharingAccPack = (function() {
 
         if (!!self.annotation) {
 
-            self.annotation.start(self.session, {
-                    externalWindow: true
-                })
+            self.acceleratorPack.initAnnotation(true)
+            .then(function(annotationWindow) {
+                self.annotationWindow = annotationWindow || null;
+                var annotationElements = annotationWindow.createContainerElements();
+                createPublisher(annotationElements.publisher)
                 .then(function() {
-                    console.log('resolve annotation start');
-                    // Need to get a reference to this window somewhere???
-                    var annotationWindow = self.comms_elements.annotationWindow;
-                    var annotationElements = annotationWindow.createContainerElements();
-                    createPublisher(annotationElements.publisher)
-                        .then(function() {
-                            outerDeferred.resolve(annotationElements.annotation);
-                        });
+                    outerDeferred.resolve(annotationElements.annotation);
                 });
+                
+            });
         } else {
 
             createPublisher()
-                .then(function() {
-                    outerDeferred.resolve();
-                });
+            .then(function() {
+                outerDeferred.resolve();
+            });
+            
         }
 
         return outerDeferred.promise();
     };
+    
+    
+    /** 
+     * Publish the screen
+     * @param annotationContainer
+     */
+    var _publish = function(annotationContainer){
+        
+        self.session.publish(self.publisher, function(error) {
+            if (error) {
+                    console.log('Failed to connect: ', error.message);
+                    if (error.code == 1500 && navigator.userAgent.indexOf('Firefox') != -1) {
+                        $('#dialog-form-ff').toggle();
+                    } else {
+                        error.message = 'Error sharing the screen';
+                        console.log('Error sharing the screen' + error.code + ' - ' + error.message);
+                        if (error.code === 1010) {
+                            var errorStr = error.message + 'Check your network connection';
+                            error.message = errorStr;
+                        }
+                    }
+                } else {
+                    addPublisherEventListeners();
+                    self.acceleratorPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
+                    
+                    console.log('Connected');
+                }
+        });
+       
+
+        if (!!annotationContainer) {
+            var annotationWindow = self.comms_elements.annotationWindow;
+            self._annotation.linkCanvas(self.publisher, annotationContainer, annotationWindow);
+        }
+
+        var addPublisherEventListeners = function() {
+
+            self.publisher.on('streamCreated', function(event) {
+                self._handleStartScreenSharing(event)
+            });
+
+            self.publisher.on('streamDestroyed', function(event) {
+                console.log('stream destroyed called');
+                self._handleEndScreenSharing(event);
+            });
+
+            /*this.publisher.on("accessDenied", function() {
+                self._unpublish('screen');
+                alert("Permission to use the camera and microphone are disabled");
+            })*/
+        };
+        
+    }
 
     var extensionAvailable = function(extensionID, extensionPathFF) {
 
@@ -181,55 +249,15 @@ var ScreenSharingAccPack = (function() {
                 deferred.resolve();
             }
         });
-        
+
         return deferred.promise();
 
-                _initPublisherScreen()
-                    .then(function(annotationContainer) {
-                        console.log('resolve init publisher screen');
-                        self.publisher = self._publish('screen');
-                        addPublisherEventListeners();
-
-                        if (!!annotationContainer) {
-                            var annotationWindow = self.comms_elements.annotationWindow;
-                            self._annotation.linkCanvas(self.publisher, annotationContainer, annotationWindow);
-                        }
-                    });
-
-                var addPublisherEventListeners = function() {
-
-                    self.publisher.on('streamCreated', function(event) {
-                        self._handleStartScreenSharing(event)
-                    });
-
-                    self.publisher.on('streamDestroyed', function(event) {
-                        console.log('stream destroyed called');
-                        self._handleEndScreenSharing(event);
-                    });
-
-                    /*this.publisher.on("accessDenied", function() {
-                        self._unpublish('screen');
-                        alert("Permission to use the camera and microphone are disabled");
-                    })*/
-                };
-
-            }
-        });
     };
-
-    var _initPublisher = function() {
-
-    }
 
     var _setupUI = function(parent) {
         $('body').append(screenDialogsExtensions);
         // $(startScreenSharingBtn).append(startScreenSharing);
         $(parent).append(screenSharingView);
-    };
-
-    var _startScreenSharing = function() {
-        extensionAvailable()
-            // self._widget.start();
     };
 
     var _endScreenSharing = function() {
@@ -238,12 +266,41 @@ var ScreenSharingAccPack = (function() {
     };
 
     var start = function() {
-        checkForExtension(self.options.extensionID, self.options.extensionPathFF)
-        .then(initPublisherScreen)
-        .then(function(){})
-        .catch(function(error){
+        extensionAvailable(self.options.extensionID, self.options.extensionPathFF)
+        .then(_initPublisher)
+        .then(_publish)
+        .catch(function(error) {
             console.log('Error starting screensharing: ', error);
         })
+            
+        // _initPublisher()
+        //     .then(function(annotationContainer) {
+        //         console.log('resolve init publisher screen');
+        //         self.publisher = self._publish('screen');
+        //         addPublisherEventListeners();
+
+        //         if (!!annotationContainer) {
+        //             var annotationWindow = self.comms_elements.annotationWindow;
+        //             self._annotation.linkCanvas(self.publisher, annotationContainer, annotationWindow);
+        //         }
+        //     });
+
+        // var addPublisherEventListeners = function() {
+
+        //     self.publisher.on('streamCreated', function(event) {
+        //         self._handleStartScreenSharing(event)
+        //     });
+
+        //     self.publisher.on('streamDestroyed', function(event) {
+        //         console.log('stream destroyed called');
+        //         self._handleEndScreenSharing(event);
+        //     });
+
+        //     /*this.publisher.on("accessDenied", function() {
+        //         self._unpublish('screen');
+        //         alert("Permission to use the camera and microphone are disabled");
+        //     })*/
+        // };
     };
 
     var end = function() {
@@ -252,7 +309,7 @@ var ScreenSharingAccPack = (function() {
 
     ScreenSharing.prototype = {
         constructor: ScreenSharing,
-        checkExtension: checkExtension,
+        extensionAvailable: extensionAvailable,
         start: start,
         end: end,
         onStarted: function() {},

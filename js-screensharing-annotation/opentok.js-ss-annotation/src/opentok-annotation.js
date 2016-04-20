@@ -2,7 +2,6 @@ var AnnotationAccPack = (function() {
 
     var self;
 
-    
     /** 
      * Annotation Accelerator Pack Constructor
      * @param {Object} options
@@ -184,7 +183,7 @@ var AnnotationAccPack = (function() {
      * to the session
      * @param {Object} session
      * @param {Object} [options]
-     * @param {Boolean} [options.externalWindow] - Using an external window ?
+     * @param {Boolean} [options.screensharing] - Using an external window
      * @param {String} [options.toolbarId] - If the container has an id other than 'toolbar'
      * @param {Array} [options.items] - Custom set of tools
      * @param {Array} [options.colors] - Custom color palette
@@ -194,13 +193,13 @@ var AnnotationAccPack = (function() {
 
         var deferred = $.Deferred();
 
-        if (_.property('externalWindow')(options)) {
+        if (_.property('screensharing')(options)) {
             _createExternalWindow()
-                .then(function(externalWindow) {
-                    _createToolbar(session, options, externalWindow);
-                    toolbar.createPanel(externalWindow);
-                    deferred.resolve(externalWindow);
-                });
+            .then(function(externalWindow) {
+                _createToolbar(session, options, externalWindow);
+                toolbar.createPanel(externalWindow);
+                deferred.resolve(externalWindow);
+            });
         } else {
             _createToolbar(session, options);
             deferred.resolve();
