@@ -1,17 +1,16 @@
 var ScreenSharingAccPack = (function() {
 
-
     var self;
     var _annotation;
     var _localScreenProperties = {
-      insertMode: 'append',
-      width: '100%',
-      height: '100%',
-      videoSource: 'window',
-      showControls: false,
-      style: {
-        buttonDisplayMode: 'off'
-      }
+        insertMode: 'append',
+        width: '100%',
+        height: '100%',
+        videoSource: 'window',
+        showControls: false,
+        style: {
+            buttonDisplayMode: 'off'
+        }
     };
 
     /** 
@@ -44,20 +43,26 @@ var ScreenSharingAccPack = (function() {
         ];
 
         _.extend(this, _.defaults(_.pick(options, optionsProps)), { screenSharingParent: '#videoContainer' });
+        
+        window.extensionID = self.extensionID;
 
-        // Register Chrome extension
-        _registerExtension(this.extensionID);
 
         // Do UIy things
         _setupUI(self.screensharingParent);
     };
 
     var _validateExtension = function(extensionID, extensionPathFF) {
-
+         
         if (OT.$.browser() === 'Chrome') {
             if (!extensionID || !extensionID.length) {
                 throw new Error('Error starting the screensharing. Chrome extensionID required');
             } else {
+                $('<link/>', {
+                    rel: 'chrome-webstore-item',
+                    href: ['https://chrome.google.com/webstore/detail/', extensionID].join('')
+                }).appendTo('head');
+                
+               
                 OT.registerScreenSharingExtension('chrome', extensionID, 2);
             }
         }
@@ -73,7 +78,7 @@ var ScreenSharingAccPack = (function() {
             throw new Error('Screen Share Acc Pack requires a session ID');
         }
 
-        _validateExtension(_.property('extensionID'), _.get(options, 'extensionPathFF'));
+        _validateExtension(_.property('extensionID')(options), _.property('extensionPathFF')(options));
     };
 
     // var startScreenSharing = ['<button class="wms-icon-screen" id="startScreenShareBtn"></button>'].join('\n');
@@ -114,8 +119,8 @@ var ScreenSharingAccPack = (function() {
         '</div>',
         '</div>'
     ].join('\n');
-    
-    
+
+
     /**
      * Create a publisher for the screen.  If we're using annotation, we first need
      * to create the annotion window and get a reference to its annotation container
@@ -123,9 +128,9 @@ var ScreenSharingAccPack = (function() {
      * @returns {Promise} < Resolve: [Object] Container element for annotation in external window >
      */
     var _initPublisher = function() {
-        
+
         var self = this;
-        
+
         var createPublisher = function(publisherDiv) {
 
             var innerDeferred = $.Deferred();
@@ -137,7 +142,7 @@ var ScreenSharingAccPack = (function() {
                     error.message = 'Error starting the screen sharing';
                     innerDeferred.reject(error);
                 } else {
-                    self.options.publishers.screen.on('streamCreated', function(event) {
+                    self.publisher.on('streamCreated', function(event) {
                         console.log('streamCreated publisher screen', event.stream);
                     });
                     innerDeferred.resolve();
@@ -152,55 +157,55 @@ var ScreenSharingAccPack = (function() {
         if (!!self.annotation) {
 
             self.acceleratorPack.initAnnotation(true)
-            .then(function(annotationWindow) {
-                self.annotationWindow = annotationWindow || null;
-                var annotationElements = annotationWindow.createContainerElements();
-                createPublisher(annotationElements.publisher)
-                .then(function() {
-                    outerDeferred.resolve(annotationElements.annotation);
+                .then(function(annotationWindow) {
+                    self.annotationWindow = annotationWindow || null;
+                    var annotationElements = annotationWindow.createContainerElements();
+                    createPublisher(annotationElements.publisher)
+                        .then(function() {
+                            outerDeferred.resolve(annotationElements.annotation);
+                        });
+
                 });
-                
-            });
         } else {
 
             createPublisher()
-            .then(function() {
-                outerDeferred.resolve();
-            });
-            
+                .then(function() {
+                    outerDeferred.resolve();
+                });
+
         }
 
         return outerDeferred.promise();
     };
-    
-    
+
+
     /** 
      * Publish the screen
      * @param annotationContainer
      */
-    var _publish = function(annotationContainer){
-        
+    var _publish = function(annotationContainer) {
+
         self.session.publish(self.publisher, function(error) {
             if (error) {
-                    console.log('Failed to connect: ', error.message);
-                    if (error.code == 1500 && navigator.userAgent.indexOf('Firefox') != -1) {
-                        $('#dialog-form-ff').toggle();
-                    } else {
-                        error.message = 'Error sharing the screen';
-                        console.log('Error sharing the screen' + error.code + ' - ' + error.message);
-                        if (error.code === 1010) {
-                            var errorStr = error.message + 'Check your network connection';
-                            error.message = errorStr;
-                        }
-                    }
+                console.log('Failed to connect: ', error.message);
+                if (error.code == 1500 && navigator.userAgent.indexOf('Firefox') != -1) {
+                    $('#dialog-form-ff').toggle();
                 } else {
-                    addPublisherEventListeners();
-                    self.acceleratorPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
-                    
-                    console.log('Connected');
+                    error.message = 'Error sharing the screen';
+                    console.log('Error sharing the screen' + error.code + ' - ' + error.message);
+                    if (error.code === 1010) {
+                        var errorStr = error.message + 'Check your network connection';
+                        error.message = errorStr;
+                    }
                 }
+            } else {
+                addPublisherEventListeners();
+                self.acceleratorPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
+
+                console.log('Connected');
+            }
         });
-       
+
 
         if (!!annotationContainer) {
             var annotationWindow = self.comms_elements.annotationWindow;
@@ -223,14 +228,12 @@ var ScreenSharingAccPack = (function() {
                 alert("Permission to use the camera and microphone are disabled");
             })*/
         };
-        
+
     }
 
     var extensionAvailable = function(extensionID, extensionPathFF) {
 
         var deferred = $.Deferred();
-
-        console.log('Checking for SS extension');
 
         if (window.location.protocol === 'http:') {
             alert("Screensharing only works under 'https', please add 'https://' in front of your debugger url.");
@@ -266,41 +269,14 @@ var ScreenSharingAccPack = (function() {
     };
 
     var start = function() {
-        extensionAvailable(self.options.extensionID, self.options.extensionPathFF)
-        .then(_initPublisher)
-        .then(_publish)
-        .catch(function(error) {
-            console.log('Error starting screensharing: ', error);
-        })
-            
-        // _initPublisher()
-        //     .then(function(annotationContainer) {
-        //         console.log('resolve init publisher screen');
-        //         self.publisher = self._publish('screen');
-        //         addPublisherEventListeners();
+        
+        extensionAvailable(self.extensionID, self.extensionPathFF)
+            .then(_initPublisher)
+            .then(_publish)
+            .fail(function(error) {
+                console.log('Error starting screensharing: ', error);
+            });
 
-        //         if (!!annotationContainer) {
-        //             var annotationWindow = self.comms_elements.annotationWindow;
-        //             self._annotation.linkCanvas(self.publisher, annotationContainer, annotationWindow);
-        //         }
-        //     });
-
-        // var addPublisherEventListeners = function() {
-
-        //     self.publisher.on('streamCreated', function(event) {
-        //         self._handleStartScreenSharing(event)
-        //     });
-
-        //     self.publisher.on('streamDestroyed', function(event) {
-        //         console.log('stream destroyed called');
-        //         self._handleEndScreenSharing(event);
-        //     });
-
-        //     /*this.publisher.on("accessDenied", function() {
-        //         self._unpublish('screen');
-        //         alert("Permission to use the camera and microphone are disabled");
-        //     })*/
-        // };
     };
 
     var end = function() {
