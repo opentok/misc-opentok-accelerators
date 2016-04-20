@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -256,6 +257,23 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mTextChatFragment.setMaxTextLength(1050);
         mTextChatFragment.setSenderAlias("user1");
         mTextChatFragment.setListener(this);
+
+        ViewGroup messageView = mTextChatFragment.getSendMessageView();
+
+        ViewGroup messageView2 = new ViewGroup(this) {
+            @Override
+            protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
+            }
+        };
+
+        EditText myEditText = new EditText(this);
+        myEditText.setHeight(20);
+        myEditText.setWidth(30);
+        myEditText.setBackgroundColor(getResources().getColor(R.color.quality_warning));
+        messageView2.addView(myEditText);
+
+        mTextChatFragment.setSendMessageView(messageView2);
     }
 
     //OneToOneCommunication callbacks
