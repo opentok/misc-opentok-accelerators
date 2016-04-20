@@ -24,16 +24,6 @@ var app = (function() {
         buttonDisplayMode: 'off'
       }
     },
-    localScreenProperties: {
-      insertMode: 'append',
-      width: '100%',
-      height: '100%',
-      videoSource: 'window',
-      showControls: false,
-      style: {
-        buttonDisplayMode: 'off'
-      }
-    },
     screensharing: {      
       extensionID: 'idhnlbjlmkghinljcijgljbmcoonppgi',
       extensionPathFF: 'ff-extension/wms-screensharing.xpi',
@@ -185,7 +175,7 @@ var app = (function() {
     // Update UI
     _toggleClass(_communicationElements.startEndCall, 'active');
 
-    _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo);
+    _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.shareScreen);
 
     !!(_communicationProperties.callActive || _communicationProperties.remoteParticipant) && _swapVideoPositions('end');
   };
