@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>OTStream Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">OpenTok iOS SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">TokBox, Inc</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/connection">connection</option>
+		
+		<option value="//api/name/creationTime">creationTime</option>
+		
+		<option value="//api/name/hasAudio">hasAudio</option>
+		
+		<option value="//api/name/hasVideo">hasVideo</option>
+		
+		<option value="//api/name/name">name</option>
+		
+		<option value="//api/name/session">session</option>
+		
+		<option value="//api/name/streamId">streamId</option>
+		
+		<option value="//api/name/videoDimensions">videoDimensions</option>
+		
+		<option value="//api/name/videoType">videoType</option>
+		
+	</optgroup>
+	
+
+	
+
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">OTStream Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>OTStream.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>An OTStream object represents a stream of multimedia, which may
+contain video and/or audio data.</p>
+
+<p>Use OTStream instances to initialize <a href="../Classes/OTSubscriber.html">OTSubscriber</a> interfaces. Do not
+attempt to initialize an OTStream directly.</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						<a title="Getting basic stream information" name="task_Getting basic stream information"></a>
+						<h2 class="task-title">Getting basic stream information</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/connection" title="connection"></a>
+	<h3 class="method-title"><code><a href="#//api/name/connection">&nbsp;&nbsp;connection</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The <a href="../Classes/OTConnection.html">OTConnection</a> object corresponding to the connection that is publishing the stream.
+You can compare this to to the <a href="../Classes/OTSession.html#//api/name/connection">[OTSession connection]</a> property to see if the stream
+is being published by the local device.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) OTConnection *connection</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/session" title="session"></a>
+	<h3 class="method-title"><code><a href="#//api/name/session">&nbsp;&nbsp;session</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The session (an <a href="../Classes/OTSession.html">OTSession</a> object) the stream is bound to.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) OTSession *session</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/streamId" title="streamId"></a>
+	<h3 class="method-title"><code><a href="#//api/name/streamId">&nbsp;&nbsp;streamId</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The unique ID of the stream.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) NSString *streamId</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/creationTime" title="creationTime"></a>
+	<h3 class="method-title"><code><a href="#//api/name/creationTime">&nbsp;&nbsp;creationTime</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The timestamp for the creation of the stream on the OpenTok media server.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) NSDate *creationTime</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/name" title="name"></a>
+	<h3 class="method-title"><code><a href="#//api/name/name">&nbsp;&nbsp;name</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The name of the stream. In the OpenTok iOS SDK, you can specify a published stream&rsquo;s name
+when you send the <a href="../Classes/OTPublisherKit.html#//api/name/initWithDelegate:name:">[OTPublisherKit initWithDelegate:name:]</a> message.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) NSString *name</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Getting audio and video information" name="task_Getting audio and video information"></a>
+						<h2 class="task-title">Getting audio and video information</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/hasAudio" title="hasAudio"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hasAudio">&nbsp;&nbsp;hasAudio</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Whether the stream is publishing audio (YES) or not (NO).
+See <a href="../Classes/OTPublisherKit.html#//api/name/publishAudio">[OTPublisherKit publishAudio]</a> and <a href="../Classes/OTSubscriberKit.html#//api/name/subscribeToAudio">[OTSubscriberKit subscribeToAudio]</a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) BOOL hasAudio</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hasVideo" title="hasVideo"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hasVideo">&nbsp;&nbsp;hasVideo</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Whether the stream is publishing video (YES) or not (NO).
+See <a href="../Classes/OTPublisherKit.html#//api/name/publishVideo">[OTPublisherKit publishVideo]</a> and <a href="../Classes/OTSubscriberKit.html#//api/name/subscribeToVideo">[OTSubscriberKit subscribeToVideo]</a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) BOOL hasVideo</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/videoDimensions" title="videoDimensions"></a>
+	<h3 class="method-title"><code><a href="#//api/name/videoDimensions">&nbsp;&nbsp;videoDimensions</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The current dimensions of the video media track on this stream.
+This property can change if a stream published from an
+iOS device resizes, based on a change in the device orientation, or a change
+in video resolution occurs.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) CGSize videoDimensions</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>For streams published using the scalable video feature, this is set to the
+maximum resolution available for the stream.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/videoType" title="videoType"></a>
+	<h3 class="method-title"><code><a href="#//api/name/videoType">&nbsp;&nbsp;videoType</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Specifies the type of video for this stream.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) OTStreamVideoType videoType</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This property is set one of the following values:</p>
+
+<ul>
+<li><p><code>OTStreamVideoTypeScreen</code> &mdash; The stream&rsquo;s video
+encoding is optimized for screen sharing.</p></li>
+<li><p><code>OTStreamVideoTypeCamera</code> &mdash; The stream is not
+optimized for screen sharing (for example, it uses a camera as the video
+source).</p></li>
+</ul>
+
+
+<p>For more information, see <a href="../Classes/OTPublisherKit.html#//api/name/videoType">[OTPublisherKit videoType]</a>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTStream.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2016 TokBox, Inc. All rights reserved. Updated: 2016-01-28</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

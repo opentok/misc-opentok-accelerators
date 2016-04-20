@@ -14,11 +14,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *subscriberVideoButton;
 @property (strong, nonatomic) IBOutlet UIButton *subscriberAudioButton;
 
-@property (strong, nonatomic) IBOutlet UILabel *connectingLabel;
-@property (strong, nonatomic) IBOutlet UIButton *errorMessage;
-
 @property (strong, nonatomic) UIImageView *subscriberPlaceHolderImageView;
 @property (strong, nonatomic) UIImageView *publisherPlaceHolderImageView;
+
 @end
 
 @implementation MainView
@@ -59,6 +57,8 @@
     [self drawBorderOn:self.videoHolder withWhiteBorder:YES widthColorBorder: nil];
     [self drawBorderOn:self.textChatHolder withWhiteBorder:YES widthColorBorder: nil];
     [self hideSubscriberControls];
+    
+    [self setTextChatHolderUserInteractionEnabled:NO];
 }
 
 - (void)drawBorderOn:(UIView *)view
@@ -81,6 +81,8 @@
     [self.publisherView setHidden:NO];
     publisherView.frame = CGRectMake(0, 0, CGRectGetWidth(self.publisherView.bounds), CGRectGetHeight(self.publisherView.bounds));
     [self.publisherView addSubview:publisherView];
+    publisherView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addAttachedLayoutConstantsToSuperview:publisherView];
 }
 
 - (void)removePublisherView {
@@ -131,6 +133,8 @@
 - (void)addSubscribeView:(UIView *)subsciberView {
     subsciberView.frame = CGRectMake(0, 0, CGRectGetWidth(self.subscriberView.bounds), CGRectGetHeight(self.subscriberView.bounds));
     [self.subscriberView addSubview:subsciberView];
+    subsciberView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addAttachedLayoutConstantsToSuperview:subsciberView];
 }
 
 - (void)removeSubscriberView {
@@ -170,53 +174,10 @@
 }
 
 #pragma mark - other controls
-- (void)showConnectingLabel {
-    
-    [UIView animateWithDuration:0.25 animations:^(){
-        
-        [self.connectingLabel setAlpha:0.5];
-        
-        [UIView animateWithDuration:0.25 animations:^(){
-            
-            [self.connectingLabel setAlpha:1.0];
-        }];
-    }];
-}
 
-- (void)hideConnectingLabel {
+- (void)setTextChatHolderUserInteractionEnabled:(BOOL)enabled {
     
-    [UIView animateWithDuration:0.25 animations:^(){
-        
-        [self.connectingLabel setAlpha:0.5];
-        
-        [UIView animateWithDuration:0.25 animations:^(){
-            
-            [self.connectingLabel setAlpha:0.0];
-        }];
-    }];
-}
-
-- (void)showErrorMessageLabelWithMessage:(NSString *)message
-                            dismissAfter:(CGFloat)seconds {
-    
-    [self.errorMessage setTitle:message forState:UIControlStateNormal];
-    [self.errorMessage setAlpha:1.0];
-    
-    if (seconds != 0.0) {
-        [UIView animateWithDuration:0.5
-                              delay:seconds
-                            options:UIViewAnimationOptionTransitionNone
-                         animations:^{
-                             [self.errorMessage setAlpha:0.5];
-                         }
-                         completion:^(BOOL finished){
-                             [self.errorMessage setAlpha:0.0];
-                         }];
-    }
-}
-
-- (void)hideErrorMessageLabel {
-    [self.errorMessage setAlpha:0.0];
+    [self.textChatHolder setUserInteractionEnabled:enabled];
 }
 
 - (void)removePlaceHolderImage {

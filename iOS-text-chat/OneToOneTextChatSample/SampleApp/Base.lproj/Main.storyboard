@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -31,67 +31,53 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QaT-qb-Mgd">
                                 <rect key="frame" x="0.0" y="534" width="600" height="66"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwb-uu-g2a" userLabel="publisherMicButton">
-                                        <rect key="frame" x="304" y="8" width="50" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hz-UV-DgS">
+                                        <rect key="frame" x="180" y="0.0" width="240" height="66"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwb-uu-g2a" userLabel="publisherMicButton">
+                                                <rect key="frame" x="124" y="8" width="50" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <state key="normal" image="mic"/>
+                                                <connections>
+                                                    <action selector="publisherAudioButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pxR-Us-IdT"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwV-4N-OEy" userLabel="TextChatButton">
+                                                <rect key="frame" x="182" y="8" width="50" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <state key="normal" image="message"/>
+                                                <connections>
+                                                    <action selector="textChatButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="82F-cq-JT5"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lI4-Iv-Bhv" userLabel="publisherVideoButton">
+                                                <rect key="frame" x="8" y="8" width="50" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <state key="normal" image="videoIcon"/>
+                                                <connections>
+                                                    <action selector="publisherVideoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2mt-7G-8tP"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fW-9l-wlb" userLabel="publisherCallButton">
+                                                <rect key="frame" x="66" y="8" width="50" height="50"/>
+                                                <color key="backgroundColor" red="0.41568627450000001" green="0.67843137249999996" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" image="startCall"/>
+                                                <connections>
+                                                    <action selector="publisherCallButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SO2-eY-tdE"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Bwb-uu-g2a" secondAttribute="height" multiplier="1:1" id="x0t-jA-4CA"/>
+                                            <constraint firstAttribute="width" secondItem="3hz-UV-DgS" secondAttribute="height" multiplier="40:11" id="1RE-ow-T48"/>
                                         </constraints>
-                                        <state key="normal" image="mic"/>
-                                        <connections>
-                                            <action selector="publisherAudioButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pxR-Us-IdT"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwV-4N-OEy" userLabel="TextChatButton">
-                                        <rect key="frame" x="362" y="8" width="50" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="gwV-4N-OEy" secondAttribute="height" multiplier="1:1" id="9jJ-xb-jrL"/>
-                                        </constraints>
-                                        <state key="normal" image="message"/>
-                                        <connections>
-                                            <action selector="textChatButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="82F-cq-JT5"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lI4-Iv-Bhv" userLabel="publisherVideoButton">
-                                        <rect key="frame" x="188" y="8" width="50" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="lI4-Iv-Bhv" secondAttribute="height" multiplier="1:1" id="yfl-It-ue4"/>
-                                        </constraints>
-                                        <state key="normal" image="videoIcon"/>
-                                        <connections>
-                                            <action selector="publisherVideoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2mt-7G-8tP"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fW-9l-wlb" userLabel="publisherCallButton">
-                                        <rect key="frame" x="246" y="8" width="50" height="50"/>
-                                        <color key="backgroundColor" red="0.41568627450000001" green="0.67843137249999996" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="8fW-9l-wlb" secondAttribute="height" multiplier="1:1" id="ZX6-tw-Fqg"/>
-                                        </constraints>
-                                        <state key="normal" image="startCall"/>
-                                        <connections>
-                                            <action selector="publisherCallButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SO2-eY-tdE"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="lI4-Iv-Bhv" firstAttribute="top" secondItem="QaT-qb-Mgd" secondAttribute="top" constant="8" id="8Jc-Nv-npa"/>
-                                    <constraint firstItem="Bwb-uu-g2a" firstAttribute="top" secondItem="QaT-qb-Mgd" secondAttribute="top" constant="8" id="9Es-gX-nrR"/>
-                                    <constraint firstItem="gwV-4N-OEy" firstAttribute="top" secondItem="QaT-qb-Mgd" secondAttribute="top" constant="8" id="Bue-lN-QQk"/>
-                                    <constraint firstItem="8fW-9l-wlb" firstAttribute="top" secondItem="QaT-qb-Mgd" secondAttribute="top" constant="8" id="FuS-Up-P5t"/>
+                                    <constraint firstAttribute="bottom" secondItem="3hz-UV-DgS" secondAttribute="bottom" id="E8n-tc-WBC"/>
                                     <constraint firstAttribute="height" constant="66" id="Q9T-ag-Vpj"/>
-                                    <constraint firstAttribute="bottom" secondItem="Bwb-uu-g2a" secondAttribute="bottom" constant="8" id="W5x-jw-Zh3"/>
-                                    <constraint firstAttribute="trailing" secondItem="gwV-4N-OEy" secondAttribute="trailing" constant="188" id="XM9-Ez-XmT" userLabel="trailing = TextChatButton.trailing"/>
-                                    <constraint firstAttribute="bottom" secondItem="8fW-9l-wlb" secondAttribute="bottom" constant="8" id="XlQ-Ro-uox"/>
-                                    <constraint firstItem="8fW-9l-wlb" firstAttribute="leading" secondItem="lI4-Iv-Bhv" secondAttribute="trailing" constant="8" id="g15-PC-7X5"/>
-                                    <constraint firstItem="lI4-Iv-Bhv" firstAttribute="leading" secondItem="QaT-qb-Mgd" secondAttribute="leading" constant="188" id="g3P-Rh-fWI" userLabel="publisherVideoButton.leading = leading"/>
-                                    <constraint firstItem="gwV-4N-OEy" firstAttribute="leading" secondItem="Bwb-uu-g2a" secondAttribute="trailing" constant="8" id="qvb-eq-fyJ"/>
-                                    <constraint firstItem="Bwb-uu-g2a" firstAttribute="leading" secondItem="8fW-9l-wlb" secondAttribute="trailing" constant="8" id="qxH-Xd-8fY"/>
-                                    <constraint firstAttribute="bottom" secondItem="lI4-Iv-Bhv" secondAttribute="bottom" constant="8" id="raL-st-O9e"/>
-                                    <constraint firstAttribute="bottom" secondItem="gwV-4N-OEy" secondAttribute="bottom" constant="8" id="vN7-Ht-wja"/>
+                                    <constraint firstItem="3hz-UV-DgS" firstAttribute="top" secondItem="QaT-qb-Mgd" secondAttribute="top" id="W12-3o-Xnn"/>
+                                    <constraint firstItem="3hz-UV-DgS" firstAttribute="centerX" secondItem="QaT-qb-Mgd" secondAttribute="centerX" id="wRH-nS-4nH"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBd-Rk-OIf" userLabel="TextChat View">
@@ -128,13 +114,7 @@
                                     <action selector="publisherCameraButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rUd-XL-ngb"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting... " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVp-7r-YQ1">
-                                <rect key="frame" x="239" y="288" width="123" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixE-LP-kFk" userLabel="Error Message">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixE-LP-kFk">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
                                 <color key="backgroundColor" red="0.80392156859999997" green="0.1176470588" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -149,35 +129,32 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SBd-Rk-OIf" firstAttribute="trailing" secondItem="zJt-pm-lIX" secondAttribute="trailing" id="1ku-sT-Xtc"/>
                             <constraint firstAttribute="trailing" secondItem="EoV-Kh-ae4" secondAttribute="trailing" constant="20" id="9Fu-eZ-Rs1"/>
                             <constraint firstItem="ixE-LP-kFk" firstAttribute="leading" secondItem="HtV-zK-mFJ" secondAttribute="leading" id="Abk-Kz-an0"/>
+                            <constraint firstItem="zJt-pm-lIX" firstAttribute="leading" secondItem="HtV-zK-mFJ" secondAttribute="leading" id="Anb-4r-XYg"/>
                             <constraint firstItem="TaE-Jx-zZR" firstAttribute="leading" secondItem="HtV-zK-mFJ" secondAttribute="leading" constant="20" id="C2K-eN-JaA"/>
-                            <constraint firstItem="SBd-Rk-OIf" firstAttribute="top" secondItem="zJt-pm-lIX" secondAttribute="top" id="MNA-AV-qfs"/>
+                            <constraint firstAttribute="trailing" secondItem="SBd-Rk-OIf" secondAttribute="trailing" id="GtE-O9-6y2"/>
                             <constraint firstItem="QaT-qb-Mgd" firstAttribute="bottom" secondItem="g1w-3N-XuV" secondAttribute="top" id="MoX-is-cOM"/>
-                            <constraint firstItem="OVp-7r-YQ1" firstAttribute="centerX" secondItem="HtV-zK-mFJ" secondAttribute="centerX" id="NsB-BO-Be4"/>
                             <constraint firstItem="SKX-dv-Vnc" firstAttribute="top" secondItem="HtV-zK-mFJ" secondAttribute="top" constant="60" id="O4w-5G-XL8"/>
-                            <constraint firstItem="SBd-Rk-OIf" firstAttribute="trailing" secondItem="ixE-LP-kFk" secondAttribute="trailing" id="SFe-Vh-4uD"/>
-                            <constraint firstItem="QaT-qb-Mgd" firstAttribute="top" secondItem="SBd-Rk-OIf" secondAttribute="bottom" id="T0p-XV-5cj"/>
+                            <constraint firstItem="zJt-pm-lIX" firstAttribute="trailing" secondItem="QaT-qb-Mgd" secondAttribute="trailing" id="O5l-a9-N7S"/>
+                            <constraint firstItem="zJt-pm-lIX" firstAttribute="top" secondItem="ixE-LP-kFk" secondAttribute="top" id="PmG-UE-NOo"/>
+                            <constraint firstItem="QaT-qb-Mgd" firstAttribute="top" secondItem="SBd-Rk-OIf" secondAttribute="bottom" id="SZf-2U-G2D"/>
                             <constraint firstAttribute="trailing" secondItem="ixE-LP-kFk" secondAttribute="trailing" id="UzL-or-RGf"/>
                             <constraint firstItem="ixE-LP-kFk" firstAttribute="top" secondItem="HtV-zK-mFJ" secondAttribute="top" id="VCg-cP-GsZ"/>
+                            <constraint firstItem="QaT-qb-Mgd" firstAttribute="leading" secondItem="HtV-zK-mFJ" secondAttribute="leading" id="VM4-cV-qRU"/>
                             <constraint firstItem="TaE-Jx-zZR" firstAttribute="top" secondItem="SKX-dv-Vnc" secondAttribute="bottom" constant="20" id="VsL-68-FSY"/>
                             <constraint firstItem="g1w-3N-XuV" firstAttribute="top" secondItem="EoV-Kh-ae4" secondAttribute="bottom" constant="133" id="Wtr-FP-Zbw"/>
-                            <constraint firstItem="SBd-Rk-OIf" firstAttribute="leading" secondItem="zJt-pm-lIX" secondAttribute="leading" id="dw3-Wn-dJt"/>
+                            <constraint firstItem="SBd-Rk-OIf" firstAttribute="top" secondItem="HtV-zK-mFJ" secondAttribute="top" id="ZeE-ef-44w"/>
                             <constraint firstItem="QaT-qb-Mgd" firstAttribute="centerX" secondItem="HtV-zK-mFJ" secondAttribute="centerX" id="eQn-Bl-AQc"/>
+                            <constraint firstItem="SBd-Rk-OIf" firstAttribute="leading" secondItem="HtV-zK-mFJ" secondAttribute="leading" id="eXH-qy-Zj4"/>
                             <constraint firstItem="SKX-dv-Vnc" firstAttribute="leading" secondItem="HtV-zK-mFJ" secondAttribute="leading" constant="20" id="p9N-b2-8WU"/>
                             <constraint firstItem="xR7-mn-zpN" firstAttribute="top" secondItem="HtV-zK-mFJ" secondAttribute="top" constant="60" id="sIb-ZZ-Zsj"/>
-                            <constraint firstItem="SBd-Rk-OIf" firstAttribute="leading" secondItem="ixE-LP-kFk" secondAttribute="leading" id="ulh-6C-aIn"/>
-                            <constraint firstItem="OVp-7r-YQ1" firstAttribute="centerY" secondItem="HtV-zK-mFJ" secondAttribute="centerY" id="vZA-Im-SuI"/>
-                            <constraint firstItem="SBd-Rk-OIf" firstAttribute="top" secondItem="ixE-LP-kFk" secondAttribute="top" id="w4V-0u-bkw"/>
                             <constraint firstAttribute="trailing" secondItem="xR7-mn-zpN" secondAttribute="trailing" constant="20" id="wyq-rV-OBQ"/>
                             <constraint firstItem="zJt-pm-lIX" firstAttribute="bottom" secondItem="g1w-3N-XuV" secondAttribute="top" id="zkr-w7-zTS"/>
                         </constraints>
                         <connections>
                             <outlet property="actionButtonsHolder" destination="QaT-qb-Mgd" id="yzf-5K-3Tg"/>
                             <outlet property="callHolder" destination="8fW-9l-wlb" id="XCG-GA-mhl"/>
-                            <outlet property="connectingLabel" destination="OVp-7r-YQ1" id="h0T-KE-ktG"/>
-                            <outlet property="errorMessage" destination="ixE-LP-kFk" id="ymp-Ex-BqK"/>
                             <outlet property="micHolder" destination="Bwb-uu-g2a" id="YZ2-L1-YIh"/>
                             <outlet property="publisherView" destination="EoV-Kh-ae4" id="WWF-wf-5KH"/>
                             <outlet property="subscriberAudioButton" destination="SKX-dv-Vnc" id="oVI-Jt-h1h"/>

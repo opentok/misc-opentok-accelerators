@@ -6,32 +6,27 @@
 //  Copyright © 2016 AgilityFeat. All rights reserved.
 //
 
-#import "TextChatComponent.h"
+#import <OpenTok/OpenTok.h>
 
-#define DEFAULT_TTextChatE_SPAN 120
+#import "TextChatComponent.h"
+#import "AcceleratorPackSession.h"
+
+static NSUInteger DefaultTextMessageLength = 120;
+static NSUInteger MaximumTextMessageLength = 8196;
 
 @interface TextChatComponent() <OTSessionDelegate>
-@property (nonatomic) OTSession *session;
+@property (nonatomic) AcceleratorPackSession *session;
 
 @property (nonatomic) NSMutableArray<TextChat *> *mutableMessages;
-@property (nonatomic) NSMutableSet<NSString *> *mutableSenders;
 
 @property (nonatomic) NSString *senderId;
 @property (nonatomic) NSString *alias;
+@property (nonatomic) NSString *receiverAlias;
+@property (nonatomic) NSUInteger maximumTextMessageLength;
 
 @end
 
-// ===============================================================================================//
-// *** Fill the following variables using your own Project info  ***
-// ***          https://dashboard.tokbox.com/projects            ***
-// Replace with your OpenTok API key
-static NSString* const kApiKey = @"100";
-// Replace with your generated session ID
-static NSString* const kSessionId = @"2_MX4xMDB-flR1ZSBOb3YgMTkgMTE6MDk6NTggUFNUIDIwMTN-MC4zNzQxNzIxNX4";
-// Replace with your generated token
-static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9OTU3ZmU3MDhjNDFhNmJjYmE3NjhmYmE3YzU1NjUyMGZlNTJmYTJhMTpzZXNzaW9uX2lkPTJfTVg0eE1EQi1mbFIxWlNCT2IzWWdNVGtnTVRFNk1EazZOVGdnVUZOVUlESXdNVE4tTUM0ek56UXhOekl4Tlg0JmNyZWF0ZV90aW1lPTE0NTkzNjAyMjcmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ1OTM2MDIyNy44MjY3MjQyNjk1OTU2JmV4cGlyZV90aW1lPTE0NjE5NTIyMjc=";
-// ===============================================================================================//
-static NSString* const kTextChatType = @"TextChat";
+static NSString* const kTextChatType = @"text-chat";
 
 @implementation TextChatComponent
 
@@ -39,49 +34,84 @@ static NSString* const kTextChatType = @"TextChat";
     return [self.mutableMessages copy];
 }
 
-- (NSSet<NSString *> *)senders {
-    return [self.mutableSenders copy];
+- (void)setAlias:(NSString *)alias {
+    
+    if (!alias) return;
+    _alias = alias;
+}
+
+- (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength {
+    
+    if (maximumTextMessageLength > 8196) _maximumTextMessageLength = DefaultTextMessageLength;
+    _maximumTextMessageLength = maximumTextMessageLength;
 }
 
 - (instancetype)init {
     if (self = [super init]) {
         _mutableMessages = [[NSMutableArray alloc] init];
-        _session= [[OTSession alloc] initWithApiKey:kApiKey
-                                          sessionId:kSessionId
-                                           delegate:self];
+        _session = [AcceleratorPackSession getAcceleratorPackSession];
+        _maximumTextMessageLength = MaximumTextMessageLength;
     }
     return self;
 }
 
 - (void)connect {
-    OTError *error = nil;
-    [self.session connectWithToken:kToken error:&error];
     
-    if (self.delegate && error) {
-        [self.delegate didConnectWithError:error];
-    }
+    [AcceleratorPackSession registerWithAccePack:self];
+}
+
+- (void)disconnect {
+    
+    [AcceleratorPackSession deregisterWithAccePack:self];
 }
 
 - (void)sendMessage:(NSString *)message {
-    NSError *error = nil;
+    NSError *error;
+    
+    if (!message || !message.length) {
+        error = [NSError errorWithDomain:NSCocoaErrorDomain
+                                    code:-1
+                                userInfo:@{NSLocalizedDescriptionKey:@"Message format is wrong. Text is empty or null"}];
+        if (self.delegate) {
+            [self.delegate didAddMessageWithError:error];
+        }
+        return;
+    }
+    
     if (self.session.sessionId) {
         
-        TextChat *textChat = [[TextChat alloc] init];
-        textChat.senderAlias = [self.alias length]> 0 ? self.alias : @"";
-        textChat.senderId = [self.senderId length] > 0 ? self.senderId : @"";
-        textChat.text = message;
-        textChat.type = TCMessageTypesSent;
-        textChat.dateTime = [[NSDate alloc] init];
+        TextChat *textChat = [[TextChat alloc] initWithMessage:message alias:self.alias senderId:self.senderId];
+        
+        NSString *jsonString = [textChat getTextChatSignalJSONString];
+        if (!jsonString) {
+            if (self.delegate) {
+                NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
+                                                     code:-1
+                                                 userInfo:@{NSLocalizedDescriptionKey:@"Error in parsing sender data"}];
+                [self.delegate didAddMessageWithError:error];
+            }
+            return;
+        }
+        
         [self.session signalWithType:kTextChatType
-                              string:message
+                              string:jsonString
                           connection:nil
                                error:&error];
+        
+        if (error) {
+            if (self.delegate) {
+                [self.delegate didAddMessageWithError:error];
+            }
+            return;
+        }
         
         // determine new type
         if ([self.messages count] > 0) {
             
             TextChat *prev = self.messages[self.messages.count - 1];
-            if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN &&
+            
+            // not sure why 120
+            if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < 120 &&
                 [textChat.senderId isEqualToString:prev.senderId]) {
                 
                 if (textChat.type == TCMessageTypesReceived) {
@@ -91,16 +121,13 @@ static NSString* const kTextChatType = @"TextChat";
                     textChat.type = TCMessageTypesSentShort;
                 }
             }
-            else {
-                TextChat *div = [[TextChat alloc] init];
-                div.type = TCMessageTypesDivider;
-                [self.mutableMessages addObject:div];
-            }
         }
         [self.mutableMessages addObject:textChat];
     }
     else {
-        error = [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"OTSession did not connect"}];
+        error = [NSError errorWithDomain:NSCocoaErrorDomain
+                                    code:-1
+                                userInfo:@{NSLocalizedDescriptionKey:@"OTSession did not connect"}];
     }
     
     if (self.delegate) {
@@ -108,29 +135,39 @@ static NSString* const kTextChatType = @"TextChat";
     }
 }
 
+- (TextChat *)getTextChatFromIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 0 || indexPath.row >= self.messages.count) {
+        return nil;
+    }
+    return self.messages[indexPath.row];
+}
+
 #pragma mark - OTSessionDelegate
 - (void)sessionDidConnect:(OTSession*)session {
     
-    NSLog(@"session sessionDidConnect (%@)", session.sessionId);
-    // When we've connected to the session, we can create the chat component.
+    NSLog(@"TextChatComponent sessionDidConnect");
     
     self.senderId = session.connection.connectionId;
-    self.alias = session.connection.data;
-    if (![self.mutableSenders containsObject:self.senderId]) {
-        [self.mutableSenders addObject:self.senderId];
-    }
     
-    if (self.delegate) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
         [self.delegate didConnectWithError:nil];
     }
 }
 
 - (void)sessionDidDisconnect:(OTSession*)session {
-    NSLog(@"session sessionDidDisconnect (%@)", session.sessionId);
+    
+    NSLog(@"TextChatComponent sessionDidDisconnect");
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didDisConnectWithError:)]) {
+        [self.delegate didDisConnectWithError:nil];
+    }
 }
 
 - (void)session:(OTSession*)session didFailWithError:(OTError*)error {
     NSLog(@"didFailWithError: (%@)", error);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
+        [self.delegate didConnectWithError:error];
+    }
 }
 
 - (void)session:(OTSession*)session streamCreated:(OTStream*)stream {
@@ -155,16 +192,19 @@ receivedSignalType:(NSString*)type
      withString:(NSString*)string {
     
     if (![connection.connectionId isEqualToString:self.session.connection.connectionId]) {
-        TextChat *textChat = [[TextChat alloc]init];
-        textChat.senderAlias = [connection.data length] > 0 ? connection.data : @"";
-        textChat.senderId = connection.connectionId;
-        textChat.text = string;
-        textChat.type = TCMessageTypesReceived;
+        TextChat *textChat = [[TextChat alloc] initWithJSONString:string];
+        
+        if (!self.receiverAlias || ![self.receiverAlias isEqualToString:textChat.alias]) {
+            self.receiverAlias = textChat.alias;
+        }
+        
         // determine new type
         if ([self.messages count] > 0) {
             
             TextChat *prev = self.messages[self.messages.count - 1];
-            if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < DEFAULT_TTextChatE_SPAN &&
+            
+            // not sure why 120
+            if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < 120 &&
                 [textChat.senderId isEqualToString:prev.senderId]) {
                 
                 if (textChat.type == TCMessageTypesReceived) {
@@ -174,16 +214,13 @@ receivedSignalType:(NSString*)type
                     textChat.type = TCMessageTypesSentShort;
                 }
             }
-            else {
-                TextChat *div = [[TextChat alloc] init];
-                div.type = TCMessageTypesDivider;
-                [self.mutableMessages addObject:div];
-            }
         }
         
-        [self.mutableMessages addObject:textChat];
-        if (self.delegate) {
-            [self.delegate didReceiveMessage];
+        if (textChat) {
+            [self.mutableMessages addObject:textChat];
+            if (self.delegate) {
+                [self.delegate didReceiveMessage];
+            }
         }
     }
 }

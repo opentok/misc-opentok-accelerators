@@ -27,13 +27,7 @@
 - (void)hideSubscriberControls;
 
 // other controls
-- (void)showConnectingLabel;
-- (void)hideConnectingLabel;
-
-- (void)showErrorMessageLabelWithMessage:(NSString *)message
-                            dismissAfter:(CGFloat)seconds;
-- (void)hideErrorMessageLabel;
-
+- (void)setTextChatHolderUserInteractionEnabled:(BOOL)enabled;
 - (void)removePlaceHolderImage;
 
 @property (weak, nonatomic) IBOutlet UIView *actionButtonsHolder;

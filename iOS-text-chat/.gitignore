@@ -21,5 +21,3 @@ Pods
 /TextChatComponent/*.framework
 *.framework
 
-/TextChatComponent/*.bundle
-*.bundle
