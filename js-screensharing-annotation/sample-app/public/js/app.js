@@ -2,7 +2,8 @@ var app = (function() {
 
   // Sample component
   var _communication;
-  var _acceleratorPack;
+  var _accPack;
+  var _session;
 
   var _options = {
     apiKey: '100',
@@ -27,7 +28,10 @@ var app = (function() {
     screensharing: {      
       extensionID: 'idhnlbjlmkghinljcijgljbmcoonppgi',
       extensionPathFF: 'ff-extension/wms-screensharing.xpi',
-      annotation: false
+      annotation: true
+    },
+    annotation: {
+      
     }
   };
 
@@ -40,7 +44,7 @@ var app = (function() {
     enableLocalVideo: document.getElementById('enableLocalVideo'),
     enableRemoteAudio: document.getElementById('enableRemoteAudio'),
     enableRemoteVideo: document.getElementById('enableRemoteVideo'),
-    shareScreen: document.getElementById('shareScreen')
+    // shareScreen: document.getElementById('shareScreen')
   };
 
   var _communicationProperties = {
@@ -138,7 +142,7 @@ var app = (function() {
     // Start or end call
     _communicationElements.startEndCall.onclick = _connectCall;
 
-    _communicationElements.shareScreen.onclick = _shareScreen;
+    // _communicationElements.shareScreen.onclick = _shareScreen;
 
     // Click events for enabling/disabling audio/video
     var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
@@ -154,6 +158,7 @@ var app = (function() {
     // Start call
     _communication.start();
     _communicationProperties.callActive = true;
+    _accPack.active(true);
 
 
     // Update UI
@@ -161,7 +166,7 @@ var app = (function() {
       _updateClassList(element, 'active', true);
     });
 
-    _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.shareScreen);
+    _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo);
 
     _communicationProperties.remoteParticipant && _swapVideoPositions('start');
   };
@@ -171,6 +176,7 @@ var app = (function() {
     // End call
     _communication.end();
     _communicationProperties.callActive = false;
+    _accPack.active(false);
 
     // Update UI
     _toggleClass(_communicationElements.startEndCall, 'active');
@@ -186,28 +192,29 @@ var app = (function() {
 
   };
 
-  var _startScreenShare = function() {
-    _acceleratorPack.startScreenSharing();
-  };
+  // var _startScreenShare = function() {
+  //   _acceleratorPack.startScreenSharing();
+  // };
 
-  var _endScreenShare = function() {
+  // var _endScreenShare = function() {
 
-  };
+  // };
 
-  var _shareScreen = function() {
+  // var _shareScreen = function() {
 
-    !_communicationProperties.sharingScreen ? _startScreenShare() : _endScreenShare();
-  }
+  //   !_communicationProperties.sharingScreen ? _startScreenShare() : _endScreenShare();
+  // }
 
   var init = function() {
     // Get session
-    var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'screensharing']);
-    _acceleratorPack = new AcceleratorPack(accPackOptions);
-    _options.session = _acceleratorPack.getSession();
+  var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'screensharing']);
+    
+    _accPack = new AcceleratorPack(accPackOptions);
+    _session = _accPack.getSession();
 
-    _options.session.on({
+    _session.on({
       connectionCreated: function(event) {
-        _communication = new Communication(_options);
+        _communication = new Communication(_.defaults(_options, {session: _session}));
         _addEventListeners();
       }
     });

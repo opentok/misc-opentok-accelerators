@@ -2,6 +2,7 @@ var AccPackScreenSharing = (function() {
 
     var self;
     var _annotation;
+    var _active;
     var _localScreenProperties = {
         insertMode: 'append',
         width: '100%',
@@ -33,24 +34,35 @@ var AccPackScreenSharing = (function() {
 
         // Extend our instance
         var optionsProps = [
-            'sessionID',
+            'session',
+            'sessionId',
             'annotation',
             'extensionURL',
             'extensionID',
             'extensionPathFF',
             'screensharingParent',
-            'acceleratorPack'
+            'accPack'
         ];
 
-        _.extend(this, _.defaults(_.pick(options, optionsProps)), { screenSharingParent: '#videoContainer' });
-      
+        _.extend(this, _.defaults(_.pick(options, optionsProps)), { 
+            screenSharingParent: '#videoContainer', 
+            screenSharingControls: '#feedControls' 
+        });
+        
         // Do UIy things
         _setupUI(self.screensharingParent);
         _addScreenSharingListeners();
     };
     
     var _addScreenSharingListeners = function() {
+        
+        $('#startScreenSharing').on('click', function() {
+            !!_active ? end() : start();
+        });
 
+        
+        
+        /** Handlers for screensharing extension modal */
         $('#btn-install-plugin-chrome').on('click', function() {
             chrome.webstore.install('https://chrome.google.com/webstore/detail/' + self.extensionID,
                 function(success) {
@@ -106,7 +118,7 @@ var AccPackScreenSharing = (function() {
         _validateExtension(_.property('extensionID')(options), _.property('extensionPathFF')(options));
     };
 
-    // var startScreenSharing = ['<button class="wms-icon-screen" id="startScreenShareBtn"></button>'].join('\n');
+    var screenSharingControl = ['<div class="video-control circle share-screen" id="startScreenSharing"></div>'].join('\n');
     var screenSharingView = [
         '<div class="hidden" id="screenShareView">',
         '<div class="wms-feed-main-video">',
@@ -154,13 +166,11 @@ var AccPackScreenSharing = (function() {
      */
     var _initPublisher = function() {
 
-        var self = this;
-
         var createPublisher = function(publisherDiv) {
 
             var innerDeferred = $.Deferred();
 
-            publisherDiv = publisherDiv || 'videoHolderScreenShare';
+            publisherDiv = publisherDiv || $('#videoHolderScreenShare');
 
             self.publisher = OT.initPublisher(publisherDiv, _localScreenProperties, function(error) {
                 if (error) {
@@ -181,22 +191,22 @@ var AccPackScreenSharing = (function() {
 
         if (!!self.annotation) {
 
-            self.acceleratorPack.initAnnotation(true)
-                .then(function(annotationWindow) {
-                    self.annotationWindow = annotationWindow || null;
-                    var annotationElements = annotationWindow.createContainerElements();
-                    createPublisher(annotationElements.publisher)
-                        .then(function() {
-                            outerDeferred.resolve(annotationElements.annotation);
-                        });
+            self.accPack.setupAnnotation(true)
+            .then(function(annotationWindow) {
+                self.annotationWindow = annotationWindow || null;
+                var annotationElements = annotationWindow.createContainerElements();
+                createPublisher(annotationElements.publisher)
+                    .then(function() {
+                        outerDeferred.resolve(annotationElements.annotation);
+                    });
 
-                });
+            });
         } else {
 
             createPublisher()
-                .then(function() {
-                    outerDeferred.resolve();
-                });
+            .then(function() {
+                outerDeferred.resolve();
+            });
 
         }
 
@@ -225,17 +235,13 @@ var AccPackScreenSharing = (function() {
                 }
             } else {
                 addPublisherEventListeners();
-                self.acceleratorPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
+                self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
 
                 console.log('Connected');
             }
         });
 
-
-        if (!!annotationContainer) {
-            var annotationWindow = self.comms_elements.annotationWindow;
-            self._annotation.linkCanvas(self.publisher, annotationContainer, annotationWindow);
-        }
+        !!annotationContainer && self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
 
         var addPublisherEventListeners = function() {
 
@@ -284,7 +290,7 @@ var AccPackScreenSharing = (function() {
 
     var _setupUI = function(parent) {
         $('body').append(screenDialogsExtensions);
-        // $(startScreenSharingBtn).append(startScreenSharing);
+        $(self.screenSharingControls).append(screenSharingControl);
         $(parent).append(screenSharingView);
     };
 

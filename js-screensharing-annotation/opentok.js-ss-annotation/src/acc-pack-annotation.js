@@ -9,15 +9,21 @@ var AccPackAnnotation = (function() {
      */
     var Annotation = function(options) {
         
-        if ( !options || !this.options.canvasContainer ) {
-            throw new Error('Annotation requires')
-        }
+        // if ( !options || !this.options.canvasContainer ) {
+        //     throw new Error('Annotation requires')
+        // }
         
         this.options = options || {};
         // UPDATE FROM WMS       
-        this.elements = { canvasContainer : this.options.canvasContainer };
+        this.elements = { canvasContainer : this.options.canvasContainer || '#wmsFeedWrap' };
+        _setupUI();
         self = this;
     };
+    
+    var _setupUI = function(){
+        var toolbar = ['<div id="toolbar"></div>'].join('\n');
+        $('body').append(toolbar);
+    }
 
     // Toolbar items
     var _defaultToolbarItems = [{

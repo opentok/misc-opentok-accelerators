@@ -2,10 +2,16 @@ html,
 body {
     margin: 0;
     padding: 0;
+    font-family: helvetica, arial, sans-serif
 }
 
 div {
     box-sizing: border-box;
+}
+
+button {
+    border: none;
+    cursor: pointer;
 }
 
 .hidden {
@@ -35,7 +41,7 @@ div {
 }
 
 .video-background {
-    background-image: url("../images/background.png");
+    background-image: url("../images/main/background.png");
     background-size: contain;
 }
 
@@ -47,7 +53,7 @@ div {
 .local-controls {
     height: 60px;
     width: 100%;
-    background-image: url("../images/control-bar.png");
+    background-image: url("../images/main/control-bar.png");
     background-size: contain;
     position: absolute;
     bottom: 0;
@@ -101,7 +107,7 @@ div {
 
 .video-control.call {
     background-color: rgba(87, 193, 228, .85);
-    background-image: url("../images/call.png");
+    background-image: url("../images/icon/call.png");
     margin: 0 15px;
 }
 
@@ -111,49 +117,49 @@ div {
 
 .video-control.call.active {
     background-color: red;
-    background-image: url("../images/hang-up.png");
+    background-image: url("../images/icon/hang-up.png");
 }
 /**/
 
 .video-control.share-screen {
   margin-left: 10px;
-  background-image: url("../images/screen-share.png");
+  background-image: url("../images/icon/screen-share.png");
 }
 
 .video-control.share-screen.disabled,
 .video-control.share-screen:hover {
-  background-image: url("../images/screen-share.png");
+  background-image: url("../images/icon/screen-share.png");
 }
 .video-control.share-screen.active {
   background-color: red;
-  background-image: url("../images/screen-share.png");
+  background-image: url("../images/icon/screen-share.png");
 }
 /**/
 .video-control.video {
-    background-image: url("../images/video-icon.png");
+    background-image: url("../images/icon/video-icon.png");
 }
 
 .video-control.video.disabled,
 .video-control.video:hover {
-    background-image: url("../images/no-video-icon.png");
+    background-image: url("../images/icon/no-video-icon.png");
 }
 
 .video-control.audio {
-    background-image: url("../images/audio.png");
+    background-image: url("../images/icon/audio.png");
 }
 
 .video-control.audio.disabled,
 .video-control.audio:hover {
-    background-image: url("../images/no-audio.png");
+    background-image: url("../images/icon/no-audio.png");
 }
 
 .video-control.microphone {
-    background-image: url("../images/mic.png");
+    background-image: url("../images/icon/mic.png");
 }
 
 .video-control.microphone.disabled,
 .video-control.microphone:hover {
-    background-image: url("../images/muted-mic.png");
+    background-image: url("../images/icon/muted-mic.png");
 }
 
 /* Screensharing styles */
@@ -219,19 +225,34 @@ div {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+
 .wms-modal .wms-modal-body .wms-cancel-btn-install {
   position: absolute;
   top: 15px;
   right: 15px;
   width: 25px;
   height: 25px;
-  background-image: url(../images/icon/other/oval-281-x.png);
+  background-image: url("../images/icon/oval-281-x.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: transparent;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+  .wms-modal .wms-modal-body .wms-cancel-btn-install {
+    background-image: url("../images/icon/oval-281-x@2x.png");
+    background-size: 25px 25px;
+  }
+}
+
+.wms-icon-share-large {
+  background-image: url("../images/icon/screenshare-large.png");
   background-repeat: no-repeat;
   background-position: center center;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
-  .wms-modal .wms-modal-body .wms-cancel-btn-install {
-    background-image: url(../images/icon/other/oval-281-x@2x.png);
-    background-size: 25px 25px;
+  .wms-icon-share-large {
+    background-image: url("../images/icon/screenshare-large@2x.png");
+    background-size: 60px 41px;
   }
 }

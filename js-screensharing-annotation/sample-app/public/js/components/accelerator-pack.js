@@ -3,8 +3,11 @@ var AcceleratorPack = (function() {
     var self;
     var _session;
     var _isConnected = false;
+    var _active;
+    var _communication;
     var _screensharing;
     var _annotation;
+    var _components = [];
 
     var addThings = function(extensionID) {
         $('<link/>', {
@@ -15,7 +18,7 @@ var AcceleratorPack = (function() {
 
     // Constructor
     var AcceleratorPackLayer = function(options) {
-
+      
         self = this;
 
         _validateOptions(options);
@@ -33,8 +36,57 @@ var AcceleratorPack = (function() {
                 _isConnected = true;
             }
         });
+        
     };
+    
+    
+    
+    /** 
+     * Initialize any of the accelerator pack components included in the application.
+     *
+     */
+    var _initAccPackComponents = function(){
+                
+        if ( !!AccPackScreenSharing ) {
+        
+            var screensharingProps = [
+                'sessionId',
+                'annotation',
+                'extensionURL',
+                'extensionID',
+                'extensionPathFF',
+                'screensharingContainer'
+            ];
 
+            var screensharingOptions = _.extend(_.pick(self.options, screensharingProps), self.options.screensharing, { 
+                session: _session, 
+                accPack: self
+             });
+             
+            _screensharing = new AccPackScreenSharing(screensharingOptions);
+            _components.screensharing = _screensharing;
+        }
+        
+        if ( !!AccPackAnnotation ) {
+            var annotationProps = [];
+            _annotation = new AccPackAnnotation(self.options);
+            _components.annotation = _annotation;
+        }
+    };
+    
+    
+    /**
+     * When the call ends, we need to hide certain DOM elements related to the
+     * components and may also need to do some cleanup related to publishers,
+     * subscribers, etc.
+     */
+    var _hideAccPackComponents = function() {
+      
+        _.each(_components, function(component){
+            component.active(false);
+        })
+    };
+    
     var _validateOptions = function(options) {
 
         var requiredProps = ['sessionId', 'apiKey', 'token'];
@@ -140,10 +192,25 @@ var AcceleratorPack = (function() {
         $(self.comms_elements.callFeedWrap).draggable('disable');
         self._annotation.resizeCanvas();
     };
-
+    
+    
+    /**
+     * Returns the current session
+     */
     var getSession = function() {
         return _session;
     };
+    
+    
+    /**
+     * Setter which lets the AP layer know the call is active or inactive.  In turn, we can
+     * let the components know if they need to show or hide controls.
+     */
+    var active = function(active) {
+        
+        active ? _initAccPackComponents() : _hideAccPackComponents();
+        
+    }
 
     /** 
      * Initialize the annotation component
@@ -151,11 +218,8 @@ var AcceleratorPack = (function() {
      * the annotation component will need to create an external window.
      * @returns {Promise} < Resolve: [Object] External annotation window >    
      */
-    var initAnnotation = function(screensharing) {
-        _annotation = _annotation || new AccPackAnnotation(options);
-
+    var setupAnnotation = function(screensharing) {
         return _annotation.start(_session, { screensharing: screensharing });
-
     };
 
     /** 
@@ -186,7 +250,7 @@ var AcceleratorPack = (function() {
             // Need to see what these options need to be
             _initAnnotation(options);
         }
-        _screensharing = _screensharing || new AccPackScreenSharing(options);
+        
 
         _screensharing.start();
     };
@@ -197,10 +261,11 @@ var AcceleratorPack = (function() {
 
     AcceleratorPackLayer.prototype = {
         constructor: AcceleratorPack,
+        active: active,
         getSession: getSession,
         startScreenSharing: startScreenSharing,
         endScreenSharing: endScreenSharing,
-        initAnnotation: initAnnotation,
+        setupAnnotation: setupAnnotation,
         linkAnnotation: linkAnnotation
     };
     return AcceleratorPackLayer;
