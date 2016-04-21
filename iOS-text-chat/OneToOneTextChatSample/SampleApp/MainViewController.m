@@ -40,6 +40,7 @@
                 [self handleCommunicationSignal:signal];
             }
         }];
+        [self.mainView buttonsStatusSetter:YES];
     }
     else {
         [self.mainView callHolderConnected];
@@ -51,6 +52,7 @@
         [self.mainView removePlaceHolderImage];
         [self.mainView setTextChatHolderUserInteractionEnabled:NO];
         [self.textChatView dismiss];
+        [self.mainView buttonsStatusSetter:NO];
     }
 }
 

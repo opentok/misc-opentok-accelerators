@@ -88,51 +88,53 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         /**
          * Invoked when a new message has been sent.
          *
-         * @param message The sent ChatMessage
+         * @param message The ChatMessage that was sent.
          */
         void onNewSentMessage(ChatMessage message);
 
         /**
          * Invoked when a new message has been received.
          *
-         * @param message The sent ChatMessage
+         * @param message The ChatMessage that was received.
          */
         void onNewReceivedMessage(ChatMessage message);
 
         /**
-         * Invoked when there is an error on the text-chat.
+         * Invoked when there is a text chat error occurs.
          *
-         * @param error The error message
+         * @param error The error message.
          */
         void onTextChatError(String error);
 
         /**
-         * Invoked when the close button is clicked
+         * Invoked when the close button is clicked.
          *
          */
         void onClosed();
 
         /**
-         * Invoked when the minimize button is clicked
+         * Invoked when the minimize button is clicked.
          *
          */
         void onMinimized();
 
         /**
-         * Invoked when the maximize button is clicked
+         * Invoked when the maximize button is clicked.
          *
          */
         void onMaximized();
 
         /**
-         * Invoked when the text-chat is restared
+         * Invoked when the text chat is restarted.
          *
          */
         void onRestarted();
     }
 
     /*
-    * Constructor
+    * Constructor.
+    * @param session The OpenTok session instance.
+    * @param apiKey  The API Key.
     */
     public TextChatFragment(AccPackSession session, String apiKey) {
         //Init the sender information for the output messages
@@ -210,7 +212,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /**
-     * Minimize the textchat view
+     * Minimize the text chat view.
      *
      */
     public void minimize(){
@@ -219,7 +221,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /**
-     * Maximize the textchat view
+     * Maximize the text chat view.
      *
      */
     public void maximize(){
@@ -228,7 +230,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /**
-     * Close the textchat view
+     * Close the text chat view.
      *
      */
     public void close(){
@@ -249,7 +251,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     /**
      * Set the maximum length of a text chat message (in characters).
      *
-     * @param length The maximum length
+     * @param length The maximum length of a text chat message (in characters).
      */
     public void setMaxTextLength(int length) {
         addLogEvent(OpenTokConfig.LOG_ACTION_SET_MAX_LENGTH, OpenTokConfig.LOG_VARIATION_ATTEMPT);
@@ -264,9 +266,9 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /**
-     * Set the sender alias of the outgoing messages.
+     * Set the sender alias for outgoing messages.
      *
-     * @param senderAlias The alias for the sender
+     * @param senderAlias The alias for the sender.
      */
     public void setSenderAlias(String senderAlias) {
         addLogEvent(OpenTokConfig.LOG_ACTION_SET_SENDER_ALIAS, OpenTokConfig.LOG_VARIATION_ATTEMPT);
@@ -283,13 +285,13 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /**
-     * Get action bar to be customized
+     * Get the action bar to be customized.
      */
     public ViewGroup getActionBar() { return mActionBarView; }
 
     /**
-     * Set a customized action bar.
-     * @param actionBar a customized action bar
+     * Set the customized action bar.
+     * @param actionBar The customized action bar.
      */
     public void setActionBar(ViewGroup actionBar) {
         addLogEvent(OpenTokConfig.LOG_ACTION_SET_ACTION_BAR, OpenTokConfig.LOG_VARIATION_ATTEMPT);
@@ -311,8 +313,8 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /**
-     * Set a customized send message area view
-     * @param sendMessageView a customized send message area view
+     * Set the customized send message area view.
+     * @param sendMessageView The customized send message area view.
      */
     public void setSendMessageView(ViewGroup sendMessageView) {
         addLogEvent(OpenTokConfig.LOG_ACTION_SET_SEND_MESSAGE_AREA, OpenTokConfig.LOG_VARIATION_ATTEMPT);
@@ -327,7 +329,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /**
-     * Restart to the origin status: removing all the messages and maximizing the view
+     * Restart the session, removing all messages and maximizing the view.
      */
     public void restart(){
         addLogEvent(OpenTokConfig.LOG_ACTION_RESTART, OpenTokConfig.LOG_VARIATION_ATTEMPT);
