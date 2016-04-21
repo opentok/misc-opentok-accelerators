@@ -14,7 +14,7 @@ var TextChatAccPack = (function () {
     sender = options.sender;
     self = this;
   };
-  
+
   // Private methods
   var renderUILayout = function (type) {
 
