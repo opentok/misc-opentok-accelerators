@@ -19,7 +19,8 @@ To be prepared to develop your text chat app:
 
 1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
 2. Download the **opentok-text-chat.js** file provided by TokBox.
-3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
+3. Download the [TokBox Accelerator Pack Common Library](https://github.com/opentok/acc-pack-common).
+4. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
 
@@ -68,15 +69,17 @@ _**NOTE:** The sample app contains logic used for logging. This is used to submi
 
 ### Web page design
 
-While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must host the sample app yourself. This allows you to customize the app as desired. The sample app has the following design, focusing primarily on the text chat features. For details about the one-to-one communication aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps).
+While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must host the sample app yourself. This allows you to customize the app as desired. The sample app has the following design, focusing primarily on the text chat features. For details about the one-to-one communication audio-video aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps).
 
-* **[opentok-text-chat.js](./sample-app/public/js/components/opentoi-text-chat.js)**:  Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
+* **[accelerator-pack.js](https://github.com/opentok/acc-pack-common/blob/master/js/accelerator-pack.js): The Common Accelerator Session Pack is a common layer that permits all accelerators and samples to share the same OpenTok session, and is required whenever you use any of the OpenTok accelerators.
 
-* **[app.js](./public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements. 
+* **[text-chat-acc-pack.js](./opentok.js-text-chat/dist/text-chat-acc-pack.js)**:  Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
 
-* **[Image files](./public/images)**: Used for the communication and media icons. 
+* **[app.js](./sample-app/public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements. 
 
-* **[index.html](./public/index.html)**: This web page provides you with a quick start if you don't already have a web page making calls against OpenTok.js and opentok-text-chat.js. Its `<head>` element loads the OpenTok.js library, Text Chat library, and other dependencies, and its `<body>` element implements the UI container for the controls on your own page.
+* **[Image files](./sample-app/public/images)**: Used for the communication and media icons. 
+
+* **[index.html](./sample-app/public/index.html)**: This web page provides you with a quick start if you don't already have a web page making calls against OpenTok.js (via accelerator-pack.js) and opentok-text-chat.js. Its `<head>` element loads the OpenTok.js library, Text Chat library, and other dependencies, and its `<body>` element implements the UI container for the controls on your own page.
 
 
 ### Text Chat Accelerator Pack

@@ -18,10 +18,10 @@ This guide has the following sections:
 To be prepared to develop your text chat app:
 
 1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
-3. Download the [TokBox Accelerator Pack Common Library](https://github.com/opentok/acc-pack-common).
-4. Download the **Text Chat Accelerator Pack AAR** file provided by TokBox.
-5. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
-6. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
+2. Download the [TokBox Accelerator Pack Common Library](https://github.com/opentok/acc-pack-common).
+3. Download the **Text Chat Accelerator Pack AAR** file provided by TokBox.
+4. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
+5. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
 
