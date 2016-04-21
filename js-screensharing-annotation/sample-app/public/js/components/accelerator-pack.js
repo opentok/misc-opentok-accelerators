@@ -6,17 +6,25 @@ var AcceleratorPack = (function() {
     var _screensharing;
     var _annotation;
 
+    var addThings = function(extensionID) {
+        $('<link/>', {
+            rel: 'chrome-webstore-item',
+            href: ['https://chrome.google.com/webstore/detail/', extensionID].join('')
+        }).appendTo('head');
+    }
+
     // Constructor
     var AcceleratorPackLayer = function(options) {
-        
+
         self = this;
-        
+
         _validateOptions(options);
         self.options = options;
-        
+
+        // addThings(options.screensharing.extensionID);
         // Get session
         _session = OT.initSession(options.apiKey, options.sessionId);
-        
+
         // Connect
         _session.connect(options.token, function(error) {
             if (error) {
@@ -26,44 +34,20 @@ var AcceleratorPack = (function() {
             }
         });
     };
-    
+
     var _validateOptions = function(options) {
-        
+
         var requiredProps = ['sessionId', 'apiKey', 'token'];
-        
+
         _.each(requiredProps, function(prop) {
-            if ( !_.property(prop)(options) ) {
+            if (!_.property(prop)(options)) {
                 throw new Error('Accelerator Pack requires a session ID, apiKey, and token')
             }
         });
     };
 
-    var _addScreenSharingListeners = function() {
-      
-        $('#btn-install-plugin-chrome').on('click', function() {
-            chrome.webstore.install('https://chrome.google.com/webstore/detail/' + self.extensionID,
-                function(success) {
-                    console.log('success', success);
-                },
-                function(error) {
-                    console.log('error', error);
-                });
-            $('#dialog-form-chrome').toggle();
-        });
-        $('#btn-cancel-plugin-chrome').on('click', function() {
-            $('#dialog-form-chrome').toggle();
-        });
-        $('#btn-install-plugin-ff').prop('href', this.options.mainPath + self.options.extensionPathFF);
-        $(self.options.comms_elements.installButtonPluginFF).on('click', function() {
-            $('#dialog-form-ff').toggle();
-        });
-        $('#btn-cancel-plugin-ff').on('click', function() {
-            $('#dialog-form-ff').toggle();
-        });
-    };
-
     var _initPublisherScreen = function() {
-        
+
 
         var createPublisher = function(publisherDiv) {
 
@@ -156,24 +140,24 @@ var AcceleratorPack = (function() {
         $(self.comms_elements.callFeedWrap).draggable('disable');
         self._annotation.resizeCanvas();
     };
-    
-    var getSession  = function() {
+
+    var getSession = function() {
         return _session;
     };
-    
+
     /** 
      * Initialize the annotation component
      * @param {Boolean} screensharing - If annotation is being done over the shared screen,
      * the annotation component will need to create an external window.
      * @returns {Promise} < Resolve: [Object] External annotation window >    
      */
-    var initAnnotation = function (screensharing) {
+    var initAnnotation = function(screensharing) {
         _annotation = _annotation || new AccPackAnnotation(options);
-        
-        return _annotation.start(_session, {screensharing: screensharing});
-        
+
+        return _annotation.start(_session, { screensharing: screensharing });
+
     };
-    
+
     /** 
      * Connect the annotation canvas to the publisher or subscriber
      * @param {Object} pubSub - The publisher or subscriber
@@ -181,12 +165,12 @@ var AcceleratorPack = (function() {
      * @param [Object] externalWindow
      * 
      */
-    var linkAnnotation = function(pubSub, annotationContainer, externalWindow){
+    var linkAnnotation = function(pubSub, annotationContainer, externalWindow) {
         _annotation.linkCanvas(pubSub, annotationContainer, externalWindow);
     };
-    
-    var startScreenSharing = function() { 
-        
+
+    var startScreenSharing = function() {
+
         var optionsProps = [
             'sessionID',
             'annotation',
@@ -195,21 +179,18 @@ var AcceleratorPack = (function() {
             'extensionPathFF',
             'screensharingContainer'
         ];
-        
-        var options = _.extend(_.pick(self.options, 'sessionId'), self.options.screensharing, {session: _session, acceleratorPack: self});
-        
-        if ( !!options.annotation ) {
+
+        var options = _.extend(_.pick(self.options, 'sessionId'), self.options.screensharing, { session: _session, acceleratorPack: self });
+
+        if (!!options.annotation) {
             // Need to see what these options need to be
             _initAnnotation(options);
         }
         _screensharing = _screensharing || new AccPackScreenSharing(options);
-        
-        _addScreenSharingListeners();
-        
-        
+
         _screensharing.start();
     };
-    
+
     var endScreenSharing = function() {
         _screensharing.end();
     };

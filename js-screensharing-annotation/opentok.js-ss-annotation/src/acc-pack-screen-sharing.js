@@ -43,12 +43,38 @@ var AccPackScreenSharing = (function() {
         ];
 
         _.extend(this, _.defaults(_.pick(options, optionsProps)), { screenSharingParent: '#videoContainer' });
-        
-        window.extensionID = self.extensionID;
-
-
+      
         // Do UIy things
         _setupUI(self.screensharingParent);
+        _addScreenSharingListeners();
+    };
+    
+    var _addScreenSharingListeners = function() {
+
+        $('#btn-install-plugin-chrome').on('click', function() {
+            chrome.webstore.install('https://chrome.google.com/webstore/detail/' + self.extensionID,
+                function(success) {
+                    console.log('success', success);
+                },
+                function(error) {
+                    console.log('error', error);
+                });
+            $('#dialog-form-chrome').toggle();
+        });
+
+        $('#btn-cancel-plugin-chrome').on('click', function() {
+            $('#dialog-form-chrome').toggle();
+        });
+
+        $('#btn-install-plugin-ff').prop('href', self.extensionPathFF);
+
+        $('#btn-install-plugin-ff').on('click', function() {
+            $('#dialog-form-ff').toggle();
+        });
+
+        $('#btn-cancel-plugin-ff').on('click', function() {
+            $('#dialog-form-ff').toggle();
+        });
     };
 
     var _validateExtension = function(extensionID, extensionPathFF) {
@@ -244,7 +270,7 @@ var AccPackScreenSharing = (function() {
             if (!response.supported || !response.extensionRegistered) {
                 alert('This browser does not support screen sharing! Please use Chrome, Firefox or IE!');
                 deferred.reject('browser support not available');
-            } else if (!response.extensionInstalled === false) {
+            } else if (!response.extensionInstalled) {
                 $('#dialog-form-chrome').toggle();
                 deferred.reject('screensharing extension not installed');
             } else {
