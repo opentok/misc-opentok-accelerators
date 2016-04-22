@@ -640,6 +640,7 @@ var AccPackScreenSharing = (function() {
 
         // Extend our instance
         var optionsProps = [
+            'accPack',
             'session',
             'sessionId',
             'annotation',
@@ -647,7 +648,7 @@ var AccPackScreenSharing = (function() {
             'extensionID',
             'extensionPathFF',
             'screensharingParent',
-            'accPack'
+            'localScreenProperties'
         ];
 
         _.extend(this, _.defaults(_.pick(options, optionsProps)), { 
@@ -778,7 +779,7 @@ var AccPackScreenSharing = (function() {
 
             publisherDiv = publisherDiv || $('#videoHolderScreenShare');
 
-            self.publisher = OT.initPublisher(publisherDiv, _localScreenProperties, function(error) {
+            self.publisher = OT.initPublisher(publisherDiv, self.localScreenProperties, function(error) {
                 if (error) {
                     error.message = 'Error starting the screen sharing';
                     innerDeferred.reject(error);
