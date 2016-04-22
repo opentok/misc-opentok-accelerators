@@ -53,4 +53,16 @@
     [[TextChatUICustomizator customizator] userInterfaceUpdate];
 }
 
++ (void)setTopBarBackgroundColor: (UIColor *)color;{
+    if (!color) return;
+    [TextChatUICustomizator customizator].topBarBackgroundColor = color;
+    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+}
+
++ (void)setTopBarTitleTextColor: (UIColor *)color;{
+    if (!color) return;
+    [TextChatUICustomizator customizator].topBarTitleTextColor = color;
+    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+}
+
 @end
