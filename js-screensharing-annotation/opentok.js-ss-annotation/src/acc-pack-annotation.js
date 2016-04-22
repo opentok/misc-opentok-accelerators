@@ -3,27 +3,22 @@ var AccPackAnnotation = (function() {
     var self;
 
     /** 
-     * Annotation Accelerator Pack Constructor
+     * @constructor
+     * Represents an annotation component which may be used for annotation over video or a shared screen
      * @param {Object} options
-     * @param {String} options.canvasContainer - The id of the parent element for the annotation canvas
+     * @param [String] options.canvasContainer - The id of the parent element for the annotation canvas
      */
     var Annotation = function(options) {
-        
-        // if ( !options || !this.options.canvasContainer ) {
-        //     throw new Error('Annotation requires')
-        // }
-        
-        this.options = options || {};
-        // UPDATE FROM WMS       
-        this.elements = { canvasContainer : this.options.canvasContainer || '#wmsFeedWrap' };
-        _setupUI();
         self = this;
+        self.options = options || {};       
+        self.elements = { canvasContainer : self.options.canvasContainer || '#wmsFeedWrap' };
+        _setupUI();
     };
     
     var _setupUI = function(){
         var toolbar = ['<div id="toolbar"></div>'].join('\n');
         $('body').append(toolbar);
-    }
+    };
 
     // Toolbar items
     var _defaultToolbarItems = [{

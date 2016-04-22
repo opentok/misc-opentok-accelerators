@@ -9,21 +9,10 @@ var app = (function() {
     apiKey: '100',
     sessionId: '2_MX4xMDB-fjE0NTg3NTI3NTc0MDB-dkdPT3hVT1RMRm85MkFUMVhBR0NXbTJufn4',
     token: 'T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9OWI4NzdmODJhNTdkNGI0ODU5NDY5NzUwOGIyNDQxZGM2MTdiNWEwNzpzZXNzaW9uX2lkPTJfTVg0eE1EQi1makUwTlRnM05USTNOVGMwTURCLWRrZFBUM2hWVDFSTVJtODVNa0ZVTVZoQlIwTlhiVEp1Zm40JmNyZWF0ZV90aW1lPTE0NTg3NTA3MTAmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ1ODc1MDcxMC44NjM1NzczOTU2NDYxJmV4cGlyZV90aW1lPTE0NjEzNDI3MTAmY29ubmVjdGlvbl9kYXRhPW1hcmNv',
-    publishers: {},
-    subscribers: [],
     streams: [],
     user: {
       id: 1,
       name: 'User1'
-    },
-    localCallProperties: {
-      insertMode: 'append',
-      width: '100%',
-      height: '100%',
-      showControls: false,
-      style: {
-        buttonDisplayMode: 'off'
-      }
     },
     screensharing: {      
       extensionID: 'idhnlbjlmkghinljcijgljbmcoonppgi',
@@ -122,10 +111,17 @@ var app = (function() {
   };
 
   var _addEventListeners = function() {
+    
 
     // Call events
     _communication.onParticipantJoined = function(event) {
-
+      
+      if ( event.stream.videoType === 'screen' ) {
+        // communication component should handle everything related to SS + Annotation (?)
+        return;
+      }
+     
+      
       // Not doing anything with the event
       _communicationProperties.remoteParticipant = true;
       _communicationProperties.callActive && _swapVideoPositions('joined');
@@ -133,6 +129,12 @@ var app = (function() {
     };
 
     _communication.onParticipantLeft = function(event) {
+            
+      if ( event.stream.videoType === 'screen' ) {
+        // communication component should handle everything related to SS + Annotation (?)
+        return;
+      }
+      
       // Not doing anything with the event
       _communicationProperties.remoteParticipant = false;
       _communicationProperties.callActive && _swapVideoPositions('left');
@@ -214,7 +216,10 @@ var app = (function() {
 
     _session.on({
       connectionCreated: function(event) {
-        _communication = new Communication(_.defaults(_options, {session: _session}));
+        
+         var commOptions = _.extend({}, _options, {session: _session, localCallProperties: _accPack.getOptions()});
+        
+        _communication = new Communication(commOptions);
         _addEventListeners();
       }
     });

@@ -3,19 +3,10 @@ var AccPackScreenSharing = (function() {
     var self;
     var _annotation;
     var _active;
-    var _localScreenProperties = {
-        insertMode: 'append',
-        width: '100%',
-        height: '100%',
-        videoSource: 'window',
-        showControls: false,
-        style: {
-            buttonDisplayMode: 'off'
-        }
-    };
 
     /** 
-     * Screensharing accerlator pack constructor
+     * @constructor
+     * Represents a screensharing component
      * @param {Object} options
      * @param {String} options.sessionID
      * @param [String] options.extensionID

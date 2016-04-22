@@ -8,23 +8,36 @@ var AcceleratorPack = (function() {
     var _screensharing;
     var _annotation;
     var _components = [];
-
-    var addThings = function(extensionID) {
-        $('<link/>', {
-            rel: 'chrome-webstore-item',
-            href: ['https://chrome.google.com/webstore/detail/', extensionID].join('')
-        }).appendTo('head');
-    }
-
+    var _commonOptions = {
+        publishers: {},
+        subscribers: [],
+        localCallProperties: {
+            insertMode: 'append',
+            width: '100%',
+            height: '100%',
+            showControls: false,
+            style: {
+                buttonDisplayMode: 'off'
+            }
+        },
+        localScreenProperties: {
+            insertMode: 'append',
+            width: '100%',
+            height: '100%',
+            videoSource: 'window',
+            showControls: false,
+            style: {
+                buttonDisplayMode: 'off'
+            }
+        }
+    };
+    
     // Constructor
     var AcceleratorPackLayer = function(options) {
-      
+
         self = this;
+        self.options = _validateOptions(options);
 
-        _validateOptions(options);
-        self.options = options;
-
-        // addThings(options.screensharing.extensionID);
         // Get session
         _session = OT.initSession(options.apiKey, options.sessionId);
 
@@ -36,19 +49,19 @@ var AcceleratorPack = (function() {
                 _isConnected = true;
             }
         });
-        
+
     };
-    
-    
-    
+
+
+
     /** 
      * Initialize any of the accelerator pack components included in the application.
      *
      */
-    var _initAccPackComponents = function(){
-                
-        if ( !!AccPackScreenSharing ) {
-        
+    var _initAccPackComponents = function() {
+
+        if (!!AccPackScreenSharing) {
+
             var screensharingProps = [
                 'sessionId',
                 'annotation',
@@ -58,35 +71,41 @@ var AcceleratorPack = (function() {
                 'screensharingContainer'
             ];
 
-            var screensharingOptions = _.extend(_.pick(self.options, screensharingProps), self.options.screensharing, { 
-                session: _session, 
-                accPack: self
-             });
-             
+            var screensharingOptions = _.extend(_.pick(self.options, screensharingProps), self.options.screensharing, {
+                session: _session,
+                accPack: self,
+                localScreenProperties: _localScreenProperties
+            });
+
             _screensharing = new AccPackScreenSharing(screensharingOptions);
             _components.screensharing = _screensharing;
         }
-        
-        if ( !!AccPackAnnotation ) {
+
+        if (!!AccPackAnnotation) {
             var annotationProps = [];
             _annotation = new AccPackAnnotation(self.options);
             _components.annotation = _annotation;
         }
     };
-    
-    
+
+    var getOptions = function(type) {
+
+        return type ? _commonOptions[type] : _commonOptions;
+
+    };
+
     /**
      * When the call ends, we need to hide certain DOM elements related to the
      * components and may also need to do some cleanup related to publishers,
      * subscribers, etc.
      */
     var _hideAccPackComponents = function() {
-      
-        _.each(_components, function(component){
+
+        _.each(_components, function(component) {
             component.active(false);
         })
     };
-    
+
     var _validateOptions = function(options) {
 
         var requiredProps = ['sessionId', 'apiKey', 'token'];
@@ -96,6 +115,8 @@ var AcceleratorPack = (function() {
                 throw new Error('Accelerator Pack requires a session ID, apiKey, and token')
             }
         });
+        
+        return options;
     };
 
     var _initPublisherScreen = function() {
@@ -192,24 +213,24 @@ var AcceleratorPack = (function() {
         $(self.comms_elements.callFeedWrap).draggable('disable');
         self._annotation.resizeCanvas();
     };
-    
-    
+
+
     /**
      * Returns the current session
      */
     var getSession = function() {
         return _session;
     };
-    
-    
+
+
     /**
      * Setter which lets the AP layer know the call is active or inactive.  In turn, we can
      * let the components know if they need to show or hide controls.
      */
     var active = function(active) {
-        
+
         active ? _initAccPackComponents() : _hideAccPackComponents();
-        
+
     }
 
     /** 
@@ -250,7 +271,7 @@ var AcceleratorPack = (function() {
             // Need to see what these options need to be
             _initAnnotation(options);
         }
-        
+
 
         _screensharing.start();
     };
@@ -263,6 +284,7 @@ var AcceleratorPack = (function() {
         constructor: AcceleratorPack,
         active: active,
         getSession: getSession,
+        getOptions: getOptions,
         startScreenSharing: startScreenSharing,
         endScreenSharing: endScreenSharing,
         setupAnnotation: setupAnnotation,
