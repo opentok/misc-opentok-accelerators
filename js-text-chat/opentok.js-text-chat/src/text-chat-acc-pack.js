@@ -4,7 +4,7 @@ var TextChatAccPack = (function () {
   var acceleratorPack;
   var textChatDiv = 'chat-container';
   var lastMessage, sender, composer;
-  var newMessages, self;
+  var newMessages, self, limitCharacterMessage;
 
   // Constructor
   var TextChatAccPack = function (options) {
@@ -12,6 +12,7 @@ var TextChatAccPack = (function () {
     imCharacterCount = options.charCountElement;
     acceleratorPack = options.acceleratorPack;
     sender = options.sender;
+    limitCharacterMessage = options.limitCharacterMessage || 160;
     self = this;
   };
 
@@ -30,9 +31,9 @@ var TextChatAccPack = (function () {
       '</div>',
       '</div>',
       '<div class="wms-send-message-box">',
-      '<input type="text" maxlength="160" class="wms-message-input" placeholder="Enter your message here" id="messageBox">',
+      '<input type="text" maxlength='+limitCharacterMessage+' class="wms-message-input" placeholder="Enter your message here" id="messageBox">',
       '<button class="wms-icon-check" id="sendMessage" type="submit"></button>',
-      '<div class="wms-character-count"><span><span id="character-count">0</span>/160 characters</span></div>',
+      '<div class="wms-character-count"><span><span id="character-count">0</span>/'+limitCharacterMessage+' characters</span></div>',
       '</div>',
       '</div>',
       '</div>',
