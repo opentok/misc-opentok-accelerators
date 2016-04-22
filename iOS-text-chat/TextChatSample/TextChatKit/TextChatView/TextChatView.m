@@ -70,6 +70,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     self.tableView.estimatedRowHeight = 30.0;
     self.textField.delegate = self;
     self.textChatComponent = [[TextChatComponent alloc] init];
+    self.customizator = [[TextChatUICustomizator alloc] init];
     self.textChatComponent.delegate = self;
     self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.textChatComponent.maximumTextMessageLength];
     
