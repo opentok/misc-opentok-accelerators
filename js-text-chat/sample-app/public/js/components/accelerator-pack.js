@@ -5,24 +5,26 @@ var AcceleratorPack = (function() {
   var _isConnected = false;
 
   // Constructor
-  var AcceleratorPackLayer = function (apiKey, sessionId, token) {
+  var AcceleratorPackLayer = function (options) {
     // Get session
-    _session = OT.initSession(apiKey, sessionId);
+    _session = OT.initSession(options.textChat.sessionInfo.apikey, options.textChat.sessionInfo.sessionId);
     self = this;
     // Connect
-    _session.connect(token, function(error) {
+    _session.connect(options.textChat.sessionInfo.token, function(error) {
       if (error) {
         console.log('Session failed to connect');
       } else {
-        _textChat = new TextChatAccPack(
-          {
-            charCountElement: "#character-count",
-            acceleratorPack: self,
-            sender: {
-              id: _session.id,
-              alias: "user1"
-            },
-          });
+        if(TextChatAccPack)
+        {
+          options.textChat.user.id = _session.id ;
+          _textChat = new TextChatAccPack(
+            {
+              charCountElement: options.textChat.charCountElement,
+              acceleratorPack: self,
+              sender: options.textChat.user,
+              limitCharacterMessage: options.textChat.limitCharacterMessage
+            });
+        }
         _isConnected = true;
       }
     });
