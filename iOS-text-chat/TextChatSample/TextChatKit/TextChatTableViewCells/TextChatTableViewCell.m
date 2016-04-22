@@ -9,7 +9,6 @@
 #import "TextChatTableViewCell.h"
 
 #import "TextChatUICustomizator.h"
-#import "TextChatUICustomizator_Properties.h"
 
 @implementation TextChatTableViewCell
 
@@ -45,7 +44,8 @@
     self.cornerUpLeft.layer.mask = maskleft;
 }
 
-- (void)updateCellFromTextChat:(TextChat *)textChat {
+- (void)updateCellFromTextChat:(TextChat *)textChat
+                  customizator:(TextChatUICustomizator *)customizator {
     
     if (!textChat) return;
     
@@ -57,8 +57,6 @@
     self.time.text = [NSString stringWithFormat:@"%@, %@", msg_sender, [timeFormatter stringFromDate: current_date]];
     self.message.text = textChat.text;
     
-    
-    TextChatUICustomizator *customizator = [TextChatUICustomizator customizator];
     switch (textChat.type) {
         case TCMessageTypesSent:
         case TCMessageTypesSentShort:

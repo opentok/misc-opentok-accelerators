@@ -8,61 +8,36 @@
 
 #import "TextChatUICustomizator.h"
 
-#import "TextChatView_UserInterface.h"
-#import "TextChatUICustomizator_Properties.h"
-
 @implementation TextChatUICustomizator
 
-+ (instancetype)customizator {
-    
-    static TextChatUICustomizator *sharedInstance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        sharedInstance = [[TextChatUICustomizator alloc] init];
-    });
-    return sharedInstance;
-}
-
-- (void)userInterfaceUpdate {
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:TextChatUIUpdatedNotificationName object:self];
-}
-
-+ (void)setTableViewCellSendTextColor: (UIColor *)color; {
+- (void)setTableViewCellSendTextColor: (UIColor *)color; {
     if (!color) return;
-    [TextChatUICustomizator customizator].tableViewCellSendTextColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+    self.tableViewCellSendTextColor = color;
 }
 
-+ (void)setTableViewCellReceiveTextColor: (UIColor *)color; {
+- (void)setTableViewCellReceiveTextColor: (UIColor *)color; {
     if (!color) return;
-    [TextChatUICustomizator customizator].tableViewCellReceiveTextColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+    self.tableViewCellReceiveTextColor = color;
 }
 
-+ (void)setTableViewCellSendBackgroundColor: (UIColor *)color;{
+- (void)setTableViewCellSendBackgroundColor: (UIColor *)color;{
     if (!color) return;
-    [TextChatUICustomizator customizator].tableViewCellSendBackgroundColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+    self.tableViewCellSendBackgroundColor = color;
 }
 
-+ (void)setTableViewCellReceiveBackgroundColor: (UIColor *)color;{
+- (void)setTableViewCellReceiveBackgroundColor: (UIColor *)color;{
     if (!color) return;
-    [TextChatUICustomizator customizator].tableViewCellReceiveBackgroundColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+    self.tableViewCellReceiveBackgroundColor = color;
 }
 
-+ (void)setTopBarBackgroundColor: (UIColor *)color;{
+- (void)setTopBarBackgroundColor: (UIColor *)color;{
     if (!color) return;
-    [TextChatUICustomizator customizator].topBarBackgroundColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+    self.topBarBackgroundColor = color;
 }
 
-+ (void)setTopBarTitleTextColor: (UIColor *)color;{
+- (void)setTopBarTitleTextColor: (UIColor *)color;{
     if (!color) return;
-    [TextChatUICustomizator customizator].topBarTitleTextColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+    self.topBarTitleTextColor = color;
 }
 
 @end

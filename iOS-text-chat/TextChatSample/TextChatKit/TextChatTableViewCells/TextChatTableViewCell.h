@@ -6,7 +6,7 @@
 //  Copyright © 2016 AgilityFeat. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <TextChatKit/TextChatUICustomizator.h>
 #import "TextChat.h"
 
 @interface TextChatTableViewCell : UITableViewCell
@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIView *cornerUp;
 @property (weak, nonatomic) IBOutlet UIView *cornerUpLeft;
 
-- (void)updateCellFromTextChat:(TextChat *)textChat;
+- (void)updateCellFromTextChat:(TextChat *)textChat
+                  customizator:(TextChatUICustomizator *)customizator;
 
 @end
