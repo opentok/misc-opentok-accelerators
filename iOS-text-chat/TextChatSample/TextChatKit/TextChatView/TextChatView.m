@@ -19,16 +19,15 @@
 #import "TextChatView_UserInterface.h"
 #import "TextChatView_AutoLayout.h"
 
-#import "TextChatUICustomizator_Properties.h"
-
 static CGFloat StatusBarHeight = 20.0;
 static const CGFloat TextChatInputViewHeight = 50.0;
 
 @interface TextChatView() <UITableViewDataSource, UITextFieldDelegate, TextChatComponentDelegate>
 
 @property (nonatomic) BOOL isShown;
-@property (strong, nonatomic) TextChatComponent *textChatComponent;
-@property (strong, nonatomic) UIView *attachedBottomView;
+@property (nonatomic) TextChatComponent *textChatComponent;
+@property (nonatomic) TextChatUICustomizator *customizator;
+@property (nonatomic) UIView *attachedBottomView;
 @end
 
 @implementation TextChatView
@@ -111,10 +110,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updatetTextChatUserInterface)
-                                                 name:TextChatUIUpdatedNotificationName
                                                object:nil];
     
     [self addObserver:self
@@ -244,9 +239,8 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (void)updateTopBarUserInterface {
-    TextChatUICustomizator *customizator = [TextChatUICustomizator customizator];
-    if(customizator.topBarBackgroundColor != nil) self.textChatTopView.backgroundColor = customizator.topBarBackgroundColor;
-    if(customizator.topBarTitleTextColor != nil) self.textChatTopViewTitle.textColor = customizator.topBarTitleTextColor;
+    if(self.customizator.topBarBackgroundColor != nil) self.textChatTopView.backgroundColor = self.customizator.topBarBackgroundColor;
+    if(self.customizator.topBarTitleTextColor != nil) self.textChatTopViewTitle.textColor = self.customizator.topBarTitleTextColor;
 }
 
 #pragma mark - IBActions
@@ -309,7 +303,8 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     
     TextChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId
                                            forIndexPath:indexPath];
-    [cell updateCellFromTextChat:textChat];
+    [cell updateCellFromTextChat:textChat
+                    customizator:self.customizator];
     return cell;
 }
 

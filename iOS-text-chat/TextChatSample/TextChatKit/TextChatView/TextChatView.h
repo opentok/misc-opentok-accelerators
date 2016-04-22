@@ -6,7 +6,7 @@
 //  Copyright © 2016 Tokbox. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <TextChatKit/TextChatUICustomizator.h>
 
 @class TextChatView;
 
@@ -73,6 +73,8 @@
  *  A boolean value that indicates whether the text chat view is shown or hidden
  */
 @property (readonly, nonatomic) BOOL isShown;
+
+@property (readonly, nonatomic) TextChatUICustomizator *customizator;
 
 /**
  *  Returns an initialized text chat view object

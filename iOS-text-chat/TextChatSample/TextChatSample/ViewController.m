@@ -49,18 +49,18 @@
     [self.oneToOneCommunicator disconnect];
 }
 - (IBAction)ChangeTopColor:(id)sender {
-    [TextChatUICustomizator setTopBarBackgroundColor:[UIColor orangeColor]];
-    [TextChatUICustomizator setTopBarTitleTextColor:[UIColor redColor]];
+    [self.textChatView.customizator setTopBarBackgroundColor:[UIColor orangeColor]];
+    [self.textChatView.customizator setTopBarTitleTextColor:[UIColor redColor]];
 }
 
 - (IBAction)changeRedButtonPressed:(id)sender {
-    [TextChatUICustomizator setTableViewCellSendTextColor:[UIColor orangeColor]];
-    [TextChatUICustomizator setTableViewCellSendBackgroundColor:[UIColor greenColor]];
+    [self.textChatView.customizator setTableViewCellSendTextColor:[UIColor orangeColor]];
+    [self.textChatView.customizator setTableViewCellSendBackgroundColor:[UIColor greenColor]];
 }
 
 - (IBAction)changeBlueButtonPressed:(id)sender {
-    [TextChatUICustomizator setTableViewCellSendTextColor:[UIColor redColor]];
-    [TextChatUICustomizator setTableViewCellSendBackgroundColor:[UIColor yellowColor]];
+    [self.textChatView.customizator setTableViewCellSendTextColor:[UIColor redColor]];
+    [self.textChatView.customizator setTableViewCellSendBackgroundColor:[UIColor yellowColor]];
 }
 
 

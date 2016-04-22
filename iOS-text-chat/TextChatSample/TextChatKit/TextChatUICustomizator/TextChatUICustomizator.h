@@ -10,18 +10,16 @@
 
 @interface TextChatUICustomizator : NSObject
 
-// BUBLES
-+ (void)setTableViewCellSendTextColor: (UIColor *)color;
+@property (nonatomic) UIColor *tableViewCellSendTextColor;
 
-+ (void)setTableViewCellReceiveTextColor: (UIColor *)color;
+@property (nonatomic) UIColor *tableViewCellReceiveTextColor;
 
-+ (void)setTableViewCellSendBackgroundColor: (UIColor *)color;
+@property (nonatomic) UIColor *tableViewCellSendBackgroundColor;
 
-+ (void)setTableViewCellReceiveBackgroundColor: (UIColor *)color;
+@property (nonatomic) UIColor *tableViewCellReceiveBackgroundColor;
 
-// TOP BAR
-+ (void)setTopBarBackgroundColor: (UIColor *)color;
+@property (nonatomic) UIColor *topBarBackgroundColor;
 
-+ (void)setTopBarTitleTextColor: (UIColor *)color;
+@property (nonatomic) UIColor *topBarTitleTextColor;
 
 @end
