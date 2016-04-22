@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -47,7 +47,7 @@
                                 <state key="normal" title="DisconnectToAV"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQR-nt-S6F">
-                                <rect key="frame" x="260" y="40" width="80" height="30"/>
+                                <rect key="frame" x="258" y="40" width="84" height="30"/>
                                 <state key="normal" title="ChangeRed"/>
                                 <connections>
                                     <action selector="changeRedButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SOB-eX-CvZ"/>
@@ -60,21 +60,32 @@
                                     <action selector="changeBlueButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tbH-wB-ht4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xL2-a5-rqW">
+                                <rect key="frame" x="258" y="116" width="84" height="30"/>
+                                <state key="normal" title="TopColor"/>
+                                <connections>
+                                    <action selector="ChangeTopColor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dLY-gC-hF1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="s0b-YL-6Bk" firstAttribute="top" secondItem="KQR-nt-S6F" secondAttribute="bottom" constant="8" id="8nq-q5-xgc"/>
                             <constraint firstItem="YFy-O3-XgP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Cpy-0F-RHO"/>
                             <constraint firstItem="KQR-nt-S6F" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="EgV-12-FJs"/>
+                            <constraint firstItem="xL2-a5-rqW" firstAttribute="leading" secondItem="KQR-nt-S6F" secondAttribute="leading" id="FpH-Ze-ajW"/>
                             <constraint firstItem="7rq-Gk-g8S" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GsE-Nl-JLw"/>
                             <constraint firstItem="2iv-TL-hzU" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="HZg-BS-2Jc"/>
                             <constraint firstItem="s0b-YL-6Bk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kro-BK-s56"/>
                             <constraint firstItem="2iv-TL-hzU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Txx-VD-CO2"/>
                             <constraint firstItem="Ix5-QP-Vov" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WMv-R2-eL8"/>
+                            <constraint firstItem="xL2-a5-rqW" firstAttribute="top" secondItem="s0b-YL-6Bk" secondAttribute="bottom" constant="8" symbolic="YES" id="bf5-sQ-JLP"/>
                             <constraint firstAttribute="trailing" secondItem="Ix5-QP-Vov" secondAttribute="trailing" id="dhv-w8-A0N"/>
                             <constraint firstItem="YFy-O3-XgP" firstAttribute="top" secondItem="7rq-Gk-g8S" secondAttribute="bottom" constant="8" id="esP-97-o1V"/>
+                            <constraint firstItem="xL2-a5-rqW" firstAttribute="leading" secondItem="s0b-YL-6Bk" secondAttribute="leading" id="h1Z-Ni-Knd"/>
                             <constraint firstItem="KQR-nt-S6F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="iiv-w7-rFh"/>
                             <constraint firstAttribute="trailing" secondItem="KKv-cc-WlH" secondAttribute="trailing" constant="8" id="nYu-SK-Rcb"/>
+                            <constraint firstItem="xL2-a5-rqW" firstAttribute="trailing" secondItem="s0b-YL-6Bk" secondAttribute="trailing" id="ntj-wN-4Tp"/>
                             <constraint firstItem="KKv-cc-WlH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="ptw-DZ-D1F"/>
                             <constraint firstItem="7rq-Gk-g8S" firstAttribute="top" secondItem="KKv-cc-WlH" secondAttribute="bottom" constant="8" id="rEg-SS-EQV"/>
                             <constraint firstItem="KKv-cc-WlH" firstAttribute="top" secondItem="2iv-TL-hzU" secondAttribute="bottom" constant="8" id="t4c-G1-7MY"/>

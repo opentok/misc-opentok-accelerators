@@ -35,7 +35,7 @@
     [super viewDidLoad];
     [self.textChatView setDelegate:self];
     [self.textChatView setMaximumTextMessageLength:30];
-    [self.textChatView setAlias:@"Lucas"];
+    [self.textChatView setAlias:@"Tokboxer"];
     [self.textChatView connect];
 }
 
@@ -47,6 +47,10 @@
 
 - (IBAction)disconnectToAVButtonPressed:(id)sender {
     [self.oneToOneCommunicator disconnect];
+}
+- (IBAction)ChangeTopColor:(id)sender {
+    [TextChatUICustomizator setTopBarBackgroundColor:[UIColor orangeColor]];
+    [TextChatUICustomizator setTopBarTitleTextColor:[UIColor redColor]];
 }
 
 - (IBAction)changeRedButtonPressed:(id)sender {

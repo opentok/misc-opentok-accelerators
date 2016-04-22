@@ -95,6 +95,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatComponentDivTableViewCell"
                                                bundle:textChatViewBundle]
          forCellReuseIdentifier:@"Divider"];
+    [self updateTopBarUserInterface];
 }
 
 - (void)didMoveToSuperview {
@@ -239,6 +240,13 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 - (void)updatetTextChatUserInterface {
     [self.tableView reloadData];
+    [self updateTopBarUserInterface];
+}
+
+- (void)updateTopBarUserInterface {
+    TextChatUICustomizator *customizator = [TextChatUICustomizator customizator];
+    if(customizator.topBarBackgroundColor != nil) self.textChatTopView.backgroundColor = customizator.topBarBackgroundColor;
+    if(customizator.topBarTitleTextColor != nil) self.textChatTopViewTitle.textColor = customizator.topBarTitleTextColor;
 }
 
 #pragma mark - IBActions
@@ -274,7 +282,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     // check if final divider
     TextChat *textChat = [self.textChatComponent getTextChatFromIndexPath:indexPath];
     TCMessageTypes type;
