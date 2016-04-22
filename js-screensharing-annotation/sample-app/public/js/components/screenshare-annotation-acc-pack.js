@@ -3,20 +3,21 @@ var AccPackAnnotation = (function() {
     var self;
 
     /** 
-     * Annotation Accelerator Pack Constructor
-     * @param {Object} options
-     * @param {String} options.canvasContainer - The id of the parent element for the annotation canvas
+     * @constructor
+     * Represents an annotation component which may be used for annotation over video or a shared screen
+     * @param {object} options
+     * @param [string] options.canvasContainer - The id of the parent element for the annotation canvas
      */
     var Annotation = function(options) {
-        
-        if ( !options || !this.options.canvasContainer ) {
-            throw new Error('Annotation requires')
-        }
-        
-        this.options = options || {};
-        // UPDATE FROM WMS       
-        this.elements = { canvasContainer : this.options.canvasContainer };
         self = this;
+        self.options = options || {};       
+        self.elements = { canvasContainer : self.options.canvasContainer || '#wmsFeedWrap' };
+        _setupUI();
+    };
+    
+    var _setupUI = function(){
+        var toolbar = ['<div id="toolbar"></div>'].join('\n');
+        $('body').append(toolbar);
     };
 
     // Toolbar items
@@ -181,13 +182,13 @@ var AccPackAnnotation = (function() {
     /**
      * Creates an external window (if required) and links the annotation toolbar
      * to the session
-     * @param {Object} session
-     * @param {Object} [options]
-     * @param {Boolean} [options.screensharing] - Using an external window
-     * @param {String} [options.toolbarId] - If the container has an id other than 'toolbar'
-     * @param {Array} [options.items] - Custom set of tools
-     * @param {Array} [options.colors] - Custom color palette
-     * @returns {Promise} < Resolve: undefined | {Object} Reference to external annotation window >
+     * @param {object} session
+     * @param {object} [options]
+     * @param {boolean} [options.screensharing] - Using an external window
+     * @param {string} [options.toolbarId] - If the container has an id other than 'toolbar'
+     * @param {array} [options.items] - Custom set of tools
+     * @param {array} [options.colors] - Custom color palette
+     * @returns {promise} < Resolve: undefined | {object} Reference to external annotation window >
      */
     var start = function(session, options) {
 
@@ -316,28 +317,316 @@ var AccPackAnnotation = (function() {
 
 })();
 
-var ScreenSharingAccPack = (function() {
+var Communication = (function() {
 
     var self;
-    var _annotation;
-    var _localScreenProperties = {
-        insertMode: 'append',
-        width: '100%',
-        height: '100%',
-        videoSource: 'window',
-        showControls: false,
-        style: {
-            buttonDisplayMode: 'off'
+
+    /** 
+     * @constructor
+     * Represents a one-to-one AV communication layer
+     * @param {object} options
+     * @param {object} options.session
+     * @param {string} options.sessionId
+     * @param {string} options.apiKey
+     * @param {array} options.subscribers
+     * @param {array} options.streams
+     */
+    var CommunicationComponent = function(options) {
+        self = this;
+        self.options = _validateOptions(options);
+        _.extend(self, _.pick(options, ['session', 'subscribers', 'streams']));
+        _setEventListeners();
+        _logAnalytics();
+    };
+
+    /** Private Methods */
+
+    var _validateOptions = function(options) {
+
+        if (!options || !options.session) {
+            throw new Error('No session provided.');
+        }
+        
+        return _.omit(options, ['session', 'subscribers', 'streams']);
+    };
+
+    var _setEventListeners = function() {
+       self.session.on('streamCreated', _handleStreamCreated); //participant joined the call
+       self.session.on('streamDestroyed', _handleStreamDestroyed); //participant left the call
+    };
+
+    var _logAnalytics = function() {
+
+        var _otkanalyticsData = {
+            sessionId: self.options.sessionId,
+            connectionId:self.session.connection.connectionId,
+            partnerId: self.options.apiKey,
+            clientVersion: '1.0.0'
+        };
+
+        var _otkanalytics = new OTKAnalytics(_otkanalyticsData);
+
+        var _loggingData = { action: 'one-to-one-sample-app', variation: '' };
+
+        _otkanalytics.logEvent(_loggingData);
+    };
+
+    var _publish = function(type) {
+
+        currentSource = type;
+
+        var handler = self.onError;
+
+        _initPublisherCamera();
+
+        return self.session.publish(self.publisher, function(error) {
+            if (error) {
+                console.log("Error starting a call " + error.code + " - " + error.message);
+                error.message = "Error starting a call";
+                if (error.code === 1010) {
+                    var errorStr = error.message + ". Check your network connection.";
+                    error.message = errorStr;
+                }
+                _handleError(error, handler);
+            }
+        });
+    };
+
+    var _unpublish = function() {
+        if (self.publisher) {
+           self.session.unpublish(self.publisher);
         }
     };
 
+    var _initPublisherCamera = function() {
+        if (self.options.user) {
+            self.options.localCallProperties.name = self.options.user.name;
+        }
+        self.publisher= OT.initPublisher('videoHolderSmall', self.options.localCallProperties, function(error) {
+            if (error) {
+                error.message = "Error starting a call";
+                _handleError(error, handler);
+            }
+            //self.publishers.camera.on('streamDestroyed', self._publisherStreamDestroyed);
+        });
+    };
+
+    var _publisherStreamDestroyed = function(event) {
+        console.log('publisherStreamDestroyed', event);
+        event.preventDefault();
+    };
+
+    var _subscribeToStream = function(stream) {
+        var handler = self.onError;
+        if (stream.videoType === 'screen') {
+            var options = self.options.localScreenProperties
+        } else {
+            var options = self.options.localCallProperties
+        }
+
+        var subscriber =self.session.subscribe(stream,
+            'videoHolderBig',
+            options,
+            function(error) {
+                if (error) {
+                    console.log('Error starting a call ' + error.code + ' - ' + error.message);
+                    error.message = 'Error starting a call';
+                    if (error.code === 1010) {
+                        var errorStr = error.message + '. Check your network connection.'
+                        error.message = errorStr;
+                    }
+                    _handleError(error, handler);
+                } else {
+                    self.streams.push(subscriber);
+                    console.log('Subscriber added.');
+                    var handler = self.onSubscribe;
+                    if (handler && typeof handler === 'function') {
+                        handler(stream);
+                    }
+
+                }
+            });
+            
+        self.subscriber = subscriber;
+    };
+
+    var _unsubscribeStreams = function() {
+        _.each(self.streams, function(stream) {
+           self.session.unsubscribe(stream);
+        })
+    };
+
+    // Private handlers
+    var _handleStart = function(event) {
+        var handler = self.onStarted;
+        if (handler && typeof handler === 'function') {
+            handler();
+        }
+    };
+
+    var _handleEnd = function(event) {
+        console.log('Call ended');
+        var handler = self.onEnded;
+        if (handler && typeof handler === 'function') {
+            handler();
+        }
+    };
+
+    var _handleStreamCreated = function(event) {
+        console.log('Participant joined to the call');
+        //TODO: check the joined participant
+        self.subscribers.push(event.stream);
+        if (self.options.inSession) {
+            // TODO Is this required???
+            self._remoteParticipant = event.connection;
+            _subscribeToStream(event.stream);
+        }
+
+        var handler = self.onStreamCreated;
+        if (handler && typeof handler === 'function') {
+            handler(event);
+        }
+    };
+
+    var _handleStreamDestroyed = function(event) {
+        console.log('Participant left the call');
+        var streamDestroyedType = event.stream.videoType;
+
+        //remove to the subscribers list
+        var index = self.subscribers.indexOf(event.stream);
+        self.subscribers.splice(index, 1);
+
+        var handler = self.onStreamDestroyed;
+        if (streamDestroyedType === 'camera') {
+            // TODO Is this required???
+            self.subscriber = null; //to review
+            self._remoteParticipant = null;
+
+        } else if (streamDestroyedType === 'screen') {
+            self.onScreenSharingEnded();
+        } else {
+            _.each(self.subscribers, function(subscriber) {
+                _subscribeToStream(subscriber);
+            });
+        }
+
+        //var handler = this.onParticipantLeft(streamDestroyedType);
+        // TODO Do we need user date for anything???
+        var userData = {
+            userId: 'event.stream.connectionId'
+        };
+        if (handler && typeof handler === 'function') {
+            handler(_.extend({}, event, userData)); //TODO: it should be the user (userId and username)
+        }
+    };
+
+    var _handleLocalPropertyChanged = function(event) {
+        console.log('Local property changed');
+        var handler = self.onEnableLocalMedia;
+        if (event.changedProperty === 'hasAudio') {
+            var eventData = {
+                property: 'Audio',
+                enabled: event.newValue
+            }
+        } else {
+            var eventData = {
+                property: 'Video',
+                enabled: event.newValue
+            }
+        }
+        var handler = self.onEnableLocalMedia;
+        if (handler && typeof handler === 'function') {
+            handler(eventData);
+        }
+    };
+
+    var _handleRemotePropertyChanged = function(data) {
+        //TODO
+    };
+
+    var _handleError = function(error, handler) {
+        if (handler && typeof handler === 'function') {
+            handler(error);
+        }
+    };
+
+    // Prototype methods
+    CommunicationComponent.prototype = {
+        constructor: Communication,
+        onStarted: function() {},
+        onEnded: function() {},
+        onSubscribe: function() {},
+        onEnableLocalMedia: function(event) {},
+        onEnableRemoteMedia: function(event) {},
+        onError: function(error) {},
+
+        start: function(recipient) {
+            //TODO: Managing call status: calling, startCall,...using the recipient value
+
+            self.options.inSession = true;
+
+            self.publisher = _publish('camera');
+
+            $.when(self.publisher.on('streamCreated'))
+                .done(function(event) {
+                    _handleStart(event)
+                })
+                .promise(); //call has been initialized
+
+            self.publisher.on('streamDestroyed', function(event) {
+                console.log("stream destroyed");
+                _handleEnd(event); //call has been finished
+            });
+
+            self.publisher.session.on('streamPropertyChanged', function(event) {
+                if (self.publisher.stream === event.stream) {
+                    _handleLocalPropertyChanged(event)
+                }
+            }); //to handle audio/video changes
+
+            _.each(self.subscribers, function(subscriber) {
+                _subscribeToStream(subscriber);
+            });
+
+        },
+        end: function() {
+            self.options.inSession = false;
+            _unpublish('camera');
+            _unsubscribeStreams();
+        },
+        enableLocalAudio: function(enabled) {
+            self.publisher.publishAudio(enabled);
+        },
+        enableLocalVideo: function(enabled) {
+            self.publisher.publishVideo(enabled);
+        },
+        enableRemoteVideo: function(enabled) {
+            self.subscriber.subscribeToVideo(enabled);
+            self.onEnableRemoteMedia({ media: 'video', enabled: enabled });
+        },
+        enableRemoteAudio: function(enabled) {
+            self.subscriber.subscribeToAudio(enabled);
+            self.onEnableRemoteMedia({ media: 'audio', enabled: enabled });
+        }
+    };
+
+    return CommunicationComponent;
+
+})();
+var AccPackScreenSharing = (function() {
+
+    var self;
+    var _annotation;
+    var _active;
+
     /** 
-     * Screensharing accerlator pack constructor
-     * @param {Object} options
-     * @param {String} options.sessionID
-     * @param [String] options.extensionID
-     * @param [String] options.extentionPathFF
-     * @param [String] options.screensharingParent 
+     * @constructor
+     * Represents a screensharing component
+     * @param {object} options
+     * @param {string} options.sessionID
+     * @param [string] options.extensionID
+     * @param [string] options.extentionPathFF
+     * @param [string] options.screensharingParent 
      */
 
     var ScreenSharing = function(options) {
@@ -351,22 +640,59 @@ var ScreenSharingAccPack = (function() {
 
         // Extend our instance
         var optionsProps = [
-            'sessionID',
+            'session',
+            'sessionId',
             'annotation',
             'extensionURL',
             'extensionID',
             'extensionPathFF',
             'screensharingParent',
-            'acceleratorPack'
+            'accPack'
         ];
 
-        _.extend(this, _.defaults(_.pick(options, optionsProps)), { screenSharingParent: '#videoContainer' });
+        _.extend(this, _.defaults(_.pick(options, optionsProps)), { 
+            screenSharingParent: '#videoContainer', 
+            screenSharingControls: '#feedControls' 
+        });
         
-        window.extensionID = self.extensionID;
-
-
         // Do UIy things
         _setupUI(self.screensharingParent);
+        _addScreenSharingListeners();
+    };
+    
+    var _addScreenSharingListeners = function() {
+        
+        $('#startScreenSharing').on('click', function() {
+            !!_active ? end() : start();
+        });
+
+        
+        
+        /** Handlers for screensharing extension modal */
+        $('#btn-install-plugin-chrome').on('click', function() {
+            chrome.webstore.install('https://chrome.google.com/webstore/detail/' + self.extensionID,
+                function(success) {
+                    console.log('success', success);
+                },
+                function(error) {
+                    console.log('error', error);
+                });
+            $('#dialog-form-chrome').toggle();
+        });
+
+        $('#btn-cancel-plugin-chrome').on('click', function() {
+            $('#dialog-form-chrome').toggle();
+        });
+
+        $('#btn-install-plugin-ff').prop('href', self.extensionPathFF);
+
+        $('#btn-install-plugin-ff').on('click', function() {
+            $('#dialog-form-ff').toggle();
+        });
+
+        $('#btn-cancel-plugin-ff').on('click', function() {
+            $('#dialog-form-ff').toggle();
+        });
     };
 
     var _validateExtension = function(extensionID, extensionPathFF) {
@@ -380,7 +706,6 @@ var ScreenSharingAccPack = (function() {
                     href: ['https://chrome.google.com/webstore/detail/', extensionID].join('')
                 }).appendTo('head');
                 
-               
                 OT.registerScreenSharingExtension('chrome', extensionID, 2);
             }
         }
@@ -399,7 +724,7 @@ var ScreenSharingAccPack = (function() {
         _validateExtension(_.property('extensionID')(options), _.property('extensionPathFF')(options));
     };
 
-    // var startScreenSharing = ['<button class="wms-icon-screen" id="startScreenShareBtn"></button>'].join('\n');
+    var screenSharingControl = ['<div class="video-control circle share-screen" id="startScreenSharing"></div>'].join('\n');
     var screenSharingView = [
         '<div class="hidden" id="screenShareView">',
         '<div class="wms-feed-main-video">',
@@ -443,17 +768,15 @@ var ScreenSharingAccPack = (function() {
      * Create a publisher for the screen.  If we're using annotation, we first need
      * to create the annotion window and get a reference to its annotation container
      * element so that we can pass it to the initPublisher function.
-     * @returns {Promise} < Resolve: [Object] Container element for annotation in external window >
+     * @returns {promise} < Resolve: [Object] Container element for annotation in external window >
      */
     var _initPublisher = function() {
-
-        var self = this;
 
         var createPublisher = function(publisherDiv) {
 
             var innerDeferred = $.Deferred();
 
-            publisherDiv = publisherDiv || 'videoHolderScreenShare';
+            publisherDiv = publisherDiv || $('#videoHolderScreenShare');
 
             self.publisher = OT.initPublisher(publisherDiv, _localScreenProperties, function(error) {
                 if (error) {
@@ -474,22 +797,22 @@ var ScreenSharingAccPack = (function() {
 
         if (!!self.annotation) {
 
-            self.acceleratorPack.initAnnotation(true)
-                .then(function(annotationWindow) {
-                    self.annotationWindow = annotationWindow || null;
-                    var annotationElements = annotationWindow.createContainerElements();
-                    createPublisher(annotationElements.publisher)
-                        .then(function() {
-                            outerDeferred.resolve(annotationElements.annotation);
-                        });
+            self.accPack.setupAnnotation(true)
+            .then(function(annotationWindow) {
+                self.annotationWindow = annotationWindow || null;
+                var annotationElements = annotationWindow.createContainerElements();
+                createPublisher(annotationElements.publisher)
+                    .then(function() {
+                        outerDeferred.resolve(annotationElements.annotation);
+                    });
 
-                });
+            });
         } else {
 
             createPublisher()
-                .then(function() {
-                    outerDeferred.resolve();
-                });
+            .then(function() {
+                outerDeferred.resolve();
+            });
 
         }
 
@@ -518,17 +841,13 @@ var ScreenSharingAccPack = (function() {
                 }
             } else {
                 addPublisherEventListeners();
-                self.acceleratorPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
+                self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
 
                 console.log('Connected');
             }
         });
 
-
-        if (!!annotationContainer) {
-            var annotationWindow = self.comms_elements.annotationWindow;
-            self._annotation.linkCanvas(self.publisher, annotationContainer, annotationWindow);
-        }
+        !!annotationContainer && self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
 
         var addPublisherEventListeners = function() {
 
@@ -563,7 +882,7 @@ var ScreenSharingAccPack = (function() {
             if (!response.supported || !response.extensionRegistered) {
                 alert('This browser does not support screen sharing! Please use Chrome, Firefox or IE!');
                 deferred.reject('browser support not available');
-            } else if (!response.extensionInstalled === false) {
+            } else if (!response.extensionInstalled) {
                 $('#dialog-form-chrome').toggle();
                 deferred.reject('screensharing extension not installed');
             } else {
@@ -577,7 +896,7 @@ var ScreenSharingAccPack = (function() {
 
     var _setupUI = function(parent) {
         $('body').append(screenDialogsExtensions);
-        // $(startScreenSharingBtn).append(startScreenSharing);
+        $(self.screenSharingControls).append(screenSharingControl);
         $(parent).append(screenSharingView);
     };
 

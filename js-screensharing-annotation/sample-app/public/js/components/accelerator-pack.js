@@ -9,8 +9,8 @@ var AcceleratorPack = (function() {
     var _annotation;
     var _components = [];
     var _commonOptions = {
-        publishers: {},
         subscribers: [],
+        streams: [],
         localCallProperties: {
             insertMode: 'append',
             width: '100%',
@@ -32,7 +32,10 @@ var AcceleratorPack = (function() {
         }
     };
     
-    // Constructor
+    /**
+     * @constructor
+     * Provides a common layer for logic and API for accelerator pack components
+     */
     var AcceleratorPackLayer = function(options) {
 
         self = this;
@@ -52,11 +55,8 @@ var AcceleratorPack = (function() {
 
     };
 
-
-
     /** 
      * Initialize any of the accelerator pack components included in the application.
-     *
      */
     var _initAccPackComponents = function() {
 
@@ -74,7 +74,7 @@ var AcceleratorPack = (function() {
             var screensharingOptions = _.extend(_.pick(self.options, screensharingProps), self.options.screensharing, {
                 session: _session,
                 accPack: self,
-                localScreenProperties: _localScreenProperties
+                localScreenProperties: _commonOptions.localScreenProperties
             });
 
             _screensharing = new AccPackScreenSharing(screensharingOptions);
@@ -87,7 +87,11 @@ var AcceleratorPack = (function() {
             _components.annotation = _annotation;
         }
     };
-
+    
+    
+    /** 
+     * @param [string] type - A subset of common options
+     */
     var getOptions = function(type) {
 
         return type ? _commonOptions[type] : _commonOptions;
@@ -121,14 +125,13 @@ var AcceleratorPack = (function() {
 
     var _initPublisherScreen = function() {
 
-
         var createPublisher = function(publisherDiv) {
 
             var innerDeferred = $.Deferred();
 
             publisherDiv = publisherDiv || 'videoHolderScreenShare';
 
-            self.options.publishers.screen = OT.initPublisher(publisherDiv, self.options.localScreenProperties, function(error) {
+            self.options.publishers.screen = OT.initPublisher(publisherDiv, _commonOptions.localScreenProperties, function(error) {
                 if (error) {
                     error.message = 'Error starting the screen sharing';
                     handler(error);
@@ -175,30 +178,30 @@ var AcceleratorPack = (function() {
 
 
     //ScreenSharing callbacks
-    var _onScreenSharingStarted = function() {
-        $(this.comms_elements.precallFeedWrap).addClass('hidden');
-        // $(this.comms_elements.callFeedWrap).removeClass('hidden');
-        $(this.comms_elements.shareScreenBtn).addClass('hidden');
-        $(this.comms_elements.endShareScreenBtn).removeClass('hidden');
+    // var _onScreenSharingStarted = function() {
+    //     $(this.comms_elements.precallFeedWrap).addClass('hidden');
+    //     // $(this.comms_elements.callFeedWrap).removeClass('hidden');
+    //     $(this.comms_elements.shareScreenBtn).addClass('hidden');
+    //     $(this.comms_elements.endShareScreenBtn).removeClass('hidden');
 
-        // hide the call view
-        $(this.comms_elements.callFeedWrap).addClass('hidden');
+    //     // hide the call view
+    //     $(this.comms_elements.callFeedWrap).addClass('hidden');
 
-        // show the view for screen sharing
-        $(this.comms_elements.screenShareView).removeClass('hidden');
-    };
+    //     // show the view for screen sharing
+    //     $(this.comms_elements.screenShareView).removeClass('hidden');
+    // };
 
-    var _onScreenSharingEnded = function(event) {
-        console.log('on the method for onScreenSharingEnded');
-        $(this.comms_elements.shareScreenBtn).removeClass('hidden');
-        $(this.comms_elements.endShareScreenBtn).addClass('hidden');
+    // var _onScreenSharingEnded = function(event) {
+    //     console.log('on the method for onScreenSharingEnded');
+    //     $(this.comms_elements.shareScreenBtn).removeClass('hidden');
+    //     $(this.comms_elements.endShareScreenBtn).addClass('hidden');
 
-        // show the call view
-        $(this.comms_elements.callFeedWrap).removeClass('hidden');
+    //     // show the call view
+    //     $(this.comms_elements.callFeedWrap).removeClass('hidden');
 
-        // hide the view for screen sharing
-        $(this.comms_elements.screenShareView).addClass('hidden');
-    };
+    //     // hide the view for screen sharing
+    //     $(this.comms_elements.screenShareView).addClass('hidden');
+    // };
 
 
     var _onScreenSharingError = function(error) {

@@ -7,11 +7,11 @@ var AccPackScreenSharing = (function() {
     /** 
      * @constructor
      * Represents a screensharing component
-     * @param {Object} options
-     * @param {String} options.sessionID
-     * @param [String] options.extensionID
-     * @param [String] options.extentionPathFF
-     * @param [String] options.screensharingParent 
+     * @param {object} options
+     * @param {string} options.sessionID
+     * @param [string] options.extensionID
+     * @param [string] options.extentionPathFF
+     * @param [string] options.screensharingParent 
      */
 
     var ScreenSharing = function(options) {
@@ -153,7 +153,7 @@ var AccPackScreenSharing = (function() {
      * Create a publisher for the screen.  If we're using annotation, we first need
      * to create the annotion window and get a reference to its annotation container
      * element so that we can pass it to the initPublisher function.
-     * @returns {Promise} < Resolve: [Object] Container element for annotation in external window >
+     * @returns {promise} < Resolve: [Object] Container element for annotation in external window >
      */
     var _initPublisher = function() {
 
