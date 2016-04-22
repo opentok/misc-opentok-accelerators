@@ -22,8 +22,8 @@ static NSString * const kSendOn = @"sentOn";
                           alias:(NSString *)alias
                        senderId:(NSString *)senderId {
     if (self = [super init]) {
-        _alias = alias.length ? alias : @"";
-        _senderId = senderId.length ? senderId : @"";
+        _alias = alias.length ? alias : @"Tokboxer";
+        _senderId = senderId.length ? senderId : [[NSUUID UUID] UUIDString];
         _text = message;
         _type = TCMessageTypesSent;
         _dateTime = [[NSDate alloc] init];
