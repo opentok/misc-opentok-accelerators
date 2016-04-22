@@ -5,7 +5,7 @@ var uglify = require('gulp-uglify');
 inlineCss = require('gulp-inline-css');
 
 gulp.task('js', function () {
-  return gulp.src('src/text-chat-acc-pack.js')
+  return gulp.src('src/*')
     .pipe(concat('text-chat-acc-pack.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
