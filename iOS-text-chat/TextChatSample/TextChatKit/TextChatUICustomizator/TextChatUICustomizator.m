@@ -10,34 +10,39 @@
 
 @implementation TextChatUICustomizator
 
+- (void)notifyUserInterfaceUpdate {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TextChatUIUpdatedNotificationName object:self];
+}
+
 - (void)setTableViewCellSendTextColor: (UIColor *)color; {
-    if (!color) return;
-    self.tableViewCellSendTextColor = color;
+    _tableViewCellSendTextColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
 - (void)setTableViewCellReceiveTextColor: (UIColor *)color; {
-    if (!color) return;
-    self.tableViewCellReceiveTextColor = color;
+    _tableViewCellReceiveTextColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
 - (void)setTableViewCellSendBackgroundColor: (UIColor *)color;{
-    if (!color) return;
-    self.tableViewCellSendBackgroundColor = color;
+    _tableViewCellSendBackgroundColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
 - (void)setTableViewCellReceiveBackgroundColor: (UIColor *)color;{
-    if (!color) return;
-    self.tableViewCellReceiveBackgroundColor = color;
+    _tableViewCellReceiveBackgroundColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
 - (void)setTopBarBackgroundColor: (UIColor *)color;{
-    if (!color) return;
-    self.topBarBackgroundColor = color;
+    _topBarBackgroundColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
 - (void)setTopBarTitleTextColor: (UIColor *)color;{
-    if (!color) return;
-    self.topBarTitleTextColor = color;
+    _topBarTitleTextColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
 @end

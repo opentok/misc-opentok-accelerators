@@ -126,7 +126,6 @@
 		A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
 		A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */; };
-		A03B1F641CC0B0C800D765F7 /* TextChatView_AutoLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F5C1CC0B0C800D765F7 /* TextChatView_AutoLayout.h */; };
 		A03B1F651CC0B0C800D765F7 /* TextChatView_UserInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F5D1CC0B0C800D765F7 /* TextChatView_UserInterface.h */; };
 		A03B1F721CC0B26400D765F7 /* TextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F731CC0B26400D765F7 /* TextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */; };
@@ -280,7 +279,6 @@
 		A03B1F591CC0B0C800D765F7 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
 		A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
 		A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
-		A03B1F5C1CC0B0C800D765F7 /* TextChatView_AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView_AutoLayout.h; sourceTree = "<group>"; };
 		A03B1F5D1CC0B0C800D765F7 /* TextChatView_UserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView_UserInterface.h; sourceTree = "<group>"; };
 		A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatUICustomizator.h; sourceTree = "<group>"; };
 		A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatUICustomizator.m; sourceTree = "<group>"; };
@@ -584,7 +582,6 @@
 		A03B1F551CC0B0C800D765F7 /* TextChatView */ = {
 			isa = PBXGroup;
 			children = (
-				A03B1F5C1CC0B0C800D765F7 /* TextChatView_AutoLayout.h */,
 				A03B1F5D1CC0B0C800D765F7 /* TextChatView_UserInterface.h */,
 				A03B1F591CC0B0C800D765F7 /* TextChatView.h */,
 				A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */,
@@ -630,7 +627,6 @@
 				643553681CB69D2C00643E2F /* TextChat.h in Headers */,
 				6435536A1CB69D2C00643E2F /* TextChatComponent.h in Headers */,
 				A0C9A18A1CC81EED0026D458 /* AcceleratorPackSession.h in Headers */,
-				A03B1F641CC0B0C800D765F7 /* TextChatView_AutoLayout.h in Headers */,
 				643553731CB69D4300643E2F /* UIViewController+Helper.h in Headers */,
 				643553711CB69D4300643E2F /* GCDHelper.h in Headers */,
 			);
@@ -1011,7 +1007,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OpenTok-iOS-2.7.1",
-					"$(PROJECT_DIR)/TextChatKit/acc-pack-common/iOS/AcceleratorSession/Example/Pods/OpenTok",
 				);
 				INFOPLIST_FILE = TextChatKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1038,7 +1033,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OpenTok-iOS-2.7.1",
-					"$(PROJECT_DIR)/TextChatKit/acc-pack-common/iOS/AcceleratorSession/Example/Pods/OpenTok",
 				);
 				INFOPLIST_FILE = TextChatKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

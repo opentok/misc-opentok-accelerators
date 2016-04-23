@@ -72,8 +72,11 @@
 /**
  *  A boolean value that indicates whether the text chat view is shown or hidden
  */
-@property (readonly, nonatomic) BOOL isShown;
+@property (readonly, nonatomic, getter=isShown) BOOL show;
 
+/**
+ *  The object that manages changeable users interfaces
+ */
 @property (readonly, nonatomic) TextChatUICustomizator *customizator;
 
 /**

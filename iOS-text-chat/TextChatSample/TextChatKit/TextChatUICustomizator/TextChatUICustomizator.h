@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString * const TextChatUIUpdatedNotificationName = @"TextChatUIUpdatedNotificationName";
+
 @interface TextChatUICustomizator : NSObject
 
 @property (nonatomic) UIColor *tableViewCellSendTextColor;

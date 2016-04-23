@@ -25,4 +25,9 @@
 // other UIs
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (weak, nonatomic) IBOutlet UIButton *errorMessage;
+
+// constraints
+@property (strong, nonatomic) NSLayoutConstraint *topViewLayoutConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *bottomViewLayoutConstraint;
+
 @end
