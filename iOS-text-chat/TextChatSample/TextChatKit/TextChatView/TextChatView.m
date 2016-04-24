@@ -27,6 +27,8 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 @property (nonatomic) TextChatComponent *textChatComponent;
 @property (nonatomic) TextChatUICustomizator *customizator;
 @property (nonatomic) UIView *attachedBottomView;
+
+@property (strong, nonatomic) TextChatViewEventBlock handler;
 @end
 
 @implementation TextChatView
@@ -177,6 +179,11 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (void)connect {
+    [self.textChatComponent connect];
+}
+
+- (void)connectWithHandler:(TextChatViewEventBlock)handler {
+    self.handler = handler;
     [self.textChatComponent connect];
 }
 
@@ -375,6 +382,9 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     if (self.delegate) {
         [self.delegate textChatViewDidSendMessage:self error:error];
     }
+    if (self.handler) {
+        self.handler(TextChatViewEventSignalDidSendMessage, error);
+    }
 }
 
 - (void)didReceiveMessage {
@@ -383,6 +393,9 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     [self scrollTableViewToBottom];
     if (self.delegate) {
         [self.delegate textChatViewDidReceiveMessage:self];
+    }
+    if (self.handler) {
+        self.handler(TextChatViewEventSignalDidReceiveMessage, nil);
     }
 }
 
@@ -393,12 +406,18 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
         [self.delegate didConnectWithError:error];
     }
+    if (self.handler) {
+        self.handler(TextChatViewEventSignalDidConnect, nil);
+    }
 }
 
 - (void)didDisConnectWithError:(NSError *)error {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(didDisConnectWithError:)]) {
         [self.delegate didDisConnectWithError:error];
+    }
+    if (self.handler) {
+        self.handler(TextChatViewEventSignalDidDisconnect, nil);
     }
 }
 

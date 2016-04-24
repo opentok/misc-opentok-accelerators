@@ -8,6 +8,15 @@
 
 #import <TextChatKit/TextChatUICustomizator.h>
 
+typedef NS_ENUM(NSUInteger, TextChatViewEventSignal) {
+    TextChatViewEventSignalDidSendMessage = 0,
+    TextChatViewEventSignalDidReceiveMessage,
+    TextChatViewEventSignalDidConnect,
+    TextChatViewEventSignalDidDisconnect
+};
+
+typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, NSError *error);
+
 @class TextChatView;
 
 /**
@@ -93,6 +102,11 @@
  *  Establishes a text chat connection
  */
 - (void)connect;
+
+/**
+ *  Establishes a text chat connection with completion
+ */
+- (void)connectWithHandler:(TextChatViewEventBlock)handler;
 
 /**
  *  Stops a text chat connection

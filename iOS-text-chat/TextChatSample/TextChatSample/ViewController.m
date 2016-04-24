@@ -39,6 +39,16 @@
     [self.textChatView connect];
 }
 
+- (IBAction)connectToTextChatButtonPressed:(id)sender {
+    [self.textChatView connectWithHandler:^(TextChatViewEventSignal signal, NSError *error) {
+        
+    }];
+}
+
+- (IBAction)disconnectToTextChatButtonPressed:(id)sender {
+    [self.textChatView disconnect];
+}
+
 - (IBAction)connectToAVButtonPressed:(id)sender {
     [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
         
@@ -48,6 +58,7 @@
 - (IBAction)disconnectToAVButtonPressed:(id)sender {
     [self.oneToOneCommunicator disconnect];
 }
+
 - (IBAction)ChangeTopColor:(id)sender {
     [self.textChatView.customizator setTopBarBackgroundColor:[UIColor orangeColor]];
     [self.textChatView.customizator setTopBarTitleTextColor:[UIColor redColor]];
