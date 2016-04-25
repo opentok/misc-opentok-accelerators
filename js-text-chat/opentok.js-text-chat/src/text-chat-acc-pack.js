@@ -6,14 +6,50 @@ var TextChatAccPack = (function () {
   var lastMessage, sender, composer;
   var newMessages, self, limitCharacterMessage;
 
+  var logEventData = {
+  //vars for the analytics logs. Internal use
+    clientVersion: 'js-vsol-0.9',
+    source: 'text_chat_acc_pack',
+    actionInitialize: 'initialize', 
+    actionSendMessage: 'send_message',
+    actionReceiveMessage: 'receive_message',
+    actionMaximize: 'maximize',
+    actionMinimize: 'minimize',
+    actionSetMaxLength: 'set_max_length',
+    variationAttempt: 'Attempt',
+    variationError: 'Failure',
+    variationSuccess: 'Success'
+  };
+
   // Constructor
   var TextChatAccPack = function (options) {
+    var setMaxLengthMessage = false;
+    if (options.limitCharacterMessage) {
+      setMaxLengthMessage = true;
+    }
+
     options = options || {};
     imCharacterCount = options.charCountElement;
     acceleratorPack = options.acceleratorPack;
     sender = options.sender;
     limitCharacterMessage = options.limitCharacterMessage || 160;
     self = this;
+
+    var _otkanalyticsData = {
+      sessionId: acceleratorPack.getSession().sessionId,
+      connectionId: acceleratorPack.getSession().connection.connectionId,
+      partnerId: acceleratorPack.getApiKey(),
+      clientVersion: logEventData.clientVersion,
+      source: logEventData.source
+    };
+
+    //init the analytics logs
+    this._otkanalytics = new OTKAnalytics(_otkanalyticsData);
+
+    if (setMaxLengthMessage) {
+      self._addLogEvent(logEventData.actionSetMaxLength, logEventData.variationAttempt);
+      self._addLogEvent(logEventData.actionSetMaxLength, logEventData.variationSuccess);
+    }
   };
 
   // Private methods
@@ -53,6 +89,8 @@ var TextChatAccPack = (function () {
     document.getElementById('sendMessage').onclick = function(){
       _sendTxtMessage(composer.value);
     };
+    //add INITIALIZE success log event 
+    self._addLogEvent(logEventData.actionInitialize, logEventData.variationSuccess);
   };
 
   var _shouldAppendMessage = function (data) {
@@ -74,7 +112,6 @@ var TextChatAccPack = (function () {
 
   var _sendMessage = function (recipient, message) {
     var deferred = new $.Deferred();
-    //var self = this;
     var messageData = {
       text: message,
       sender: {
@@ -83,6 +120,10 @@ var TextChatAccPack = (function () {
       },
       sentOn: Date.now()
     };
+
+    //add SEND_MESSAGE attempt log event 
+    self._addLogEvent(logEventData.actionSendMessage, logEventData.variationAttempt);
+  
     console.log(acceleratorPack.getSession());
     if (recipient === undefined) {
       acceleratorPack.getSession().signal({
@@ -92,6 +133,8 @@ var TextChatAccPack = (function () {
         function (error) {
           if (error) {
             error.message = "Error sending a message. ";
+            //add SEND_MESSAGE attempt log event 
+            self._addLogEvent(logEventData.actionSendMessage, logEventData.variationFailure);
             if (error.code === 413) {
               var errorStr = error.message + "The chat message is over size limit."
               error.message = errorStr;
@@ -105,6 +148,8 @@ var TextChatAccPack = (function () {
             deferred.reject(error);
           } else {
             console.log('Message sent');
+            //add SEND_MESSAGE attempt log event 
+            self._addLogEvent(logEventData.actionSendMessage, logEventData.variationSuccess);   
             deferred.resolve(messageData);
           }
         }
@@ -142,6 +187,7 @@ var TextChatAccPack = (function () {
     lastMessage = data;
   };
   var _onIncomingMessage = function (signal) {
+    self._addLogEvent(logEventData.actionReceiveMessage, logEventData.variationAttempt);
     if(typeof signal.data === 'string' ){
       signal.data = JSON.parse(signal.data);
     }
@@ -151,6 +197,7 @@ var TextChatAccPack = (function () {
       _renderChatMessage(signal.data.sender.id, signal.data.sender.alias, signal.data.text, signal.data.sentOn);
     }
     lastMessage = signal.data;
+     self._addLogEvent(logEventData.actionReceiveMessage, logEventData.variationSuccess);
   };
   var _handleMessageError = function (error) {
     console.log(error.code, error.message);
@@ -213,11 +260,23 @@ var TextChatAccPack = (function () {
   var _updateCharCounter = function () {
     $(imCharacterCount).text(composer.value.length);
   };
+  
+  var _log = function (action, variation) {
+    var self = this;
+    var data = {
+        action: action,
+        variation: variation
+    };
+    self._otkanalytics.logEvent(data);
+  };
   //    **************************************************************************************************************
   TextChatAccPack.prototype = {
     constructor: TextChatAccPack,
 
     initTextChat: function(parent_holder){
+      //add INITIALIZE attempt log event 
+      _log.call(this, logEventData.actionInitialize, logEventData.variationAttempt);
+  
       enableTextChat = true;
       displayTextChat = true;
       _setupUI.call(this,parent_holder);
@@ -225,13 +284,27 @@ var TextChatAccPack = (function () {
     },
 
     showTextChat: function(){
+      //add MAXIMIZE attempt log event 
+      _log.call(this, logEventData.actionMaximize, logEventData.variationAttempt);
+  
       document.getElementById(textChatDiv).classList.remove('hidden');
       this.setDisplayTextChat(true);
+
+      //add MAXIMIZE success log event 
+      _log.call(this, logEventData.actionMaximize, logEventData.variationSuccess);
+  
     },
 
     hideTextChat: function() {
+      //add MINIMIZE attempt log event 
+      _log.call(this, logEventData.actionMinimize, logEventData.variationAttempt);
+  
       document.getElementById(textChatDiv).classList.add('hidden');
       this.setDisplayTextChat(false);
+
+      //add MINIMIZE success log event 
+      _log.call(this, logEventData.actionMinimize, logEventData.variationSuccess);
+  
     },
 
     getEnableTextChat: function(){
@@ -249,6 +322,9 @@ var TextChatAccPack = (function () {
     },
     _handleMessageError: function (data) {
       _handleMessageError.call(this, data);
+    },
+    _addLogEvent: function(action, variation) {
+      _log.call(this, action, variation);
     }
   };
   return TextChatAccPack;

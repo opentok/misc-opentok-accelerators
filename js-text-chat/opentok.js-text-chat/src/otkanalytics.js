@@ -25,6 +25,10 @@ var OTKAnalytics = (function() {
             console.log ("Error. The clientVersion field cannot be null in the log entry");
             throw("The clientVersion field cannot be null in the log entry");
         }
+        if ( self.analyticsData.source == null || self.analyticsData.source.length == 0){
+            console.log ("Error. The source field cannot be null in the log entry");
+            throw("The source field cannot be null in the log entry");
+        }
         if ( self.analyticsData.logVersion == null || self.analyticsData.logVersion.length == 0){
             self.analyticsData.logVersion  = "2";
         }
@@ -75,6 +79,7 @@ var OTKAnalytics = (function() {
         constructor: OTKAnalytics,
 
         logEvent: function(data) { 
+            
             this.analyticsData.action = data.action;
             this.analyticsData.variation = data.variation;
 
