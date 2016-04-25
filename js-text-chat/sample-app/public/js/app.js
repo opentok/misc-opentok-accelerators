@@ -3,11 +3,13 @@ var app = (function() {
   // Sample component
   var _communication;
   var _acceleratorPack;
+  var _otkanalyticsData;
+  var _loggingData;
 
   var _options = {
-    apiKey: '100',
-    sessionId: '2_MX4xMDB-flR1ZSBOb3YgMTkgMTE6MDk6NTggUFNUIDIwMTN-MC4zNzQxNzIxNX4',
-    token: 'T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9ZDY5Njc4ZjgzYWZkNTE1NjY1MmIxN2I3MDY2Y2E0NDQ1OGJjMmY4YjpzZXNzaW9uX2lkPTJfTVg0eE1EQi1mbFIxWlNCT2IzWWdNVGtnTVRFNk1EazZOVGdnVUZOVUlESXdNVE4tTUM0ek56UXhOekl4Tlg0JmNyZWF0ZV90aW1lPTE0NjA5OTk1Mzcmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ2MDk5OTUzNy45OTI5MTU1OTc1NTAxMSZleHBpcmVfdGltZT0xNDYzNTkxNTM3',
+    apiKey: '',
+    sessionId: '',
+    token: '',
     publishers: {},
     subscribers: [],
     streams: [],
@@ -19,7 +21,16 @@ var app = (function() {
       style: {
         buttonDisplayMode: 'off'
       }
-    }
+    },
+    //vars for the analytics logs. Internal use
+    clientVersion: 'js-vsol-0.9',
+    source: 'one_to_one_textchat_sample_app',
+    actionInitialize: 'initialize', 
+    actionStartComm: 'start_comm',
+    actionEndComm: 'end_comm',
+    variationAttempt: 'Attempt',
+    variationError: 'Failure',
+    variationSuccess: 'Success'
   };
 
   var _communicationElements = {
@@ -196,7 +207,12 @@ var app = (function() {
     _options.session.on({
       connectionCreated: function (event) {
         _communication = new Communication(_options);
+        _communication.addLog(_options.actionInitialize, _options.variationAttempt);
+        _communication.addLog(_options.actionInitialize, _options.variationSuccess);
         _addEventListeners();
+      },
+      connectionError: function (event) {
+        _communication.addLog(_options.actionInitialize, _options.variationError);
       }
     });
   };
