@@ -1,7 +1,7 @@
 var AccPackScreenSharing = (function() {
 
     var self;
-    var _annotation;
+    var _initialized;
     var _active;
 
     /** 
@@ -44,6 +44,7 @@ var AccPackScreenSharing = (function() {
         // Do UIy things
         _setupUI(self.screensharingParent);
         _addScreenSharingListeners();
+        _initialized = true;
     };
     
     var _addScreenSharingListeners = function() {
@@ -290,6 +291,10 @@ var AccPackScreenSharing = (function() {
         console.log('end screensharing');
         // self.widget.end();
     };
+    
+    var active = function(callActive) {      
+        $(screenSharingControl)[callActive ? 'show' : 'hide']();
+    };
 
     var start = function() {
         
@@ -308,6 +313,7 @@ var AccPackScreenSharing = (function() {
 
     ScreenSharing.prototype = {
         constructor: ScreenSharing,
+        active: active,
         extensionAvailable: extensionAvailable,
         start: start,
         end: end,

@@ -11,36 +11,45 @@ var Communication = (function() {
      * @param {string} options.apiKey
      * @param {array} options.subscribers
      * @param {array} options.streams
+     * @param {boolean} options.annotation
      */
     var CommunicationComponent = function(options) {
         self = this;
-        self.options = _validateOptions(options);
-        _.extend(self, _.pick(options, ['session', 'subscribers', 'streams']));
+        
+        var nonOptionProps = ['accPack', 'session', 'subscribers', 'streams'];
+        self.options = _validateOptions(options, nonOptionProps);
+        _.extend(self, _.pick(options, nonOptionProps));
+        
         _setEventListeners();
         _logAnalytics();
     };
 
     /** Private Methods */
-
-    var _validateOptions = function(options) {
+    
+    /**
+     * Validates options and returns a filtered hash to be added to the instance
+     * @param {object} options
+     * @param {array} ignore - Properties that should not be included in options
+     */
+    var _validateOptions = function(options, ignore) {
 
         if (!options || !options.session) {
             throw new Error('No session provided.');
         }
-        
-        return _.omit(options, ['session', 'subscribers', 'streams']);
+
+        return _.omit(options, ignore);
     };
 
     var _setEventListeners = function() {
-       self.session.on('streamCreated', _handleStreamCreated); //participant joined the call
-       self.session.on('streamDestroyed', _handleStreamDestroyed); //participant left the call
+        self.session.on('streamCreated', _handleStreamCreated); //participant joined the call
+        self.session.on('streamDestroyed', _handleStreamDestroyed); //participant left the call
     };
 
     var _logAnalytics = function() {
 
         var _otkanalyticsData = {
             sessionId: self.options.sessionId,
-            connectionId:self.session.connection.connectionId,
+            connectionId: self.session.connection.connectionId,
             partnerId: self.options.apiKey,
             clientVersion: '1.0.0'
         };
@@ -75,7 +84,7 @@ var Communication = (function() {
 
     var _unpublish = function() {
         if (self.publisher) {
-           self.session.unpublish(self.publisher);
+            self.session.unpublish(self.publisher);
         }
     };
 
@@ -83,7 +92,7 @@ var Communication = (function() {
         if (self.options.user) {
             self.options.localCallProperties.name = self.options.user.name;
         }
-        self.publisher= OT.initPublisher('videoHolderSmall', self.options.localCallProperties, function(error) {
+        self.publisher = OT.initPublisher('videoHolderSmall', self.options.localCallProperties, function(error) {
             if (error) {
                 error.message = "Error starting a call";
                 _handleError(error, handler);
@@ -105,7 +114,7 @@ var Communication = (function() {
             var options = self.options.localCallProperties
         }
 
-        var subscriber =self.session.subscribe(stream,
+        var subscriber = self.session.subscribe(stream,
             'videoHolderBig',
             options,
             function(error) {
@@ -127,13 +136,26 @@ var Communication = (function() {
 
                 }
             });
-            
+
         self.subscriber = subscriber;
+
+        if (stream.videoType === 'screen' && !!self.options.annotation) {
+            self.accPack.setupAnnotation()
+            .then(function() {
+                var $canvasContainer = $('#videoHolderBig')[0];
+                $($canvasContainer).width(1000);
+                $($canvasContainer).height(625);
+                self.accPack.linkAnnotation(subscriber, $canvasContainer);
+            });
+
+        }
+
+
     };
 
     var _unsubscribeStreams = function() {
         _.each(self.streams, function(stream) {
-           self.session.unsubscribe(stream);
+            self.session.unsubscribe(stream);
         })
     };
 
@@ -165,6 +187,7 @@ var Communication = (function() {
 
         var handler = self.onStreamCreated;
         if (handler && typeof handler === 'function') {
+            console.log(' should handle a new thing here and there');
             handler(event);
         }
     };
@@ -184,7 +207,7 @@ var Communication = (function() {
             self._remoteParticipant = null;
 
         } else if (streamDestroyedType === 'screen') {
-            self.onScreenSharingEnded();
+            // Do we need to do anyting here?
         } else {
             _.each(self.subscribers, function(subscriber) {
                 _subscribeToStream(subscriber);
@@ -237,6 +260,8 @@ var Communication = (function() {
         onStarted: function() {},
         onEnded: function() {},
         onSubscribe: function() {},
+        onStreamCreated: function() {},
+        onStreamDestroyed: function() {},
         onEnableLocalMedia: function(event) {},
         onEnableRemoteMedia: function(event) {},
         onError: function(error) {},

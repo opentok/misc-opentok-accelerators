@@ -18,7 +18,8 @@ var app = (function() {
       extensionID: 'idhnlbjlmkghinljcijgljbmcoonppgi',
       extensionPathFF: 'ff-extension/wms-screensharing.xpi',
       annotation: true
-    }
+    },
+    annotation: true
   };
 
   var _communicationElements = {
@@ -117,7 +118,14 @@ var app = (function() {
       window.streams.push(event);
       
       if ( event.stream.videoType === 'screen' ) {
-        // communication component should handle everything related to SS + Annotation (?)
+        console.log('do i do things when things happen?');
+        /** 
+         * We need to figure out how to handle sizing the video container at this point
+         * since it needs to maintain the same aspect ratio as the video/canvas being shared.
+         * Do we enforce a 10/6 ratio to begin with, or do we just resize the main container
+         * and let the child elements resize as needed?  The latter seems optimal. 
+         */
+        
         return;
       }
      
@@ -221,7 +229,7 @@ var app = (function() {
          
          _connected = true;
          
-         var commOptions = _.extend({}, _options, {session: _session},  _accPack.getOptions());
+         var commOptions = _.extend({}, _options, {session: _session, accPack: _accPack},  _accPack.getOptions());
          console.log(commOptions);
         _communication = new Communication(commOptions);
         _addEventListeners(); 

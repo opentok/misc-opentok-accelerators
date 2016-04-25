@@ -7,7 +7,7 @@ var AcceleratorPack = (function() {
     var _communication;
     var _screensharing;
     var _annotation;
-    var _components = [];
+    var _components = {};
     var _commonOptions = {
         subscribers: [],
         streams: [],
@@ -58,8 +58,8 @@ var AcceleratorPack = (function() {
     /** 
      * Initialize any of the accelerator pack components included in the application.
      */
-    var _initAccPackComponents = function() {
-
+    var _initAccPackComponents = _.once(function() {
+        
         if (!!AccPackScreenSharing) {
 
             var screensharingProps = [
@@ -86,7 +86,9 @@ var AcceleratorPack = (function() {
             _annotation = new AccPackAnnotation(self.options);
             _components.annotation = _annotation;
         }
-    };
+        
+        _componentsInitialized = true;
+    });
     
     
     /** 
@@ -106,8 +108,8 @@ var AcceleratorPack = (function() {
     var _hideAccPackComponents = function() {
 
         _.each(_components, function(component) {
-            component.active(false);
-        })
+            // component.active(false);
+        });
     };
 
     var _validateOptions = function(options) {
@@ -232,18 +234,18 @@ var AcceleratorPack = (function() {
      */
     var active = function(active) {
 
-        active ? _initAccPackComponents() : _hideAccPackComponents();
+        active ? _.once(_initAccPackComponents)() : _hideAccPackComponents();
 
     }
 
     /** 
      * Initialize the annotation component
-     * @param {Boolean} screensharing - If annotation is being done over the shared screen,
-     * the annotation component will need to create an external window.
+     * @param {Boolean} sharingScreen - Are we sharing our screen? If so, we need to let the
+     * annotation module know so that it can create an external window to use.
      * @returns {Promise} < Resolve: [Object] External annotation window >    
      */
-    var setupAnnotation = function(screensharing) {
-        return _annotation.start(_session, { screensharing: screensharing });
+    var setupAnnotation = function(sharingScreen) {
+        return _annotation.start(_session, { screensharing: sharingScreen });
     };
 
     /** 

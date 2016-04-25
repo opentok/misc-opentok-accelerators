@@ -111,6 +111,8 @@ var AccPackAnnotation = (function() {
             var w = !!externalWindow ? externalWindow : window;
             return w.document.getElementById(toolbarId);
         };
+        
+        console.log('external window?', externalWindow);
 
         toolbar = new OTSolution.Annotations.Toolbar({
             session: session,
@@ -215,6 +217,8 @@ var AccPackAnnotation = (function() {
      * @param {object} [windowReference] - Reference to the annotation window if publishing
      */
     var linkCanvas = function(pubSub, container, externalWindow) {
+        
+        console.log('link Canvas things', arguments);
 
         /**
          * jQuery only allows listening for a resize event on the window or a
