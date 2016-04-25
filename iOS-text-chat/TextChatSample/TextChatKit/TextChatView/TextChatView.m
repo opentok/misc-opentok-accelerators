@@ -254,7 +254,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 #pragma mark - IBActions
 - (IBAction)minimizeView:(UIButton *)sender {
-    
+    [self.countLabel setHidden:YES];
     if (self.topViewLayoutConstraint.constant != StatusBarHeight) {
         UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
         [sender setImage:minimize_image forState:UIControlStateNormal];
@@ -340,13 +340,15 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 
 -(void)updateLabel: (NSUInteger )Charlength {
-    self.countLabel.alpha = 0;
+    [self.countLabel setHidden:YES];
     self.countLabel.textColor = [UIColor blackColor];
     self.textField.textColor = [UIColor blackColor];
 
     NSUInteger charLeft = self.textChatComponent.maximumTextMessageLength - Charlength;
-    if (charLeft <= 50) {
-        self.countLabel.alpha = 1;
+    NSUInteger closeEnd = round(self.textChatComponent.maximumTextMessageLength * .1);
+    if (closeEnd >= 100) closeEnd = 30;
+    if (charLeft <= closeEnd) {
+        [self.countLabel setHidden:NO];
         self.countLabel.textColor = [UIColor redColor];
         self.textField.textColor = [UIColor redColor];
     }
@@ -365,16 +367,16 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }
     else {
 
-        self.errorMessage.alpha = 0.0f;
+        [self.errorMessage setHidden:YES];
         [UIView animateWithDuration:0.5 animations:^{
-            self.errorMessage.alpha = 1.0f;
+            [self.errorMessage setHidden:NO];
         }];
         
         [UIView animateWithDuration:0.5
                               delay:4
                             options:UIViewAnimationOptionTransitionNone
                          animations:^{
-                             self.errorMessage.alpha = 0.0f;
+                             [self.errorMessage setHidden:YES];
                          }
                          completion:nil];
     }
