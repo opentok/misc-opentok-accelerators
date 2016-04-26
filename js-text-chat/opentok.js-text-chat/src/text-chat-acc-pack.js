@@ -47,8 +47,8 @@ var TextChatAccPack = (function () {
     this._otkanalytics = new OTKAnalytics(_otkanalyticsData);
 
     if (setMaxLengthMessage) {
-      self._addLogEvent(logEventData.actionSetMaxLength, logEventData.variationAttempt);
-      self._addLogEvent(logEventData.actionSetMaxLength, logEventData.variationSuccess);
+      _log(logEventData.actionSetMaxLength, logEventData.variationAttempt);
+      _log(logEventData.actionSetMaxLength, logEventData.variationSuccess);
     }
   };
 
@@ -279,7 +279,7 @@ var TextChatAccPack = (function () {
 
     initTextChat: function(parent_holder){
       //add INITIALIZE attempt log event
-      _log.call(this, logEventData.actionInitialize, logEventData.variationAttempt);
+     _log(logEventData.actionInitialize, logEventData.variationAttempt);
 
       enableTextChat = true;
       displayTextChat = true;
@@ -289,25 +289,25 @@ var TextChatAccPack = (function () {
 
     showTextChat: function(){
       //add MAXIMIZE attempt log event
-      _log.call(this, logEventData.actionMaximize, logEventData.variationAttempt);
+     _log(logEventData.actionMaximize, logEventData.variationAttempt);
 
       document.getElementById(textChatDiv).classList.remove('hidden');
       this.setDisplayTextChat(true);
 
       //add MAXIMIZE success log event
-      _log.call(this, logEventData.actionMaximize, logEventData.variationSuccess);
+     _log(logEventData.actionMaximize, logEventData.variationSuccess);
       this.onMaximaze();
     },
 
     hideTextChat: function() {
       //add MINIMIZE attempt log event
-      _log.call(this, logEventData.actionMinimize, logEventData.variationAttempt);
+     _log(logEventData.actionMinimize, logEventData.variationAttempt);
 
       document.getElementById(textChatDiv).classList.add('hidden');
       this.setDisplayTextChat(false);
 
       //add MINIMIZE success log event
-      _log.call(this, logEventData.actionMinimize, logEventData.variationSuccess);
+     _log(logEventData.actionMinimize, logEventData.variationSuccess);
 
       this.onMinimize();
     },
@@ -328,9 +328,6 @@ var TextChatAccPack = (function () {
     _handleMessageError: function (data) {
       _handleMessageError.call(this, data);
       this.onError();
-    },
-    _addLogEvent: function(action, variation) {
-      _log.call(this, action, variation);
     }
   };
   return TextChatAccPack;
