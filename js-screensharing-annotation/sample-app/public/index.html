@@ -25,8 +25,11 @@
 
 </head>
 <body>
-    <div class="main-container">
+    <div id="main" class="main-container">
         <div id="videoContainer" class="video-container">
+            <div id="sharingPoster" class="sharing-poster hidden">
+                <div class="sharing-text">Annotating on External Screen</div>
+            </div>
             <div id="videoHolderSmall" class="video-wrap primary-video video-background"></div>
             <div id="feedControls" class="local-controls">
                 <div class="video-control circle video enabled hidden" id="enableLocalVideo"></div>
@@ -41,7 +44,6 @@
                 <div class="video-control video" id="enableRemoteVideo"></div>
             </div>
         </div>
-        <div class="status hidden">Annotating on external window</div>
         <div id="toolbar"></div>
     </div>
 </body>

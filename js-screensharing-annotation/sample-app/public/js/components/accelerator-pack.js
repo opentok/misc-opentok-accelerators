@@ -54,6 +54,8 @@ var AcceleratorPack = (function() {
                 _isConnected = true;
             }
         });
+        
+        registerEventListener('startCall', _initAccPackComponents);
 
     };
 
@@ -85,16 +87,18 @@ var AcceleratorPack = (function() {
 
         if (!!AccPackAnnotation) {
             var annotationProps = [];
-            _annotation = new AccPackAnnotation(self.options);
+            _annotation = new AccPackAnnotation(_.extend({}, self.options, {accPack: self}));
             _components.annotation = _annotation;
         }
 
         _componentsInitialized = true;
+        _setupEventListeners();
     });
 
     /** Eventing */ 
     var _events = {}; // {eventName: [callbacks functions . . .]}
     var _isRegisteredEvent = _.partial(_.has, _events);
+    var _eventListeners = {};
     /** 
      * Register events that can be listened to be other components/modules
      * @param {array | string} events - A list of event names. A single event may
@@ -106,11 +110,9 @@ var AcceleratorPack = (function() {
         events =  Array.isArray(events) ? events : [events];
         
         _.each(events, function(event) {
-            if ( _isRegisteredEvent(event ) ) {
-                console.log(event + ' has already been registered as an event');
-            } else {
+            if ( !_isRegisteredEvent(event) ) {
                 _events[event] = [];
-            }      
+            } 
         });
         
         return _triggerEvent;
@@ -122,16 +124,16 @@ var AcceleratorPack = (function() {
      * @param {function} callback - The function invoked upon the event
      */
     var registerEventListener = function(event, callback) {
-
-        if (!_isRegisteredEvent(event)) {
-            throw new Error('Event must be one of the following ' + Object.keys(_events));
-        }
-
+        
         if (typeof callback !== 'function') {
             throw new Error('Provided callback is not a function');
         }
-
-        _eventListeners[event].push(callback);
+        
+        if ( !_isRegisteredEvent(event) ) {
+            registerEvents(event);
+        }
+        
+        _events[event].push(callback);
     };
 
     /** 
@@ -140,12 +142,17 @@ var AcceleratorPack = (function() {
      * @param {*} data - Data to be passed to the callback functions
      */
     var _triggerEvent = function(event, data) {
-        if (_.has(_eventListeners, event)) {
-            _.each(_eventListeners[event], function(fn) {
+        if (_.has(_events, event)) {
+            _.each(_events[event], function(fn) {
                 fn(data);
             });
         }
     };
+    
+    var _setupEventListeners = function(){
+        registerEventListener('startViewingSharedScreen', setupAnnotation);
+        registerEventListener('startViewingSharedScreen', setupAnnotation);
+    }
 
     /** 
      * @param [string] type - A subset of common options
@@ -338,12 +345,10 @@ var AcceleratorPack = (function() {
         }
 
         _screensharing.start();
-        _triggerEvent('startScreenSharing');
     };
 
     var endScreenSharing = function() {
         _screensharing.end();
-        _triggerEvent('endScreenSharing');
     };
 
     AcceleratorPackLayer.prototype = {

@@ -18,7 +18,25 @@ button {
     display: none;
 }
 
+.aspectRatio {
+  position: relative;
+}
+.aspectRatio:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 56.25%;
+}
+.aspectRatio > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .main-container {
+    position: relative;
     width: 90vw;
     height: 90vh;
     min-width: 720px;
@@ -32,6 +50,28 @@ button {
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+.mask {
+    background-image: url("../images/main/mask.png")
+}
+
+.sharing-poster {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    background: rgba(0,0,0,0.8);
+}
+
+.sharing-text {
+    color: lightblue;
+    font-size: 28px;
+    font-weight: 300;
 }
 
 .video-wrap {

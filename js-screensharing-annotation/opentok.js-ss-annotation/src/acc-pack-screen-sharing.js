@@ -13,7 +13,6 @@ var AccPackScreenSharing = (function() {
      * @param [string] options.extentionPathFF
      * @param [string] options.screensharingParent 
      */
-
     var ScreenSharing = function(options) {
 
         self = this;
@@ -50,11 +49,11 @@ var AccPackScreenSharing = (function() {
     
     var _triggerEvent;
     var _registerEvents = function(){
-        var events = ['startScreenSharing', 'endScreenSharing'];
+        var events = ['startSharingScreen', 'endSharingScreen'];
         _triggerEvent = self.accPack.registerEvents(events);
+        console.log('what is trigger event here', _triggerEvent)
     };
-    
-    
+     
     var _toggleScreenSharingButton = function(show) {
         $(screenSharingControl)[show ? 'show' : 'hide']();
     };
@@ -243,8 +242,8 @@ var AccPackScreenSharing = (function() {
             } else {
                 addPublisherEventListeners();
                 self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
-
-                console.log('Connected');
+                _triggerEvent('startSharingScreen');
+                
             }
         });
 
@@ -322,7 +321,7 @@ var AccPackScreenSharing = (function() {
     };
 
     var end = function() {
-        console.log('ending screen sharing')
+        _triggerEvent('endSharingScreen');
     };
 
     ScreenSharing.prototype = {

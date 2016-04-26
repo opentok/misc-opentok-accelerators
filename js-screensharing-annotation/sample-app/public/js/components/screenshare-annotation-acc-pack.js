@@ -10,9 +10,17 @@ var AccPackAnnotation = (function() {
      */
     var Annotation = function(options) {
         self = this;
-        self.options = options || {};       
+        self.options = _.omit(options, 'accPack');
+        self.accPack = options.accPack;  
         self.elements = { canvasContainer : self.options.canvasContainer || '#wmsFeedWrap' };
+        _registerEvents();
         _setupUI();
+    };
+    
+    var _triggerEvent;
+    var _registerEvents = function(){
+        var events = ['startAnnotation', 'linkAnnotation', 'resizeCanvas', 'endAnnotation'];
+        _triggerEvent = self.accPack.registerEvents(events);
     };
     
     var _setupUI = function(){
@@ -201,10 +209,12 @@ var AccPackAnnotation = (function() {
             .then(function(externalWindow) {
                 _createToolbar(session, options, externalWindow);
                 toolbar.createPanel(externalWindow);
+                _triggerEvent('startAnnotation', externalWindow);
                 deferred.resolve(externalWindow);
             });
         } else {
             _createToolbar(session, options);
+            _triggerEvent('startAnnotation');
             deferred.resolve();
         }
 
@@ -249,6 +259,7 @@ var AccPackAnnotation = (function() {
 
         _listenForResize();
         resizeCanvas();
+        _triggerEvent('linkAnnotation');
 
     };
 
@@ -295,6 +306,7 @@ var AccPackAnnotation = (function() {
         });
 
         _refreshCanvas();
+        _triggerEvent('resizeCanvas');
     };
 
     /**
@@ -307,6 +319,7 @@ var AccPackAnnotation = (function() {
         if (!!self.elements.externalWindow) {
             self.elements.externalWindow.close();
         }
+        _triggerEvent('endAnnotation');
     };
 
     Annotation.prototype = {
@@ -338,17 +351,19 @@ var Communication = (function() {
      */
     var CommunicationComponent = function(options) {
         self = this;
-        
+
         var nonOptionProps = ['accPack', 'session', 'subscribers', 'streams'];
         self.options = _validateOptions(options, nonOptionProps);
         _.extend(self, _.pick(options, nonOptionProps));
-        
+
+        _registerEvents();
         _setEventListeners();
         _logAnalytics();
     };
 
+
     /** Private Methods */
-    
+
     /**
      * Validates options and returns a filtered hash to be added to the instance
      * @param {object} options
@@ -361,6 +376,21 @@ var Communication = (function() {
         }
 
         return _.omit(options, ignore);
+    };
+
+    var _triggerEvent;
+    var _registerEvents = function() {
+        
+        var events = [
+            'startCall',
+            'endCall',
+            'streamCreated',
+            'streamDestroyed',
+            'startViewingSharedScreen',
+            'endViewingSharedScreen'
+        ];
+        
+        _triggerEvent = self.accPack.registerEvents(events);
     };
 
     var _setEventListeners = function() {
@@ -463,13 +493,14 @@ var Communication = (function() {
         self.subscriber = subscriber;
 
         if (stream.videoType === 'screen' && !!self.options.annotation) {
+            _triggerEvent('startViewingSharedScreen');
             self.accPack.setupAnnotation()
-            .then(function() {
-                var $canvasContainer = $('#videoHolderBig')[0];
-                $($canvasContainer).width(1000);
-                $($canvasContainer).height(625);
-                self.accPack.linkAnnotation(subscriber, $canvasContainer);
-            });
+                .then(function() {
+                    var $canvasContainer = $('#videoHolderBig')[0];
+                    $($canvasContainer).width(1000);
+                    $($canvasContainer).height(625);
+                    self.accPack.linkAnnotation(subscriber, $canvasContainer);
+                });
 
         }
 
@@ -508,11 +539,13 @@ var Communication = (function() {
             _subscribeToStream(event.stream);
         }
 
-        var handler = self.onStreamCreated;
-        if (handler && typeof handler === 'function') {
-            console.log(' should handle a new thing here and there');
-            handler(event);
-        }
+        _triggerEvent('streamCreated', event);
+
+        // var handler = self.onStreamCreated;
+        // if (handler && typeof handler === 'function') {
+        //     console.log(' should handle a new thing here and there');
+        //     handler(event);
+        // }
     };
 
     var _handleStreamDestroyed = function(event) {
@@ -523,7 +556,7 @@ var Communication = (function() {
         var index = self.subscribers.indexOf(event.stream);
         self.subscribers.splice(index, 1);
 
-        var handler = self.onStreamDestroyed;
+        _triggerEvent('streamDestroyed');
         if (streamDestroyedType === 'camera') {
             // TODO Is this required???
             self.subscriber = null; //to review
@@ -617,11 +650,14 @@ var Communication = (function() {
                 _subscribeToStream(subscriber);
             });
 
+            _triggerEvent('startCall');
+
         },
         end: function() {
             self.options.inSession = false;
             _unpublish('camera');
             _unsubscribeStreams();
+            _triggerEvent('endCall');
         },
         enableLocalAudio: function(enabled) {
             self.publisher.publishAudio(enabled);
@@ -657,7 +693,6 @@ var AccPackScreenSharing = (function() {
      * @param [string] options.extentionPathFF
      * @param [string] options.screensharingParent 
      */
-
     var ScreenSharing = function(options) {
 
         self = this;
@@ -687,8 +722,20 @@ var AccPackScreenSharing = (function() {
         
         // Do UIy things
         _setupUI(self.screensharingParent);
+        _registerEvents()
         _addScreenSharingListeners();
         _initialized = true;
+    };
+    
+    var _triggerEvent;
+    var _registerEvents = function(){
+        var events = ['startSharingScreen', 'endSharingScreen'];
+        _triggerEvent = self.accPack.registerEvents(events);
+        console.log('what is trigger event here', _triggerEvent)
+    };
+     
+    var _toggleScreenSharingButton = function(show) {
+        $(screenSharingControl)[show ? 'show' : 'hide']();
     };
     
     var _addScreenSharingListeners = function() {
@@ -697,7 +744,6 @@ var AccPackScreenSharing = (function() {
             !!_active ? end() : start();
         });
 
-        
         
         /** Handlers for screensharing extension modal */
         $('#btn-install-plugin-chrome').on('click', function() {
@@ -724,6 +770,9 @@ var AccPackScreenSharing = (function() {
         $('#btn-cancel-plugin-ff').on('click', function() {
             $('#dialog-form-ff').toggle();
         });
+        
+        self.accPack.registerEventListener('startCall', _.partial(_toggleScreenSharingButton, true));
+        self.accPack.registerEventListener('endCall', _.partial(_toggleScreenSharingButton, false));
     };
 
     var _validateExtension = function(extensionID, extensionPathFF) {
@@ -873,8 +922,8 @@ var AccPackScreenSharing = (function() {
             } else {
                 addPublisherEventListeners();
                 self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
-
-                console.log('Connected');
+                _triggerEvent('startSharingScreen');
+                
             }
         });
 
@@ -930,7 +979,7 @@ var AccPackScreenSharing = (function() {
         $(self.screenSharingControls).append(screenSharingControl);
         $(parent).append(screenSharingView);
     };
-
+    
     var _endScreenSharing = function() {
         console.log('end screensharing');
         // self.widget.end();
@@ -952,7 +1001,7 @@ var AccPackScreenSharing = (function() {
     };
 
     var end = function() {
-        console.log('ending screen sharing')
+        _triggerEvent('endSharingScreen');
     };
 
     ScreenSharing.prototype = {

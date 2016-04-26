@@ -10,7 +10,8 @@ var AccPackAnnotation = (function() {
      */
     var Annotation = function(options) {
         self = this;
-        self.options = options || {};       
+        self.options = _.omit(options, 'accPack');
+        self.accPack = options.accPack;  
         self.elements = { canvasContainer : self.options.canvasContainer || '#wmsFeedWrap' };
         _registerEvents();
         _setupUI();
@@ -18,8 +19,8 @@ var AccPackAnnotation = (function() {
     
     var _triggerEvent;
     var _registerEvents = function(){
-        var events = ['startAnnotation', 'linkAnnotation', 'endAnnotation'];
-        _triggerEvent = self.accPack.registerEvents[events];
+        var events = ['startAnnotation', 'linkAnnotation', 'resizeCanvas', 'endAnnotation'];
+        _triggerEvent = self.accPack.registerEvents(events);
     };
     
     var _setupUI = function(){
@@ -208,10 +209,12 @@ var AccPackAnnotation = (function() {
             .then(function(externalWindow) {
                 _createToolbar(session, options, externalWindow);
                 toolbar.createPanel(externalWindow);
+                _triggerEvent('startAnnotation', externalWindow);
                 deferred.resolve(externalWindow);
             });
         } else {
             _createToolbar(session, options);
+            _triggerEvent('startAnnotation');
             deferred.resolve();
         }
 
@@ -256,6 +259,7 @@ var AccPackAnnotation = (function() {
 
         _listenForResize();
         resizeCanvas();
+        _triggerEvent('linkAnnotation');
 
     };
 
@@ -302,6 +306,7 @@ var AccPackAnnotation = (function() {
         });
 
         _refreshCanvas();
+        _triggerEvent('resizeCanvas');
     };
 
     /**
@@ -314,6 +319,7 @@ var AccPackAnnotation = (function() {
         if (!!self.elements.externalWindow) {
             self.elements.externalWindow.close();
         }
+        _triggerEvent('endAnnotation');
     };
 
     Annotation.prototype = {

@@ -15,11 +15,11 @@ var Communication = (function() {
      */
     var CommunicationComponent = function(options) {
         self = this;
-        
+
         var nonOptionProps = ['accPack', 'session', 'subscribers', 'streams'];
         self.options = _validateOptions(options, nonOptionProps);
         _.extend(self, _.pick(options, nonOptionProps));
-        
+
         _registerEvents();
         _setEventListeners();
         _logAnalytics();
@@ -27,7 +27,7 @@ var Communication = (function() {
 
 
     /** Private Methods */
-    
+
     /**
      * Validates options and returns a filtered hash to be added to the instance
      * @param {object} options
@@ -41,10 +41,19 @@ var Communication = (function() {
 
         return _.omit(options, ignore);
     };
-    
+
     var _triggerEvent;
-    var _registerEvents = function(){
-        var events = ['startCall', 'endCall'];
+    var _registerEvents = function() {
+        
+        var events = [
+            'startCall',
+            'endCall',
+            'streamCreated',
+            'streamDestroyed',
+            'startViewingSharedScreen',
+            'endViewingSharedScreen'
+        ];
+        
         _triggerEvent = self.accPack.registerEvents(events);
     };
 
@@ -148,13 +157,14 @@ var Communication = (function() {
         self.subscriber = subscriber;
 
         if (stream.videoType === 'screen' && !!self.options.annotation) {
+            _triggerEvent('startViewingSharedScreen');
             self.accPack.setupAnnotation()
-            .then(function() {
-                var $canvasContainer = $('#videoHolderBig')[0];
-                $($canvasContainer).width(1000);
-                $($canvasContainer).height(625);
-                self.accPack.linkAnnotation(subscriber, $canvasContainer);
-            });
+                .then(function() {
+                    var $canvasContainer = $('#videoHolderBig')[0];
+                    $($canvasContainer).width(1000);
+                    $($canvasContainer).height(625);
+                    self.accPack.linkAnnotation(subscriber, $canvasContainer);
+                });
 
         }
 
@@ -193,11 +203,13 @@ var Communication = (function() {
             _subscribeToStream(event.stream);
         }
 
-        var handler = self.onStreamCreated;
-        if (handler && typeof handler === 'function') {
-            console.log(' should handle a new thing here and there');
-            handler(event);
-        }
+        _triggerEvent('streamCreated', event);
+
+        // var handler = self.onStreamCreated;
+        // if (handler && typeof handler === 'function') {
+        //     console.log(' should handle a new thing here and there');
+        //     handler(event);
+        // }
     };
 
     var _handleStreamDestroyed = function(event) {
@@ -208,7 +220,7 @@ var Communication = (function() {
         var index = self.subscribers.indexOf(event.stream);
         self.subscribers.splice(index, 1);
 
-        var handler = self.onStreamDestroyed;
+        _triggerEvent('streamDestroyed');
         if (streamDestroyedType === 'camera') {
             // TODO Is this required???
             self.subscriber = null; //to review
@@ -302,11 +314,14 @@ var Communication = (function() {
                 _subscribeToStream(subscriber);
             });
 
+            _triggerEvent('startCall');
+
         },
         end: function() {
             self.options.inSession = false;
             _unpublish('camera');
             _unsubscribeStreams();
+            _triggerEvent('endCall');
         },
         enableLocalAudio: function(enabled) {
             self.publisher.publishAudio(enabled);

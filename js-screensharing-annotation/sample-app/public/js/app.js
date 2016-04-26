@@ -97,6 +97,8 @@ var app = (function() {
         }
 
     };
+    
+    var _
 
     // Toggle local or remote audio/video
     var _toggleMediaProperties = function(type) {
@@ -113,7 +115,28 @@ var app = (function() {
 
 
         // Call events
-        _communication.onStreamCreated = function(event) {
+        
+        _accPack.registerEventListener('streamCreated', function(event) {
+
+            if (event.stream.videoType === 'screen') {
+                console.log('do i do things when things happen?');
+                /** 
+                 * We need to figure out how to handle sizing the video container at this point
+                 * since it needs to maintain the same aspect ratio as the video/canvas being shared.
+                 * Do we enforce a 10/6 ratio to begin with, or do we just resize the main container
+                 * and let the child elements resize as needed?  The latter seems optimal. 
+                 */
+
+                return;
+            }
+           
+
+            // Not doing anything with the event
+            _communicationProperties.remoteParticipant = true;
+            _communicationProperties.callActive && _swapVideoPositions('joined');
+
+        } )
+        _accPack.registerEventListener('streamDestroyed', function(event) {
 
             if (event.stream.videoType === 'screen') {
                 console.log('do i do things when things happen?');
@@ -131,20 +154,8 @@ var app = (function() {
             _communicationProperties.remoteParticipant = true;
             _communicationProperties.callActive && _swapVideoPositions('joined');
 
-        };
+        });
 
-        _communication.onStreamDestroyed = function(event) {
-
-            if (event.stream.videoType === 'screen') {
-                // communication component should handle everything related to SS + Annotation (?)
-                return;
-            }
-
-            // Not doing anything with the event
-            _communicationProperties.remoteParticipant = false;
-            _communicationProperties.callActive && _swapVideoPositions('left');
-
-        };
 
         // Start or end call
         _communicationElements.startEndCall.onclick = _connectCall;
@@ -153,9 +164,7 @@ var app = (function() {
             console.log('a thing happened');
         };
 
-        var _viewingSharedScreen = function(viewing) {
-          
-            
+        var _viewSharedScreen = function(viewing) {
           
             var container = _communicationElements.mainContainer;
             var width = container.clientWidth;
@@ -166,16 +175,12 @@ var app = (function() {
               container.style.height = [height, 'px'].join('');
             }
             
-            
-            
-         
-         
         };
 
         _accPack.registerEventListener('startSharingScreen', _.partial(_show, _communicationElements.sharingPoster));
         _accPack.registerEventListener('endSharingScreen', _.partial(_hide, _communicationElements.sharingPoster));
-        _accPack.registerEventListener('startViewingSharedScreen', _.partial(_viewingSharedScreen, true));
-        _accPack.registerEventListener('endViewingSharedScreen', _.partial(_viewingSharedScreen, false));
+        _accPack.registerEventListener('startViewingSharedScreen', _.partial(_viewSharedScreen, true));
+        _accPack.registerEventListener('endViewingSharedScreen', _.partial(_viewSharedScreen, false));
 
         // _communicationElements.shareScreen.onclick = _shareScreen;
 
