@@ -20,9 +20,11 @@ var Communication = (function() {
         self.options = _validateOptions(options, nonOptionProps);
         _.extend(self, _.pick(options, nonOptionProps));
         
+        _registerEvents();
         _setEventListeners();
         _logAnalytics();
     };
+
 
     /** Private Methods */
     
@@ -38,6 +40,12 @@ var Communication = (function() {
         }
 
         return _.omit(options, ignore);
+    };
+    
+    var _triggerEvent;
+    var _registerEvents = function(){
+        var events = ['startCall', 'endCall'];
+        _triggerEvent = self.accPack.registerEvents(events);
     };
 
     var _setEventListeners = function() {

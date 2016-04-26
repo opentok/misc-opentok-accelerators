@@ -3,11 +3,13 @@ var AcceleratorPack = (function() {
     var self;
     var _session;
     var _isConnected = false;
-    var _active;
+    var _active = false;
+
     var _communication;
     var _screensharing;
     var _annotation;
     var _components = {};
+
     var _commonOptions = {
         subscribers: [],
         streams: [],
@@ -31,7 +33,7 @@ var AcceleratorPack = (function() {
             }
         }
     };
-    
+
     /**
      * @constructor
      * Provides a common layer for logic and API for accelerator pack components
@@ -59,7 +61,7 @@ var AcceleratorPack = (function() {
      * Initialize any of the accelerator pack components included in the application.
      */
     var _initAccPackComponents = _.once(function() {
-        
+
         if (!!AccPackScreenSharing) {
 
             var screensharingProps = [
@@ -86,11 +88,65 @@ var AcceleratorPack = (function() {
             _annotation = new AccPackAnnotation(self.options);
             _components.annotation = _annotation;
         }
-        
+
         _componentsInitialized = true;
     });
+
+    /** Eventing */ 
+    var _events = {}; // {eventName: [callbacks functions . . .]}
+    var _isRegisteredEvent = _.partial(_.has, _events);
+    /** 
+     * Register events that can be listened to be other components/modules
+     * @param {array | string} events - A list of event names. A single event may
+     * also be passed as a string.
+     * @returns {function} See _triggerEvent
+     */
+    var registerEvents = function(events) {
+        
+        events =  Array.isArray(events) ? events : [events];
+        
+        _.each(events, function(event) {
+            if ( _isRegisteredEvent(event ) ) {
+                console.log(event + ' has already been registered as an event');
+            } else {
+                _events[event] = [];
+            }      
+        });
+        
+        return _triggerEvent;
+    };
     
-    
+    /** 
+     * Register an event listener with the AP layer
+     * @param {string} event - The name of the event
+     * @param {function} callback - The function invoked upon the event
+     */
+    var registerEventListener = function(event, callback) {
+
+        if (!_isRegisteredEvent(event)) {
+            throw new Error('Event must be one of the following ' + Object.keys(_events));
+        }
+
+        if (typeof callback !== 'function') {
+            throw new Error('Provided callback is not a function');
+        }
+
+        _eventListeners[event].push(callback);
+    };
+
+    /** 
+     * Fire all registered callbacks for a given event.
+     * @param {string} event - The event name
+     * @param {*} data - Data to be passed to the callback functions
+     */
+    var _triggerEvent = function(event, data) {
+        if (_.has(_eventListeners, event)) {
+            _.each(_eventListeners[event], function(fn) {
+                fn(data);
+            });
+        }
+    };
+
     /** 
      * @param [string] type - A subset of common options
      */
@@ -121,7 +177,7 @@ var AcceleratorPack = (function() {
                 throw new Error('Accelerator Pack requires a session ID, apiKey, and token')
             }
         });
-        
+
         return options;
     };
 
@@ -163,9 +219,11 @@ var AcceleratorPack = (function() {
                     var annotationWindow = self.comms_elements.annotationWindow;
                     var annotationElements = annotationWindow.createContainerElements();
                     createPublisher(annotationElements.publisher)
-                        .then(function() {
-                            outerDeferred.resolve(annotationElements.annotation);
-                        });
+                    .then(function() {
+                        outerDeferred.resolve(annotationElements.annotation);
+                    });
+                    
+                    _triggerEvent('startAnnotation');
                 });
         } else {
 
@@ -220,6 +278,8 @@ var AcceleratorPack = (function() {
     };
 
 
+
+
     /**
      * Returns the current session
      */
@@ -234,7 +294,7 @@ var AcceleratorPack = (function() {
      */
     var active = function(active) {
 
-        active ? _.once(_initAccPackComponents)() : _hideAccPackComponents();
+
 
     }
 
@@ -277,16 +337,19 @@ var AcceleratorPack = (function() {
             _initAnnotation(options);
         }
 
-
         _screensharing.start();
+        _triggerEvent('startScreenSharing');
     };
 
     var endScreenSharing = function() {
         _screensharing.end();
+        _triggerEvent('endScreenSharing');
     };
 
     AcceleratorPackLayer.prototype = {
         constructor: AcceleratorPack,
+        registerEvents: registerEvents,
+        registerEventListener: registerEventListener,
         active: active,
         getSession: getSession,
         getOptions: getOptions,

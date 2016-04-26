@@ -43,8 +43,20 @@ var AccPackScreenSharing = (function() {
         
         // Do UIy things
         _setupUI(self.screensharingParent);
+        _registerEvents()
         _addScreenSharingListeners();
         _initialized = true;
+    };
+    
+    var _triggerEvent;
+    var _registerEvents = function(){
+        var events = ['startScreenSharing', 'endScreenSharing'];
+        _triggerEvent = self.accPack.registerEvents(events);
+    };
+    
+    
+    var _toggleScreenSharingButton = function(show) {
+        $(screenSharingControl)[show ? 'show' : 'hide']();
     };
     
     var _addScreenSharingListeners = function() {
@@ -53,7 +65,6 @@ var AccPackScreenSharing = (function() {
             !!_active ? end() : start();
         });
 
-        
         
         /** Handlers for screensharing extension modal */
         $('#btn-install-plugin-chrome').on('click', function() {
@@ -80,6 +91,9 @@ var AccPackScreenSharing = (function() {
         $('#btn-cancel-plugin-ff').on('click', function() {
             $('#dialog-form-ff').toggle();
         });
+        
+        self.accPack.registerEventListener('startCall', _.partial(_toggleScreenSharingButton, true));
+        self.accPack.registerEventListener('endCall', _.partial(_toggleScreenSharingButton, false));
     };
 
     var _validateExtension = function(extensionID, extensionPathFF) {
@@ -286,7 +300,7 @@ var AccPackScreenSharing = (function() {
         $(self.screenSharingControls).append(screenSharingControl);
         $(parent).append(screenSharingView);
     };
-
+    
     var _endScreenSharing = function() {
         console.log('end screensharing');
         // self.widget.end();

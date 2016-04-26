@@ -12,7 +12,14 @@ var AccPackAnnotation = (function() {
         self = this;
         self.options = options || {};       
         self.elements = { canvasContainer : self.options.canvasContainer || '#wmsFeedWrap' };
+        _registerEvents();
         _setupUI();
+    };
+    
+    var _triggerEvent;
+    var _registerEvents = function(){
+        var events = ['startAnnotation', 'linkAnnotation', 'endAnnotation'];
+        _triggerEvent = self.accPack.registerEvents[events];
     };
     
     var _setupUI = function(){
