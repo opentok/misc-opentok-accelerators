@@ -7,10 +7,10 @@ var TextChatAccPack = (function () {
   var newMessages, self, limitCharacterMessage;
 
   var logEventData = {
-  //vars for the analytics logs. Internal use
+    //vars for the analytics logs. Internal use
     clientVersion: 'js-vsol-0.9',
     source: 'text_chat_acc_pack',
-    actionInitialize: 'initialize', 
+    actionInitialize: 'initialize',
     actionSendMessage: 'send_message',
     actionReceiveMessage: 'receive_message',
     actionMaximize: 'maximize',
@@ -89,7 +89,7 @@ var TextChatAccPack = (function () {
     document.getElementById('sendMessage').onclick = function(){
       _sendTxtMessage(composer.value);
     };
-    //add INITIALIZE success log event 
+    //add INITIALIZE success log event
     self._addLogEvent(logEventData.actionInitialize, logEventData.variationSuccess);
   };
 
@@ -121,9 +121,9 @@ var TextChatAccPack = (function () {
       sentOn: Date.now()
     };
 
-    //add SEND_MESSAGE attempt log event 
+    //add SEND_MESSAGE attempt log event
     self._addLogEvent(logEventData.actionSendMessage, logEventData.variationAttempt);
-  
+
     console.log(acceleratorPack.getSession());
     if (recipient === undefined) {
       acceleratorPack.getSession().signal({
@@ -133,7 +133,7 @@ var TextChatAccPack = (function () {
         function (error) {
           if (error) {
             error.message = "Error sending a message. ";
-            //add SEND_MESSAGE attempt log event 
+            //add SEND_MESSAGE attempt log event
             self._addLogEvent(logEventData.actionSendMessage, logEventData.variationFailure);
             if (error.code === 413) {
               var errorStr = error.message + "The chat message is over size limit."
@@ -148,8 +148,8 @@ var TextChatAccPack = (function () {
             deferred.reject(error);
           } else {
             console.log('Message sent');
-            //add SEND_MESSAGE attempt log event 
-            self._addLogEvent(logEventData.actionSendMessage, logEventData.variationSuccess);   
+            //add SEND_MESSAGE attempt log event
+            self._addLogEvent(logEventData.actionSendMessage, logEventData.variationSuccess);
             deferred.resolve(messageData);
           }
         }
@@ -197,7 +197,7 @@ var TextChatAccPack = (function () {
       _renderChatMessage(signal.data.sender.id, signal.data.sender.alias, signal.data.text, signal.data.sentOn);
     }
     lastMessage = signal.data;
-     self._addLogEvent(logEventData.actionReceiveMessage, logEventData.variationSuccess);
+    self._addLogEvent(logEventData.actionReceiveMessage, logEventData.variationSuccess);
   };
   var _handleMessageError = function (error) {
     console.log(error.code, error.message);
@@ -260,12 +260,12 @@ var TextChatAccPack = (function () {
   var _updateCharCounter = function () {
     $(imCharacterCount).text(composer.value.length);
   };
-  
+
   var _log = function (action, variation) {
     var self = this;
     var data = {
-        action: action,
-        variation: variation
+      action: action,
+      variation: variation
     };
     self._otkanalytics.logEvent(data);
   };
@@ -273,10 +273,14 @@ var TextChatAccPack = (function () {
   TextChatAccPack.prototype = {
     constructor: TextChatAccPack,
 
+    onMaximaze: function(){},
+    onMinimize: function(){},
+    onError: function(){},
+
     initTextChat: function(parent_holder){
-      //add INITIALIZE attempt log event 
+      //add INITIALIZE attempt log event
       _log.call(this, logEventData.actionInitialize, logEventData.variationAttempt);
-  
+
       enableTextChat = true;
       displayTextChat = true;
       _setupUI.call(this,parent_holder);
@@ -284,27 +288,28 @@ var TextChatAccPack = (function () {
     },
 
     showTextChat: function(){
-      //add MAXIMIZE attempt log event 
+      //add MAXIMIZE attempt log event
       _log.call(this, logEventData.actionMaximize, logEventData.variationAttempt);
-  
+
       document.getElementById(textChatDiv).classList.remove('hidden');
       this.setDisplayTextChat(true);
 
-      //add MAXIMIZE success log event 
+      //add MAXIMIZE success log event
       _log.call(this, logEventData.actionMaximize, logEventData.variationSuccess);
-  
+      this.onMaximaze();
     },
 
     hideTextChat: function() {
-      //add MINIMIZE attempt log event 
+      //add MINIMIZE attempt log event
       _log.call(this, logEventData.actionMinimize, logEventData.variationAttempt);
-  
+
       document.getElementById(textChatDiv).classList.add('hidden');
       this.setDisplayTextChat(false);
 
-      //add MINIMIZE success log event 
+      //add MINIMIZE success log event
       _log.call(this, logEventData.actionMinimize, logEventData.variationSuccess);
-  
+
+      this.onMinimize();
     },
 
     getEnableTextChat: function(){
@@ -322,6 +327,7 @@ var TextChatAccPack = (function () {
     },
     _handleMessageError: function (data) {
       _handleMessageError.call(this, data);
+      this.onError();
     },
     _addLogEvent: function(action, variation) {
       _log.call(this, action, variation);
