@@ -9,7 +9,7 @@
 #import <OpenTok/OpenTok.h>
 
 #import "TextChatComponent.h"
-#import "AcceleratorPackSession.h"
+#import "OTAcceleratorSession.h"
 
 
 static NSUInteger DefaultTextMessageLength = 120;
@@ -31,7 +31,7 @@ NSString* const KLogVariationSuccess = @"Success";
 NSString* const KLogVariationFailure = @"Failure";
 
 @interface TextChatComponent() <OTSessionDelegate>
-@property (nonatomic) AcceleratorPackSession *session;
+@property (nonatomic) OTAcceleratorSession *session;
 
 @property (nonatomic) NSMutableArray<TextChat *> *mutableMessages;
 
@@ -68,7 +68,7 @@ static NSString* const kTextChatType = @"text-chat";
 - (instancetype)init {
     if (self = [super init]) {
         _mutableMessages = [[NSMutableArray alloc] init];
-        _session = [AcceleratorPackSession getAcceleratorPackSession];
+        _session = [OTAcceleratorSession getAcceleratorPackSession];
         _maximumTextMessageLength = MaximumTextMessageLength;
     }
     return self;
@@ -76,12 +76,12 @@ static NSString* const kTextChatType = @"text-chat";
 
 - (void)connect {
     
-    [AcceleratorPackSession registerWithAccePack:self];
+    [OTAcceleratorSession registerWithAccePack:self];
 }
 
 - (void)disconnect {
     
-    [AcceleratorPackSession deregisterWithAccePack:self];
+    [OTAcceleratorSession deregisterWithAccePack:self];
 }
 
 - (void)sendMessage:(NSString *)message {
