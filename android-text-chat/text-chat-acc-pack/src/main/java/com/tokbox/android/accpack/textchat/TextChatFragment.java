@@ -136,15 +136,21 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     * @param session The OpenTok session instance.
     * @param apiKey  The API Key.
     */
-    public TextChatFragment(AccPackSession session, String apiKey) {
-        //Init the sender information for the output messages
-        this.senderId = UUID.randomUUID().toString(); //by default
-        this.senderAlias = DEFAULT_SENDER_ALIAS; // by default
+    public TextChatFragment(){
 
-        mSession = session;
-        mSession.setSignalListener(this);
-        mSession.setSessionListener(this);
-        mApiKey = apiKey;
+    }
+    public static TextChatFragment newInstance(AccPackSession session, String apiKey) {
+        TextChatFragment fragment = new TextChatFragment();
+
+        fragment.senderId = UUID.randomUUID().toString(); //by default
+        fragment.senderAlias = DEFAULT_SENDER_ALIAS; // by default
+
+        fragment.mSession = session;
+        fragment.mSession.setSignalListener(fragment);
+        fragment.mSession.setSessionListener(fragment);
+        fragment.mApiKey = apiKey;
+
+        return fragment;
     }
 
     @Override

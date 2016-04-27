@@ -14,8 +14,8 @@ import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
 import com.tokbox.android.accpack.AccPackSession;
 import com.tokbox.android.textchatsample.config.OpenTokConfig;
-import com.tokbox.android.textchatsample.logging.OTKAnalytics;
-import com.tokbox.android.textchatsample.logging.OTKAnalyticsData;
+import com.tokbox.android.accpack.textchat.logging.OTKAnalyticsData;
+import com.tokbox.android.accpack.textchat.logging.OTKAnalytics;
 
 import java.util.ArrayList;
 
@@ -132,10 +132,9 @@ public class OneToOneCommunication implements
      * Start the communication.
      */
     public void start() {
-        //add START_COMM attempt log event
-        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-
         if (mSession != null && isInitialized) {
+            //add START_COMM attempt log event
+            addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             if (mPublisher == null) {
                 mPublisher = new Publisher(mContext, "myPublisher");
                 mPublisher.setPublisherListener(this);
@@ -153,14 +152,16 @@ public class OneToOneCommunication implements
      * End the communication.
      */
     public void end() {
-        //add END_COMM attempt log event
-        addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        if ( mSession != null ){
+            //add END_COMM attempt log event
+            addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
 
-        if (mPublisher != null) {
+        }
+        if ( mPublisher != null ) {
             mSession.unpublish(mPublisher);
             mPublisher = null;
         }
-        if (mSubscriber != null) {
+        if ( mSubscriber != null ) {
             mSession.unsubscribe(mSubscriber);
             mSubscriber = null;
         }
@@ -172,15 +173,15 @@ public class OneToOneCommunication implements
      * Destroy the communication.
      */
     public void destroy() {
-        if (mPublisher != null) {
+        if ( mPublisher != null ) {
             mSession.unpublish(mPublisher);
             mPublisher = null;
         }
-        if (mSubscriber != null) {
+        if ( mSubscriber != null ) {
             mSession.unsubscribe(mSubscriber);
             mSubscriber = null;
         }
-        if (mSession != null) {
+        if ( mSession != null ) {
             mSession.disconnect();
         }
     }
@@ -193,7 +194,7 @@ public class OneToOneCommunication implements
      *              <code>false</code>).
      */
     public void enableLocalMedia(MediaType type, boolean value) {
-        if (mPublisher != null) {
+        if ( mPublisher != null ) {
             switch (type) {
                 case AUDIO:
                     mPublisher.setPublishAudio(value);
@@ -221,7 +222,7 @@ public class OneToOneCommunication implements
      *              <code>false</code>).
      */
     public void enableRemoteMedia(MediaType type, boolean value) {
-        if (mSubscriber != null) {
+        if ( mSubscriber != null ) {
             switch (type) {
                 case AUDIO:
                     mSubscriber.setSubscribeToAudio(value);
@@ -242,8 +243,8 @@ public class OneToOneCommunication implements
      * Cycles between cameras, if there are multiple cameras on the device.
      */
     public void swapCamera() {
-        if (mPublisher != null) {
-            mPublisher.swapCamera();
+        if ( mPublisher != null ) {
+            mPublisher.cycleCamera();
         }
     }
 
@@ -311,10 +312,10 @@ public class OneToOneCommunication implements
     }
 
     public void reloadViews() {
-        if (mPublisher != null) {
+        if ( mPublisher != null ) {
             attachPublisherView();
         }
-        if (isRemote && mSubscriber != null) {
+        if ( isRemote && mSubscriber != null ) {
             attachSubscriberView(mSubscriber);
         }
     }
@@ -327,16 +328,16 @@ public class OneToOneCommunication implements
     }
 
     private void unsubscribeFromStream(Stream stream) {
-        if (mStreams.size() > 0) {
+        if ( mStreams.size() > 0 ) {
             mStreams.remove(stream);
             isRemote = false;
-            if (mSubscriber != null && mSubscriber.getStream().equals(stream)) {
+            onRemoteViewReady(null);
+            if ( mSubscriber != null && mSubscriber.getStream().equals(stream) ) {
                 mSubscriber = null;
-                if (!mStreams.isEmpty()) {
+                if ( !mStreams.isEmpty() ) {
                     subscribeToStream(mStreams.get(0));
                 }
             }
-            onRemoteViewReady(null);
         }
     }
 
@@ -354,7 +355,7 @@ public class OneToOneCommunication implements
     }
 
     private void setRemoteAudioOnly(boolean audioOnly) {
-        if (!audioOnly) {
+        if ( !audioOnly ) {
             mSubscriber.getView().setVisibility(View.VISIBLE);
             onAudioOnly(false);
         } else {
@@ -377,15 +378,15 @@ public class OneToOneCommunication implements
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         isStarted = true;
 
-        if (mStreams.size() > 0) {
-            for (Stream stream1 : mStreams) {
+        if ( mStreams.size() > 0 ) {
+            for ( Stream stream1 : mStreams ) {
                 subscribeToStream(stream1);
             }
         }
 
-        if (OpenTokConfig.SUBSCRIBE_TO_SELF) {
+        if ( OpenTokConfig.SUBSCRIBE_TO_SELF ) {
             mStreams.add(stream);
-            if (mSubscriber == null) {
+            if ( mSubscriber == null ) {
                 subscribeToStream(stream);
             }
         }
@@ -395,7 +396,7 @@ public class OneToOneCommunication implements
 
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
-        if (OpenTokConfig.SUBSCRIBE_TO_SELF && mSubscriber != null) {
+        if ( OpenTokConfig.SUBSCRIBE_TO_SELF && mSubscriber != null ) {
             unsubscribeFromStream(stream);
         }
         //add END_COMM success log event
@@ -426,7 +427,7 @@ public class OneToOneCommunication implements
 
         onInitialized();
 
-        if (startPublish) {
+        if ( startPublish ) {
             start();
         }
     }
@@ -441,9 +442,9 @@ public class OneToOneCommunication implements
     @Override
     public void onStreamReceived(Session session, Stream stream) {
         Log.i(LOGTAG, "New remote is connected to the session");
-        if (!OpenTokConfig.SUBSCRIBE_TO_SELF) {
+        if ( !OpenTokConfig.SUBSCRIBE_TO_SELF ) {
             mStreams.add(stream);
-            if (mSubscriber == null && isStarted) {
+            if ( mSubscriber == null && isStarted ) {
                 subscribeToStream(stream);
             }
         }
@@ -452,8 +453,7 @@ public class OneToOneCommunication implements
     @Override
     public void onStreamDropped(Session session, Stream stream) {
         Log.i(LOGTAG, "Remote left the communication");
-        mStreams.remove(stream);
-        if (!OpenTokConfig.SUBSCRIBE_TO_SELF) {
+        if ( !OpenTokConfig.SUBSCRIBE_TO_SELF ) {
             unsubscribeFromStream(stream);
         }
     }
@@ -471,7 +471,7 @@ public class OneToOneCommunication implements
     @Override
     public void onConnected(SubscriberKit subscriberKit) {
         Log.i(LOGTAG, "Subscriber connected.");
-        if (!subscriberKit.getStream().hasVideo()) {
+        if ( !subscriberKit.getStream().hasVideo() ) {
             attachSubscriberView(mSubscriber);
             setRemoteAudioOnly(true);
         }
@@ -501,7 +501,7 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG,
                 "Video disabled:" + reason);
         setRemoteAudioOnly(true); //enable audio only status
-        if (reason.equals("quality")) {  //network quality alert
+        if ( reason.equals("quality") ) {  //network quality alert
             onQualityWarning(false);
         }
     }
@@ -535,7 +535,7 @@ public class OneToOneCommunication implements
     }
 
     protected void onInitialized() {
-        if (this.mListener != null) {
+        if ( this.mListener != null ) {
             this.mListener.onInitialized();
         }
 
@@ -544,31 +544,31 @@ public class OneToOneCommunication implements
     }
 
     protected void onError(String error) {
-        if (this.mListener != null) {
+        if ( this.mListener != null ) {
             this.mListener.onError(error);
         }
     }
 
     protected void onQualityWarning(boolean warning) {
-        if (this.mListener != null) {
+        if ( this.mListener != null ) {
             this.mListener.onQualityWarning(warning);
         }
     }
 
     protected void onAudioOnly(boolean enabled) {
-        if (this.mListener != null) {
+        if ( this.mListener != null ) {
             this.mListener.onAudioOnly(enabled);
         }
     }
 
     protected void onPreviewReady(View preview) {
-        if (this.mListener != null) {
+        if ( this.mListener != null ) {
             this.mListener.onPreviewReady(preview);
         }
     }
 
     protected void onRemoteViewReady(View remoteView) {
-        if (this.mListener != null) {
+        if ( this.mListener != null ) {
             this.mListener.onRemoteViewReady(remoteView);
         }
     }

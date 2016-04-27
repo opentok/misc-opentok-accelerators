@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private FrameLayout mTextChatContainer;
     private RelativeLayout mCameraFragmentContainer;
     private RelativeLayout mActionBarContainer;
-    private RelativeLayout.LayoutParams mTextChatLayoutParams;
 
     private TextView mAlert;
     private ImageView mAudioOnlyImage;
@@ -202,11 +201,9 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             mComm.end();
             cleanViewsAndControls();
         } else {
-            if (mComm.isInitialized()) {
-                mComm.start();
-                if (mPreviewFragment != null) {
-                    mPreviewFragment.setEnabled(true);
-                }
+            mComm.start();
+            if (mPreviewFragment != null) {
+                mPreviewFragment.setEnabled(true);
             }
         }
     }
@@ -252,11 +249,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onInitialized() {
         mProgressDialog.dismiss();
-
-        //Init TextChat values
-        mTextChatFragment.setMaxTextLength(1050);
-        mTextChatFragment.setSenderAlias("user1");
-        mTextChatFragment.setListener(this);
+        if ( mTextChatFragment != null ) {
+            //Init TextChat values
+            mTextChatFragment.setMaxTextLength(1050);
+            mTextChatFragment.setSenderAlias("Tokboxer");
+            mTextChatFragment.setListener(this);
+        }
     }
 
     //OneToOneCommunication callbacks
@@ -312,7 +310,14 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 layoutParamsPreview.height = (int) getResources().getDimension(R.dimen.preview_height);
                 layoutParamsPreview.rightMargin = (int) getResources().getDimension(R.dimen.preview_rightMargin);
                 layoutParamsPreview.bottomMargin = (int) getResources().getDimension(R.dimen.preview_bottomMargin);
-                preview.setBackgroundResource(R.drawable.preview);
+
+                if (mComm.getLocalVideo()) {
+                    preview.setBackgroundResource(R.drawable.preview);
+                }
+                else {
+                    //local video is disabled
+                    onDisableLocalVideo(false);
+                }
             } else {
                 preview.setBackground(null);
             }
@@ -402,7 +407,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     private void initTextChatFragment(){
-        mTextChatFragment = new TextChatFragment(mComm.getSession(), OpenTokConfig.API_KEY);
+        mTextChatFragment = TextChatFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
