@@ -307,12 +307,12 @@ var AcceleratorPack = (function() {
      * @returns {Promise} < Resolve: [Object] External annotation window >    
      */
     var setupAnnotationView = function(subscriber){
-        _annotation.start(_session)
+        _annotation.start(_session, {})
         .then(function(){
-            var $canvasContainer = $('#videoHolderSharedScreen');
-            $($canvasContainer).width(1000);
-            $($canvasContainer).height(625);
+            var mainContainer = document.getElementById('main');
+            mainContainer.classList.add('aspect-ratio');            
             _annotation.linkCanvas(subscriber, document.getElementById('videoHolderSharedScreen'));
+            _annotation.resizeCanvas();
         });
     };
 
@@ -324,6 +324,8 @@ var AcceleratorPack = (function() {
      * 
      */
     var linkAnnotation = function(pubSub, annotationContainer, externalWindow) {
+        var called = linkAnnotation.caller;
+        console.log('who called link canvas', called);
         _annotation.linkCanvas(pubSub, annotationContainer, externalWindow);
     };
 

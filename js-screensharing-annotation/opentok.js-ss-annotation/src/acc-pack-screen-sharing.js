@@ -246,8 +246,6 @@ var AccPackScreenSharing = (function() {
             }
         });
 
-        !!annotationContainer && self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
-
         var addPublisherEventListeners = function() {
 
             self.publisher.on('streamCreated', function(event) {

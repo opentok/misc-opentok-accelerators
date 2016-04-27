@@ -12,7 +12,7 @@ var AccPackAnnotation = (function() {
         self = this;
         self.options = _.omit(options, 'accPack');
         self.accPack = options.accPack;  
-        self.elements = { canvasContainer : self.options.canvasContainer || '#wmsFeedWrap' };
+        self.elements = { canvasContainer : self.options.canvasContainer || window };
         _registerEvents();
         _setupUI();
     };
@@ -120,8 +120,6 @@ var AccPackAnnotation = (function() {
             return w.document.getElementById(toolbarId);
         };
         
-        console.log('external window?', externalWindow);
-
         toolbar = new OTSolution.Annotations.Toolbar({
             session: session,
             container: container(),
@@ -202,9 +200,6 @@ var AccPackAnnotation = (function() {
      */
     var start = function(session, options) {
         
-        var caller = start.caller;
-        console.log('whoc called me?', caller);
-
         var deferred = $.Deferred();
 
         if (_.property('screensharing')(options)) {
@@ -231,8 +226,6 @@ var AccPackAnnotation = (function() {
      */
     var linkCanvas = function(pubSub, container, externalWindow) {
         
-        console.log('link Canvas things', arguments);
-
         /**
          * jQuery only allows listening for a resize event on the window or a
          * jQuery resizable element, like #wmsFeedWrap.  windowRefernce is a

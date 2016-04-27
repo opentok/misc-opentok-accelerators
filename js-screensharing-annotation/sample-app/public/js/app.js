@@ -129,8 +129,7 @@ var app = (function() {
 
                 return;
             }
-           
-
+            
             // Not doing anything with the event
             _communicationProperties.remoteParticipant = true;
             _communicationProperties.callActive && _swapVideoPositions('joined');
@@ -169,15 +168,15 @@ var app = (function() {
             _hide(_communicationElements.localVideo, _communicationElements.remoteVideo);
             _show(_communicationElements.sharedScreen);
             
-            var aspectRatio = (10/6);
-            var container = _communicationElements.mainContainer;
-            var width = container.clientWidth;
-            var height = (aspectRatio * width) | 0;
+            // var aspectRatio = (10/6);
+            // var container = _communicationElements.mainContainer;
+            // var width = container.clientWidth;
+            // var height = (aspectRatio * width) | 0;
             
-            if (viewing) {
-              container.style.minHeight = 0;
-              container.style.height = [height, 'px'].join('');
-            }
+            // if (viewing) {
+            //   container.style.minHeight = 0;
+            //   container.style.height = [height, 'px'].join('');
+            // }
             
         };
 
