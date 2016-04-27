@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'AcceleratorSession_Example', :exclusive => true do
+  pod 'AcceleratorSession', :path => '../'
+end
+
+target 'AcceleratorSession_Tests', :exclusive => true do
+  pod 'AcceleratorSession', :path => '../'
+
+  pod 'Kiwi'
+end

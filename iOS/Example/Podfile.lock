@@ -1,0 +1,20 @@
+PODS:
+  - AcceleratorSession (0.1.0):
+    - OpenTok
+  - Kiwi (2.4.0)
+  - OpenTok (2.8.0)
+
+DEPENDENCIES:
+  - AcceleratorSession (from `../`)
+  - Kiwi
+
+EXTERNAL SOURCES:
+  AcceleratorSession:
+    :path: ../
+
+SPEC CHECKSUMS:
+  AcceleratorSession: f8a355c07bb5bd7ff707bf766b890a3254a96b01
+  Kiwi: f49c9d54b28917df5928fe44968a39ed198cb8a8
+  OpenTok: 219b4a56d735204586413f6b4a6c6c13498f6d39
+
+COCOAPODS: 0.39.0

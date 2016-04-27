@@ -1,6 +1,0 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) ${PODS_ROOT}/OpenTok "${PODS_ROOT}/OpenTok" "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AcceleratorSession" "${PODS_ROOT}/Headers/Public/Expecta" "${PODS_ROOT}/Headers/Public/OpenTok" "${PODS_ROOT}/Headers/Public/Specta"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AcceleratorSession" -isystem "${PODS_ROOT}/Headers/Public/Expecta" -isystem "${PODS_ROOT}/Headers/Public/OpenTok" -isystem "${PODS_ROOT}/Headers/Public/Specta"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"AcceleratorSession" -l"Expecta" -l"Specta" -l"c++" -framework "AVFoundation" -framework "AudioToolbox" -framework "CoreFoundation" -framework "CoreGraphics" -framework "CoreMedia" -framework "CoreTelephony" -framework "CoreVideo" -framework "Foundation" -framework "GLKit" -framework "OpenGLES" -framework "OpenTok" -framework "QuartzCore" -framework "SystemConfiguration" -framework "UIKit" -framework "VideoToolbox" -framework "XCTest"
-PODS_ROOT = ${SRCROOT}/Pods
