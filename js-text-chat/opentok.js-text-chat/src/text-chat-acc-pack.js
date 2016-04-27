@@ -5,7 +5,8 @@ var TextChatAccPack = (function () {
   var textChatDiv = 'chat-container';
   var lastMessage, sender, composer;
   var newMessages, self, limitCharacterMessage;
-
+  
+  var _otkanalytics;
   var logEventData = {
     //vars for the analytics logs. Internal use
     clientVersion: 'js-vsol-0.9',
@@ -20,6 +21,8 @@ var TextChatAccPack = (function () {
     variationError: 'Failure',
     variationSuccess: 'Success'
   };
+  
+  
 
   // Constructor
   var TextChatAccPack = function (options) {
@@ -44,7 +47,7 @@ var TextChatAccPack = (function () {
     };
 
     //init the analytics logs
-    this._otkanalytics = new OTKAnalytics(_otkanalyticsData);
+    _otkanalytics = new OTKAnalytics(_otkanalyticsData);
 
     if (setMaxLengthMessage) {
       _log(logEventData.actionSetMaxLength, logEventData.variationAttempt);
@@ -262,12 +265,11 @@ var TextChatAccPack = (function () {
   };
 
   var _log = function (action, variation) {
-    var self = this;
     var data = {
       action: action,
       variation: variation
     };
-    self._otkanalytics.logEvent(data);
+    _otkanalytics.logEvent(data);
   };
   //    **************************************************************************************************************
   TextChatAccPack.prototype = {
