@@ -93,7 +93,7 @@ var TextChatAccPack = (function () {
       _sendTxtMessage(composer.value);
     };
     //add INITIALIZE success log event
-    self._addLogEvent(logEventData.actionInitialize, logEventData.variationSuccess);
+    _otkanalytics.logEvent(logEventData.actionInitialize, logEventData.variationSuccess);
   };
 
   var _shouldAppendMessage = function (data) {
@@ -125,7 +125,7 @@ var TextChatAccPack = (function () {
     };
 
     //add SEND_MESSAGE attempt log event
-    self._addLogEvent(logEventData.actionSendMessage, logEventData.variationAttempt);
+    _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationAttempt);
 
     console.log(acceleratorPack.getSession());
     if (recipient === undefined) {
@@ -137,7 +137,7 @@ var TextChatAccPack = (function () {
           if (error) {
             error.message = "Error sending a message. ";
             //add SEND_MESSAGE attempt log event
-            self._addLogEvent(logEventData.actionSendMessage, logEventData.variationFailure);
+            _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationFailure);
             if (error.code === 413) {
               var errorStr = error.message + "The chat message is over size limit."
               error.message = errorStr;
@@ -152,7 +152,7 @@ var TextChatAccPack = (function () {
           } else {
             console.log('Message sent');
             //add SEND_MESSAGE attempt log event
-            self._addLogEvent(logEventData.actionSendMessage, logEventData.variationSuccess);
+            _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationSuccess);
             deferred.resolve(messageData);
           }
         }
@@ -190,7 +190,7 @@ var TextChatAccPack = (function () {
     lastMessage = data;
   };
   var _onIncomingMessage = function (signal) {
-    self._addLogEvent(logEventData.actionReceiveMessage, logEventData.variationAttempt);
+    _otkanalytics.logEvent(logEventData.actionReceiveMessage, logEventData.variationAttempt);
     if(typeof signal.data === 'string' ){
       signal.data = JSON.parse(signal.data);
     }
@@ -200,7 +200,7 @@ var TextChatAccPack = (function () {
       _renderChatMessage(signal.data.sender.id, signal.data.sender.alias, signal.data.text, signal.data.sentOn);
     }
     lastMessage = signal.data;
-    self._addLogEvent(logEventData.actionReceiveMessage, logEventData.variationSuccess);
+    _otkanalytics.logEvent(logEventData.actionReceiveMessage, logEventData.variationSuccess);
   };
   var _handleMessageError = function (error) {
     console.log(error.code, error.message);
