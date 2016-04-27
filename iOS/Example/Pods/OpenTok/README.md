@@ -4,15 +4,15 @@ OpenTok iOS SDK
 The OpenTok iOS SDK lets you use OpenTok-powered video sessions in apps
 you build for iPad, iPhone, and iPod touch devices.
 
-Apps written with the OpenTok iOS SDK 2.8.0 can interoperate with OpenTok apps
+Apps written with the OpenTok iOS SDK 2.7.1 can interoperate with OpenTok apps
 written with the following OpenTok SDKs:
 
-* [OpenTok.js 2.6+](http://tokbox.com/developer/sdks/js/)
+* [OpenTok.js 2.5+](http://tokbox.com/developer/sdks/js/)
 
 * [OpenTok Android SDK
-  2.6+](http://tokbox.com/opentok/developer/sdks/android/)
+  2.5+](http://tokbox.com/opentok/developer/sdks/android/)
 
-* [OpenTok iOS SDK 2.6+](http://tokbox.com/developer/sdks/ios/)
+* [OpenTok iOS SDK 2.5+](http://tokbox.com/developer/sdks/ios/)
 
 Using the SDK
 -------------
@@ -24,7 +24,7 @@ The OpenTok iOS SDK is available as the Pod "OpenTok", for use with
 
 The OpenTok iOS SDK requires Xcode 5+.
 
-The OpenTok iOS SDK requires the following frameworks and libraries:
+The OpenTok iOS SDK requires the following frameworks:
 
 * AudioToolbox.framework
 * AVFoundation.framework
@@ -34,8 +34,8 @@ The OpenTok iOS SDK requires the following frameworks and libraries:
 * CoreVideo.framework
 * Foundation.framework
 * GLKit.framework
-* libc++.dylib (libc++.tbd in Xcode 7+)
-* libsqlite3.dylib (libsqlite3++.tbd in Xcode 7+)
+* libc++.dylib
+* libsqlite3.dylyp
 * OpenGLES.framework
 * QuartzCore.framework
 * SystemConfiguration.framework
@@ -54,8 +54,8 @@ https://code.google.com/p/webrtc/issues/detail?id=3992) and Google Maps
 (versions earlier than 1.9.0). To fix this issue, download a version of the
 other library that was compiled using XCode 6.0.0 or later.
 
-A beta bitcode version of the OpenTok iOS SDK is available. See the
-[OpenTok beta programs](https://tokbox.com/platform/beta-programs/) page
+A beta bitcode version of the OpenTok iOS SDK is available at
+<https://tokbox.com/downloads/opentok-ios-sdk-2.7.2-beta.1>.
 
 See the [release notes](release-notes.md) for information on the latest version
 of the SDK and for a list of known issues.
@@ -100,5 +100,9 @@ Reference documentation is included in the docs subdirectory of the SDK and at
 
 More information
 -----------------
+
+For a list of API and changes and user interface changes from version 2.1.7 of
+the OpenTok iOS SDK, see [Migrating to the latest version of the OpenTok
+SDK](http://tokbox.com/developer/sdks/ios/migrating-to-version-2.2.html).
 
 For a list of new features and known issues, see the [release notes](release_notes.md).

@@ -37,14 +37,7 @@ typedef NS_ENUM(NSInteger, OTCameraCaptureResolution) {
 
 /**
  * Defines values for the <code>cameraFrameRate</code> parameter of the
- * <[OTPublisher initWithDelegate:name:cameraResolution:cameraFrameRate:]>
- * method.
- *
- * Note that in sessions that use the OpenTok Media Router (sessions with the
- * [media mode](http://tokbox.com/opentok/tutorials/create-session/#media-mode)
- * set to routed), lowering the frame rate proportionally reduces the bandwidth
- * the stream uses. However, in sessions that have the media mode set to
- * relayed, lowering the frame rate does not reduce the stream's bandwidth.
+ * <[OTPublisher initWithDelegate:name:cameraResolution:cameraFrameRate:]> method.
  */
 typedef NS_ENUM(NSInteger, OTCameraCaptureFrameRate) {
     /**
@@ -73,9 +66,6 @@ typedef NS_ENUM(NSInteger, OTCameraCaptureFrameRate) {
  * The OpenTok iOS SDK supports publishing on all multi-core iOS devices.
  * See "Developer and client requirements" in the README file for the
  * [OpenTok iOS SDK](http://tokbox.com/opentok/libraries/client/ios ).
- *
- * Note that when testing in the iOS Simulator, an OTPublisher object uses
- * a demo video, since the camera is not available in the Simulator.
  */
 @interface OTPublisher : OTPublisherKit
 
@@ -88,29 +78,17 @@ typedef NS_ENUM(NSInteger, OTCameraCaptureFrameRate) {
  * publisher's video. If you use an initializer method inherited from <OTPublisherKit>, the
  * resolution will be VGA, and the frame rate will be 30 frames per second.
  *
- * For sessions that use [the OpenTok Media
- * Router](http://tokbox.com/opentok/tutorials/create-session/#media-mode )
- * (sessions with the media mode set to routed), lowering the frame
- * rate or lowering the resolution reduces the maximum bandwidth the stream can
- * use. However, in sessions with the media mode set to relayed, lowering the
- * frame rate or resolution may not reduce the stream's bandwidth.
- *
  * @param delegate The delegate (<OTPublisherKitDelegate>) object for the
  * publisher.
  *
  * @param name The name to appear at the bottom of the video.
  *
  * @param cameraResolution The resolution of the published video. Set this to a value defined in the
- * <OTCameraCaptureResolution> enum.
+ *            <OTCameraCaptureResolution> enum.
  *
  * @param cameraFrameRate The frame rate of the published video. Set this to a value defined in the
- * <OTCameraCaptureFrameRate> enum. If the device does not support the specified
- * frame rate, it will set the frame rate to 30 frames per second.
- * Note that in sessions that use the OpenTok Media Router (sessions with the
- * [media mode](http://tokbox.com/opentok/tutorials/create-session/#media-mode)
- * set to routed), lowering the frame rate proportionally reduces the bandwidth
- * the stream uses. However, in sessions that have the media mode set to
- * relayed, lowering the frame rate does not reduce the stream's bandwidth.
+ *            <OTCameraCaptureFrameRate> enum. If the device does not support the specified
+ *            frame rate, it will set the frame rate to 30 frames per second.
  *
  * @return The pointer to the instance, or `nil` if initialization failed.
  */

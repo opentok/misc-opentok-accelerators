@@ -36,23 +36,6 @@ typedef NS_ENUM(int32_t, OTPixelFormat) {
 };
 
 /**
- * Defines values for the <[OTSubscriber viewScaleBehavior]> and
- * <[OTPublisher viewScaleBehavior]> methods.
- */
-typedef NS_ENUM(NSInteger, OTVideoViewScaleBehavior) {
-    /**
-     * The video shrinks, as needed, so that the entire video is visible
-     * with pillarboxing.
-     */
-    OTVideoViewScaleBehaviorFit,
-    /**
-     * The video scales to fill the entire area of the renderer, with cropping
-     * as needed.
-     */
-    OTVideoViewScaleBehaviorFill,
-};
-
-/**
  * Defines the video format assigned to an instance of an <OTVideoFrame> object.
  */
 @interface OTVideoFormat : NSObject
@@ -91,10 +74,6 @@ typedef NS_ENUM(NSInteger, OTVideoViewScaleBehavior) {
 
 + (OTVideoFormat*)videoFormatNV12WithWidth:(uint32_t)width
                                     height:(uint32_t)height;
-
-+ (OTVideoFormat*)videoFormatARGBWithWidth:(uint32_t)width
-                                    height:(uint32_t)height;
-
 @end
 
 /**

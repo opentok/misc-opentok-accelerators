@@ -460,7 +460,7 @@ connectionDestroyed:(OTConnection*) connection;
  * @param session The <OTSession> instance that sent this message.
  * @param type The type string of the signal.
  * @param connection The connection identifying the client that sent the
- * message. This value can be `nil`.
+ * message.
  * @param string The signal data.
  */
 - (void)   session:(OTSession*)session

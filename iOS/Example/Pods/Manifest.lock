@@ -1,20 +1,20 @@
 PODS:
-  - AcceleratorSession (0.1.0):
-    - OpenTok
   - Kiwi (2.4.0)
-  - OpenTok (2.8.0)
+  - OpenTok (2.7.1)
+  - OTAcceleratorPackUtil (1.0.0):
+    - OpenTok (~> 2.7.1)
 
 DEPENDENCIES:
-  - AcceleratorSession (from `../`)
   - Kiwi
+  - OTAcceleratorPackUtil (from `../`)
 
 EXTERNAL SOURCES:
-  AcceleratorSession:
+  OTAcceleratorPackUtil:
     :path: ../
 
 SPEC CHECKSUMS:
-  AcceleratorSession: f8a355c07bb5bd7ff707bf766b890a3254a96b01
   Kiwi: f49c9d54b28917df5928fe44968a39ed198cb8a8
-  OpenTok: 219b4a56d735204586413f6b4a6c6c13498f6d39
+  OpenTok: 990aade2dcea4ab90d26410efa2f96755e295051
+  OTAcceleratorPackUtil: 9330e858b0f5e1453e904263a094c60a1308e2ad
 
 COCOAPODS: 0.39.0

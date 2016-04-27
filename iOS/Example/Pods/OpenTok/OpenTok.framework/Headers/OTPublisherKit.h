@@ -64,9 +64,10 @@ typedef NS_ENUM(int32_t, OTPublisherKitVideoType) {
  * @param delegate The delegate (<OTPublisherKitDelegate>) object for the 
  * publisher.
  *
- * @param name The name of the publisher video. The <[OTStream name]> property
- * for a stream published by this publisher will be set to this value
- * (on all clients).
+ * @param name  The name for this stream. This string is displayed at the
+ * bottom of publisher
+ * video and at the bottom of subscriber videos associated with the published
+ * stream.
  *
  * @return The pointer to the instance, or `nil` if initialization failed.
  */
@@ -88,9 +89,9 @@ typedef NS_ENUM(int32_t, OTPublisherKitVideoType) {
  * @param delegate The delegate (<OTPublisherKitDelegate>) object for the
  * publisher.
  *
- * @param name The name of the publisher video. The <[OTStream name]> property
- * for a stream published by this publisher will be set to this value
- * (on all clients).
+ * @param name  The name for this stream. This string is displayed at the
+ * bottom of publisher video and at the bottom of subscriber videos associated
+ * with the published stream.
  *
  * @param audioTrack Whether to publish audio (YES) or not (NO).
  *

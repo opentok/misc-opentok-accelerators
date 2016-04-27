@@ -1,9 +1,9 @@
-# AcceleratorSession
+# OTAcceleratorPackUtil
 
-[![CI Status](http://img.shields.io/travis/Lucas Huang/AcceleratorSession.svg?style=flat)](https://travis-ci.org/Lucas Huang/AcceleratorSession)
-[![Version](https://img.shields.io/cocoapods/v/AcceleratorSession.svg?style=flat)](http://cocoapods.org/pods/AcceleratorSession)
-[![License](https://img.shields.io/cocoapods/l/AcceleratorSession.svg?style=flat)](http://cocoapods.org/pods/AcceleratorSession)
-[![Platform](https://img.shields.io/cocoapods/p/AcceleratorSession.svg?style=flat)](http://cocoapods.org/pods/AcceleratorSession)
+[![CI Status](http://img.shields.io/travis/Lucas Huang/OTAcceleratorPackUtil.svg?style=flat)](https://travis-ci.org/Lucas Huang/OTAcceleratorPackUtil)
+[![Version](https://img.shields.io/cocoapods/v/OTAcceleratorPackUtil.svg?style=flat)](http://cocoapods.org/pods/OTAcceleratorPackUtil)
+[![License](https://img.shields.io/cocoapods/l/OTAcceleratorPackUtil.svg?style=flat)](http://cocoapods.org/pods/OTAcceleratorPackUtil)
+[![Platform](https://img.shields.io/cocoapods/p/OTAcceleratorPackUtil.svg?style=flat)](http://cocoapods.org/pods/OTAcceleratorPackUtil)
 
 ## Usage
 
@@ -13,11 +13,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-AcceleratorSession is available through [CocoaPods](http://cocoapods.org). To install
+OTAcceleratorPackUtil is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "AcceleratorSession"
+pod "OTAcceleratorPackUtil"
 ```
 
 ## Author
@@ -26,4 +26,4 @@ Lucas Huang, lucas@tokbox.com
 
 ## License
 
-AcceleratorSession is available under the MIT license. See the LICENSE file for more info.
+OTAcceleratorPackUtil is available under the MIT license. See the LICENSE file for more info.
