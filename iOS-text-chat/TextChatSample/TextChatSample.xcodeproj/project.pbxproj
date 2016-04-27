@@ -64,11 +64,6 @@
 		643553961CB6A54E00643E2F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553861CB6A54E00643E2F /* QuartzCore.framework */; };
 		643553971CB6A54E00643E2F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553871CB6A54E00643E2F /* SystemConfiguration.framework */; };
 		643553981CB6A54E00643E2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553881CB6A54E00643E2F /* UIKit.framework */; };
-<<<<<<< HEAD
-		74209CBD1CC80B4800135DCC /* TextChatComponentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 74209CBC1CC80B4800135DCC /* TextChatComponentTests.m */; };
-		74209CBF1CC80B4800135DCC /* TextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6435533C1CB69CBE00643E2F /* TextChatKit.framework */; };
-		74209CC61CC82A5A00135DCC /* TextChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 74209CC51CC82A5A00135DCC /* TextChatTests.m */; };
-=======
 		A025BC081CCAE99100E634A6 /* OTAudioDeviceManager.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBC51CCAE99100E634A6 /* OTAudioDeviceManager.html */; };
 		A025BC091CCAE99100E634A6 /* OTAudioFormat.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBC61CCAE99100E634A6 /* OTAudioFormat.html */; };
 		A025BC0A1CCAE99100E634A6 /* OTConnection.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBC71CCAE99100E634A6 /* OTConnection.html */; };
@@ -130,7 +125,6 @@
 		A025BC431CCAE99200E634A6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A025BC061CCAE99100E634A6 /* README.md */; };
 		A025BC441CCAE99200E634A6 /* release-notes.md in Sources */ = {isa = PBXBuildFile; fileRef = A025BC071CCAE99100E634A6 /* release-notes.md */; };
 		A025BC451CCAEABB00E634A6 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A025BC051CCAE99100E634A6 /* OpenTok.framework */; };
->>>>>>> upstream/develop
 		A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
 		A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */; };
@@ -233,14 +227,6 @@
 		643553871CB6A54E00643E2F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		643553881CB6A54E00643E2F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		643553891CB6A54E00643E2F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-<<<<<<< HEAD
-		67B1FA4F878225CF6461C5C6 /* Pods-TextChatSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextChatSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TextChatSample/Pods-TextChatSample.debug.xcconfig"; sourceTree = "<group>"; };
-		74209CBA1CC80B4800135DCC /* TextChatKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextChatKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		74209CBC1CC80B4800135DCC /* TextChatComponentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextChatComponentTests.m; sourceTree = "<group>"; };
-		74209CBE1CC80B4800135DCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74209CC51CC82A5A00135DCC /* TextChatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatTests.m; sourceTree = "<group>"; };
-		78D546C75BB83133112AA126 /* Pods-TextChatSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextChatSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-TextChatSample/Pods-TextChatSample.release.xcconfig"; sourceTree = "<group>"; };
-=======
 		A025BBC51CCAE99100E634A6 /* OTAudioDeviceManager.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioDeviceManager.html; sourceTree = "<group>"; };
 		A025BBC61CCAE99100E634A6 /* OTAudioFormat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioFormat.html; sourceTree = "<group>"; };
 		A025BBC71CCAE99100E634A6 /* OTConnection.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTConnection.html; sourceTree = "<group>"; };
@@ -302,7 +288,6 @@
 		A025BC051CCAE99100E634A6 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
 		A025BC061CCAE99100E634A6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A025BC071CCAE99100E634A6 /* release-notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "release-notes.md"; sourceTree = "<group>"; };
->>>>>>> upstream/develop
 		A03B1F591CC0B0C800D765F7 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
 		A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
 		A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
@@ -315,12 +300,7 @@
 		A09A4A951CD0260F0024C349 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A0C9A1881CC81EED0026D458 /* AcceleratorPackSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AcceleratorPackSession.h; path = "acc-pack-common/iOS/Pod/Classes/AcceleratorPackSession.h"; sourceTree = "<group>"; };
 		A0C9A1891CC81EED0026D458 /* AcceleratorPackSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AcceleratorPackSession.m; path = "acc-pack-common/iOS/Pod/Classes/AcceleratorPackSession.m"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		B162E47B2A784ACB79707A12 /* libPods-TextChatKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TextChatKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BABB45776DD2C8689DFBCBB1 /* Pods-TextChatKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextChatKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TextChatKit/Pods-TextChatKit.release.xcconfig"; sourceTree = "<group>"; };
-=======
 		F48C46351CCF63B3002DB3E0 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
->>>>>>> upstream/develop
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,11 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				643553431CB69CBE00643E2F /* TextChatKit.framework in Frameworks */,
-<<<<<<< HEAD
-				318E18D48408D02F6A1D8793 /* libPods-TextChatSample.a in Frameworks */,
-=======
 				F48C46361CCF63B3002DB3E0 /* OpenTok.framework in Frameworks */,
->>>>>>> upstream/develop
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,33 +486,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-		74209CBB1CC80B4800135DCC /* TextChatKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				74209CBC1CC80B4800135DCC /* TextChatComponentTests.m */,
-				74209CBE1CC80B4800135DCC /* Info.plist */,
-				74209CC51CC82A5A00135DCC /* TextChatTests.m */,
-			);
-			path = TextChatKitTests;
-			sourceTree = "<group>";
-		};
-		A03B1F551CC0B0C800D765F7 /* TextChatView */ = {
-			isa = PBXGroup;
-			children = (
-				A03B1F5C1CC0B0C800D765F7 /* TextChatView_AutoLayout.h */,
-				A03B1F5D1CC0B0C800D765F7 /* TextChatView_UserInterface.h */,
-				A03B1F591CC0B0C800D765F7 /* TextChatView.h */,
-				A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */,
-				A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */,
-			);
-			path = TextChatView;
-			sourceTree = "<group>";
-		};
-		A03B1F6E1CC0B26400D765F7 /* TextChatUICustomizator */ = {
-=======
 		A025BBC11CCAE99100E634A6 /* OpenTok-iOS-2.7.1 */ = {
->>>>>>> upstream/develop
 			isa = PBXGroup;
 			children = (
 				A025BBC21CCAE99100E634A6 /* doc */,
