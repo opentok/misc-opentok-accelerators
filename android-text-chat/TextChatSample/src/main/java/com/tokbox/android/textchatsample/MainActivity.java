@@ -201,11 +201,9 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             mComm.end();
             cleanViewsAndControls();
         } else {
-            if (mComm.isInitialized()) {
-                mComm.start();
-                if (mPreviewFragment != null) {
-                    mPreviewFragment.setEnabled(true);
-                }
+            mComm.start();
+            if (mPreviewFragment != null) {
+                mPreviewFragment.setEnabled(true);
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.tokbox.android.accpack.textchat;
 
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
