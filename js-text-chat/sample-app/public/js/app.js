@@ -3,6 +3,8 @@ var app = (function() {
   // Sample component
   var _communication;
   var _acceleratorPack;
+  var _otkanalyticsData;
+  var _loggingData;
 
   var _options = {
     apiKey: '',
@@ -19,7 +21,16 @@ var app = (function() {
       style: {
         buttonDisplayMode: 'off'
       }
-    }
+    },
+    //vars for the analytics logs. Internal use
+    clientVersion: 'js-vsol-0.9',
+    source: 'one_to_one_textchat_sample_app',
+    actionInitialize: 'initialize', 
+    actionStartComm: 'start_comm',
+    actionEndComm: 'end_comm',
+    variationAttempt: 'Attempt',
+    variationError: 'Failure',
+    variationSuccess: 'Success'
   };
 
   var _communicationElements = {
@@ -181,13 +192,27 @@ var app = (function() {
 
   var init = function() {
     // Get session
-    _acceleratorPack = new AcceleratorPack(_options.apiKey, _options.sessionId, _options.token);
+    _acceleratorPack = new AcceleratorPack(
+      {
+        textChat: {
+          sessionInfo: {apikey: _options.apiKey, sessionId: _options.sessionId, token: _options.token},
+          user: {
+            alias: "user1"
+          },
+          charCountElement: "#character-count"
+        }
+      });
     _options.session = _acceleratorPack.getSession();
 
     _options.session.on({
       connectionCreated: function (event) {
         _communication = new Communication(_options);
+        _communication.addLog(_options.actionInitialize, _options.variationAttempt);
+        _communication.addLog(_options.actionInitialize, _options.variationSuccess);
         _addEventListeners();
+      },
+      connectionError: function (event) {
+        _communication.addLog(_options.actionInitialize, _options.variationError);
       }
     });
   };

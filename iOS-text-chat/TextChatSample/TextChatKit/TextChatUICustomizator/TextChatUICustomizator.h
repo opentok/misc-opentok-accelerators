@@ -8,14 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString * const TextChatUIUpdatedNotificationName = @"TextChatUIUpdatedNotificationName";
+
 @interface TextChatUICustomizator : NSObject
 
-+ (void)setTableViewCellSendTextColor: (UIColor *)color;
+@property (nonatomic) UIColor *tableViewCellSendTextColor;
 
-+ (void)setTableViewCellReceiveTextColor: (UIColor *)color;
+@property (nonatomic) UIColor *tableViewCellReceiveTextColor;
 
-+ (void)setTableViewCellSendBackgroundColor: (UIColor *)color;
+@property (nonatomic) UIColor *tableViewCellSendBackgroundColor;
 
-+ (void)setTableViewCellReceiveBackgroundColor: (UIColor *)color;
+@property (nonatomic) UIColor *tableViewCellReceiveBackgroundColor;
+
+@property (nonatomic) UIColor *topBarBackgroundColor;
+
+@property (nonatomic) UIColor *topBarTitleTextColor;
 
 @end
