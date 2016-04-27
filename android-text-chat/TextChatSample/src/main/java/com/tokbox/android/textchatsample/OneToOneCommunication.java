@@ -14,8 +14,8 @@ import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
 import com.tokbox.android.accpack.AccPackSession;
 import com.tokbox.android.textchatsample.config.OpenTokConfig;
-import com.tokbox.android.textchatsample.logging.OTKAnalytics;
-import com.tokbox.android.textchatsample.logging.OTKAnalyticsData;
+import com.tokbox.android.accpack.textchat.logging.OTKAnalyticsData;
+import com.tokbox.android.accpack.textchat.logging.OTKAnalytics;
 
 import java.util.ArrayList;
 
@@ -330,13 +330,13 @@ public class OneToOneCommunication implements
         if (mStreams.size() > 0) {
             mStreams.remove(stream);
             isRemote = false;
+            onRemoteViewReady(null);
             if (mSubscriber != null && mSubscriber.getStream().equals(stream)) {
                 mSubscriber = null;
                 if (!mStreams.isEmpty()) {
                     subscribeToStream(mStreams.get(0));
                 }
             }
-            onRemoteViewReady(null);
         }
     }
 
@@ -452,7 +452,6 @@ public class OneToOneCommunication implements
     @Override
     public void onStreamDropped(Session session, Stream stream) {
         Log.i(LOGTAG, "Remote left the communication");
-        mStreams.remove(stream);
         if (!OpenTokConfig.SUBSCRIBE_TO_SELF) {
             unsubscribeFromStream(stream);
         }
