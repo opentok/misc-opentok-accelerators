@@ -23,7 +23,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert not greater than MAX
         textChatFragment.setMaxTextLength(8195);
@@ -36,7 +36,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert greater than MAX
         textChatFragment.setMaxTextLength(8197);
@@ -49,7 +49,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert zero
         textChatFragment.setMaxTextLength(0);
@@ -62,7 +62,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert minus zero
         textChatFragment.setMaxTextLength(-1);
@@ -75,7 +75,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert null
         //textChatFragment.setMaxTextLength(null);
@@ -89,7 +89,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert null
         textChatFragment.setSenderAlias(null);
@@ -105,7 +105,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert empty
         textChatFragment.setSenderAlias("");
@@ -118,7 +118,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         int length = Integer.MAX_VALUE;
         StringBuffer outputBuffer = new StringBuffer(length);
@@ -139,7 +139,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //ViewGroup viewGroup = new ViewGroup();
 
@@ -156,7 +156,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert null
         textChatFragment.setActionBar(null);
@@ -174,7 +174,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //ViewGroup viewGroup = new ViewGroup() {
         //    @Override
@@ -196,7 +196,7 @@ public  class TextChatFragmentTest {
         MockContext context = new MockContext();
         AccPackSession session = new AccPackSession(context, "", "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session);
+        TextChatFragment textChatFragment = new TextChatFragment(session, "");
 
         //Assert null
         textChatFragment.setSendMessageView(null);
