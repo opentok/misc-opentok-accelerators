@@ -13,30 +13,69 @@ import 	android.test.mock.MockContext;
 
 public  class TextChatFragmentTest {
 
+    private TextChatFragment textChatFragment;
+    private AccPackSession accPackSession;
+
+    private String generateLongString(){
+        int length = 100*1024*1024;
+        StringBuilder outputBuilder = new StringBuilder(length);
+        for (int i = 0; i < length; i++){
+            outputBuilder.append(" ");
+        }
+        return outputBuilder.toString();
+    }
+
+
     //CONSTRUCTOR
+
+    @Test
+    public void TextChatFragment_When_SessionIsNull() throws Exception {
+        textChatFragment = new TextChatFragment(null, "100");
+
+
+    }
+
+    @Test
+    public void TextChatFragment_When_ApiKeyIsNull() throws Exception {
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, null);
+
+    }
+
+    @Test
+    public void TextChatFragment_When_ApiKeyIsEmpty() throws Exception {
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
+
+    }
+
+    @Test
+    public void TextChatFragment_When_ApiKeyIsLongString() throws Exception {
+        accPackSession = new AccPackSession(null, "","");
+        String apiKey = generateLongString();
+        textChatFragment = new TextChatFragment(accPackSession, apiKey);
+
+    }
 
     //setListener
     //setMaxTextLength
     @Test
-    public void set_Max_Length_Test_When_OK() throws Exception {
+    public void setMaxLengthTest_When_MaxLengthIsLTMAX() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //Assert not greater than MAX
         textChatFragment.setMaxTextLength(8195);
 
+
     }
 
     @Test//(expected=Error)
-    public void set_Max_Length_Test_When_GT_MaxLength() throws Exception {
+    public void setMaxLength_When_MaxLengthIsGTMAX() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //Assert greater than MAX
         textChatFragment.setMaxTextLength(8197);
@@ -44,12 +83,10 @@ public  class TextChatFragmentTest {
     }
 
     @Test
-    public void set_Max_Length_Test_When_Zero() throws Exception {
+    public void setMaxLength_When_MaxLengthIsZero() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //Assert zero
         textChatFragment.setMaxTextLength(0);
@@ -57,39 +94,21 @@ public  class TextChatFragmentTest {
     }
 
     @Test//(expected=Error)
-    public void set_Max_Length_Test_When_LT_Zero() throws Exception {
+    public void setMaxLength_When_MaxLengthIsLTZero() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
-
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
         //Assert minus zero
         textChatFragment.setMaxTextLength(-1);
 
     }
 
-    @Test
-    public void set_Max_Length_Test_When_Null() throws Exception {
-
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
-
-        //Assert null
-        //textChatFragment.setMaxTextLength(null);
-
-    }
-
     //setSenderAlias
     @Test//(expected=Error)
-    public void set_Sender_Alias_Test_When_Null() throws Exception {
+    public void setSenderAlias_When_SenderAliasIsNull() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //Assert null
         textChatFragment.setSenderAlias(null);
@@ -100,12 +119,10 @@ public  class TextChatFragmentTest {
     }
 
     @Test
-    public void set_Sender_Alias_Test_When_Empty() throws Exception {
+    public void setSenderAlias_When_SenderAliasIsEmpty() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //Assert empty
         textChatFragment.setSenderAlias("");
@@ -113,33 +130,24 @@ public  class TextChatFragmentTest {
     }
 
     @Test
-    public void set_Sender_Alias_Test_When_Huge_String() throws Exception {
+    public void setSenderAlias_When_SenderAliasIsLongString() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
-
-        int length = Integer.MAX_VALUE;
-        StringBuffer outputBuffer = new StringBuffer(length);
-        for (int i = 0; i < length; i++){
-            outputBuffer.append(" ");
-        }
-
+        String senderAlias = generateLongString();
         //Assert huge string
-        textChatFragment.setSenderAlias(outputBuffer.toString());
+        textChatFragment.setSenderAlias(senderAlias);
 
     }
 
     //getActionBar
     //setActionBar
     @Test
-    public void set_Action_Bar_Test_When_OK() throws Exception {
+    public void setActionBar_When_OK() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //ViewGroup viewGroup = new ViewGroup();
 
@@ -151,12 +159,10 @@ public  class TextChatFragmentTest {
     }
 
     @Test
-    public void set_Action_Bar_Test_When_Null() throws Exception {
+    public void setActionBar_When_ActionBarIsNull() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //Assert null
         textChatFragment.setActionBar(null);
@@ -169,12 +175,10 @@ public  class TextChatFragmentTest {
     //getSendMessageView
     //setSendMessageView
     @Test
-    public void set_Send_Message_View_Test_When_OK() throws Exception {
+    public void setSendMessageView_When_OK() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //ViewGroup viewGroup = new ViewGroup() {
         //    @Override
@@ -191,12 +195,10 @@ public  class TextChatFragmentTest {
     }
 
     @Test
-    public void set_Send_Message_View_Test_When_Null() throws Exception {
+    public void setSendMessageView_When_SendMessageViewIsNull() throws Exception {
 
-        MockContext context = new MockContext();
-        AccPackSession session = new AccPackSession(context, "", "");
-
-        TextChatFragment textChatFragment = new TextChatFragment(session, "");
+        accPackSession = new AccPackSession(null, "","");
+        textChatFragment = new TextChatFragment(accPackSession, "");
 
         //Assert null
         textChatFragment.setSendMessageView(null);
