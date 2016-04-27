@@ -179,7 +179,7 @@ var app = (function() {
     // Update UI
     _toggleClass(_communicationElements.startEndCall, 'active');
 
-    _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo);
+    _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.enableTextChat);
 
     !!(_communicationProperties.callActive || _communicationProperties.remoteParticipant) && _swapVideoPositions('end');
   };
