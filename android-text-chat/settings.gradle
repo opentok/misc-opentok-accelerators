@@ -1,1 +1,1 @@
-include ':text-chat-acc-pack', ':TextChatSample'
+include ':text-chat-acc-pack', ':TextChatSample', ':opentok-android-accelerator-pack-1.0'
