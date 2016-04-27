@@ -150,8 +150,7 @@ var AcceleratorPack = (function() {
     };
     
     var _setupEventListeners = function(){
-        registerEventListener('startViewingSharedScreen', setupAnnotation);
-        registerEventListener('startViewingSharedScreen', setupAnnotation);
+        registerEventListener('startViewingSharedScreen', setupAnnotationView);
     }
 
     /** 
@@ -188,60 +187,60 @@ var AcceleratorPack = (function() {
         return options;
     };
 
-    var _initPublisherScreen = function() {
+    // var _initPublisherScreen = function() {
 
-        var createPublisher = function(publisherDiv) {
+    //     var createPublisher = function(publisherDiv) {
 
-            var innerDeferred = $.Deferred();
+    //         var innerDeferred = $.Deferred();
 
-            publisherDiv = publisherDiv || 'videoHolderScreenShare';
+    //         publisherDiv = publisherDiv || 'videoHolderScreenShare';
 
-            self.options.publishers.screen = OT.initPublisher(publisherDiv, _commonOptions.localScreenProperties, function(error) {
-                if (error) {
-                    error.message = 'Error starting the screen sharing';
-                    handler(error);
-                    innerDeferred.reject(error);
-                } else {
-                    self.options.publishers.screen.on('streamDestroyed', this._publisherStreamDestroyed);
-                    self.options.publishers.screen.on('mediaStopped', this._publisherStreamDestroyed);
-                    self.options.publishers.screen.on('streamCreated', function(event) {
-                        console.log('streamCreated publisher screen', event.stream);
-                        screenStream = event.stream;
-                    });
-                    innerDeferred.resolve();
-                }
-            });
+    //         self.options.publishers.screen = OT.initPublisher(publisherDiv, _commonOptions.localScreenProperties, function(error) {
+    //             if (error) {
+    //                 error.message = 'Error starting the screen sharing';
+    //                 handler(error);
+    //                 innerDeferred.reject(error);
+    //             } else {
+    //                 self.options.publishers.screen.on('streamDestroyed', this._publisherStreamDestroyed);
+    //                 self.options.publishers.screen.on('mediaStopped', this._publisherStreamDestroyed);
+    //                 self.options.publishers.screen.on('streamCreated', function(event) {
+    //                     console.log('streamCreated publisher screen', event.stream);
+    //                     screenStream = event.stream;
+    //                 });
+    //                 innerDeferred.resolve();
+    //             }
+    //         });
 
-            return innerDeferred.promise();
-        };
+    //         return innerDeferred.promise();
+    //     };
 
-        var outerDeferred = $.Deferred();
+    //     var outerDeferred = $.Deferred();
 
-        if (!!self._annotation) {
-            self._annotation.start(self.session, {
-                    externalWindow: true
-                })
-                .then(function() {
-                    console.log('resolve annotation start');
-                    var annotationWindow = self.comms_elements.annotationWindow;
-                    var annotationElements = annotationWindow.createContainerElements();
-                    createPublisher(annotationElements.publisher)
-                    .then(function() {
-                        outerDeferred.resolve(annotationElements.annotation);
-                    });
+    //     if (!!self._annotation) {
+    //         self._annotation.start(self.session, {
+    //                 externalWindow: true
+    //             })
+    //             .then(function() {
+    //                 console.log('resolve annotation start');
+    //                 var annotationWindow = self.comms_elements.annotationWindow;
+    //                 var annotationElements = annotationWindow.createContainerElements();
+    //                 createPublisher(annotationElements.publisher)
+    //                 .then(function() {
+    //                     outerDeferred.resolve(annotationElements.annotation);
+    //                 });
                     
-                    _triggerEvent('startAnnotation');
-                });
-        } else {
+    //                 _triggerEvent('startAnnotation');
+    //             });
+    //     } else {
 
-            createPublisher()
-                .then(function() {
-                    outerDeferred.resolve();
-                });
-        }
+    //         createPublisher()
+    //             .then(function() {
+    //                 outerDeferred.resolve();
+    //             });
+    //     }
 
-        return outerDeferred.promise();
-    };
+    //     return outerDeferred.promise();
+    // };
 
 
     //ScreenSharing callbacks
@@ -270,19 +269,9 @@ var AcceleratorPack = (function() {
     //     $(this.comms_elements.screenShareView).addClass('hidden');
     // };
 
-
-    var _onScreenSharingError = function(error) {
-        console.log(error.code, error.message);
-        $(this.comms_elements.screenShareView).addClass('hidden');
-
-        this._showWMSErrorFor('screenShare', error.message);
-    };
-
-    var setupAnnotationView = function() {
-        var self = this;
-        $(self.comms_elements.callFeedWrap).draggable('disable');
-        self._annotation.resizeCanvas();
-    };
+    // var setupAnnotationView = function() {
+    //     self._annotation.resizeCanvas();
+    // };
 
 
 
@@ -306,13 +295,25 @@ var AcceleratorPack = (function() {
     }
 
     /** 
-     * Initialize the annotation component
-     * @param {Boolean} sharingScreen - Are we sharing our screen? If so, we need to let the
-     * annotation module know so that it can create an external window to use.
+     * Initialize the annotation component for use in external window
      * @returns {Promise} < Resolve: [Object] External annotation window >    
      */
-    var setupAnnotation = function(sharingScreen) {
-        return _annotation.start(_session, { screensharing: sharingScreen });
+    var setupExternalAnnotation = function() {
+        return _annotation.start(_session, {screensharing: true});
+    };
+    
+    /** 
+     * Initialize the annotation component for use in current window
+     * @returns {Promise} < Resolve: [Object] External annotation window >    
+     */
+    var setupAnnotationView = function(subscriber){
+        _annotation.start(_session)
+        .then(function(){
+            var $canvasContainer = $('#videoHolderSharedScreen');
+            $($canvasContainer).width(1000);
+            $($canvasContainer).height(625);
+            _annotation.linkCanvas(subscriber, document.getElementById('videoHolderSharedScreen'));
+        });
     };
 
     /** 
@@ -360,7 +361,8 @@ var AcceleratorPack = (function() {
         getOptions: getOptions,
         startScreenSharing: startScreenSharing,
         endScreenSharing: endScreenSharing,
-        setupAnnotation: setupAnnotation,
+        setupAnnotationView: setupAnnotationView,
+        setupExternalAnnotation: setupExternalAnnotation,
         linkAnnotation: linkAnnotation
     };
     return AcceleratorPackLayer;

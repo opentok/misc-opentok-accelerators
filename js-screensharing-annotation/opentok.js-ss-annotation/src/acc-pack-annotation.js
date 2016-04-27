@@ -201,6 +201,9 @@ var AccPackAnnotation = (function() {
      * @returns {promise} < Resolve: undefined | {object} Reference to external annotation window >
      */
     var start = function(session, options) {
+        
+        var caller = start.caller;
+        console.log('whoc called me?', caller);
 
         var deferred = $.Deferred();
 

@@ -51,7 +51,6 @@ var AccPackScreenSharing = (function() {
     var _registerEvents = function(){
         var events = ['startSharingScreen', 'endSharingScreen'];
         _triggerEvent = self.accPack.registerEvents(events);
-        console.log('what is trigger event here', _triggerEvent)
     };
      
     var _toggleScreenSharingButton = function(show) {
@@ -197,7 +196,7 @@ var AccPackScreenSharing = (function() {
 
         if (!!self.annotation) {
 
-            self.accPack.setupAnnotation(true)
+            self.accPack.setupExternalAnnotation()
             .then(function(annotationWindow) {
                 self.annotationWindow = annotationWindow || null;
                 var annotationElements = annotationWindow.createContainerElements();
@@ -310,14 +309,13 @@ var AccPackScreenSharing = (function() {
     };
 
     var start = function() {
-        
         extensionAvailable(self.extensionID, self.extensionPathFF)
             .then(_initPublisher)
             .then(_publish)
             .fail(function(error) {
                 console.log('Error starting screensharing: ', error);
             });
-
+            
     };
 
     var end = function() {

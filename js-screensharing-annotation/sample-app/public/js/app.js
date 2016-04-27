@@ -27,6 +27,7 @@ var app = (function() {
         startEndCall: document.getElementById('callActive'),
         localVideo: document.getElementById('videoHolderSmall'),
         remoteVideo: document.getElementById('videoHolderBig'),
+        sharedScreen: document.getElementById('videoHolderSharedScreen'),
         remoteControls: document.getElementById('remoteControls'),
         enableLocalAudio: document.getElementById('enableLocalAudio'),
         enableLocalVideo: document.getElementById('enableLocalVideo'),
@@ -98,7 +99,6 @@ var app = (function() {
 
     };
     
-    var _
 
     // Toggle local or remote audio/video
     var _toggleMediaProperties = function(type) {
@@ -165,7 +165,11 @@ var app = (function() {
         };
 
         var _viewSharedScreen = function(viewing) {
-          
+            
+            _hide(_communicationElements.localVideo, _communicationElements.remoteVideo);
+            _show(_communicationElements.sharedScreen);
+            
+            var aspectRatio = (10/6);
             var container = _communicationElements.mainContainer;
             var width = container.clientWidth;
             var height = (aspectRatio * width) | 0;

@@ -130,9 +130,11 @@ var Communication = (function() {
         } else {
             var options = self.options.localCallProperties
         }
+        
+        var videoContainer = stream.videoType === 'screen' ? 'videoHolderSharedScreen' : 'videoHolderBig';
 
         var subscriber = self.session.subscribe(stream,
-            'videoHolderBig',
+            videoContainer,
             options,
             function(error) {
                 if (error) {
@@ -155,18 +157,23 @@ var Communication = (function() {
             });
 
         self.subscriber = subscriber;
-
+        
         if (stream.videoType === 'screen' && !!self.options.annotation) {
-            _triggerEvent('startViewingSharedScreen');
-            self.accPack.setupAnnotation()
-                .then(function() {
-                    var $canvasContainer = $('#videoHolderBig')[0];
-                    $($canvasContainer).width(1000);
-                    $($canvasContainer).height(625);
-                    self.accPack.linkAnnotation(subscriber, $canvasContainer);
-                });
-
+            _triggerEvent('startViewingSharedScreen', subscriber);
         }
+        
+        
+        // if (stream.videoType === 'screen' && !!self.options.annotation) {
+        //     _triggerEvent('startViewingSharedScreen');
+        //     self.accPack.setupAnnotation()
+        //         .then(function() {
+        //             var $canvasContainer = $('#videoHolderBig')[0];
+        //             $($canvasContainer).width(1000);
+        //             $($canvasContainer).height(625);
+        //             self.accPack.linkAnnotation(subscriber, $canvasContainer);
+        //         });
+
+        // }
 
 
     };
@@ -194,7 +201,6 @@ var Communication = (function() {
     };
 
     var _handleStreamCreated = function(event) {
-        console.log('Participant joined to the call');
         //TODO: check the joined participant
         self.subscribers.push(event.stream);
         if (self.options.inSession) {
@@ -220,7 +226,7 @@ var Communication = (function() {
         var index = self.subscribers.indexOf(event.stream);
         self.subscribers.splice(index, 1);
 
-        _triggerEvent('streamDestroyed');
+        _triggerEvent('streamDestroyed', event);
         if (streamDestroyedType === 'camera') {
             // TODO Is this required???
             self.subscriber = null; //to review
@@ -239,9 +245,9 @@ var Communication = (function() {
         var userData = {
             userId: 'event.stream.connectionId'
         };
-        if (handler && typeof handler === 'function') {
-            handler(_.extend({}, event, userData)); //TODO: it should be the user (userId and username)
-        }
+        // if (handler && typeof handler === 'function') {
+        //     handler(_.extend({}, event, userData)); //TODO: it should be the user (userId and username)
+        // }
     };
 
     var _handleLocalPropertyChanged = function(event) {
