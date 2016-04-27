@@ -52,20 +52,13 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)setAlias:(NSString *)alias {
-    [self addLogEvent:KLogActionSenderAlias variation:KLogVariationAttempt];
     if (!alias) return;
     _alias = alias;
-    [self addLogEvent:KLogActionSenderAlias variation:KLogVariationSuccess];
 }
 
 - (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength {
-    
-    [self addLogEvent:KLogActionMaxLength variation:KLogVariationAttempt];
-
     if (maximumTextMessageLength > 8196) _maximumTextMessageLength = DefaultTextMessageLength;
     _maximumTextMessageLength = maximumTextMessageLength;
-    
-    [self addLogEvent:KLogActionMaxLength variation:KLogVariationSuccess];
 }
 
 - (void)addLogEvent:(NSString*)action variation:(NSString*)variation {
