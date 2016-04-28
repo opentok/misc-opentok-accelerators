@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var importCss = require('gulp-import-css');
 var uglify = require('gulp-uglify');
+var zip = require('gulp-zip');
 inlineCss = require('gulp-inline-css');
 
 gulp.task('js', function () {
@@ -18,4 +19,10 @@ gulp.task('css', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('dist', ['js', 'css']);
+gulp.task('zip', function (){
+  return gulp.src('dist/*')
+    .pipe(zip('deliverable.zip'))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('dist', ['js', 'css', 'zip']);
