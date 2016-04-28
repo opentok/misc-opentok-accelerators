@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private RelativeLayout mAudioOnlyView;
     private RelativeLayout mLocalAudioOnlyView;
     private RelativeLayout.LayoutParams layoutParamsPreview;
-    private int bottomPreview = 0;
     private FrameLayout mTextChatContainer;
     private RelativeLayout mCameraFragmentContainer;
     private RelativeLayout mActionBarContainer;
@@ -368,20 +367,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     @Override
-    public void onMinimized() {
-        Log.i(LOG_TAG, "OnMinimized text-chat");
-        restartTextChatLayout(false);
-        showAVCall(true);
-    }
-
-    @Override
-    public void onMaximized() {
-        Log.i(LOG_TAG, "OnMaximized text-chat");
-        showAVCall(false);
-        restartTextChatLayout(true);
-    }
-
-    @Override
     public void onRestarted() {
         Log.i(LOG_TAG, "OnRestarted text-chat");
     }
@@ -452,28 +437,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
-            if (mComm.isRemote()) {
-                layoutParamsPreview.bottomMargin = (int) getResources().getDimension(R.dimen.preview_bottomMargin);
-            }
         } else {
             //go to the minimized size
             params.height = dpToPx(40);
             params.addRule(RelativeLayout.ABOVE, R.id.actionbar_preview_fragment_container);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-            if (mComm.isRemote()) {
-                layoutParamsPreview = (RelativeLayout.LayoutParams) mPreviewViewContainer.getLayoutParams();
-                layoutParamsPreview.addRule(RelativeLayout.ABOVE, R.id.textchat_fragment_container);
-                if (bottomPreview != 0){
-                    layoutParamsPreview.bottomMargin = bottomPreview;
-                }
-                else {
-                    layoutParamsPreview.bottomMargin = layoutParamsPreview.bottomMargin + dpToPx(45);
-                    bottomPreview = layoutParamsPreview.bottomMargin;
-                }
-            }
         }
         mTextChatContainer.setLayoutParams(params);
-        mPreviewViewContainer.setLayoutParams(layoutParamsPreview);
      }
 
     /**

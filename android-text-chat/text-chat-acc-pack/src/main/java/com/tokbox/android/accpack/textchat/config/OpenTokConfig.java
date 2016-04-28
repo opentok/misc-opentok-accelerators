@@ -9,8 +9,6 @@ public class OpenTokConfig {
     public static final String LOG_ACTION_INITIALIZE = "initialize";
     public static final String LOG_ACTION_SEND_MESSAGE = "send_message";
     public static final String LOG_ACTION_RECEIVE_MESSAGE = "receive_message";
-    public static final String LOG_ACTION_MINIMIZE = "minimize";
-    public static final String LOG_ACTION_MAXIMIZE = "maximize";
     public static final String LOG_ACTION_CLOSE = "close";
     public static final String LOG_ACTION_SET_MAX_LENGTH = "set_max_length";
     public static final String LOG_ACTION_SET_SENDER_ALIAS = "set_sender_alias";
