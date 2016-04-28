@@ -57,7 +57,7 @@ The web page that loads the sample app for JavaScript must be served over HTTP/H
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the `ChatUI` class defined in `opentok-text-chat.js`.
+This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the `TextChatAccPack` class defined in `opentok-text-chat.js`.
 
 For detail about the APIs used to develop this sample, see the [OpenTok.js Reference](https://tokbox.com/developer/sdks/js/reference/).
 
@@ -71,47 +71,51 @@ _**NOTE:** The sample app contains logic used for logging. This is used to submi
 
 While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must host the sample app yourself. This allows you to customize the app as desired. The sample app has the following design, focusing primarily on the text chat features. For details about the one-to-one communication audio-video aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps).
 
-* **[accelerator-pack.js](https://github.com/opentok/acc-pack-common/blob/master/js/accelerator-pack.js)**: The TokBox Common Accelerator Session Pack is a common layer that permits all accelerators and samples to share the same OpenTok session, and is required whenever you use any of the OpenTok accelerators.
+* **[accelerator-pack.js](./sample-app/public/js/components/accelerator-pack.js)**: The TokBox Common Accelerator Session Pack is a common layer that permits all accelerators to share the same OpenTok session, API Key and other related information, and is required whenever you use any of the OpenTok accelerators. This layer handles communication between the client and the components.
 
-* **[text-chat-acc-pack.js](./opentok.js-text-chat/dist/text-chat-acc-pack.js)**:  Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
+* **[text-chat-acc-pack.js](./opentok.js-text-chat/dist/text-chat-acc-pack.js)**:  _(Available only in the Text Chat Accelerator Pack)._ Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
 
 * **[app.js](./sample-app/public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements. 
 
-* **[Image files](./sample-app/public/images)**: Used for the communication and media icons. 
+* **[CSS files](./sample-app/public/css)**: Defines the client UI style. 
 
 * **[index.html](./sample-app/public/index.html)**: This web page provides you with a quick start if you don't already have a web page making calls against OpenTok.js (via accelerator-pack.js) and opentok-text-chat.js. Its `<head>` element loads the OpenTok.js library, Text Chat library, and other dependencies, and its `<body>` element implements the UI container for the controls on your own page.
 
 
 ### Text Chat Accelerator Pack
 
-The `ChatUI` class is the backbone of the text chat communication features for the app. 
+The `TextChatAccPack` class in text-chat-acc-pack.js is the backbone of the text chat communication features for the app. 
 
 This class sets up the text chat UI views and events, and provides functions for sending, receiving, and rendering individual chat messages.
 
 #### Initialization
 
-The following `options` fields are used in the `ChatUI` constructor:
+The following `options` fields are used in the `TextChatAccPack` constructor:
 
 | Feature        | Field  |
 | ------------- | ------------- |
 | Set the chat container.   | `container`  |
+| Sets the position of the element that displays the information for the character count within the UI.   | `charCountElement`  |
 | Set the maximum chat text length.   | `maxTextLength`  |
 | Set the sender alias and the sender ID of the outgoing messages.  | `senderAlias`, `senderId`  |
-| Set the time in milliseconds for the UI to separate messages into bubbles.   | `groupDelay`  |
-| Set the timeout in milliseconds before communicating a message send error.   | `timeout`  |
 
 
-In this initialization code, the `ChatUI` object is initialized, and the OpenTok [Session.on()](https://tokbox.com/developer/sdks/js/reference/Session.html#on) event handler is used to set up the signaling used in the exchange of individual text chat messages.
+In this initialization code, the `TextChatAccPack` object is initialized, and the OpenTok [Session.on()](https://tokbox.com/developer/sdks/js/reference/Session.html#on) event handler is used to set up the signaling used in the exchange of individual text chat messages.
 
 ```javascript
-     this._textChat = new OTSolution.TextChat.ChatUI(this.options);
-     this._session.on('signal:chat', this._handleTextChat.bind(this));
+_textChat = new TextChatAccPack(
+            {
+              charCountElement: options.textChat.charCountElement,
+              acceleratorPack: self,
+              sender: options.textChat.user,
+              limitCharacterMessage: options.textChat.limitCharacterMessage
+            });
 ```
 
 
 #### Sending and receiving messages
 
-The `ChatUI` prototype defines a `_sendMessage()` function that extracts the string entered into the composer view’s message box and sends it to the recipient. In this example, it uses the [OpenTok signaling API](https://tokbox.com/developer/sdks/js/reference/Session.html#signal) to send an individual chat message to the other client connected to the OpenTok session.
+The `TextChatAccPack` prototype defines a `_sendMessage()` function that extracts the string entered into the composer view’s message box and sends it to the recipient. In this example, it uses the [OpenTok signaling API](https://tokbox.com/developer/sdks/js/reference/Session.html#signal) to send an individual chat message to the other client connected to the OpenTok session.
 
 ```javascript
   var _sendMessage = function (recipient, message) {
@@ -136,7 +140,7 @@ The `ChatUI` prototype defines a `_sendMessage()` function that extracts the str
 ```
 
 
-The `ChatUI` prototype defines an `onIncomingMessage()` event handler that handles the OpenTok signals for incoming messages. In this example, it uses the `ChatUI.getBubbleHtml()` method to render the received message:
+The `TextChatAccPack` prototype defines an `onIncomingMessage()` event handler that handles the OpenTok signals for incoming messages. In this example, it uses the `TextChatAccPack.getBubbleHtml()` method to render the received message:
 
 
 ```javascript

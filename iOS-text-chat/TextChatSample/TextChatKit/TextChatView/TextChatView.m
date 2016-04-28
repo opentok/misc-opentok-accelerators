@@ -11,7 +11,7 @@
 #import "TextChatTableViewCell.h"
 #import "TextChatComponent.h"
 
-#import "AcceleratorPackSession.h"
+#import "OTAcceleratorSession.h"
 
 #import "GCDHelper.h"
 #import "UIViewController+Helper.h"
@@ -37,7 +37,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
                sessionId:(NSString *)sessionId
                    token:(NSString *)token {
     
-    [AcceleratorPackSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
+    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
 }
 
 - (BOOL)isShown {

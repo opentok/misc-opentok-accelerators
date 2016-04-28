@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(LOG_TAG, "onCreate");
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -310,7 +309,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 layoutParamsPreview.height = (int) getResources().getDimension(R.dimen.preview_height);
                 layoutParamsPreview.rightMargin = (int) getResources().getDimension(R.dimen.preview_rightMargin);
                 layoutParamsPreview.bottomMargin = (int) getResources().getDimension(R.dimen.preview_bottomMargin);
-
                 if (mComm.getLocalVideo()) {
                     preview.setBackgroundResource(R.drawable.preview);
                 }
@@ -365,20 +363,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         Log.i(LOG_TAG, "OnClosed text-chat");
         mTextChatContainer.setVisibility(View.GONE);
         showAVCall(true);
-        restartTextChatLayout(true);
-    }
-
-    @Override
-    public void onMinimized() {
-        Log.i(LOG_TAG, "OnMinimized text-chat");
-        restartTextChatLayout(false);
-        showAVCall(true);
-    }
-
-    @Override
-    public void onMaximized() {
-        Log.i(LOG_TAG, "OnMaximized text-chat");
-        showAVCall(false);
         restartTextChatLayout(true);
     }
 
@@ -460,7 +444,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         }
         mTextChatContainer.setLayoutParams(params);
-    }
+     }
 
     /**
      * Converts dp to real pixels, according to the screen density.
