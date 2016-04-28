@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private RelativeLayout mAudioOnlyView;
     private RelativeLayout mLocalAudioOnlyView;
     private RelativeLayout.LayoutParams layoutParamsPreview;
+    private int bottomPreview = 0;
     private FrameLayout mTextChatContainer;
     private RelativeLayout mCameraFragmentContainer;
     private RelativeLayout mActionBarContainer;
-    private RelativeLayout.LayoutParams mTextChatLayoutParams;
 
     private TextView mAlert;
     private ImageView mAudioOnlyImage;
@@ -65,8 +65,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(LOG_TAG, "onCreate");
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -202,11 +201,9 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             mComm.end();
             cleanViewsAndControls();
         } else {
-            if (mComm.isInitialized()) {
-                mComm.start();
-                if (mPreviewFragment != null) {
-                    mPreviewFragment.setEnabled(true);
-                }
+            mComm.start();
+            if (mPreviewFragment != null) {
+                mPreviewFragment.setEnabled(true);
             }
         }
     }
@@ -252,11 +249,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onInitialized() {
         mProgressDialog.dismiss();
-
-        //Init TextChat values
-        mTextChatFragment.setMaxTextLength(1050);
-        mTextChatFragment.setSenderAlias("user1");
-        mTextChatFragment.setListener(this);
+        if ( mTextChatFragment != null ) {
+            //Init TextChat values
+            mTextChatFragment.setMaxTextLength(1050);
+            mTextChatFragment.setSenderAlias("Tokboxer");
+            mTextChatFragment.setListener(this);
+        }
     }
 
     //OneToOneCommunication callbacks
@@ -312,7 +310,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 layoutParamsPreview.height = (int) getResources().getDimension(R.dimen.preview_height);
                 layoutParamsPreview.rightMargin = (int) getResources().getDimension(R.dimen.preview_rightMargin);
                 layoutParamsPreview.bottomMargin = (int) getResources().getDimension(R.dimen.preview_bottomMargin);
-                preview.setBackgroundResource(R.drawable.preview);
+                if (mComm.getLocalVideo()) {
+                    preview.setBackgroundResource(R.drawable.preview);
+                }
+                else {
+                    //local video is disabled
+                    onDisableLocalVideo(false);
+                }
             } else {
                 preview.setBackground(null);
             }
@@ -402,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     private void initTextChatFragment(){
-        mTextChatFragment = new TextChatFragment(mComm.getSession(), OpenTokConfig.API_KEY);
+        mTextChatFragment = TextChatFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
@@ -448,14 +452,29 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+            if (mComm.isRemote()) {
+                layoutParamsPreview.bottomMargin = (int) getResources().getDimension(R.dimen.preview_bottomMargin);
+            }
         } else {
             //go to the minimized size
             params.height = dpToPx(40);
             params.addRule(RelativeLayout.ABOVE, R.id.actionbar_preview_fragment_container);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+            if (mComm.isRemote()) {
+                layoutParamsPreview = (RelativeLayout.LayoutParams) mPreviewViewContainer.getLayoutParams();
+                layoutParamsPreview.addRule(RelativeLayout.ABOVE, R.id.textchat_fragment_container);
+                if (bottomPreview != 0){
+                    layoutParamsPreview.bottomMargin = bottomPreview;
+                }
+                else {
+                    layoutParamsPreview.bottomMargin = layoutParamsPreview.bottomMargin + dpToPx(45);
+                    bottomPreview = layoutParamsPreview.bottomMargin;
+                }
+            }
         }
         mTextChatContainer.setLayoutParams(params);
-    }
+        mPreviewViewContainer.setLayoutParams(layoutParamsPreview);
+     }
 
     /**
      * Converts dp to real pixels, according to the screen density.

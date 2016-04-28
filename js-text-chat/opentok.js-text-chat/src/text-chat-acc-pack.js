@@ -4,15 +4,55 @@ var TextChatAccPack = (function () {
   var acceleratorPack;
   var textChatDiv = 'chat-container';
   var lastMessage, sender, composer;
-  var newMessages, self;
+  var newMessages, self, limitCharacterMessage;
+  
+  var _otkanalytics;
+  var logEventData = {
+    //vars for the analytics logs. Internal use
+    clientVersion: 'js-vsol-0.9',
+    source: 'text_chat_acc_pack',
+    actionInitialize: 'initialize',
+    actionSendMessage: 'send_message',
+    actionReceiveMessage: 'receive_message',
+    actionMaximize: 'maximize',
+    actionMinimize: 'minimize',
+    actionSetMaxLength: 'set_max_length',
+    variationAttempt: 'Attempt',
+    variationError: 'Failure',
+    variationSuccess: 'Success'
+  };
+  
+  
 
   // Constructor
   var TextChatAccPack = function (options) {
+    var setMaxLengthMessage = false;
+    if (options.limitCharacterMessage) {
+      setMaxLengthMessage = true;
+    }
+
     options = options || {};
     imCharacterCount = options.charCountElement;
     acceleratorPack = options.acceleratorPack;
     sender = options.sender;
+    limitCharacterMessage = options.limitCharacterMessage || 160;
     self = this;
+
+    var _otkanalyticsData = {
+      sessionId: acceleratorPack.getSession().sessionId,
+      connectionId: acceleratorPack.getSession().connection.connectionId,
+      partnerId: acceleratorPack.getApiKey(),
+      clientVersion: logEventData.clientVersion,
+      source: logEventData.source
+    };
+
+    //init the analytics logs
+    _otkanalytics = new OTKAnalytics(_otkanalyticsData);
+
+    if (setMaxLengthMessage) {
+      _log(logEventData.actionSetMaxLength, logEventData.variationAttempt);
+      _log(logEventData.actionSetMaxLength, logEventData.variationSuccess);
+    }
   };
 
   // Private methods
@@ -30,9 +70,9 @@ var TextChatAccPack = (function () {
       '</div>',
       '</div>',
       '<div class="wms-send-message-box">',
-      '<input type="text" maxlength="160" class="wms-message-input" placeholder="Enter your message here" id="messageBox">',
+      '<input type="text" maxlength='+limitCharacterMessage+' class="wms-message-input" placeholder="Enter your message here" id="messageBox">',
       '<button class="wms-icon-check" id="sendMessage" type="submit"></button>',
-      '<div class="wms-character-count"><span><span id="character-count">0</span>/160 characters</span></div>',
+      '<div class="wms-character-count"><span><span id="character-count">0</span>/'+limitCharacterMessage+' characters</span></div>',
       '</div>',
       '</div>',
       '</div>',
@@ -52,6 +92,8 @@ var TextChatAccPack = (function () {
     document.getElementById('sendMessage').onclick = function(){
       _sendTxtMessage(composer.value);
     };
+    //add INITIALIZE success log event
+    _otkanalytics.logEvent(logEventData.actionInitialize, logEventData.variationSuccess);
   };
 
   var _shouldAppendMessage = function (data) {
@@ -73,7 +115,6 @@ var TextChatAccPack = (function () {
 
   var _sendMessage = function (recipient, message) {
     var deferred = new $.Deferred();
-    //var self = this;
     var messageData = {
       text: message,
       sender: {
@@ -82,6 +123,10 @@ var TextChatAccPack = (function () {
       },
       sentOn: Date.now()
     };
+
+    //add SEND_MESSAGE attempt log event
+    _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationAttempt);
+
     console.log(acceleratorPack.getSession());
     if (recipient === undefined) {
       acceleratorPack.getSession().signal({
@@ -91,6 +136,8 @@ var TextChatAccPack = (function () {
         function (error) {
           if (error) {
             error.message = "Error sending a message. ";
+            //add SEND_MESSAGE attempt log event
+            _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationFailure);
             if (error.code === 413) {
               var errorStr = error.message + "The chat message is over size limit."
               error.message = errorStr;
@@ -104,6 +151,8 @@ var TextChatAccPack = (function () {
             deferred.reject(error);
           } else {
             console.log('Message sent');
+            //add SEND_MESSAGE attempt log event
+            _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationSuccess);
             deferred.resolve(messageData);
           }
         }
@@ -141,6 +190,7 @@ var TextChatAccPack = (function () {
     lastMessage = data;
   };
   var _onIncomingMessage = function (signal) {
+    _otkanalytics.logEvent(logEventData.actionReceiveMessage, logEventData.variationAttempt);
     if(typeof signal.data === 'string' ){
       signal.data = JSON.parse(signal.data);
     }
@@ -150,6 +200,7 @@ var TextChatAccPack = (function () {
       _renderChatMessage(signal.data.sender.id, signal.data.sender.alias, signal.data.text, signal.data.sentOn);
     }
     lastMessage = signal.data;
+    _otkanalytics.logEvent(logEventData.actionReceiveMessage, logEventData.variationSuccess);
   };
   var _handleMessageError = function (error) {
     console.log(error.code, error.message);
@@ -212,11 +263,26 @@ var TextChatAccPack = (function () {
   var _updateCharCounter = function () {
     $(imCharacterCount).text(composer.value.length);
   };
+
+  var _log = function (action, variation) {
+    var data = {
+      action: action,
+      variation: variation
+    };
+    _otkanalytics.logEvent(data);
+  };
   //    **************************************************************************************************************
   TextChatAccPack.prototype = {
     constructor: TextChatAccPack,
 
+    onMaximaze: function(){},
+    onMinimize: function(){},
+    onError: function(){},
+
     initTextChat: function(parent_holder){
+      //add INITIALIZE attempt log event
+     _log(logEventData.actionInitialize, logEventData.variationAttempt);
+
       enableTextChat = true;
       displayTextChat = true;
       _setupUI.call(this,parent_holder);
@@ -224,13 +290,28 @@ var TextChatAccPack = (function () {
     },
 
     showTextChat: function(){
+      //add MAXIMIZE attempt log event
+     _log(logEventData.actionMaximize, logEventData.variationAttempt);
+
       document.getElementById(textChatDiv).classList.remove('hidden');
       this.setDisplayTextChat(true);
+
+      //add MAXIMIZE success log event
+     _log(logEventData.actionMaximize, logEventData.variationSuccess);
+      this.onMaximaze();
     },
 
     hideTextChat: function() {
+      //add MINIMIZE attempt log event
+     _log(logEventData.actionMinimize, logEventData.variationAttempt);
+
       document.getElementById(textChatDiv).classList.add('hidden');
       this.setDisplayTextChat(false);
+
+      //add MINIMIZE success log event
+     _log(logEventData.actionMinimize, logEventData.variationSuccess);
+
+      this.onMinimize();
     },
 
     getEnableTextChat: function(){
@@ -248,6 +329,7 @@ var TextChatAccPack = (function () {
     },
     _handleMessageError: function (data) {
       _handleMessageError.call(this, data);
+      this.onError();
     }
   };
   return TextChatAccPack;

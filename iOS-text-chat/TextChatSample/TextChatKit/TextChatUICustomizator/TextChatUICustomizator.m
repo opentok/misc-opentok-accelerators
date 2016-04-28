@@ -8,49 +8,41 @@
 
 #import "TextChatUICustomizator.h"
 
-#import "TextChatView_UserInterface.h"
-#import "TextChatUICustomizator_Properties.h"
-
 @implementation TextChatUICustomizator
 
-+ (instancetype)customizator {
-    
-    static TextChatUICustomizator *sharedInstance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        sharedInstance = [[TextChatUICustomizator alloc] init];
-    });
-    return sharedInstance;
-}
-
-- (void)userInterfaceUpdate {
+- (void)notifyUserInterfaceUpdate {
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TextChatUIUpdatedNotificationName object:self];
 }
 
-+ (void)setTableViewCellSendTextColor: (UIColor *)color; {
-    if (!color) return;
-    [TextChatUICustomizator customizator].tableViewCellSendTextColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+- (void)setTableViewCellSendTextColor: (UIColor *)color; {
+    _tableViewCellSendTextColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
-+ (void)setTableViewCellReceiveTextColor: (UIColor *)color; {
-    if (!color) return;
-    [TextChatUICustomizator customizator].tableViewCellReceiveTextColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+- (void)setTableViewCellReceiveTextColor: (UIColor *)color; {
+    _tableViewCellReceiveTextColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
-+ (void)setTableViewCellSendBackgroundColor: (UIColor *)color;{
-    if (!color) return;
-    [TextChatUICustomizator customizator].tableViewCellSendBackgroundColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+- (void)setTableViewCellSendBackgroundColor: (UIColor *)color;{
+    _tableViewCellSendBackgroundColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
-+ (void)setTableViewCellReceiveBackgroundColor: (UIColor *)color;{
-    if (!color) return;
-    [TextChatUICustomizator customizator].tableViewCellReceiveBackgroundColor = color;
-    [[TextChatUICustomizator customizator] userInterfaceUpdate];
+- (void)setTableViewCellReceiveBackgroundColor: (UIColor *)color;{
+    _tableViewCellReceiveBackgroundColor = color;
+    [self notifyUserInterfaceUpdate];
+}
+
+- (void)setTopBarBackgroundColor: (UIColor *)color;{
+    _topBarBackgroundColor = color;
+    [self notifyUserInterfaceUpdate];
+}
+
+- (void)setTopBarTitleTextColor: (UIColor *)color;{
+    _topBarTitleTextColor = color;
+    [self notifyUserInterfaceUpdate];
 }
 
 @end

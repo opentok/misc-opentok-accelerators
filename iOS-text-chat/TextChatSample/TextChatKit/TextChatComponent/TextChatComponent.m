@@ -9,13 +9,29 @@
 #import <OpenTok/OpenTok.h>
 
 #import "TextChatComponent.h"
-#import "AcceleratorPackSession.h"
+#import "OTAcceleratorSession.h"
+
 
 static NSUInteger DefaultTextMessageLength = 120;
 static NSUInteger MaximumTextMessageLength = 8196;
 
+
+NSString* const KLogSource = @"text_chat_acc_pack";
+NSString* const KLogClientVersion = @"ios-vsol-0.9";
+NSString* const KLogActionInitialize = @"initialize";
+NSString* const KLogActionSendMessage = @"send_message";
+NSString* const KLogActionReceiveMessage = @"receive_message";
+NSString* const KLogActionMaxLength = @"set_max_length";
+NSString* const KLogActionSenderAlias = @"set_sender_alias";
+NSString* const KLogActionMinimize = @"minimize";
+NSString* const KLogActionMaximize = @"maximize";
+NSString* const KLogActionClose = @"close";
+NSString* const KLogVariationAttempt = @"Attempt";
+NSString* const KLogVariationSuccess = @"Success";
+NSString* const KLogVariationFailure = @"Failure";
+
 @interface TextChatComponent() <OTSessionDelegate>
-@property (nonatomic) AcceleratorPackSession *session;
+@property (nonatomic) OTAcceleratorSession *session;
 
 @property (nonatomic) NSMutableArray<TextChat *> *mutableMessages;
 
@@ -23,6 +39,7 @@ static NSUInteger MaximumTextMessageLength = 8196;
 @property (nonatomic) NSString *alias;
 @property (nonatomic) NSString *receiverAlias;
 @property (nonatomic) NSUInteger maximumTextMessageLength;
+@property (nonatomic) OTKAnalytics *analytics;
 
 @end
 
@@ -35,21 +52,23 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)setAlias:(NSString *)alias {
-    
     if (!alias) return;
     _alias = alias;
 }
 
 - (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength {
-    
     if (maximumTextMessageLength > 8196) _maximumTextMessageLength = DefaultTextMessageLength;
     _maximumTextMessageLength = maximumTextMessageLength;
+}
+
+- (void)addLogEvent:(NSString*)action variation:(NSString*)variation {
+    [_analytics logEventAction:action variation:variation];
 }
 
 - (instancetype)init {
     if (self = [super init]) {
         _mutableMessages = [[NSMutableArray alloc] init];
-        _session = [AcceleratorPackSession getAcceleratorPackSession];
+        _session = [OTAcceleratorSession getAcceleratorPackSession];
         _maximumTextMessageLength = MaximumTextMessageLength;
     }
     return self;
@@ -57,17 +76,19 @@ static NSString* const kTextChatType = @"text-chat";
 
 - (void)connect {
     
-    [AcceleratorPackSession registerWithAccePack:self];
+    [OTAcceleratorSession registerWithAccePack:self];
 }
 
 - (void)disconnect {
     
-    [AcceleratorPackSession deregisterWithAccePack:self];
+    [OTAcceleratorSession deregisterWithAccePack:self];
 }
 
 - (void)sendMessage:(NSString *)message {
     NSError *error;
     
+    [self addLogEvent:KLogActionSendMessage variation:KLogVariationAttempt];
+
     if (!message || !message.length) {
         error = [NSError errorWithDomain:NSCocoaErrorDomain
                                     code:-1
@@ -75,6 +96,9 @@ static NSString* const kTextChatType = @"text-chat";
         if (self.delegate) {
             [self.delegate didAddMessageWithError:error];
         }
+        
+        [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
+
         return;
     }
     
@@ -102,6 +126,8 @@ static NSString* const kTextChatType = @"text-chat";
             if (self.delegate) {
                 [self.delegate didAddMessageWithError:error];
             }
+            [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
+            
             return;
         }
         
@@ -128,6 +154,7 @@ static NSString* const kTextChatType = @"text-chat";
         error = [NSError errorWithDomain:NSCocoaErrorDomain
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"OTSession did not connect"}];
+        [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
     }
     
     if (self.delegate) {
@@ -147,11 +174,21 @@ static NSString* const kTextChatType = @"text-chat";
     
     NSLog(@"TextChatComponent sessionDidConnect");
     
+    //Init otkanalytics. Internal use
+    NSString *apiKey = _session.apiKey;
+    NSString *sessionId = _session.sessionId;
+    NSInteger partner = [apiKey integerValue];
+    _analytics = [[OTKAnalytics alloc] initWithSessionId:sessionId connectionId:self.session.connection.connectionId partnerId:partner clientVersion:KLogClientVersion source: KLogSource];
+    [self addLogEvent:KLogActionInitialize variation:KLogVariationAttempt];
+    
     self.senderId = session.connection.connectionId;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
         [self.delegate didConnectWithError:nil];
     }
+    
+    [self addLogEvent:KLogActionInitialize variation:KLogVariationSuccess];
+    
 }
 
 - (void)sessionDidDisconnect:(OTSession*)session {
@@ -168,7 +205,7 @@ static NSString* const kTextChatType = @"text-chat";
     if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
         [self.delegate didConnectWithError:error];
     }
-}
+ }
 
 - (void)session:(OTSession*)session streamCreated:(OTStream*)stream {
     NSLog(@"session streamCreated (%@)", stream.streamId);
@@ -192,6 +229,8 @@ receivedSignalType:(NSString*)type
      withString:(NSString*)string {
     
     if (![connection.connectionId isEqualToString:self.session.connection.connectionId]) {
+        [self addLogEvent:KLogActionReceiveMessage variation:KLogVariationAttempt];
+        
         TextChat *textChat = [[TextChat alloc] initWithJSONString:string];
         
         if (!self.receiverAlias || ![self.receiverAlias isEqualToString:textChat.alias]) {
@@ -220,8 +259,14 @@ receivedSignalType:(NSString*)type
             [self.mutableMessages addObject:textChat];
             if (self.delegate) {
                 [self.delegate didReceiveMessage];
+                [self addLogEvent:KLogActionReceiveMessage variation:KLogVariationSuccess];
             }
         }
     }
+    else {
+        //sent message
+        [self addLogEvent:KLogActionSendMessage variation:KLogVariationSuccess];
+    }
 }
+
 @end

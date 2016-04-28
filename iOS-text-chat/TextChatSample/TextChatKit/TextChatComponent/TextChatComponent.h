@@ -8,6 +8,7 @@
 
 #import "TextChat.h"
 #import "TextChatView.h"
+#import "OTKAnalytics.h"
 
 @protocol TextChatComponentDelegate <NSObject>
 - (void)didConnectWithError:(NSError *)error;
@@ -16,14 +17,29 @@
 - (void)didReceiveMessage;
 @end
 
-@interface TextChatComponent : NSObject
+//analytics
+extern NSString* const KLogSource;
+extern NSString* const KLogClientVersion;
+extern NSString* const KLogActionInitialize;
+extern NSString* const KLogActionSendMessage;
+extern NSString* const KLogActionReceiveMessage;
+extern NSString* const KLogActionMaxLength;
+extern NSString* const KLogActionSenderAlias;
+extern NSString* const KLogActionMinimize;
+extern NSString* const KLogActionMaximize;
+extern NSString* const KLogActionClose;
+extern NSString* const KLogVariationAttempt;
+extern NSString* const KLogVariationSuccess;
+extern NSString* const KLogVariationFailure;
 
+@interface TextChatComponent : NSObject
 @property (weak, nonatomic) id<TextChatComponentDelegate> delegate;
 
 @property (readonly, nonatomic) NSArray<TextChat *> *messages;
 @property (readonly, nonatomic) NSString *alias;
 @property (readonly, nonatomic) NSString *receiverAlias;
 @property (readonly, nonatomic) NSUInteger maximumTextMessageLength;
+@property (readonly, nonatomic) OTKAnalytics *analytics;
 
 - (void)connect;
 
@@ -36,5 +52,7 @@
 - (void)setAlias:(NSString *)alias;
 
 - (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength;
+
+- (void)addLogEvent:(NSString*)action variation:(NSString*)variation; //for internal use
 
 @end

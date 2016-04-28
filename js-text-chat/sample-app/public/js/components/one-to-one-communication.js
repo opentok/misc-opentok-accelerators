@@ -16,17 +16,14 @@ var Communication = (function () {
 
     var _otkanalyticsData = {
       sessionId: this.options.sessionId,
-      connectionId: this._session.connection.connectionId,
+      connectionId:this.options.session.connection.connectionId,
       partnerId: this.options.apiKey,
-      clientVersion: '1.0.0'
+      clientVersion: this.options.clientVersion,
+      source: this.options.source
     };
 
-    var _otkanalytics = new OTKAnalytics(_otkanalyticsData);
-
-    var _loggingData = {action: 'one-to-one-sample-app', variation: ''};
-
-    _otkanalytics.logEvent(_loggingData);
-
+    //init the analytics logs
+    this._otkanalytics = new OTKAnalytics(_otkanalyticsData);
   };
 
   // Private methods
@@ -35,7 +32,6 @@ var Communication = (function () {
     var handler = this.onError;
 
     this._initPublisherCamera();
-
     return this._session.publish(this.options.publishers[type], function (error) {
       if (error) {
         console.log("Error starting a call " + error.code + " - " + error.message);
@@ -213,6 +209,16 @@ var Communication = (function () {
       handler(error);
     }
   };
+  
+  var _log = function (action, variation) {
+    var self = this;
+   
+    var data = {
+        action: action,
+        variation: variation
+    };
+    self._otkanalytics.logEvent(data);
+  };
 
   // Prototype methods
   CommunicationComponent.prototype = {
@@ -239,25 +245,36 @@ var Communication = (function () {
       //TODO: Managing call status: calling, startCall,...using the recipient value
       var self = this;
 
+      //add START_COMM attempt log event 
+      _log.call(self, self.options.actionStartComm, self.options.variationAttempt);
+      
       this.options.inSession = true;
 
       this.publisher = this._publish('camera');
 
       $.when(this.publisher.on('streamCreated'))
         .done(function (event) {
-          self._handleStart(event)
+          self._handleStart(event);
+          //add START_COMM success log event 
+          _log.call(self, self.options.actionStartComm, self.options.variationSuccess);
         })
         .promise(); //call has been initialized
 
       this.publisher.on('streamDestroyed', function (event) {
         console.log("stream destroyed");
         self._handleEnd(event); //call has been finished
+        //add END_COMM success log event 
+        _log.call(self, self.options.actionEndComm, self.options.variationSuccess);
       });
 
       this.publisher.session.on('streamPropertyChanged', function (event) {
         if (self.publisher.stream === event.stream)
           self._handleLocalPropertyChanged(event)
       }); //to handle audio/video changes
+    
+      this.publisher.on('error', function (event) {
+        _log.call(this, this.options.actionStartComm, this.options.variationFailure)
+      });
 
       if (this.options.subscribers.length > 0) {
         _.each(this.options.subscribers, function (subscriber) {
@@ -266,6 +283,8 @@ var Communication = (function () {
       }
     },
     end: function () {
+      //add END_COMM attempt log event 
+      _log.call(this, this.options.actionEndComm, this.options.variationAttempt);
       this.options.inSession = false;
       this._unpublish('camera');
       this._unsubscribeStreams();
@@ -283,6 +302,9 @@ var Communication = (function () {
     enableRemoteAudio: function (enabled) {
       this.subscriber.subscribeToAudio(enabled);
       this.onEnableRemoteMedia({media: "audio", enabled: enabled});
+    },
+    addLog: function(action, variation) {
+      _log.call(this, action, variation);
     },
     //private methods
     _publish: function (type) {

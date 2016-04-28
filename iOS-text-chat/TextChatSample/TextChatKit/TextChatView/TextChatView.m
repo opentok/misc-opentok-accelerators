@@ -11,24 +11,24 @@
 #import "TextChatTableViewCell.h"
 #import "TextChatComponent.h"
 
-#import "AcceleratorPackSession.h"
+#import "OTAcceleratorSession.h"
 
 #import "GCDHelper.h"
 #import "UIViewController+Helper.h"
 
 #import "TextChatView_UserInterface.h"
-#import "TextChatView_AutoLayout.h"
-
-#import "TextChatUICustomizator_Properties.h"
 
 static CGFloat StatusBarHeight = 20.0;
 static const CGFloat TextChatInputViewHeight = 50.0;
 
 @interface TextChatView() <UITableViewDataSource, UITextFieldDelegate, TextChatComponentDelegate>
 
-@property (nonatomic) BOOL isShown;
-@property (strong, nonatomic) TextChatComponent *textChatComponent;
-@property (strong, nonatomic) UIView *attachedBottomView;
+@property (nonatomic) BOOL show;
+@property (nonatomic) TextChatComponent *textChatComponent;
+@property (nonatomic) TextChatUICustomizator *customizator;
+@property (nonatomic) UIView *attachedBottomView;
+
+@property (strong, nonatomic) TextChatViewEventBlock handler;
 @end
 
 @implementation TextChatView
@@ -37,7 +37,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
                sessionId:(NSString *)sessionId
                    token:(NSString *)token {
     
-    [AcceleratorPackSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
+    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
 }
 
 - (BOOL)isShown {
@@ -71,6 +71,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     self.tableView.estimatedRowHeight = 30.0;
     self.textField.delegate = self;
     self.textChatComponent = [[TextChatComponent alloc] init];
+    self.customizator = [[TextChatUICustomizator alloc] init];
     self.textChatComponent.delegate = self;
     self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.textChatComponent.maximumTextMessageLength];
     
@@ -100,8 +101,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 - (void)didMoveToSuperview {
     
     [super didMoveToSuperview];
-    
-    if (self.superview == nil) return;
+    [self updateTopBarUserInterface];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -182,24 +182,37 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     [self.textChatComponent connect];
 }
 
+- (void)connectWithHandler:(TextChatViewEventBlock)handler {
+    self.handler = handler;
+    [self.textChatComponent connect];
+}
+
 - (void)disconnect {
     [self.textChatComponent disconnect];
 }
 
 - (void)minimize {
+    [self.textChatComponent addLogEvent:KLogActionMinimize variation:KLogVariationAttempt];
+    
     [self.textField resignFirstResponder];
     [GCDHelper executeDelayedWithBlock:^(){
         self.topViewLayoutConstraint.constant = CGRectGetHeight(self.tableView.bounds) + TextChatInputViewHeight + StatusBarHeight;
     }];
+    
+    [self.textChatComponent addLogEvent:KLogActionMinimize variation:KLogVariationSuccess];
 }
 
 - (void)maximize {
+    [self.textChatComponent addLogEvent:KLogActionMaximize variation:KLogVariationAttempt];
+    
     self.topViewLayoutConstraint.constant = StatusBarHeight;
+    
+    [self.textChatComponent addLogEvent:KLogActionMinimize variation:KLogVariationSuccess];
 }
 
 - (void)show {
     
-    if ([self isShown]) return;
+    if (self.isShown) return;
     
     UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
     if (topViewController) {
@@ -208,10 +221,11 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (void)dismiss {
-    if ([self isShown]) {
+    if (self.isShown) {
         [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self removeFromSuperview];
+        [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationSuccess];
     }
 }
 
@@ -239,11 +253,17 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 - (void)updatetTextChatUserInterface {
     [self.tableView reloadData];
+    [self updateTopBarUserInterface];
+}
+
+- (void)updateTopBarUserInterface {
+    if(self.customizator.topBarBackgroundColor != nil) self.textChatTopView.backgroundColor = self.customizator.topBarBackgroundColor;
+    if(self.customizator.topBarTitleTextColor != nil) self.textChatTopViewTitle.textColor = self.customizator.topBarTitleTextColor;
 }
 
 #pragma mark - IBActions
 - (IBAction)minimizeView:(UIButton *)sender {
-    
+    [self.countLabel setHidden:YES];
     if (self.topViewLayoutConstraint.constant != StatusBarHeight) {
         UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
         [sender setImage:minimize_image forState:UIControlStateNormal];
@@ -258,6 +278,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (IBAction)closeButton:(UIButton *)sender {
+    [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationAttempt];
     [self dismiss];
 }
 
@@ -274,7 +295,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     // check if final divider
     TextChat *textChat = [self.textChatComponent getTextChatFromIndexPath:indexPath];
     TCMessageTypes type;
@@ -301,8 +321,9 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }
     
     TextChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId
-                                           forIndexPath:indexPath];
-    [cell updateCellFromTextChat:textChat];
+                                                                  forIndexPath:indexPath];
+    [cell updateCellFromTextChat:textChat
+                    customizator:self.customizator];
     return cell;
 }
 
@@ -329,13 +350,15 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 
 -(void)updateLabel: (NSUInteger )Charlength {
-    self.countLabel.alpha = 0;
+    [self.countLabel setHidden:YES];
     self.countLabel.textColor = [UIColor blackColor];
     self.textField.textColor = [UIColor blackColor];
 
     NSUInteger charLeft = self.textChatComponent.maximumTextMessageLength - Charlength;
-    if (charLeft <= 50) {
-        self.countLabel.alpha = 1;
+    NSUInteger closeEnd = round(self.textChatComponent.maximumTextMessageLength * .1);
+    if (closeEnd >= 100) closeEnd = 30;
+    if (charLeft <= closeEnd) {
+        [self.countLabel setHidden:NO];
         self.countLabel.textColor = [UIColor redColor];
         self.textField.textColor = [UIColor redColor];
     }
@@ -354,22 +377,25 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }
     else {
 
-        self.errorMessage.alpha = 0.0f;
+        [self.errorMessage setHidden:YES];
         [UIView animateWithDuration:0.5 animations:^{
-            self.errorMessage.alpha = 1.0f;
+            [self.errorMessage setHidden:NO];
         }];
         
         [UIView animateWithDuration:0.5
                               delay:4
                             options:UIViewAnimationOptionTransitionNone
                          animations:^{
-                             self.errorMessage.alpha = 0.0f;
+                             [self.errorMessage setHidden:YES];
                          }
                          completion:nil];
     }
     
     if (self.delegate) {
         [self.delegate textChatViewDidSendMessage:self error:error];
+    }
+    if (self.handler) {
+        self.handler(TextChatViewEventSignalDidSendMessage, error);
     }
 }
 
@@ -380,6 +406,9 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     if (self.delegate) {
         [self.delegate textChatViewDidReceiveMessage:self];
     }
+    if (self.handler) {
+        self.handler(TextChatViewEventSignalDidReceiveMessage, nil);
+    }
 }
 
 - (void)didConnectWithError:(NSError *)error {
@@ -389,12 +418,18 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
         [self.delegate didConnectWithError:error];
     }
+    if (self.handler) {
+        self.handler(TextChatViewEventSignalDidConnect, nil);
+    }
 }
 
 - (void)didDisConnectWithError:(NSError *)error {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(didDisConnectWithError:)]) {
         [self.delegate didDisConnectWithError:error];
+    }
+    if (self.handler) {
+        self.handler(TextChatViewEventSignalDidDisconnect, nil);
     }
 }
 

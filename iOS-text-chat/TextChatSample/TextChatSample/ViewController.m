@@ -35,8 +35,18 @@
     [super viewDidLoad];
     [self.textChatView setDelegate:self];
     [self.textChatView setMaximumTextMessageLength:30];
-    [self.textChatView setAlias:@"Lucas"];
+    [self.textChatView setAlias:@"Tokboxer"];
     [self.textChatView connect];
+}
+
+- (IBAction)connectToTextChatButtonPressed:(id)sender {
+    [self.textChatView connectWithHandler:^(TextChatViewEventSignal signal, NSError *error) {
+        
+    }];
+}
+
+- (IBAction)disconnectToTextChatButtonPressed:(id)sender {
+    [self.textChatView disconnect];
 }
 
 - (IBAction)connectToAVButtonPressed:(id)sender {
@@ -49,14 +59,19 @@
     [self.oneToOneCommunicator disconnect];
 }
 
+- (IBAction)ChangeTopColor:(id)sender {
+    [self.textChatView.customizator setTopBarBackgroundColor:[UIColor orangeColor]];
+    [self.textChatView.customizator setTopBarTitleTextColor:[UIColor redColor]];
+}
+
 - (IBAction)changeRedButtonPressed:(id)sender {
-    [TextChatUICustomizator setTableViewCellSendTextColor:[UIColor orangeColor]];
-    [TextChatUICustomizator setTableViewCellSendBackgroundColor:[UIColor greenColor]];
+    [self.textChatView.customizator setTableViewCellSendTextColor:[UIColor orangeColor]];
+    [self.textChatView.customizator setTableViewCellSendBackgroundColor:[UIColor greenColor]];
 }
 
 - (IBAction)changeBlueButtonPressed:(id)sender {
-    [TextChatUICustomizator setTableViewCellSendTextColor:[UIColor redColor]];
-    [TextChatUICustomizator setTableViewCellSendBackgroundColor:[UIColor yellowColor]];
+    [self.textChatView.customizator setTableViewCellSendTextColor:[UIColor redColor]];
+    [self.textChatView.customizator setTableViewCellSendBackgroundColor:[UIColor yellowColor]];
 }
 
 
