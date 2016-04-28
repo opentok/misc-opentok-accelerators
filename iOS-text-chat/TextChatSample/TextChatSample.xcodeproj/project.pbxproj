@@ -62,67 +62,7 @@
 		643553961CB6A54E00643E2F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553861CB6A54E00643E2F /* QuartzCore.framework */; };
 		643553971CB6A54E00643E2F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553871CB6A54E00643E2F /* SystemConfiguration.framework */; };
 		643553981CB6A54E00643E2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553881CB6A54E00643E2F /* UIKit.framework */; };
-		A025BC081CCAE99100E634A6 /* OTAudioDeviceManager.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBC51CCAE99100E634A6 /* OTAudioDeviceManager.html */; };
-		A025BC091CCAE99100E634A6 /* OTAudioFormat.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBC61CCAE99100E634A6 /* OTAudioFormat.html */; };
-		A025BC0A1CCAE99100E634A6 /* OTConnection.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBC71CCAE99100E634A6 /* OTConnection.html */; };
-		A025BC0B1CCAE99100E634A6 /* OTError.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBC81CCAE99100E634A6 /* OTError.html */; };
-		A025BC0C1CCAE99100E634A6 /* OTPublisher.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBC91CCAE99100E634A6 /* OTPublisher.html */; };
-		A025BC0D1CCAE99100E634A6 /* OTPublisherKit.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBCA1CCAE99100E634A6 /* OTPublisherKit.html */; };
-		A025BC0E1CCAE99100E634A6 /* OTSession.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBCB1CCAE99100E634A6 /* OTSession.html */; };
-		A025BC0F1CCAE99100E634A6 /* OTStream.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBCC1CCAE99100E634A6 /* OTStream.html */; };
-		A025BC101CCAE99100E634A6 /* OTSubscriber.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBCD1CCAE99100E634A6 /* OTSubscriber.html */; };
-		A025BC111CCAE99100E634A6 /* OTSubscriberKit.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBCE1CCAE99100E634A6 /* OTSubscriberKit.html */; };
-		A025BC121CCAE99100E634A6 /* OTSubscriberKitAudioNetworkStats.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBCF1CCAE99100E634A6 /* OTSubscriberKitAudioNetworkStats.html */; };
-		A025BC131CCAE99100E634A6 /* OTSubscriberKitVideoNetworkStats.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD01CCAE99100E634A6 /* OTSubscriberKitVideoNetworkStats.html */; };
-		A025BC141CCAE99100E634A6 /* OTVideoFormat.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD11CCAE99100E634A6 /* OTVideoFormat.html */; };
-		A025BC151CCAE99100E634A6 /* OTVideoFrame.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD21CCAE99100E634A6 /* OTVideoFrame.html */; };
-		A025BC161CCAE99100E634A6 /* OTCameraCaptureFrameRate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD41CCAE99100E634A6 /* OTCameraCaptureFrameRate.html */; };
-		A025BC171CCAE99100E634A6 /* OTCameraCaptureResolution.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD51CCAE99100E634A6 /* OTCameraCaptureResolution.html */; };
-		A025BC181CCAE99100E634A6 /* OTPixelFormat.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD61CCAE99100E634A6 /* OTPixelFormat.html */; };
-		A025BC191CCAE99100E634A6 /* OTPublisherErrorCode.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD71CCAE99100E634A6 /* OTPublisherErrorCode.html */; };
-		A025BC1A1CCAE99100E634A6 /* OTPublisherKitVideoType.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD81CCAE99100E634A6 /* OTPublisherKitVideoType.html */; };
-		A025BC1B1CCAE99100E634A6 /* OTSessionConnectionStatus.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBD91CCAE99100E634A6 /* OTSessionConnectionStatus.html */; };
-		A025BC1C1CCAE99100E634A6 /* OTSessionErrorCode.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBDA1CCAE99100E634A6 /* OTSessionErrorCode.html */; };
-		A025BC1D1CCAE99100E634A6 /* OTStreamVideoType.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBDB1CCAE99100E634A6 /* OTStreamVideoType.html */; };
-		A025BC1E1CCAE99100E634A6 /* OTSubscriberErrorCode.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBDC1CCAE99100E634A6 /* OTSubscriberErrorCode.html */; };
-		A025BC1F1CCAE99100E634A6 /* OTSubscriberVideoEventReason.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBDD1CCAE99100E634A6 /* OTSubscriberVideoEventReason.html */; };
-		A025BC201CCAE99100E634A6 /* OTVideoOrientation.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBDE1CCAE99100E634A6 /* OTVideoOrientation.html */; };
-		A025BC211CCAE99100E634A6 /* OTVideoViewScaleBehavior.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBDF1CCAE99100E634A6 /* OTVideoViewScaleBehavior.html */; };
-		A025BC221CCAE99100E634A6 /* _index.scss in Resources */ = {isa = PBXBuildFile; fileRef = A025BBE21CCAE99100E634A6 /* _index.scss */; };
-		A025BC231CCAE99100E634A6 /* _layout.scss in Resources */ = {isa = PBXBuildFile; fileRef = A025BBE31CCAE99100E634A6 /* _layout.scss */; };
-		A025BC241CCAE99100E634A6 /* _normalize.scss in Resources */ = {isa = PBXBuildFile; fileRef = A025BBE41CCAE99100E634A6 /* _normalize.scss */; };
-		A025BC251CCAE99100E634A6 /* _object.scss in Resources */ = {isa = PBXBuildFile; fileRef = A025BBE51CCAE99100E634A6 /* _object.scss */; };
-		A025BC261CCAE99100E634A6 /* _print.scss in Resources */ = {isa = PBXBuildFile; fileRef = A025BBE61CCAE99100E634A6 /* _print.scss */; };
-		A025BC271CCAE99100E634A6 /* _variables.scss in Resources */ = {isa = PBXBuildFile; fileRef = A025BBE71CCAE99100E634A6 /* _variables.scss */; };
-		A025BC281CCAE99100E634A6 /* _xcode.scss in Resources */ = {isa = PBXBuildFile; fileRef = A025BBE81CCAE99100E634A6 /* _xcode.scss */; };
-		A025BC291CCAE99100E634A6 /* style.scss in Resources */ = {isa = PBXBuildFile; fileRef = A025BBE91CCAE99100E634A6 /* style.scss */; };
-		A025BC2A1CCAE99100E634A6 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = A025BBEA1CCAE99100E634A6 /* style.css */; };
-		A025BC2B1CCAE99100E634A6 /* hierarchy.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBEB1CCAE99100E634A6 /* hierarchy.html */; };
-		A025BC2C1CCAE99100E634A6 /* button_bar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A025BBED1CCAE99100E634A6 /* button_bar_background.png */; };
-		A025BC2D1CCAE99100E634A6 /* disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = A025BBEE1CCAE99100E634A6 /* disclosure.png */; };
-		A025BC2E1CCAE99100E634A6 /* disclosure_open.png in Resources */ = {isa = PBXBuildFile; fileRef = A025BBEF1CCAE99100E634A6 /* disclosure_open.png */; };
-		A025BC2F1CCAE99100E634A6 /* library_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A025BBF01CCAE99100E634A6 /* library_background.png */; };
-		A025BC301CCAE99100E634A6 /* title_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A025BBF11CCAE99100E634A6 /* title_background.png */; };
-		A025BC311CCAE99100E634A6 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBF21CCAE99100E634A6 /* index.html */; };
-		A025BC321CCAE99100E634A6 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = A025BBF41CCAE99100E634A6 /* script.js */; };
-		A025BC331CCAE99100E634A6 /* OTAudioBus.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBF61CCAE99100E634A6 /* OTAudioBus.html */; };
-		A025BC341CCAE99100E634A6 /* OTAudioDevice.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBF71CCAE99100E634A6 /* OTAudioDevice.html */; };
-		A025BC351CCAE99100E634A6 /* OTPublisherDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBF81CCAE99100E634A6 /* OTPublisherDelegate.html */; };
-		A025BC361CCAE99100E634A6 /* OTPublisherKitAudioLevelDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBF91CCAE99100E634A6 /* OTPublisherKitAudioLevelDelegate.html */; };
-		A025BC371CCAE99100E634A6 /* OTPublisherKitDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBFA1CCAE99100E634A6 /* OTPublisherKitDelegate.html */; };
-		A025BC381CCAE99100E634A6 /* OTSessionDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBFB1CCAE99100E634A6 /* OTSessionDelegate.html */; };
-		A025BC391CCAE99100E634A6 /* OTSubscriberDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBFC1CCAE99100E634A6 /* OTSubscriberDelegate.html */; };
-		A025BC3A1CCAE99100E634A6 /* OTSubscriberKitAudioLevelDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBFD1CCAE99100E634A6 /* OTSubscriberKitAudioLevelDelegate.html */; };
-		A025BC3B1CCAE99100E634A6 /* OTSubscriberKitDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBFE1CCAE99100E634A6 /* OTSubscriberKitDelegate.html */; };
-		A025BC3C1CCAE99100E634A6 /* OTSubscriberKitNetworkStatsDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BBFF1CCAE99100E634A6 /* OTSubscriberKitNetworkStatsDelegate.html */; };
-		A025BC3D1CCAE99100E634A6 /* OTVideoCapture.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BC001CCAE99100E634A6 /* OTVideoCapture.html */; };
-		A025BC3E1CCAE99100E634A6 /* OTVideoCaptureConsumer.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BC011CCAE99100E634A6 /* OTVideoCaptureConsumer.html */; };
-		A025BC3F1CCAE99100E634A6 /* OTVideoRender.html in Resources */ = {isa = PBXBuildFile; fileRef = A025BC021CCAE99100E634A6 /* OTVideoRender.html */; };
-		A025BC401CCAE99100E634A6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A025BC031CCAE99100E634A6 /* LICENSE */; };
-		A025BC411CCAE99100E634A6 /* NOTICE in Resources */ = {isa = PBXBuildFile; fileRef = A025BC041CCAE99100E634A6 /* NOTICE */; };
-		A025BC431CCAE99200E634A6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A025BC061CCAE99100E634A6 /* README.md */; };
-		A025BC441CCAE99200E634A6 /* release-notes.md in Sources */ = {isa = PBXBuildFile; fileRef = A025BC071CCAE99100E634A6 /* release-notes.md */; };
-		A025BC451CCAEABB00E634A6 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A025BC051CCAE99100E634A6 /* OpenTok.framework */; };
+		A025397A1CD29742006829E6 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02539791CD29742006829E6 /* OpenTok.framework */; };
 		A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
 		A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */; };
@@ -136,7 +76,6 @@
 		A09A4A971CD0260F0024C349 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4A951CD0260F0024C349 /* OTKAnalytics.m */; };
 		A0C9A18A1CC81EED0026D458 /* OTAcceleratorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C9A1881CC81EED0026D458 /* OTAcceleratorSession.h */; };
 		A0C9A18B1CC81EED0026D458 /* OTAcceleratorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C9A1891CC81EED0026D458 /* OTAcceleratorSession.m */; };
-		F48C46361CCF63B3002DB3E0 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48C46351CCF63B3002DB3E0 /* OpenTok.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,67 +155,7 @@
 		643553871CB6A54E00643E2F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		643553881CB6A54E00643E2F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		643553891CB6A54E00643E2F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		A025BBC51CCAE99100E634A6 /* OTAudioDeviceManager.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioDeviceManager.html; sourceTree = "<group>"; };
-		A025BBC61CCAE99100E634A6 /* OTAudioFormat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioFormat.html; sourceTree = "<group>"; };
-		A025BBC71CCAE99100E634A6 /* OTConnection.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTConnection.html; sourceTree = "<group>"; };
-		A025BBC81CCAE99100E634A6 /* OTError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTError.html; sourceTree = "<group>"; };
-		A025BBC91CCAE99100E634A6 /* OTPublisher.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisher.html; sourceTree = "<group>"; };
-		A025BBCA1CCAE99100E634A6 /* OTPublisherKit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherKit.html; sourceTree = "<group>"; };
-		A025BBCB1CCAE99100E634A6 /* OTSession.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSession.html; sourceTree = "<group>"; };
-		A025BBCC1CCAE99100E634A6 /* OTStream.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTStream.html; sourceTree = "<group>"; };
-		A025BBCD1CCAE99100E634A6 /* OTSubscriber.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriber.html; sourceTree = "<group>"; };
-		A025BBCE1CCAE99100E634A6 /* OTSubscriberKit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKit.html; sourceTree = "<group>"; };
-		A025BBCF1CCAE99100E634A6 /* OTSubscriberKitAudioNetworkStats.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitAudioNetworkStats.html; sourceTree = "<group>"; };
-		A025BBD01CCAE99100E634A6 /* OTSubscriberKitVideoNetworkStats.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitVideoNetworkStats.html; sourceTree = "<group>"; };
-		A025BBD11CCAE99100E634A6 /* OTVideoFormat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoFormat.html; sourceTree = "<group>"; };
-		A025BBD21CCAE99100E634A6 /* OTVideoFrame.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoFrame.html; sourceTree = "<group>"; };
-		A025BBD41CCAE99100E634A6 /* OTCameraCaptureFrameRate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTCameraCaptureFrameRate.html; sourceTree = "<group>"; };
-		A025BBD51CCAE99100E634A6 /* OTCameraCaptureResolution.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTCameraCaptureResolution.html; sourceTree = "<group>"; };
-		A025BBD61CCAE99100E634A6 /* OTPixelFormat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPixelFormat.html; sourceTree = "<group>"; };
-		A025BBD71CCAE99100E634A6 /* OTPublisherErrorCode.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherErrorCode.html; sourceTree = "<group>"; };
-		A025BBD81CCAE99100E634A6 /* OTPublisherKitVideoType.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherKitVideoType.html; sourceTree = "<group>"; };
-		A025BBD91CCAE99100E634A6 /* OTSessionConnectionStatus.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSessionConnectionStatus.html; sourceTree = "<group>"; };
-		A025BBDA1CCAE99100E634A6 /* OTSessionErrorCode.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSessionErrorCode.html; sourceTree = "<group>"; };
-		A025BBDB1CCAE99100E634A6 /* OTStreamVideoType.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTStreamVideoType.html; sourceTree = "<group>"; };
-		A025BBDC1CCAE99100E634A6 /* OTSubscriberErrorCode.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberErrorCode.html; sourceTree = "<group>"; };
-		A025BBDD1CCAE99100E634A6 /* OTSubscriberVideoEventReason.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberVideoEventReason.html; sourceTree = "<group>"; };
-		A025BBDE1CCAE99100E634A6 /* OTVideoOrientation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoOrientation.html; sourceTree = "<group>"; };
-		A025BBDF1CCAE99100E634A6 /* OTVideoViewScaleBehavior.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoViewScaleBehavior.html; sourceTree = "<group>"; };
-		A025BBE21CCAE99100E634A6 /* _index.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _index.scss; sourceTree = "<group>"; };
-		A025BBE31CCAE99100E634A6 /* _layout.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _layout.scss; sourceTree = "<group>"; };
-		A025BBE41CCAE99100E634A6 /* _normalize.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _normalize.scss; sourceTree = "<group>"; };
-		A025BBE51CCAE99100E634A6 /* _object.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _object.scss; sourceTree = "<group>"; };
-		A025BBE61CCAE99100E634A6 /* _print.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _print.scss; sourceTree = "<group>"; };
-		A025BBE71CCAE99100E634A6 /* _variables.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _variables.scss; sourceTree = "<group>"; };
-		A025BBE81CCAE99100E634A6 /* _xcode.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _xcode.scss; sourceTree = "<group>"; };
-		A025BBE91CCAE99100E634A6 /* style.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = style.scss; sourceTree = "<group>"; };
-		A025BBEA1CCAE99100E634A6 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
-		A025BBEB1CCAE99100E634A6 /* hierarchy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = hierarchy.html; sourceTree = "<group>"; };
-		A025BBED1CCAE99100E634A6 /* button_bar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_bar_background.png; sourceTree = "<group>"; };
-		A025BBEE1CCAE99100E634A6 /* disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure.png; sourceTree = "<group>"; };
-		A025BBEF1CCAE99100E634A6 /* disclosure_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure_open.png; sourceTree = "<group>"; };
-		A025BBF01CCAE99100E634A6 /* library_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library_background.png; sourceTree = "<group>"; };
-		A025BBF11CCAE99100E634A6 /* title_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_background.png; sourceTree = "<group>"; };
-		A025BBF21CCAE99100E634A6 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		A025BBF41CCAE99100E634A6 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
-		A025BBF61CCAE99100E634A6 /* OTAudioBus.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioBus.html; sourceTree = "<group>"; };
-		A025BBF71CCAE99100E634A6 /* OTAudioDevice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioDevice.html; sourceTree = "<group>"; };
-		A025BBF81CCAE99100E634A6 /* OTPublisherDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherDelegate.html; sourceTree = "<group>"; };
-		A025BBF91CCAE99100E634A6 /* OTPublisherKitAudioLevelDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherKitAudioLevelDelegate.html; sourceTree = "<group>"; };
-		A025BBFA1CCAE99100E634A6 /* OTPublisherKitDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherKitDelegate.html; sourceTree = "<group>"; };
-		A025BBFB1CCAE99100E634A6 /* OTSessionDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSessionDelegate.html; sourceTree = "<group>"; };
-		A025BBFC1CCAE99100E634A6 /* OTSubscriberDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberDelegate.html; sourceTree = "<group>"; };
-		A025BBFD1CCAE99100E634A6 /* OTSubscriberKitAudioLevelDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitAudioLevelDelegate.html; sourceTree = "<group>"; };
-		A025BBFE1CCAE99100E634A6 /* OTSubscriberKitDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitDelegate.html; sourceTree = "<group>"; };
-		A025BBFF1CCAE99100E634A6 /* OTSubscriberKitNetworkStatsDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitNetworkStatsDelegate.html; sourceTree = "<group>"; };
-		A025BC001CCAE99100E634A6 /* OTVideoCapture.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoCapture.html; sourceTree = "<group>"; };
-		A025BC011CCAE99100E634A6 /* OTVideoCaptureConsumer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoCaptureConsumer.html; sourceTree = "<group>"; };
-		A025BC021CCAE99100E634A6 /* OTVideoRender.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoRender.html; sourceTree = "<group>"; };
-		A025BC031CCAE99100E634A6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		A025BC041CCAE99100E634A6 /* NOTICE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NOTICE; sourceTree = "<group>"; };
-		A025BC051CCAE99100E634A6 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
-		A025BC061CCAE99100E634A6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		A025BC071CCAE99100E634A6 /* release-notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "release-notes.md"; sourceTree = "<group>"; };
+		A02539791CD29742006829E6 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
 		A03B1F591CC0B0C800D765F7 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
 		A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
 		A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
@@ -289,7 +168,6 @@
 		A09A4A951CD0260F0024C349 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A0C9A1881CC81EED0026D458 /* OTAcceleratorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTAcceleratorSession.h; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.h"; sourceTree = "<group>"; };
 		A0C9A1891CC81EED0026D458 /* OTAcceleratorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTAcceleratorSession.m; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.m"; sourceTree = "<group>"; };
-		F48C46351CCF63B3002DB3E0 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,7 +176,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				643553431CB69CBE00643E2F /* TextChatKit.framework in Frameworks */,
-				F48C46361CCF63B3002DB3E0 /* OpenTok.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +193,7 @@
 				643553901CB6A54E00643E2F /* CoreVideo.framework in Frameworks */,
 				643553911CB6A54E00643E2F /* GLKit.framework in Frameworks */,
 				643553921CB6A54E00643E2F /* libc++.tbd in Frameworks */,
-				A025BC451CCAEABB00E634A6 /* OpenTok.framework in Frameworks */,
+				A025397A1CD29742006829E6 /* OpenTok.framework in Frameworks */,
 				643553931CB6A54E00643E2F /* libsqlite3.0.tbd in Frameworks */,
 				643553941CB6A54E00643E2F /* MediaToolbox.framework in Frameworks */,
 				643553951CB6A54E00643E2F /* OpenGLES.framework in Frameworks */,
@@ -332,7 +209,7 @@
 		643553141CB69CA400643E2F = {
 			isa = PBXGroup;
 			children = (
-				A025BBC11CCAE99100E634A6 /* OpenTok-iOS-2.7.1 */,
+				A02539791CD29742006829E6 /* OpenTok.framework */,
 				6435531F1CB69CA400643E2F /* TextChatSample */,
 				6435533D1CB69CBE00643E2F /* TextChatKit */,
 				6435531E1CB69CA400643E2F /* Products */,
@@ -440,147 +317,6 @@
 				643553701CB69D4300643E2F /* UIViewController+Helper.m */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		A025BBC11CCAE99100E634A6 /* OpenTok-iOS-2.7.1 */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBC21CCAE99100E634A6 /* doc */,
-				A025BC031CCAE99100E634A6 /* LICENSE */,
-				A025BC041CCAE99100E634A6 /* NOTICE */,
-				F48C46351CCF63B3002DB3E0 /* OpenTok.framework */,
-				A025BC051CCAE99100E634A6 /* OpenTok.framework */,
-				A025BC061CCAE99100E634A6 /* README.md */,
-				A025BC071CCAE99100E634A6 /* release-notes.md */,
-			);
-			path = "OpenTok-iOS-2.7.1";
-			sourceTree = "<group>";
-		};
-		A025BBC21CCAE99100E634A6 /* doc */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBC31CCAE99100E634A6 /* html */,
-			);
-			path = doc;
-			sourceTree = "<group>";
-		};
-		A025BBC31CCAE99100E634A6 /* html */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBC41CCAE99100E634A6 /* Classes */,
-				A025BBD31CCAE99100E634A6 /* Constants */,
-				A025BBE01CCAE99100E634A6 /* css */,
-				A025BBEB1CCAE99100E634A6 /* hierarchy.html */,
-				A025BBEC1CCAE99100E634A6 /* img */,
-				A025BBF21CCAE99100E634A6 /* index.html */,
-				A025BBF31CCAE99100E634A6 /* js */,
-				A025BBF51CCAE99100E634A6 /* Protocols */,
-			);
-			path = html;
-			sourceTree = "<group>";
-		};
-		A025BBC41CCAE99100E634A6 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBC51CCAE99100E634A6 /* OTAudioDeviceManager.html */,
-				A025BBC61CCAE99100E634A6 /* OTAudioFormat.html */,
-				A025BBC71CCAE99100E634A6 /* OTConnection.html */,
-				A025BBC81CCAE99100E634A6 /* OTError.html */,
-				A025BBC91CCAE99100E634A6 /* OTPublisher.html */,
-				A025BBCA1CCAE99100E634A6 /* OTPublisherKit.html */,
-				A025BBCB1CCAE99100E634A6 /* OTSession.html */,
-				A025BBCC1CCAE99100E634A6 /* OTStream.html */,
-				A025BBCD1CCAE99100E634A6 /* OTSubscriber.html */,
-				A025BBCE1CCAE99100E634A6 /* OTSubscriberKit.html */,
-				A025BBCF1CCAE99100E634A6 /* OTSubscriberKitAudioNetworkStats.html */,
-				A025BBD01CCAE99100E634A6 /* OTSubscriberKitVideoNetworkStats.html */,
-				A025BBD11CCAE99100E634A6 /* OTVideoFormat.html */,
-				A025BBD21CCAE99100E634A6 /* OTVideoFrame.html */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		A025BBD31CCAE99100E634A6 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBD41CCAE99100E634A6 /* OTCameraCaptureFrameRate.html */,
-				A025BBD51CCAE99100E634A6 /* OTCameraCaptureResolution.html */,
-				A025BBD61CCAE99100E634A6 /* OTPixelFormat.html */,
-				A025BBD71CCAE99100E634A6 /* OTPublisherErrorCode.html */,
-				A025BBD81CCAE99100E634A6 /* OTPublisherKitVideoType.html */,
-				A025BBD91CCAE99100E634A6 /* OTSessionConnectionStatus.html */,
-				A025BBDA1CCAE99100E634A6 /* OTSessionErrorCode.html */,
-				A025BBDB1CCAE99100E634A6 /* OTStreamVideoType.html */,
-				A025BBDC1CCAE99100E634A6 /* OTSubscriberErrorCode.html */,
-				A025BBDD1CCAE99100E634A6 /* OTSubscriberVideoEventReason.html */,
-				A025BBDE1CCAE99100E634A6 /* OTVideoOrientation.html */,
-				A025BBDF1CCAE99100E634A6 /* OTVideoViewScaleBehavior.html */,
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		A025BBE01CCAE99100E634A6 /* css */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBE11CCAE99100E634A6 /* scss */,
-				A025BBEA1CCAE99100E634A6 /* style.css */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		A025BBE11CCAE99100E634A6 /* scss */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBE21CCAE99100E634A6 /* _index.scss */,
-				A025BBE31CCAE99100E634A6 /* _layout.scss */,
-				A025BBE41CCAE99100E634A6 /* _normalize.scss */,
-				A025BBE51CCAE99100E634A6 /* _object.scss */,
-				A025BBE61CCAE99100E634A6 /* _print.scss */,
-				A025BBE71CCAE99100E634A6 /* _variables.scss */,
-				A025BBE81CCAE99100E634A6 /* _xcode.scss */,
-				A025BBE91CCAE99100E634A6 /* style.scss */,
-			);
-			path = scss;
-			sourceTree = "<group>";
-		};
-		A025BBEC1CCAE99100E634A6 /* img */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBED1CCAE99100E634A6 /* button_bar_background.png */,
-				A025BBEE1CCAE99100E634A6 /* disclosure.png */,
-				A025BBEF1CCAE99100E634A6 /* disclosure_open.png */,
-				A025BBF01CCAE99100E634A6 /* library_background.png */,
-				A025BBF11CCAE99100E634A6 /* title_background.png */,
-			);
-			path = img;
-			sourceTree = "<group>";
-		};
-		A025BBF31CCAE99100E634A6 /* js */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBF41CCAE99100E634A6 /* script.js */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		A025BBF51CCAE99100E634A6 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				A025BBF61CCAE99100E634A6 /* OTAudioBus.html */,
-				A025BBF71CCAE99100E634A6 /* OTAudioDevice.html */,
-				A025BBF81CCAE99100E634A6 /* OTPublisherDelegate.html */,
-				A025BBF91CCAE99100E634A6 /* OTPublisherKitAudioLevelDelegate.html */,
-				A025BBFA1CCAE99100E634A6 /* OTPublisherKitDelegate.html */,
-				A025BBFB1CCAE99100E634A6 /* OTSessionDelegate.html */,
-				A025BBFC1CCAE99100E634A6 /* OTSubscriberDelegate.html */,
-				A025BBFD1CCAE99100E634A6 /* OTSubscriberKitAudioLevelDelegate.html */,
-				A025BBFE1CCAE99100E634A6 /* OTSubscriberKitDelegate.html */,
-				A025BBFF1CCAE99100E634A6 /* OTSubscriberKitNetworkStatsDelegate.html */,
-				A025BC001CCAE99100E634A6 /* OTVideoCapture.html */,
-				A025BC011CCAE99100E634A6 /* OTVideoCaptureConsumer.html */,
-				A025BC021CCAE99100E634A6 /* OTVideoRender.html */,
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		A03B1F551CC0B0C800D765F7 /* TextChatView */ = {
@@ -721,67 +457,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A025BC081CCAE99100E634A6 /* OTAudioDeviceManager.html in Resources */,
 				643553301CB69CA400643E2F /* LaunchScreen.storyboard in Resources */,
-				A025BC351CCAE99100E634A6 /* OTPublisherDelegate.html in Resources */,
-				A025BC0E1CCAE99100E634A6 /* OTSession.html in Resources */,
-				A025BC2C1CCAE99100E634A6 /* button_bar_background.png in Resources */,
 				6435532D1CB69CA400643E2F /* Assets.xcassets in Resources */,
-				A025BC2F1CCAE99100E634A6 /* library_background.png in Resources */,
-				A025BC191CCAE99100E634A6 /* OTPublisherErrorCode.html in Resources */,
-				A025BC1A1CCAE99100E634A6 /* OTPublisherKitVideoType.html in Resources */,
-				A025BC121CCAE99100E634A6 /* OTSubscriberKitAudioNetworkStats.html in Resources */,
-				A025BC2B1CCAE99100E634A6 /* hierarchy.html in Resources */,
-				A025BC341CCAE99100E634A6 /* OTAudioDevice.html in Resources */,
-				A025BC391CCAE99100E634A6 /* OTSubscriberDelegate.html in Resources */,
-				A025BC091CCAE99100E634A6 /* OTAudioFormat.html in Resources */,
-				A025BC411CCAE99100E634A6 /* NOTICE in Resources */,
-				A025BC201CCAE99100E634A6 /* OTVideoOrientation.html in Resources */,
-				A025BC241CCAE99100E634A6 /* _normalize.scss in Resources */,
-				A025BC321CCAE99100E634A6 /* script.js in Resources */,
-				A025BC291CCAE99100E634A6 /* style.scss in Resources */,
-				A025BC1D1CCAE99100E634A6 /* OTStreamVideoType.html in Resources */,
-				A025BC1F1CCAE99100E634A6 /* OTSubscriberVideoEventReason.html in Resources */,
-				A025BC0C1CCAE99100E634A6 /* OTPublisher.html in Resources */,
-				A025BC251CCAE99100E634A6 /* _object.scss in Resources */,
-				A025BC221CCAE99100E634A6 /* _index.scss in Resources */,
-				A025BC111CCAE99100E634A6 /* OTSubscriberKit.html in Resources */,
-				A025BC151CCAE99100E634A6 /* OTVideoFrame.html in Resources */,
-				A025BC141CCAE99100E634A6 /* OTVideoFormat.html in Resources */,
 				6435532B1CB69CA400643E2F /* Main.storyboard in Resources */,
-				A025BC281CCAE99100E634A6 /* _xcode.scss in Resources */,
-				A025BC371CCAE99100E634A6 /* OTPublisherKitDelegate.html in Resources */,
-				A025BC171CCAE99100E634A6 /* OTCameraCaptureResolution.html in Resources */,
-				A025BC3C1CCAE99100E634A6 /* OTSubscriberKitNetworkStatsDelegate.html in Resources */,
-				A025BC101CCAE99100E634A6 /* OTSubscriber.html in Resources */,
-				A025BC261CCAE99100E634A6 /* _print.scss in Resources */,
-				A025BC2D1CCAE99100E634A6 /* disclosure.png in Resources */,
-				A025BC1B1CCAE99100E634A6 /* OTSessionConnectionStatus.html in Resources */,
-				A025BC2A1CCAE99100E634A6 /* style.css in Resources */,
-				A025BC3A1CCAE99100E634A6 /* OTSubscriberKitAudioLevelDelegate.html in Resources */,
-				A025BC311CCAE99100E634A6 /* index.html in Resources */,
-				A025BC361CCAE99100E634A6 /* OTPublisherKitAudioLevelDelegate.html in Resources */,
-				A025BC271CCAE99100E634A6 /* _variables.scss in Resources */,
-				A025BC211CCAE99100E634A6 /* OTVideoViewScaleBehavior.html in Resources */,
-				A025BC1E1CCAE99100E634A6 /* OTSubscriberErrorCode.html in Resources */,
-				A025BC131CCAE99100E634A6 /* OTSubscriberKitVideoNetworkStats.html in Resources */,
-				A025BC231CCAE99100E634A6 /* _layout.scss in Resources */,
-				A025BC3E1CCAE99100E634A6 /* OTVideoCaptureConsumer.html in Resources */,
-				A025BC3F1CCAE99100E634A6 /* OTVideoRender.html in Resources */,
-				A025BC161CCAE99100E634A6 /* OTCameraCaptureFrameRate.html in Resources */,
-				A025BC3D1CCAE99100E634A6 /* OTVideoCapture.html in Resources */,
-				A025BC301CCAE99100E634A6 /* title_background.png in Resources */,
-				A025BC381CCAE99100E634A6 /* OTSessionDelegate.html in Resources */,
-				A025BC0B1CCAE99100E634A6 /* OTError.html in Resources */,
-				A025BC331CCAE99100E634A6 /* OTAudioBus.html in Resources */,
-				A025BC0D1CCAE99100E634A6 /* OTPublisherKit.html in Resources */,
-				A025BC0F1CCAE99100E634A6 /* OTStream.html in Resources */,
-				A025BC401CCAE99100E634A6 /* LICENSE in Resources */,
-				A025BC0A1CCAE99100E634A6 /* OTConnection.html in Resources */,
-				A025BC1C1CCAE99100E634A6 /* OTSessionErrorCode.html in Resources */,
-				A025BC2E1CCAE99100E634A6 /* disclosure_open.png in Resources */,
-				A025BC181CCAE99100E634A6 /* OTPixelFormat.html in Resources */,
-				A025BC3B1CCAE99100E634A6 /* OTSubscriberKitDelegate.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,8 +502,6 @@
 			files = (
 				643553281CB69CA400643E2F /* ViewController.m in Sources */,
 				643553251CB69CA400643E2F /* AppDelegate.m in Sources */,
-				A025BC431CCAE99200E634A6 /* README.md in Sources */,
-				A025BC441CCAE99200E634A6 /* release-notes.md in Sources */,
 				643553221CB69CA400643E2F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

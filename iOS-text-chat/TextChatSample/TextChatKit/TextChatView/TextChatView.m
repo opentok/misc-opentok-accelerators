@@ -191,25 +191,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     [self.textChatComponent disconnect];
 }
 
-- (void)minimize {
-    [self.textChatComponent addLogEvent:KLogActionMinimize variation:KLogVariationAttempt];
-    
-    [self.textField resignFirstResponder];
-    [GCDHelper executeDelayedWithBlock:^(){
-        self.topViewLayoutConstraint.constant = CGRectGetHeight(self.tableView.bounds) + TextChatInputViewHeight + StatusBarHeight;
-    }];
-    
-    [self.textChatComponent addLogEvent:KLogActionMinimize variation:KLogVariationSuccess];
-}
-
-- (void)maximize {
-    [self.textChatComponent addLogEvent:KLogActionMaximize variation:KLogVariationAttempt];
-    
-    self.topViewLayoutConstraint.constant = StatusBarHeight;
-    
-    [self.textChatComponent addLogEvent:KLogActionMinimize variation:KLogVariationSuccess];
-}
-
 - (void)show {
     
     if (self.isShown) return;
@@ -222,7 +203,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 
 - (void)dismiss {
     if (self.isShown) {
-        [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
+//        [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self removeFromSuperview];
         [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationSuccess];
@@ -262,21 +243,6 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 #pragma mark - IBActions
-- (IBAction)minimizeView:(UIButton *)sender {
-    [self.countLabel setHidden:YES];
-    if (self.topViewLayoutConstraint.constant != StatusBarHeight) {
-        UIImage* minimize_image = [UIImage imageNamed:@"minimize"];
-        [sender setImage:minimize_image forState:UIControlStateNormal];
-        [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
-        [self maximize];
-    } else {
-        UIImage* maximize_image = [UIImage imageNamed:@"maximize"];
-        [sender setImage:maximize_image forState:UIControlStateNormal];
-        [self.sendButton setTitle:@"" forState:UIControlStateNormal];
-        [self minimize];
-    }
-}
-
 - (IBAction)closeButton:(UIButton *)sender {
     [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationAttempt];
     [self dismiss];
