@@ -114,16 +114,6 @@ typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, NSError *
 - (void)disconnect;
 
 /**
- *  Minimizes the text chat view
- */
-- (void)minimize;
-
-/**
- *  Maximizes the text chat view
- */
-- (void)maximize;
-
-/**
  *  Shows the text chat view
  */
 - (void)show;
