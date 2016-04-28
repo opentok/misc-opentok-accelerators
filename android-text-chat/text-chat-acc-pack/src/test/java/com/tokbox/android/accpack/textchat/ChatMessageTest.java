@@ -35,10 +35,11 @@ public class ChatMessageTest {
         chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
         chatMessage.setSenderAlias("Bob");
         chatMessage.setText("Good morning!");
-        chatMessage.setTimestamp(date.getTime());
+        long timestamp = date.getTime();
+        chatMessage.setTimestamp(timestamp);
 
         String errorMsg = "";
-        //AssertTrue(actual, expected)
+
         errorMsg += chatMessage.getSenderId().equals(senderID) ? "" : "SenderID is not set properly. Expected: " + senderID + ", Actual: " + chatMessage.getSenderId() + " /n";
         errorMsg += chatMessage.getMessageId().equals(messageID) ? "" : "MessageID is not set properly. Expected: " + messageID + ", Actual: " + chatMessage.getMessageId() + " /n";
         errorMsg += chatMessage.getMessageStatus().equals(ChatMessage.MessageStatus.SENT_MESSAGE) ? "" : "MessageStatus is not set properly. Expected: " + ChatMessage.MessageStatus.RECEIVED_MESSAGE + ", Actual: " + chatMessage.getMessageStatus() + " /n";
@@ -48,8 +49,8 @@ public class ChatMessageTest {
         //Message text is set properly
         errorMsg += chatMessage.getText().equals("Good morning!") ? "" : "Text is not set properly. Expected: 'Good morning!', Actual: " + chatMessage.getText() + " /n";
         //Assert.assertTrue(chatMessage.getText().equals("Good morning!"));
-        //Timestamp is not null
-        errorMsg += (chatMessage.getTimestamp() > 0) ? "" : "TimeStamp is not set properly. Expected: NotNull, Actual: " + chatMessage.getTimestamp() + " /n";
+        //Timestamp is set properly
+        errorMsg += (chatMessage.getTimestamp() == timestamp) ? "" : "TimeStamp is not set properly. Expected: NotNull, Actual: " + chatMessage.getTimestamp() + " /n";
         //Assert.assertTrue(chatMessage.getTimestamp() > 0);
 
         Assert.assertTrue(errorMsg,errorMsg.equals(""));
@@ -64,12 +65,13 @@ public class ChatMessageTest {
 
         chatMessageBuilder.senderAlias("Bob");
         chatMessageBuilder.text("Good morning!");
-        chatMessageBuilder.timestamp(date.getTime());
+        long timestamp = date.getTime();
+        chatMessageBuilder.timestamp(timestamp);
 
         chatMessage = chatMessageBuilder.build();
 
         String errorMsg = "";
-        //AssertTrue(actual, expected)
+
         errorMsg += chatMessage.getSenderId().equals(senderID) ? "" : "SenderID is not set properly. Expected: " + senderID + ", Actual: " + chatMessage.getSenderId() + " /n";
         errorMsg += chatMessage.getMessageId().equals(messageID) ? "" : "MessageID is not set properly. Expected: " + messageID + ", Actual: " + chatMessage.getMessageId() + " /n";
         errorMsg += chatMessage.getMessageStatus().equals(ChatMessage.MessageStatus.RECEIVED_MESSAGE) ? "" : "MessageStatus is not set properly. Expected: " + ChatMessage.MessageStatus.RECEIVED_MESSAGE + ", Actual: " + chatMessage.getMessageStatus() + " /n";
@@ -79,8 +81,8 @@ public class ChatMessageTest {
         //Message text is set properly
         errorMsg += chatMessage.getText().equals("Good morning!") ? "" : "Text is not set properly. Expected: 'Good morning!', Actual: " + chatMessage.getText() + " /n";
         //Assert.assertTrue(chatMessage.getText().equals("Good morning!"));
-        //Timestamp is not null
-        errorMsg += (chatMessage.getTimestamp() > 0) ? "" : "TimeStamp is not set properly. Expected: NotNull, Actual: " + chatMessage.getTimestamp() + " /n";
+        //Timestamp is set properly
+        errorMsg += (chatMessage.getTimestamp() == timestamp) ? "" : "TimeStamp is not set properly. Expected: NotNull, Actual: " + chatMessage.getTimestamp() + " /n";
         //Assert.assertTrue(chatMessage.getTimestamp() > 0);
 
         Assert.assertTrue(errorMsg,errorMsg.equals(""));
@@ -92,9 +94,8 @@ public class ChatMessageTest {
 
         senderID= null;
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -108,7 +109,6 @@ public class ChatMessageTest {
 
         chatMessage = chatMessageBuilder.build();
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -118,9 +118,8 @@ public class ChatMessageTest {
 
         senderID = "";
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -134,7 +133,6 @@ public class ChatMessageTest {
 
         chatMessage = chatMessageBuilder.build();
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -144,9 +142,8 @@ public class ChatMessageTest {
 
         senderID = generateLongString();
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.RECEIVED_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.RECEIVED_MESSAGE));
 
-        //AssertTrue(actual, expected)
         Assert.assertEquals(chatMessage.getSenderId(), senderID);
 
     }
@@ -160,7 +157,6 @@ public class ChatMessageTest {
 
         chatMessage = chatMessageBuilder.build();
 
-        //AssertTrue(actual, expected)
         Assert.assertEquals(chatMessage.getSenderId(), senderID);
 
     }
@@ -170,9 +166,8 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = null;
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -186,7 +181,6 @@ public class ChatMessageTest {
 
         chatMessage = chatMessageBuilder.build();
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -196,9 +190,8 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = new UUID(0,0);
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -212,7 +205,6 @@ public class ChatMessageTest {
 
         chatMessage = chatMessageBuilder.build();
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -222,9 +214,8 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = UUID.fromString("");
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.RECEIVED_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.RECEIVED_MESSAGE));
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -238,7 +229,6 @@ public class ChatMessageTest {
 
         chatMessage = chatMessageBuilder.build();
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -249,9 +239,8 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, null)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, null));
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
@@ -265,44 +254,36 @@ public class ChatMessageTest {
 
         chatMessage = chatMessageBuilder.build();
 
-        //AssertTrue(actual, expected)
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
     }
 
 
-    //Assert get Message ID
-
-
-
-
     //TO REVIEW
-    @Test
-    public void get_Message_Status_Test_When_GT_2() throws Exception {
+//    @Test
+//    public void get_Message_Status_Test_When_GT_2() throws Exception {
+//
+//        senderID = "1234";
+//        messageID = new UUID(0,0);
+//
+//        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.values()[3])); //senderId
+//
+//        //Message status
+//        //Exception??
+//        Assert.assertNull(chatMessage.getMessageStatus());
+//
+//    }
 
-        senderID = "1234";
-        messageID = new UUID(0,0);
-
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.values()[3])); //senderId
-
-        //Message status
-        //Exception??
-        Assert.assertNull(chatMessage.getMessageStatus());
-
-    }
-
-    //Assert get and set Sender Alias
     @Test
     public void getSenderAlias_When_SenderAliasIsNull() throws Exception {
 
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         chatMessage.setSenderAlias(null);
 
-        //Sender Alias
         Assert.assertNull(chatMessage.getSenderAlias());
 
     }
@@ -313,11 +294,10 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         chatMessage.setSenderAlias("");
 
-        //Sender Alias
         Assert.assertTrue(chatMessage.getSenderAlias().equals(""));
 
     }
@@ -328,29 +308,25 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         String senderAlias = generateLongString();
         chatMessage.setSenderAlias(senderAlias);
 
-        //Sender Alias
         Assert.assertTrue(chatMessage.getSenderAlias().equals(senderAlias));
 
     }
 
-
-    //Assert get and set Text
     @Test
     public void getText_When_TextIsNull() throws Exception {
 
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         chatMessage.setText(null);
 
-        //Text
         Assert.assertNull(chatMessage.getText());
 
     }
@@ -361,11 +337,10 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         chatMessage.setText("");
 
-        //Text
         Assert.assertTrue(chatMessage.getText().equals(""));
 
     }
@@ -376,44 +351,40 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         String text = generateLongString();
         chatMessage.setText(text);
 
-        //Text
         Assert.assertTrue(chatMessage.getText().equals(text));
 
     }
 
+//    @Test
+//    public void getTimestamp_When_Null() throws Exception {
+//
+//        senderID = "1234";
+//        messageID = UUID.randomUUID();
+//
+//        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+//
+//        //chatMessage.setTimestamp(null);
+//
+//        //Timestamp
+//        //Assert.assertNull(chatMessage.getTimestamp());
+//
+//    }
 
-    //Assert get and set Timestamp
     @Test
-    public void getTimestamp_When_Null() throws Exception {
+    public void getTimestamp_When_TimestampIsMinLong() throws Exception {
 
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
-
-        //chatMessage.setTimestamp(null);
-
-        //Timestamp
-        //Assert.assertNull(chatMessage.getTimestamp());
-
-    }
-
-    @Test
-    public void getTimestamp_When_TimestampIsNotValid() throws Exception {
-
-        senderID = "1234";
-        messageID = UUID.randomUUID();
-
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         chatMessage.setTimestamp(Long.MIN_VALUE);
 
-        //Timestamp
         Assert.assertTrue(chatMessage.getTimestamp() == Long.MIN_VALUE);
 
     }
@@ -424,11 +395,10 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         chatMessage.setTimestamp(Long.MAX_VALUE);
 
-        //Timestamp
         Assert.assertTrue(chatMessage.getTimestamp() == Long.MAX_VALUE);
 
     }
@@ -439,17 +409,13 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
 
         chatMessage.setTimestamp(0);
 
-        //Timestamp
         Assert.assertTrue(chatMessage.getTimestamp() == timestamp);
 
     }
-
-
-
 
 
 }
