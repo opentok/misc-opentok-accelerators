@@ -22,8 +22,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		318E18D48408D02F6A1D8793 /* libPods-TextChatSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D65AB92CD17E95A9A04B19F /* libPods-TextChatSample.a */; };
-		49FF2D12375C41CB9C5BA576 /* libPods-TextChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B162E47B2A784ACB79707A12 /* libPods-TextChatKit.a */; };
 		643553221CB69CA400643E2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553211CB69CA400643E2F /* main.m */; };
 		643553251CB69CA400643E2F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553241CB69CA400643E2F /* AppDelegate.m */; };
 		643553281CB69CA400643E2F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553271CB69CA400643E2F /* ViewController.m */; };
@@ -65,6 +63,9 @@
 		643553971CB6A54E00643E2F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553871CB6A54E00643E2F /* SystemConfiguration.framework */; };
 		643553981CB6A54E00643E2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553881CB6A54E00643E2F /* UIKit.framework */; };
 		A025397A1CD29742006829E6 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02539791CD29742006829E6 /* OpenTok.framework */; };
+		A0253ADD1CD2A565006829E6 /* TextChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AC91CD2A410006829E6 /* TextChatTests.m */; };
+		A0253ADE1CD2A567006829E6 /* TextChatComponentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */; };
+		A0253ADF1CD2A56B006829E6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0253AC71CD2A410006829E6 /* Info.plist */; };
 		A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
 		A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */; };
@@ -95,12 +96,12 @@
 			remoteGlobalIDString = 6435533B1CB69CBE00643E2F;
 			remoteInfo = TextChatKit;
 		};
-		74209CC01CC80B4800135DCC /* PBXContainerItemProxy */ = {
+		A0253AD61CD2A423006829E6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 643553151CB69CA400643E2F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6435533B1CB69CBE00643E2F;
-			remoteInfo = TextChatKit;
+			remoteGlobalIDString = 6435531C1CB69CA400643E2F;
+			remoteInfo = TextChatSample;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -119,8 +120,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2D65AB92CD17E95A9A04B19F /* libPods-TextChatSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TextChatSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		51A64554D977CEE8131EDD77 /* Pods-TextChatKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextChatKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TextChatKit/Pods-TextChatKit.debug.xcconfig"; sourceTree = "<group>"; };
 		6435531D1CB69CA400643E2F /* TextChatSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextChatSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		643553211CB69CA400643E2F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		643553231CB69CA400643E2F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -167,6 +166,10 @@
 		643553881CB6A54E00643E2F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		643553891CB6A54E00643E2F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		A02539791CD29742006829E6 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
+		A0253AC71CD2A410006829E6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatComponentTests.m; sourceTree = "<group>"; };
+		A0253AC91CD2A410006829E6 /* TextChatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatTests.m; sourceTree = "<group>"; };
+		A0253AD11CD2A423006829E6 /* TextChatSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextChatSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03B1F591CC0B0C800D765F7 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
 		A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
 		A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
@@ -211,51 +214,27 @@
 				643553961CB6A54E00643E2F /* QuartzCore.framework in Frameworks */,
 				643553971CB6A54E00643E2F /* SystemConfiguration.framework in Frameworks */,
 				643553981CB6A54E00643E2F /* UIKit.framework in Frameworks */,
-				49FF2D12375C41CB9C5BA576 /* libPods-TextChatKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74209CB71CC80B4800135DCC /* Frameworks */ = {
+		A0253ACE1CD2A423006829E6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74209CBF1CC80B4800135DCC /* TextChatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		24E2D243E71A1D451640C33B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				51A64554D977CEE8131EDD77 /* Pods-TextChatKit.debug.xcconfig */,
-				BABB45776DD2C8689DFBCBB1 /* Pods-TextChatKit.release.xcconfig */,
-				67B1FA4F878225CF6461C5C6 /* Pods-TextChatSample.debug.xcconfig */,
-				78D546C75BB83133112AA126 /* Pods-TextChatSample.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		393FDF40AA35AE68A423004D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B162E47B2A784ACB79707A12 /* libPods-TextChatKit.a */,
-				2D65AB92CD17E95A9A04B19F /* libPods-TextChatSample.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		643553141CB69CA400643E2F = {
 			isa = PBXGroup;
 			children = (
 				A02539791CD29742006829E6 /* OpenTok.framework */,
 				6435531F1CB69CA400643E2F /* TextChatSample */,
 				6435533D1CB69CBE00643E2F /* TextChatKit */,
-				74209CBB1CC80B4800135DCC /* TextChatKitTests */,
+				A0253AC61CD2A410006829E6 /* TextChatSampleTests */,
 				6435531E1CB69CA400643E2F /* Products */,
-				24E2D243E71A1D451640C33B /* Pods */,
-				393FDF40AA35AE68A423004D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -264,7 +243,7 @@
 			children = (
 				6435531D1CB69CA400643E2F /* TextChatSample.app */,
 				6435533C1CB69CBE00643E2F /* TextChatKit.framework */,
-				74209CBA1CC80B4800135DCC /* TextChatKitTests.xctest */,
+				A0253AD11CD2A423006829E6 /* TextChatSampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -363,6 +342,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		A0253AC61CD2A410006829E6 /* TextChatSampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				A0253AC71CD2A410006829E6 /* Info.plist */,
+				A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */,
+				A0253AC91CD2A410006829E6 /* TextChatTests.m */,
+			);
+			path = TextChatSampleTests;
+			sourceTree = "<group>";
+		};
 		A03B1F551CC0B0C800D765F7 /* TextChatView */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,13 +412,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 643553341CB69CA400643E2F /* Build configuration list for PBXNativeTarget "TextChatSample" */;
 			buildPhases = (
-				A680024F97474609E4C4096C /* Check Pods Manifest.lock */,
 				643553191CB69CA400643E2F /* Sources */,
 				6435531A1CB69CA400643E2F /* Frameworks */,
 				6435531B1CB69CA400643E2F /* Resources */,
 				643553481CB69CBE00643E2F /* Embed Frameworks */,
-				A202CD657726BD1F7BDDBE82 /* Embed Pods Frameworks */,
-				048AA808DE1693C605B37838 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -445,12 +431,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 643553451CB69CBE00643E2F /* Build configuration list for PBXNativeTarget "TextChatKit" */;
 			buildPhases = (
-				540B78383D083C5C7C25D178 /* Check Pods Manifest.lock */,
 				643553371CB69CBE00643E2F /* Sources */,
 				643553381CB69CBE00643E2F /* Frameworks */,
 				643553391CB69CBE00643E2F /* Headers */,
 				6435533A1CB69CBE00643E2F /* Resources */,
-				CA5F47AF48A65BD854E57C80 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -461,22 +445,22 @@
 			productReference = 6435533C1CB69CBE00643E2F /* TextChatKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		74209CB91CC80B4800135DCC /* TextChatKitTests */ = {
+		A0253AD01CD2A423006829E6 /* TextChatSampleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 74209CC41CC80B4800135DCC /* Build configuration list for PBXNativeTarget "TextChatKitTests" */;
+			buildConfigurationList = A0253AD81CD2A423006829E6 /* Build configuration list for PBXNativeTarget "TextChatSampleTests" */;
 			buildPhases = (
-				74209CB61CC80B4800135DCC /* Sources */,
-				74209CB71CC80B4800135DCC /* Frameworks */,
-				74209CB81CC80B4800135DCC /* Resources */,
+				A0253ACD1CD2A423006829E6 /* Sources */,
+				A0253ACE1CD2A423006829E6 /* Frameworks */,
+				A0253ACF1CD2A423006829E6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				74209CC11CC80B4800135DCC /* PBXTargetDependency */,
+				A0253AD71CD2A423006829E6 /* PBXTargetDependency */,
 			);
-			name = TextChatKitTests;
-			productName = TextChatKitTests;
-			productReference = 74209CBA1CC80B4800135DCC /* TextChatKitTests.xctest */;
+			name = TextChatSampleTests;
+			productName = TextChatSampleTests;
+			productReference = A0253AD11CD2A423006829E6 /* TextChatSampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -497,9 +481,9 @@
 					643553491CB69CCE00643E2F = {
 						CreatedOnToolsVersion = 7.3;
 					};
-					74209CB91CC80B4800135DCC = {
+					A0253AD01CD2A423006829E6 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = R7832Q34C8;
+						TestTargetID = 6435531C1CB69CA400643E2F;
 					};
 				};
 			};
@@ -519,7 +503,7 @@
 				6435531C1CB69CA400643E2F /* TextChatSample */,
 				6435533B1CB69CBE00643E2F /* TextChatKit */,
 				643553491CB69CCE00643E2F /* Build Framework */,
-				74209CB91CC80B4800135DCC /* TextChatKitTests */,
+				A0253AD01CD2A423006829E6 /* TextChatSampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -549,46 +533,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74209CB81CC80B4800135DCC /* Resources */ = {
+		A0253ACF1CD2A423006829E6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0253ADF1CD2A56B006829E6 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		048AA808DE1693C605B37838 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TextChatSample/Pods-TextChatSample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		540B78383D083C5C7C25D178 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		6435539F1CB6B72F00643E2F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -601,51 +556,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nFRAMEWORK_NAME=\"TextChatKit\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\"\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\"\n\n# 5\n# Remove .framework file if exists on Desktop from previous run.\nif [ -d \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to Desktop.\ncp -r \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n";
-		};
-		A202CD657726BD1F7BDDBE82 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TextChatSample/Pods-TextChatSample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A680024F97474609E4C4096C /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CA5F47AF48A65BD854E57C80 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TextChatKit/Pods-TextChatKit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -677,12 +587,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74209CB61CC80B4800135DCC /* Sources */ = {
+		A0253ACD1CD2A423006829E6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74209CC61CC82A5A00135DCC /* TextChatTests.m in Sources */,
-				74209CBD1CC80B4800135DCC /* TextChatComponentTests.m in Sources */,
+				A0253ADE1CD2A567006829E6 /* TextChatComponentTests.m in Sources */,
+				A0253ADD1CD2A565006829E6 /* TextChatTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,10 +609,10 @@
 			target = 6435533B1CB69CBE00643E2F /* TextChatKit */;
 			targetProxy = 6435539B1CB6AEF800643E2F /* PBXContainerItemProxy */;
 		};
-		74209CC11CC80B4800135DCC /* PBXTargetDependency */ = {
+		A0253AD71CD2A423006829E6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6435533B1CB69CBE00643E2F /* TextChatKit */;
-			targetProxy = 74209CC01CC80B4800135DCC /* PBXContainerItemProxy */;
+			target = 6435531C1CB69CA400643E2F /* TextChatSample */;
+			targetProxy = A0253AD61CD2A423006829E6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -812,7 +722,6 @@
 		};
 		643553351CB69CA400643E2F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 67B1FA4F878225CF6461C5C6 /* Pods-TextChatSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -829,7 +738,6 @@
 		};
 		643553361CB69CA400643E2F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78D546C75BB83133112AA126 /* Pods-TextChatSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -846,7 +754,6 @@
 		};
 		643553461CB69CBE00643E2F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51A64554D977CEE8131EDD77 /* Pods-TextChatKit.debug.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -873,7 +780,6 @@
 		};
 		643553471CB69CBE00643E2F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BABB45776DD2C8689DFBCBB1 /* Pods-TextChatKit.release.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -912,23 +818,29 @@
 			};
 			name = Release;
 		};
-		74209CC21CC80B4800135DCC /* Debug */ = {
+		A0253AD91CD2A423006829E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = TextChatKitTests/Info.plist;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_FRAMEWORKS_DIR)";
+				INFOPLIST_FILE = TextChatSampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tb.TextChatKitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Tokbox.TextChatSampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TextChatSample.app/TextChatSample";
 			};
 			name = Debug;
 		};
-		74209CC31CC80B4800135DCC /* Release */ = {
+		A0253ADA1CD2A423006829E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = TextChatKitTests/Info.plist;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_FRAMEWORKS_DIR)";
+				INFOPLIST_FILE = TextChatSampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tb.TextChatKitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Tokbox.TextChatSampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TextChatSample.app/TextChatSample";
 			};
 			name = Release;
 		};
@@ -971,11 +883,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		74209CC41CC80B4800135DCC /* Build configuration list for PBXNativeTarget "TextChatKitTests" */ = {
+		A0253AD81CD2A423006829E6 /* Build configuration list for PBXNativeTarget "TextChatSampleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				74209CC21CC80B4800135DCC /* Debug */,
-				74209CC31CC80B4800135DCC /* Release */,
+				A0253AD91CD2A423006829E6 /* Debug */,
+				A0253ADA1CD2A423006829E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

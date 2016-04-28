@@ -4,7 +4,7 @@
 #import "OneToOneCommunicator.h"
 
 
-SPEC_BEGIN(TextChatComponentTest)
+SPEC_BEGIN(TextChatComponentTests)
 
 __block TextChatComponent *tcc;
 
