@@ -109,7 +109,7 @@ button {
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-    z-index: 10;
+    z-index: 1001;
 }
 
 .secondary-video {
