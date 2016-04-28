@@ -110,6 +110,21 @@ var app = (function() {
 
   };
 
+  var _viewSharedScreen = function(viewing) {
+
+    if (viewing) {
+
+      _hide(_communicationElements.localVideo, _communicationElements.remoteVideo);
+      _show(_communicationElements.sharedScreen);
+
+    } else {
+
+      _show(_communicationElements.localVideo, _communicationElements.remoteVideo);
+      _hide(_communicationElements.sharedScreen);
+
+    }
+  };
+
   var _addEventListeners = function() {
 
     // Call events
@@ -120,9 +135,9 @@ var app = (function() {
         _communicationProperties.remoteParticipant = true;
         _communicationProperties.callActive && _swapVideoPositions('joined');
       }
-      
+
     });
-    
+
     _accPack.registerEventListener('streamDestroyed', function(event) {
 
       if (event.stream.videoType === 'camera') {
@@ -130,23 +145,11 @@ var app = (function() {
         _communicationProperties.remoteParticipant = true;
         _communicationProperties.callActive && _swapVideoPositions('joined');
       }
-      
+
     });
 
     // Start or end call
     _communicationElements.startEndCall.onclick = _connectCall;
-
-    var _viewSharedScreen = function(viewing) {
-
-      if (viewing) {
-        _hide(_communicationElements.localVideo, _communicationElements.remoteVideo);
-        _show(_communicationElements.sharedScreen);
-
-      } else {
-        _show(_communicationElements.localVideo, _communicationElements.remoteVideo);
-        _hide(_communicationElements.sharedScreen);
-      }
-    };
 
     _accPack.registerEventListener('startSharingScreen', _.partial(_show, _communicationElements.sharingPoster));
     _accPack.registerEventListener('endSharingScreen', _.partial(_hide, _communicationElements.sharingPoster));
@@ -167,8 +170,6 @@ var app = (function() {
     // Start call
     _communication.start();
     _communicationProperties.callActive = true;
-    _accPack.active(true);
-
 
     // Update UI
     [_communicationElements.startEndCall, _communicationElements.localVideo].forEach(function(element) {

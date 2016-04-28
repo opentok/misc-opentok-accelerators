@@ -98,7 +98,7 @@ var AcceleratorPack = (function() {
   /** Eventing */
   var _events = {}; // {eventName: [callbacks functions . . .]}
   var _isRegisteredEvent = _.partial(_.has, _events);
-  var _eventListeners = {};
+  
   /** 
    * Register events that can be listened to be other components/modules
    * @param {array | string} events - A list of event names. A single event may
@@ -151,7 +151,7 @@ var AcceleratorPack = (function() {
 
   var _setupEventListeners = function() {
     registerEventListener('startViewingSharedScreen', setupAnnotationView);
-    registerEventListener('endViewingSharedScreen', removeAnnotationView);
+    registerEventListener('endViewingSharedScreen', endAnnotationView);
   };
 
   /** 
@@ -163,17 +163,17 @@ var AcceleratorPack = (function() {
 
   };
 
-  /**
-   * When the call ends, we need to hide certain DOM elements related to the
-   * components and may also need to do some cleanup related to publishers,
-   * subscribers, etc.
-   */
-  var _hideAccPackComponents = function() {
+  // /**
+  //  * When the call ends, we need to hide certain DOM elements related to the
+  //  * components and may also need to do some cleanup related to publishers,
+  //  * subscribers, etc.
+  //  */
+  // var _hideAccPackComponents = function() {
 
-    _.each(_components, function(component) {
-      // component.active(false);
-    });
-  };
+  //   _.each(_components, function(component) {
+  //     // component.active(false);
+  //   });
+  // };
 
   var _validateOptions = function(options) {
 
@@ -202,6 +202,14 @@ var AcceleratorPack = (function() {
   var setupExternalAnnotation = function() {
     return _annotation.start(_session, { screensharing: true });
   };
+  
+  /** 
+   * Initialize the annotation component for use in external window
+   * @returns {Promise} < Resolve: [Object] External annotation window >    
+   */
+  var endExternalAnnotation = function() {
+    return _annotation.end();
+  };
 
   /** 
    * Initialize the annotation component for use in current window
@@ -223,7 +231,7 @@ var AcceleratorPack = (function() {
    * Initialize the annotation component for use in current window
    * @returns {Promise} < Resolve: [Object] External annotation window >    
    */
-  var setupAnnotationView = function() {
+  var endAnnotationView = function() {
     _annotation.end();
     var mainContainer = document.getElementById('main');
     mainContainer.classList.remove('aspect-ratio');  
@@ -240,40 +248,32 @@ var AcceleratorPack = (function() {
     _annotation.linkCanvas(pubSub, annotationContainer, externalWindow);
   };
 
-  var startScreenSharing = function() {
+  // var startScreenSharing = function() {
 
-    var optionsProps = [
-      'sessionID',
-      'annotation',
-      'extensionURL',
-      'extensionID',
-      'extensionPathFF',
-      'screensharingContainer'
-    ];
+  //   var optionsProps = [
+  //     'sessionID',
+  //     'annotation',
+  //     'extensionURL',
+  //     'extensionID',
+  //     'extensionPathFF',
+  //     'screensharingContainer'
+  //   ];
 
-    var options = _.extend(_.pick(self.options, 'sessionId'), self.options.screensharing, { session: _session, acceleratorPack: self });
+  //   var options = _.extend(_.pick(self.options, 'sessionId'), self.options.screensharing, { session: _session, acceleratorPack: self });
 
-    if (!!options.annotation) {
-      // Need to see what these options need to be
-      _initAnnotation(options);
-    }
-
-    _screensharing.start();
-  };
-
-  var endScreenSharing = function() {
-    _screensharing.end();
-  };
+  //   if (!!options.annotation) {
+  //     // Need to see what these options need to be
+  //     _initAnnotation(options);
+  //   }
+  //   _screensharing.start();
+  // };
 
   AcceleratorPackLayer.prototype = {
     constructor: AcceleratorPack,
     registerEvents: registerEvents,
     registerEventListener: registerEventListener,
-    active: active,
     getSession: getSession,
     getOptions: getOptions,
-    startScreenSharing: startScreenSharing,
-    endScreenSharing: endScreenSharing,
     setupAnnotationView: setupAnnotationView,
     setupExternalAnnotation: setupExternalAnnotation,
     linkAnnotation: linkAnnotation
