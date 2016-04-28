@@ -571,14 +571,14 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         String senderId = null;
         String senderAlias = null;
         String text = null;
-        String date = null;
+        Long date = null;
 
         if (type.equals("text-chat")){
             JSONObject json = null;
             try {
                 json = new JSONObject(data);
                 text = json.getString("text");
-                date = json.getString("sentOn");
+                date = json.getLong("sentOn");
                 JSONObject sender = json.getJSONObject("sender");
                 senderId = sender.getString("id");
                 senderAlias = sender.getString("alias");
