@@ -6,13 +6,14 @@ var AccPackAnnotation = (function() {
      * @constructor
      * Represents an annotation component which may be used for annotation over video or a shared screen
      * @param {object} options
-     * @param [string] options.canvasContainer - The id of the parent element for the annotation canvas
+     * @param {object} options.canvasContainer - The id of the parent element for the annotation canvas
+     * @param {object} options.watchForResize - The DOM element to watch for resize
      */
     var Annotation = function(options) {
         self = this;
         self.options = _.omit(options, 'accPack');
         self.accPack = options.accPack;  
-        self.elements = { canvasContainer : self.options.canvasContainer || window };
+        self.elements = {};
         _registerEvents();
         _setupUI();
     };
@@ -201,7 +202,7 @@ var AccPackAnnotation = (function() {
     var start = function(session, options) {
         
         var deferred = $.Deferred();
-
+        
         if (_.property('screensharing')(options)) {
             _createExternalWindow()
             .then(function(externalWindow) {
@@ -221,8 +222,10 @@ var AccPackAnnotation = (function() {
 
     /**
      * @param {object} pubSub - Either the publisher(share screen) or subscriber(viewing shared screen)
-     * @param {object} container - The actual DOM node
+     * @ param {object} container - The actual DOM node
      * @param {object} [windowReference] - Reference to the annotation window if publishing
+     * @param {object} options.canvasContainer - The id of the parent element for the annotation canvas
+     * @param {object} options.watchForResize - The DOM element to watch for resize
      */
     var linkCanvas = function(pubSub, container, externalWindow) {
         
@@ -233,16 +236,16 @@ var AccPackAnnotation = (function() {
          * exist, we are watching the canvas belonging to the party viewing the
          * shared screen
          */
-        self.elements.resizeSubject = externalWindow || self.elements.canvasContainer;
+        self.elements.resizeSubject = externalWindow || window;
         self.elements.externalWindow = externalWindow;
-        self.elements.annotationContainer = container;
-
+        self.elements.canvasContainer = container;
+        
         self.canvas = new OTSolution.Annotations({
             feed: pubSub,
             container: container
         });
 
-        var context =self.elements.externalWindow ?self.elements.externalWindow : window;
+        var context = self.elements.externalWindow ? self.elements.externalWindow : window;
 
         self.elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
 
@@ -285,8 +288,10 @@ var AccPackAnnotation = (function() {
             width = $(self.elements.canvasContainer).width();
             height = $(self.elements.canvasContainer).height();
         }
+        
+        
 
-        $(self.elements.annotationContainer).css({
+        $(self.elements.canvasContainer).css({
             width: width,
             height: height
         });
