@@ -57,7 +57,7 @@ The web page that loads the sample app for JavaScript must be served over HTTP/H
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the `ChatUI` class defined in `opentok-text-chat.js`.
+This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the `TextChatAccPack` class defined in `opentok-text-chat.js`.
 
 For detail about the APIs used to develop this sample, see the [OpenTok.js Reference](https://tokbox.com/developer/sdks/js/reference/).
 
@@ -140,7 +140,7 @@ The `TextChatAccPack` prototype defines a `_sendMessage()` function that extract
 ```
 
 
-The `TextChatAccPack` prototype defines an `onIncomingMessage()` event handler that handles the OpenTok signals for incoming messages. In this example, it uses the `ChatUI.getBubbleHtml()` method to render the received message:
+The `TextChatAccPack` prototype defines an `onIncomingMessage()` event handler that handles the OpenTok signals for incoming messages. In this example, it uses the `TextChatAccPack.getBubbleHtml()` method to render the received message:
 
 
 ```javascript
