@@ -211,11 +211,6 @@ var Communication = (function() {
 
         _triggerEvent('streamCreated', event);
 
-        // var handler = self.onStreamCreated;
-        // if (handler && typeof handler === 'function') {
-        //     console.log(' should handle a new thing here and there');
-        //     handler(event);
-        // }
     };
 
     var _handleStreamDestroyed = function(event) {
@@ -226,14 +221,17 @@ var Communication = (function() {
         var index = self.subscribers.indexOf(event.stream);
         self.subscribers.splice(index, 1);
 
-        _triggerEvent('streamDestroyed', event);
+        
         if (streamDestroyedType === 'camera') {
-            // TODO Is this required???
+            
+            _triggerEvent('streamDestroyed', event);
             self.subscriber = null; //to review
             self._remoteParticipant = null;
 
         } else if (streamDestroyedType === 'screen') {
-            // Do we need to do anyting here?
+            _triggerEvent('endViewingSharedScreen');
+            self.onScreenSharingEnded();
+            self._endAnnotation()
         } else {
             _.each(self.subscribers, function(subscriber) {
                 _subscribeToStream(subscriber);

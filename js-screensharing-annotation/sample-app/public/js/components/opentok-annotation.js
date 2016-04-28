@@ -269,6 +269,9 @@ OTSolution.Annotations = function(options) {
         if (canvas.height === 0) {
             canvas.height = self.parent.getBoundingClientRect().height;
         }
+        
+        console.log('i need correct width and height', canvas.width, canvas.height);
+        console.log('what about the parent?', self.parent.clientWidth, self.parent.clientHeight);
 
         if (event.offsetY === 0 ) { console.log('no offset', event);};
 
