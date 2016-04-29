@@ -40,5 +40,5 @@ dependencies {
     compile 'com.android.support:design:23.+'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     compile 'com.opentok.android:opentok-android-sdk:2.8.+'
-    compile project(path: ':android-acc-pack')
+    compile project(':opentok-android-accelerator-pack-1.0')
 }
