@@ -117,7 +117,7 @@ The following classes represent the software design for this sample app, focusin
 
 The `TextChatFragment` class is the backbone of the text chat communication features for the app. 
 
-This class, which inherits from the [`android.support.v4.app.Fragment`](http://developer.android.com/intl/es/reference/android/support/v4/app/Fragment.html) class, sets up the text chat UI views and events, and defines a listener interface that is implemented in this example by the `MainActivity` class.
+This class, which inherits from the [`android.support.v4.app.Fragment`](http://developer.android.com/intl/es/reference/android/support/v4/app/Fragment.html) class, sets up the text chat UI views and events, sets up session listeners, and defines a listener interface that is implemented in this example by the `MainActivity` class.
 
 ```java
 public class TextChatFragment extends Fragment implements AccPackSession.SignalListener, AccPackSession.SessionListener {
@@ -181,7 +181,6 @@ The `onNewSentMessage()` method uses the [OpenTok signaling API](https://tokbox.
 The `onNewReceivedMessage()` method uses the `ChatMessage` object to build and display the individual chat message received from the other client.
 
 
-
 ```java
     @Override
     public void onNewSentMessage(ChatMessage message) {
@@ -209,8 +208,8 @@ This class works with the following `MainActivity` methods, which manage the vie
 | ------------- | ------------- |
 | Manage the UI containers. | `onCreate()`  |
 | Reload the UI views whenever the device [configuration](http://developer.android.com/reference/android/content/res/Configuration.html), such as screen size or orientation, changes. | `onConfigurationChanged()`  |
-| Manage the layout of the text chat controls. | `onTextChat()` |
-| Manage the views for the action bar and messages.   | `getSendMessageView()`, `setSendMessageView()`, `getActionBar()`,  `setActionBar()`|
+| Opens and closes the text chat view. | `onTextChat()` |
+| Manage the customizable views for the action bar and messages.   | `getSendMessageView()`, `setSendMessageView()`, `getActionBar()`,  `setActionBar()`|
 
 
 

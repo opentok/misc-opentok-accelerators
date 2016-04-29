@@ -15,7 +15,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.opentok.android.Connection;
@@ -27,7 +26,6 @@ import com.tokbox.android.accpack.textchat.config.OpenTokConfig;
 import com.tokbox.android.accpack.textchat.logging.OTKAnalytics;
 import com.tokbox.android.accpack.textchat.logging.OTKAnalyticsData;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,7 +54,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     private ViewGroup mSendMessageView;
     private EditText mMsgEditText;
     private TextView mTitleBar;
-    private ImageButton mMinimizeBtn;
     private ImageButton mCloseBtn;
 
     private int maxTextLength = MAX_DEFAULT_LENGTH;
@@ -68,7 +65,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     private List<ChatMessage> messagesList = new ArrayList<ChatMessage>();
     private MessagesAdapter mMessageAdapter;
 
-    private boolean isMinimized = false;
     private boolean isRestarted = false;
     private boolean customActionBar = false;
     private boolean customSenderArea = false;
@@ -113,18 +109,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         void onClosed();
 
         /**
-         * Invoked when the minimize button is clicked.
-         *
-         */
-        void onMinimized();
-
-        /**
-         * Invoked when the maximize button is clicked.
-         *
-         */
-        void onMaximized();
-
-        /**
          * Invoked when the text chat is restarted.
          *
          */
@@ -162,7 +146,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
         mMsgEditText = (EditText) rootView.findViewById(R.id.edit_msg);
         mTitleBar = (TextView) rootView.findViewById(R.id.titlebar);
-        mMinimizeBtn = (ImageButton) rootView.findViewById(R.id.minimize);
         mCloseBtn = (ImageButton) rootView.findViewById(R.id.close);
         mActionBarView = (ViewGroup) rootView.findViewById(R.id.action_bar);
         mSendMessageView = (ViewGroup) rootView.findViewById(R.id.send_msg);
@@ -189,20 +172,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         mMessageAdapter = new MessagesAdapter(messagesList);
         mRecyclerView.setAdapter(mMessageAdapter);
 
-        mMinimizeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(LOG_TAG, "Minimize onClick");
-                if (isMinimized) {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_MAXIMIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-                    minimize(false);
-                } else {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_MINIMIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-                    minimize(true);
-                }
-            }
-        });
-
         mCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,24 +184,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         updateTitle(defaultTitle());
 
         return rootView;
-    }
-
-    /**
-     * Minimize the text chat view.
-     *
-     */
-    public void minimize(){
-        addLogEvent(OpenTokConfig.LOG_ACTION_MINIMIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        minimize(true);
-    }
-
-    /**
-     * Maximize the text chat view.
-     *
-     */
-    public void maximize(){
-        addLogEvent(OpenTokConfig.LOG_ACTION_MAXIMIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        minimize(false);
     }
 
     /**
@@ -341,7 +292,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         addLogEvent(OpenTokConfig.LOG_ACTION_RESTART, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         try {
             isRestarted = true;
-            minimize(false);
             messagesList = new ArrayList<ChatMessage>();
             mMessageAdapter = new MessagesAdapter(messagesList);
             mRecyclerView.setAdapter(mMessageAdapter);
@@ -460,45 +410,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         mTitleBar.setText(title);
     }
 
-    //Minimize or maximize text chat view
-    private void minimize(boolean minimized) {
-        if (!minimized) {
-            try {
-                //maximize text-chat
-                mMinimizeBtn.setBackgroundResource(R.drawable.minimize);
-                mContentView.setVisibility(View.VISIBLE);
-                mMsgEditText.setVisibility(View.VISIBLE);
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mActionBarView.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
-                mActionBarView.setLayoutParams(params);
-
-                isMinimized = false;
-                onMaximize();
-            } catch (Exception e) {
-                addLogEvent(OpenTokConfig.LOG_ACTION_MAXIMIZE, OpenTokConfig.LOG_VARIATION_ERROR);
-            }
-        } else {
-            //minimize text-chat
-            try {
-                mMinimizeBtn.setBackgroundResource(R.drawable.maximize);
-
-                mContentView.setVisibility(View.GONE);
-                mMsgEditText.setVisibility(View.GONE);
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mActionBarView.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-                mActionBarView.setLayoutParams(params);
-                isMinimized = true;
-                onMinimize();
-            }catch (Exception e){
-                addLogEvent(OpenTokConfig.LOG_ACTION_MINIMIZE, OpenTokConfig.LOG_VARIATION_ERROR);
-            }
-        }
-    }
-
     //add log events
     private void addLogEvent(String action, String variation){
         if ( mAnalytics!= null ) {
@@ -520,27 +431,8 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             mListener.onClosed();
         }
         isRestarted = true;
-        try {
-            minimize(false);
-        } catch (Exception e){
-            addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_ERROR);
-        }
+
         addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_SUCCESS);
-    }
-
-    protected void onMinimize(){
-        if (this.mListener != null && !isRestarted) {
-            mListener.onMinimized();
-        }
-        isRestarted = false;
-        addLogEvent(OpenTokConfig.LOG_ACTION_MINIMIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
-    }
-
-    protected void onMaximize(){
-        if (this.mListener != null && !isRestarted) {
-            mListener.onMaximized();
-        }
-        addLogEvent(OpenTokConfig.LOG_ACTION_MAXIMIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     protected void onNewSentMessage(ChatMessage message){
@@ -571,14 +463,14 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         String senderId = null;
         String senderAlias = null;
         String text = null;
-        String date = null;
+        Long date = null;
 
         if (type.equals("text-chat")){
             JSONObject json = null;
             try {
                 json = new JSONObject(data);
                 text = json.getString("text");
-                date = json.getString("sentOn");
+                date = json.getLong("sentOn");
                 JSONObject sender = json.getJSONObject("sender");
                 senderId = sender.getString("id");
                 senderAlias = sender.getString("alias");

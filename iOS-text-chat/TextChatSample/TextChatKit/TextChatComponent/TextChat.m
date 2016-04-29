@@ -60,7 +60,7 @@ static NSString * const kSendOn = @"sentOn";
 
 
         if (dict[kSendOn] && [dict[kSendOn] isKindOfClass:[NSString class]]) {
-            _dateTime = [NSDate dateWithTimeIntervalSince1970:[dict[kSendOn] doubleValue]];
+            _dateTime = [NSDate dateWithTimeIntervalSince1970:([dict[kSendOn] doubleValue] / 1000)];
         }
 
         _type = TCMessageTypesReceived;
@@ -78,7 +78,7 @@ static NSString * const kSendOn = @"sentOn";
                                    kSenderAlias: self.alias,
                                    kSenderId: self.senderId,
                                    },
-                           kSendOn: @([self.dateTime timeIntervalSince1970])
+                           kSendOn: @([self.dateTime timeIntervalSince1970] * 1000)
                            };
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingPrettyPrinted error:&jsonError];
     if (jsonError) {

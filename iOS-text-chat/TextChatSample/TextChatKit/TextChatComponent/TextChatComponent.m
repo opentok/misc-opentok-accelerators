@@ -9,7 +9,7 @@
 #import <OpenTok/OpenTok.h>
 
 #import "TextChatComponent.h"
-#import "AcceleratorPackSession.h"
+#import "OTAcceleratorSession.h"
 
 
 static NSUInteger DefaultTextMessageLength = 120;
@@ -31,7 +31,7 @@ NSString* const KLogVariationSuccess = @"Success";
 NSString* const KLogVariationFailure = @"Failure";
 
 @interface TextChatComponent() <OTSessionDelegate>
-@property (nonatomic) AcceleratorPackSession *session;
+@property (nonatomic) OTAcceleratorSession *session;
 
 @property (nonatomic) NSMutableArray<TextChat *> *mutableMessages;
 
@@ -52,20 +52,13 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)setAlias:(NSString *)alias {
-    [self addLogEvent:KLogActionSenderAlias variation:KLogVariationAttempt];
     if (!alias) return;
     _alias = alias;
-    [self addLogEvent:KLogActionSenderAlias variation:KLogVariationSuccess];
 }
 
 - (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength {
-    
-    [self addLogEvent:KLogActionMaxLength variation:KLogVariationAttempt];
-
     if (maximumTextMessageLength > 8196) _maximumTextMessageLength = DefaultTextMessageLength;
     _maximumTextMessageLength = maximumTextMessageLength;
-    
-    [self addLogEvent:KLogActionMaxLength variation:KLogVariationSuccess];
 }
 
 - (void)addLogEvent:(NSString*)action variation:(NSString*)variation {
@@ -75,7 +68,7 @@ static NSString* const kTextChatType = @"text-chat";
 - (instancetype)init {
     if (self = [super init]) {
         _mutableMessages = [[NSMutableArray alloc] init];
-        _session = [AcceleratorPackSession getAcceleratorPackSession];
+        _session = [OTAcceleratorSession getAcceleratorPackSession];
         _maximumTextMessageLength = MaximumTextMessageLength;
     }
     return self;
@@ -83,12 +76,12 @@ static NSString* const kTextChatType = @"text-chat";
 
 - (void)connect {
     
-    [AcceleratorPackSession registerWithAccePack:self];
+    [OTAcceleratorSession registerWithAccePack:self];
 }
 
 - (void)disconnect {
     
-    [AcceleratorPackSession deregisterWithAccePack:self];
+    [OTAcceleratorSession deregisterWithAccePack:self];
 }
 
 - (void)sendMessage:(NSString *)message {

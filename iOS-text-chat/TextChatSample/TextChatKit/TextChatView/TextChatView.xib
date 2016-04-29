@@ -31,25 +31,15 @@
                                 <action selector="closeButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="arQ-2O-yqV"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0Y-DI-2dJ">
-                            <rect key="frame" x="523" y="8" width="26" height="28"/>
-                            <state key="normal" image="minimize"/>
-                            <connections>
-                                <action selector="minimizeView:" destination="iN0-l3-epB" eventType="touchUpInside" id="QD7-Px-dWj"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.33725490200000002" green="0.61176470589999998" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="OFm-Hr-FhA" firstAttribute="top" secondItem="d14-QU-ZHB" secondAttribute="top" constant="8" id="4rr-Wp-tg6"/>
                         <constraint firstItem="rt0-vx-EzT" firstAttribute="centerY" secondItem="d14-QU-ZHB" secondAttribute="centerY" id="6Df-Zl-zZy"/>
                         <constraint firstAttribute="trailing" secondItem="OFm-Hr-FhA" secondAttribute="trailing" constant="8" id="JNQ-mZ-ItC"/>
-                        <constraint firstItem="o0Y-DI-2dJ" firstAttribute="top" secondItem="d14-QU-ZHB" secondAttribute="top" constant="8" id="Y0j-Ir-AJx"/>
                         <constraint firstItem="rt0-vx-EzT" firstAttribute="width" secondItem="d14-QU-ZHB" secondAttribute="width" multiplier="0.6" id="nHi-hW-wXb"/>
-                        <constraint firstItem="OFm-Hr-FhA" firstAttribute="leading" secondItem="o0Y-DI-2dJ" secondAttribute="trailing" constant="16" id="okO-u1-PlH"/>
                         <constraint firstAttribute="height" constant="44" id="tYj-8i-1bl"/>
                         <constraint firstItem="rt0-vx-EzT" firstAttribute="centerX" secondItem="d14-QU-ZHB" secondAttribute="centerX" id="wI0-LK-XFX"/>
-                        <constraint firstAttribute="bottom" secondItem="o0Y-DI-2dJ" secondAttribute="bottom" constant="8" id="wh3-4z-KDu"/>
                         <constraint firstAttribute="bottom" secondItem="OFm-Hr-FhA" secondAttribute="bottom" constant="8" id="wof-6Y-cWk"/>
                     </constraints>
                 </view>
@@ -144,7 +134,6 @@
             <connections>
                 <outlet property="countLabel" destination="tyv-rK-idu" id="dkh-2r-Dcw"/>
                 <outlet property="errorMessage" destination="sda-ij-nTc" id="2P3-R6-HnH"/>
-                <outlet property="minimizeButton" destination="o0Y-DI-2dJ" id="4ph-HN-q1E"/>
                 <outlet property="sendButton" destination="lcY-dh-e4I" id="Dxg-bH-j1O"/>
                 <outlet property="tableView" destination="vkl-Dd-Rd9" id="4V5-1Y-hag"/>
                 <outlet property="textChatInputView" destination="sMg-0x-Pl4" id="El9-Y4-8zP"/>
@@ -157,6 +146,5 @@
     </objects>
     <resources>
         <image name="close_x_white" width="27" height="27"/>
-        <image name="minimize" width="26" height="27"/>
     </resources>
 </document>
