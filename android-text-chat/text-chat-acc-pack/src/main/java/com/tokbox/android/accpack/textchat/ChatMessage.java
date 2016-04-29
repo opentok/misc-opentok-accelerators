@@ -30,9 +30,9 @@ public class ChatMessage {
         RECEIVED_MESSAGE
     }
 
-
     /**
      * Constructor.
+     * @param builder The ChatMessageBuilder to creates the instance.
      */
     public ChatMessage(ChatMessageBuilder builder) {
         this.senderId = builder.senderId;
@@ -116,7 +116,7 @@ public class ChatMessage {
     }
 
     /**
-     * ChatMessageBuilder static class used in the ChatMessage constructor to instantiate a chat message.
+     * ChatMessageBuilder static class used in the ChatMessage constructor to instantiate a ChatMessage.
      */
     public static class ChatMessageBuilder {
 
@@ -143,7 +143,7 @@ public class ChatMessage {
         }
 
         /**
-         * Constructor.
+         * Set a sender alias on the ChatMessage that has to be build by this ChatMessageBuilder
          * @param senderAlias The sender alias.
          */
         public ChatMessageBuilder senderAlias(String senderAlias) {
@@ -152,7 +152,7 @@ public class ChatMessage {
         }
 
         /**
-         * Constructor.
+         * Set a text message string on the ChatMessage that has to be build by this ChatMessageBuilder
          * @param text The message text.
          */
         public ChatMessageBuilder text(String text) {
@@ -161,7 +161,7 @@ public class ChatMessage {
         }
 
         /**
-         * Constructor.
+         * Set a timestamp on the ChatMessage that has to be build by this ChatMessageBuilder
          * @param timestamp The message timestamp.
          */
         public ChatMessageBuilder timestamp(long timestamp) {
@@ -170,7 +170,7 @@ public class ChatMessage {
         }
 
         /**
-         * Build a chat message.
+         * Creates a new ChatMessage.
          */
         public ChatMessage build() {
             ChatMessage message = new ChatMessage(this);
