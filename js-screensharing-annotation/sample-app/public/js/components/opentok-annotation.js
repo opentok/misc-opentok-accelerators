@@ -522,8 +522,6 @@ OTSolution.Annotations = function(options) {
         // Clear the canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        window.drawHistory = drawHistory;
-
         // Repopulate the canvas with items from drawHistory
         drawHistory.forEach(function (history) {
             ctx.strokeStyle = history.color;

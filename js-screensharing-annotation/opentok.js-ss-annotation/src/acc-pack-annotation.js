@@ -41,6 +41,11 @@ var AccPackAnnotation = (function() {
         icon: '../images/annotation/line.png',
         selectedIcon: '../images/annotation/line_selected.png'
     }, {
+        id: 'OT_text',
+        title: 'Text',
+        icon: '../images/annotation/text.png',
+        selectedIcon: '../images/annotation/text.png'
+    },{
         id: 'OT_shapes',
         title: 'Shapes',
         icon: '../images/annotation/shapes.png',

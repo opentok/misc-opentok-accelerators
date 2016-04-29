@@ -186,7 +186,6 @@ var app = (function() {
     // End call
     _communication.end();
     _communicationProperties.callActive = false;
-    _accPack.active(false);
 
     // Update UI
     _toggleClass(_communicationElements.startEndCall, 'active');
