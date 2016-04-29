@@ -1,9 +1,7 @@
 # OTAcceleratorPackUtil
 
-[![CI Status](http://img.shields.io/travis/Lucas Huang/OTAcceleratorPackUtil.svg?style=flat)](https://travis-ci.org/Lucas Huang/OTAcceleratorPackUtil)
 [![Version](https://img.shields.io/cocoapods/v/OTAcceleratorPackUtil.svg?style=flat)](http://cocoapods.org/pods/OTAcceleratorPackUtil)
 [![License](https://img.shields.io/cocoapods/l/OTAcceleratorPackUtil.svg?style=flat)](http://cocoapods.org/pods/OTAcceleratorPackUtil)
-[![Platform](https://img.shields.io/cocoapods/p/OTAcceleratorPackUtil.svg?style=flat)](http://cocoapods.org/pods/OTAcceleratorPackUtil)
 
 ## Usage
 
