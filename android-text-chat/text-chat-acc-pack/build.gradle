@@ -18,7 +18,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
     libraryVariants.all { variant ->
+
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.aar')) {
@@ -26,8 +32,31 @@ android {
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
+
+        def javadoc = task("generateJavaDoc${variant.name.capitalize()}", type: Javadoc, dependsOn: "generate${variant.name.capitalize()}Sources") {
+            source = 'src/main/java'
+            classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+            destinationDir = file("build/outputs/docs/")
+            title = 'OpenTok Android TextChat Accelerator Pack'
+            exclude "**/config/**"
+            exclude "**/logging/**"
+        }
+
+        def zipBundle = task("zipBundle${variant.name.capitalize()}", type: Zip) {
+            from ('build/outputs')
+            include '**/aar/**'
+            include '**/docs/**'
+            exclude '**/lint-results-debug_files/**'
+            destinationDir = file(".")
+            archiveName = "${archivesBaseName}-${version}.zip"
+        }
+
+        zipBundle.dependsOn build
+        zipBundle.dependsOn javadoc
     }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
