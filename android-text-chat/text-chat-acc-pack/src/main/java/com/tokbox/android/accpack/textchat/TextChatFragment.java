@@ -177,6 +177,14 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Close onClick");
                 addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
+                try  {
+                    InputMethodManager inputMgr = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMgr.hideSoftInputFromWindow(mMsgEditText.getWindowToken(), 0);
+                } catch (Exception e) {
+                    throw e;
+                }
+
                 onClose();
             }
         });
