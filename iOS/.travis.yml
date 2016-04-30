@@ -3,11 +3,21 @@
 # * https://github.com/supermarin/xcpretty#usage
 
 language: objective-c
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install:
-# - gem install cocoapods # Since Travis is not always on latest version
-# - pod install --project-directory=Example
+
+env:
+  global:
+  - WORKSPACE="iOS/Example/OTAcceleratorPackUtil.xcworkspace"
+  - IOS_SCHEME="OTAcceleratorPackUtil-Example"
+  - IOS_SDK=iphonesimulator9.3
+
+before_install:
+- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+
 script:
-- set -o pipefail && xcodebuild test -workspace Example/OTAcceleratorPackUtil.xcworkspace -scheme OTAcceleratorPackUtil-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
-- pod lib lint
+- xcodebuild clean build test -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "IOS_SDK" -configuration Debug ONLY_ACTIVE_ARCH=NO | xcpretty;
+- xcodebuild clean build -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "IOS_SDK" -configuration Debug ONLY_ACTIVE_ARCH=NO | xcpretty;
+- xcodebuild clean build test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -configuration Debug ONLY_ACTIVE_ARCH=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES;
+- pod spec lint --user-libraries;
+
+after_success:
+- bash <(curl -s https://codecov.io/bash);

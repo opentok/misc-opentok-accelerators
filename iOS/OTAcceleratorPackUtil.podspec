@@ -30,8 +30,8 @@ On the Android and iOS mobile platforms, when you try to set a listener (Android
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'iOS/OTAcceleratorPackUtil/Classes/*.{h,m}'
-  s.public_header_files = 'iOS/OTAcceleratorPackUtil/Classes/*.{h}'
+  s.source_files = 'iOS/OTAcceleratorPackUtil/Classes/*'
+  s.public_header_files = 'iOS/OTAcceleratorPackUtil/Classes/*.h'
   s.dependency 'OpenTok', '~> 2.7.1'
 
 #s.vendored_frameworks = 'OTAcceleratorPackUtil.framework'
