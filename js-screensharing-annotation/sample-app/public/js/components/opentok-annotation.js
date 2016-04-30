@@ -556,14 +556,13 @@ OTSolution.Annotations = function(options) {
     }
     
     
-    
     var createTextBox = function(event) {
         
         var absoluteOrigin = { x: event.clientX, y: event.clientY };
         var canvasOrigin = { x: event.offsetX, y: event.offsetY };
         
         document.addEventListener('keydown', function handleKeyPress() {
-            
+            // 
         });
         
     };
