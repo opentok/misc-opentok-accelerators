@@ -269,9 +269,6 @@ OTSolution.Annotations = function(options) {
         if (canvas.height === 0) {
             canvas.height = self.parent.getBoundingClientRect().height;
         }
-        
-        console.log('i need correct width and height', canvas.width, canvas.height);
-        console.log('what about the parent?', self.parent.clientWidth, self.parent.clientHeight);
 
         if (event.offsetY === 0 ) { console.log('no offset', event);};
 
@@ -509,6 +506,67 @@ OTSolution.Annotations = function(options) {
         updateCanvas(event);
 
     });
+    
+    var clickCount = 0;
+    var setClickTimer = function() {
+        setTimeout(function(){
+            clickCount = 0;
+        }, 300);
+    };
+    
+    
+   
+    addEventListener(canvas, 'click', function onDoubleClick(event) {
+        
+        if ( clickCount === 0 ) {
+            setClickTimer();
+        } else {
+            clickCount = 0;
+            createTextBox(event);
+        }
+        
+    });
+    
+    var addTextListener = document.addEventListener('keydown', handleKeyDown);
+    var removeTextListener = document.removeEventListener('keydown', handleKeyDown);
+    
+    var handleKeyDown = function (event) {
+      
+      console.log(event);
+      
+        
+    };
+    
+    var appendTextInput = function(coords){
+        
+        var textInput = document.createElement('input');
+        textInput.setAttribute('type', 'text');
+        textInput.style.position = 'absolute';
+        textInput.style.top = coords.y + 'px';
+        textInput.style.left = coords.x + 'px';
+        textInput.style.background = 'transparent';
+        textInput.style.border = '1px dashed black';
+        textInput.style.fontSize = '16px';
+        document.body.appendChild(textInput);
+        textInput.focus();
+    };
+    
+    var addTextToCanvas = function(){
+        //
+    }
+    
+    
+    
+    var createTextBox = function(event) {
+        
+        var absoluteOrigin = { x: event.clientX, y: event.clientY };
+        var canvasOrigin = { x: event.offsetX, y: event.offsetY };
+        
+        document.addEventListener('keydown', function handleKeyPress() {
+            
+        });
+        
+    };
 
     var draw = function (update, resizeEvent) {
 

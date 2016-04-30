@@ -41,6 +41,11 @@ var AccPackAnnotation = (function() {
         icon: '../images/annotation/line.png',
         selectedIcon: '../images/annotation/line_selected.png'
     }, {
+        id: 'OT_text',
+        title: 'Text',
+        icon: '../images/annotation/text.png',
+        selectedIcon: '../images/annotation/text.png'
+    },{
         id: 'OT_shapes',
         title: 'Shapes',
         icon: '../images/annotation/shapes.png',
@@ -250,6 +255,8 @@ var AccPackAnnotation = (function() {
         self.elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
 
         toolbar.addCanvas(self.canvas);
+        
+        toolbar.itemClicked(function clicky(e){console.log('clicky', e)});
 
         self.canvas.onScreenCapture(function(dataUrl) {
             var win = window.open(dataUrl, '_blank');
