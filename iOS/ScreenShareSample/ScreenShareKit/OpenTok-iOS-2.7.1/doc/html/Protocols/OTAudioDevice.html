@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>OTAudioDevice Protocol Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">OpenTok iOS SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">TokBox, Inc</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/captureFormat">- captureFormat</option>
+		
+		<option value="//api/name/captureIsAvailable">- captureIsAvailable</option>
+		
+		<option value="//api/name/captureIsInitialized">- captureIsInitialized</option>
+		
+		<option value="//api/name/estimatedCaptureDelay">- estimatedCaptureDelay</option>
+		
+		<option value="//api/name/estimatedRenderDelay">- estimatedRenderDelay</option>
+		
+		<option value="//api/name/initializeCapture">- initializeCapture</option>
+		
+		<option value="//api/name/initializeRendering">- initializeRendering</option>
+		
+		<option value="//api/name/isCapturing">- isCapturing</option>
+		
+		<option value="//api/name/isRendering">- isRendering</option>
+		
+		<option value="//api/name/renderFormat">- renderFormat</option>
+		
+		<option value="//api/name/renderingIsAvailable">- renderingIsAvailable</option>
+		
+		<option value="//api/name/renderingIsInitialized">- renderingIsInitialized</option>
+		
+		<option value="//api/name/setAudioBus:">- setAudioBus:</option>
+		
+		<option value="//api/name/startCapture">- startCapture</option>
+		
+		<option value="//api/name/startRendering">- startRendering</option>
+		
+		<option value="//api/name/stopCapture">- stopCapture</option>
+		
+		<option value="//api/name/stopRendering">- stopRendering</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">OTAudioDevice Protocol Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Conforms to</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>OTAudioKit.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Defines an audio device for use in a session. See
+<a href="../Classes/OTAudioDeviceManager.html#//api/name/setAudioDevice:">[OTAudioDeviceManager setAudioDevice:]</a>.</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						<a title="Setting the audio bus" name="task_Setting the audio bus"></a>
+						<h2 class="task-title">Setting the audio bus</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/setAudioBus:" title="setAudioBus:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setAudioBus:">&ndash;&nbsp;setAudioBus:</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Sets the OTAudioBus instance that this audio device uses.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)setAudioBus:(id&lt;OTAudioBus&gt;)<em>audioBus</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>audioBus</code></th>
+						<td><p>An <a href="../Protocols/OTAudioBus.html">OTAudioBus</a> implementation.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if successful; NO otherwise.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>OTAudioDevice implementors use this bus to send and receive audio
+samples to and from a session. The implementor should retain this
+instance for the lifetime of the implementing object.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Adjusting the audio format" name="task_Adjusting the audio format"></a>
+						<h2 class="task-title">Adjusting the audio format</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/captureFormat" title="captureFormat"></a>
+	<h3 class="method-title"><code><a href="#//api/name/captureFormat">&ndash;&nbsp;captureFormat</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The capture format used by this device.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (OTAudioFormat *)captureFormat</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/renderFormat" title="renderFormat"></a>
+	<h3 class="method-title"><code><a href="#//api/name/renderFormat">&ndash;&nbsp;renderFormat</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The render format used by this device.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (OTAudioFormat *)renderFormat</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Rendering audio" name="task_Rendering audio"></a>
+						<h2 class="task-title">Rendering audio</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/renderingIsAvailable" title="renderingIsAvailable"></a>
+	<h3 class="method-title"><code><a href="#//api/name/renderingIsAvailable">&ndash;&nbsp;renderingIsAvailable</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Used to check if audio rendering is available on the audio device.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)renderingIsAvailable</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if rendering is available.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/initializeRendering" title="initializeRendering"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initializeRendering">&ndash;&nbsp;initializeRendering</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Requests the audio device to initialize itself for rendering. Call this
+method before attempting to start rendering.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)initializeRendering</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if rendering is initialized.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/renderingIsInitialized" title="renderingIsInitialized"></a>
+	<h3 class="method-title"><code><a href="#//api/name/renderingIsInitialized">&ndash;&nbsp;renderingIsInitialized</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Checks if audio rendering is initialized.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)renderingIsInitialized</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if audio rendering is initialized.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/startRendering" title="startRendering"></a>
+	<h3 class="method-title"><code><a href="#//api/name/startRendering">&ndash;&nbsp;startRendering</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Requests that the device start rendering audio. After successful return from
+this function, audio samples become available on the audio bus.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)startRendering</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if rendering starts.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/stopRendering" title="stopRendering"></a>
+	<h3 class="method-title"><code><a href="#//api/name/stopRendering">&ndash;&nbsp;stopRendering</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Requests that the device stop rendering audio.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)stopRendering</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if rendering stops.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/isRendering" title="isRendering"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isRendering">&ndash;&nbsp;isRendering</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Checks if audio rendering has started.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)isRendering</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if rendering has started.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/estimatedRenderDelay" title="estimatedRenderDelay"></a>
+	<h3 class="method-title"><code><a href="#//api/name/estimatedRenderDelay">&ndash;&nbsp;estimatedRenderDelay</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the estimated rendering delay in ms. This is used to adjust
+audio signal processing and rendering.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (uint16_t)estimatedRenderDelay</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>uint16_t</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Capturing audio" name="task_Capturing audio"></a>
+						<h2 class="task-title">Capturing audio</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/captureIsAvailable" title="captureIsAvailable"></a>
+	<h3 class="method-title"><code><a href="#//api/name/captureIsAvailable">&ndash;&nbsp;captureIsAvailable</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Checks if audio sampling is available on the audio device.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)captureIsAvailable</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if audio sampling is available.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/initializeCapture" title="initializeCapture"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initializeCapture">&ndash;&nbsp;initializeCapture</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Requests the audio device to initialize itself for audio sampling. Call
+this method before attempting to start sampling.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)initializeCapture</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if audio sampling was initialized.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/captureIsInitialized" title="captureIsInitialized"></a>
+	<h3 class="method-title"><code><a href="#//api/name/captureIsInitialized">&ndash;&nbsp;captureIsInitialized</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Checks if audio sampling is initialized.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)captureIsInitialized</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if sampling is initialized.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/startCapture" title="startCapture"></a>
+	<h3 class="method-title"><code><a href="#//api/name/startCapture">&ndash;&nbsp;startCapture</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Requests that the device start capturing audio samples. After successful
+return from this function, the audio bus is ready to receive audio sample
+data.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)startCapture</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if audio capture starts.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/stopCapture" title="stopCapture"></a>
+	<h3 class="method-title"><code><a href="#//api/name/stopCapture">&ndash;&nbsp;stopCapture</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Requests that the device stop sampling audio.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)stopCapture</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if audio sampling stops.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/isCapturing" title="isCapturing"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isCapturing">&ndash;&nbsp;isCapturing</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Checks if the device is caputuring audio samples.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)isCapturing</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>BOOL YES if audio capture is initialized.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/estimatedCaptureDelay" title="estimatedCaptureDelay"></a>
+	<h3 class="method-title"><code><a href="#//api/name/estimatedCaptureDelay">&ndash;&nbsp;estimatedCaptureDelay</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the estimated capturing delay in ms. This is used to adjust timing
+transmission information for encoded audio samples.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (uint16_t)estimatedCaptureDelay</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>uint16_t</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">OTAudioKit.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2016 TokBox, Inc. All rights reserved. Updated: 2016-01-28</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>
