@@ -41,7 +41,7 @@
         case UIGestureRecognizerStateChanged: {
             CGPoint panTranslation = [(UIPanGestureRecognizer *)recognizer translationInView:self];
             self.center = CGPointMake(self.referenceCenter.x + panTranslation.x,
-                                                self.referenceCenter.y + panTranslation.y);;
+                                      self.referenceCenter.y + panTranslation.y);
             break;
         }
             

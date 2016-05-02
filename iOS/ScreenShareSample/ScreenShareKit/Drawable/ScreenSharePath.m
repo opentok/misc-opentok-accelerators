@@ -10,7 +10,6 @@
 
 @interface ScreenSharePath()
 @property (nonatomic) NSMutableArray<UITouch *> *mutablePoints;
-
 @end
 
 @implementation ScreenSharePath
@@ -28,8 +27,9 @@
 }
 
 - (void)drawAtPoint:(UITouch *)touchPoint {
-    CGPoint p = [touchPoint locationInView:touchPoint.view];
-    [self moveToPoint:p];
+
+    CGPoint point = [touchPoint locationInView:touchPoint.view];
+    [self moveToPoint:point];
     [self addPoint:touchPoint];
 }
 

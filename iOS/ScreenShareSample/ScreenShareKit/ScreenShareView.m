@@ -31,7 +31,6 @@
     return self;
 }
 
-//TODO: this needs to be re-implemented using cache image rather than drawing all the path
 - (void)drawRect:(CGRect)rect
 {
     [self.manager.paths enumerateObjectsUsingBlock:^(ScreenSharePath *path, NSUInteger idx, BOOL *stop) {
