@@ -508,52 +508,74 @@ OTSolution.Annotations = function(options) {
     });
     
     var clickCount = 0;
+    var ignoreClicks = false;
     var setClickTimer = function() {
         setTimeout(function(){
             clickCount = 0;
         }, 300);
     };
     
-    
-   
     addEventListener(canvas, 'click', function onDoubleClick(event) {
+        
+        if ( ignoreClicks ) { return; }
         
         if ( clickCount === 0 ) {
             setClickTimer();
         } else {
             clickCount = 0;
+            ignoreClicks = true;
             createTextBox(event);
+            setTimeout(function(){
+                ignoreClicks = false;
+            }, 750);
         }
         
     });
     
-    var addTextListener = document.addEventListener('keydown', handleKeyDown);
-    var removeTextListener = document.removeEventListener('keydown', handleKeyDown);
-    
     var handleKeyDown = function (event) {
-      
-      console.log(event);
-      
-        
+        if (event.which === 13) {
+            addTextToCanvas();
+        }
     };
+    
+    
+    var addKeyDownListener = function(){
+        document.addEventListener('keydown', handleKeyDown);
+    };
+    
+    var removeKeyDownListener = function(){
+        document.removeEventListener('keydown', handleKeyDown);
+    };
+    
     
     var appendTextInput = function(coords){
         
         var textInput = document.createElement('input');
         textInput.setAttribute('type', 'text');
         textInput.style.position = 'absolute';
-        textInput.style.top = coords.y + 'px';
-        textInput.style.left = coords.x + 'px';
-        textInput.style.background = 'transparent';
-        textInput.style.border = '1px dashed black';
+        textInput.style.top = coords.absolute.y + 'px';
+        textInput.style.left = coords.absolute.x + 'px';
+        textInput.style.background = 'rgba(255,255,255, .5)';
+        textInput.style.width = '100px';
+        textInput.style.maxWidth = '200px';
+        textInput.style.border = '1px dashed red';
         textInput.style.fontSize = '16px';
+        textInput.style.fontFamily = 'Arial';
+        textInput.style.zIndex = '1001';
+        textInput.setAttribute('data-canvas-origin', JSON.stringify('coords.canvas'));
+        textInput.id = 'textAnnotation';
         document.body.appendChild(textInput);
         textInput.focus();
     };
     
     var addTextToCanvas = function(){
-        //
-    }
+        var textBox = document.getElementById('textAnnotation');
+        var text = textBox.value;
+        var coords = JSON.parse(textBox.dataset.canvasOrigin);
+        ctx.font = '16px Arial';
+        ctx.fillText(text, coords.x, coords.y);
+        // need to add to history and send update to connected party or parties
+    };
     
     
     var createTextBox = function(event) {
@@ -561,8 +583,13 @@ OTSolution.Annotations = function(options) {
         var absoluteOrigin = { x: event.clientX, y: event.clientY };
         var canvasOrigin = { x: event.offsetX, y: event.offsetY };
         
-        document.addEventListener('keydown', function handleKeyPress() {
-            // 
+        appendTextInput({absolute: absoluteOrigin, canvas: canvasOrigin});
+        addKeyDownListener();
+        
+        document.addEventListener('keydown', function handleKeyPress(event) {
+            if (e.which === 13) {
+                addTextToCanvas(text, canvasOrigin);
+            }
         });
         
     };
