@@ -63,6 +63,9 @@
 		643553971CB6A54E00643E2F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553871CB6A54E00643E2F /* SystemConfiguration.framework */; };
 		643553981CB6A54E00643E2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553881CB6A54E00643E2F /* UIKit.framework */; };
 		A025397A1CD29742006829E6 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02539791CD29742006829E6 /* OpenTok.framework */; };
+		A0253ADD1CD2A565006829E6 /* TextChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AC91CD2A410006829E6 /* TextChatTests.m */; };
+		A0253ADE1CD2A567006829E6 /* TextChatComponentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */; };
+		A0253ADF1CD2A56B006829E6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0253AC71CD2A410006829E6 /* Info.plist */; };
 		A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
 		A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */; };
@@ -92,6 +95,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6435533B1CB69CBE00643E2F;
 			remoteInfo = TextChatKit;
+		};
+		A0253AD61CD2A423006829E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 643553151CB69CA400643E2F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6435531C1CB69CA400643E2F;
+			remoteInfo = TextChatSample;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -156,6 +166,10 @@
 		643553881CB6A54E00643E2F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		643553891CB6A54E00643E2F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		A02539791CD29742006829E6 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
+		A0253AC71CD2A410006829E6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatComponentTests.m; sourceTree = "<group>"; };
+		A0253AC91CD2A410006829E6 /* TextChatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatTests.m; sourceTree = "<group>"; };
+		A0253AD11CD2A423006829E6 /* TextChatSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextChatSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03B1F591CC0B0C800D765F7 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
 		A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
 		A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
@@ -203,6 +217,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0253ACE1CD2A423006829E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -212,6 +233,7 @@
 				A02539791CD29742006829E6 /* OpenTok.framework */,
 				6435531F1CB69CA400643E2F /* TextChatSample */,
 				6435533D1CB69CBE00643E2F /* TextChatKit */,
+				A0253AC61CD2A410006829E6 /* TextChatSampleTests */,
 				6435531E1CB69CA400643E2F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -221,6 +243,7 @@
 			children = (
 				6435531D1CB69CA400643E2F /* TextChatSample.app */,
 				6435533C1CB69CBE00643E2F /* TextChatKit.framework */,
+				A0253AD11CD2A423006829E6 /* TextChatSampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -319,6 +342,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		A0253AC61CD2A410006829E6 /* TextChatSampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				A0253AC71CD2A410006829E6 /* Info.plist */,
+				A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */,
+				A0253AC91CD2A410006829E6 /* TextChatTests.m */,
+			);
+			path = TextChatSampleTests;
+			sourceTree = "<group>";
+		};
 		A03B1F551CC0B0C800D765F7 /* TextChatView */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +445,24 @@
 			productReference = 6435533C1CB69CBE00643E2F /* TextChatKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		A0253AD01CD2A423006829E6 /* TextChatSampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0253AD81CD2A423006829E6 /* Build configuration list for PBXNativeTarget "TextChatSampleTests" */;
+			buildPhases = (
+				A0253ACD1CD2A423006829E6 /* Sources */,
+				A0253ACE1CD2A423006829E6 /* Frameworks */,
+				A0253ACF1CD2A423006829E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A0253AD71CD2A423006829E6 /* PBXTargetDependency */,
+			);
+			name = TextChatSampleTests;
+			productName = TextChatSampleTests;
+			productReference = A0253AD11CD2A423006829E6 /* TextChatSampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -429,6 +480,10 @@
 					};
 					643553491CB69CCE00643E2F = {
 						CreatedOnToolsVersion = 7.3;
+					};
+					A0253AD01CD2A423006829E6 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 6435531C1CB69CA400643E2F;
 					};
 				};
 			};
@@ -448,6 +503,7 @@
 				6435531C1CB69CA400643E2F /* TextChatSample */,
 				6435533B1CB69CBE00643E2F /* TextChatKit */,
 				643553491CB69CCE00643E2F /* Build Framework */,
+				A0253AD01CD2A423006829E6 /* TextChatSampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -474,6 +530,14 @@
 				643553771CB69D5B00643E2F /* Assets.xcassets in Resources */,
 				6435535C1CB69D0600643E2F /* TextChatReceivedTableViewCell.xib in Resources */,
 				A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0253ACF1CD2A423006829E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0253ADF1CD2A56B006829E6 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +587,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0253ACD1CD2A423006829E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0253ADE1CD2A567006829E6 /* TextChatComponentTests.m in Sources */,
+				A0253ADD1CD2A565006829E6 /* TextChatTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -535,6 +608,11 @@
 			isa = PBXTargetDependency;
 			target = 6435533B1CB69CBE00643E2F /* TextChatKit */;
 			targetProxy = 6435539B1CB6AEF800643E2F /* PBXContainerItemProxy */;
+		};
+		A0253AD71CD2A423006829E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6435531C1CB69CA400643E2F /* TextChatSample */;
+			targetProxy = A0253AD61CD2A423006829E6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -740,6 +818,32 @@
 			};
 			name = Release;
 		};
+		A0253AD91CD2A423006829E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = TextChatSampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Tokbox.TextChatSampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TextChatSample.app/TextChatSample";
+			};
+			name = Debug;
+		};
+		A0253ADA1CD2A423006829E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = TextChatSampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Tokbox.TextChatSampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TextChatSample.app/TextChatSample";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -775,6 +879,15 @@
 			buildConfigurations = (
 				6435534B1CB69CCE00643E2F /* Debug */,
 				6435534C1CB69CCE00643E2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0253AD81CD2A423006829E6 /* Build configuration list for PBXNativeTarget "TextChatSampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0253AD91CD2A423006829E6 /* Debug */,
+				A0253ADA1CD2A423006829E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
