@@ -513,26 +513,19 @@ OTSolution.Annotations = function(options) {
     
     var clickCount = 0;
     var ignoreClicks = false;
-    var setClickTimer = function() {
-        setTimeout(function(){
-            clickCount = 0;
-        }, 300);
-    };
-    
     var handleDoubleClick = function(event) {
                 
         if ( ignoreClicks ) { return; }
 
         if ( clickCount === 0 ) {
-            setClickTimer();
-        } else {
-            
-            clickCount = 0;
-            ignoreClicks = true;
-            createTextInput(event);
+            clickCount++;
             setTimeout(function(){
-                ignoreClicks = false;
-            }, 750);
+                clickCount = 0;
+            }, 300);
+        } else {
+            ignoreClicks = true;
+            clickCount = 0;
+            createTextInput(event);
         }
     };
     
@@ -562,9 +555,11 @@ OTSolution.Annotations = function(options) {
         var textBox = document.getElementById('textAnnotation');
         var text = textBox.value;
         var coords = JSON.parse(textBox.dataset.canvasOrigin);
+        var ctx = canvas.getContext('2d');
         ctx.font = '16px Arial';
         ctx.fillText(text, coords.x, coords.y);
         textBox.remove();
+        ignoreClicks = false;
         // need to add to history and send update to connected party or parties
     };
     
@@ -604,8 +599,7 @@ OTSolution.Annotations = function(options) {
         addKeyDownListener();
                 
     };
-    
-    addEventListener(canvas, 'click', handleDoubleClick);
+    canvas.addEventListener('click', handleDoubleClick);
     
     /**
      * End Handle text markup
@@ -667,6 +661,7 @@ OTSolution.Annotations = function(options) {
         });
 
         var selectedItem = !!resizeEvent ? update.selectedItem : self.selectedItem;
+        
         if (selectedItem && selectedItem.title === 'Pen') {
             if (update) {
                 ctx.strokeStyle = update.color;
