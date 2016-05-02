@@ -17,6 +17,10 @@
 		A0253B041CD72713006829E6 /* mvc.png in Resources */ = {isa = PBXBuildFile; fileRef = A0253B031CD72713006829E6 /* mvc.png */; };
 		A0253B0C1CD7F0B6006829E6 /* ScreenShareAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0253B0A1CD7F0B6006829E6 /* ScreenShareAnnotationView.h */; };
 		A0253B0D1CD7F0B6006829E6 /* ScreenShareAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253B0B1CD7F0B6006829E6 /* ScreenShareAnnotationView.m */; };
+		3FC6B2831CD7E96D00084DF4 /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3FC6B2841CD7E96D00084DF4 /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */; };
+		3FC6B2881CD7EBB300084DF4 /* OTAcceleratorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FC6B2861CD7EBB300084DF4 /* OTAcceleratorSession.h */; };
+		3FC6B2891CD7EBB300084DF4 /* OTAcceleratorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC6B2871CD7EBB300084DF4 /* OTAcceleratorSession.m */; };
 		A09A4AA61CD02A800024C349 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4AA51CD02A800024C349 /* main.m */; };
 		A09A4AA91CD02A800024C349 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4AA81CD02A800024C349 /* AppDelegate.m */; };
 		A09A4AAC1CD02A800024C349 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4AAB1CD02A800024C349 /* ViewController.m */; };
@@ -144,6 +148,10 @@
 		A0253B031CD72713006829E6 /* mvc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mvc.png; sourceTree = "<group>"; };
 		A0253B0A1CD7F0B6006829E6 /* ScreenShareAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareAnnotationView.h; sourceTree = "<group>"; };
 		A0253B0B1CD7F0B6006829E6 /* ScreenShareAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareAnnotationView.m; sourceTree = "<group>"; };
+		3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
+		3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCapture.m; sourceTree = "<group>"; };
+		3FC6B2861CD7EBB300084DF4 /* OTAcceleratorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTAcceleratorSession.h; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.h"; sourceTree = "<group>"; };
+		3FC6B2871CD7EBB300084DF4 /* OTAcceleratorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTAcceleratorSession.m; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.m"; sourceTree = "<group>"; };
 		A09A4AA11CD02A800024C349 /* ScreenShareSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenShareSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A09A4AA51CD02A800024C349 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A09A4AA71CD02A800024C349 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -297,6 +305,15 @@
 			path = Toolbar;
 			sourceTree = "<group>";
 		};
+		3FC6B2851CD7E97300084DF4 /* ScreenCapture */ = {
+			isa = PBXGroup;
+			children = (
+				3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */,
+				3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */,
+			);
+			name = ScreenCapture;
+			sourceTree = "<group>";
+		};
 		A09A4A981CD02A800024C349 = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +360,9 @@
 		A09A4AC11CD02A990024C349 /* ScreenShareKit */ = {
 			isa = PBXGroup;
 			children = (
+				3FC6B2861CD7EBB300084DF4 /* OTAcceleratorSession.h */,
+				3FC6B2871CD7EBB300084DF4 /* OTAcceleratorSession.m */,
+				3FC6B2851CD7E97300084DF4 /* ScreenCapture */,
 				A09A4ACD1CD02AB90024C349 /* OpenTok-iOS-2.7.1 */,
 				A0253AF11CD33B8C006829E6 /* Drawable */,
 				A0253AFA1CD33BC1006829E6 /* Toolbar */,
@@ -522,6 +542,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A09A4B7B1CD0314A0024C349 /* ScreenShareViewManager.h in Headers */,
+				3FC6B2881CD7EBB300084DF4 /* OTAcceleratorSession.h in Headers */,
+				3FC6B2831CD7E96D00084DF4 /* ScreenCapture.h in Headers */,
 				A09A4B731CD030800024C349 /* ScreenShareView.h in Headers */,
 				A0253B0C1CD7F0B6006829E6 /* ScreenShareAnnotationView.h in Headers */,
 				A0253AF81CD33B8C006829E6 /* ScreenShareTextField.h in Headers */,
@@ -707,7 +729,9 @@
 				A09A4B7C1CD0314A0024C349 /* ScreenShareViewManager.m in Sources */,
 				A0253AF71CD33B8C006829E6 /* ScreenSharePath.m in Sources */,
 				A09A4B501CD02AB90024C349 /* release-notes.md in Sources */,
+				3FC6B2841CD7E96D00084DF4 /* ScreenCapture.m in Sources */,
 				A09A4B4F1CD02AB90024C349 /* README.md in Sources */,
+				3FC6B2891CD7EBB300084DF4 /* OTAcceleratorSession.m in Sources */,
 				A09A4B741CD030800024C349 /* ScreenShareView.m in Sources */,
 				A0253B0D1CD7F0B6006829E6 /* ScreenShareAnnotationView.m in Sources */,
 			);
