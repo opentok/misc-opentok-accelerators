@@ -11,7 +11,6 @@
 
 @interface ScreenShareAnnotationView()
 @property (nonatomic) ScreenShareViewManager *manager;
-@property (nonatomic) ScreenSharePath *drawingPath;
 @end
 
 @implementation ScreenShareAnnotationView
