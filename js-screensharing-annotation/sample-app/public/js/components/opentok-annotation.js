@@ -529,7 +529,7 @@ OTSolution.Annotations = function(options) {
             
             clickCount = 0;
             ignoreClicks = true;
-            createTextBox(event);
+            createTextInput(event);
             setTimeout(function(){
                 ignoreClicks = false;
             }, 750);
@@ -552,13 +552,42 @@ OTSolution.Annotations = function(options) {
     };
     
     
-    var appendTextInput = function(coords){
-
+    var appendTextInput = function(textInput) {
+        document.body.appendChild(textInput);
+        textInput.focus();
+        addKeyDownListener();
+    };
+    
+    var addTextToCanvas = function(){
+        var textBox = document.getElementById('textAnnotation');
+        var text = textBox.value;
+        var coords = JSON.parse(textBox.dataset.canvasOrigin);
+        ctx.font = '16px Arial';
+        ctx.fillText(text, coords.x, coords.y);
+        textBox.remove();
+        // need to add to history and send update to connected party or parties
+    };
+    
+    
+    var createTextInput = function(event) {
+        
+        var origins = {
+            absolute: { 
+                x: event.clientX,
+                y: event.clientY
+            },
+            canvas: { 
+                x: event.offsetX, 
+                y: event.offsetY
+            }
+        };
+       
+        
         var textInput = document.createElement('input');
         textInput.setAttribute('type', 'text');
         textInput.style.position = 'absolute';
-        textInput.style.top = coords.absolute.y + 'px';
-        textInput.style.left = coords.absolute.x + 'px';
+        textInput.style.top = origins.absolute.y + 'px';
+        textInput.style.left = origins.absolute.x + 'px';
         textInput.style.background = 'rgba(255,255,255, .5)';
         textInput.style.width = '100px';
         textInput.style.maxWidth = '200px';
@@ -566,34 +595,12 @@ OTSolution.Annotations = function(options) {
         textInput.style.fontSize = '16px';
         textInput.style.fontFamily = 'Arial';
         textInput.style.zIndex = '1001';
-        textInput.setAttribute('data-canvas-origin', JSON.stringify(coords.canvas));
+        textInput.setAttribute('data-canvas-origin', JSON.stringify(origins.canvas));
         textInput.id = 'textAnnotation';
         document.body.appendChild(textInput);
         textInput.focus();
-    };
-    
-    var addTextToCanvas = function(){
-        var textBox = document.getElementById('textAnnotation');
-        var text = textBox.value;
-        console.log('the text', text);
-        var coords = JSON.parse(textBox.dataset.canvasOrigin);
-        console.log('the coords', coords);
-        ctx.font = '16px Arial';
-        ctx.fillStyle="#FF0000";
-        ctx.fillText(text, coords.x, coords.y);
-        textBox.remove();
-        // need to add to history and send update to connected party or parties
-    };
-    
-    
-    var createTextBox = function(event) {
         
-        console.log('createTextBox');
-        
-        var absoluteOrigin = { x: event.clientX, y: event.clientY };
-        var canvasOrigin = { x: event.offsetX, y: event.offsetY };
-        
-        appendTextInput({absolute: absoluteOrigin, canvas: canvasOrigin});
+        appendTextInput(textInput);
         addKeyDownListener();
                 
     };
