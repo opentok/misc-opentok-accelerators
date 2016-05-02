@@ -12,4 +12,7 @@
 
 + (instancetype)viewWithStrokeColor:(UIColor *)color;
 
+@property (nonatomic) UIColor *strokeColor;
+@property (nonatomic) BOOL scrollEnabled;
+
 @end
