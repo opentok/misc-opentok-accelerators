@@ -507,6 +507,10 @@ OTSolution.Annotations = function(options) {
 
     });
     
+    /**
+     * Handle text markup
+     */
+    
     var clickCount = 0;
     var ignoreClicks = false;
     var setClickTimer = function() {
@@ -515,13 +519,14 @@ OTSolution.Annotations = function(options) {
         }, 300);
     };
     
-    addEventListener(canvas, 'click', function onDoubleClick(event) {
-        
+    var handleDoubleClick = function(event) {
+                
         if ( ignoreClicks ) { return; }
-        
+
         if ( clickCount === 0 ) {
             setClickTimer();
         } else {
+            
             clickCount = 0;
             ignoreClicks = true;
             createTextBox(event);
@@ -529,15 +534,14 @@ OTSolution.Annotations = function(options) {
                 ignoreClicks = false;
             }, 750);
         }
-        
-    });
+    };
+    
     
     var handleKeyDown = function (event) {
         if (event.which === 13) {
             addTextToCanvas();
         }
     };
-    
     
     var addKeyDownListener = function(){
         document.addEventListener('keydown', handleKeyDown);
@@ -549,7 +553,7 @@ OTSolution.Annotations = function(options) {
     
     
     var appendTextInput = function(coords){
-        
+
         var textInput = document.createElement('input');
         textInput.setAttribute('type', 'text');
         textInput.style.position = 'absolute';
@@ -562,7 +566,7 @@ OTSolution.Annotations = function(options) {
         textInput.style.fontSize = '16px';
         textInput.style.fontFamily = 'Arial';
         textInput.style.zIndex = '1001';
-        textInput.setAttribute('data-canvas-origin', JSON.stringify('coords.canvas'));
+        textInput.setAttribute('data-canvas-origin', JSON.stringify(coords.canvas));
         textInput.id = 'textAnnotation';
         document.body.appendChild(textInput);
         textInput.focus();
@@ -571,28 +575,34 @@ OTSolution.Annotations = function(options) {
     var addTextToCanvas = function(){
         var textBox = document.getElementById('textAnnotation');
         var text = textBox.value;
+        console.log('the text', text);
         var coords = JSON.parse(textBox.dataset.canvasOrigin);
+        console.log('the coords', coords);
         ctx.font = '16px Arial';
+        ctx.fillStyle="#FF0000";
         ctx.fillText(text, coords.x, coords.y);
+        textBox.remove();
         // need to add to history and send update to connected party or parties
     };
     
     
     var createTextBox = function(event) {
         
+        console.log('createTextBox');
+        
         var absoluteOrigin = { x: event.clientX, y: event.clientY };
         var canvasOrigin = { x: event.offsetX, y: event.offsetY };
         
         appendTextInput({absolute: absoluteOrigin, canvas: canvasOrigin});
         addKeyDownListener();
-        
-        document.addEventListener('keydown', function handleKeyPress(event) {
-            if (e.which === 13) {
-                addTextToCanvas(text, canvasOrigin);
-            }
-        });
-        
+                
     };
+    
+    addEventListener(canvas, 'click', handleDoubleClick);
+    
+    /**
+     * End Handle text markup
+     */
 
     var draw = function (update, resizeEvent) {
 
