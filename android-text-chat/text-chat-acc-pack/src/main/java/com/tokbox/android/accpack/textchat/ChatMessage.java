@@ -39,8 +39,9 @@ public class ChatMessage {
     }
 
     /**
-     * Constructor.
+     * Private constructor.
      * @param builder The ChatMessageBuilder to creates the instance.
+     * To build a ChatMessage use: new ChatMessage.ChatMessageBuild(String senderId, UUID messageId, MessageStatus messageStatus).build()
      */
     private ChatMessage(ChatMessageBuilder builder) {
         this.senderId = builder.senderId;
@@ -224,8 +225,8 @@ public class ChatMessage {
                 Log.i(LOG_TAG, "MessageId cannot be null, empty or greater than "+ MAX_MESSAGEID_LENGTH);
                 return false;
             }
-            if (!chatMessage.getMessageStatus().equals(MessageStatus.RECEIVED_MESSAGE) && !chatMessage.getMessageStatus().equals(MessageStatus.SENT_MESSAGE)) {
-                Log.i(LOG_TAG, "MessageStatus cannot be different to RECEIVED_MESSAGE ");
+            if (chatMessage.getMessageStatus() == null || !chatMessage.getMessageStatus().equals(MessageStatus.RECEIVED_MESSAGE) || !chatMessage.getMessageStatus().equals(MessageStatus.SENT_MESSAGE)) {
+                Log.i(LOG_TAG, "MessageStatus cannot be null or different to RECEIVED_MESSAGE or SENT_MESSAGE ");
                 return false;
             }
 
