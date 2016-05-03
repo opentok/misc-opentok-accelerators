@@ -225,7 +225,7 @@ public class ChatMessage {
                 Log.i(LOG_TAG, "MessageId cannot be null, empty or greater than "+ MAX_MESSAGEID_LENGTH);
                 return false;
             }
-            if (chatMessage.getMessageStatus() == null || !chatMessage.getMessageStatus().equals(MessageStatus.RECEIVED_MESSAGE) || !chatMessage.getMessageStatus().equals(MessageStatus.SENT_MESSAGE)) {
+            if (chatMessage.getMessageStatus() == null || ( !chatMessage.getMessageStatus().equals(MessageStatus.RECEIVED_MESSAGE) && !chatMessage.getMessageStatus().equals(MessageStatus.SENT_MESSAGE))) {
                 Log.i(LOG_TAG, "MessageStatus cannot be null or different to RECEIVED_MESSAGE or SENT_MESSAGE ");
                 return false;
             }

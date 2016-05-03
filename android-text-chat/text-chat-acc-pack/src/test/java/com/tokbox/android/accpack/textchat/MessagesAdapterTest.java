@@ -13,16 +13,16 @@ public class MessagesAdapterTest {
     private MessagesAdapter messagesAdapter;
 
 
-    @Test
+    @Test(expected=Exception.class)
     public void getItemCount_When_MessagesListIsNull() throws Exception {
 
         messagesAdapter = new MessagesAdapter(null);
 
-        Assert.assertNull(messagesAdapter.getItemCount());
+        Assert.assertTrue(messagesAdapter.getItemCount() == 0);
 
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void getItemCount_When_MessagesListIsEmpty() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();
