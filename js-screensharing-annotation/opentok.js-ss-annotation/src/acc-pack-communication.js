@@ -230,8 +230,6 @@ var Communication = (function() {
 
         } else if (streamDestroyedType === 'screen') {
             _triggerEvent('endViewingSharedScreen');
-            self.onScreenSharingEnded();
-            self._endAnnotation()
         } else {
             _.each(self.subscribers, function(subscriber) {
                 _subscribeToStream(subscriber);
