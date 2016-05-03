@@ -3,11 +3,19 @@ package com.tokbox.android.accpack.textchat;
 
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 public class ChatMessage {
 
     private static final String LOG_TAG = "text-chat-message";
+
+    private static final int MAX_ALIAS_LENGTH = 50;
+    private static final int MAX_SENDERID_LENGTH = 60;
+    private final static int MAX_TEXT_LENGTH = 8196;
+    private static final int MAX_MESSAGEID_LENGTH = 36;
+    private static final String RELEASE_DATE = "2016/05/01";
 
     private final String senderId; //required
     private final MessageStatus messageStatus; //required
@@ -34,7 +42,7 @@ public class ChatMessage {
      * Constructor.
      * @param builder The ChatMessageBuilder to creates the instance.
      */
-    public ChatMessage(ChatMessageBuilder builder) {
+    private ChatMessage(ChatMessageBuilder builder) {
         this.senderId = builder.senderId;
         this.messageId = builder.messageId;
         this.messageStatus = builder.messageStatus;
@@ -95,7 +103,13 @@ public class ChatMessage {
      * Set the message timestamp.
      * @param timestamp The message timestamp.
      */
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(long timestamp) throws Exception {
+
+        long MIN_TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd").parse(RELEASE_DATE).getTime();
+
+        if (timestamp < MIN_TIMESTAMP || timestamp > System.currentTimeMillis()){
+            throw new Exception("Timestamp cannot be greater than "+System.currentTimeMillis() +" or less than" + MIN_TIMESTAMP);
+        }
         this.timestamp = timestamp;
     }
 
@@ -103,7 +117,15 @@ public class ChatMessage {
      * Set the sender alias.
      * @param senderAlias The sender alias.
      */
-    public void setSenderAlias(String senderAlias) {
+    public void setSenderAlias(String senderAlias) throws Exception {
+        if ( senderAlias.length() > 50 ){
+            throw new Exception("Sender alias string cannot be greater than "+MAX_ALIAS_LENGTH);
+        }
+        else {
+            if ( senderAlias == null || senderAlias.length() == 0 || senderAlias.trim().length() == 0 ){
+                throw new Exception("Sender alias cannot be null or empty");
+            }
+        }
         this.senderAlias = senderAlias;
     }
 
@@ -111,7 +133,15 @@ public class ChatMessage {
      * Set the message text.
      * @param text The message text.
      */
-    public void setText(String text) {
+    public void setText(String text) throws Exception {
+        if ( text.length() > 50 ){
+            throw new Exception("Text string cannot be greater than "+MAX_TEXT_LENGTH);
+        }
+        else {
+            if ( text == null || text.length() == 0 || text.trim().length() == 0 ){
+                throw new Exception("Text cannot be null or empty");
+            }
+        }
         this.text = text;
     }
 
@@ -186,12 +216,12 @@ public class ChatMessage {
 
         private boolean validateChatMessageObject(ChatMessage chatMessage) {
             Log.i(LOG_TAG, "status: " + chatMessage.getMessageStatus());
-            if (senderId == null || senderId.isEmpty()) {
-                Log.i(LOG_TAG, "SenderId cannot be null");
+            if (senderId == null || senderId.isEmpty() || senderId.length() > MAX_SENDERID_LENGTH ) {
+                Log.i(LOG_TAG, "SenderId cannot be null, empty or greater than " + MAX_SENDERID_LENGTH);
                 return false;
             }
-            if (messageId == null || messageId.toString().isEmpty()) {
-                Log.i(LOG_TAG, "MessageId cannot be null");
+            if (messageId == null || messageId.toString().isEmpty() || messageId.toString().length() > MAX_MESSAGEID_LENGTH) {
+                Log.i(LOG_TAG, "MessageId cannot be null, empty or greater than "+ MAX_MESSAGEID_LENGTH);
                 return false;
             }
             if (!chatMessage.getMessageStatus().equals(MessageStatus.RECEIVED_MESSAGE) && !chatMessage.getMessageStatus().equals(MessageStatus.SENT_MESSAGE)) {

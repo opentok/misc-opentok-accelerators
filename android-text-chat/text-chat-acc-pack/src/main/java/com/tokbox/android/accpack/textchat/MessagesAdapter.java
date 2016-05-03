@@ -18,7 +18,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     private List<ChatMessage> messagesList = new ArrayList<ChatMessage>();
     private View messageView;
 
-    public MessagesAdapter(List<ChatMessage> messagesList) {
+    public MessagesAdapter(List<ChatMessage> messagesList) throws Exception{
+        if (messagesList.isEmpty()) {
+            throw new Exception("MessageList cannot be empty");
+        }
         this.messagesList = messagesList;
     }
 

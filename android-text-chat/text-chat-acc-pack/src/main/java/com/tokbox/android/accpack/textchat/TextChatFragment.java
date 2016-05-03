@@ -169,8 +169,12 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             }
         });
 
-        mMessageAdapter = new MessagesAdapter(messagesList);
-        mRecyclerView.setAdapter(mMessageAdapter);
+        try {
+            mMessageAdapter = new MessagesAdapter(messagesList);
+            mRecyclerView.setAdapter(mMessageAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         mCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,7 +316,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     //Private methods
     //Add a message to the message list.
-    private void addMessage(final ChatMessage msg) {
+    private void addMessage(final ChatMessage msg) throws Exception {
         Log.i(LOG_TAG, "New message " + msg.getText() + " is ready to be added.");
 
         if (msg != null) {
@@ -501,12 +505,17 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                             .senderAlias(senderAlias)
                             .text(text)
                             .build();
-                    msg.setTimestamp(Long.valueOf(date).longValue());
-                    mMsgEditText.setEnabled(true);
-                    mMsgEditText.setFocusable(true);
-                    mMsgEditText.setText("");
-                    addMessage(msg);
-                    onNewSentMessage(msg);
+                    try {
+                        msg.setTimestamp(Long.valueOf(date).longValue());
+                        mMsgEditText.setEnabled(true);
+                        mMsgEditText.setFocusable(true);
+                        mMsgEditText.setText("");
+                        addMessage(msg);
+                        onNewSentMessage(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 else {
                     Log.i(LOG_TAG, "A new message has been received "+data);
@@ -515,9 +524,14 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                                 .senderAlias(senderAlias)
                                 .text(text)
                                 .build();
-                    msg.setTimestamp(Long.valueOf(date).longValue());
-                    addMessage(msg);
-                    onNewReceivedMessage(msg);
+                    try {
+                        msg.setTimestamp(Long.valueOf(date).longValue());
+                        addMessage(msg);
+                        onNewReceivedMessage(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         }

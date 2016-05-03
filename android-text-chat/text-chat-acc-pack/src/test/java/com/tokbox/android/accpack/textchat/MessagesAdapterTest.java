@@ -38,7 +38,7 @@ public class MessagesAdapterTest {
 
 
         messagesList = new ArrayList<ChatMessage>();
-        messagesList.add(new ChatMessage(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE)));
+        messagesList.add(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE).build());
 
         messagesAdapter = new MessagesAdapter(messagesList);
 
@@ -53,7 +53,7 @@ public class MessagesAdapterTest {
         messagesList = new ArrayList<ChatMessage>();
         int length = 10*1024*1024;
         for(int i = 0; i < length; i++){
-            messagesList.add(new ChatMessage(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)));
+            messagesList.add(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE).build());
         }
 
         messagesAdapter = new MessagesAdapter(messagesList);
@@ -87,7 +87,7 @@ public class MessagesAdapterTest {
     public void getItemViewType_When_IndexIsGTSize() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();
-        messagesList.add(new ChatMessage(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE)));
+        messagesList.add(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE).build());
         messagesAdapter = new MessagesAdapter(messagesList);
 
         Assert.assertNull(messagesAdapter.getItemViewType(1));
@@ -98,7 +98,7 @@ public class MessagesAdapterTest {
     public void getItemViewType_When_IndexIsLTZero() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();
-        messagesList.add(new ChatMessage(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)));
+        messagesList.add(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE).build());
         messagesAdapter = new MessagesAdapter(messagesList);
 
         Assert.assertNull(messagesAdapter.getItemViewType(-1));
@@ -109,7 +109,7 @@ public class MessagesAdapterTest {
     public void getItemViewType_When_IndexIsZero() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();
-        messagesList.add(new ChatMessage(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)));
+        messagesList.add(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE).build());
         messagesAdapter = new MessagesAdapter(messagesList);
 
         //Item View should be gotten properly
@@ -121,9 +121,9 @@ public class MessagesAdapterTest {
     public void getItemViewType_When_IndexIsLast() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();
-        messagesList.add(new ChatMessage(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)));
-        messagesList.add(new ChatMessage(new ChatMessage.ChatMessageBuilder("2",UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE)));
-        messagesList.add(new ChatMessage(new ChatMessage.ChatMessageBuilder("3",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)));
+        messagesList.add(new ChatMessage.ChatMessageBuilder("1",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE).build());
+        messagesList.add(new ChatMessage.ChatMessageBuilder("2",UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE).build());
+        messagesList.add(new ChatMessage.ChatMessageBuilder("3",UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE).build());
         messagesAdapter = new MessagesAdapter(messagesList);
 
         //Item View should be gotten properly
