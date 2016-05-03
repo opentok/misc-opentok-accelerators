@@ -49,20 +49,18 @@ var AccPackScreenSharing = (function() {
 
   var _triggerEvent;
   var _registerEvents = function() {
-    var events = ['startSharingScreen', 'endSharingScreen'];
+    var events = ['startScreenSharing', 'endScreenSharing'];
     _triggerEvent = self.accPack.registerEvents(events);
   };
 
   var _toggleScreenSharingButton = function(show) {
-    $(screenSharingControl)[show ? 'show' : 'hide']();
+    $('#startScreenSharing')[show ? 'show' : 'hide']();
   };
 
   var _addScreenSharingListeners = function() {
-
     $('#startScreenSharing').on('click', function() {
       !!_active ? end() : start();
     });
-
 
     /** Handlers for screensharing extension modal */
     $('#btn-install-plugin-chrome').on('click', function() {
@@ -90,8 +88,12 @@ var AccPackScreenSharing = (function() {
       $('#dialog-form-ff').toggle();
     });
 
-    self.accPack.registerEventListener('startCall', _.partial(_toggleScreenSharingButton, true));
-    self.accPack.registerEventListener('endCall', _.partial(_toggleScreenSharingButton, false));
+    self.accPack.registerEventListener('startCall', function(){
+      _toggleScreenSharingButton(true);
+    });
+    self.accPack.registerEventListener('endCall', function() {
+      end();
+    });
   };
 
   var _validateExtension = function(extensionID, extensionPathFF) {
@@ -239,41 +241,22 @@ var AccPackScreenSharing = (function() {
           }
         }
       } else {
-        addPublisherEventListeners();
         self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
-        _triggerEvent('startSharingScreen');
+        _active = true;
+        _triggerEvent('startScreenSharing');
 
       }
     });
 
-    /** 
-     * Stop publishing the screen
-     */
-    var _stopPublishing = function() {
+  };
 
-      self.session.unpublish(self.publisher);
-      self.publisher = null;
-
-    };
-
-    var addPublisherEventListeners = function() {
-
-      self.publisher.on('streamCreated', function(event) {
-        self._handleStartScreenSharing(event)
-      });
-
-      self.publisher.on('streamDestroyed', function(event) {
-        console.log('stream destroyed called');
-        self._handleEndScreenSharing(event);
-      });
-
-      /*this.publisher.on("accessDenied", function() {
-          self._unpublish('screen');
-          alert("Permission to use the camera and microphone are disabled");
-      })*/
-    };
-
-  }
+  /** 
+   * Stop publishing the screen
+   */
+  var _stopPublishing = function() {
+    self.session.unpublish(self.publisher);
+    self.publisher = null;
+  };
 
   var extensionAvailable = function(extensionID, extensionPathFF) {
 
@@ -307,12 +290,8 @@ var AccPackScreenSharing = (function() {
     $(parent).append(screenSharingView);
   };
 
-  var _endScreenSharing = function() {
-    console.log('end screensharing');
-    // self.widget.end();
-  };
-
   var active = function(callActive) {
+    console.log('does active ever get called?');
     $(screenSharingControl)[callActive ? 'show' : 'hide']();
   };
 
@@ -328,7 +307,9 @@ var AccPackScreenSharing = (function() {
 
   var end = function() {
     _stopPublishing();
-    _triggerEvent('endSharingScreen');
+    _toggleScreenSharingButton(false);
+    _active = false;
+    _triggerEvent('endScreenSharing');
   };
 
   ScreenSharing.prototype = {
@@ -337,8 +318,6 @@ var AccPackScreenSharing = (function() {
     extensionAvailable: extensionAvailable,
     start: start,
     end: end,
-    onStarted: function() {},
-    onEnded: function() {},
     onError: function(error) {
       console.log('OT: Screen sharing error: ', error);
     }

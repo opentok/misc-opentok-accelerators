@@ -251,6 +251,7 @@ var AccPackAnnotation = (function() {
             externalWindow: externalWindow
         });
 
+
         var context = self.elements.externalWindow ? self.elements.externalWindow : window;
 
         self.elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
@@ -324,8 +325,9 @@ var AccPackAnnotation = (function() {
         delete self.canavs;
         if (!!self.elements.externalWindow) {
             self.elements.externalWindow.close();
+            self.elements.externalWindow;
+            self.elements.resizeSubject;
         }
-        delete self.elements;
         _triggerEvent('endAnnotation');
     };
 

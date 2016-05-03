@@ -51,8 +51,6 @@ var app = (function() {
 
     elements = Array.prototype.slice.call(arguments);
     
-    console.log('show eles', elements);
-
     elements.forEach(function(element) {
       element.classList.remove('hidden');
     });
@@ -61,7 +59,6 @@ var app = (function() {
   var _hide = function() {
 
     elements = Array.prototype.slice.call(arguments);
-    console.log('hide eles', elements);
 
     elements.forEach(function(element) {
       element.classList.add('hidden');
@@ -134,7 +131,6 @@ var app = (function() {
     _accPack.registerEventListener('streamCreated', function(event) {
 
       if (event.stream.videoType === 'camera') {
-        // Not doing anything with the event
         _communicationProperties.remoteParticipant = true;
         _communicationProperties.callActive && _swapVideoPositions('joined');
       }
@@ -144,9 +140,8 @@ var app = (function() {
     _accPack.registerEventListener('streamDestroyed', function(event) {
 
       if (event.stream.videoType === 'camera') {
-        // Not doing anything with the event
         _communicationProperties.remoteParticipant = true;
-        _communicationProperties.callActive && _swapVideoPositions('joined');
+        _communicationProperties.callActive && _swapVideoPositions('left');
       }
 
     });
@@ -154,8 +149,8 @@ var app = (function() {
     // Start or end call
     _communicationElements.startEndCall.onclick = _connectCall;
 
-    _accPack.registerEventListener('startSharingScreen', function(){_show(_communicationElements.sharingPoster)});
-    _accPack.registerEventListener('endSharingScreen', function(){_hide(_communicationElements.sharingPoster)});
+    _accPack.registerEventListener('startScreenSharing', function(){_show(_communicationElements.sharingPoster)});
+    _accPack.registerEventListener('endScreenSharing', function(){_hide(_communicationElements.sharingPoster)});
     _accPack.registerEventListener('startViewingSharedScreen', function(){_viewSharedScreen(true)});
     _accPack.registerEventListener('endViewingSharedScreen', function(){_viewSharedScreen(true)});
 
@@ -193,7 +188,7 @@ var app = (function() {
     // Update UI
     _toggleClass(_communicationElements.startEndCall, 'active');
 
-    _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.shareScreen);
+    _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo);
 
     !!(_communicationProperties.callActive || _communicationProperties.remoteParticipant) && _swapVideoPositions('end');
   };

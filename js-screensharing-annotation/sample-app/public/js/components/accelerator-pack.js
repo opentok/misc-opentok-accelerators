@@ -152,6 +152,7 @@ var AcceleratorPack = (function() {
   var _setupEventListeners = function() {
     registerEventListener('startViewingSharedScreen', setupAnnotationView);
     registerEventListener('endViewingSharedScreen', endAnnotationView);
+    registerEventListener('endScreenSharing', endExternalAnnotation);
   };
 
   /** 
@@ -247,26 +248,6 @@ var AcceleratorPack = (function() {
   var linkAnnotation = function(pubSub, annotationContainer, externalWindow) {
     _annotation.linkCanvas(pubSub, annotationContainer, externalWindow);
   };
-
-  // var startScreenSharing = function() {
-
-  //   var optionsProps = [
-  //     'sessionID',
-  //     'annotation',
-  //     'extensionURL',
-  //     'extensionID',
-  //     'extensionPathFF',
-  //     'screensharingContainer'
-  //   ];
-
-  //   var options = _.extend(_.pick(self.options, 'sessionId'), self.options.screensharing, { session: _session, acceleratorPack: self });
-
-  //   if (!!options.annotation) {
-  //     // Need to see what these options need to be
-  //     _initAnnotation(options);
-  //   }
-  //   _screensharing.start();
-  // };
 
   AcceleratorPackLayer.prototype = {
     constructor: AcceleratorPack,
