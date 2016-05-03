@@ -501,11 +501,11 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             }
             else {
                 if (connection.getConnectionId().equals(mSession.getConnection().getConnectionId())){
-                    msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE)
-                            .senderAlias(senderAlias)
-                            .text(text)
-                            .build();
                     try {
+                        msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE)
+                                .senderAlias(senderAlias)
+                                .text(text)
+                                .build();
                         msg.setTimestamp(Long.valueOf(date).longValue());
                         mMsgEditText.setEnabled(true);
                         mMsgEditText.setFocusable(true);
@@ -520,11 +520,11 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                 else {
                     Log.i(LOG_TAG, "A new message has been received "+data);
                     addLogEvent(OpenTokConfig.LOG_ACTION_RECEIVE_MESSAGE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-                    msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)
-                                .senderAlias(senderAlias)
-                                .text(text)
-                                .build();
                     try {
+                        msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)
+                                    .senderAlias(senderAlias)
+                                    .text(text)
+                                    .build();
                         msg.setTimestamp(Long.valueOf(date).longValue());
                         addMessage(msg);
                         onNewReceivedMessage(msg);
