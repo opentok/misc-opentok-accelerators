@@ -247,7 +247,8 @@ var AccPackAnnotation = (function() {
         
         self.canvas = new OTSolution.Annotations({
             feed: pubSub,
-            container: container
+            container: container,
+            externalWindow: externalWindow
         });
 
         var context = self.elements.externalWindow ? self.elements.externalWindow : window;
