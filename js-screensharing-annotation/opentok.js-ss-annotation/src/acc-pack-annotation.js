@@ -322,10 +322,10 @@ var AccPackAnnotation = (function() {
     var end = function() {
         _removeToolbar();
         delete self.canavs;
-        delete self.elements;
         if (!!self.elements.externalWindow) {
             self.elements.externalWindow.close();
         }
+        delete self.elements;
         _triggerEvent('endAnnotation');
     };
 
