@@ -50,6 +50,8 @@ var app = (function() {
   var _show = function() {
 
     elements = Array.prototype.slice.call(arguments);
+    
+    console.log('show eles', elements);
 
     elements.forEach(function(element) {
       element.classList.remove('hidden');
@@ -59,6 +61,7 @@ var app = (function() {
   var _hide = function() {
 
     elements = Array.prototype.slice.call(arguments);
+    console.log('hide eles', elements);
 
     elements.forEach(function(element) {
       element.classList.add('hidden');
@@ -151,8 +154,8 @@ var app = (function() {
     // Start or end call
     _communicationElements.startEndCall.onclick = _connectCall;
 
-    _accPack.registerEventListener('startSharingScreen', _.partial(_show, _communicationElements.sharingPoster));
-    _accPack.registerEventListener('endSharingScreen', _.partial(_hide, _communicationElements.sharingPoster));
+    _accPack.registerEventListener('startSharingScreen', function(){_show(_communicationElements.sharingPoster)});
+    _accPack.registerEventListener('endSharingScreen', function(){_hide(_communicationElements.sharingPoster)});
     _accPack.registerEventListener('startViewingSharedScreen', _.partial(_viewSharedScreen, true));
     _accPack.registerEventListener('endViewingSharedScreen', _.partial(_viewSharedScreen, false));
 
