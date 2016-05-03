@@ -12,14 +12,14 @@
 window.OTSolution = window.OTSolution || {};
 
 OTSolution.Annotations = function(options) {
-    
+
     options = options || {};
     this.widgetVersion = 'js-1.0.0-beta';
 
     this.parent = options.container;
     this.videoFeed = options.feed;
     var context = options.externalWindow ? options.externalWindow.document : window.document;
-    
+
     var self = this;
 
     if (this.parent) {
@@ -292,6 +292,8 @@ OTSolution.Annotations = function(options) {
         var x = offsetX * scaleX;
         var y = offsetY * scaleY;
 
+        console.log('what gets passed to updateCanvas', event);
+
         //        console.log("Video size: " + self.videoFeed.videoWidth(), self.videoFeed.videoHeight());
         //        console.log("Canvas size: " + canvas.width, canvas.height);
 
@@ -300,6 +302,7 @@ OTSolution.Annotations = function(options) {
 
         var update;
         var selectedItem = resizeEvent ? event.selectedItem : self.selectedItem;
+        console.log('and what is the selected item?', selectedItem, event.selectedItem, self.selectedItem);
 
         window.zcanvas = window.zcanvas || self;
 
@@ -362,6 +365,7 @@ OTSolution.Annotations = function(options) {
                         });
                 }
             } else if (selectedItem.id === 'OT_text') {
+                console.log('selected Item HHHEEEAA', selectedItem);
                 update = {
                     id: self.videoFeed.stream.connection.connectionId,
                     fromId: self.session.connection.connectionId,
@@ -369,6 +373,7 @@ OTSolution.Annotations = function(options) {
                     y: event.y,
                     color: event.color,
                     font: event.font,
+                    text: event.text,
                     videoWidth: self.videoFeed.videoElement().clientWidth,
                     videoHeight: self.videoFeed.videoElement().clientHeight,
                     canvasWidth: canvas.width,
@@ -505,10 +510,15 @@ OTSolution.Annotations = function(options) {
     }
 
     addEventListeners(canvas, 'mousedown mousemove mouseup mouseout touchstart touchmove touchend', function(event) {
-        if (event.type === 'mousemove' && !client.dragging) {
-            // Ignore mouse move Events if we're not dragging
+        
+        // Handle text annotation separately and ignore mouse movements if we're not dragging.
+        var textEvent = self.selectedItem && self.selectedItem.id === 'OT_text';
+        var notDragging = event.type === 'mousemove' && !client.dragging;
+        
+        if ( textEvent || notDragging ) {
             return;
         }
+
         event.preventDefault();
 
         // Save raw events to reprocess on canvas resize
@@ -521,6 +531,7 @@ OTSolution.Annotations = function(options) {
                 offsetLeft: canvas.offsetLeft,
                 offsetTop: canvas.offsetTop
             };
+
             event.userColor = self.userColor;
             event.lineWidth = self.lineWidth;
             eventHistory.push(event);
@@ -537,9 +548,14 @@ OTSolution.Annotations = function(options) {
     var ignoreClicks = false;
     var handleDoubleClick = function(event) {
 
+        event.preventDefault();
+
         if (self.selectedItem.id !== 'OT_text' || ignoreClicks) {
             return;
         }
+
+        // Save raw events to reprocess on canvas resize
+        event.selectedItem = self.selectedItem;
 
         if (clickCount === 0) {
             clickCount++;
@@ -568,7 +584,6 @@ OTSolution.Annotations = function(options) {
         context.removeEventListener('keydown', handleKeyDown);
     };
 
-
     var addTextToCanvas = function() {
         var textBox = context.getElementById('textAnnotation');
         var text = textBox.value;
@@ -591,7 +606,6 @@ OTSolution.Annotations = function(options) {
         };
 
         updateCanvas(update);
-        // need to add to history and send update to connected party or parties
     };
 
 
@@ -609,7 +623,7 @@ OTSolution.Annotations = function(options) {
         };
 
         var textInput = context.createElement('input');
-        
+
         textInput.setAttribute('type', 'text');
         textInput.style.position = 'absolute';
         textInput.style.top = origins.absolute.y + 'px';
@@ -661,13 +675,13 @@ OTSolution.Annotations = function(options) {
             var secondPoint = false;
 
             if (history.text) {
-                
+
                 ctx.font = history.font;
                 ctx.fillStyle = history.color;
                 ctx.fillText(history.text, history.x, history.y);
-                
+
             } else {
-                
+
                 if (history.smoothed) {
                     if (history.startPoint) {
                         self.isStartPoint = true;
@@ -703,16 +717,28 @@ OTSolution.Annotations = function(options) {
         });
 
         var selectedItem = !!resizeEvent ? update.selectedItem : self.selectedItem;
-        if (selectedItem && selectedItem.title === 'Pen') {
+
+        if (selectedItem && (selectedItem.title === 'Pen' || selectedItem.title === 'Text')) {
 
             if (update) {
-                ctx.strokeStyle = update.color;
-                ctx.lineWidth = update.lineWidth;
-                ctx.beginPath();
-                ctx.moveTo(update.fromX, update.fromY);
-                ctx.lineTo(update.toX, update.toY);
-                ctx.stroke();
-                ctx.closePath();
+
+                console.log('well, do we even have an update?', update);
+
+                if (selectedItem.title === 'Pen') {
+                    ctx.strokeStyle = update.color;
+                    ctx.lineWidth = update.lineWidth;
+                    ctx.beginPath();
+                    ctx.moveTo(update.fromX, update.fromY);
+                    ctx.lineTo(update.toX, update.toY);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+
+                if (selectedItem.title === 'Text') {
+                    ctx.font = update.font;
+                    ctx.fillStyle = update.color;
+                    ctx.fillText(update.text, update.x, update.y);
+                }
 
                 drawHistory.push(update);
             }
@@ -814,9 +840,7 @@ OTSolution.Annotations = function(options) {
 
     var drawIncoming = function(update, resizeEvent, index) {
 
-        if (update.text)
-
-            var iCanvas = {
+        var iCanvas = {
             width: update.canvasWidth,
             height: update.canvasHeight
         };
@@ -900,6 +924,8 @@ OTSolution.Annotations = function(options) {
     };
 
     var drawUpdates = function(updates, resizeEvent) {
+        
+        console.log('UPUPUP', updates);
 
         updates.forEach(function(update, index) {
             if (update.id === self.videoFeed.stream.connection.connectionId) {
@@ -1081,6 +1107,11 @@ OTSolution.Annotations.Toolbar = function(options) {
                 [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
             ]
         }]
+    }, {
+        id: 'OT_text',
+        title: 'Text',
+        icon: '../images/annotation/text.png',
+        selectedIcon: '../images/annotation/text.png'
     }, {
         id: 'OT_colors',
         title: 'Colors',
