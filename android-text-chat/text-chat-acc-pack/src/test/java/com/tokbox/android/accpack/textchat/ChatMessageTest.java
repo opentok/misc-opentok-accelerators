@@ -173,6 +173,7 @@ public class ChatMessageTest {
 
     }
 
+    /*
     @Test
     public void ChatMessage_When_MessageIDIsEmpty() throws Exception {
 
@@ -197,8 +198,7 @@ public class ChatMessageTest {
 
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
-    }
-
+    }*/
 
     @Test
     public void ChatMessage_When_MessageStatusIsNull() throws Exception {
