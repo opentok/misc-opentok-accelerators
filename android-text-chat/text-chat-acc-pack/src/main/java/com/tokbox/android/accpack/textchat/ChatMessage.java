@@ -15,7 +15,7 @@ public class ChatMessage {
     private static final int MAX_SENDERID_LENGTH = 60;
     private final static int MAX_TEXT_LENGTH = 8196;
     private static final int MAX_MESSAGEID_LENGTH = 36;
-    private static final String RELEASE_DATE = "2016/05/01";
+    private static final String RELEASE_DATE = "2016-05-01";
 
     private final String senderId; //required
     private final MessageStatus messageStatus; //required
@@ -119,7 +119,7 @@ public class ChatMessage {
      * @param senderAlias The sender alias.
      */
     public void setSenderAlias(String senderAlias) throws Exception {
-        if ( senderAlias.length() > 50 ){
+        if ( senderAlias.length() > MAX_ALIAS_LENGTH ){
             throw new Exception("Sender alias string cannot be greater than "+MAX_ALIAS_LENGTH);
         }
         else {
@@ -135,7 +135,7 @@ public class ChatMessage {
      * @param text The message text.
      */
     public void setText(String text) throws Exception {
-        if ( text.length() > 50 ){
+        if ( text.length() > MAX_TEXT_LENGTH ){
             throw new Exception("Text string cannot be greater than "+MAX_TEXT_LENGTH);
         }
         else {
@@ -177,7 +177,15 @@ public class ChatMessage {
          * Set a sender alias on the ChatMessage that has to be build by this ChatMessageBuilder
          * @param senderAlias The sender alias.
          */
-        public ChatMessageBuilder senderAlias(String senderAlias) {
+        public ChatMessageBuilder senderAlias(String senderAlias) throws Exception {
+            if ( senderAlias.length() > MAX_ALIAS_LENGTH ){
+                throw new Exception("Sender alias string cannot be greater than "+MAX_ALIAS_LENGTH);
+            }
+            else {
+                if ( senderAlias == null || senderAlias.length() == 0 || senderAlias.trim().length() == 0 ){
+                    throw new Exception("Sender alias cannot be null or empty");
+                }
+            }
             this.senderAlias = senderAlias;
             return this;
         }
@@ -186,7 +194,15 @@ public class ChatMessage {
          * Set a text message string on the ChatMessage that has to be build by this ChatMessageBuilder
          * @param text The message text.
          */
-        public ChatMessageBuilder text(String text) {
+        public ChatMessageBuilder text(String text) throws Exception {
+            if ( text.length() > MAX_TEXT_LENGTH ){
+                throw new Exception("Text string cannot be greater than "+MAX_TEXT_LENGTH);
+            }
+            else {
+                if ( text == null || text.length() == 0 || text.trim().length() == 0 ){
+                    throw new Exception("Text cannot be null or empty");
+                }
+            }
             this.text = text;
             return this;
         }
@@ -195,7 +211,13 @@ public class ChatMessage {
          * Set a timestamp on the ChatMessage that has to be build by this ChatMessageBuilder
          * @param timestamp The message timestamp.
          */
-        public ChatMessageBuilder timestamp(long timestamp) {
+        public ChatMessageBuilder timestamp(long timestamp) throws Exception {
+            long MIN_TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd").parse(RELEASE_DATE).getTime();
+
+            if (timestamp < MIN_TIMESTAMP || timestamp > System.currentTimeMillis()){
+                throw new Exception("Timestamp cannot be greater than "+System.currentTimeMillis() +" or less than" + MIN_TIMESTAMP);
+            }
+
             this.timestamp = timestamp;
             return this;
         }
