@@ -302,10 +302,7 @@ OTSolution.Annotations = function(options) {
 
         var update;
         var selectedItem = resizeEvent ? event.selectedItem : self.selectedItem;
-        console.log('and what is the selected item?', selectedItem, event.selectedItem, self.selectedItem);
-
-        window.zcanvas = window.zcanvas || self;
-
+        
         if (selectedItem) {
             if (selectedItem.id === 'OT_pen') {
 
@@ -381,7 +378,7 @@ OTSolution.Annotations = function(options) {
                     mirrored: mirrored,
                     selectedItem: selectedItem
                 };
-
+                draw(update);
                 !resizeEvent && sendUpdate(update);
             } else {
                 // We have a shape or custom object
@@ -590,9 +587,9 @@ OTSolution.Annotations = function(options) {
         var coords = JSON.parse(textBox.dataset.canvasOrigin);
         var ctx = canvas.getContext('2d');
         var font = '16px Arial'
-        ctx.font = font;
-        ctx.fillStyle = self.userColor;
-        ctx.fillText(text, coords.x, coords.y);
+        // ctx.font = font;
+        // ctx.fillStyle = self.userColor;
+        // ctx.fillText(text, coords.x, coords.y);
         textBox.remove();
         removeKeyDownListener();
         ignoreClicks = false;
@@ -602,9 +599,17 @@ OTSolution.Annotations = function(options) {
             y: coords.y,
             color: self.userColor,
             text: text,
-            font: font
+            font: font,
+            selectedItem: self.selectedItem,
+            canvas: {
+                width: canvas.width,
+                height: canvas.height,
+                offsetLeft: canvas.offsetLeft,
+                offsetTop: canvas.offsetTop
+            }
         };
-
+        
+        eventHistory.push(update);
         updateCanvas(update);
     };
 
@@ -665,6 +670,7 @@ OTSolution.Annotations = function(options) {
 
         // Repopulate the canvas with items from drawHistory
         drawHistory.forEach(function(history) {
+            
             ctx.strokeStyle = history.color;
             ctx.lineWidth = history.lineWidth;
 
@@ -674,8 +680,9 @@ OTSolution.Annotations = function(options) {
 
             var secondPoint = false;
 
-            if (history.text) {
+            if ( history.selectedItem.title === 'Text' && !!history.text ) {
 
+                console.log('should be getting here with things', history);
                 ctx.font = history.font;
                 ctx.fillStyle = history.color;
                 ctx.fillText(history.text, history.x, history.y);
@@ -925,8 +932,6 @@ OTSolution.Annotations = function(options) {
 
     var drawUpdates = function(updates, resizeEvent) {
         
-        console.log('UPUPUP', updates);
-
         updates.forEach(function(update, index) {
             if (update.id === self.videoFeed.stream.connection.connectionId) {
                 drawIncoming(update, resizeEvent, index);
