@@ -96,7 +96,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         void onNewReceivedMessage(ChatMessage message);
 
         /**
-         * Invoked when there is a text chat error occurs.
+         * Invoked when a text chat error occurs.
          *
          * @param error The error message.
          */
@@ -116,14 +116,22 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /*
-    * Constructor.
-    * @param session The OpenTok session instance.
-    * @param apiKey  The API Key.
+    * Constructor by default
     */
     public TextChatFragment(){
 
     }
+
+    /*
+    * Constructor
+    * @param session The OpenTok session instance.
+    * @param apiKey  The API Key.
+    */
     public static TextChatFragment newInstance(AccPackSession session, String apiKey) {
+        if ( session == null ){
+            throw new IllegalArgumentException("Session argument cannot be null");
+        }
+
         TextChatFragment fragment = new TextChatFragment();
 
         fragment.senderId = UUID.randomUUID().toString(); //by default

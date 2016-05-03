@@ -23,8 +23,8 @@ public  class TextChatFragmentTest {
         return outputBuilder.toString();
     }
 
-    @Test
-    public void TextChatFragment_When_SessionIsNull() throws Exception {
+    @Test(expected=Exception.class)
+    public void TextChatFragment_When_SessionIsNull() throws IllegalArgumentException {
         textChatFragment = TextChatFragment.newInstance(null, "100");
 
         Assert.assertNull(textChatFragment);

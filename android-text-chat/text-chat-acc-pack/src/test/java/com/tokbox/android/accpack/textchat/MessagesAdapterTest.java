@@ -22,7 +22,7 @@ public class MessagesAdapterTest {
 
     }
 
-    @Test(expected=Exception.class)
+    @Test
     public void getItemCount_When_MessagesListIsEmpty() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();
@@ -64,7 +64,7 @@ public class MessagesAdapterTest {
     }
 
 
-    @Test
+    @Test(expected=Exception.class)
     public void getItemViewType_When_MessagesListIsNull() throws Exception {
 
         messagesAdapter = new MessagesAdapter(null);
@@ -73,7 +73,7 @@ public class MessagesAdapterTest {
 
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void getItemViewType_When_MessagesListIsEmpty() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();
@@ -83,7 +83,7 @@ public class MessagesAdapterTest {
 
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void getItemViewType_When_IndexIsGTSize() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();
@@ -94,7 +94,7 @@ public class MessagesAdapterTest {
 
     }
 
-    @Test
+    @Test(expected=Exception.class)
     public void getItemViewType_When_IndexIsLTZero() throws Exception {
 
         messagesList = new ArrayList<ChatMessage>();

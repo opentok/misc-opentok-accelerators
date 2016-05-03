@@ -239,11 +239,11 @@ public class ChatMessage {
 
         private boolean validateChatMessageObject(ChatMessage chatMessage) {
             Log.i(LOG_TAG, "status: " + chatMessage.getMessageStatus());
-            if (senderId == null || senderId.isEmpty() || senderId.length() > MAX_SENDERID_LENGTH ) {
+            if (senderId == null || senderId.isEmpty() || senderId.length() > MAX_SENDERID_LENGTH || senderId.trim().isEmpty()) {
                 Log.i(LOG_TAG, "SenderId cannot be null, empty or greater than " + MAX_SENDERID_LENGTH);
                 return false;
             }
-            if (messageId == null || messageId.toString().isEmpty() || messageId.toString().length() > MAX_MESSAGEID_LENGTH) {
+            if ( messageId == null || messageId.toString().isEmpty() || messageId.toString().length() > MAX_MESSAGEID_LENGTH || messageId.toString().trim().isEmpty()) {
                 Log.i(LOG_TAG, "MessageId cannot be null, empty or greater than "+ MAX_MESSAGEID_LENGTH);
                 return false;
             }
