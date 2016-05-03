@@ -156,8 +156,8 @@ var app = (function() {
 
     _accPack.registerEventListener('startSharingScreen', function(){_show(_communicationElements.sharingPoster)});
     _accPack.registerEventListener('endSharingScreen', function(){_hide(_communicationElements.sharingPoster)});
-    _accPack.registerEventListener('startViewingSharedScreen', _.partial(_viewSharedScreen, true));
-    _accPack.registerEventListener('endViewingSharedScreen', _.partial(_viewSharedScreen, false));
+    _accPack.registerEventListener('startViewingSharedScreen', function(){_viewSharedScreen(true)});
+    _accPack.registerEventListener('endViewingSharedScreen', function(){_viewSharedScreen(true)});
 
     // Click events for enabling/disabling audio/video
     var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
