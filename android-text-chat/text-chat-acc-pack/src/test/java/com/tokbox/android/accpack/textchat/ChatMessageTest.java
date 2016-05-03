@@ -32,7 +32,7 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE)); //senderId
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build(); //senderId
         chatMessage.setSenderAlias("Bob");
         chatMessage.setText("Good morning!");
         long timestamp = date.getTime();
@@ -94,7 +94,7 @@ public class ChatMessageTest {
 
         senderID= null;
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
@@ -118,7 +118,7 @@ public class ChatMessageTest {
 
         senderID = "";
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
@@ -142,7 +142,7 @@ public class ChatMessageTest {
 
         senderID = generateLongString();
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.RECEIVED_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.RECEIVED_MESSAGE).build();
 
         Assert.assertEquals(chatMessage.getSenderId(), senderID);
 
@@ -166,7 +166,7 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = null;
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
@@ -190,7 +190,7 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = new UUID(0,0);
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
@@ -214,7 +214,7 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = UUID.fromString("");
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.RECEIVED_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.RECEIVED_MESSAGE).build();
 
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
@@ -239,7 +239,7 @@ public class ChatMessageTest {
 
         senderID= "1234";
         messageID = UUID.randomUUID();
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, null));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, null).build();
 
         Assert.assertNull("Expected: Null, Actual: NotNull", chatMessage);
 
@@ -280,7 +280,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         chatMessage.setSenderAlias(null);
 
@@ -294,7 +294,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         chatMessage.setSenderAlias("");
 
@@ -308,7 +308,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         String senderAlias = generateLongString();
         chatMessage.setSenderAlias(senderAlias);
@@ -323,7 +323,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         chatMessage.setText(null);
 
@@ -337,7 +337,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         chatMessage.setText("");
 
@@ -351,7 +351,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         String text = generateLongString();
         chatMessage.setText(text);
@@ -381,7 +381,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         chatMessage.setTimestamp(Long.MIN_VALUE);
 
@@ -395,7 +395,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         chatMessage.setTimestamp(Long.MAX_VALUE);
 
@@ -409,7 +409,7 @@ public class ChatMessageTest {
         senderID = "1234";
         messageID = UUID.randomUUID();
 
-        chatMessage = new ChatMessage(new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE));
+        chatMessage = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE).build();
 
         chatMessage.setTimestamp(0);
 
