@@ -624,7 +624,7 @@ OTSolution.Annotations = function(options) {
         textInput.setAttribute('data-canvas-origin', JSON.stringify(origins.canvas));
         textInput.id = 'textAnnotation';
 
-        context.appendChild(textInput);
+        context.body.appendChild(textInput);
         textInput.focus();
 
         addKeyDownListener();
