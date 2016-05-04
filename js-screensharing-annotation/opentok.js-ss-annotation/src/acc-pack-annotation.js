@@ -227,12 +227,11 @@ var AccPackAnnotation = (function() {
 
     /**
      * @param {object} pubSub - Either the publisher(share screen) or subscriber(viewing shared screen)
-     * @ param {object} container - The actual DOM node
+     * @ param {object} container - The parent container for the canvas element
      * @ param {object} options
      * @param {object} [options.externalWindow] - Reference to the annotation window if publishing
      * @param {object} options.canvasContainer - The id of the parent element for the annotation canvas
-     * @param {object} options.watchForResize - The DOM element to watch for resize
-     * @param {array} [options.absoluteParent] - Element to reference for dimensions on resize if other than 
+     * @param {array} [options.absoluteParent] - Element to reference for dimensions on resize if other than container
      */
     var linkCanvas = function(pubSub, container, options) {
         
