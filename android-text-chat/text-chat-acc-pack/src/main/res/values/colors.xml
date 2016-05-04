@@ -11,5 +11,5 @@
     <color name="info_text">#afafaf</color>
     <color name="alert">#fefac7</color>
     <color name="alert_text">#ad7212</color>
-
+    <color name="info">#AAAAAA</color>
 </resources>
