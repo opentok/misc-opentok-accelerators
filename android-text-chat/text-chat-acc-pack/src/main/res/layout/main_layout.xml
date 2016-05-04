@@ -66,6 +66,18 @@
             android:imeOptions="actionDone"
             android:background="@drawable/input_text"/>
 
+        <TextView
+            android:id="@+id/characteres_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/info"
+            android:text="1000"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="30dp"/>
+
     </RelativeLayout>
 
 </RelativeLayout>
