@@ -48,6 +48,8 @@ OTSolution.Annotations = function(options) {
             dragging: false
         };
 
+
+
     // INFO Mirrored feeds contain the OT_mirrored class
     mirrored = (' ' + self.videoFeed.element.className + ' ').indexOf(' ' + 'OT_mirrored' + ' ') > -1;
     scaledToFill = (' ' + self.videoFeed.element.className + ' ').indexOf(' ' + 'OT_fit-mode-cover' + ' ') > -1;
@@ -277,7 +279,7 @@ OTSolution.Annotations = function(options) {
         if (event.offsetY === 0) {
             console.log('no offset', event);
         };
-
+        
         var baseWidth = !!resizeEvent ? event.canvas.width : self.parent.clientWidth;
         var baseHeight = !!resizeEvent ? event.canvas.height : self.parent.clientHeight;
         var offsetLeft = !!resizeEvent ? event.canvas.offsetLeft : canvas.offsetLeft;
@@ -292,17 +294,9 @@ OTSolution.Annotations = function(options) {
         var x = offsetX * scaleX;
         var y = offsetY * scaleY;
 
-        console.log('what gets passed to updateCanvas', event);
-
-        //        console.log("Video size: " + self.videoFeed.videoWidth(), self.videoFeed.videoHeight());
-        //        console.log("Canvas size: " + canvas.width, canvas.height);
-
-        //        console.log("Offset X: " + offsetX + ", Offset Y: " + offsetY);
-        //        console.log("x: " + x + ", y: " + y);
-
         var update;
         var selectedItem = resizeEvent ? event.selectedItem : self.selectedItem;
-        
+
         if (selectedItem) {
             if (selectedItem.id === 'OT_pen') {
 
@@ -347,7 +341,7 @@ OTSolution.Annotations = function(options) {
                     case 'mouseout':
                         client.dragging = false;
 
-                        OTSolution.Annotations.Analytics.logEvent({
+                         OTSolution.Annotations.Analytics.logEvent({
                             widgetVersion: self.widgetVersion,
                             guid: OTSolution.Annotations.Analytics.get_uuid(),
                             source: window.location.href,
@@ -362,13 +356,13 @@ OTSolution.Annotations = function(options) {
                         });
                 }
             } else if (selectedItem.id === 'OT_text') {
-                console.log('selected Item HHHEEEAA', selectedItem);
+                
                 update = {
                     id: self.videoFeed.stream.connection.connectionId,
                     fromId: self.session.connection.connectionId,
-                    x: event.x,
-                    y: event.y,
-                    color: event.color,
+                    x: event.offsetX,
+                    y: event.offsetY,
+                    color: event.userColor,
                     font: event.font,
                     text: event.text,
                     videoWidth: self.videoFeed.videoElement().clientWidth,
@@ -507,12 +501,12 @@ OTSolution.Annotations = function(options) {
     }
 
     addEventListeners(canvas, 'mousedown mousemove mouseup mouseout touchstart touchmove touchend', function(event) {
-        
+
         // Handle text annotation separately and ignore mouse movements if we're not dragging.
-        var textEvent = self.selectedItem && self.selectedItem.id === 'OT_text';
+        var istextEvent = self.selectedItem && self.selectedItem.id === 'OT_text';
         var notDragging = event.type === 'mousemove' && !client.dragging;
-        
-        if ( textEvent || notDragging ) {
+
+        if (istextEvent || notDragging) {
             return;
         }
 
@@ -544,18 +538,19 @@ OTSolution.Annotations = function(options) {
      * passing the original click event to updateCanvas, processTextEvent event passes
      * a hash with everything the updateCanvas method needs.
      */
-    
+
     /** Listen for a double click on the canvas.  When it occurs, append a text input
      * that the user can edit and listen for keydown on the enter key. When enter is 
      * pressed, processTextEvent is called, the input element is removed, and the text
      * is appended to the canvas.
      */
+    var textEvent;
     var clickCount = 0;
     var ignoreClicks = false;
     var handleDoubleClick = function(event) {
         event.preventDefault();
 
-        if (self.selectedItem.id !== 'OT_text' || ignoreClicks) {
+        if (self.selectedItem && self.selectedItem.id !== 'OT_text' || ignoreClicks) {
             return;
         }
 
@@ -589,38 +584,54 @@ OTSolution.Annotations = function(options) {
     var removeKeyDownListener = function() {
         context.removeEventListener('keydown', handleKeyDown);
     };
-    
-    
+
+
     /**
      * Get the value of the text input and use it to create an "event".
      */
     var processTextEvent = function() {
+
+
         var textBox = context.getElementById('textAnnotation');
         var text = textBox.value;
-        var coords = JSON.parse(textBox.dataset.canvasOrigin);
-        var ctx = canvas.getContext('2d');
+        var coords = {
+            x: textEvent.offsetX,
+            y: textEvent.offsetY
+        };
+        // var ctx = canvas.getContext('2d');
         var font = '16px Arial'
         textBox.remove();
         removeKeyDownListener();
         ignoreClicks = false;
 
-        var update = {
-            x: coords.x,
-            y: coords.y,
-            color: self.userColor,
-            text: text,
-            font: font,
-            selectedItem: self.selectedItem,
-            canvas: {
-                width: canvas.width,
-                height: canvas.height,
-                offsetLeft: canvas.offsetLeft,
-                offsetTop: canvas.offsetTop
-            }
-        };
-        
-        eventHistory.push(update);
-        updateCanvas(update);
+        textEvent.text = textBox.value;
+        textEvent.font = '16px Arial';
+        textEvent.userColor = self.userColor;
+
+        textEvent.canvas = {
+            width: canvas.width,
+            height: canvas.height,
+            offsetLeft: canvas.offsetLeft,
+            offsetTop: canvas.offsetTop
+        }
+
+        // var update = {
+        //     x: coords.x,
+        //     y: coords.y,
+        //     color: self.userColor,
+        //     text: text,
+        //     font: font,
+        //     selectedItem: self.selectedItem,
+        //     canvas: {
+        //         width: canvas.width,
+        //         height: canvas.height,
+        //         offsetLeft: canvas.offsetLeft,
+        //         offsetTop: canvas.offsetTop
+        //     }
+        // };
+
+        eventHistory.push(textEvent);
+        updateCanvas(textEvent);
     };
 
 
@@ -637,12 +648,14 @@ OTSolution.Annotations = function(options) {
             }
         };
 
+        textEvent = event;
+
         var textInput = context.createElement('input');
 
         textInput.setAttribute('type', 'text');
         textInput.style.position = 'absolute';
-        textInput.style.top = origins.absolute.y + 'px';
-        textInput.style.left = origins.absolute.x + 'px';
+        textInput.style.top = event.clientY + 'px';
+        textInput.style.left = event.clientX + 'px';
         textInput.style.background = 'rgba(255,255,255, .5)';
         textInput.style.width = '100px';
         textInput.style.maxWidth = '200px';
@@ -680,7 +693,7 @@ OTSolution.Annotations = function(options) {
 
         // Repopulate the canvas with items from drawHistory
         drawHistory.forEach(function(history) {
-            
+
             ctx.strokeStyle = history.color;
             ctx.lineWidth = history.lineWidth;
 
@@ -691,9 +704,8 @@ OTSolution.Annotations = function(options) {
             var secondPoint = false;
             var isText = !!history.selectedItem && history.selectedItem.title === 'Text' && history.text;
 
-            if ( isText ) {
+            if (isText) {
 
-                console.log('should be getting here with things', history);
                 ctx.font = history.font;
                 ctx.fillStyle = history.color;
                 ctx.fillText(history.text, history.x, history.y);
@@ -739,8 +751,6 @@ OTSolution.Annotations = function(options) {
         if (selectedItem && (selectedItem.title === 'Pen' || selectedItem.title === 'Text')) {
 
             if (update) {
-
-                console.log('well, do we even have an update?', update);
 
                 if (selectedItem.title === 'Pen') {
                     ctx.strokeStyle = update.color;
@@ -942,7 +952,7 @@ OTSolution.Annotations = function(options) {
     };
 
     var drawUpdates = function(updates, resizeEvent) {
-        
+
         updates.forEach(function(update, index) {
             if (update.id === self.videoFeed.stream.connection.connectionId) {
                 drawIncoming(update, resizeEvent, index);
