@@ -108,8 +108,8 @@ public class ChatMessage {
 
         long MIN_TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd").parse(RELEASE_DATE).getTime();
 
-        if (timestamp < MIN_TIMESTAMP || timestamp > System.currentTimeMillis()){
-            throw new Exception("Timestamp cannot be greater than "+System.currentTimeMillis() +" or less than" + MIN_TIMESTAMP);
+        if ( timestamp < MIN_TIMESTAMP ){
+            throw new Exception("Timestamp cannot be less than" + MIN_TIMESTAMP);
         }
         this.timestamp = timestamp;
     }
@@ -214,8 +214,8 @@ public class ChatMessage {
         public ChatMessageBuilder timestamp(long timestamp) throws Exception {
             long MIN_TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd").parse(RELEASE_DATE).getTime();
 
-            if (timestamp < MIN_TIMESTAMP || timestamp > System.currentTimeMillis()){
-                throw new Exception("Timestamp cannot be greater than "+System.currentTimeMillis() +" or less than" + MIN_TIMESTAMP);
+            if ( timestamp < MIN_TIMESTAMP ){
+                throw new Exception("Timestamp cannot be less than" + MIN_TIMESTAMP);
             }
 
             this.timestamp = timestamp;
