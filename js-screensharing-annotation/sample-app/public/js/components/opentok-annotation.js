@@ -539,12 +539,20 @@ OTSolution.Annotations = function(options) {
     });
 
     /**
-     * Handle text markup
+     * We need intermediate event handling for text annotation since the user is adding
+     * text to an input element before it is actually added to the canvas.  Instead of
+     * passing the original click event to updateCanvas, processTextEvent event passes
+     * a hash with everything the updateCanvas method needs.
+     */
+    
+    /** Listen for a double click on the canvas.  When it occurs, append a text input
+     * that the user can edit and listen for keydown on the enter key. When enter is 
+     * pressed, processTextEvent is called, the input element is removed, and the text
+     * is appended to the canvas.
      */
     var clickCount = 0;
     var ignoreClicks = false;
     var handleDoubleClick = function(event) {
-
         event.preventDefault();
 
         if (self.selectedItem.id !== 'OT_text' || ignoreClicks) {
@@ -567,9 +575,10 @@ OTSolution.Annotations = function(options) {
     };
 
 
+    // Listen for keydown on 'Enter' once the text input is appended
     var handleKeyDown = function(event) {
         if (event.which === 13) {
-            addTextToCanvas();
+            processTextEvent();
         }
     };
 
@@ -580,16 +589,17 @@ OTSolution.Annotations = function(options) {
     var removeKeyDownListener = function() {
         context.removeEventListener('keydown', handleKeyDown);
     };
-
-    var addTextToCanvas = function() {
+    
+    
+    /**
+     * Get the value of the text input and use it to create an "event".
+     */
+    var processTextEvent = function() {
         var textBox = context.getElementById('textAnnotation');
         var text = textBox.value;
         var coords = JSON.parse(textBox.dataset.canvasOrigin);
         var ctx = canvas.getContext('2d');
         var font = '16px Arial'
-        // ctx.font = font;
-        // ctx.fillStyle = self.userColor;
-        // ctx.fillText(text, coords.x, coords.y);
         textBox.remove();
         removeKeyDownListener();
         ignoreClicks = false;
@@ -679,8 +689,9 @@ OTSolution.Annotations = function(options) {
             history.startPoint = !!history.startPoint;
 
             var secondPoint = false;
+            var isText = !!history.selectedItem && history.selectedItem.title === 'Text' && history.text;
 
-            if ( history.selectedItem.title === 'Text' && !!history.text ) {
+            if ( isText ) {
 
                 console.log('should be getting here with things', history);
                 ctx.font = history.font;
