@@ -228,11 +228,13 @@ var AccPackAnnotation = (function() {
     /**
      * @param {object} pubSub - Either the publisher(share screen) or subscriber(viewing shared screen)
      * @ param {object} container - The actual DOM node
-     * @param {object} [windowReference] - Reference to the annotation window if publishing
+     * @ param {object} options
+     * @param {object} [options.externalWindow] - Reference to the annotation window if publishing
      * @param {object} options.canvasContainer - The id of the parent element for the annotation canvas
      * @param {object} options.watchForResize - The DOM element to watch for resize
+     * @param {array} [options.absoluteParent] - Element to reference for dimensions on resize if other than 
      */
-    var linkCanvas = function(pubSub, container, externalWindow) {
+    var linkCanvas = function(pubSub, container, options) {
         
         /**
          * jQuery only allows listening for a resize event on the window or a
@@ -241,17 +243,18 @@ var AccPackAnnotation = (function() {
          * exist, we are watching the canvas belonging to the party viewing the
          * shared screen
          */
-        self.elements.resizeSubject = externalWindow || window;
-        self.elements.externalWindow = externalWindow;
+        self.elements.resizeSubject = _.property('externalWindow')(options) || window;
+        self.elements.externalWindow = _.property('externalWindow')(options) || null;
+        self.elements.absoluteParent = _.property('absoluteParent')(options) || null;
         self.elements.canvasContainer = container;
+        
         
         self.canvas = new OTSolution.Annotations({
             feed: pubSub,
             container: container,
-            externalWindow: externalWindow
+            externalWindow: self.elements.externalWindow
         });
-
-
+ 
         var context = self.elements.externalWindow ? self.elements.externalWindow : window;
 
         self.elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
@@ -292,17 +295,16 @@ var AccPackAnnotation = (function() {
             }
 
         } else {
-            width = $(self.elements.canvasContainer).width();
-            height = $(self.elements.canvasContainer).height();
+            var el = self.elements.absoluteParent || self.elements.canvasContainer;
+            width = $(el).width();
+            height = $(el).height();
         }
         
-        
-
         $(self.elements.canvasContainer).css({
             width: width,
             height: height
         });
-
+        
         $(self.elements.canvas).css({
             width: width,
             height: height

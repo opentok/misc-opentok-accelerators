@@ -29,6 +29,12 @@ button {
     padding: 15px;
 }
 
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
 /*Easy since we're using vw/vh*/
 .aspect-ratio {
   height: 54vw;
@@ -39,12 +45,6 @@ button {
 
 .aspect-ratio > .video-container {
     position: absolute;
-}
-
-.video-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
 }
 
 .shared-screen {

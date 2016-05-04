@@ -218,12 +218,13 @@ var AcceleratorPack = (function() {
    */
   var setupAnnotationView = function(subscriber) {
     var canvasContainer = document.getElementById('videoHolderSharedScreen');
+    var videoContainer = document.getElementById('videoContainer');
     var annotationOptions = { canvasContainer: canvasContainer };
     _annotation.start(_session, annotationOptions)
       .then(function() {
         var mainContainer = document.getElementById('main');
         mainContainer.classList.add('aspect-ratio');
-        _annotation.linkCanvas(subscriber, canvasContainer, null);
+        _annotation.linkCanvas(subscriber, canvasContainer, {absoluteParent: videoContainer});
         _annotation.resizeCanvas();
       });
   };
@@ -246,7 +247,7 @@ var AcceleratorPack = (function() {
    * 
    */
   var linkAnnotation = function(pubSub, annotationContainer, externalWindow) {
-    _annotation.linkCanvas(pubSub, annotationContainer, externalWindow);
+    _annotation.linkCanvas(pubSub, annotationContainer, {externalWindow: externalWindow});
   };
 
   AcceleratorPackLayer.prototype = {
