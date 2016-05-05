@@ -16,7 +16,8 @@
     
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
-    self.textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
+    //self.textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
+    self.textChatView = [TextChatView textChatView];
 
     // optional config for set the max amount of character permited per message
     [self.textChatView setMaximumTextMessageLength:200];
