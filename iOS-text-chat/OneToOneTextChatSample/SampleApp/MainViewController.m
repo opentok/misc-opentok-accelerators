@@ -46,13 +46,13 @@
         [self.mainView callHolderConnected];
         [self.oneToOneCommunicator disconnect];
         [self.textChatView disconnect];
-
-        [self.mainView removePublisherView];
+        [self.textChatView dismiss];
         [SVProgressHUD dismiss];
+        
+        [self.mainView removePublisherView];
         [self.mainView removePlaceHolderImage];
         [self.mainView setTextChatHolderUserInteractionEnabled:NO];
-        [self.textChatView dismiss];
-        [self.mainView buttonsStatusSetter:NO];
+        [self.mainView resetUIInterface];
     }
 }
 
