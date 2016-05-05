@@ -8,53 +8,92 @@
 
 #import "ScreenShareView.h"
 #import "ScreenSharePath.h"
-#import "ScreenShareViewManager.h"
 
-@interface ScreenShareView()
-@property (nonatomic) ScreenSharePath *drawingPath;
-@property (nonatomic) ScreenShareViewManager *manager;
+#import "ScreenShareAnnotationView.h"
+
+@interface ScreenShareView() <UIScrollViewDelegate>
+
+@property (nonatomic) UIScrollView *scrollView;
+@property (nonatomic) UIView *scrollContentView;    // this is for encapsulating internally scroll view
+@property (nonatomic) ScreenShareAnnotationView *annotationView;
 @end
 
 @implementation ScreenShareView
 
-+ (instancetype)viewWithStrokeColor:(UIColor *)color {
-    return [[ScreenShareView alloc] initWithStrokeColor:color];
+- (UIColor *)strokeColor {
+    return _annotationView.drawingPath.strokeColor;
 }
 
-- (instancetype)initWithStrokeColor:(UIColor *)strokeColor {
-    if (self = [super init]) {
-        _drawingPath = [ScreenSharePath pathWithStrokeColorColor:strokeColor];
-        _manager = [ScreenShareViewManager sharedManager];
-        [ScreenShareViewManager addPath:_drawingPath];
-        [self setBackgroundColor:[UIColor clearColor]];
+- (void)setStrokeColor:(UIColor *)strokeColor {
+    [_annotationView.drawingPath setStrokeColor:strokeColor];
+}
+
+- (BOOL)scrollEnabled {
+    return _scrollView.scrollEnabled;
+}
+
+- (void)setScrollEnabled:(BOOL)scrollEnabled {
+    [_scrollView setScrollEnabled:scrollEnabled];
+}
+
++ (instancetype)viewWithStrokeColor:(UIColor *)color {
+    
+    ScreenShareView *view = [[ScreenShareView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [view initializeWithStrokeColor:color];
+    return view;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self initializeWithStrokeColor:[UIColor blackColor]];
     }
     return self;
 }
 
-//TODO: this needs to be re-implemented using cache image rather than drawing all the path
-- (void)drawRect:(CGRect)rect
-{
-    [self.manager.paths enumerateObjectsUsingBlock:^(ScreenSharePath *path, NSUInteger idx, BOOL *stop) {
-        
-        [path.strokeColor setStroke];
-        [path stroke];
-    }];
+- (void)awakeFromNib {
+    [self initializeWithStrokeColor:[UIColor blackColor]];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    [_drawingPath drawAtPoint:touch];
+- (void)initializeWithStrokeColor:(UIColor *)strokeColor {
+    // scroll view
+    CGRect deviceBounds = [UIScreen mainScreen].bounds;
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(deviceBounds), CGRectGetHeight(deviceBounds))];
+    [_scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))];
+    _scrollView.maximumZoomScale = 3.0f;
+    _scrollView.delegate = self;
+    [self addSubview:_scrollView];
+    
+    _scrollContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(deviceBounds), CGRectGetHeight(deviceBounds))];
+    [_scrollView addSubview:_scrollContentView];
+    
+    // annotation view
+    _annotationView = [[ScreenShareAnnotationView alloc] initWithFrame:deviceBounds strokeColor:[UIColor blackColor]];
+    [_scrollContentView addSubview:_annotationView];
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    [_drawingPath drawToPoint:touch];
-    [self setNeedsDisplay];
+
+#pragma mark - UIView
+- (void)addSubview:(UIView *)view {
+    
+    if (view == _scrollView || view == _annotationView) {
+        [super addSubview:view];
+        return;
+    }
+    
+    CGFloat width = _scrollView.contentSize.width > CGRectGetWidth(view.bounds) ? _scrollView.contentSize.width : CGRectGetWidth(view.bounds);
+    CGFloat height = _scrollView.contentSize.height > CGRectGetHeight(view.bounds) ? _scrollView.contentSize.height : CGRectGetHeight(view.bounds);
+    [_scrollView setContentSize:CGSizeMake(width, height)];
+    [_scrollContentView setFrame:CGRectMake(0, 0, width, height)];
+    [_scrollContentView insertSubview:view belowSubview:_annotationView];
+    [_annotationView setFrame:CGRectMake(0, 0, width, height)];
+    
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    _drawingPath = [ScreenSharePath pathWithStrokeColorColor:_drawingPath.strokeColor];
-    [ScreenShareViewManager addPath:_drawingPath];
-}
 
+#pragma mark - UIScrollViewDelegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.scrollContentView;
+}
 @end

@@ -18,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char ScreenShareKitVersionString[];
 
 #import <ScreenShareKit/ScreenShareView.h>
 #import <ScreenShareKit/ScreenShareTextField.h>
+#import <ScreenShareKit/ScreenShareColorPickerView.h>

@@ -9,23 +9,32 @@
 #import "ViewController.h"
 #import <ScreenShareKit/ScreenShareView.h>
 #import <ScreenShareKit/ScreenShareTextField.h>
+#import <ScreenShareKit/ScreenShareColorPickerView.h>
 
-@interface ViewController ()
-@property (nonatomic) ScreenShareTextField *textField;
-@property (nonatomic) ScreenShareView *shareView;
+@interface ViewController () <UIScrollViewDelegate>
+//@property (nonatomic) ScreenShareTextField *textField;
+//@property (nonatomic) UIView *contentView;
+//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (weak, nonatomic) IBOutlet ScreenShareView *shareView;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
-//    self.shareView = [ScreenShareView viewWithStrokeColor:[UIColor yellowColor]];
-//    self.shareView.frame = CGRectMake(0, 20, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
-//    [self.view addSubview:self.shareView];
+    // ScreenShareView example
+    UIImage *image = [UIImage imageNamed:@"mvc"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     
-    self.textField = [ScreenShareTextField textField];
-    [self.view addSubview:self.textField];
+    [self.shareView addSubview:imageView];
+}
+
+
+
+- (IBAction)changeScrollable:(id)sender {
+    self.shareView.scrollEnabled = !self.shareView.scrollEnabled;
 }
 @end

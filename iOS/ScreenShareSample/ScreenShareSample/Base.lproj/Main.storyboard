@@ -16,12 +16,36 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkI-wv-5LV">
+                                <rect key="frame" x="238" y="8" width="125" height="30"/>
+                                <state key="normal" title="Change Scrollable"/>
+                                <connections>
+                                    <action selector="changeScrollable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O2C-R8-xbh"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ke-AN-pdp" customClass="ScreenShareView">
+                                <rect key="frame" x="0.0" y="38" width="600" height="562"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3Ke-AN-pdp" secondAttribute="trailing" id="32H-o8-B70"/>
+                            <constraint firstItem="3Ke-AN-pdp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FRU-Nt-O0m"/>
+                            <constraint firstItem="MkI-wv-5LV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HR5-9a-P1b"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3Ke-AN-pdp" secondAttribute="bottom" id="ZGC-1T-WyE"/>
+                            <constraint firstItem="3Ke-AN-pdp" firstAttribute="top" secondItem="MkI-wv-5LV" secondAttribute="bottom" id="hBv-9m-MTp"/>
+                            <constraint firstItem="MkI-wv-5LV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="8" id="pvd-pp-Zb1"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="shareView" destination="3Ke-AN-pdp" id="9EH-hJ-2yN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="179" y="369"/>
+            <point key="canvasLocation" x="340" y="356"/>
         </scene>
     </scenes>
 </document>
