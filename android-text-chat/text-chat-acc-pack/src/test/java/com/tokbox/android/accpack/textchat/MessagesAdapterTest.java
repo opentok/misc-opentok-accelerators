@@ -18,8 +18,6 @@ public class MessagesAdapterTest {
 
         messagesAdapter = new MessagesAdapter(null);
 
-        Assert.assertTrue(messagesAdapter.getItemCount() == 0);
-
     }
 
     @Test
