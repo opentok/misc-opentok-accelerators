@@ -12,19 +12,19 @@ var AccPackAnnotation = (function() {
     var Annotation = function(options) {
         self = this;
         self.options = _.omit(options, 'accPack');
-        self.accPack = options.accPack;  
+        self.accPack = options.accPack;
         self.elements = {};
         _registerEvents();
         _setupUI();
     };
-    
+
     var _triggerEvent;
-    var _registerEvents = function(){
-        var events = ['startAnnotation', 'linkAnnotation', 'resizeCanvas', 'endAnnotation'];
+    var _registerEvents = function() {
+        var events = ['startAnnotation', 'linkAnnotation', 'resizeCanvas', 'annotationWindowClosed', 'endAnnotation'];
         _triggerEvent = self.accPack.registerEvents(events);
     };
-    
-    var _setupUI = function(){
+
+    var _setupUI = function() {
         var toolbar = ['<div id="toolbar"></div>'].join('\n');
         $('body').append(toolbar);
     };
@@ -45,7 +45,7 @@ var AccPackAnnotation = (function() {
         title: 'Text',
         icon: '../images/annotation/text.png',
         selectedIcon: '../images/annotation/text.png'
-    },{
+    }, {
         id: 'OT_shapes',
         title: 'Shapes',
         icon: '../images/annotation/shapes.png',
@@ -108,9 +108,9 @@ var AccPackAnnotation = (function() {
     ];
 
     var _aspectRatio = (10 / 6);
-    
+
     /** Private methods */
-    
+
     var _listenForResize = function() {
         $(self.elements.resizeSubject).on('resize', resizeCanvas);
     };
@@ -125,7 +125,7 @@ var AccPackAnnotation = (function() {
             var w = !!externalWindow ? externalWindow : window;
             return w.document.getElementById(toolbarId);
         };
-        
+
         toolbar = new OTSolution.Annotations.Toolbar({
             session: session,
             container: container(),
@@ -165,11 +165,16 @@ var AccPackAnnotation = (function() {
         ].join(',');
 
         var annotationWindow = window.open(url, '', windowFeatures);
+        window.onbeforeunload = function(){annotationWindow.close();}
 
         // External window needs access to certain globals
         annotationWindow.toolbar = toolbar;
         annotationWindow.OT = OT;
         annotationWindow.$ = $;
+        
+        annotationWindow.triggerCloseEvent = function() {
+            _triggerEvent('annotationWindowClosed')
+        };
 
         // TODO Find something better.
         var windowReady = function() {
@@ -205,17 +210,17 @@ var AccPackAnnotation = (function() {
      * @returns {promise} < Resolve: undefined | {object} Reference to external annotation window >
      */
     var start = function(session, options) {
-        
+
         var deferred = $.Deferred();
-        
+
         if (_.property('screensharing')(options)) {
             _createExternalWindow()
-            .then(function(externalWindow) {
-                _createToolbar(session, options, externalWindow);
-                toolbar.createPanel(externalWindow);
-                _triggerEvent('startAnnotation', externalWindow);
-                deferred.resolve(externalWindow);
-            });
+                .then(function(externalWindow) {
+                    _createToolbar(session, options, externalWindow);
+                    toolbar.createPanel(externalWindow);
+                    _triggerEvent('startAnnotation', externalWindow);
+                    deferred.resolve(externalWindow);
+                });
         } else {
             _createToolbar(session, options);
             _triggerEvent('startAnnotation');
@@ -234,7 +239,7 @@ var AccPackAnnotation = (function() {
      * @param {array} [options.absoluteParent] - Element to reference for dimensions on resize if other than container
      */
     var linkCanvas = function(pubSub, container, options) {
-        
+
         /**
          * jQuery only allows listening for a resize event on the window or a
          * jQuery resizable element, like #wmsFeedWrap.  windowRefernce is a
@@ -246,14 +251,16 @@ var AccPackAnnotation = (function() {
         self.elements.externalWindow = _.property('externalWindow')(options) || null;
         self.elements.absoluteParent = _.property('absoluteParent')(options) || null;
         self.elements.canvasContainer = container;
-        
-        
+
+
         self.canvas = new OTSolution.Annotations({
             feed: pubSub,
             container: container,
             externalWindow: self.elements.externalWindow
         });
- 
+
+        self.elements.externalWindow
+
         var context = self.elements.externalWindow ? self.elements.externalWindow : window;
 
         self.elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
@@ -273,19 +280,19 @@ var AccPackAnnotation = (function() {
 
     /** Resize the canvas to match the size of its container */
     var resizeCanvas = function() {
-        
+
         var width, height;
 
-        if ( !!self.elements.externalWindow ) {
+        if (!!self.elements.externalWindow) {
 
             var windowDimensions = {
-                width:self.elements.externalWindow.innerWidth,
-                height:self.elements.externalWindow.innerHeight
+                width: self.elements.externalWindow.innerWidth,
+                height: self.elements.externalWindow.innerHeight
             };
 
             var computedHeight = windowDimensions.width / _aspectRatio;
 
-            if ( computedHeight <= windowDimensions.height ) {
+            if (computedHeight <= windowDimensions.height) {
                 width = windowDimensions.width;
                 height = computedHeight;
             } else {
@@ -298,12 +305,12 @@ var AccPackAnnotation = (function() {
             width = $(el).width();
             height = $(el).height();
         }
-        
+
         $(self.elements.canvasContainer).css({
             width: width,
             height: height
         });
-        
+
         $(self.elements.canvas).css({
             width: width,
             height: height
