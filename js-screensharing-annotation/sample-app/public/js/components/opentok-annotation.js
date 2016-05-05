@@ -275,14 +275,6 @@ OTSolution.Annotations = function(options) {
         if (canvas.height === 0) {
             canvas.height = self.parent.getBoundingClientRect().height;
         }
-
-        if (event.offsetY === 0) {
-            console.log('no offset', event);
-        };
-        
-        if (resizeEvent) {
-          console.log('what is the history from the event', event);   
-        }
         
         var baseWidth = !!resizeEvent ? event.canvas.width : self.parent.clientWidth;
         var baseHeight = !!resizeEvent ? event.canvas.height : self.parent.clientHeight;
@@ -299,7 +291,6 @@ OTSolution.Annotations = function(options) {
         var x = offsetX * scaleX;
         var y = offsetY * scaleY;
 
-        console.log('x and y scale', scaleX, scaleY);
         var update;
         var selectedItem = resizeEvent ? event.selectedItem : self.selectedItem;
 
@@ -556,9 +547,8 @@ OTSolution.Annotations = function(options) {
     var clickCount = 0;
     var ignoreClicks = false;
     var handleDoubleClick = function(event) {
+
         event.preventDefault();
-        
-        console.log('double click event', event);
 
         if (self.selectedItem && self.selectedItem.id !== 'OT_text' || ignoreClicks) {
             return;
@@ -872,10 +862,6 @@ OTSolution.Annotations = function(options) {
 
     var drawIncoming = function(update, resizeEvent, index) {
         
-        if (update.text && !resizeEvent) {
-            console.log('a non-resize text update', update);
-        }
-
         var iCanvas = {
             width: update.canvasWidth,
             height: update.canvasHeight
@@ -947,8 +933,6 @@ OTSolution.Annotations = function(options) {
         updateForHistory.videoWidth = video.width;
         updateForHistory.videoHeight = video.height;
         
-        console.log('update for history', updateForHistory);
-
         if (resizeEvent) {
             updateHistory[index] = updateForHistory;
         } else {
@@ -956,9 +940,6 @@ OTSolution.Annotations = function(options) {
         }
         /** ********************************** */
         
-        if (update.text && !resizeEvent) {
-            console.log('update (NO RESIZE) before being pushed to drawHistory', update);
-        }
         drawHistory.push(update);
 
         draw(null);
@@ -1006,7 +987,6 @@ OTSolution.Annotations = function(options) {
             },
             'signal:otAnnotation_text': function(event) {
                 if (event.from.connectionId !== self.session.connection.connectionId) {
-                    console.log('incoming text event', event);
                     drawUpdates(JSON.parse(event.data));
                 }
             },
