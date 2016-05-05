@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Annotations with Screensharing Accelerator Pack for iOS<br/>Version 0.9
+# OpenTok Annotations with Screensharing Accelerator Pack for iOS<br/>Version 1.0
 
 This document describes how to use the OpenTok Annotations with Screensharing Accelerator Pack for iOS. Through the exploration of the OpenTok Text Chat Sample App, you will learn best practices for exchanging text messages on an iOS mobile device.
 
