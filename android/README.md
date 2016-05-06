@@ -2,7 +2,7 @@
 
 # OpenTok Screensharing with Annotations Accelerator Pack for Android<br/>Version 1.0
 
-This document describes how to use the OpenTok Screensharing with Annotations Accelerator Pack for Android. Through the exploration of the OpenTok Screensharing with Annotations Sample App, you will learn best practices for exchanging text messages on an Android mobile device.
+This document describes how to use the OpenTok Screensharing with Annotations Accelerator Pack for Android. Through the exploration of the OpenTok Screensharing with Annotations Sample App, you will learn best practices for screensharing on an Android mobile device.
 
 You can configure and run this sample app within just a few minutes!
 

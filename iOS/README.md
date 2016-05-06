@@ -2,7 +2,7 @@
 
 # OpenTok Screensharing with Annotations Accelerator Pack for iOS<br/>Version 1.0
 
-This document describes how to use the OpenTok Screensharing with Annotations Accelerator Pack for iOS. Through the exploration of the OpenTok Screensharing with Annotations Sample App, you will learn best practices for exchanging text messages on an iOS mobile device.
+This document describes how to use the OpenTok Screensharing with Annotations Accelerator Pack for iOS. Through the exploration of the OpenTok Screensharing with Annotations Sample App, you will learn best practices for screensharing on an iOS mobile device.
 
 You can configure and run this sample app within just a few minutes!
 
