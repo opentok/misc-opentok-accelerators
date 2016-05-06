@@ -4,7 +4,7 @@
 
 The OpenTok Screensharing with Annotations Accelerator Pack provides functionality you can add to your OpenTok applications that enables users to share their screens between mobile or browser-based devices. 
 
-With the OpenTok Text Chat sample app, you can:
+With the OpenTok Screensharing with Annotations sample app, you can:
 
 - Initiate and manage interoperable screensharing with annotation features between two users, regardless of the devices they are using.
 - Customize the UI features and layout.
