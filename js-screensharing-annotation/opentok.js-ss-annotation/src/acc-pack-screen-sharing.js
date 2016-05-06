@@ -91,7 +91,7 @@ var AccPackScreenSharing = (function() {
     });
 
     self.accPack.registerEventListener('endCall', function() {
-      end();
+      end(true);
     });
     
     self.accPack.registerEventListener('annotationWindowClosed', function() {
@@ -308,9 +308,10 @@ var AccPackScreenSharing = (function() {
 
   };
 
-  var end = function() {
+  var end = function(callEnded) {
     _stopPublishing();
     _active = false;
+    callEnded && _toggleScreenSharingButton(false);
     _triggerEvent('endScreenSharing');
   };
 
