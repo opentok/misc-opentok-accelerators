@@ -160,7 +160,7 @@ var app = (function() {
       _viewSharedScreen(true)
     });
     _accPack.registerEventListener('endViewingSharedScreen', function() {
-      _viewSharedScreen(true)
+      _viewSharedScreen(false)
     });
 
     // Click events for enabling/disabling audio/video
