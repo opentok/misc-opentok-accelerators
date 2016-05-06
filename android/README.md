@@ -81,7 +81,7 @@ compile project(':screensharing-acc-pack')
 </ol>
 
 
-<h3 id=addlibrary> Adding the OpenTok Screensharing with Annotations Accelerator Pack library</h3>
+<h3 id=addlibrary> Adding the OpenTok Screensharing Accelerator Pack library</h3>
 1.  Right-click the app name and select **Open Module Settings** and click **+**.
 2.  Select **Import .JAR/.AAR Package** and click  **Next**.
 3.  Browse to the **Screensharing with Annotations Accelerator Pack library AAR** and click **Finish**.
