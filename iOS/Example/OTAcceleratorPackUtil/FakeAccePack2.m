@@ -19,6 +19,10 @@
     [OTAcceleratorSession registerWithAccePack:self];
 }
 
+- (void)disconnect {
+    [OTAcceleratorSession deregisterWithAccePack:self];
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         [OTAcceleratorSession registerWithAccePack:self];

@@ -19,6 +19,10 @@
     [OTAcceleratorSession registerWithAccePack:self];
 }
 
+- (void)disconnect {
+    [OTAcceleratorSession deregisterWithAccePack:self];
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         [OTAcceleratorSession registerWithAccePack:self];
@@ -48,6 +52,7 @@
 }
 
 #pragma mark - OTPublisherDelegate
+
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
     NSLog(@"%@ - %@", [[self class] description], NSStringFromSelector(_cmd));
 }

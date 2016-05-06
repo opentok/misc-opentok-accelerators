@@ -10,4 +10,5 @@
 
 @interface FakeAccePack1 : NSObject
 - (void)connect;
+- (void)disconnect;
 @end

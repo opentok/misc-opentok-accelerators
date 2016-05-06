@@ -17,6 +17,9 @@ static NSString * InternalToken = @"";
 @property (nonatomic) NSString *token;
 
 @property (nonatomic) NSMutableSet <id<OTSessionDelegate>> *delegates;
+
+// in order to signal sessionDidDisconnect: back to inactive registers
+@property (nonatomic) NSMutableSet <id<OTSessionDelegate>> *inactiveDelegate;
 @end
 
 @implementation OTAcceleratorSession
@@ -44,6 +47,7 @@ static NSString * InternalToken = @"";
                                                              delegate:nil];
         sharedInstance.delegate = sharedInstance;
         sharedInstance.delegates = [[NSMutableSet alloc] init];
+        sharedInstance.inactiveDelegate = [[NSMutableSet alloc] init];
     });
     return sharedInstance;
 }
@@ -66,6 +70,9 @@ static NSString * InternalToken = @"";
     OTAcceleratorSession *session = [OTAcceleratorSession getAcceleratorPackSession];
     
     if ([delegate conformsToProtocol:@protocol(OTSessionDelegate)]) {
+        if ([session.inactiveDelegate containsObject:delegate]) {
+            [session.inactiveDelegate removeObject:delegate];
+        }
         [session.delegates addObject:delegate];
     }
 
@@ -81,6 +88,7 @@ static NSString * InternalToken = @"";
     
     if ([session.delegates containsObject:delegate]) {
         [session.delegates removeObject:delegate];
+        [session.inactiveDelegate addObject:delegate];
     }
 
     if (session.delegates.count == 0) {
@@ -143,6 +151,15 @@ static NSString * InternalToken = @"";
             [obj sessionDidDisconnect:session];
         }
     }];
+    
+    [self.inactiveDelegate enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
+        
+        if ([obj respondsToSelector:@selector(sessionDidDisconnect:)]) {
+            [obj sessionDidDisconnect:session];
+        }
+    }];
+    
+    [self.inactiveDelegate removeAllObjects];
 }
 
 - (void)session:(OTSession *)session didFailWithError:(OTError *)error {
