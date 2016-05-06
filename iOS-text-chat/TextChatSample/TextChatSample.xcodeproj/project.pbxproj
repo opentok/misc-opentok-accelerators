@@ -65,7 +65,6 @@
 		A0253ADD1CD2A565006829E6 /* TextChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AC91CD2A410006829E6 /* TextChatTests.m */; };
 		A0253ADE1CD2A567006829E6 /* TextChatComponentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */; };
 		A0253ADF1CD2A56B006829E6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0253AC71CD2A410006829E6 /* Info.plist */; };
-		A0253B111CD95C12006829E6 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0253B101CD95C12006829E6 /* OpenTok.framework */; };
 		A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
 		A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */; };
@@ -78,8 +77,6 @@
 		A09A4A961CD0260F0024C349 /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A09A4A941CD0260F0024C349 /* OTKAnalytics.h */; };
 		A09A4A971CD0260F0024C349 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4A951CD0260F0024C349 /* OTKAnalytics.m */; };
 		A0B604C31CDD30D700012EAA /* TextChat_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0B604C21CDD30D700012EAA /* TextChat_Private.h */; };
-		A0C9A18A1CC81EED0026D458 /* OTAcceleratorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C9A1881CC81EED0026D458 /* OTAcceleratorSession.h */; };
-		A0C9A18B1CC81EED0026D458 /* OTAcceleratorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C9A1891CC81EED0026D458 /* OTAcceleratorSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,7 +167,6 @@
 		A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatComponentTests.m; sourceTree = "<group>"; };
 		A0253AC91CD2A410006829E6 /* TextChatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatTests.m; sourceTree = "<group>"; };
 		A0253AD11CD2A423006829E6 /* TextChatSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextChatSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0253B101CD95C12006829E6 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
 		A03B1F591CC0B0C800D765F7 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
 		A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
 		A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatView.xib; sourceTree = "<group>"; };
@@ -182,8 +178,6 @@
 		A09A4A941CD0260F0024C349 /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.h"; sourceTree = "<group>"; };
 		A09A4A951CD0260F0024C349 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A0B604C21CDD30D700012EAA /* TextChat_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChat_Private.h; sourceTree = "<group>"; };
-		A0C9A1881CC81EED0026D458 /* OTAcceleratorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTAcceleratorSession.h; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.h"; sourceTree = "<group>"; };
-		A0C9A1891CC81EED0026D458 /* OTAcceleratorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTAcceleratorSession.m; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,7 +203,6 @@
 				643553901CB6A54E00643E2F /* CoreVideo.framework in Frameworks */,
 				643553911CB6A54E00643E2F /* GLKit.framework in Frameworks */,
 				643553921CB6A54E00643E2F /* libc++.tbd in Frameworks */,
-				A0253B111CD95C12006829E6 /* OpenTok.framework in Frameworks */,
 				643553931CB6A54E00643E2F /* libsqlite3.0.tbd in Frameworks */,
 				643553941CB6A54E00643E2F /* MediaToolbox.framework in Frameworks */,
 				643553951CB6A54E00643E2F /* OpenGLES.framework in Frameworks */,
@@ -276,9 +269,6 @@
 		6435533D1CB69CBE00643E2F /* TextChatKit */ = {
 			isa = PBXGroup;
 			children = (
-				A0253B101CD95C12006829E6 /* OpenTok.framework */,
-				A0C9A1881CC81EED0026D458 /* OTAcceleratorSession.h */,
-				A0C9A1891CC81EED0026D458 /* OTAcceleratorSession.m */,
 				643553621CB69D2300643E2F /* TextChatKit.h */,
 				A03B1F6E1CC0B26400D765F7 /* TextChatUICustomizator */,
 				A03B1F551CC0B0C800D765F7 /* TextChatView */,
@@ -403,7 +393,6 @@
 				6435535F1CB69D0600643E2F /* TextChatTableViewCell.h in Headers */,
 				A09A4A961CD0260F0024C349 /* OTKAnalytics.h in Headers */,
 				6435536A1CB69D2C00643E2F /* TextChatComponent.h in Headers */,
-				A0C9A18A1CC81EED0026D458 /* OTAcceleratorSession.h in Headers */,
 				643553731CB69D4300643E2F /* UIViewController+Helper.h in Headers */,
 				643553711CB69D4300643E2F /* GCDHelper.h in Headers */,
 			);
@@ -559,7 +548,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nFRAMEWORK_NAME=\"TextChatKit\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\"\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\"\n\n# 5\n# Remove .framework file if exists on Desktop from previous run.\nif [ -d \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to Desktop.\ncp -r \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n";
+			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nWORKSPACE_NAME=\"TextChatSample.xcworkspace\"\nFRAMEWORK_NAME=\"TextChatKit\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\n# xcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n# xcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\"\n\n# 5\n# Remove .framework file if exists on Desktop from previous run.\nif [ -d \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to Desktop.\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -586,7 +575,6 @@
 				6435536B1CB69D2C00643E2F /* TextChatComponent.m in Sources */,
 				643553721CB69D4300643E2F /* GCDHelper.m in Sources */,
 				A09A4A971CD0260F0024C349 /* OTKAnalytics.m in Sources */,
-				A0C9A18B1CC81EED0026D458 /* OTAcceleratorSession.m in Sources */,
 				643553691CB69D2C00643E2F /* TextChat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

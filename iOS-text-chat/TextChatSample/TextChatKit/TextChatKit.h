@@ -6,6 +6,7 @@
 //  Copyright © 2016 Tokbox. All rights reserved.
 //
 
+//#import <OTAcceleratorPackUtil/OTAcceleratorSession.h>
 #import <TextChatKit/TextChat.h>
 #import <TextChatKit/TextChatView.h>
 #import <TextChatKit/TextChatUICustomizator.h>
