@@ -71,7 +71,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private View mScreenView;
 
     /**
-     * Monitors state changes in the TextChatFragment.
+     * Monitors state changes in the ScreenSharingFragment.
      *
      */
     public interface ScreenSharingListener {
