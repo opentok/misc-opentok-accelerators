@@ -1,6 +1,7 @@
 package com.tokbox.android.accpack.textchat;
 
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -124,6 +125,14 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     */
     public TextChatFragment(){
 
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Retain this fragment across configuration changes.
+        setRetainInstance(true);
     }
 
     /*
