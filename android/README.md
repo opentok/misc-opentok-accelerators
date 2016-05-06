@@ -31,7 +31,7 @@ To get up and running quickly with your app, go through the following steps in t
 
 1. [Importing the Android Studio Project](#importing-the-android-studio-project)
 2. [Adding the TokBox Common Accelerator Session Pack](#addaccpackcommon)
-3. [Adding the OpenTok Screensharing with Annotations Accelerator Pack library](#addlibrary)
+3. [Adding the OpenTok Screensharing Accelerator Pack library](#addlibrary)
 4. [Configuring the app](#configuring-the-app)
 
 To learn more about the best practices used to design this app, see [Exploring the code](#exploring-the-code).
