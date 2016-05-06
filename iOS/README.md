@@ -16,7 +16,7 @@ This guide has the following sections:
 
 ## Prerequisites
 
-To be prepared to develop your text chat app:
+To be prepared to develop your screensharing with annoations app:
 
 1. Install Xcode version 5 or later.
 2. Download the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common).
@@ -81,7 +81,7 @@ _At this point you can try running the app! You can either use a simulator or an
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the classes in the `ScreenShareKit` framework.
+This section describes how the sample app code design uses recommended best practices to deploy the screensharing with annotations features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the classes in the `ScreenShareKit` framework.
 
 For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
 
