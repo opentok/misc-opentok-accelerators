@@ -7,14 +7,15 @@
 //
 
 #import "TextChat.h"
+#import "TextChat_Private.h"
 #import "TextChatView.h"
 #import "OTKAnalytics.h"
 
 @protocol TextChatComponentDelegate <NSObject>
 - (void)didConnectWithError:(NSError *)error;
 - (void)didDisConnectWithError:(NSError *)error;
-- (void)didAddMessageWithError:(NSError *)error;
-- (void)didReceiveMessage;
+- (void)didAddTextChat:(TextChat *)textChat error:(NSError *)error;
+- (void)didReceiveTextChat:(TextChat *)textChat;
 @end
 
 //analytics

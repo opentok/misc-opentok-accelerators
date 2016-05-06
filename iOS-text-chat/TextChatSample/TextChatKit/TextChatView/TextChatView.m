@@ -19,7 +19,6 @@
 #import "TextChatView_UserInterface.h"
 
 static CGFloat StatusBarHeight = 20.0;
-static const CGFloat TextChatInputViewHeight = 50.0;
 
 @interface TextChatView() <UITableViewDataSource, UITextFieldDelegate, TextChatComponentDelegate>
 
@@ -333,7 +332,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
 }
 
 #pragma mark - TextChatComponentDelegate
-- (void)didAddMessageWithError:(NSError *)error {
+- (void)didAddTextChat:(TextChat *)textChat error:(NSError *)error {
     if(!error) {
         
         [self refreshTitleBar];
@@ -358,22 +357,22 @@ static const CGFloat TextChatInputViewHeight = 50.0;
     }
     
     if (self.delegate) {
-        [self.delegate textChatViewDidSendMessage:self error:error];
+        [self.delegate textChatView:self didSendtextChat:textChat error:error];
     }
     if (self.handler) {
-        self.handler(TextChatViewEventSignalDidSendMessage, error);
+        self.handler(TextChatViewEventSignalDidSendMessage, textChat, error);
     }
 }
 
-- (void)didReceiveMessage {
+- (void)didReceiveTextChat:(TextChat *)textChat {
     [self refreshTitleBar];
     [self insertNewTextMessageToTableView];
     [self scrollTableViewToBottom];
     if (self.delegate) {
-        [self.delegate textChatViewDidReceiveMessage:self];
+        [self.delegate textChatView:self didReceiveTextChat:textChat];
     }
     if (self.handler) {
-        self.handler(TextChatViewEventSignalDidReceiveMessage, nil);
+        self.handler(TextChatViewEventSignalDidReceiveMessage, textChat, nil);
     }
 }
 
@@ -385,7 +384,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         [self.delegate didConnectWithError:error];
     }
     if (self.handler) {
-        self.handler(TextChatViewEventSignalDidConnect, nil);
+        self.handler(TextChatViewEventSignalDidConnect, nil, nil);
     }
 }
 
@@ -395,7 +394,7 @@ static const CGFloat TextChatInputViewHeight = 50.0;
         [self.delegate didDisConnectWithError:error];
     }
     if (self.handler) {
-        self.handler(TextChatViewEventSignalDidDisconnect, nil);
+        self.handler(TextChatViewEventSignalDidDisconnect, nil, nil);
     }
 }
 

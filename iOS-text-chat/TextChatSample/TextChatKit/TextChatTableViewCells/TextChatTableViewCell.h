@@ -8,6 +8,7 @@
 
 #import <TextChatKit/TextChatUICustomizator.h>
 #import "TextChat.h"
+#import "TextChat_Private.h"
 
 @interface TextChatTableViewCell : UITableViewCell
 

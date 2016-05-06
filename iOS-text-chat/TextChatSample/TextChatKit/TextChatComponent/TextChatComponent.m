@@ -94,7 +94,7 @@ static NSString* const kTextChatType = @"text-chat";
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"Message format is wrong. Text is empty or null"}];
         if (self.delegate) {
-            [self.delegate didAddMessageWithError:error];
+            [self.delegate didAddTextChat:nil error:error];
         }
         
         [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
@@ -112,7 +112,7 @@ static NSString* const kTextChatType = @"text-chat";
                 NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
                                                      code:-1
                                                  userInfo:@{NSLocalizedDescriptionKey:@"Error in parsing sender data"}];
-                [self.delegate didAddMessageWithError:error];
+                [self.delegate didAddTextChat:nil error:error];
             }
             return;
         }
@@ -124,7 +124,7 @@ static NSString* const kTextChatType = @"text-chat";
         
         if (error) {
             if (self.delegate) {
-                [self.delegate didAddMessageWithError:error];
+                [self.delegate didAddTextChat:nil error:error];
             }
             [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
             
@@ -149,16 +149,20 @@ static NSString* const kTextChatType = @"text-chat";
             }
         }
         [self.mutableMessages addObject:textChat];
+        
+        if (self.delegate) {
+            [self.delegate didAddTextChat:textChat error:nil];
+        }
     }
     else {
         error = [NSError errorWithDomain:NSCocoaErrorDomain
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"OTSession did not connect"}];
         [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
-    }
-    
-    if (self.delegate) {
-        [self.delegate didAddMessageWithError:error];
+        
+        if (self.delegate) {
+            [self.delegate didAddTextChat:nil error:error];
+        }
     }
 }
 
@@ -258,7 +262,7 @@ receivedSignalType:(NSString*)type
         if (textChat) {
             [self.mutableMessages addObject:textChat];
             if (self.delegate) {
-                [self.delegate didReceiveMessage];
+                [self.delegate didReceiveTextChat:textChat];
                 [self addLogEvent:KLogActionReceiveMessage variation:KLogVariationSuccess];
             }
         }

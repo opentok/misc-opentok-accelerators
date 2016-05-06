@@ -38,7 +38,7 @@
 		6435535F1CB69D0600643E2F /* TextChatTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 643553581CB69D0600643E2F /* TextChatTableViewCell.h */; };
 		643553601CB69D0600643E2F /* TextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553591CB69D0600643E2F /* TextChatTableViewCell.m */; };
 		643553631CB69D2300643E2F /* TextChatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 643553621CB69D2300643E2F /* TextChatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		643553681CB69D2C00643E2F /* TextChat.h in Headers */ = {isa = PBXBuildFile; fileRef = 643553641CB69D2C00643E2F /* TextChat.h */; };
+		643553681CB69D2C00643E2F /* TextChat.h in Headers */ = {isa = PBXBuildFile; fileRef = 643553641CB69D2C00643E2F /* TextChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		643553691CB69D2C00643E2F /* TextChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553651CB69D2C00643E2F /* TextChat.m */; };
 		6435536A1CB69D2C00643E2F /* TextChatComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 643553661CB69D2C00643E2F /* TextChatComponent.h */; };
 		6435536B1CB69D2C00643E2F /* TextChatComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553671CB69D2C00643E2F /* TextChatComponent.m */; };
@@ -77,6 +77,7 @@
 		A04179051CB6C976009B9225 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643553891CB6A54E00643E2F /* VideoToolbox.framework */; };
 		A09A4A961CD0260F0024C349 /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A09A4A941CD0260F0024C349 /* OTKAnalytics.h */; };
 		A09A4A971CD0260F0024C349 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4A951CD0260F0024C349 /* OTKAnalytics.m */; };
+		A0B604C31CDD30D700012EAA /* TextChat_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0B604C21CDD30D700012EAA /* TextChat_Private.h */; };
 		A0C9A18A1CC81EED0026D458 /* OTAcceleratorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C9A1881CC81EED0026D458 /* OTAcceleratorSession.h */; };
 		A0C9A18B1CC81EED0026D458 /* OTAcceleratorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C9A1891CC81EED0026D458 /* OTAcceleratorSession.m */; };
 /* End PBXBuildFile section */
@@ -180,6 +181,7 @@
 		A03EA6021CC197A300A205AE /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
 		A09A4A941CD0260F0024C349 /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.h"; sourceTree = "<group>"; };
 		A09A4A951CD0260F0024C349 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
+		A0B604C21CDD30D700012EAA /* TextChat_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChat_Private.h; sourceTree = "<group>"; };
 		A0C9A1881CC81EED0026D458 /* OTAcceleratorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTAcceleratorSession.h; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.h"; sourceTree = "<group>"; };
 		A0C9A1891CC81EED0026D458 /* OTAcceleratorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTAcceleratorSession.m; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -325,6 +327,7 @@
 			children = (
 				643553641CB69D2C00643E2F /* TextChat.h */,
 				643553651CB69D2C00643E2F /* TextChat.m */,
+				A0B604C21CDD30D700012EAA /* TextChat_Private.h */,
 				643553661CB69D2C00643E2F /* TextChatComponent.h */,
 				643553671CB69D2C00643E2F /* TextChatComponent.m */,
 			);
@@ -390,14 +393,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B604C31CDD30D700012EAA /* TextChat_Private.h in Headers */,
 				643553631CB69D2300643E2F /* TextChatKit.h in Headers */,
 				A03EA6051CC197A300A205AE /* OneToOneCommunicator.h in Headers */,
 				A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */,
+				643553681CB69D2C00643E2F /* TextChat.h in Headers */,
 				A03B1F651CC0B0C800D765F7 /* TextChatView_UserInterface.h in Headers */,
 				A03B1F721CC0B26400D765F7 /* TextChatUICustomizator.h in Headers */,
 				6435535F1CB69D0600643E2F /* TextChatTableViewCell.h in Headers */,
 				A09A4A961CD0260F0024C349 /* OTKAnalytics.h in Headers */,
-				643553681CB69D2C00643E2F /* TextChat.h in Headers */,
 				6435536A1CB69D2C00643E2F /* TextChatComponent.h in Headers */,
 				A0C9A18A1CC81EED0026D458 /* OTAcceleratorSession.h in Headers */,
 				643553731CB69D4300643E2F /* UIViewController+Helper.h in Headers */,
@@ -724,10 +728,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/OpenTok-iOS-2.7.1",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TextChatSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -740,10 +741,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/OpenTok-iOS-2.7.1",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TextChatSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -764,7 +762,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/OpenTok-iOS-2.7.1",
 					"$(PROJECT_DIR)/TextChatKit",
 				);
 				INFOPLIST_FILE = TextChatKit/Info.plist;
@@ -791,7 +788,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/OpenTok-iOS-2.7.1",
 					"$(PROJECT_DIR)/TextChatKit",
 				);
 				INFOPLIST_FILE = TextChatKit/Info.plist;
