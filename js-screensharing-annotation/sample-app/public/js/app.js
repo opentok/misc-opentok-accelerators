@@ -5,6 +5,7 @@ var app = (function() {
   var _accPack;
   var _session;
   var _connected;
+  var _triggerEvent;
 
   var _options = {
     apiKey: '100',
@@ -50,7 +51,7 @@ var app = (function() {
   var _show = function() {
 
     elements = Array.prototype.slice.call(arguments);
-    
+
     elements.forEach(function(element) {
       element.classList.remove('hidden');
     });
@@ -149,10 +150,18 @@ var app = (function() {
     // Start or end call
     _communicationElements.startEndCall.onclick = _connectCall;
 
-    _accPack.registerEventListener('startScreenSharing', function(){_show(_communicationElements.sharingPoster)});
-    _accPack.registerEventListener('endScreenSharing', function(){_hide(_communicationElements.sharingPoster)});
-    _accPack.registerEventListener('startViewingSharedScreen', function(){_viewSharedScreen(true)});
-    _accPack.registerEventListener('endViewingSharedScreen', function(){_viewSharedScreen(true)});
+    _accPack.registerEventListener('startScreenSharing', function() {
+      _show(_communicationElements.sharingPoster)
+    });
+    _accPack.registerEventListener('endScreenSharing', function() {
+      _hide(_communicationElements.sharingPoster)
+    });
+    _accPack.registerEventListener('startViewingSharedScreen', function() {
+      _viewSharedScreen(true)
+    });
+    _accPack.registerEventListener('endViewingSharedScreen', function() {
+      _viewSharedScreen(true)
+    });
 
     // Click events for enabling/disabling audio/video
     var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
@@ -199,6 +208,24 @@ var app = (function() {
 
   };
 
+  var _onConnectionCreated = function(event) {
+
+    if (_connected) {
+      return;
+    }
+
+    _connected = true;
+
+    var commOptions = _.extend({}, _options, {
+      session: _session,
+      accPack: _accPack
+    }, _accPack.getOptions());
+
+    _communication = new Communication(commOptions);
+    _addEventListeners(); 
+  };
+
+
   var init = function() {
     // Get session
     var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'screensharing']);
@@ -208,19 +235,7 @@ var app = (function() {
     _.extend(_options, _accPack.getOptions());
 
     _session.on({
-      connectionCreated: function(event) {
-
-        if (_connected) {
-          return;
-        }
-
-        _connected = true;
-
-        var commOptions = _.extend({}, _options, { session: _session, accPack: _accPack }, _accPack.getOptions());
-        console.log(commOptions);
-        _communication = new Communication(commOptions);
-        _addEventListeners(); 
-      }
+      connectionCreated: _onConnectionCreated
     });
   };
 

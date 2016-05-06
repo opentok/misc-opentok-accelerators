@@ -46,6 +46,8 @@ var AcceleratorPack = (function() {
     // Get session
     _session = OT.initSession(options.apiKey, options.sessionId);
 
+    _registerSessionEvents()
+
     // Connect
     _session.connect(options.token, function(error) {
       if (error) {
@@ -86,9 +88,17 @@ var AcceleratorPack = (function() {
     }
 
     if (!!AccPackAnnotation) {
+      
       var annotationProps = [];
-      _annotation = new AccPackAnnotation(_.extend({}, self.options, { accPack: self }));
+      
+      _annotation = new AccPackAnnotation(_.extend({}, self.options, {
+        accPack: self
+      }));
+      
       _components.annotation = _annotation;
+      
+      var subscribers = _commonOptions.subscribers;
+    
     }
 
     _componentsInitialized = true;
@@ -96,9 +106,24 @@ var AcceleratorPack = (function() {
   });
 
   /** Eventing */
+
+  var _registerSessionEvents = function() {
+    
+    registerEvents(['streamCreated', 'streamDestroyed']);
+    
+    _session.on({
+      streamCreated: function(e) {
+        _triggerEvent('streamCreated', e)
+      },
+      streamDestroyed: function(e) {
+        _triggerEvent('streamDestroyed', e)
+      }
+    });
+  }
+
   var _events = {}; // {eventName: [callbacks functions . . .]}
   var _isRegisteredEvent = _.partial(_.has, _events);
-  
+
   /** 
    * Register events that can be listened to be other components/modules
    * @param {array | string} events - A list of event names. A single event may
@@ -201,9 +226,11 @@ var AcceleratorPack = (function() {
    * @returns {Promise} < Resolve: [Object] External annotation window >    
    */
   var setupExternalAnnotation = function() {
-    return _annotation.start(_session, { screensharing: true });
+    return _annotation.start(_session, {
+      screensharing: true
+    });
   };
-  
+
   /** 
    * Initialize the annotation component for use in external window
    * @returns {Promise} < Resolve: [Object] External annotation window >    
@@ -219,16 +246,20 @@ var AcceleratorPack = (function() {
   var setupAnnotationView = function(subscriber) {
     var canvasContainer = document.getElementById('videoHolderSharedScreen');
     var videoContainer = document.getElementById('videoContainer');
-    var annotationOptions = { canvasContainer: canvasContainer };
+    var annotationOptions = {
+      canvasContainer: canvasContainer
+    };
     _annotation.start(_session, annotationOptions)
       .then(function() {
         var mainContainer = document.getElementById('main');
         mainContainer.classList.add('aspect-ratio');
-        _annotation.linkCanvas(subscriber, canvasContainer, {absoluteParent: videoContainer});
+        _annotation.linkCanvas(subscriber, canvasContainer, {
+          absoluteParent: videoContainer
+        });
         _annotation.resizeCanvas();
       });
   };
-  
+
   /** 
    * Initialize the annotation component for use in current window
    * @returns {Promise} < Resolve: [Object] External annotation window >    
@@ -236,7 +267,7 @@ var AcceleratorPack = (function() {
   var endAnnotationView = function() {
     _annotation.end();
     var mainContainer = document.getElementById('main');
-    mainContainer.classList.remove('aspect-ratio');  
+    mainContainer.classList.remove('aspect-ratio');
   };
 
   /** 
@@ -247,7 +278,9 @@ var AcceleratorPack = (function() {
    * 
    */
   var linkAnnotation = function(pubSub, annotationContainer, externalWindow) {
-    _annotation.linkCanvas(pubSub, annotationContainer, {externalWindow: externalWindow});
+    _annotation.linkCanvas(pubSub, annotationContainer, {
+      externalWindow: externalWindow
+    });
   };
 
   AcceleratorPackLayer.prototype = {

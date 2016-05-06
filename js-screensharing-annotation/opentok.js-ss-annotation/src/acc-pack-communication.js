@@ -44,22 +44,20 @@ var Communication = (function() {
 
     var _triggerEvent;
     var _registerEvents = function() {
-        
+
         var events = [
             'startCall',
             'endCall',
-            'streamCreated',
-            'streamDestroyed',
             'startViewingSharedScreen',
             'endViewingSharedScreen'
         ];
-        
+
         _triggerEvent = self.accPack.registerEvents(events);
     };
 
     var _setEventListeners = function() {
-        self.session.on('streamCreated', _handleStreamCreated); //participant joined the call
-        self.session.on('streamDestroyed', _handleStreamDestroyed); //participant left the call
+        self.accPack.registerEventListener('streamCreated', _handleStreamCreated);
+        self.accPack.registerEventListener('streamDestroyed', _handleStreamDestroyed);
     };
 
     var _logAnalytics = function() {
@@ -73,7 +71,10 @@ var Communication = (function() {
 
         var _otkanalytics = new OTKAnalytics(_otkanalyticsData);
 
-        var _loggingData = { action: 'one-to-one-sample-app', variation: '' };
+        var _loggingData = {
+            action: 'one-to-one-sample-app',
+            variation: ''
+        };
 
         _otkanalytics.logEvent(_loggingData);
     };
@@ -130,7 +131,7 @@ var Communication = (function() {
         } else {
             var options = self.options.localCallProperties
         }
-        
+
         var videoContainer = stream.videoType === 'screen' ? 'videoHolderSharedScreen' : 'videoHolderBig';
 
         var subscriber = self.session.subscribe(stream,
@@ -146,36 +147,16 @@ var Communication = (function() {
                     }
                     _handleError(error, handler);
                 } else {
-                    self.streams.push(subscriber);
-                    console.log('Subscriber added.');
-                    var handler = self.onSubscribe;
-                    if (handler && typeof handler === 'function') {
-                        handler(stream);
-                    }
 
+                    self.streams.push(subscriber);
+
+                    if (stream.videoType === 'screen' && !!self.options.annotation) {
+                        _triggerEvent('startViewingSharedScreen', subscriber);
+                    }
                 }
             });
 
         self.subscriber = subscriber;
-        
-        if (stream.videoType === 'screen' && !!self.options.annotation) {
-            _triggerEvent('startViewingSharedScreen', subscriber);
-        }
-        
-        
-        // if (stream.videoType === 'screen' && !!self.options.annotation) {
-        //     _triggerEvent('startViewingSharedScreen');
-        //     self.accPack.setupAnnotation()
-        //         .then(function() {
-        //             var $canvasContainer = $('#videoHolderBig')[0];
-        //             $($canvasContainer).width(1000);
-        //             $($canvasContainer).height(625);
-        //             self.accPack.linkAnnotation(subscriber, $canvasContainer);
-        //         });
-
-        // }
-
-
     };
 
     var _unsubscribeStreams = function() {
@@ -186,18 +167,11 @@ var Communication = (function() {
 
     // Private handlers
     var _handleStart = function(event) {
-        var handler = self.onStarted;
-        if (handler && typeof handler === 'function') {
-            handler();
-        }
+
     };
 
     var _handleEnd = function(event) {
-        console.log('Call ended');
-        var handler = self.onEnded;
-        if (handler && typeof handler === 'function') {
-            handler();
-        }
+
     };
 
     var _handleStreamCreated = function(event) {
@@ -209,8 +183,6 @@ var Communication = (function() {
             _subscribeToStream(event.stream);
         }
 
-        _triggerEvent('streamCreated', event);
-
     };
 
     var _handleStreamDestroyed = function(event) {
@@ -221,10 +193,7 @@ var Communication = (function() {
         var index = self.subscribers.indexOf(event.stream);
         self.subscribers.splice(index, 1);
 
-        
         if (streamDestroyedType === 'camera') {
-            
-            _triggerEvent('streamDestroyed', event);
             self.subscriber = null; //to review
             self._remoteParticipant = null;
 
@@ -241,14 +210,11 @@ var Communication = (function() {
         var userData = {
             userId: 'event.stream.connectionId'
         };
-        // if (handler && typeof handler === 'function') {
-        //     handler(_.extend({}, event, userData)); //TODO: it should be the user (userId and username)
-        // }
+
     };
 
     var _handleLocalPropertyChanged = function(event) {
-        console.log('Local property changed');
-        var handler = self.onEnableLocalMedia;
+
         if (event.changedProperty === 'hasAudio') {
             var eventData = {
                 property: 'Audio',
@@ -260,15 +226,7 @@ var Communication = (function() {
                 enabled: event.newValue
             }
         }
-        var handler = self.onEnableLocalMedia;
-        if (handler && typeof handler === 'function') {
-            handler(eventData);
-        }
-    };
-
-    var _handleRemotePropertyChanged = function(data) {
-        //TODO
-    };
+    }
 
     var _handleError = function(error, handler) {
         if (handler && typeof handler === 'function') {
@@ -279,15 +237,6 @@ var Communication = (function() {
     // Prototype methods
     CommunicationComponent.prototype = {
         constructor: Communication,
-        onStarted: function() {},
-        onEnded: function() {},
-        onSubscribe: function() {},
-        onStreamCreated: function() {},
-        onStreamDestroyed: function() {},
-        onEnableLocalMedia: function(event) {},
-        onEnableRemoteMedia: function(event) {},
-        onError: function(error) {},
-
         start: function(recipient) {
             //TODO: Managing call status: calling, startCall,...using the recipient value
 
@@ -333,11 +282,17 @@ var Communication = (function() {
         },
         enableRemoteVideo: function(enabled) {
             self.subscriber.subscribeToVideo(enabled);
-            self.onEnableRemoteMedia({ media: 'video', enabled: enabled });
+            self.onEnableRemoteMedia({
+                media: 'video',
+                enabled: enabled
+            });
         },
         enableRemoteAudio: function(enabled) {
             self.subscriber.subscribeToAudio(enabled);
-            self.onEnableRemoteMedia({ media: 'audio', enabled: enabled });
+            self.onEnableRemoteMedia({
+                media: 'audio',
+                enabled: enabled
+            });
         }
     };
 

@@ -17,8 +17,6 @@ var AccPackScreenSharing = (function() {
 
     self = this;
 
-    console.log('options passed to screensharing things', options);
-
     // Check for required options
     _validateOptions(options);
 
