@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C4D8FBC9D8CB83349D553D39'
+               BlueprintIdentifier = 'CF19AD7D3A3897E10850BE80'
                BlueprintName = 'OTAcceleratorPackUtil'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libOTAcceleratorPackUtil.a'>

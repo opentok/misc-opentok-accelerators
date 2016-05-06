@@ -196,40 +196,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>069AA84918A7DF430A7A8283F0327A91</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>3605BABA5091FBFF46A1455F39828857</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/OTAcceleratorPackUtil/OTAcceleratorPackUtil-prefix.pch</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
 		<key>06CBB2AE15CB437A8435513AB8EB7C86</key>
 		<dict>
 			<key>baseConfigurationReference</key>
@@ -261,6 +227,21 @@
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
 			<string>Release</string>
+		</dict>
+		<key>075CDC7CE27DD58569C5047F15C4DFEC</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>libKiwi.a</string>
+			<key>path</key>
+			<string>libKiwi.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>07BF3275780BD66A82D1671110E0F6E8</key>
 		<dict>
@@ -350,6 +331,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>0B443BF773413ED828461B676024DCDE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>OTAcceleratorSession.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>0BB2DD435A2A4D14E007302CF623B181</key>
 		<dict>
@@ -500,21 +494,6 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
-		</dict>
-		<key>0E20539BCCF6FE594ECC45B5AA431B6C</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libOTAcceleratorPackUtil.a</string>
-			<key>path</key>
-			<string>libOTAcceleratorPackUtil.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>10CE50C6F85E2EDD9CD9F730A62A8FC6</key>
 		<dict>
@@ -948,6 +927,28 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
+		<key>1C4618904A3A0CAF89A14B46E1D402B8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E351727CD07BB90B2A3CAE2C2433F6C5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1C75CC8E9C6BBDB321560BA01822690E</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>libPods-OTAcceleratorPackUtil_Tests.a</string>
+			<key>path</key>
+			<string>libPods-OTAcceleratorPackUtil_Tests.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
 		<key>1C7A85C065061F5B838DFE5BDC20D735</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1205,22 +1206,6 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
-		<key>22F4F6DF9ADA4D781EAFA48D8BD11AEF</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BC7D7F068C8ABED39B3CCB87FFA2D38C</string>
-				<string>FCD68ECBCEC24C1F8A20279A229F36AC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Classes</string>
-			<key>path</key>
-			<string>Classes</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>23335E8FB1DD5415D1F77910AB12D617</key>
 		<dict>
 			<key>fileRef</key>
@@ -1289,24 +1274,9 @@
 			<key>name</key>
 			<string>OTAcceleratorPackUtil</string>
 			<key>target</key>
-			<string>65D122C96947E51FE5C1C3A4340DFB04</string>
+			<string>BDD17FE2C2326B8D034D52B32AC8E208</string>
 			<key>targetProxy</key>
 			<string>9B9590817FF2D420EA986A5903556BE0</string>
-		</dict>
-		<key>25EA215565D04533DE0AD2F2BC81CB95</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>OTAcceleratorPackUtil.bundle</string>
-			<key>path</key>
-			<string>OTAcceleratorPackUtil.bundle</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>279AA6492631DEFA8C439A9C088EEB8A</key>
 		<dict>
@@ -1379,6 +1349,13 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>2ADBA2B7E8D88D914285FC136E6C2D31</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4C05B75C762DD799C210844967F713FE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>2B0DEBAEEA7B0E6EF509DA44AA4C7950</key>
 		<dict>
@@ -1691,6 +1668,20 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>369E93436B5DAD1AEE6AC7505889D421</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>F29BE3347AE5A9ED8ADCAA68F3CCC909</string>
+				<string>B2AD8AC6843224918E9873DA87633200</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
 		<key>37DD3EDD315C1E5346EC6C57F2C1C7C7</key>
 		<dict>
 			<key>children</key>
@@ -1705,28 +1696,6 @@
 			<string>OpenTok</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3805EDD9FCDED92879B447DA5CF622E7</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods-OTAcceleratorPackUtil_Tests.a</string>
-			<key>path</key>
-			<string>libPods-OTAcceleratorPackUtil_Tests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>38BDBE5018A73BD7ECF9D4E36EE2C058</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E351727CD07BB90B2A3CAE2C2433F6C5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>39BD714E6C979009858F014A9C05DA5D</key>
 		<dict>
@@ -2387,17 +2356,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>47D3C887B6462948FA27436B5D55A4E5</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
 		<key>47E7A6921200C1ADD4841EC6532B50F2</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -2509,17 +2467,6 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>486C64EFFEBBA75E000125E99C799BAE</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>OTAcceleratorPackUtil-OTAcceleratorPackUtil</string>
-			<key>target</key>
-			<string>C2816FEEC49262350423A25749D95669</string>
-			<key>targetProxy</key>
-			<string>AC6B4DE9BBC686709CE593451978E29C</string>
-		</dict>
 		<key>49B2480491974D1036388F65019554C1</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2575,6 +2522,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>4B77A33467A80847EED76810FEC7AFF1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>OTAcceleratorPackUtil.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>4B9B430B62FCF3DC50060BBBA691FFA8</key>
 		<dict>
@@ -2637,7 +2597,7 @@
 			<key>productName</key>
 			<string>Kiwi</string>
 			<key>productReference</key>
-			<string>847F0174C446EE30107E283B11BE560D</string>
+			<string>075CDC7CE27DD58569C5047F15C4DFEC</string>
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
@@ -2665,19 +2625,20 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
-		<key>4ED5F111BB77C3E672B3D5877789C235</key>
+		<key>501D6AF3F434057576DEA793E2B1733B</key>
 		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
+			<key>children</key>
 			<array>
-				<string>7EE4768056B109B0642A7B604A098A21</string>
-				<string>523B490593EB59077DE681D19B0E01F6</string>
+				<string>E8BDBF2188BE7B05A6AAE90862C83086</string>
 			</array>
 			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>OTAcceleratorPackUtil</string>
+			<key>path</key>
+			<string>OTAcceleratorPackUtil</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>503C7DC4B5C405C35CED99469B0B6BAA</key>
 		<dict>
@@ -2718,19 +2679,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>50CAD4996A92325468D88ED17933E9AA</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>C10FF9567420C8E047B00A33A2023179</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
 		</dict>
 		<key>5105C886B81CD9601788822DC711B902</key>
 		<dict>
@@ -2776,13 +2724,6 @@
 			<string>Target Support Files/Pods-OTAcceleratorPackUtil_Example</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>523B490593EB59077DE681D19B0E01F6</key>
-		<dict>
-			<key>fileRef</key>
-			<string>FCD68ECBCEC24C1F8A20279A229F36AC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>523EFB83BF3BE3686E32C72E2959E8BC</key>
 		<dict>
@@ -3014,6 +2955,21 @@
 			<string>Kiwi-prefix.pch</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>569C84D23A3733E6373ACB980CDF0C73</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>libOTAcceleratorPackUtil.a</string>
+			<key>path</key>
+			<string>libOTAcceleratorPackUtil.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>56D991C59AD9D29F33146E2FCB287F54</key>
 		<dict>
@@ -3270,7 +3226,7 @@
 			<key>productName</key>
 			<string>Pods-OTAcceleratorPackUtil_Example</string>
 			<key>productReference</key>
-			<string>AB6025AA34DC6FC327514C3C6307A150</string>
+			<string>826FAB626CEE1113FBD62BC3E0B5B17D</string>
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
@@ -3356,33 +3312,6 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
-		<key>65D122C96947E51FE5C1C3A4340DFB04</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>C04446A5A396A77AC3CFA54B7A048407</string>
-			<key>buildPhases</key>
-			<array>
-				<string>4ED5F111BB77C3E672B3D5877789C235</string>
-				<string>DA12C598B2F5A68B5A5D9B839A5B062B</string>
-				<string>50CAD4996A92325468D88ED17933E9AA</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>486C64EFFEBBA75E000125E99C799BAE</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>OTAcceleratorPackUtil</string>
-			<key>productName</key>
-			<string>OTAcceleratorPackUtil</string>
-			<key>productReference</key>
-			<string>0E20539BCCF6FE594ECC45B5AA431B6C</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
 		<key>6640333F151029D928E569BA78077CC9</key>
 		<dict>
 			<key>fileRef</key>
@@ -3401,7 +3330,7 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>8B97869AD475D8054D3761CE6C63178D</string>
+				<string>501D6AF3F434057576DEA793E2B1733B</string>
 				<string>F795EF41DCCD009DBD50A5935B383E0F</string>
 			</array>
 			<key>isa</key>
@@ -3412,40 +3341,6 @@
 			<string>../..</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68025608EB02461816FFC954F7E73204</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>3605BABA5091FBFF46A1455F39828857</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/OTAcceleratorPackUtil/OTAcceleratorPackUtil-prefix.pch</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
 		</dict>
 		<key>6866824F22E22D6531F0FE788447F8C1</key>
 		<dict>
@@ -3461,28 +3356,6 @@
 			<string>Classes/Core/KWAny.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6896DB043620AB3951E8993CD8880889</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>3605BABA5091FBFF46A1455F39828857</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>PRODUCT_NAME</key>
-				<string>OTAcceleratorPackUtil</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>bundle</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
 		</dict>
 		<key>68B3AFFB01951BB6163A0C15D57E21D3</key>
 		<dict>
@@ -3914,7 +3787,7 @@
 				<string>01B866683C62B551DB4EAC356FCDBED8</string>
 				<string>433CD3331B6C3787F473C941B61FC68F</string>
 				<string>CFDB79E167D025FB376F00A6FA89E531</string>
-				<string>EAA6149C47A92555A22B03A3D2044679</string>
+				<string>FCED92C09E0B4D5B32AFF1FFA3F8F511</string>
 				<string>76B624C611DDB764EE72F7831DCD1A3D</string>
 			</array>
 			<key>isa</key>
@@ -3936,13 +3809,6 @@
 			<string>Classes/Nodes/KWBeforeEachNode.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7EE4768056B109B0642A7B604A098A21</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4C05B75C762DD799C210844967F713FE</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>7F3FAC2650CA6252A779CED2F58F4A75</key>
 		<dict>
@@ -4119,6 +3985,21 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
+		<key>826FAB626CEE1113FBD62BC3E0B5B17D</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>libPods-OTAcceleratorPackUtil_Example.a</string>
+			<key>path</key>
+			<string>libPods-OTAcceleratorPackUtil_Example.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
 		<key>827EA9668362B74432F135BB0DD6BC5F</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -4146,6 +4027,19 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
+		<key>837B8770D62FE735F750DACD48F1D6B1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>OTAcceleratorSession.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>84632329F80374FF764B70DBBBAD8694</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -4160,21 +4054,6 @@
 			<string>Classes/Core/KWCountType.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>847F0174C446EE30107E283B11BE560D</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libKiwi.a</string>
-			<key>path</key>
-			<string>libKiwi.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>84C8C07A0C2667E175DA835D049409E7</key>
 		<dict>
@@ -4230,21 +4109,6 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
-		</dict>
-		<key>8B97869AD475D8054D3761CE6C63178D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22F4F6DF9ADA4D781EAFA48D8BD11AEF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>OTAcceleratorPackUtil</string>
-			<key>path</key>
-			<string>OTAcceleratorPackUtil</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>8D514F1D9F1A374616E1DAEF47AF10E9</key>
 		<dict>
@@ -4439,28 +4303,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>988993D75129D94A5EF02C80A256B90A</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>3605BABA5091FBFF46A1455F39828857</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>PRODUCT_NAME</key>
-				<string>OTAcceleratorPackUtil</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>bundle</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
 		<key>9895B451650BC5AEC4BEC05FFBBF7F15</key>
 		<dict>
 			<key>fileRef</key>
@@ -4547,6 +4389,20 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>9AA30F3DE2599FB737099B82112A1660</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>2ADBA2B7E8D88D914285FC136E6C2D31</string>
+				<string>A0119E38C6D62C544C1D4E0357BEA906</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
 		<key>9B9590817FF2D420EA986A5903556BE0</key>
 		<dict>
 			<key>containerPortal</key>
@@ -4556,7 +4412,7 @@
 			<key>proxyType</key>
 			<string>1</string>
 			<key>remoteGlobalIDString</key>
-			<string>65D122C96947E51FE5C1C3A4340DFB04</string>
+			<string>BDD17FE2C2326B8D034D52B32AC8E208</string>
 			<key>remoteInfo</key>
 			<string>OTAcceleratorPackUtil</string>
 		</dict>
@@ -4735,6 +4591,13 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>A0119E38C6D62C544C1D4E0357BEA906</key>
+		<dict>
+			<key>fileRef</key>
+			<string>837B8770D62FE735F750DACD48F1D6B1</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>A1345CA21C76147969F5A5905DC7860E</key>
 		<dict>
@@ -4951,34 +4814,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>AB6025AA34DC6FC327514C3C6307A150</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods-OTAcceleratorPackUtil_Example.a</string>
-			<key>path</key>
-			<string>libPods-OTAcceleratorPackUtil_Example.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>AC6B4DE9BBC686709CE593451978E29C</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D41D8CD98F00B204E9800998ECF8427E</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>C2816FEEC49262350423A25749D95669</string>
-			<key>remoteInfo</key>
-			<string>OTAcceleratorPackUtil-OTAcceleratorPackUtil</string>
-		</dict>
 		<key>AD351E94D9970F7E8364E2C8984077A6</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -5105,6 +4940,40 @@
 			<string>Classes/Core/KWWorkarounds.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B2AD8AC6843224918E9873DA87633200</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>3605BABA5091FBFF46A1455F39828857</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/OTAcceleratorPackUtil/OTAcceleratorPackUtil-prefix.pch</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.3</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
 		</dict>
 		<key>B3471AF863DC6882262D7879C35F75B3</key>
 		<dict>
@@ -5302,19 +5171,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>BC7D7F068C8ABED39B3CCB87FFA2D38C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>OTAcceleratorSession.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>BCFE231945ACBA6DAE17A9A4607CFD9A</key>
 		<dict>
 			<key>containerPortal</key>
@@ -5324,7 +5180,7 @@
 			<key>proxyType</key>
 			<string>1</string>
 			<key>remoteGlobalIDString</key>
-			<string>65D122C96947E51FE5C1C3A4340DFB04</string>
+			<string>BDD17FE2C2326B8D034D52B32AC8E208</string>
 			<key>remoteInfo</key>
 			<string>OTAcceleratorPackUtil</string>
 		</dict>
@@ -5368,6 +5224,31 @@
 			<string>Classes/Core/KWProbe.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BDD17FE2C2326B8D034D52B32AC8E208</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>369E93436B5DAD1AEE6AC7505889D421</string>
+			<key>buildPhases</key>
+			<array>
+				<string>9AA30F3DE2599FB737099B82112A1660</string>
+				<string>D10BC1E7255D7769E84B9B4A835F990A</string>
+				<string>F341C77E609F5A77A805B36FD5B18F73</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>OTAcceleratorPackUtil</string>
+			<key>productName</key>
+			<string>OTAcceleratorPackUtil</string>
+			<key>productReference</key>
+			<string>569C84D23A3733E6373ACB980CDF0C73</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
 		</dict>
 		<key>BEC62C0E24D55E53523A1CE80128823F</key>
 		<dict>
@@ -5441,20 +5322,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>C04446A5A396A77AC3CFA54B7A048407</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>069AA84918A7DF430A7A8283F0327A91</string>
-				<string>68025608EB02461816FFC954F7E73204</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
 		<key>C09122FC369FFDAF602F13F5731887C0</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -5470,20 +5337,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>C10FF9567420C8E047B00A33A2023179</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BC7D7F068C8ABED39B3CCB87FFA2D38C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
 		<key>C196EABC38365F28E30EC0DBEF408659</key>
 		<dict>
 			<key>isa</key>
@@ -5491,7 +5344,7 @@
 			<key>name</key>
 			<string>OTAcceleratorPackUtil</string>
 			<key>target</key>
-			<string>65D122C96947E51FE5C1C3A4340DFB04</string>
+			<string>BDD17FE2C2326B8D034D52B32AC8E208</string>
 			<key>targetProxy</key>
 			<string>BCFE231945ACBA6DAE17A9A4607CFD9A</string>
 		</dict>
@@ -5506,31 +5359,6 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
-		</dict>
-		<key>C2816FEEC49262350423A25749D95669</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>DF9C652C4ACF26B2F0CC57DE853852F2</string>
-			<key>buildPhases</key>
-			<array>
-				<string>47D3C887B6462948FA27436B5D55A4E5</string>
-				<string>FB9689EB6D6DA81640D3C7B3A4E10EF1</string>
-				<string>D4676672FAF93400C08515EE3CCE08A6</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>OTAcceleratorPackUtil-OTAcceleratorPackUtil</string>
-			<key>productName</key>
-			<string>OTAcceleratorPackUtil-OTAcceleratorPackUtil</string>
-			<key>productReference</key>
-			<string>25EA215565D04533DE0AD2F2BC81CB95</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle</string>
 		</dict>
 		<key>C28E6FD49AAF14D41073D469A8242AE9</key>
 		<dict>
@@ -5888,6 +5716,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>D10BC1E7255D7769E84B9B4A835F990A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>1C4618904A3A0CAF89A14B46E1D402B8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
 		<key>D14415B0DC91C5B7AD3557B49CBD7B04</key>
 		<dict>
 			<key>fileRef</key>
@@ -5986,7 +5827,7 @@
 			<key>mainGroup</key>
 			<string>7DB346D0F39D3F0E887471402A8071AB</string>
 			<key>productRefGroup</key>
-			<string>EAA6149C47A92555A22B03A3D2044679</string>
+			<string>FCED92C09E0B4D5B32AFF1FFA3F8F511</string>
 			<key>projectDirPath</key>
 			<string></string>
 			<key>projectReferences</key>
@@ -5996,22 +5837,10 @@
 			<key>targets</key>
 			<array>
 				<string>4CB3F7F46945EE16A19F86EAB6FC5CAF</string>
-				<string>65D122C96947E51FE5C1C3A4340DFB04</string>
-				<string>C2816FEEC49262350423A25749D95669</string>
+				<string>BDD17FE2C2326B8D034D52B32AC8E208</string>
 				<string>606F105B46059B187AA633DD80E0CA72</string>
 				<string>F5C50B5C38CF3627B8246E29B6DF95D3</string>
 			</array>
-		</dict>
-		<key>D4676672FAF93400C08515EE3CCE08A6</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
 		</dict>
 		<key>D472C126499D1E1843A7E9EF2A0F5822</key>
 		<dict>
@@ -6196,19 +6025,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DA12C598B2F5A68B5A5D9B839A5B062B</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>38BDBE5018A73BD7ECF9D4E36EE2C058</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
 		<key>DA3C8EA3BE9EF5AF2939682E14D47EE8</key>
 		<dict>
 			<key>fileRef</key>
@@ -6258,6 +6074,20 @@
 		<dict>
 			<key>fileRef</key>
 			<string>4243601B51124ADA49FD14B5AD4A769A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>DCC9471132A01699CE291600C6B52A4C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4B77A33467A80847EED76810FEC7AFF1</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -6346,20 +6176,6 @@
 			<string>Classes/Core/KWDeviceInfo.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DF9C652C4ACF26B2F0CC57DE853852F2</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>988993D75129D94A5EF02C80A256B90A</string>
-				<string>6896DB043620AB3951E8993CD8880889</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
 		</dict>
 		<key>E044F890BAC2EB8F45DE2C9B198BA590</key>
 		<dict>
@@ -6483,6 +6299,23 @@
 				</array>
 			</dict>
 		</dict>
+		<key>E8BDBF2188BE7B05A6AAE90862C83086</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4B77A33467A80847EED76810FEC7AFF1</string>
+				<string>0B443BF773413ED828461B676024DCDE</string>
+				<string>837B8770D62FE735F750DACD48F1D6B1</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Classes</string>
+			<key>path</key>
+			<string>Classes</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>E8F15C1628ECF655621B5EF8B24BF623</key>
 		<dict>
 			<key>fileRef</key>
@@ -6507,23 +6340,6 @@
 			<string>KWMock.m</string>
 			<key>path</key>
 			<string>Classes/Mocking/KWMock.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EAA6149C47A92555A22B03A3D2044679</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>847F0174C446EE30107E283B11BE560D</string>
-				<string>0E20539BCCF6FE594ECC45B5AA431B6C</string>
-				<string>AB6025AA34DC6FC327514C3C6307A150</string>
-				<string>3805EDD9FCDED92879B447DA5CF622E7</string>
-				<string>25EA215565D04533DE0AD2F2BC81CB95</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -6845,6 +6661,40 @@
 				</array>
 			</dict>
 		</dict>
+		<key>F29BE3347AE5A9ED8ADCAA68F3CCC909</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>3605BABA5091FBFF46A1455F39828857</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/OTAcceleratorPackUtil/OTAcceleratorPackUtil-prefix.pch</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.3</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
 		<key>F32D7452ECD4236EE5FE7C1A8AFADA61</key>
 		<dict>
 			<key>fileRef</key>
@@ -6858,6 +6708,20 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>F341C77E609F5A77A805B36FD5B18F73</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>DCC9471132A01699CE291600C6B52A4C</string>
+				<string>F739665051A4160816C7B8A55A102DA7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
 		<key>F4B150BC8F0A857AAD30C9B32ED88F54</key>
 		<dict>
@@ -6941,7 +6805,7 @@
 			<key>productName</key>
 			<string>Pods-OTAcceleratorPackUtil_Tests</string>
 			<key>productReference</key>
-			<string>3805EDD9FCDED92879B447DA5CF622E7</string>
+			<string>1C75CC8E9C6BBDB321560BA01822690E</string>
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
@@ -6987,6 +6851,20 @@
 			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
+		</dict>
+		<key>F739665051A4160816C7B8A55A102DA7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0B443BF773413ED828461B676024DCDE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>F795EF41DCCD009DBD50A5935B383E0F</key>
 		<dict>
@@ -7098,17 +6976,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>FB9689EB6D6DA81640D3C7B3A4E10EF1</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
 		<key>FBB25218F94F7FA653905676DB9E0B59</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -7121,19 +6988,6 @@
 			<string>KWGenericMatcher.m</string>
 			<key>path</key>
 			<string>Classes/Matchers/KWGenericMatcher.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FCD68ECBCEC24C1F8A20279A229F36AC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>OTAcceleratorSession.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -7150,6 +7004,22 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>FCED92C09E0B4D5B32AFF1FFA3F8F511</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>075CDC7CE27DD58569C5047F15C4DFEC</string>
+				<string>569C84D23A3733E6373ACB980CDF0C73</string>
+				<string>826FAB626CEE1113FBD62BC3E0B5B17D</string>
+				<string>1C75CC8E9C6BBDB321560BA01822690E</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>FCEEA88DB536C591F588AA32A2DF2F02</key>
 		<dict>

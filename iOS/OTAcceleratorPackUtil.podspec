@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "OTAcceleratorPackUtil"
-  s.version          = "1.0.0"
+  s.version          = "1.0.1"
   s.summary          = "Common Accelerator Session Pack Version 0.9."
 
 # This description is used to generate tags and improve search results.
@@ -32,7 +32,5 @@ On the Android and iOS mobile platforms, when you try to set a listener (Android
 
   s.source_files = 'iOS/OTAcceleratorPackUtil/Classes/*'
   s.public_header_files = 'iOS/OTAcceleratorPackUtil/Classes/*.h'
-  s.dependency 'OpenTok', '~> 2.7.1'
-
-#s.vendored_frameworks = 'OTAcceleratorPackUtil.framework'
+  s.dependency 'OpenTok'
 end
