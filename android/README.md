@@ -72,7 +72,7 @@ maven { url  "http://tokbox.bintray.com/maven" }
 
 
 <code>
-compile 'com.opentok.android:opentok-android-accelerator-pack:1.0'
+compile 'com.opentok.android:opentok-android-accelerator-pack:1.0’<br/>
 compile project(':screensharing-acc-pack')
 </code>
 
