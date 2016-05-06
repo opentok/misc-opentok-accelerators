@@ -1,8 +1,8 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Annotations with Screensharing Accelerator Pack for iOS<br/>Version 1.0
+# OpenTok Screensharing with Annotations Accelerator Pack for iOS<br/>Version 1.0
 
-This document describes how to use the OpenTok Annotations with Screensharing Accelerator Pack for iOS. Through the exploration of the OpenTok Text Chat Sample App, you will learn best practices for exchanging text messages on an iOS mobile device.
+This document describes how to use the OpenTok Screensharing with Annotations Accelerator Pack for iOS. Through the exploration of the OpenTok Screensharing with Annotations Sample App, you will learn best practices for exchanging text messages on an iOS mobile device.
 
 You can configure and run this sample app within just a few minutes!
 
@@ -10,9 +10,9 @@ You can configure and run this sample app within just a few minutes!
 This guide has the following sections:
 
 - [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-- Download the accelerator pack: Download and use the OpenTok Annotations with Screensharing Accelerator Pack provided to you by TokBox for use in your own development.
+- Download the accelerator pack: Download and use the OpenTok Screensharing with Annotations Accelerator Pack provided to you by TokBox for use in your own development.
 - [Quick start](#quick-start): A step-by-step tutorial to help you quickly import and run the sample app.
-- [Exploring the code](#exploring-the-code): This describes the sample app code design, which uses recommended best practices to create a working implementation that uses the Annotations with Screensharing Accelerator. 
+- [Exploring the code](#exploring-the-code): This describes the sample app code design, which uses recommended best practices to create a working implementation that uses the Screensharing with Annotations Accelerator. 
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ To be prepared to develop your text chat app:
 
 1. Install Xcode version 5 or later.
 2. Download the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common).
-3. Download the **Annotations with Screensharing Accelerator Pack framework** provided by TokBox.
+3. Download the **Screensharing with Annotations Accelerator Pack framework** provided by TokBox.
 4. Review the [OpenTok iOS SDK Requirements](https://tokbox.com/developer/sdks/ios/).
 5. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
@@ -40,7 +40,7 @@ To learn more about the best practices used to design this app, see [Exploring t
 
 ### Importing the Xcode project
 
-1. Clone the OpenTok Annotations with Screensharing Accelerator Pack repository.
+1. Clone the OpenTok Screensharing with Annotations Accelerator Pack repository.
 2. Start Xcode. 
 3. Click **File > Open**.
 4. Navigate to the **iOS** folder, select **ScreenShareSample.xcodeproj**, and click **Open**.
@@ -81,7 +81,7 @@ _At this point you can try running the app! You can either use a simulator or an
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the classes in the `TextChatKit` framework.
+This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the classes in the `ScreenShareKit` framework.
 
 For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
 
@@ -93,11 +93,11 @@ _**NOTE:** The sample app contains logic used for logging. This is used to submi
 
 ### App design
 
-The following classes, interfaces, and protocols represent the software design for this sample app, focusing primarily on the text chat features. For details about the one-to-one communication aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps).
+The following classes, interfaces, and protocols represent the software design for this sample app, focusing primarily on the screensharing with annotations features. For details about the one-to-one communication aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps).
 
 | Class        | Description  |
 | ------------- | ------------- |
-| `MainViewController`   | In conjunction with **Main.storyboard**, this class uses the OpenTok API to initiate the client connection to the OpenTok session, and implements the sample UI and text chat callbacks.   |
+| `MainViewController`   | In conjunction with **Main.storyboard**, this class uses the OpenTok API to initiate the client connection to the OpenTok session, and implements the sample UI and screensharing with annotations callbacks.   |
 | `ScreenShareView`   | Provides the initializers and methods for the client screensharing views. |
 | `ScreenShareTextField`   | Provides the initializers and methods for the client screensharing text field annotation views. |
 | `ScreenShareColorPickerView`   | Provides the initializers and methods for the client screensharing color picker annotation views. |
@@ -121,7 +121,7 @@ The `ScreenShareView` class is the backbone of the screensharing features for th
 
 #### Initialization methods
 
-The following `ScreenShareView` methods are used to initialize the text chat features so the client can send and receive text messages.
+The following `ScreenShareView` methods are used to initialize the screensharing with annotations features so the client can share their screen.
 
 | Feature        | Methods  |
 | ------------- | ------------- |
