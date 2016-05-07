@@ -1,7 +1,6 @@
 #import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
 #import "TextChatComponent.h"
-#import "OneToOneCommunicator.h"
 
 
 SPEC_BEGIN(TextChatComponentTests)
@@ -9,7 +8,7 @@ SPEC_BEGIN(TextChatComponentTests)
 __block TextChatComponent *tcc;
 
 beforeAll(^(){
-    [OneToOneCommunicator setOpenTokApiKey:@"testTextChatComponent"
+    [TextChatView setOpenTokApiKey:@"testTextChatComponent"
                                  sessionId:@"testTextChatComponent"
                                      token:@"testTextChatComponent"];
     tcc = [[TextChatComponent alloc] init];

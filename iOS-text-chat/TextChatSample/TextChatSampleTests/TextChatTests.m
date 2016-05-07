@@ -1,7 +1,7 @@
 #import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
-#import "TextChatComponent.h"
-#import "OneToOneCommunicator.h"
+#import <TextChatkit/TextChatKit.h>
+#import "TextChat_Private.h"
 
 
 SPEC_BEGIN(TextChatTest)

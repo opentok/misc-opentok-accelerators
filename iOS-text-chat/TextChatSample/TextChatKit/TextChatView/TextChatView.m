@@ -100,6 +100,9 @@ static CGFloat StatusBarHeight = 20.0;
 - (void)didMoveToSuperview {
     
     [super didMoveToSuperview];
+    
+    if (self.superview == nil) return;
+    
     [self updateTopBarUserInterface];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -202,7 +205,6 @@ static CGFloat StatusBarHeight = 20.0;
 
 - (void)dismiss {
     if (self.isShown) {
-//        [self.minimizeButton setImage:[UIImage imageNamed:@"minimize"] forState:UIControlStateNormal];
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self removeFromSuperview];
         [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationSuccess];
@@ -400,11 +402,6 @@ static CGFloat StatusBarHeight = 20.0;
 
 #pragma mark - Auto Layout helper
 - (void)addAttachedLayoutConstraintsToSuperview {
-    
-    if (!self.superview) {
-        NSLog(@"Could not addAttachedLayoutConstantsToSuperview, superview is nil");
-        return;
-    }
 
     StatusBarHeight = [UIApplication sharedApplication].isStatusBarHidden ? 0.0 : 20.0;
 

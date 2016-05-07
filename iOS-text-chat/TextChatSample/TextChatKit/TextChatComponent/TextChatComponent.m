@@ -52,7 +52,6 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)setAlias:(NSString *)alias {
-    if (!alias) return;
     _alias = alias;
 }
 
