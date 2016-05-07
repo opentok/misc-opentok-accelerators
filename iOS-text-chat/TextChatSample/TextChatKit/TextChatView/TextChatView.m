@@ -220,8 +220,11 @@ static CGFloat StatusBarHeight = 20.0;
     NSInteger count = self.textChatComponent.messages.count;
     if (count == 0) return;
     
-    NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:count - 1 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[lastIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+    // TODO: this is to prevent scrolling back to top when reloading
+    CGPoint contentOffset = self.tableView.contentOffset;
+    [self.tableView reloadData];
+    [self.tableView layoutIfNeeded];
+    [self.tableView setContentOffset:contentOffset];
 }
 
 - (void)scrollTableViewToBottom {

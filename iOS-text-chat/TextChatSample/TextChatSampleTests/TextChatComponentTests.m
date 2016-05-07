@@ -83,39 +83,39 @@ describe(@"setAlias", ^(){
     
 });
 
-describe(@"sendMessage", ^(){
-
-    [tcc connect];
-    
-    it(@"Message is null", ^{
-        [tcc sendMessage:nil];
-        //should
-    });
-    
-    it(@"Message is empty", ^{
-        [tcc sendMessage:@""];
-        //should
-    });
-    
-    it(@"Message is sent properly", ^{
-        [tcc sendMessage:@"Good mmorning!"];
-        //should
-    });
-    
-    it(@"Message is a long string", ^{
-        NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        
-        NSMutableString *randomString = [NSMutableString stringWithCapacity: 100*1024*1024];
-        
-        for (int i=0; i<100*1024*1024; i++) {
-            [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform([letters length])]];
-        }
-        
-        [tcc sendMessage:randomString];
-        //[should
-    });
-    
-});
+//describe(@"sendMessage", ^(){
+//
+//    [tcc connect];
+//    
+//    it(@"Message is null", ^{
+//        [tcc sendMessage:nil];
+//        //should
+//    });
+//    
+//    it(@"Message is empty", ^{
+//        [tcc sendMessage:@""];
+//        //should
+//    });
+//    
+//    it(@"Message is sent properly", ^{
+//        [tcc sendMessage:@"Good mmorning!"];
+//        //should
+//    });
+//    
+//    it(@"Message is a long string", ^{
+//        NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//        
+//        NSMutableString *randomString = [NSMutableString stringWithCapacity: 100*1024*1024];
+//        
+//        for (int i=0; i<100*1024*1024; i++) {
+//            [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform([letters length])]];
+//        }
+//        
+//        [tcc sendMessage:randomString];
+//        //[should
+//    });
+//    
+//});
 
 
 describe(@"getTextChatFromIndexPath", ^(){

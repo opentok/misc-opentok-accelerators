@@ -110,23 +110,23 @@ describe(@"initWithMessage", ^(){
 });
 
 
-describe(@"initWithJSONString", ^(){
-    
-    it(@"JSON is null", ^{
-        tc = [tc initWithJSONString:nil];
-    });
-    it(@"JSON is empty", ^{
-        tc = [tc initWithJSONString:@""];
-    });
-    it(@"JSON is not valid", ^{
-        tc = [tc initWithJSONString:@""];
-    });
-    it(@"Message is set properly", ^{
-        tc = [tc initWithJSONString:@""];
-        [[[tc getTextChatSignalJSONString] should] equal:@""];
-    });
-    
-});
+//describe(@"initWithJSONString", ^(){
+//    
+//    it(@"JSON is null", ^{
+//        tc = [tc initWithJSONString:nil];
+//    });
+//    it(@"JSON is empty", ^{
+//        tc = [tc initWithJSONString:@""];
+//    });
+//    it(@"JSON is not valid", ^{
+//        tc = [tc initWithJSONString:@""];
+//    });
+//    it(@"Message is set properly", ^{
+//        tc = [tc initWithJSONString:@""];
+//        [[[tc getTextChatSignalJSONString] should] equal:@""];
+//    });
+//    
+//});
 
 
 SPEC_END

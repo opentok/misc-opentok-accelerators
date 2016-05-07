@@ -87,12 +87,11 @@
 }
 
 - (void)textChatView:(TextChatView *)textChatView didSendtextChat:(TextChat *)textChat error:(NSError *)error {
-
-    NSLog(@"error: %@", error.localizedDescription);
+    NSLog(@"%s: error: %@", __PRETTY_FUNCTION__, error);
 }
 
 - (void)textChatView:(TextChatView *)textChatView didReceiveTextChat:(TextChat *)textChat {
-    
+    NSLog(@"%s: ", __PRETTY_FUNCTION__);
 }
 
 @end
