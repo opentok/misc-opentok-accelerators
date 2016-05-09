@@ -9,7 +9,7 @@
 #import <OpenTok/OpenTok.h>
 
 #import "TextChatComponent.h"
-#import "OTAcceleratorSession.h"
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 
 static NSUInteger DefaultTextMessageLength = 120;

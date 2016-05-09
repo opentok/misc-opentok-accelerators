@@ -11,7 +11,7 @@
 #import "TextChatTableViewCell.h"
 #import "TextChatComponent.h"
 
-#import "OTAcceleratorSession.h"
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 #import "GCDHelper.h"
 #import "UIViewController+Helper.h"
