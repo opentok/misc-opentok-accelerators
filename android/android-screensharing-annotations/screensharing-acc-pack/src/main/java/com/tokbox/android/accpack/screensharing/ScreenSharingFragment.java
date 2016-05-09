@@ -3,12 +3,10 @@ package com.tokbox.android.accpack.screensharing;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
-import android.media.Image;
 import android.media.ImageReader;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
@@ -20,9 +18,13 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
@@ -35,15 +37,13 @@ import com.tokbox.android.accpack.AccPackSession;
 import screensharing.accpack.android.tokbox.com.screensharing_acc_pack.R;
 
 
-public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener {
+public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener {
 
     private static final String LOG_TAG = ScreenSharingFragment.class.getSimpleName();
     private static final String STATE_RESULT_CODE = "result_code";
     private static final String STATE_RESULT_DATA = "result_data";
 
     private static final int REQUEST_MEDIA_PROJECTION = 1;
-    private String STORE_DIRECTORY;
-    private static int IMAGES_PRODUCED;
 
 
     private AccPackSession mSession;
@@ -52,7 +52,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private boolean isConnected;
 
     private ScreenSharingListener mListener;
-
 
     private VirtualDisplay mVirtualDisplay;
     private int mDensity;
@@ -69,6 +68,10 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private Intent mResultData;
 
     private View mScreenView;
+    //private RelativeLayout mScreenSharingBar;
+    private TextView mScreenSharingBar;
+    WindowManager mWindowManager;
+    WindowManager.LayoutParams mWindowLayoutParams;
 
     /**
      * Monitors state changes in the TextChatFragment.
@@ -168,6 +171,23 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
 
         mScreenView = rootView.findViewById(R.id.screen_view);
+        //mScreenSharingBar = (RelativeLayout) rootView.findViewById(R.id.screensharing_bar);
+
+        mScreenSharingBar = new TextView(getContext());
+        mScreenSharingBar.setText(R.string.screensharing_text);
+        mScreenSharingBar.setGravity(Gravity.CENTER_HORIZONTAL);
+        mScreenSharingBar.setBackgroundColor(getResources().getColor(R.color.screensharing_bar));
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        //params.height= (int)getResources().getDimension(R.dimen.screensharing_bar_height);
+        params.height= 40;
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+
+        mScreenSharingBar.setLayoutParams(params);
+
+        mWindowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        mWindowLayoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_APPLICATION, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        mWindowLayoutParams.gravity = Gravity.TOP;
 
         return rootView;
     }
@@ -219,6 +239,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
             ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreenView, mImageReader, size);
             PublisherKit screenPublisher = new Publisher(getContext(), "screenPublisher", capturer);
             screenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
+            screenPublisher.setPublisherListener(this);
             mSession.publish(screenPublisher);
 
         }
@@ -284,8 +305,29 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         mVirtualDisplay = null;
     }
 
+    protected void onScreenSharingStarted(){
+        if ( mListener != null ){
+           mListener.onScreenSharingStarted();
+        }
+    }
 
+    protected void onScreenSharingStopped(){
+        if ( mListener != null ){
+            mListener.onScreenSharingStopped();
+        }
+    }
 
+    protected void onScreenSharingError(String error){
+        if ( mListener != null ){
+            mListener.onScreenSharingError(error);
+        }
+    }
+
+    protected void onClosed(){
+        if ( mListener != null ){
+            mListener.onClosed();
+        }
+    }
     @Override
     public void onConnected(Session session) {
         isConnected = true;
@@ -310,5 +352,26 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public void onError(Session session, OpentokError opentokError) {
 
     }
+
+    @Override
+    public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
+        Log.i(LOG_TAG, "OnStreamCreated");
+
+        mWindowManager.addView(mScreenSharingBar, mWindowLayoutParams);
+
+        onScreenSharingStarted();
+    }
+
+    @Override
+    public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
+        mWindowManager.removeView(mScreenSharingBar);
+        onScreenSharingStopped();
+    }
+
+    @Override
+    public void onError(PublisherKit publisherKit, OpentokError opentokError) {
+        onScreenSharingError(opentokError.getMessage());
+    }
+
 
 }
