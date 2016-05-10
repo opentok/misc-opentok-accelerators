@@ -145,6 +145,3 @@ The `_initAccPackComponents()` method in accelerator-pack.js initializes the com
         }
     };
 ```
-
-
-
