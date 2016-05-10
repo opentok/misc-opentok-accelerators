@@ -767,7 +767,7 @@ var AccPackScreenSharing = (function() {
           href: ['https://chrome.google.com/webstore/detail/', extensionID].join('')
         }).appendTo('head');
 
-        OT.registerScreenSharingExtension('chrome', extensionID, 2);
+        OT.registerScreenSharingExtension('chrome', extensionID);
       }
     }
 
