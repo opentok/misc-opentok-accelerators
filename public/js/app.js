@@ -16,7 +16,7 @@ var app = (function() {
       name: 'User1'
     },
     screensharing: {
-      extensionID: 'idhnlbjlmkghinljcijgljbmcoonppgi',
+      extensionID: 'knmknlapoidpamfmadaalafimbjegekh',
       extensionPathFF: 'ff-extension/wms-screensharing.xpi',
       annotation: true
     },
