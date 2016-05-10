@@ -87,7 +87,7 @@ var app = (function() {
       _show(_communicationElements.remoteControls);
 
 
-    } else if (type === 'end' || type === 'left') {
+    } else if ((type === 'end' && !!_communicationProperties.remoteParticipant) || type === 'left') {
 
       _toggleClass(_communicationElements.remoteVideo, 'secondary-video');
       _toggleClass(_communicationElements.remoteVideo, 'primary-video');
@@ -141,7 +141,7 @@ var app = (function() {
     _accPack.registerEventListener('streamDestroyed', function(event) {
 
       if (event.stream.videoType === 'camera') {
-        _communicationProperties.remoteParticipant = true;
+        _communicationProperties.remoteParticipant = false;
         _communicationProperties.callActive && _swapVideoPositions('left');
       }
 
