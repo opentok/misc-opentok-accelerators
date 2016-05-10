@@ -150,7 +150,7 @@ public class ChatMessageTest {
     @Test
     public void ChatMessage_When_SenderIDIsLongString() throws Exception {
 
-        senderID = generateLongString(61);
+        senderID = generateLongString(1001);
         messageID = UUID.randomUUID();
         chatMessageBuilder = new ChatMessage.ChatMessageBuilder(senderID, messageID, ChatMessage.MessageStatus.SENT_MESSAGE);
 

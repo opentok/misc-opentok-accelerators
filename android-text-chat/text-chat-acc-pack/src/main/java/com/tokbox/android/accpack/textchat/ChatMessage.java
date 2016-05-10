@@ -12,7 +12,7 @@ public class ChatMessage {
     private static final String LOG_TAG = "text-chat-message";
 
     private static final int MAX_ALIAS_LENGTH = 50;
-    private static final int MAX_SENDERID_LENGTH = 60;
+    private static final int MAX_SENDERID_LENGTH = 1000;
     private final static int MAX_TEXT_LENGTH = 8196;
     private static final int MAX_MESSAGEID_LENGTH = 36;
     private static final String RELEASE_DATE = "2016-05-01";
