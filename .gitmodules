@@ -1,3 +1,0 @@
-[submodule "iOS/ScreenShareSample/ScreenShareKit/acc-pack-common"]
-	path = iOS/ScreenShareSample/ScreenShareKit/acc-pack-common
-	url = https://github.com/opentok/acc-pack-common.git

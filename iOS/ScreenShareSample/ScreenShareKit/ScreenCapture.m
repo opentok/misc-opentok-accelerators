@@ -9,7 +9,7 @@
 #include <mach/mach.h>
 #include <mach/mach_time.h>
 #import "ScreenCapture.h"
-#import "OTAcceleratorSession.h"
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 @interface ScreenCapture() <OTVideoCapture>
 

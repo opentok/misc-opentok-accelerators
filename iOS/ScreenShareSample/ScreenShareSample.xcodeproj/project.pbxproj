@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FC6B2831CD7E96D00084DF4 /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */; };
+		3FC6B2841CD7E96D00084DF4 /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */; };
 		A0253AF61CD33B8C006829E6 /* ScreenSharePath.h in Headers */ = {isa = PBXBuildFile; fileRef = A0253AF21CD33B8C006829E6 /* ScreenSharePath.h */; };
 		A0253AF71CD33B8C006829E6 /* ScreenSharePath.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AF31CD33B8C006829E6 /* ScreenSharePath.m */; };
 		A0253AF81CD33B8C006829E6 /* ScreenShareTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = A0253AF41CD33B8C006829E6 /* ScreenShareTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -17,10 +19,6 @@
 		A0253B041CD72713006829E6 /* mvc.png in Resources */ = {isa = PBXBuildFile; fileRef = A0253B031CD72713006829E6 /* mvc.png */; };
 		A0253B0C1CD7F0B6006829E6 /* ScreenShareAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0253B0A1CD7F0B6006829E6 /* ScreenShareAnnotationView.h */; };
 		A0253B0D1CD7F0B6006829E6 /* ScreenShareAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253B0B1CD7F0B6006829E6 /* ScreenShareAnnotationView.m */; };
-		3FC6B2831CD7E96D00084DF4 /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3FC6B2841CD7E96D00084DF4 /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */; };
-		3FC6B2881CD7EBB300084DF4 /* OTAcceleratorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FC6B2861CD7EBB300084DF4 /* OTAcceleratorSession.h */; };
-		3FC6B2891CD7EBB300084DF4 /* OTAcceleratorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC6B2871CD7EBB300084DF4 /* OTAcceleratorSession.m */; };
 		A09A4AA61CD02A800024C349 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4AA51CD02A800024C349 /* main.m */; };
 		A09A4AA91CD02A800024C349 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4AA81CD02A800024C349 /* AppDelegate.m */; };
 		A09A4AAC1CD02A800024C349 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4AAB1CD02A800024C349 /* ViewController.m */; };
@@ -30,83 +28,6 @@
 		A09A4AC31CD02A990024C349 /* ScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A09A4AC21CD02A990024C349 /* ScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A09A4AC71CD02A990024C349 /* ScreenShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* ScreenShareKit.framework */; };
 		A09A4AC81CD02A990024C349 /* ScreenShareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* ScreenShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A09A4B141CD02AB90024C349 /* OTAudioDeviceManager.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD11CD02AB90024C349 /* OTAudioDeviceManager.html */; };
-		A09A4B151CD02AB90024C349 /* OTAudioFormat.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD21CD02AB90024C349 /* OTAudioFormat.html */; };
-		A09A4B161CD02AB90024C349 /* OTConnection.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD31CD02AB90024C349 /* OTConnection.html */; };
-		A09A4B171CD02AB90024C349 /* OTError.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD41CD02AB90024C349 /* OTError.html */; };
-		A09A4B181CD02AB90024C349 /* OTPublisher.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD51CD02AB90024C349 /* OTPublisher.html */; };
-		A09A4B191CD02AB90024C349 /* OTPublisherKit.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD61CD02AB90024C349 /* OTPublisherKit.html */; };
-		A09A4B1A1CD02AB90024C349 /* OTSession.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD71CD02AB90024C349 /* OTSession.html */; };
-		A09A4B1B1CD02AB90024C349 /* OTStream.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD81CD02AB90024C349 /* OTStream.html */; };
-		A09A4B1C1CD02AB90024C349 /* OTSubscriber.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AD91CD02AB90024C349 /* OTSubscriber.html */; };
-		A09A4B1D1CD02AB90024C349 /* OTSubscriberKit.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4ADA1CD02AB90024C349 /* OTSubscriberKit.html */; };
-		A09A4B1E1CD02AB90024C349 /* OTSubscriberKitAudioNetworkStats.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4ADB1CD02AB90024C349 /* OTSubscriberKitAudioNetworkStats.html */; };
-		A09A4B1F1CD02AB90024C349 /* OTSubscriberKitVideoNetworkStats.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4ADC1CD02AB90024C349 /* OTSubscriberKitVideoNetworkStats.html */; };
-		A09A4B201CD02AB90024C349 /* OTVideoFormat.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4ADD1CD02AB90024C349 /* OTVideoFormat.html */; };
-		A09A4B211CD02AB90024C349 /* OTVideoFrame.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4ADE1CD02AB90024C349 /* OTVideoFrame.html */; };
-		A09A4B221CD02AB90024C349 /* OTCameraCaptureFrameRate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE01CD02AB90024C349 /* OTCameraCaptureFrameRate.html */; };
-		A09A4B231CD02AB90024C349 /* OTCameraCaptureResolution.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE11CD02AB90024C349 /* OTCameraCaptureResolution.html */; };
-		A09A4B241CD02AB90024C349 /* OTPixelFormat.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE21CD02AB90024C349 /* OTPixelFormat.html */; };
-		A09A4B251CD02AB90024C349 /* OTPublisherErrorCode.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE31CD02AB90024C349 /* OTPublisherErrorCode.html */; };
-		A09A4B261CD02AB90024C349 /* OTPublisherKitVideoType.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE41CD02AB90024C349 /* OTPublisherKitVideoType.html */; };
-		A09A4B271CD02AB90024C349 /* OTSessionConnectionStatus.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE51CD02AB90024C349 /* OTSessionConnectionStatus.html */; };
-		A09A4B281CD02AB90024C349 /* OTSessionErrorCode.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE61CD02AB90024C349 /* OTSessionErrorCode.html */; };
-		A09A4B291CD02AB90024C349 /* OTStreamVideoType.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE71CD02AB90024C349 /* OTStreamVideoType.html */; };
-		A09A4B2A1CD02AB90024C349 /* OTSubscriberErrorCode.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE81CD02AB90024C349 /* OTSubscriberErrorCode.html */; };
-		A09A4B2B1CD02AB90024C349 /* OTSubscriberVideoEventReason.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AE91CD02AB90024C349 /* OTSubscriberVideoEventReason.html */; };
-		A09A4B2C1CD02AB90024C349 /* OTVideoOrientation.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AEA1CD02AB90024C349 /* OTVideoOrientation.html */; };
-		A09A4B2D1CD02AB90024C349 /* OTVideoViewScaleBehavior.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AEB1CD02AB90024C349 /* OTVideoViewScaleBehavior.html */; };
-		A09A4B2E1CD02AB90024C349 /* _index.scss in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AEE1CD02AB90024C349 /* _index.scss */; };
-		A09A4B2F1CD02AB90024C349 /* _layout.scss in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AEF1CD02AB90024C349 /* _layout.scss */; };
-		A09A4B301CD02AB90024C349 /* _normalize.scss in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF01CD02AB90024C349 /* _normalize.scss */; };
-		A09A4B311CD02AB90024C349 /* _object.scss in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF11CD02AB90024C349 /* _object.scss */; };
-		A09A4B321CD02AB90024C349 /* _print.scss in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF21CD02AB90024C349 /* _print.scss */; };
-		A09A4B331CD02AB90024C349 /* _variables.scss in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF31CD02AB90024C349 /* _variables.scss */; };
-		A09A4B341CD02AB90024C349 /* _xcode.scss in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF41CD02AB90024C349 /* _xcode.scss */; };
-		A09A4B351CD02AB90024C349 /* style.scss in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF51CD02AB90024C349 /* style.scss */; };
-		A09A4B361CD02AB90024C349 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF61CD02AB90024C349 /* style.css */; };
-		A09A4B371CD02AB90024C349 /* hierarchy.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF71CD02AB90024C349 /* hierarchy.html */; };
-		A09A4B381CD02AB90024C349 /* button_bar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AF91CD02AB90024C349 /* button_bar_background.png */; };
-		A09A4B391CD02AB90024C349 /* disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AFA1CD02AB90024C349 /* disclosure.png */; };
-		A09A4B3A1CD02AB90024C349 /* disclosure_open.png in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AFB1CD02AB90024C349 /* disclosure_open.png */; };
-		A09A4B3B1CD02AB90024C349 /* library_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AFC1CD02AB90024C349 /* library_background.png */; };
-		A09A4B3C1CD02AB90024C349 /* title_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AFD1CD02AB90024C349 /* title_background.png */; };
-		A09A4B3D1CD02AB90024C349 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AFE1CD02AB90024C349 /* index.html */; };
-		A09A4B3E1CD02AB90024C349 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B001CD02AB90024C349 /* script.js */; };
-		A09A4B3F1CD02AB90024C349 /* OTAudioBus.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B021CD02AB90024C349 /* OTAudioBus.html */; };
-		A09A4B401CD02AB90024C349 /* OTAudioDevice.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B031CD02AB90024C349 /* OTAudioDevice.html */; };
-		A09A4B411CD02AB90024C349 /* OTPublisherDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B041CD02AB90024C349 /* OTPublisherDelegate.html */; };
-		A09A4B421CD02AB90024C349 /* OTPublisherKitAudioLevelDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B051CD02AB90024C349 /* OTPublisherKitAudioLevelDelegate.html */; };
-		A09A4B431CD02AB90024C349 /* OTPublisherKitDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B061CD02AB90024C349 /* OTPublisherKitDelegate.html */; };
-		A09A4B441CD02AB90024C349 /* OTSessionDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B071CD02AB90024C349 /* OTSessionDelegate.html */; };
-		A09A4B451CD02AB90024C349 /* OTSubscriberDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B081CD02AB90024C349 /* OTSubscriberDelegate.html */; };
-		A09A4B461CD02AB90024C349 /* OTSubscriberKitAudioLevelDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B091CD02AB90024C349 /* OTSubscriberKitAudioLevelDelegate.html */; };
-		A09A4B471CD02AB90024C349 /* OTSubscriberKitDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B0A1CD02AB90024C349 /* OTSubscriberKitDelegate.html */; };
-		A09A4B481CD02AB90024C349 /* OTSubscriberKitNetworkStatsDelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B0B1CD02AB90024C349 /* OTSubscriberKitNetworkStatsDelegate.html */; };
-		A09A4B491CD02AB90024C349 /* OTVideoCapture.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B0C1CD02AB90024C349 /* OTVideoCapture.html */; };
-		A09A4B4A1CD02AB90024C349 /* OTVideoCaptureConsumer.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B0D1CD02AB90024C349 /* OTVideoCaptureConsumer.html */; };
-		A09A4B4B1CD02AB90024C349 /* OTVideoRender.html in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B0E1CD02AB90024C349 /* OTVideoRender.html */; };
-		A09A4B4C1CD02AB90024C349 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B0F1CD02AB90024C349 /* LICENSE */; };
-		A09A4B4D1CD02AB90024C349 /* NOTICE in Resources */ = {isa = PBXBuildFile; fileRef = A09A4B101CD02AB90024C349 /* NOTICE */; };
-		A09A4B4E1CD02AB90024C349 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B111CD02AB90024C349 /* OpenTok.framework */; };
-		A09A4B4F1CD02AB90024C349 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A09A4B121CD02AB90024C349 /* README.md */; };
-		A09A4B501CD02AB90024C349 /* release-notes.md in Sources */ = {isa = PBXBuildFile; fileRef = A09A4B131CD02AB90024C349 /* release-notes.md */; };
-		A09A4B611CD02B0A0024C349 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B511CD02B0A0024C349 /* AudioToolbox.framework */; };
-		A09A4B621CD02B0A0024C349 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B521CD02B0A0024C349 /* AVFoundation.framework */; };
-		A09A4B631CD02B0A0024C349 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B531CD02B0A0024C349 /* AVKit.framework */; };
-		A09A4B641CD02B0A0024C349 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B541CD02B0A0024C349 /* CoreAudio.framework */; };
-		A09A4B651CD02B0A0024C349 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B551CD02B0A0024C349 /* CoreGraphics.framework */; };
-		A09A4B661CD02B0A0024C349 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B561CD02B0A0024C349 /* CoreTelephony.framework */; };
-		A09A4B671CD02B0A0024C349 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B571CD02B0A0024C349 /* CoreVideo.framework */; };
-		A09A4B681CD02B0A0024C349 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B581CD02B0A0024C349 /* GLKit.framework */; };
-		A09A4B691CD02B0A0024C349 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B591CD02B0A0024C349 /* libc++.tbd */; };
-		A09A4B6A1CD02B0A0024C349 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B5A1CD02B0A0024C349 /* libsqlite3.0.tbd */; };
-		A09A4B6B1CD02B0A0024C349 /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B5B1CD02B0A0024C349 /* MediaToolbox.framework */; };
-		A09A4B6C1CD02B0A0024C349 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B5C1CD02B0A0024C349 /* OpenGLES.framework */; };
-		A09A4B6D1CD02B0A0024C349 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B5D1CD02B0A0024C349 /* QuartzCore.framework */; };
-		A09A4B6E1CD02B0A0024C349 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B5E1CD02B0A0024C349 /* SystemConfiguration.framework */; };
-		A09A4B6F1CD02B0A0024C349 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B5F1CD02B0A0024C349 /* UIKit.framework */; };
-		A09A4B701CD02B0A0024C349 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4B601CD02B0A0024C349 /* VideoToolbox.framework */; };
 		A09A4B731CD030800024C349 /* ScreenShareView.h in Headers */ = {isa = PBXBuildFile; fileRef = A09A4B711CD030800024C349 /* ScreenShareView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A09A4B741CD030800024C349 /* ScreenShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4B721CD030800024C349 /* ScreenShareView.m */; };
 		A09A4B7B1CD0314A0024C349 /* ScreenShareViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A09A4B791CD0314A0024C349 /* ScreenShareViewManager.h */; };
@@ -138,6 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
+		3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCapture.m; sourceTree = "<group>"; };
 		A0253AF21CD33B8C006829E6 /* ScreenSharePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenSharePath.h; sourceTree = "<group>"; };
 		A0253AF31CD33B8C006829E6 /* ScreenSharePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenSharePath.m; sourceTree = "<group>"; };
 		A0253AF41CD33B8C006829E6 /* ScreenShareTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareTextField.h; sourceTree = "<group>"; };
@@ -148,10 +71,6 @@
 		A0253B031CD72713006829E6 /* mvc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mvc.png; sourceTree = "<group>"; };
 		A0253B0A1CD7F0B6006829E6 /* ScreenShareAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareAnnotationView.h; sourceTree = "<group>"; };
 		A0253B0B1CD7F0B6006829E6 /* ScreenShareAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareAnnotationView.m; sourceTree = "<group>"; };
-		3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
-		3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCapture.m; sourceTree = "<group>"; };
-		3FC6B2861CD7EBB300084DF4 /* OTAcceleratorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTAcceleratorSession.h; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.h"; sourceTree = "<group>"; };
-		3FC6B2871CD7EBB300084DF4 /* OTAcceleratorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTAcceleratorSession.m; path = "acc-pack-common/iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.m"; sourceTree = "<group>"; };
 		A09A4AA11CD02A800024C349 /* ScreenShareSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenShareSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A09A4AA51CD02A800024C349 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A09A4AA71CD02A800024C349 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -165,83 +84,6 @@
 		A09A4AC01CD02A990024C349 /* ScreenShareKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScreenShareKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A09A4AC21CD02A990024C349 /* ScreenShareKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScreenShareKit.h; sourceTree = "<group>"; };
 		A09A4AC41CD02A990024C349 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A09A4AD11CD02AB90024C349 /* OTAudioDeviceManager.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioDeviceManager.html; sourceTree = "<group>"; };
-		A09A4AD21CD02AB90024C349 /* OTAudioFormat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioFormat.html; sourceTree = "<group>"; };
-		A09A4AD31CD02AB90024C349 /* OTConnection.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTConnection.html; sourceTree = "<group>"; };
-		A09A4AD41CD02AB90024C349 /* OTError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTError.html; sourceTree = "<group>"; };
-		A09A4AD51CD02AB90024C349 /* OTPublisher.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisher.html; sourceTree = "<group>"; };
-		A09A4AD61CD02AB90024C349 /* OTPublisherKit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherKit.html; sourceTree = "<group>"; };
-		A09A4AD71CD02AB90024C349 /* OTSession.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSession.html; sourceTree = "<group>"; };
-		A09A4AD81CD02AB90024C349 /* OTStream.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTStream.html; sourceTree = "<group>"; };
-		A09A4AD91CD02AB90024C349 /* OTSubscriber.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriber.html; sourceTree = "<group>"; };
-		A09A4ADA1CD02AB90024C349 /* OTSubscriberKit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKit.html; sourceTree = "<group>"; };
-		A09A4ADB1CD02AB90024C349 /* OTSubscriberKitAudioNetworkStats.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitAudioNetworkStats.html; sourceTree = "<group>"; };
-		A09A4ADC1CD02AB90024C349 /* OTSubscriberKitVideoNetworkStats.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitVideoNetworkStats.html; sourceTree = "<group>"; };
-		A09A4ADD1CD02AB90024C349 /* OTVideoFormat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoFormat.html; sourceTree = "<group>"; };
-		A09A4ADE1CD02AB90024C349 /* OTVideoFrame.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoFrame.html; sourceTree = "<group>"; };
-		A09A4AE01CD02AB90024C349 /* OTCameraCaptureFrameRate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTCameraCaptureFrameRate.html; sourceTree = "<group>"; };
-		A09A4AE11CD02AB90024C349 /* OTCameraCaptureResolution.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTCameraCaptureResolution.html; sourceTree = "<group>"; };
-		A09A4AE21CD02AB90024C349 /* OTPixelFormat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPixelFormat.html; sourceTree = "<group>"; };
-		A09A4AE31CD02AB90024C349 /* OTPublisherErrorCode.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherErrorCode.html; sourceTree = "<group>"; };
-		A09A4AE41CD02AB90024C349 /* OTPublisherKitVideoType.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherKitVideoType.html; sourceTree = "<group>"; };
-		A09A4AE51CD02AB90024C349 /* OTSessionConnectionStatus.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSessionConnectionStatus.html; sourceTree = "<group>"; };
-		A09A4AE61CD02AB90024C349 /* OTSessionErrorCode.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSessionErrorCode.html; sourceTree = "<group>"; };
-		A09A4AE71CD02AB90024C349 /* OTStreamVideoType.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTStreamVideoType.html; sourceTree = "<group>"; };
-		A09A4AE81CD02AB90024C349 /* OTSubscriberErrorCode.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberErrorCode.html; sourceTree = "<group>"; };
-		A09A4AE91CD02AB90024C349 /* OTSubscriberVideoEventReason.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberVideoEventReason.html; sourceTree = "<group>"; };
-		A09A4AEA1CD02AB90024C349 /* OTVideoOrientation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoOrientation.html; sourceTree = "<group>"; };
-		A09A4AEB1CD02AB90024C349 /* OTVideoViewScaleBehavior.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoViewScaleBehavior.html; sourceTree = "<group>"; };
-		A09A4AEE1CD02AB90024C349 /* _index.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _index.scss; sourceTree = "<group>"; };
-		A09A4AEF1CD02AB90024C349 /* _layout.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _layout.scss; sourceTree = "<group>"; };
-		A09A4AF01CD02AB90024C349 /* _normalize.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _normalize.scss; sourceTree = "<group>"; };
-		A09A4AF11CD02AB90024C349 /* _object.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _object.scss; sourceTree = "<group>"; };
-		A09A4AF21CD02AB90024C349 /* _print.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _print.scss; sourceTree = "<group>"; };
-		A09A4AF31CD02AB90024C349 /* _variables.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _variables.scss; sourceTree = "<group>"; };
-		A09A4AF41CD02AB90024C349 /* _xcode.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _xcode.scss; sourceTree = "<group>"; };
-		A09A4AF51CD02AB90024C349 /* style.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = style.scss; sourceTree = "<group>"; };
-		A09A4AF61CD02AB90024C349 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
-		A09A4AF71CD02AB90024C349 /* hierarchy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = hierarchy.html; sourceTree = "<group>"; };
-		A09A4AF91CD02AB90024C349 /* button_bar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_bar_background.png; sourceTree = "<group>"; };
-		A09A4AFA1CD02AB90024C349 /* disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure.png; sourceTree = "<group>"; };
-		A09A4AFB1CD02AB90024C349 /* disclosure_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure_open.png; sourceTree = "<group>"; };
-		A09A4AFC1CD02AB90024C349 /* library_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library_background.png; sourceTree = "<group>"; };
-		A09A4AFD1CD02AB90024C349 /* title_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_background.png; sourceTree = "<group>"; };
-		A09A4AFE1CD02AB90024C349 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		A09A4B001CD02AB90024C349 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
-		A09A4B021CD02AB90024C349 /* OTAudioBus.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioBus.html; sourceTree = "<group>"; };
-		A09A4B031CD02AB90024C349 /* OTAudioDevice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTAudioDevice.html; sourceTree = "<group>"; };
-		A09A4B041CD02AB90024C349 /* OTPublisherDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherDelegate.html; sourceTree = "<group>"; };
-		A09A4B051CD02AB90024C349 /* OTPublisherKitAudioLevelDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherKitAudioLevelDelegate.html; sourceTree = "<group>"; };
-		A09A4B061CD02AB90024C349 /* OTPublisherKitDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTPublisherKitDelegate.html; sourceTree = "<group>"; };
-		A09A4B071CD02AB90024C349 /* OTSessionDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSessionDelegate.html; sourceTree = "<group>"; };
-		A09A4B081CD02AB90024C349 /* OTSubscriberDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberDelegate.html; sourceTree = "<group>"; };
-		A09A4B091CD02AB90024C349 /* OTSubscriberKitAudioLevelDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitAudioLevelDelegate.html; sourceTree = "<group>"; };
-		A09A4B0A1CD02AB90024C349 /* OTSubscriberKitDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitDelegate.html; sourceTree = "<group>"; };
-		A09A4B0B1CD02AB90024C349 /* OTSubscriberKitNetworkStatsDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTSubscriberKitNetworkStatsDelegate.html; sourceTree = "<group>"; };
-		A09A4B0C1CD02AB90024C349 /* OTVideoCapture.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoCapture.html; sourceTree = "<group>"; };
-		A09A4B0D1CD02AB90024C349 /* OTVideoCaptureConsumer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoCaptureConsumer.html; sourceTree = "<group>"; };
-		A09A4B0E1CD02AB90024C349 /* OTVideoRender.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = OTVideoRender.html; sourceTree = "<group>"; };
-		A09A4B0F1CD02AB90024C349 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		A09A4B101CD02AB90024C349 /* NOTICE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NOTICE; sourceTree = "<group>"; };
-		A09A4B111CD02AB90024C349 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
-		A09A4B121CD02AB90024C349 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		A09A4B131CD02AB90024C349 /* release-notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "release-notes.md"; sourceTree = "<group>"; };
-		A09A4B511CD02B0A0024C349 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		A09A4B521CD02B0A0024C349 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		A09A4B531CD02B0A0024C349 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		A09A4B541CD02B0A0024C349 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		A09A4B551CD02B0A0024C349 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		A09A4B561CD02B0A0024C349 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		A09A4B571CD02B0A0024C349 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		A09A4B581CD02B0A0024C349 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		A09A4B591CD02B0A0024C349 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		A09A4B5A1CD02B0A0024C349 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		A09A4B5B1CD02B0A0024C349 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
-		A09A4B5C1CD02B0A0024C349 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		A09A4B5D1CD02B0A0024C349 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		A09A4B5E1CD02B0A0024C349 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		A09A4B5F1CD02B0A0024C349 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		A09A4B601CD02B0A0024C349 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		A09A4B711CD030800024C349 /* ScreenShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareView.h; sourceTree = "<group>"; };
 		A09A4B721CD030800024C349 /* ScreenShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareView.m; sourceTree = "<group>"; };
 		A09A4B791CD0314A0024C349 /* ScreenShareViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareViewManager.h; sourceTree = "<group>"; };
@@ -261,29 +103,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A09A4B611CD02B0A0024C349 /* AudioToolbox.framework in Frameworks */,
-				A09A4B621CD02B0A0024C349 /* AVFoundation.framework in Frameworks */,
-				A09A4B631CD02B0A0024C349 /* AVKit.framework in Frameworks */,
-				A09A4B641CD02B0A0024C349 /* CoreAudio.framework in Frameworks */,
-				A09A4B651CD02B0A0024C349 /* CoreGraphics.framework in Frameworks */,
-				A09A4B661CD02B0A0024C349 /* CoreTelephony.framework in Frameworks */,
-				A09A4B671CD02B0A0024C349 /* CoreVideo.framework in Frameworks */,
-				A09A4B681CD02B0A0024C349 /* GLKit.framework in Frameworks */,
-				A09A4B691CD02B0A0024C349 /* libc++.tbd in Frameworks */,
-				A09A4B6A1CD02B0A0024C349 /* libsqlite3.0.tbd in Frameworks */,
-				A09A4B6B1CD02B0A0024C349 /* MediaToolbox.framework in Frameworks */,
-				A09A4B6C1CD02B0A0024C349 /* OpenGLES.framework in Frameworks */,
-				A09A4B6D1CD02B0A0024C349 /* QuartzCore.framework in Frameworks */,
-				A09A4B6E1CD02B0A0024C349 /* SystemConfiguration.framework in Frameworks */,
-				A09A4B6F1CD02B0A0024C349 /* UIKit.framework in Frameworks */,
-				A09A4B701CD02B0A0024C349 /* VideoToolbox.framework in Frameworks */,
-				A09A4B4E1CD02AB90024C349 /* OpenTok.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3FC6B2851CD7E97300084DF4 /* ScreenCapture */ = {
+			isa = PBXGroup;
+			children = (
+				3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */,
+				3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */,
+			);
+			name = ScreenCapture;
+			sourceTree = "<group>";
+		};
 		A0253AF11CD33B8C006829E6 /* Drawable */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,15 +137,6 @@
 				A0253AFF1CD33C94006829E6 /* ScreenShareColorPickerView.xib */,
 			);
 			path = Toolbar;
-			sourceTree = "<group>";
-		};
-		3FC6B2851CD7E97300084DF4 /* ScreenCapture */ = {
-			isa = PBXGroup;
-			children = (
-				3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */,
-				3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */,
-			);
-			name = ScreenCapture;
 			sourceTree = "<group>";
 		};
 		A09A4A981CD02A800024C349 = {
@@ -360,10 +185,7 @@
 		A09A4AC11CD02A990024C349 /* ScreenShareKit */ = {
 			isa = PBXGroup;
 			children = (
-				3FC6B2861CD7EBB300084DF4 /* OTAcceleratorSession.h */,
-				3FC6B2871CD7EBB300084DF4 /* OTAcceleratorSession.m */,
 				3FC6B2851CD7E97300084DF4 /* ScreenCapture */,
-				A09A4ACD1CD02AB90024C349 /* OpenTok-iOS-2.7.1 */,
 				A0253AF11CD33B8C006829E6 /* Drawable */,
 				A0253AFA1CD33BC1006829E6 /* Toolbar */,
 				A09A4AC21CD02A990024C349 /* ScreenShareKit.h */,
@@ -374,164 +196,8 @@
 				A09A4B791CD0314A0024C349 /* ScreenShareViewManager.h */,
 				A09A4B7A1CD0314A0024C349 /* ScreenShareViewManager.m */,
 				A09A4AC41CD02A990024C349 /* Info.plist */,
-				A09A4B511CD02B0A0024C349 /* AudioToolbox.framework */,
-				A09A4B521CD02B0A0024C349 /* AVFoundation.framework */,
-				A09A4B531CD02B0A0024C349 /* AVKit.framework */,
-				A09A4B541CD02B0A0024C349 /* CoreAudio.framework */,
-				A09A4B551CD02B0A0024C349 /* CoreGraphics.framework */,
-				A09A4B561CD02B0A0024C349 /* CoreTelephony.framework */,
-				A09A4B571CD02B0A0024C349 /* CoreVideo.framework */,
-				A09A4B581CD02B0A0024C349 /* GLKit.framework */,
-				A09A4B591CD02B0A0024C349 /* libc++.tbd */,
-				A09A4B5A1CD02B0A0024C349 /* libsqlite3.0.tbd */,
-				A09A4B5B1CD02B0A0024C349 /* MediaToolbox.framework */,
-				A09A4B5C1CD02B0A0024C349 /* OpenGLES.framework */,
-				A09A4B5D1CD02B0A0024C349 /* QuartzCore.framework */,
-				A09A4B5E1CD02B0A0024C349 /* SystemConfiguration.framework */,
-				A09A4B5F1CD02B0A0024C349 /* UIKit.framework */,
-				A09A4B601CD02B0A0024C349 /* VideoToolbox.framework */,
 			);
 			path = ScreenShareKit;
-			sourceTree = "<group>";
-		};
-		A09A4ACD1CD02AB90024C349 /* OpenTok-iOS-2.7.1 */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4ACE1CD02AB90024C349 /* doc */,
-				A09A4B0F1CD02AB90024C349 /* LICENSE */,
-				A09A4B101CD02AB90024C349 /* NOTICE */,
-				A09A4B111CD02AB90024C349 /* OpenTok.framework */,
-				A09A4B121CD02AB90024C349 /* README.md */,
-				A09A4B131CD02AB90024C349 /* release-notes.md */,
-			);
-			path = "OpenTok-iOS-2.7.1";
-			sourceTree = "<group>";
-		};
-		A09A4ACE1CD02AB90024C349 /* doc */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4ACF1CD02AB90024C349 /* html */,
-			);
-			path = doc;
-			sourceTree = "<group>";
-		};
-		A09A4ACF1CD02AB90024C349 /* html */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4AD01CD02AB90024C349 /* Classes */,
-				A09A4ADF1CD02AB90024C349 /* Constants */,
-				A09A4AEC1CD02AB90024C349 /* css */,
-				A09A4AF71CD02AB90024C349 /* hierarchy.html */,
-				A09A4AF81CD02AB90024C349 /* img */,
-				A09A4AFE1CD02AB90024C349 /* index.html */,
-				A09A4AFF1CD02AB90024C349 /* js */,
-				A09A4B011CD02AB90024C349 /* Protocols */,
-			);
-			path = html;
-			sourceTree = "<group>";
-		};
-		A09A4AD01CD02AB90024C349 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4AD11CD02AB90024C349 /* OTAudioDeviceManager.html */,
-				A09A4AD21CD02AB90024C349 /* OTAudioFormat.html */,
-				A09A4AD31CD02AB90024C349 /* OTConnection.html */,
-				A09A4AD41CD02AB90024C349 /* OTError.html */,
-				A09A4AD51CD02AB90024C349 /* OTPublisher.html */,
-				A09A4AD61CD02AB90024C349 /* OTPublisherKit.html */,
-				A09A4AD71CD02AB90024C349 /* OTSession.html */,
-				A09A4AD81CD02AB90024C349 /* OTStream.html */,
-				A09A4AD91CD02AB90024C349 /* OTSubscriber.html */,
-				A09A4ADA1CD02AB90024C349 /* OTSubscriberKit.html */,
-				A09A4ADB1CD02AB90024C349 /* OTSubscriberKitAudioNetworkStats.html */,
-				A09A4ADC1CD02AB90024C349 /* OTSubscriberKitVideoNetworkStats.html */,
-				A09A4ADD1CD02AB90024C349 /* OTVideoFormat.html */,
-				A09A4ADE1CD02AB90024C349 /* OTVideoFrame.html */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		A09A4ADF1CD02AB90024C349 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4AE01CD02AB90024C349 /* OTCameraCaptureFrameRate.html */,
-				A09A4AE11CD02AB90024C349 /* OTCameraCaptureResolution.html */,
-				A09A4AE21CD02AB90024C349 /* OTPixelFormat.html */,
-				A09A4AE31CD02AB90024C349 /* OTPublisherErrorCode.html */,
-				A09A4AE41CD02AB90024C349 /* OTPublisherKitVideoType.html */,
-				A09A4AE51CD02AB90024C349 /* OTSessionConnectionStatus.html */,
-				A09A4AE61CD02AB90024C349 /* OTSessionErrorCode.html */,
-				A09A4AE71CD02AB90024C349 /* OTStreamVideoType.html */,
-				A09A4AE81CD02AB90024C349 /* OTSubscriberErrorCode.html */,
-				A09A4AE91CD02AB90024C349 /* OTSubscriberVideoEventReason.html */,
-				A09A4AEA1CD02AB90024C349 /* OTVideoOrientation.html */,
-				A09A4AEB1CD02AB90024C349 /* OTVideoViewScaleBehavior.html */,
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		A09A4AEC1CD02AB90024C349 /* css */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4AED1CD02AB90024C349 /* scss */,
-				A09A4AF61CD02AB90024C349 /* style.css */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		A09A4AED1CD02AB90024C349 /* scss */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4AEE1CD02AB90024C349 /* _index.scss */,
-				A09A4AEF1CD02AB90024C349 /* _layout.scss */,
-				A09A4AF01CD02AB90024C349 /* _normalize.scss */,
-				A09A4AF11CD02AB90024C349 /* _object.scss */,
-				A09A4AF21CD02AB90024C349 /* _print.scss */,
-				A09A4AF31CD02AB90024C349 /* _variables.scss */,
-				A09A4AF41CD02AB90024C349 /* _xcode.scss */,
-				A09A4AF51CD02AB90024C349 /* style.scss */,
-			);
-			path = scss;
-			sourceTree = "<group>";
-		};
-		A09A4AF81CD02AB90024C349 /* img */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4AF91CD02AB90024C349 /* button_bar_background.png */,
-				A09A4AFA1CD02AB90024C349 /* disclosure.png */,
-				A09A4AFB1CD02AB90024C349 /* disclosure_open.png */,
-				A09A4AFC1CD02AB90024C349 /* library_background.png */,
-				A09A4AFD1CD02AB90024C349 /* title_background.png */,
-			);
-			path = img;
-			sourceTree = "<group>";
-		};
-		A09A4AFF1CD02AB90024C349 /* js */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4B001CD02AB90024C349 /* script.js */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		A09A4B011CD02AB90024C349 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				A09A4B021CD02AB90024C349 /* OTAudioBus.html */,
-				A09A4B031CD02AB90024C349 /* OTAudioDevice.html */,
-				A09A4B041CD02AB90024C349 /* OTPublisherDelegate.html */,
-				A09A4B051CD02AB90024C349 /* OTPublisherKitAudioLevelDelegate.html */,
-				A09A4B061CD02AB90024C349 /* OTPublisherKitDelegate.html */,
-				A09A4B071CD02AB90024C349 /* OTSessionDelegate.html */,
-				A09A4B081CD02AB90024C349 /* OTSubscriberDelegate.html */,
-				A09A4B091CD02AB90024C349 /* OTSubscriberKitAudioLevelDelegate.html */,
-				A09A4B0A1CD02AB90024C349 /* OTSubscriberKitDelegate.html */,
-				A09A4B0B1CD02AB90024C349 /* OTSubscriberKitNetworkStatsDelegate.html */,
-				A09A4B0C1CD02AB90024C349 /* OTVideoCapture.html */,
-				A09A4B0D1CD02AB90024C349 /* OTVideoCaptureConsumer.html */,
-				A09A4B0E1CD02AB90024C349 /* OTVideoRender.html */,
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,7 +208,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A09A4B7B1CD0314A0024C349 /* ScreenShareViewManager.h in Headers */,
-				3FC6B2881CD7EBB300084DF4 /* OTAcceleratorSession.h in Headers */,
 				3FC6B2831CD7E96D00084DF4 /* ScreenCapture.h in Headers */,
 				A09A4B731CD030800024C349 /* ScreenShareView.h in Headers */,
 				A0253B0C1CD7F0B6006829E6 /* ScreenShareAnnotationView.h in Headers */,
@@ -645,65 +310,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A09A4B171CD02AB90024C349 /* OTError.html in Resources */,
-				A09A4B351CD02AB90024C349 /* style.scss in Resources */,
-				A09A4B361CD02AB90024C349 /* style.css in Resources */,
-				A09A4B2A1CD02AB90024C349 /* OTSubscriberErrorCode.html in Resources */,
-				A09A4B441CD02AB90024C349 /* OTSessionDelegate.html in Resources */,
-				A09A4B321CD02AB90024C349 /* _print.scss in Resources */,
-				A09A4B3F1CD02AB90024C349 /* OTAudioBus.html in Resources */,
-				A09A4B1C1CD02AB90024C349 /* OTSubscriber.html in Resources */,
-				A09A4B1D1CD02AB90024C349 /* OTSubscriberKit.html in Resources */,
-				A09A4B311CD02AB90024C349 /* _object.scss in Resources */,
-				A09A4B421CD02AB90024C349 /* OTPublisherKitAudioLevelDelegate.html in Resources */,
-				A09A4B191CD02AB90024C349 /* OTPublisherKit.html in Resources */,
-				A09A4B341CD02AB90024C349 /* _xcode.scss in Resources */,
-				A09A4B481CD02AB90024C349 /* OTSubscriberKitNetworkStatsDelegate.html in Resources */,
-				A09A4B251CD02AB90024C349 /* OTPublisherErrorCode.html in Resources */,
-				A09A4B141CD02AB90024C349 /* OTAudioDeviceManager.html in Resources */,
-				A09A4B381CD02AB90024C349 /* button_bar_background.png in Resources */,
 				A0253B001CD33C94006829E6 /* ScreenShareColorPickerView.xib in Resources */,
-				A09A4B3B1CD02AB90024C349 /* library_background.png in Resources */,
-				A09A4B4A1CD02AB90024C349 /* OTVideoCaptureConsumer.html in Resources */,
-				A09A4B411CD02AB90024C349 /* OTPublisherDelegate.html in Resources */,
-				A09A4B451CD02AB90024C349 /* OTSubscriberDelegate.html in Resources */,
-				A09A4B3A1CD02AB90024C349 /* disclosure_open.png in Resources */,
-				A09A4B431CD02AB90024C349 /* OTPublisherKitDelegate.html in Resources */,
-				A09A4B2F1CD02AB90024C349 /* _layout.scss in Resources */,
-				A09A4B4D1CD02AB90024C349 /* NOTICE in Resources */,
-				A09A4B261CD02AB90024C349 /* OTPublisherKitVideoType.html in Resources */,
-				A09A4B231CD02AB90024C349 /* OTCameraCaptureResolution.html in Resources */,
-				A09A4B271CD02AB90024C349 /* OTSessionConnectionStatus.html in Resources */,
-				A09A4B371CD02AB90024C349 /* hierarchy.html in Resources */,
-				A09A4B3E1CD02AB90024C349 /* script.js in Resources */,
-				A09A4B301CD02AB90024C349 /* _normalize.scss in Resources */,
-				A09A4B4C1CD02AB90024C349 /* LICENSE in Resources */,
-				A09A4B3D1CD02AB90024C349 /* index.html in Resources */,
-				A09A4B4B1CD02AB90024C349 /* OTVideoRender.html in Resources */,
-				A09A4B471CD02AB90024C349 /* OTSubscriberKitDelegate.html in Resources */,
-				A09A4B1A1CD02AB90024C349 /* OTSession.html in Resources */,
-				A09A4B201CD02AB90024C349 /* OTVideoFormat.html in Resources */,
-				A09A4B2E1CD02AB90024C349 /* _index.scss in Resources */,
-				A09A4B461CD02AB90024C349 /* OTSubscriberKitAudioLevelDelegate.html in Resources */,
-				A09A4B331CD02AB90024C349 /* _variables.scss in Resources */,
-				A09A4B2B1CD02AB90024C349 /* OTSubscriberVideoEventReason.html in Resources */,
-				A09A4B221CD02AB90024C349 /* OTCameraCaptureFrameRate.html in Resources */,
-				A09A4B211CD02AB90024C349 /* OTVideoFrame.html in Resources */,
-				A09A4B2C1CD02AB90024C349 /* OTVideoOrientation.html in Resources */,
-				A09A4B151CD02AB90024C349 /* OTAudioFormat.html in Resources */,
-				A09A4B1F1CD02AB90024C349 /* OTSubscriberKitVideoNetworkStats.html in Resources */,
-				A09A4B181CD02AB90024C349 /* OTPublisher.html in Resources */,
-				A09A4B161CD02AB90024C349 /* OTConnection.html in Resources */,
-				A09A4B1E1CD02AB90024C349 /* OTSubscriberKitAudioNetworkStats.html in Resources */,
-				A09A4B401CD02AB90024C349 /* OTAudioDevice.html in Resources */,
-				A09A4B391CD02AB90024C349 /* disclosure.png in Resources */,
-				A09A4B3C1CD02AB90024C349 /* title_background.png in Resources */,
-				A09A4B491CD02AB90024C349 /* OTVideoCapture.html in Resources */,
-				A09A4B2D1CD02AB90024C349 /* OTVideoViewScaleBehavior.html in Resources */,
-				A09A4B1B1CD02AB90024C349 /* OTStream.html in Resources */,
-				A09A4B291CD02AB90024C349 /* OTStreamVideoType.html in Resources */,
-				A09A4B281CD02AB90024C349 /* OTSessionErrorCode.html in Resources */,
-				A09A4B241CD02AB90024C349 /* OTPixelFormat.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,10 +335,7 @@
 				A0253AF91CD33B8C006829E6 /* ScreenShareTextField.m in Sources */,
 				A09A4B7C1CD0314A0024C349 /* ScreenShareViewManager.m in Sources */,
 				A0253AF71CD33B8C006829E6 /* ScreenSharePath.m in Sources */,
-				A09A4B501CD02AB90024C349 /* release-notes.md in Sources */,
 				3FC6B2841CD7E96D00084DF4 /* ScreenCapture.m in Sources */,
-				A09A4B4F1CD02AB90024C349 /* README.md in Sources */,
-				3FC6B2891CD7EBB300084DF4 /* OTAcceleratorSession.m in Sources */,
 				A09A4B741CD030800024C349 /* ScreenShareView.m in Sources */,
 				A0253B0D1CD7F0B6006829E6 /* ScreenShareAnnotationView.m in Sources */,
 			);
