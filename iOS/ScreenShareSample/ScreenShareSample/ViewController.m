@@ -7,9 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <ScreenShareKit/ScreenShareView.h>
-#import <ScreenShareKit/ScreenShareTextField.h>
-#import <ScreenShareKit/ScreenShareColorPickerView.h>
+#import <ScreenShareKit/ScreenShareKit.h>
 
 @interface ViewController () <UIScrollViewDelegate>
 //@property (nonatomic) ScreenShareTextField *textField;
