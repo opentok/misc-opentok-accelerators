@@ -236,6 +236,7 @@ var AcceleratorPack = (function() {
    * @returns {Promise} < Resolve: [Object] External annotation window >    
    */
   var endExternalAnnotation = function() {
+    console.log('who called end external?', endExternalAnnotation.caller);
     return _annotation.end();
   };
 
@@ -265,6 +266,7 @@ var AcceleratorPack = (function() {
    * @returns {Promise} < Resolve: [Object] External annotation window >    
    */
   var endAnnotationView = function() {
+    console.log('who called end view?', endAnnotationView.caller);
     _annotation.end();
     var mainContainer = document.getElementById('main');
     mainContainer.classList.remove('aspect-ratio');

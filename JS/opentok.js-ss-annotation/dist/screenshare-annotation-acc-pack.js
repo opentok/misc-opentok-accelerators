@@ -12,19 +12,19 @@ var AccPackAnnotation = (function() {
     var Annotation = function(options) {
         self = this;
         self.options = _.omit(options, 'accPack');
-        self.accPack = options.accPack;  
+        self.accPack = options.accPack;
         self.elements = {};
         _registerEvents();
         _setupUI();
     };
-    
+
     var _triggerEvent;
-    var _registerEvents = function(){
-        var events = ['startAnnotation', 'linkAnnotation', 'resizeCanvas', 'endAnnotation'];
+    var _registerEvents = function() {
+        var events = ['startAnnotation', 'linkAnnotation', 'resizeCanvas', 'annotationWindowClosed', 'endAnnotation'];
         _triggerEvent = self.accPack.registerEvents(events);
     };
-    
-    var _setupUI = function(){
+
+    var _setupUI = function() {
         var toolbar = ['<div id="toolbar"></div>'].join('\n');
         $('body').append(toolbar);
     };
@@ -45,7 +45,7 @@ var AccPackAnnotation = (function() {
         title: 'Text',
         icon: '../images/annotation/text.png',
         selectedIcon: '../images/annotation/text.png'
-    },{
+    }, {
         id: 'OT_shapes',
         title: 'Shapes',
         icon: '../images/annotation/shapes.png',
@@ -108,9 +108,9 @@ var AccPackAnnotation = (function() {
     ];
 
     var _aspectRatio = (10 / 6);
-    
+
     /** Private methods */
-    
+
     var _listenForResize = function() {
         $(self.elements.resizeSubject).on('resize', resizeCanvas);
     };
@@ -125,7 +125,7 @@ var AccPackAnnotation = (function() {
             var w = !!externalWindow ? externalWindow : window;
             return w.document.getElementById(toolbarId);
         };
-        
+
         toolbar = new OTSolution.Annotations.Toolbar({
             session: session,
             container: container(),
@@ -165,11 +165,16 @@ var AccPackAnnotation = (function() {
         ].join(',');
 
         var annotationWindow = window.open(url, '', windowFeatures);
+        window.onbeforeunload = function(){annotationWindow.close();}
 
         // External window needs access to certain globals
         annotationWindow.toolbar = toolbar;
         annotationWindow.OT = OT;
         annotationWindow.$ = $;
+        
+        annotationWindow.triggerCloseEvent = function() {
+            _triggerEvent('annotationWindowClosed')
+        };
 
         // TODO Find something better.
         var windowReady = function() {
@@ -205,17 +210,17 @@ var AccPackAnnotation = (function() {
      * @returns {promise} < Resolve: undefined | {object} Reference to external annotation window >
      */
     var start = function(session, options) {
-        
+
         var deferred = $.Deferred();
-        
+
         if (_.property('screensharing')(options)) {
             _createExternalWindow()
-            .then(function(externalWindow) {
-                _createToolbar(session, options, externalWindow);
-                toolbar.createPanel(externalWindow);
-                _triggerEvent('startAnnotation', externalWindow);
-                deferred.resolve(externalWindow);
-            });
+                .then(function(externalWindow) {
+                    _createToolbar(session, options, externalWindow);
+                    toolbar.createPanel(externalWindow);
+                    _triggerEvent('startAnnotation', externalWindow);
+                    deferred.resolve(externalWindow);
+                });
         } else {
             _createToolbar(session, options);
             _triggerEvent('startAnnotation');
@@ -227,13 +232,14 @@ var AccPackAnnotation = (function() {
 
     /**
      * @param {object} pubSub - Either the publisher(share screen) or subscriber(viewing shared screen)
-     * @ param {object} container - The actual DOM node
-     * @param {object} [windowReference] - Reference to the annotation window if publishing
+     * @ param {object} container - The parent container for the canvas element
+     * @ param {object} options
+     * @param {object} [options.externalWindow] - Reference to the annotation window if publishing
      * @param {object} options.canvasContainer - The id of the parent element for the annotation canvas
-     * @param {object} options.watchForResize - The DOM element to watch for resize
+     * @param {array} [options.absoluteParent] - Element to reference for dimensions on resize if other than container
      */
-    var linkCanvas = function(pubSub, container, externalWindow) {
-        
+    var linkCanvas = function(pubSub, container, options) {
+
         /**
          * jQuery only allows listening for a resize event on the window or a
          * jQuery resizable element, like #wmsFeedWrap.  windowRefernce is a
@@ -241,22 +247,25 @@ var AccPackAnnotation = (function() {
          * exist, we are watching the canvas belonging to the party viewing the
          * shared screen
          */
-        self.elements.resizeSubject = externalWindow || window;
-        self.elements.externalWindow = externalWindow;
+        self.elements.resizeSubject = _.property('externalWindow')(options) || window;
+        self.elements.externalWindow = _.property('externalWindow')(options) || null;
+        self.elements.absoluteParent = _.property('absoluteParent')(options) || null;
         self.elements.canvasContainer = container;
-        
+
+
         self.canvas = new OTSolution.Annotations({
             feed: pubSub,
-            container: container
+            container: container,
+            externalWindow: self.elements.externalWindow
         });
+
+        self.elements.externalWindow
 
         var context = self.elements.externalWindow ? self.elements.externalWindow : window;
 
         self.elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
 
         toolbar.addCanvas(self.canvas);
-        
-        toolbar.itemClicked(function clicky(e){console.log('clicky', e)});
 
         self.canvas.onScreenCapture(function(dataUrl) {
             var win = window.open(dataUrl, '_blank');
@@ -271,19 +280,19 @@ var AccPackAnnotation = (function() {
 
     /** Resize the canvas to match the size of its container */
     var resizeCanvas = function() {
-        
+
         var width, height;
 
-        if ( !!self.elements.externalWindow ) {
+        if (!!self.elements.externalWindow) {
 
             var windowDimensions = {
-                width:self.elements.externalWindow.innerWidth,
-                height:self.elements.externalWindow.innerHeight
+                width: self.elements.externalWindow.innerWidth,
+                height: self.elements.externalWindow.innerHeight
             };
 
             var computedHeight = windowDimensions.width / _aspectRatio;
 
-            if ( computedHeight <= windowDimensions.height ) {
+            if (computedHeight <= windowDimensions.height) {
                 width = windowDimensions.width;
                 height = computedHeight;
             } else {
@@ -292,11 +301,10 @@ var AccPackAnnotation = (function() {
             }
 
         } else {
-            width = $(self.elements.canvasContainer).width();
-            height = $(self.elements.canvasContainer).height();
+            var el = self.elements.absoluteParent || self.elements.canvasContainer;
+            width = $(el).width();
+            height = $(el).height();
         }
-        
-        
 
         $(self.elements.canvasContainer).css({
             width: width,
@@ -323,9 +331,10 @@ var AccPackAnnotation = (function() {
     var end = function() {
         _removeToolbar();
         delete self.canavs;
-        delete self.elements;
         if (!!self.elements.externalWindow) {
             self.elements.externalWindow.close();
+            self.elements.externalWindow;
+            self.elements.resizeSubject;
         }
         _triggerEvent('endAnnotation');
     };
@@ -341,7 +350,6 @@ var AccPackAnnotation = (function() {
     return Annotation;
 
 })();
-
 var Communication = (function() {
 
     var self;
@@ -388,22 +396,20 @@ var Communication = (function() {
 
     var _triggerEvent;
     var _registerEvents = function() {
-        
+
         var events = [
             'startCall',
             'endCall',
-            'streamCreated',
-            'streamDestroyed',
             'startViewingSharedScreen',
             'endViewingSharedScreen'
         ];
-        
+
         _triggerEvent = self.accPack.registerEvents(events);
     };
 
     var _setEventListeners = function() {
-        self.session.on('streamCreated', _handleStreamCreated); //participant joined the call
-        self.session.on('streamDestroyed', _handleStreamDestroyed); //participant left the call
+        self.accPack.registerEventListener('streamCreated', _handleStreamCreated);
+        self.accPack.registerEventListener('streamDestroyed', _handleStreamDestroyed);
     };
 
     var _logAnalytics = function() {
@@ -417,7 +423,10 @@ var Communication = (function() {
 
         var _otkanalytics = new OTKAnalytics(_otkanalyticsData);
 
-        var _loggingData = { action: 'one-to-one-sample-app', variation: '' };
+        var _loggingData = {
+            action: 'one-to-one-sample-app',
+            variation: ''
+        };
 
         _otkanalytics.logEvent(_loggingData);
     };
@@ -474,7 +483,7 @@ var Communication = (function() {
         } else {
             var options = self.options.localCallProperties
         }
-        
+
         var videoContainer = stream.videoType === 'screen' ? 'videoHolderSharedScreen' : 'videoHolderBig';
 
         var subscriber = self.session.subscribe(stream,
@@ -490,36 +499,16 @@ var Communication = (function() {
                     }
                     _handleError(error, handler);
                 } else {
-                    self.streams.push(subscriber);
-                    console.log('Subscriber added.');
-                    var handler = self.onSubscribe;
-                    if (handler && typeof handler === 'function') {
-                        handler(stream);
-                    }
 
+                    self.streams.push(subscriber);
+
+                    if (stream.videoType === 'screen' && !!self.options.annotation) {
+                        _triggerEvent('startViewingSharedScreen', subscriber);
+                    }
                 }
             });
 
         self.subscriber = subscriber;
-        
-        if (stream.videoType === 'screen' && !!self.options.annotation) {
-            _triggerEvent('startViewingSharedScreen', subscriber);
-        }
-        
-        
-        // if (stream.videoType === 'screen' && !!self.options.annotation) {
-        //     _triggerEvent('startViewingSharedScreen');
-        //     self.accPack.setupAnnotation()
-        //         .then(function() {
-        //             var $canvasContainer = $('#videoHolderBig')[0];
-        //             $($canvasContainer).width(1000);
-        //             $($canvasContainer).height(625);
-        //             self.accPack.linkAnnotation(subscriber, $canvasContainer);
-        //         });
-
-        // }
-
-
     };
 
     var _unsubscribeStreams = function() {
@@ -530,18 +519,11 @@ var Communication = (function() {
 
     // Private handlers
     var _handleStart = function(event) {
-        var handler = self.onStarted;
-        if (handler && typeof handler === 'function') {
-            handler();
-        }
+
     };
 
     var _handleEnd = function(event) {
-        console.log('Call ended');
-        var handler = self.onEnded;
-        if (handler && typeof handler === 'function') {
-            handler();
-        }
+
     };
 
     var _handleStreamCreated = function(event) {
@@ -553,8 +535,6 @@ var Communication = (function() {
             _subscribeToStream(event.stream);
         }
 
-        _triggerEvent('streamCreated', event);
-
     };
 
     var _handleStreamDestroyed = function(event) {
@@ -565,17 +545,12 @@ var Communication = (function() {
         var index = self.subscribers.indexOf(event.stream);
         self.subscribers.splice(index, 1);
 
-        
         if (streamDestroyedType === 'camera') {
-            
-            _triggerEvent('streamDestroyed', event);
             self.subscriber = null; //to review
             self._remoteParticipant = null;
 
         } else if (streamDestroyedType === 'screen') {
             _triggerEvent('endViewingSharedScreen');
-            self.onScreenSharingEnded();
-            self._endAnnotation()
         } else {
             _.each(self.subscribers, function(subscriber) {
                 _subscribeToStream(subscriber);
@@ -587,14 +562,11 @@ var Communication = (function() {
         var userData = {
             userId: 'event.stream.connectionId'
         };
-        // if (handler && typeof handler === 'function') {
-        //     handler(_.extend({}, event, userData)); //TODO: it should be the user (userId and username)
-        // }
+
     };
 
     var _handleLocalPropertyChanged = function(event) {
-        console.log('Local property changed');
-        var handler = self.onEnableLocalMedia;
+
         if (event.changedProperty === 'hasAudio') {
             var eventData = {
                 property: 'Audio',
@@ -606,15 +578,7 @@ var Communication = (function() {
                 enabled: event.newValue
             }
         }
-        var handler = self.onEnableLocalMedia;
-        if (handler && typeof handler === 'function') {
-            handler(eventData);
-        }
-    };
-
-    var _handleRemotePropertyChanged = function(data) {
-        //TODO
-    };
+    }
 
     var _handleError = function(error, handler) {
         if (handler && typeof handler === 'function') {
@@ -625,15 +589,6 @@ var Communication = (function() {
     // Prototype methods
     CommunicationComponent.prototype = {
         constructor: Communication,
-        onStarted: function() {},
-        onEnded: function() {},
-        onSubscribe: function() {},
-        onStreamCreated: function() {},
-        onStreamDestroyed: function() {},
-        onEnableLocalMedia: function(event) {},
-        onEnableRemoteMedia: function(event) {},
-        onError: function(error) {},
-
         start: function(recipient) {
             //TODO: Managing call status: calling, startCall,...using the recipient value
 
@@ -679,11 +634,17 @@ var Communication = (function() {
         },
         enableRemoteVideo: function(enabled) {
             self.subscriber.subscribeToVideo(enabled);
-            self.onEnableRemoteMedia({ media: 'video', enabled: enabled });
+            self.onEnableRemoteMedia({
+                media: 'video',
+                enabled: enabled
+            });
         },
         enableRemoteAudio: function(enabled) {
             self.subscriber.subscribeToAudio(enabled);
-            self.onEnableRemoteMedia({ media: 'audio', enabled: enabled });
+            self.onEnableRemoteMedia({
+                media: 'audio',
+                enabled: enabled
+            });
         }
     };
 
@@ -708,8 +669,6 @@ var AccPackScreenSharing = (function() {
   var ScreenSharing = function(options) {
 
     self = this;
-
-    console.log('options passed to screensharing things', options);
 
     // Check for required options
     _validateOptions(options);
@@ -741,20 +700,18 @@ var AccPackScreenSharing = (function() {
 
   var _triggerEvent;
   var _registerEvents = function() {
-    var events = ['startSharingScreen', 'endSharingScreen'];
+    var events = ['startScreenSharing', 'endScreenSharing'];
     _triggerEvent = self.accPack.registerEvents(events);
   };
 
   var _toggleScreenSharingButton = function(show) {
-    $(screenSharingControl)[show ? 'show' : 'hide']();
+    $('#startScreenSharing')[show ? 'show' : 'hide']();
   };
 
   var _addScreenSharingListeners = function() {
-
     $('#startScreenSharing').on('click', function() {
       !!_active ? end() : start();
     });
-
 
     /** Handlers for screensharing extension modal */
     $('#btn-install-plugin-chrome').on('click', function() {
@@ -782,8 +739,21 @@ var AccPackScreenSharing = (function() {
       $('#dialog-form-ff').toggle();
     });
 
-    self.accPack.registerEventListener('startCall', _.partial(_toggleScreenSharingButton, true));
-    self.accPack.registerEventListener('endCall', _.partial(_toggleScreenSharingButton, false));
+    self.accPack.registerEventListener('startCall', function(){
+      _toggleScreenSharingButton(true);
+    });
+
+    self.accPack.registerEventListener('endCall', function() {
+      if ( _active ) {
+        end(true);
+      } else {
+        _toggleScreenSharingButton(false);
+      }
+    });
+    
+    self.accPack.registerEventListener('annotationWindowClosed', function() {
+      end();
+    });
   };
 
   var _validateExtension = function(extensionID, extensionPathFF) {
@@ -931,41 +901,22 @@ var AccPackScreenSharing = (function() {
           }
         }
       } else {
-        addPublisherEventListeners();
         self.accPack.linkAnnotation(self.publisher, annotationContainer, self.annotationWindow);
-        _triggerEvent('startSharingScreen');
+        _active = true;
+        _triggerEvent('startScreenSharing');
 
       }
     });
 
-    /** 
-     * Stop publishing the screen
-     */
-    var _stopPublishing = function() {
+  };
 
-      self.session.unpublish(self.publisher);
-      self.publisher = null;
-
-    };
-
-    var addPublisherEventListeners = function() {
-
-      self.publisher.on('streamCreated', function(event) {
-        self._handleStartScreenSharing(event)
-      });
-
-      self.publisher.on('streamDestroyed', function(event) {
-        console.log('stream destroyed called');
-        self._handleEndScreenSharing(event);
-      });
-
-      /*this.publisher.on("accessDenied", function() {
-          self._unpublish('screen');
-          alert("Permission to use the camera and microphone are disabled");
-      })*/
-    };
-
-  }
+  /** 
+   * Stop publishing the screen
+   */
+  var _stopPublishing = function() {
+    self.session.unpublish(self.publisher);
+    self.publisher = null;
+  };
 
   var extensionAvailable = function(extensionID, extensionPathFF) {
 
@@ -999,12 +950,8 @@ var AccPackScreenSharing = (function() {
     $(parent).append(screenSharingView);
   };
 
-  var _endScreenSharing = function() {
-    console.log('end screensharing');
-    // self.widget.end();
-  };
-
   var active = function(callActive) {
+    console.log('does active ever get called?');
     $(screenSharingControl)[callActive ? 'show' : 'hide']();
   };
 
@@ -1018,9 +965,11 @@ var AccPackScreenSharing = (function() {
 
   };
 
-  var end = function() {
+  var end = function(callEnded) {
     _stopPublishing();
-    _triggerEvent('endSharingScreen');
+    _active = false;
+    callEnded && _toggleScreenSharingButton(false);
+    _triggerEvent('endScreenSharing');
   };
 
   ScreenSharing.prototype = {
@@ -1029,8 +978,6 @@ var AccPackScreenSharing = (function() {
     extensionAvailable: extensionAvailable,
     start: start,
     end: end,
-    onStarted: function() {},
-    onEnded: function() {},
     onError: function(error) {
       console.log('OT: Screen sharing error: ', error);
     }

@@ -15,7 +15,7 @@
         alert('Something went wrong: You must pass an OpenTok annotation toolbar object into the window.')
     } else {
         opener = window.opener;
-        opener.onbeforeunload = function(){ window.close(); };
+        window.onbeforeunload = window.triggerCloseEvent;
     }
 
     var createContainerElements = function () {
