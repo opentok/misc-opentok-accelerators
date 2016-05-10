@@ -91,7 +91,11 @@ var AccPackScreenSharing = (function() {
     });
 
     self.accPack.registerEventListener('endCall', function() {
-      end(true);
+      if ( _active ) {
+        end(true);
+      } else {
+        _toggleScreenSharingButton(false);
+      }
     });
     
     self.accPack.registerEventListener('annotationWindowClosed', function() {
