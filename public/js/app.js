@@ -8,9 +8,9 @@ var app = (function() {
   var _triggerEvent;
 
   var _options = {
-    apiKey: '',
-    sessionId: '',
-    token: '',
+    apiKey: '100',
+    sessionId: '2_MX4xMDB-fjE0NTg3NTI3NTc0MDB-dkdPT3hVT1RMRm85MkFUMVhBR0NXbTJufn4',
+    token: 'T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9OTI3YTJkMTZhZjNmYmVmYzk5MDI0Y2FjODg0NTYwZjM3NWI5ODE0MTpzZXNzaW9uX2lkPTJfTVg0eE1EQi1makUwTlRnM05USTNOVGMwTURCLWRrZFBUM2hWVDFSTVJtODVNa0ZVTVZoQlIwTlhiVEp1Zm40JmNyZWF0ZV90aW1lPTE0NjEzNTU2NTMmcm9sZT1wdWJsaXNoZXImbm9uY2U9MTQ2MTM1NTY1My4zMTkxMjg3NDg1ODQ5JmV4cGlyZV90aW1lPTE0NjM5NDc2NTM=',
     user: {
       id: 1,
       name: 'User1'
