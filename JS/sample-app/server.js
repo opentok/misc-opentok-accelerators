@@ -27,6 +27,10 @@ app.get('/', function(req, res) {
     res.render('index.html');
 });
 
+app.get('/google721749a8bd473661.html', function() {
+  res.render('google721749a8bd473661.html')
+});
+
 app.get('*', function(req, res){
   res.redirect('/');
 });
