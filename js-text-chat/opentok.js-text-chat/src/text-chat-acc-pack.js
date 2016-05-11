@@ -21,8 +21,6 @@ var TextChatAccPack = (function () {
     variationError: 'Failure',
     variationSuccess: 'Success'
   };
-  
-  
 
   // Constructor
   var TextChatAccPack = function (options) {
@@ -93,7 +91,7 @@ var TextChatAccPack = (function () {
       _sendTxtMessage(composer.value);
     };
     //add INITIALIZE success log event
-    _otkanalytics.logEvent(logEventData.actionInitialize, logEventData.variationSuccess);
+    _log(logEventData.actionInitialize, logEventData.variationSuccess);
   };
 
   var _shouldAppendMessage = function (data) {
@@ -125,7 +123,7 @@ var TextChatAccPack = (function () {
     };
 
     //add SEND_MESSAGE attempt log event
-    _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationAttempt);
+    _log(logEventData.actionSendMessage, logEventData.variationAttempt);
 
     console.log(acceleratorPack.getSession());
     if (recipient === undefined) {
@@ -136,8 +134,8 @@ var TextChatAccPack = (function () {
         function (error) {
           if (error) {
             error.message = "Error sending a message. ";
-            //add SEND_MESSAGE attempt log event
-            _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationFailure);
+            //add SEND_MESSAGE failure log event
+            _log(logEventData.actionSendMessage, logEventData.variationFailure);
             if (error.code === 413) {
               var errorStr = error.message + "The chat message is over size limit."
               error.message = errorStr;
@@ -151,8 +149,8 @@ var TextChatAccPack = (function () {
             deferred.reject(error);
           } else {
             console.log('Message sent');
-            //add SEND_MESSAGE attempt log event
-            _otkanalytics.logEvent(logEventData.actionSendMessage, logEventData.variationSuccess);
+            //add SEND_MESSAGE success log event
+            _log(logEventData.actionSendMessage, logEventData.variationSuccess);
             deferred.resolve(messageData);
           }
         }
@@ -190,7 +188,7 @@ var TextChatAccPack = (function () {
     lastMessage = data;
   };
   var _onIncomingMessage = function (signal) {
-    _otkanalytics.logEvent(logEventData.actionReceiveMessage, logEventData.variationAttempt);
+    _log(logEventData.actionReceiveMessage, logEventData.variationAttempt);
     if(typeof signal.data === 'string' ){
       signal.data = JSON.parse(signal.data);
     }
@@ -200,7 +198,7 @@ var TextChatAccPack = (function () {
       _renderChatMessage(signal.data.sender.id, signal.data.sender.alias, signal.data.text, signal.data.sentOn);
     }
     lastMessage = signal.data;
-    _otkanalytics.logEvent(logEventData.actionReceiveMessage, logEventData.variationSuccess);
+    _log(logEventData.actionReceiveMessage, logEventData.variationSuccess);
   };
   var _handleMessageError = function (error) {
     console.log(error.code, error.message);
