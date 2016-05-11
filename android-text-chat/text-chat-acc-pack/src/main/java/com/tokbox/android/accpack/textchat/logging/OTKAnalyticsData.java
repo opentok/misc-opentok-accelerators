@@ -21,7 +21,7 @@ public class OTKAnalyticsData {
     private String systemVersion; //optional
     private String systemName; //optional
 
-    private int clientSystemTime; //optional
+    private long clientSystemTime=0; //optional
 
     private String client; //optional
 
@@ -88,6 +88,12 @@ public class OTKAnalyticsData {
 
     public String getSource() { return source; }
 
+
+    public void setClientSystemTime(long clientSystemTime) {
+        this.clientSystemTime = clientSystemTime;
+    }
+
+
     public OTKAnalyticsData(Builder builder){
 
         this.logVersion = builder.logVersion;
@@ -124,7 +130,7 @@ public class OTKAnalyticsData {
             client = "native";
         }
         if ( this.clientSystemTime ==  0 ){
-            this.clientSystemTime = (int)System.currentTimeMillis();
+            this.clientSystemTime = System.currentTimeMillis();
         }
         if ( this.systemName == null || this.systemName.isEmpty() ){
             this.systemName = "Android OS";
@@ -148,7 +154,7 @@ public class OTKAnalyticsData {
         private String systemVersion; //optional
         private String systemName; //optional
 
-        private int clientSystemTime; //optional
+        private long clientSystemTime=0; //optional
 
         private String action; //optional
         private String variation; //optional
@@ -180,7 +186,7 @@ public class OTKAnalyticsData {
         }
 
         public Builder clientSystemTime(long clientSystemTime){
-            this.clientSystemTime = (int)clientSystemTime;
+            this.clientSystemTime = clientSystemTime;
             return this;
         }
 

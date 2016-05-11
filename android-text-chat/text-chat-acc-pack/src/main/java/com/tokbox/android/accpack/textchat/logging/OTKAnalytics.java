@@ -46,6 +46,7 @@ public class OTKAnalytics {
         if (data != null && eventAction != null && eventVariation != null && !eventAction.isEmpty()) {
             this.data.setAction(eventAction);
             this.data.setVariation(eventVariation);
+            this.data.setClientSystemTime(System.currentTimeMillis());
             try {
                 String jsonInString = mapper.writeValueAsString(this.data);
                 sendDataStr(jsonInString);
@@ -84,6 +85,8 @@ public class OTKAnalytics {
                     byte[] jsonBytes = jsonStr.getBytes("UTF-8");
                     conn.getOutputStream().write(jsonBytes);
                     conn.getOutputStream().flush();
+
+                    Log.i(LOGTAG, "Response code: "+conn.getResponseCode());
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();

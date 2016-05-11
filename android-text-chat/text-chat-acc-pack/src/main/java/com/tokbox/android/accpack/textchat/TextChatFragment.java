@@ -542,7 +542,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             if (text == null || text.isEmpty()){
                 onError("Message format is wrong. Text is empty or null");
                 if(connection.getConnectionId().equals(mSession.getConnection().getConnectionId()) ) {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_SEND_MESSAGE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+                    addLogEvent(OpenTokConfig.LOG_ACTION_SEND_MESSAGE, OpenTokConfig.LOG_VARIATION_ERROR);
                 }
                 else {
                     addLogEvent(OpenTokConfig.LOG_ACTION_RECEIVE_MESSAGE, OpenTokConfig.LOG_VARIATION_ERROR);
