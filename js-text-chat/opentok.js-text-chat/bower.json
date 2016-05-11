@@ -2,7 +2,7 @@
   "name": "opentok-text-chat",
   "version": "0.1.0",
   "authors": [
-    "Salvador de la Puente <salva@unoyunodiez.com>"
+    "Tokbox"
   ],
   "description": "A text chat component for OpenTok",
   "main": "dist/opentok-textchat.js",

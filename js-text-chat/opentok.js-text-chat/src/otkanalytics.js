@@ -36,7 +36,7 @@ var OTKAnalytics = (function() {
             self.analyticsData.guid  = _generateUuid();
         }
         if ( self.analyticsData.clientSystemTime == 0){
-            self.analyticsData.clientSystemTime  = new Date().getTime();;
+            self.analyticsData.clientSystemTime  = new Date().getTime();
         }    
     };
 
@@ -82,7 +82,7 @@ var OTKAnalytics = (function() {
             
             this.analyticsData.action = data.action;
             this.analyticsData.variation = data.variation;
-
+            this.analyticsData.clientSystemTime = new Date().getTime();
             //check values
             _checkData.call(this);
 
