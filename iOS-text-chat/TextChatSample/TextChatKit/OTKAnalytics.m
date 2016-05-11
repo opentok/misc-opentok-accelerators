@@ -83,20 +83,26 @@ NSString *const kLoggingUrl = @"https://hlg.tokbox.com/prod/logging/ClientEvent"
         _deviceModel = [NSString stringWithCString:systemInfo.machine
                                                encoding:NSUTF8StringEncoding];
         
-        NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-        NSInteger time = round(timeInMiliseconds);
-        _clientSystemTime = time;
+        _clientSystemTime = [self getClientTime];
 
     }
     
     return self;
 }
 
+- (NSInteger) getClientTime {
+    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+    NSInteger time = round(timeInMiliseconds);
+
+    return time;
+}
+
 -(void)logEventAction:(NSString *)action variation:(NSString *) variation {
     
     _action = action;
     _variation = variation;
-    
+    _clientSystemTime = [self getClientTime];
+       
     NSDictionary *dictionary = @{
                                  @"sessionId" : _sessionId,
                                  @"connectionId" : _connectionId,
