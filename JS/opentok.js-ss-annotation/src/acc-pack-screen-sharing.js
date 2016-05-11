@@ -104,17 +104,17 @@ var AccPackScreenSharing = (function() {
   };
 
   var _validateExtension = function(extensionID, extensionPathFF) {
-
+    
     if (OT.$.browser() === 'Chrome') {
       if (!extensionID || !extensionID.length) {
         throw new Error('Error starting the screensharing. Chrome extensionID required');
       } else {
+        
         $('<link/>', {
           rel: 'chrome-webstore-item',
           href: ['https://chrome.google.com/webstore/detail/', extensionID].join('')
         }).appendTo('head');
 
-        OT.registerScreenSharingExtension('chrome', extensionID);
       }
     }
 
@@ -273,6 +273,8 @@ var AccPackScreenSharing = (function() {
       alert("Screensharing only works under 'https', please add 'https://' in front of your debugger url.");
       deferred.reject('https required');
     }
+    
+    OT.registerScreenSharingExtension('chrome', extensionID, 2);
 
     OT.checkScreenSharingCapability(function(response) {
       console.log('checkScreenSharingCapability', response);
