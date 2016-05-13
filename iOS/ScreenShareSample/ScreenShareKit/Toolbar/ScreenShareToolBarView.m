@@ -9,15 +9,29 @@
 #import "ScreenShareToolbarView.h"
 #import "ScreenShareColorPickerView.h"
 
+#import "ScreenShareToolbarView_UserInterfaces.h"
+#import "ScreenShareToolbarView+Animation.h"
+
 @interface ScreenShareToolbarView()
-@property (weak, nonatomic) IBOutlet UIButton *annotateButton;
-@property (weak, nonatomic) IBOutlet ScreenShareColorPickerViewButton *colorPickerButton;
-@property (weak, nonatomic) IBOutlet UIButton *textButton;
-@property (weak, nonatomic) IBOutlet UIButton *screenShotButton;
-@property (weak, nonatomic) IBOutlet UIButton *eraseButton;
 @end
 
 @implementation ScreenShareToolbarView
+
+- (ScreenShareColorPickerView *)colorPickerView {
+    if (!_colorPickerView) {
+        _colorPickerView = [ScreenShareColorPickerView colorPickerView];
+    }
+    return _colorPickerView;
+}
+
+- (UIView *)selectionShadowView {
+    if (!_selectionShadowView) {
+        _selectionShadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) / 5, CGRectGetHeight([UIScreen mainScreen].bounds))];
+        _selectionShadowView.backgroundColor = [UIColor blackColor];
+        _selectionShadowView.alpha = 0.8;
+    }
+    return _selectionShadowView;
+}
 
 + (instancetype)screenShareToolbarView {
     
@@ -26,6 +40,17 @@
                                                                   owner:nil
                                                                 options:nil] lastObject];
     return toolbarView;
+}
+
+- (IBAction)toolbarButtonPressed:(UIButton *)sender {
+    [self moveSelectionShadowViewTo:sender animated:YES];
+    
+    if (sender == self.toolbarButtons[1]) {
+        [self addColorPickerViewWithAnimation:YES];
+    }
+    else {
+        [self removeColorPickerViewWithAnimation:YES];
+    }
 }
 
 @end

@@ -1,0 +1,102 @@
+//
+//  ScreenShareToolbarView+Animation.m
+//  ScreenShareSample
+//
+//  Created by Xi Huang on 5/10/16.
+//  Copyright © 2016 Lucas Huang. All rights reserved.
+//
+
+#import "ScreenShareToolbarView+Animation.h"
+#import "ScreenShareToolbarView_UserInterfaces.h"
+
+static const CGFloat HeightOfColorPicker = 50.0f;
+static const CGFloat GapOfToolBarAndColorPicker = 10.0f;
+
+@implementation ScreenShareToolbarView (Animation)
+
+- (void)moveSelectionShadowViewTo:(UIButton *)sender
+                         animated:(BOOL)animated {
+    
+    [self setUserInteractionEnabled:NO];
+    if (![sender isKindOfClass:[UIButton class]]) return;
+    
+    CGRect holderViewFrame = sender.superview.frame;
+    CGRect hodlerViewBounds = sender.superview.bounds;
+    CGPoint holderViewCenter = sender.superview.center;
+    if (![self.subviews containsObject:self.selectionShadowView]) {
+        
+        if (animated) {
+            self.selectionShadowView.frame = CGRectMake(holderViewCenter.x, holderViewCenter.y, 0, 0);
+            [self insertSubview:self.selectionShadowView atIndex:0];
+            [UIView animateWithDuration:1.0 animations:^(){
+                self.selectionShadowView.frame = CGRectMake(holderViewFrame.origin.x, holderViewFrame.origin.y, CGRectGetWidth(hodlerViewBounds), CGRectGetHeight(hodlerViewBounds));
+            }];
+        }
+        else {
+            self.selectionShadowView.frame = CGRectMake(holderViewFrame.origin.x, holderViewFrame.origin.y, CGRectGetWidth(hodlerViewBounds), CGRectGetHeight(hodlerViewBounds));
+            [self insertSubview:self.selectionShadowView atIndex:0];
+        }
+    }
+    else {
+        
+        if (animated) {
+            
+            [UIView animateWithDuration:1.0 animations:^(){
+                self.selectionShadowView.frame = CGRectMake(holderViewFrame.origin.x, holderViewFrame.origin.y, CGRectGetWidth(hodlerViewBounds), CGRectGetHeight(hodlerViewBounds));
+            }];
+        }
+        else {
+            
+            self.selectionShadowView.frame = CGRectMake(holderViewFrame.origin.x, holderViewFrame.origin.y, CGRectGetWidth(hodlerViewBounds), CGRectGetHeight(hodlerViewBounds));
+        }
+    }
+    [self setUserInteractionEnabled:YES];
+}
+
+- (void)addColorPickerViewWithAnimation:(BOOL)animated {
+    
+    CGRect selfFrame = self.frame;
+    CGRect selfBounds = self.bounds;
+    if (animated) {
+//        ScreenShareColorPickerViewButton *colorPickerButton = self.toolbarButtons[1];
+//        CGRect buttonHolderViewFrame = colorPickerButton.superview.frame;
+//        CGPoint animationStartingPoint = CGPointMake(buttonHolderViewFrame.origin.x + CGRectGetWidth(buttonHolderViewFrame) / 2, CGRectGetHeight([UIScreen mainScreen].bounds) - CGRectGetHeight(buttonHolderViewFrame));
+        
+//        self.colorPickerView.frame = CGRectMake(animationStartingPoint.x, animationStartingPoint.y, 2, 2);
+        
+        self.colorPickerView.frame = CGRectMake(selfFrame.origin.x, selfFrame.origin.y, CGRectGetWidth(self.bounds), HeightOfColorPicker);
+        [self.superview insertSubview:self.colorPickerView belowSubview:self];
+        
+        [UIView animateWithDuration:1.0 animations:^(){
+            
+            CGFloat newY = selfFrame.origin.y - HeightOfColorPicker - GapOfToolBarAndColorPicker;
+            self.colorPickerView.frame = CGRectMake(selfFrame.origin.x, newY, CGRectGetWidth(self.bounds), HeightOfColorPicker);
+        }];
+    }
+    else {
+        
+        CGFloat newY = selfFrame.origin.y - HeightOfColorPicker - GapOfToolBarAndColorPicker;
+        self.colorPickerView.frame = CGRectMake(0, newY, CGRectGetWidth(selfBounds), HeightOfColorPicker);
+        [self.superview addSubview:self.colorPickerView];
+    }
+}
+
+- (void)removeColorPickerViewWithAnimation:(BOOL)animated {
+    
+    if (animated) {
+        CGRect colorPickerViewFrame = self.colorPickerView.frame;
+        [UIView animateWithDuration:1.0 animations:^(){
+            
+            CGFloat newY = colorPickerViewFrame.origin.y + HeightOfColorPicker + GapOfToolBarAndColorPicker;
+            self.colorPickerView.frame = CGRectMake(0, newY, CGRectGetWidth(colorPickerViewFrame), HeightOfColorPicker);
+        } completion:^(BOOL finished){
+            
+            [self.colorPickerView removeFromSuperview];
+        }];
+    }
+    else {
+        [self.colorPickerView removeFromSuperview];
+    }
+}
+
+@end

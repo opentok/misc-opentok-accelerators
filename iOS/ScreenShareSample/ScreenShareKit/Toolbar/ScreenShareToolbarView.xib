@@ -22,6 +22,9 @@
                                 <constraint firstAttribute="width" secondItem="NSj-AE-RUJ" secondAttribute="height" multiplier="39:44" id="5gh-lp-4Lk"/>
                             </constraints>
                             <state key="normal" image="annotate"/>
+                            <connections>
+                                <action selector="toolbarButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="zvA-tH-axn"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -40,6 +43,9 @@
                                 <constraint firstAttribute="width" secondItem="zhi-va-AI9" secondAttribute="height" multiplier="35:41" id="H70-23-yQZ"/>
                             </constraints>
                             <state key="normal" image="text"/>
+                            <connections>
+                                <action selector="toolbarButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="PkT-yD-yfc"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -58,6 +64,9 @@
                                 <constraint firstAttribute="width" secondItem="GLu-Rj-btx" secondAttribute="height" multiplier="49:45" id="KYj-gM-ZqZ"/>
                             </constraints>
                             <state key="normal" image="erase"/>
+                            <connections>
+                                <action selector="toolbarButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="a5c-Lf-mcG"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -76,6 +85,9 @@
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="KwO-fm-eyn" secondAttribute="height" multiplier="1:1" id="x28-gr-d6Q"/>
                             </constraints>
+                            <connections>
+                                <action selector="toolbarButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="fpl-p2-ftm"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -94,6 +106,9 @@
                                 <constraint firstAttribute="width" secondItem="NY8-hd-4re" secondAttribute="height" multiplier="25:21" id="kNd-nQ-OnA"/>
                             </constraints>
                             <state key="normal" image="screenshot"/>
+                            <connections>
+                                <action selector="toolbarButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="m3w-rV-BXe"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -130,11 +145,11 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="annotateButton" destination="NSj-AE-RUJ" id="S2N-SZ-KT9"/>
-                <outlet property="colorPickerButton" destination="KwO-fm-eyn" id="hyb-GD-3Eh"/>
-                <outlet property="eraseButton" destination="GLu-Rj-btx" id="ndG-EJ-kwm"/>
-                <outlet property="screenShotButton" destination="NY8-hd-4re" id="ebR-oc-n76"/>
-                <outlet property="textButton" destination="zhi-va-AI9" id="Qhy-kP-abZ"/>
+                <outletCollection property="toolbarButtons" destination="NSj-AE-RUJ" id="XSe-Ph-MS7"/>
+                <outletCollection property="toolbarButtons" destination="KwO-fm-eyn" id="tY3-nl-f0P"/>
+                <outletCollection property="toolbarButtons" destination="zhi-va-AI9" id="75C-2a-X8i"/>
+                <outletCollection property="toolbarButtons" destination="NY8-hd-4re" id="nNE-fY-ikP"/>
+                <outletCollection property="toolbarButtons" destination="GLu-Rj-btx" id="82W-sX-mcn"/>
             </connections>
             <point key="canvasLocation" x="145" y="438"/>
         </view>

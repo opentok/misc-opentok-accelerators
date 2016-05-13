@@ -68,7 +68,7 @@
     [_scrollView addSubview:_scrollContentView];
     
     // annotation view
-    _annotationView = [[ScreenShareAnnotationView alloc] initWithFrame:deviceBounds strokeColor:[UIColor blackColor]];
+    _annotationView = [[ScreenShareAnnotationView alloc] initWithFrame:deviceBounds strokeColor:strokeColor];
     [_scrollContentView addSubview:_annotationView];
 }
 
