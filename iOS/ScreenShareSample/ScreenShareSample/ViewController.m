@@ -34,8 +34,7 @@
     self.shareView.frame = CGRectMake(0, 50, CGRectGetWidth(self.shareView.bounds), CGRectGetHeight(self.shareView.bounds));
     [self.view addSubview:self.shareView];
     
-    self.toolbarView = [ScreenShareToolbarView screenShareToolbarView];
-    self.toolbarView.frame = CGRectMake(0, CGRectGetHeight([UIScreen mainScreen].bounds) - 50, CGRectGetWidth([UIScreen mainScreen].bounds), 50);
+    self.toolbarView = [[ScreenShareToolbarView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight([UIScreen mainScreen].bounds) - 50, CGRectGetWidth([UIScreen mainScreen].bounds), 50)];
     [self.view addSubview:self.toolbarView];
 }
 

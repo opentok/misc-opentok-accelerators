@@ -8,9 +8,7 @@
 
 #import "ScreenShareToolbarView+Animation.h"
 #import "ScreenShareToolbarView_UserInterfaces.h"
-
-static const CGFloat HeightOfColorPicker = 50.0f;
-static const CGFloat GapOfToolBarAndColorPicker = 10.0f;
+#import "Constants.h"
 
 @implementation ScreenShareToolbarView (Animation)
 
@@ -64,7 +62,6 @@ static const CGFloat GapOfToolBarAndColorPicker = 10.0f;
         
 //        self.colorPickerView.frame = CGRectMake(animationStartingPoint.x, animationStartingPoint.y, 2, 2);
         
-        self.colorPickerView.frame = CGRectMake(selfFrame.origin.x, selfFrame.origin.y, CGRectGetWidth(self.bounds), HeightOfColorPicker);
         [self.superview insertSubview:self.colorPickerView belowSubview:self];
         
         [UIView animateWithDuration:1.0 animations:^(){

@@ -11,7 +11,5 @@
 @interface ScreenShareToolbarView ()
 
 @property (nonatomic) UIView *selectionShadowView;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *toolbarButtons;
-
 @property (nonatomic) ScreenShareColorPickerView *colorPickerView;
 @end
