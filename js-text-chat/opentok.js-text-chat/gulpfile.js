@@ -11,6 +11,12 @@ gulp.task('js', function () {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('js-dev', function () {
+  return gulp.src('src/*')
+    .pipe(concat('text-chat-acc-pack.js'))
+    .pipe(gulp.dest('dist'));
+});
+
 
 gulp.task('css', function () {
   return gulp.src('css/theme.css')
