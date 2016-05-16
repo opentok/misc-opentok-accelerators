@@ -1,108 +1,78 @@
 var app = (function() {
 
-  // Sample component
+  // Modules
+  var _accPack;
   var _communication;
-  var _acceleratorPack;
-  var _otkanalyticsData;
-  var _loggingData;
 
-  var _options = {
-    apiKey: '',
-    sessionId: '',
-    token: '',
-    publishers: {},
-    subscribers: [],
-    streams: [],
-    localCallProperties: {
-      insertMode: 'append',
-      width: '100%',
-      height: '100%',
-      showControls: false,
-      style: {
-        buttonDisplayMode: 'off'
-      }
-    },
-    //vars for the analytics logs. Internal use
-    clientVersion: 'js-vsol-0.9',
-    source: 'one_to_one_textchat_sample_app',
-    actionInitialize: 'initialize', 
-    actionStartComm: 'start_comm',
-    actionEndComm: 'end_comm',
-    variationAttempt: 'Attempt',
-    variationError: 'Failure',
-    variationSuccess: 'Success'
-  };
+  // OpenTok session
+  var _session;
 
-  var _communicationElements = {
-    startEndCall: document.getElementById('callActive'),
-    localVideo: document.getElementById('videoHolderSmall'),
-    remoteVideo: document.getElementById('videoHolderBig'),
-    remoteControls: document.getElementById('remoteControls'),
-    enableLocalAudio: document.getElementById('enableLocalAudio'),
-    enableLocalVideo: document.getElementById('enableLocalVideo'),
-    enableRemoteAudio: document.getElementById('enableRemoteAudio'),
-    enableRemoteVideo: document.getElementById('enableRemoteVideo'),
-    enableTextChat: document.getElementById('enableTextChat')
-  };
-
-  var _communicationProperties = {
-    callActive: false,
-    remoteParticipant: false,
+  // Application State
+  var _connected = false;
+  var _callActive = false;
+  var _remoteParticipant = false;
+  var _callProps = {
     enableLocalAudio: true,
     enableLocalVideo: true,
     enableRemoteAudio: true,
-    enableRemoteVideo: true
+    enableRemoteVideo: true,
   };
 
-  // DOM helper functions
-  var _show = function() {
-
-    elements = Array.prototype.slice.call(arguments);
-
-    elements.forEach(function(element) {
-      element.classList.remove('hidden');
-    });
+  // Options hash
+  var _options = {
+    apiKey: '45589022', // Replace with your OpenTok API key 
+    sessionId: '2_MX40NTU4OTAyMn5-MTQ2MzQyNDc1MTk1OX5OdFFweXJVVGZYRTg2VTh2MlhGU2Q3Nnl-fg', //Replace with a generated Session ID
+    token: 'T1==cGFydG5lcl9pZD00NTU4OTAyMiZzaWc9ZmIzZjgxOGQ5NDlmODQzM2IwYWJkOWIwMDU0YWNlOWVmYTYzYWE0NDpzZXNzaW9uX2lkPTJfTVg0ME5UVTRPVEF5TW41LU1UUTJNelF5TkRjMU1UazFPWDVPZEZGd2VYSlZWR1pZUlRnMlZUaDJNbGhHVTJRM05ubC1mZyZjcmVhdGVfdGltZT0xNDYzNDI0NzcwJm5vbmNlPTAuMTk2MjAyMDE4MDY1Mzc4MDcmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ2MzUxMTE3MA==', //Replace with a generated token
+    user: {
+      id: 1,
+      name: 'User1'
+    },
+    textChat: function() {
+      return {
+        sender: {
+          alias: 'user1',
+        },
+        limitCharacterMessage: 160,
+        controlsContainer: '#feedControls',
+        textChatContainer: '#chatContainer'
+      }
+    }
   };
 
-  var _hide = function() {
+  /** DOM Helper Methods */
+  var _makePrimaryVideo = function(element) {
+    $(element).addClass('primary-video');
+    $(element).removeClass('secondary-video');
+  }
 
-    elements = Array.prototype.slice.call(arguments);
-
-    elements.forEach(function(element) {
-      element.classList.add('hidden');
-    });
-  };
-
-  var _updateClassList = function(element, className, add) {
-    element.classList[add ? 'add' : 'remove'](className);
-  };
-
-  var _toggleClass = function(element, className) {
-    element.classList.toggle(className);
-  };
+  var _makeSecondaryVideo = function(element) {
+    $(element).removeClass('primary-video');
+    $(element).addClass('secondary-video');
+  }
 
   // Swap positions of the small and large video elements when participant joins or leaves call
   var _swapVideoPositions = function(type) {
 
     if (type === 'start' || type === 'joined') {
 
-      _toggleClass(_communicationElements.localVideo, 'secondary-video');
-      _toggleClass(_communicationElements.localVideo, 'primary-video');
-      _toggleClass(_communicationElements.remoteVideo, 'secondary-video');
-      _toggleClass(_communicationElements.remoteVideo, 'primary-video');
+      _makePrimaryVideo('#videoHolderBig');
+      _makeSecondaryVideo('#videoHolderSmall');
 
-      _show(_communicationElements.remoteControls);
+      /**
+       * The other participant may or may not have joined the call at this point.
+       */
+      if (!!_remoteParticipant) {
+        $('#remoteControls').show();
+        $('#videoHolderBig').show();
+      }
 
+    } else if ((type === 'end' && !!_remoteParticipant) || type === 'left') {
 
-    } else if (type === 'end' || type === 'left') {
+      _makePrimaryVideo('#videoHolderSmall');
+      _makeSecondaryVideo('#videoHolderBig');
 
-      _toggleClass(_communicationElements.remoteVideo, 'secondary-video');
-      _toggleClass(_communicationElements.remoteVideo, 'primary-video');
-      _toggleClass(_communicationElements.localVideo, 'secondary-video');
-      _toggleClass(_communicationElements.localVideo, 'primary-video');
-
-      _hide(_communicationElements.remoteControls);
-
+      $('#remoteControls').hide();
+      $('#videoHolderBig').hide();
     }
 
   };
@@ -110,46 +80,44 @@ var app = (function() {
   // Toggle local or remote audio/video
   var _toggleMediaProperties = function(type) {
 
-    _communicationProperties[type] = !_communicationProperties[type];
+    _callProps[type] = !_callProps[type];
 
-    _communication[type](_communicationProperties[type]);
+    _communication[type](_callProps[type]);
 
-    _updateClassList(_communicationElements[type], 'disabled', !_communicationProperties[type]);
+    $('#' + type).toggleClass('disabled');
 
   };
 
   var _addEventListeners = function() {
 
     // Call events
-    _communication.onParticipantJoined = function(event) {
+    _accPack.registerEventListener('streamCreated', function(event) {
 
-      // Not doing anything with the event
-      _communicationProperties.remoteParticipant = true;
-      _communicationProperties.callActive && _swapVideoPositions('joined');
+      if (event.stream.videoType === 'camera') {
+        _remoteParticipant = true;
+        _callActive && _swapVideoPositions('joined');
+      }
 
-    };
+    });
 
-    _communication.onParticipantLeft = function(event) {
-      // Not doing anything with the event
-      _communicationProperties.remoteParticipant = false;
-      _communicationProperties.callActive && _swapVideoPositions('left');
+    _accPack.registerEventListener('streamDestroyed', function(event) {
 
-    };
+      if (event.stream.videoType === 'camera') {
+        _remoteParticipant = false;
+        _callActive && _swapVideoPositions('left');
+      }
+
+    });
 
     // Start or end call
-    _communicationElements.startEndCall.onclick = _connectCall;
-
-    // Start or end text chat
-    _communicationElements.enableTextChat.onclick = function(){
-      _acceleratorPack.connectTextChat();
-    };
+    $('#callActive').on('click', _connectCall);
 
     // Click events for enabling/disabling audio/video
     var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
     controls.forEach(function(control) {
-      document.getElementById(control).onclick = function() {
-        _toggleMediaProperties(control);
-      };
+      $('#' + control).on('click', function() {
+        _toggleMediaProperties(control)
+      })
     });
   };
 
@@ -157,66 +125,72 @@ var app = (function() {
 
     // Start call
     _communication.start();
-    _communicationProperties.callActive = true;
-
+    _callActive = true;
 
     // Update UI
-    [_communicationElements.startEndCall, _communicationElements.localVideo].forEach(function(element) {
-      _updateClassList(element, 'active', true);
-    });
+    $('#callActive').addClass('active');
+    $('#videoHolderSmall').addClass('active');
 
-    _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo, _communicationElements.enableTextChat);
+    $('#enableLocalAudio').show();
+    $('#enableLocalVideo').show();
 
-    _communicationProperties.remoteParticipant && _swapVideoPositions('start');
+    _remoteParticipant && _swapVideoPositions('start');
   };
 
   var _endCall = function() {
 
     // End call
     _communication.end();
-    _communicationProperties.callActive = false;
+    _callActive = false;
 
     // Update UI
-    _toggleClass(_communicationElements.startEndCall, 'active');
+    $('#callActive').toggleClass('active');
 
-    _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo);
+    $('#enableLocalAudio').hide();
+    $('#enableLocalVideo').hide();
 
-    !!(_communicationProperties.callActive || _communicationProperties.remoteParticipant) && _swapVideoPositions('end');
+    !!(_callActive || _remoteParticipant) && _swapVideoPositions('end');
   };
 
   var _connectCall = function() {
 
-    !_communicationProperties.callActive ? _startCall() : _endCall();
+    !_callActive ? _startCall() : _endCall();
 
   };
 
   var init = function() {
     // Get session
-    _acceleratorPack = new AcceleratorPack(
-      {
-        textChat: {
-          sessionInfo: {apikey: _options.apiKey, sessionId: _options.sessionId, token: _options.token},
-          user: {
-            alias: "user1"
-          },
-          charCountElement: "#character-count"
-        }
-      });
-    _options.session = _acceleratorPack.getSession();
+    var accPackOptions = _.extend({},
+      _.pick(_options, ['apiKey', 'sessionId', 'token']), {
+        textChat: _options.textChat()
+      }
+    );
 
-    _options.session.on({
-      connectionCreated: function (event) {
-        _communication = new Communication(_options);
-        _communication.addLog(_options.actionInitialize, _options.variationAttempt);
-        _communication.addLog(_options.actionInitialize, _options.variationSuccess);
-        _addEventListeners();
-      },
-      connectionError: function (event) {
-        _communication.addLog(_options.actionInitialize, _options.variationError);
+    _accPack = new AcceleratorPack(accPackOptions);
+    _session = _accPack.getSession();
+    _.extend(_options, _accPack.getOptions());
+
+    _session.on({
+      connectionCreated: function(event) {
+
+        if (_connected) {
+          return;
+        }
+
+        _connected = true;
+
+        var commOptions = _.extend({}, _options, {
+          session: _session,
+          accPack: _accPack
+        }, _accPack.getOptions());
+
+        _communication = new CommunicationAccPack(commOptions);
+        _addEventListeners(); 
       }
     });
   };
 
   return init;
 })();
+
 app();
