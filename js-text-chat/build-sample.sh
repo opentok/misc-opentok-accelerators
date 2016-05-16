@@ -5,7 +5,7 @@ PUBLIC="../../sample-app/public"
 if [[ -d opentok.js-text-chat ]]
 then
 	cd opentok.js-text-chat
-	gulp js-dev
+	gulp dist
 	cd dist 
     cp -v text-chat-acc-pack.js $PUBLIC/js/components/text-chat-acc-pack.js
     cp -v theme.css $PUBLIC/css/theme.css
