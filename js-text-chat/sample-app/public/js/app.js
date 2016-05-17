@@ -1,4 +1,6 @@
-var app = (function() {
+/* global AcceleratorPack CommunicationAccPack */
+
+var app = (function () {
 
   // Modules
   var _accPack;
@@ -20,14 +22,14 @@ var app = (function() {
 
   // Options hash
   var _options = {
-    apiKey: '', // Replace with your OpenTok API key 
-    sessionId: '', //Replace with a generated Session ID
-    token: '', //Replace with a generated token
+    apiKey: '45589022', // Replace with your OpenTok API key
+    sessionId: '2_MX40NTU4OTAyMn5-MTQ2MzQyNDc1MTk1OX5OdFFweXJVVGZYRTg2VTh2MlhGU2Q3Nnl-fg', // Replace with a generated Session ID
+    token: 'T1==cGFydG5lcl9pZD00NTU4OTAyMiZzaWc9ZmIzZjgxOGQ5NDlmODQzM2IwYWJkOWIwMDU0YWNlOWVmYTYzYWE0NDpzZXNzaW9uX2lkPTJfTVg0ME5UVTRPVEF5TW41LU1UUTJNelF5TkRjMU1UazFPWDVPZEZGd2VYSlZWR1pZUlRnMlZUaDJNbGhHVTJRM05ubC1mZyZjcmVhdGVfdGltZT0xNDYzNDI0NzcwJm5vbmNlPTAuMTk2MjAyMDE4MDY1Mzc4MDcmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ2MzUxMTE3MA==', // Replace with a generated token
     user: {
       id: 1,
       name: 'User1'
     },
-    textChat: function() {
+    textChat: function () {
       return {
         sender: {
           alias: 'user1',
@@ -35,23 +37,23 @@ var app = (function() {
         limitCharacterMessage: 160,
         controlsContainer: '#feedControls',
         textChatContainer: '#chatContainer'
-      }
+      };
     }
   };
 
   /** DOM Helper Methods */
-  var _makePrimaryVideo = function(element) {
+  var _makePrimaryVideo = function (element) {
     $(element).addClass('primary-video');
     $(element).removeClass('secondary-video');
-  }
+  };
 
-  var _makeSecondaryVideo = function(element) {
+  var _makeSecondaryVideo = function (element) {
     $(element).removeClass('primary-video');
     $(element).addClass('secondary-video');
-  }
+  };
 
   // Swap positions of the small and large video elements when participant joins or leaves call
-  var _swapVideoPositions = function(type) {
+  var _swapVideoPositions = function (type) {
 
     if (type === 'start' || type === 'joined') {
 
@@ -77,51 +79,7 @@ var app = (function() {
 
   };
 
-  // Toggle local or remote audio/video
-  var _toggleMediaProperties = function(type) {
-
-    _callProps[type] = !_callProps[type];
-
-    _communication[type](_callProps[type]);
-
-    $('#' + type).toggleClass('disabled');
-
-  };
-
-  var _addEventListeners = function() {
-
-    // Call events
-    _accPack.registerEventListener('streamCreated', function(event) {
-
-      if (event.stream.videoType === 'camera') {
-        _remoteParticipant = true;
-        _callActive && _swapVideoPositions('joined');
-      }
-
-    });
-
-    _accPack.registerEventListener('streamDestroyed', function(event) {
-
-      if (event.stream.videoType === 'camera') {
-        _remoteParticipant = false;
-        _callActive && _swapVideoPositions('left');
-      }
-
-    });
-
-    // Start or end call
-    $('#callActive').on('click', _connectCall);
-
-    // Click events for enabling/disabling audio/video
-    var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
-    controls.forEach(function(control) {
-      $('#' + control).on('click', function() {
-        _toggleMediaProperties(control)
-      })
-    });
-  };
-
-  var _startCall = function() {
+  var _startCall = function () {
 
     // Start call
     _communication.start();
@@ -134,10 +92,13 @@ var app = (function() {
     $('#enableLocalAudio').show();
     $('#enableLocalVideo').show();
 
-    _remoteParticipant && _swapVideoPositions('start');
+    if (_remoteParticipant) {
+      _swapVideoPositions('start');
+    }
+
   };
 
-  var _endCall = function() {
+  var _endCall = function () {
 
     // End call
     _communication.end();
@@ -149,16 +110,76 @@ var app = (function() {
     $('#enableLocalAudio').hide();
     $('#enableLocalVideo').hide();
 
-    !!(_callActive || _remoteParticipant) && _swapVideoPositions('end');
-  };
-
-  var _connectCall = function() {
-
-    !_callActive ? _startCall() : _endCall();
+    if (_callActive || _remoteParticipant) {
+      _swapVideoPositions('end');
+    }
 
   };
 
-  var init = function() {
+  var _connectCall = function () {
+
+    if (!!_callActive) {
+      _endCall();
+    } else {
+      _startCall();
+    }
+
+  };
+
+  // Toggle local or remote audio/video
+  var _toggleMediaProperties = function (type) {
+
+    _callProps[type] = !_callProps[type];
+
+    _communication[type](_callProps[type]);
+
+    $(['#', type].join('')).toggleClass('disabled');
+
+  };
+
+  var _addEventListeners = function () {
+
+    // Call events
+    _accPack.registerEventListener('streamCreated', function (event) {
+
+      if (event.stream.videoType === 'camera') {
+        _remoteParticipant = true;
+        if (_callActive) {
+          _swapVideoPositions('joined');
+        }
+      }
+
+    });
+
+    _accPack.registerEventListener('streamDestroyed', function (event) {
+
+      if (event.stream.videoType === 'camera') {
+        _remoteParticipant = false;
+        if (_callActive) {
+          _swapVideoPositions('left');
+        }
+      }
+
+    });
+
+    // Start or end call
+    $('#callActive').on('click', _connectCall);
+
+    // Click events for enabling/disabling audio/video
+    var controls = [
+      'enableLocalAudio',
+      'enableLocalVideo',
+      'enableRemoteAudio',
+      'enableRemoteVideo'
+    ];
+    controls.forEach(function (control) {
+      $(['#', control].join('')).on('click', function () {
+        _toggleMediaProperties(control);
+      });
+    });
+  };
+
+  var init = function () {
     // Get session
     var accPackOptions = _.extend({},
       _.pick(_options, ['apiKey', 'sessionId', 'token']), {
@@ -171,7 +192,9 @@ var app = (function() {
     _.extend(_options, _accPack.getOptions());
 
     _session.on({
-      connectionCreated: function(event) {
+      connectionCreated: function (event) {
+
+        console.log(event);
 
         if (_connected) {
           return;
@@ -185,12 +208,12 @@ var app = (function() {
         }, _accPack.getOptions());
 
         _communication = new CommunicationAccPack(commOptions);
-        _addEventListeners(); 
+        _addEventListeners();
       }
     });
   };
 
   return init;
-})();
+}());
 
 app();
