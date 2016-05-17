@@ -9,7 +9,7 @@ var TextChatAccPack = (function () {
   var _otkanalytics;
   var logEventData = {
     //vars for the analytics logs. Internal use
-    clientVersion: 'js-vsol-0.9',
+    clientVersion: 'js-vsol-1.0.0',
     source: 'text_chat_acc_pack',
     actionInitialize: 'initialize',
     actionSendMessage: 'send_message',
