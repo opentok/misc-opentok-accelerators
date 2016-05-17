@@ -1,7 +1,12 @@
 /* global OT OTKAnalytics define */
 (function () {
 
-  var _this;
+  var _this; // Reference to instance of CommunicationAccPack
+  var _session;
+
+  /**
+   * Accelerator Pack Common Layer and Associated Methods
+   */
 
   // Reference to Accelerator Pack
   var _accPack;
@@ -59,8 +64,8 @@
 
     var otkanalyticsData = {
       sessionId: _this.options.sessionId,
-      connectionId: _this.session.connection.connectionId,
-      partnerId: _this.options.apiKey,
+      connectionId: _session.id,
+      partnerId: _session.apiKey,
       clientVersion: _logEventData.clientVersion,
       source: _logEventData.source
     };
@@ -93,7 +98,7 @@
 
     _initPublisherCamera();
 
-    return _this.session.publish(_this.publisher, function (error) {
+    return _session.publish(_this.publisher, function (error) {
       if (error) {
         console.log(['Error starting a call', error.code, '-', error.message].join(''));
         var message;
@@ -110,14 +115,14 @@
 
   var _unpublish = function () {
     if (_this.publisher) {
-      _this.session.unpublish(_this.publisher);
+      _session.unpublish(_this.publisher);
     }
   };
 
 
   var _unsubscribeStreams = function () {
     _.each(_this.streams, function (stream) {
-      _this.session.unsubscribe(stream);
+      _session.unsubscribe(stream);
     });
   };
 
@@ -137,7 +142,7 @@
       videoContainer = 'videoHolderBig';
     }
 
-    var subscriber = _this.session.subscribe(stream,
+    var subscriber = _session.subscribe(stream,
       videoContainer,
       options,
       function (error) {
@@ -225,8 +230,8 @@
       _this.accPack.registerEventListener('streamCreated', _handleStreamCreated);
       _this.accPack.registerEventListener('streamDestroyed', _handleStreamDestroyed);
     } else {
-      _this.session.on('streamCreated', _handleStreamCreated);
-      _this.session.on('streamDestroyed', _handleStreamDestroyed);
+      _session.on('streamCreated', _handleStreamCreated);
+      _session.on('streamDestroyed', _handleStreamDestroyed);
     }
 
   };
@@ -261,14 +266,14 @@
     // Save a reference to this
     _this = this;
 
-    var nonOptionProps = ['session', 'subscribers', 'streams'];
+    var nonOptionProps = ['subscribers', 'streams'];
     _this.options = _validateOptions(options, nonOptionProps);
     _.extend(_this, _.defaults(_.pick(options, nonOptionProps), {
       subscribers: [],
       streams: []
     }));
 
-    // Set accelerator pack if included in options, otherwise leave undefined
+    _session = _.property('session')(options);
     _accPack = _.property('accPack')(options) || _accPack;
 
     _registerEvents();
