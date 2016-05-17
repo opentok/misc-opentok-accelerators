@@ -17,7 +17,7 @@ static NSUInteger MaximumTextMessageLength = 8196;
 
 
 NSString* const KLogSource = @"text_chat_acc_pack";
-NSString* const KLogClientVersion = @"ios-vsol-0.9";
+NSString* const KLogClientVersion = @"ios-vsol-1.0.0";
 NSString* const KLogActionInitialize = @"initialize";
 NSString* const KLogActionSendMessage = @"send_message";
 NSString* const KLogActionReceiveMessage = @"receive_message";

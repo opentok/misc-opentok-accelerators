@@ -4,7 +4,7 @@ public class OpenTokConfig {
 
     // For internal use only. Please do not modify or remove this code.
     public static final String LOGGING_BASE_URL = "https://hlg.tokbox.com/prod/logging/ClientEvent";
-    public static final String LOG_CLIENT_VERSION = "1.0";
+    public static final String LOG_CLIENT_VERSION = "android-vsol-1.0.0";
     public static final String LOG_SOURCE = "text_chat_acc_pack";
     public static final String LOG_ACTION_INITIALIZE = "initialize";
     public static final String LOG_ACTION_SEND_MESSAGE = "send_message";
