@@ -12,24 +12,20 @@
  *  A data model describing information used in individual text chat messages.
  */
 @interface TextChat : NSObject
-
 /**
- *  Alias of the sender
+ *  alias of the sender/receiver
  */
 @property (nonatomic, copy) NSString *alias;
-
 /**
- *  Identifier of the sender
+ *  unique identifier for the sender of the message
  */
 @property (nonatomic, copy) NSString *senderId;
-
 /**
  *  Content of the text message
  */
 @property (nonatomic, copy) NSString *text;
-
 /**
- *  Time of the text message sent or received
+ *  Date and time when the message was send (UNIXTIMESTAMP format)
  */
 @property (nonatomic, copy) NSDate *dateTime;
 @end
