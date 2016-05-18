@@ -22,21 +22,16 @@ var app = (function () {
 
   // Options hash
   var _options = {
-    apiKey: '', // Replace with your OpenTok API key
-    sessionId: '', // Replace with a generated Session ID
-    token: '', // Replace with a generated token
-    user: {
-      name: 'User1' // Replace with user name
-    },
-    textChat: function () {
-      return {
-        sender: {
-          alias: 'user1',
-        },
-        limitCharacterMessage: 160,
-        controlsContainer: '#feedControls',
-        textChatContainer: '#chatContainer'
-      };
+    apiKey: '',
+    sessionId: '',
+    token: '',
+    textChat: {
+      sender: {
+        alias: 'user1',
+      },
+      limitCharacterMessage: 160,
+      controlsContainer: '#feedControls',
+      textChatContainer: '#chatContainer'
     }
   };
 
@@ -180,11 +175,7 @@ var app = (function () {
 
   var init = function () {
     // Get session
-    var accPackOptions = _.extend({},
-      _.pick(_options, ['apiKey', 'sessionId', 'token']), {
-        textChat: _options.textChat()
-      }
-    );
+    var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'textChat']);
 
     _accPack = new AcceleratorPack(accPackOptions);
     _session = _accPack.getSession();
