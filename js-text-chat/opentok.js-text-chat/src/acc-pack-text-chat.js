@@ -87,11 +87,17 @@
       '</div>',
       '</div>'
     ].join('\n');
-    /* eslint-disable max-len, prefer-template */
+    /* eslint-enable max-len, prefer-template */
   };
 
   var _shouldAppendMessage = function (data) {
-    return _lastMessage && _lastMessage.sender.id === data.sender.id && moment(_lastMessage.sentOn).fromNow() === moment(data.sentOn).fromNow();
+
+    if (_lastMessage) {
+      return _lastMessage.sender.id === data.sender.id && _lastMessage.sender.id === data.sender.id;
+    }
+
+    return false;
+
   };
 
   var _cleanComposer = function () {
@@ -101,6 +107,7 @@
 
 
   var _getBubbleHtml = function (message) {
+    /* eslint-disable max-len, prefer-template */
     var bubble = [
       '<div class="' + message.messageClass + '" >',
       '<div class="wms-user-name-initial"> ' + message.username[0] + '</div>',
@@ -110,6 +117,7 @@
       '</div>',
       '</div>'
     ].join('\n');
+    /* eslint-enable max-len, prefer-template */
     return bubble;
   };
 
