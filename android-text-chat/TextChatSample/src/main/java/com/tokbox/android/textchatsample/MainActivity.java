@@ -301,13 +301,17 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onRemoteViewReady(View remoteView) {
         //update preview when a new participant joined to the communication
-        onPreviewReady(mPreviewViewContainer.getChildAt(0)); //main preview view
-
-        if (remoteView == null ){
-            mRemoteViewContainer.removeAllViews();
+        if (mPreviewViewContainer.getChildCount() > 0) {
+            onPreviewReady(mPreviewViewContainer.getChildAt(0)); //main preview view
+        }
+        if (!mComm.isRemote()) {
+            //clear views
+            onAudioOnly(false);
+            mRemoteViewContainer.removeView(remoteView);
             mRemoteViewContainer.setClickable(false);
         }
         else {
+            //show remote view
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     this.getResources().getDisplayMetrics().widthPixels, this.getResources()
                     .getDisplayMetrics().heightPixels);
@@ -385,9 +389,11 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             mPreviewFragment.restart();
         if ( mRemoteFragment != null )
             mRemoteFragment.restart();
-        restartTextChatLayout(true);
-        mTextChatFragment.restart();
-        mTextChatContainer.setVisibility(View.GONE);
+        if (mTextChatFragment != null ){
+            restartTextChatLayout(true);
+            mTextChatFragment.restart();
+            mTextChatContainer.setVisibility(View.GONE);
+        }
     }
 
     private void showAVCall(boolean show){
