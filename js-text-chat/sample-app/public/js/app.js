@@ -22,11 +22,10 @@ var app = (function () {
 
   // Options hash
   var _options = {
-    apiKey: '45589022', // Replace with your OpenTok API key
-    sessionId: '2_MX40NTU4OTAyMn5-MTQ2MzQyNDc1MTk1OX5OdFFweXJVVGZYRTg2VTh2MlhGU2Q3Nnl-fg', // Replace with a generated Session ID
-    token: 'T1==cGFydG5lcl9pZD00NTU4OTAyMiZzaWc9ZmIzZjgxOGQ5NDlmODQzM2IwYWJkOWIwMDU0YWNlOWVmYTYzYWE0NDpzZXNzaW9uX2lkPTJfTVg0ME5UVTRPVEF5TW41LU1UUTJNelF5TkRjMU1UazFPWDVPZEZGd2VYSlZWR1pZUlRnMlZUaDJNbGhHVTJRM05ubC1mZyZjcmVhdGVfdGltZT0xNDYzNDI0NzcwJm5vbmNlPTAuMTk2MjAyMDE4MDY1Mzc4MDcmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ2MzUxMTE3MA==', // Replace with a generated token
+    apiKey: '', // Replace with your OpenTok API key
+    sessionId: '', // Replace with a generated Session ID
+    token: '', // Replace with a generated token
     user: {
-      id: 1,
       name: 'User1'
     },
     textChat: function () {
