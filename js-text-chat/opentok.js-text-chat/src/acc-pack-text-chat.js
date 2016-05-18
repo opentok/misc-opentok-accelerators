@@ -3,6 +3,7 @@
 
   // Reference to instance of TextChatAccPack
   var _this;
+  var _session;
 
   /** Analytics */
   var _otkanalytics;
@@ -25,15 +26,15 @@
   var _logAnalytics = function () {
 
     var otkanalyticsData = {
-      sessionId: _this.options.sessionId,
-      connectionId: _this.session.connection.connectionId,
-      partnerId: _this.options.apiKey,
+      sessionId: _session.id,
+      connectionId: _session.connection.connectionId,
+      partnerId: _session.apiKey,
       clientVersion: _logEventData.clientVersion,
       source: _logEventData.source
     };
 
     // init the analytics logs
-    _otkanalytics = new OTKAnalytics(otkanalyticsData());
+    _otkanalytics = new OTKAnalytics(otkanalyticsData);
   };
 
   var _log = function (action, variation) {
@@ -51,7 +52,7 @@
   var _controlAdded = false;
   var _sender;
   var _composer;
-  var _lastMesage;
+  var _lastMessage;
   var _newMessages;
 
   // Reference to Accelerator Pack Common Layer
@@ -90,7 +91,7 @@
   };
 
   var _shouldAppendMessage = function (data) {
-    return _lastMesage && _lastMesage.senderId === data.senderId && moment(_lastMesage.sentOn).fromNow() === moment(data.sentOn).fromNow();
+    return _lastMessage && _lastMessage.sender.id === data.sender.id && moment(_lastMessage.sentOn).fromNow() === moment(data.sentOn).fromNow();
   };
 
   var _cleanComposer = function () {
@@ -140,7 +141,7 @@
     } else {
       _renderChatMessage(_sender.id, _sender.alias, data.message, data.sentOn);
     }
-    _lastMesage = data;
+    _lastMessage = data;
 
     _triggerEvent('messageSent', data);
 
@@ -160,7 +161,7 @@
     var deferred = new $.Deferred();
     var messageData = {
       text: message,
-      _sender: {
+      sender: {
         id: _sender.id,
         alias: _sender.alias,
       },
@@ -171,10 +172,10 @@
     _log(_logEventData.actionSendMessage, _logEventData.variationAttempt);
 
     if (recipient === undefined) {
-      _accPack.getSession()
+      _session
         .signal({
           type: 'text-chat',
-          data: messageData
+          data: JSON.stringify(messageData)
         }, function (error) {
           if (error) {
             var errorMessage = 'Error sending a message. ';
@@ -198,9 +199,9 @@
           }
         });
     } else {
-      _accPack.getSession().signal({
+      _session.signal({
         type: 'text-chat',
-        data: messageData,
+        data: JSON.stringify(messageData),
         to: recipient
       }, function (error) {
         if (error) {
@@ -222,8 +223,10 @@
       $.when(_sendMessage(_this._remoteParticipant, text))
         .then(function () {
           _handleMessageSent({
-            _senderId: _sender.id,
-            alias: _sender.alias,
+            sender: {
+              id: _sender.id,
+              alias: _sender.alias
+            },
             message: text,
             sentOn: Date.now()
           });
@@ -271,25 +274,20 @@
   var _onIncomingMessage = function (signal) {
     _log(_logEventData.actionReceiveMessage, _logEventData.variationAttempt);
 
-    var signalData;
-    if (typeof signal.data === 'string') {
-      signalData = JSON.parse(signal.data);
-    } else {
-      signalData = signal.data;
-    }
+    var signalData = JSON.parse(signal.data);
 
-    if (_shouldAppendMessage(signal.data)) {
+    if (_shouldAppendMessage(signalData)) {
       $('.wms-item-text').last().append(['<span>', signalData.text, '</span>'].join(''));
     } else {
-      _renderChatMessage(signalData._sender.id, signalData._sender.alias, signalData.text, signalData.sentOn);
+      _renderChatMessage(signalData.sender.id, signalData.sender.alias, signalData.text, signalData.sentOn);
     }
 
-    _lastMesage = signalData;
+    _lastMessage = signalData;
     _log(_logEventData.actionReceiveMessage, _logEventData.variationSuccess);
   };
 
   var _handleTextChat = function (event) {
-    var me = _accPack.getSession().connection.connectionId;
+    var me = _session.connection.connectionId;
     var from = event.from.connectionId;
     if (from !== me) {
       var handler = _onIncomingMessage(event);
@@ -308,7 +306,7 @@
     _displayed = true;
     _initialized = true;
     _setupUI();
-    _accPack.getSession().on('signal:text-chat', _handleTextChat);
+    _session.on('signal:text-chat', _handleTextChat);
   };
 
   var _showTextChat = function () {
@@ -361,8 +359,13 @@
 
   var _validateOptions = function (options) {
 
+    if (!options.session) {
+      throw new Error('Text Chat Accelerator Pack requires an OpenTok session.');
+    }
+
     _accPack = _.property('accPack')(options);
-    _sender = _.property('_sender')(options);
+    _sender = _.property('sender')(options);
+    _session = _.property('session')(options);
 
     return _.defaults(_.omit(options, ['accPack', '_sender']), {
       limitCharacterMessage: 160,
@@ -401,11 +404,8 @@
     // Save a reference to this
     _this = this;
 
-    // Set reference to accelerator pack common layer (API)
-    _accPack = _.property('accPack')(options);
-
-    // Extend instance
-    _this.options = _validateOptions(_.omit(options, ['accPack, sender']));
+    // Extend instance and set private vars
+    _this.options = _validateOptions(options);
 
     // Init the analytics logs
     _logAnalytics();
