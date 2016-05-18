@@ -191,9 +191,7 @@ var app = (function () {
     _.extend(_options, _accPack.getOptions());
 
     _session.on({
-      connectionCreated: function (event) {
-
-        console.log(event);
+      connectionCreated: function () {
 
         if (_connected) {
           return;
