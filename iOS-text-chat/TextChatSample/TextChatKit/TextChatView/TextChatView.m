@@ -17,6 +17,7 @@
 #import "UIViewController+Helper.h"
 
 #import "TextChatView_UserInterface.h"
+#import "TextChatUICustomizator_Private.h"
 
 static CGFloat StatusBarHeight = 20.0;
 

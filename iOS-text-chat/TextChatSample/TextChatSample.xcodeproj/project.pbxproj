@@ -49,7 +49,6 @@
 		643553771CB69D5B00643E2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643553761CB69D5B00643E2F /* Assets.xcassets */; };
 		A0253ADD1CD2A565006829E6 /* TextChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AC91CD2A410006829E6 /* TextChatTests.m */; };
 		A0253ADE1CD2A567006829E6 /* TextChatComponentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AC81CD2A410006829E6 /* TextChatComponentTests.m */; };
-		A0253ADF1CD2A56B006829E6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0253AC71CD2A410006829E6 /* Info.plist */; };
 		A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
 		A03B1F631CC0B0C800D765F7 /* TextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03B1F5B1CC0B0C800D765F7 /* TextChatView.xib */; };
@@ -61,6 +60,7 @@
 		A09A4A961CD0260F0024C349 /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A09A4A941CD0260F0024C349 /* OTKAnalytics.h */; };
 		A09A4A971CD0260F0024C349 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4A951CD0260F0024C349 /* OTKAnalytics.m */; };
 		A0B604C31CDD30D700012EAA /* TextChat_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0B604C21CDD30D700012EAA /* TextChat_Private.h */; };
+		A0EBC8201CECF20D001881EE /* TextChatUICustomizator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0EBC81F1CECF20D001881EE /* TextChatUICustomizator_Private.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +146,7 @@
 		A09A4A941CD0260F0024C349 /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.h"; sourceTree = "<group>"; };
 		A09A4A951CD0260F0024C349 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A0B604C21CDD30D700012EAA /* TextChat_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChat_Private.h; sourceTree = "<group>"; };
+		A0EBC81F1CECF20D001881EE /* TextChatUICustomizator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatUICustomizator_Private.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +298,7 @@
 			children = (
 				A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */,
 				A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */,
+				A0EBC81F1CECF20D001881EE /* TextChatUICustomizator_Private.h */,
 			);
 			path = TextChatUICustomizator;
 			sourceTree = "<group>";
@@ -325,6 +327,7 @@
 				A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */,
 				643553681CB69D2C00643E2F /* TextChat.h in Headers */,
 				A03B1F651CC0B0C800D765F7 /* TextChatView_UserInterface.h in Headers */,
+				A0EBC8201CECF20D001881EE /* TextChatUICustomizator_Private.h in Headers */,
 				A03B1F721CC0B26400D765F7 /* TextChatUICustomizator.h in Headers */,
 				6435535F1CB69D0600643E2F /* TextChatTableViewCell.h in Headers */,
 				A09A4A961CD0260F0024C349 /* OTKAnalytics.h in Headers */,
@@ -469,7 +472,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0253ADF1CD2A56B006829E6 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

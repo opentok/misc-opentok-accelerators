@@ -8,12 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-/**
- *  this constant is used to add a Observer to be able to update the UI when a change on the colors 
- *  is done and we want the interface to repaint.
- */
-static NSString * const TextChatUIUpdatedNotificationName = @"TextChatUIUpdatedNotificationName";
-
 @interface TextChatUICustomizator : NSObject
 
 /**

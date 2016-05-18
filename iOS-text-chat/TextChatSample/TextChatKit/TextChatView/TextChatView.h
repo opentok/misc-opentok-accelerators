@@ -138,7 +138,7 @@ typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, TextChat 
 /**
  *  Establishes a text chat connection with completion
  *
- * @param handler NS_ENUM for the different event signals
+ *  @param handler NS_ENUM for the different event signals
  */
 - (void)connectWithHandler:(TextChatViewEventBlock)handler;
 
@@ -160,14 +160,14 @@ typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, TextChat 
 /**
  *  Assign an alias name to the sender
  *
- * @param alias String with the alias of the sender
+ *  @param alias String with the alias of the sender
  */
 - (void)setAlias:(NSString *)alias;
 
 /**
  *  Assign a maximum length of characters each message contains
  *
- * @param length max number of characters allowed by message
+ *  @param length max number of characters allowed by message
  */
 - (void)setMaximumTextMessageLength:(NSUInteger)length;
 
