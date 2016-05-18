@@ -26,7 +26,7 @@ var app = (function () {
     sessionId: '', // Replace with a generated Session ID
     token: '', // Replace with a generated token
     user: {
-      name: 'User1'
+      name: 'User1' // Replace with user name
     },
     textChat: function () {
       return {
