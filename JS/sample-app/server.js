@@ -2,36 +2,24 @@
  * Express Dependencies
  */
 var express = require('express');
-var express = require('express');
-var https = require('https');
-var fs = require('fs');
+
 var app = express();
 var port = 3000;
 
-// Set up https
-// var credentials = {
-//   key : fs.readFileSync('./ssl/key.pem'),
-//   cert: fs.readFileSync('./ssl/cert.pem')
-// };
-// var server = https.createServer(credentials, app);
-
-/*
- * Config
- */
-app.use(express.static(__dirname + '/public'));
+app.use(express.static([__dirname, '/public'].join('')));
 
 /*
  * Routes
  */
-app.get('/', function(req, res) {
-    res.render('index.html');
+app.get('/', function (req, res) {
+  res.render('index.html');
 });
 
-app.get('/google721749a8bd473661.html', function() {
-  res.render('google721749a8bd473661.html')
+app.get('/google721749a8bd473661.html', function (req, res) {
+  res.render('google721749a8bd473661.html');
 });
 
-app.get('*', function(req, res){
+app.get('*', function (req, res) {
   res.redirect('/');
 });
 
@@ -39,4 +27,4 @@ app.get('*', function(req, res){
  * Listen
  */
 app.listen(process.env.PORT || port);
-console.log('app listening on port ' + port);
+console.log(['app listening on port', port].join(' '));

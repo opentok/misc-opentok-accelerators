@@ -10,6 +10,6 @@
 
 @interface ScreenShareToolbarView : UIView
 
-+ (instancetype)screenShareToolbarView;
+- (instancetype)initWithFrame:(CGRect)frame;
 
 @end

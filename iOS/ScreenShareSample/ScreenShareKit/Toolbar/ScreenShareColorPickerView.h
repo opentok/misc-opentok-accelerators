@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ScreenShareColorPickerViewButton: UIButton
-@end
-
 @class ScreenShareColorPickerView;
 @protocol ScreenShareColorPickerView <NSObject>
 - (void)colorPickerView:(ScreenShareColorPickerView *)colorPickerView
@@ -18,10 +15,7 @@
 @end
 
 @interface ScreenShareColorPickerView : UIView
-
-+ (instancetype)colorPickerView;
-
+- (instancetype)initWithFrame:(CGRect)frame;
 @property (readonly, nonatomic) UIColor *selectedColor;
 @property (nonatomic) id<ScreenShareColorPickerView> delegate;
-
 @end
