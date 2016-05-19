@@ -22,9 +22,9 @@ var app = (function () {
 
   // Options hash
   var _options = {
-    apiKey: '',
-    sessionId: '',
-    token: '',
+    apiKey: '', // Add you OpenTok API Key here
+    sessionId: '', // Add your OpenTok session id here
+    token: '', // Add your OpenTok session token here
     textChat: {
       sender: {
         alias: 'user1',
