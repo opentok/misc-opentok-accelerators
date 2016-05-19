@@ -18,4 +18,6 @@
 
 - (void)testAnnotating;
 
+- (void)testErasing;
+
 @end

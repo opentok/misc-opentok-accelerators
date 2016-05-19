@@ -24,10 +24,19 @@
                                     <action selector="changeScrollable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O2C-R8-xbh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZA-bn-U6F">
+                                <rect key="frame" x="280.5" y="46" width="39" height="30"/>
+                                <state key="normal" title="Erase"/>
+                                <connections>
+                                    <action selector="eraseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FNr-4B-NrC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="kZA-bn-U6F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8o9-8A-CZe"/>
                             <constraint firstItem="MkI-wv-5LV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HR5-9a-P1b"/>
+                            <constraint firstItem="kZA-bn-U6F" firstAttribute="top" secondItem="MkI-wv-5LV" secondAttribute="bottom" constant="8" id="j4h-Kn-UKo"/>
                             <constraint firstItem="MkI-wv-5LV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="8" id="pvd-pp-Zb1"/>
                         </constraints>
                     </view>

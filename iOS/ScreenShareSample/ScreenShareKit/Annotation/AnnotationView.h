@@ -18,4 +18,6 @@
 
 - (void)addAnnotatable:(id<Annotatable>)annotatable;
 
+- (void)undoAnnotatable;
+
 @end

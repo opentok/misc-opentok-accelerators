@@ -104,6 +104,10 @@
     if (sender == self.colorButton) {
         [self showColorPickerViewWithAnimation:YES];
     }
+    else if (sender == self.eraseButton) {
+        
+        
+    }
     else {
         [self dismissColorPickerViewWithAnimation:YES];
     }
