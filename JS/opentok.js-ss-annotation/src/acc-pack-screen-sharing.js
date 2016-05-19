@@ -236,13 +236,12 @@
   };
 
   var _addScreenSharingListeners = function () {
-    $('#startScreenSharing').on('click', function () {
-      if (_active) {
-        end();
-      } else {
-        start();
-      }
-    });
+
+    var startOrEnd = _.throttle(function () {
+      !!_active ? end() : start();
+    }, 750);
+
+    $('#startScreenSharing').on('click', startOrEnd);
 
     /** Handlers for screensharing extension modal */
     $('#btn-install-plugin-chrome').on('click', function () {
