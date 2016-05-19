@@ -92,9 +92,6 @@
             message: 'Error starting the screen sharing'
           }));
         } else {
-          _this.publisher.on('streamCreated', function (event) {
-            console.log('streamCreated publisher screen', event.stream);
-          });
           innerDeferred.resolve();
         }
       });
