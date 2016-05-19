@@ -6,16 +6,17 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "ScreenShareTextField.h"
+#import "AnnotationTextField.h"
 
-@interface ScreenShareTextField()
+@interface AnnotationTextField() <UITextFieldDelegate>
 @property (nonatomic) CGPoint referenceCenter;
 @end
 
-@implementation ScreenShareTextField
+@implementation AnnotationTextField
 
 + (instancetype)textField {
-    ScreenShareTextField *textField = [[ScreenShareTextField alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    AnnotationTextField *textField = [[AnnotationTextField alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    textField.delegate = textField;
     [textField setTextAlignment:NSTextAlignmentCenter];
     [textField setText:@"Testing"];
     textField.center = CGPointMake(CGRectGetMidX([UIScreen mainScreen].bounds), CGRectGetMidY([UIScreen mainScreen].bounds));

@@ -16,7 +16,11 @@ FOUNDATION_EXPORT const unsigned char ScreenShareKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ScreenShareKit/PublicHeader.h>
 
+#import <ScreenShareKit/Annotatable.h>
 #import <ScreenShareKit/ScreenShareView.h>
-#import <ScreenShareKit/ScreenShareTextField.h>
+#import <ScreenShareKit/AnnotationPoint.h>
+#import <ScreenShareKit/AnnotationPath.h>
+#import <ScreenShareKit/AnnotationTextField.h>
+#import <ScreenShareKit/AnnotationView.h>
 #import <ScreenShareKit/ScreenShareColorPickerView.h>
 #import <ScreenShareKit/ScreenShareToolbarView.h>

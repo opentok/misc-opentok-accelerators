@@ -10,9 +10,12 @@
 
 @interface ScreenShareView : UIView
 
-+ (instancetype)viewWithStrokeColor:(UIColor *)color;
++ (instancetype)view;
 
-@property (nonatomic) UIColor *strokeColor;
 @property (nonatomic) BOOL scrollEnabled;
+
+- (void)addContentView:(UIView *)view;
+
+- (void)testAnnotating;
 
 @end
