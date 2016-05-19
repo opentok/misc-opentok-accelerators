@@ -28,7 +28,6 @@
     BOOL _capturing;
     OTVideoFrame* _videoFrame;
     UIView* _view;
-
 }
 
 

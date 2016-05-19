@@ -94,7 +94,7 @@
         button.frame = CGRectMake(gap, gap, widthOfButton - 2 * gap, widthOfButton - 2 * gap);
         [button setBackgroundColor:self.colorDict[@(i)]];
         [button addTarget:self action:@selector(colorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.colorToolbar addContentView:button atIndex:i - 1];
+        [self.colorToolbar setContentView:button atIndex:i - 1];
     }
     [self.colorToolbar reloadToolbar];
 }

@@ -6,9 +6,9 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <ScreenShareKit/ScreenShareKit.h>
 
-@interface ScreenShareTextField: UITextField
+@interface AnnotationTextField: UITextField <Annotatable>
 
 + (instancetype)textField;
 

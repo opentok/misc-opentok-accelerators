@@ -5,5 +5,5 @@ inhibit_all_warnings!
 
 target 'ScreenShareKit' do 
   pod 'OTAcceleratorPackUtil'
-  pod 'LHToolbar'
+  pod 'LHToolbar', '1.0.0-beta'
 end

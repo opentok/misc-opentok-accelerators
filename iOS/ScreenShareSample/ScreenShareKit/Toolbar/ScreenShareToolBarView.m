@@ -89,11 +89,11 @@
     _eraseButton.frame = CGRectMake(gap, gap, widthOfButton - gap * 2, CGRectGetHeight(self.frame) - gap * 2);
     [_eraseButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.toolbar addContentView:_annotateButton atIndex:0];
-    [self.toolbar addContentView:_colorButton atIndex:1];
-    [self.toolbar addContentView:_textButton atIndex:2];
-    [self.toolbar addContentView:_screenshotButton atIndex:3];
-    [self.toolbar addContentView:_eraseButton atIndex:4];
+    [self.toolbar setContentView:_annotateButton atIndex:0];
+    [self.toolbar setContentView:_colorButton atIndex:1];
+    [self.toolbar setContentView:_textButton atIndex:2];
+    [self.toolbar setContentView:_screenshotButton atIndex:3];
+    [self.toolbar setContentView:_eraseButton atIndex:4];
     
     [self.toolbar reloadToolbar];
 }
@@ -102,10 +102,10 @@
     [self moveSelectionShadowViewTo:sender animated:YES];
     
     if (sender == self.colorButton) {
-        [self addColorPickerViewWithAnimation:YES];
+        [self showColorPickerViewWithAnimation:YES];
     }
     else {
-        [self removeColorPickerViewWithAnimation:YES];
+        [self dismissColorPickerViewWithAnimation:YES];
     }
 }
 

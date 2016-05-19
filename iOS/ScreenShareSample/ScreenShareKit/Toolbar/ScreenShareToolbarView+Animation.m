@@ -51,19 +51,13 @@
     [self setUserInteractionEnabled:YES];
 }
 
-- (void)addColorPickerViewWithAnimation:(BOOL)animated {
+- (void)showColorPickerViewWithAnimation:(BOOL)animated; {
     
     CGRect selfFrame = self.frame;
     CGRect selfBounds = self.bounds;
     if (animated) {
-//        ScreenShareColorPickerViewButton *colorPickerButton = self.toolbarButtons[1];
-//        CGRect buttonHolderViewFrame = colorPickerButton.superview.frame;
-//        CGPoint animationStartingPoint = CGPointMake(buttonHolderViewFrame.origin.x + CGRectGetWidth(buttonHolderViewFrame) / 2, CGRectGetHeight([UIScreen mainScreen].bounds) - CGRectGetHeight(buttonHolderViewFrame));
-        
-//        self.colorPickerView.frame = CGRectMake(animationStartingPoint.x, animationStartingPoint.y, 2, 2);
         
         [self.superview insertSubview:self.colorPickerView belowSubview:self];
-        
         [UIView animateWithDuration:1.0 animations:^(){
             
             CGFloat newY = selfFrame.origin.y - HeightOfColorPicker - GapOfToolBarAndColorPicker;
@@ -78,7 +72,7 @@
     }
 }
 
-- (void)removeColorPickerViewWithAnimation:(BOOL)animated {
+- (void)dismissColorPickerViewWithAnimation:(BOOL)animated {
     
     if (animated) {
         CGRect colorPickerViewFrame = self.colorPickerView.frame;
