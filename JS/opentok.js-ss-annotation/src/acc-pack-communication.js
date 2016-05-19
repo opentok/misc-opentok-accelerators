@@ -154,7 +154,6 @@
           _this.streams.push(subscriber);
 
           if (stream.videoType === 'screen') {
-            console.log('starting to view shared screen here');
             _triggerEvent('startViewingSharedScreen', subscriber);
           }
         }
@@ -226,7 +225,7 @@
   var _setEventListeners = function () {
 
     // Are we using this module in concert with other acc packs or on its own
-    if (_this.accPack) {
+    if (_.accPack) {
       _this.accPack.registerEventListener('streamCreated', _handleStreamCreated);
       _this.accPack.registerEventListener('streamDestroyed', _handleStreamDestroyed);
     } else {
@@ -274,7 +273,7 @@
     }));
 
     _session = _.property('session')(options);
-    _accPack = _.property('accPack')(options) || _accPack;
+    _accPack = _.property('accPack')(options);
 
     _registerEvents();
     _setEventListeners();
