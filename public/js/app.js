@@ -1,12 +1,26 @@
-var app = (function() {
+/* global AcceleratorPack CommunicationAccPack */
 
-  // Sample component
-  var _communication;
+var app = (function () {
+
+  // Modules
   var _accPack;
-  var _session;
-  var _connected;
-  var _triggerEvent;
+  var _communication;
 
+  // OpenTok session
+  var _session;
+
+  // Application State
+  var _connected = false;
+  var _callActive = false;
+  var _remoteParticipant = false;
+  var _callProps = {
+    enableLocalAudio: true,
+    enableLocalVideo: true,
+    enableRemoteAudio: true,
+    enableRemoteVideo: true,
+  };
+
+  // Options hash
   var _options = {
     apiKey: '100',
     sessionId: '2_MX4xMDB-fjE0NTg3NTI3NTc0MDB-dkdPT3hVT1RMRm85MkFUMVhBR0NXbTJufn4',
@@ -19,215 +33,184 @@ var app = (function() {
       extensionID: 'knmknlapoidpamfmadaalafimbjegekh',
       extensionPathFF: 'ff-extension/wms-screensharing.xpi',
       annotation: true
-    },
-    annotation: true
+    }
   };
 
-  var _communicationElements = {
-    mainContainer: document.getElementById('main'),
-    startEndCall: document.getElementById('callActive'),
-    localVideo: document.getElementById('videoHolderSmall'),
-    remoteVideo: document.getElementById('videoHolderBig'),
-    sharedScreen: document.getElementById('videoHolderSharedScreen'),
-    remoteControls: document.getElementById('remoteControls'),
-    enableLocalAudio: document.getElementById('enableLocalAudio'),
-    enableLocalVideo: document.getElementById('enableLocalVideo'),
-    enableRemoteAudio: document.getElementById('enableRemoteAudio'),
-    enableRemoteVideo: document.getElementById('enableRemoteVideo'),
-    sharingPoster: document.getElementById('sharingPoster')
+  /** DOM Helper Methods */
+  var _makePrimaryVideo = function (element) {
+    $(element).addClass('primary-video');
+    $(element).removeClass('secondary-video');
   };
 
-  var _communicationProperties = {
-    callActive: false,
-    remoteParticipant: false,
-    enableLocalAudio: true,
-    enableLocalVideo: true,
-    enableRemoteAudio: true,
-    enableRemoteVideo: true,
-    sharingScreen: false
-  };
-
-  // DOM helper functions
-  var _show = function() {
-
-    elements = Array.prototype.slice.call(arguments);
-
-    elements.forEach(function(element) {
-      element.classList.remove('hidden');
-    });
-  };
-
-  var _hide = function() {
-
-    elements = Array.prototype.slice.call(arguments);
-
-    elements.forEach(function(element) {
-      element.classList.add('hidden');
-    });
-  };
-
-  var _updateClassList = function(element, className, add) {
-    element.classList[add ? 'add' : 'remove'](className);
-  };
-
-  var _toggleClass = function(element, className) {
-    element.classList.toggle(className);
+  var _makeSecondaryVideo = function (element) {
+    $(element).removeClass('primary-video');
+    $(element).addClass('secondary-video');
   };
 
   // Swap positions of the small and large video elements when participant joins or leaves call
-  var _swapVideoPositions = function(type) {
+  var _swapVideoPositions = function (type) {
 
     if (type === 'start' || type === 'joined') {
 
-      _toggleClass(_communicationElements.localVideo, 'secondary-video');
-      _toggleClass(_communicationElements.localVideo, 'primary-video');
-      _toggleClass(_communicationElements.remoteVideo, 'secondary-video');
-      _toggleClass(_communicationElements.remoteVideo, 'primary-video');
+      _makePrimaryVideo('#videoHolderBig');
+      _makeSecondaryVideo('#videoHolderSmall');
 
-      _show(_communicationElements.remoteControls);
+      /**
+       * The other participant may or may not have joined the call at this point.
+       */
+      if (!!_remoteParticipant) {
+        $('#remoteControls').show();
+        $('#videoHolderBig').show();
+      }
 
+    } else if ((type === 'end' && !!_remoteParticipant) || type === 'left') {
 
-    } else if ((type === 'end' && !!_communicationProperties.remoteParticipant) || type === 'left') {
+      _makePrimaryVideo('#videoHolderSmall');
+      _makeSecondaryVideo('#videoHolderBig');
 
-      _toggleClass(_communicationElements.remoteVideo, 'secondary-video');
-      _toggleClass(_communicationElements.remoteVideo, 'primary-video');
-      _toggleClass(_communicationElements.localVideo, 'secondary-video');
-      _toggleClass(_communicationElements.localVideo, 'primary-video');
-
-      _hide(_communicationElements.remoteControls);
+      $('#remoteControls').hide();
+      $('#videoHolderBig').hide();
     }
 
   };
 
-
-  // Toggle local or remote audio/video
-  var _toggleMediaProperties = function(type) {
-
-    _communicationProperties[type] = !_communicationProperties[type];
-
-    _communication[type](_communicationProperties[type]);
-
-    _updateClassList(_communicationElements[type], 'disabled', !_communicationProperties[type]);
-
-  };
-
-  var _viewSharedScreen = function(viewing) {
-
-    if (viewing) {
-
-      _hide(_communicationElements.localVideo, _communicationElements.remoteVideo);
-      _show(_communicationElements.sharedScreen);
-
-    } else {
-
-      _show(_communicationElements.localVideo, _communicationElements.remoteVideo);
-      _hide(_communicationElements.sharedScreen);
-
-    }
-  };
-
-  var _addEventListeners = function() {
-
-    // Call events
-    _accPack.registerEventListener('streamCreated', function(event) {
-
-      if (event.stream.videoType === 'camera') {
-        _communicationProperties.remoteParticipant = true;
-        _communicationProperties.callActive && _swapVideoPositions('joined');
-      }
-
-    });
-
-    _accPack.registerEventListener('streamDestroyed', function(event) {
-
-      if (event.stream.videoType === 'camera') {
-        _communicationProperties.remoteParticipant = false;
-        _communicationProperties.callActive && _swapVideoPositions('left');
-      }
-
-    });
-
-    // Start or end call
-    _communicationElements.startEndCall.onclick = _connectCall;
-
-    _accPack.registerEventListener('startScreenSharing', function() {
-      _show(_communicationElements.sharingPoster)
-    });
-    _accPack.registerEventListener('endScreenSharing', function() {
-      _hide(_communicationElements.sharingPoster)
-    });
-    _accPack.registerEventListener('startViewingSharedScreen', function() {
-      _viewSharedScreen(true)
-    });
-    _accPack.registerEventListener('endViewingSharedScreen', function() {
-      _viewSharedScreen(false)
-    });
-
-    // Click events for enabling/disabling audio/video
-    var controls = ['enableLocalAudio', 'enableLocalVideo', 'enableRemoteAudio', 'enableRemoteVideo'];
-    controls.forEach(function(control) {
-      document.getElementById(control).onclick = function() {
-        _toggleMediaProperties(control);
-      };
-    });
-  };
-
-  var _startCall = function() {
+  var _startCall = function () {
 
     // Start call
     _communication.start();
-    _communicationProperties.callActive = true;
+    _callActive = true;
 
     // Update UI
-    [_communicationElements.startEndCall, _communicationElements.localVideo].forEach(function(element) {
-      _updateClassList(element, 'active', true);
-    });
+    $('#callActive').addClass('active');
+    $('#videoHolderSmall').addClass('active');
 
-    _show(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo);
+    $('#enableLocalAudio').show();
+    $('#enableLocalVideo').show();
 
-    _communicationProperties.remoteParticipant && _swapVideoPositions('start');
+    if (_remoteParticipant) {
+      _swapVideoPositions('start');
+    }
+
   };
 
-  var _endCall = function() {
+  var _endCall = function () {
 
     // End call
     _communication.end();
-    _communicationProperties.callActive = false;
+    _callActive = false;
 
     // Update UI
-    _toggleClass(_communicationElements.startEndCall, 'active');
+    $('#callActive').toggleClass('active');
 
-    _hide(_communicationElements.enableLocalAudio, _communicationElements.enableLocalVideo);
+    $('#enableLocalAudio').hide();
+    $('#enableLocalVideo').hide();
 
-    !!(_communicationProperties.callActive || _communicationProperties.remoteParticipant) && _swapVideoPositions('end');
-  };
-
-  var _connectCall = function() {
-
-    !_communicationProperties.callActive ? _startCall() : _endCall();
-
-  };
-
-  var _onConnectionCreated = function(event) {
-
-    if (_connected) {
-      return;
+    if (_callActive || _remoteParticipant) {
+      _swapVideoPositions('end');
     }
 
-    _connected = true;
-
-    var commOptions = _.extend({}, _options, {
-      session: _session,
-      accPack: _accPack
-    }, _accPack.getOptions());
-
-    _communication = new Communication(commOptions);
-    _addEventListeners(); 
   };
 
+  var _connectCall = function () {
 
-  var init = function() {
-    // Get session
+    if (!!_callActive) {
+      _endCall();
+    } else {
+      _startCall();
+    }
+
+  };
+
+  // Toggle local or remote audio/video
+  var _toggleMediaProperties = function (type) {
+
+    _callProps[type] = !_callProps[type];
+
+    _communication[type](_callProps[type]);
+
+    $(['#', type].join('')).toggleClass('disabled');
+
+  };
+
+  var _viewSharedScreen = function (viewing) {
+
+    if (viewing) {
+
+      $('#videoHolderSmall').hide();
+      $('#videoHolderBig').hide();
+      $('#videoHolderSharedScreen').show();
+
+
+    } else {
+
+      $('#videoHolderSmall').show();
+      $('#videoHolderBig').show();
+      $('#videoHolderSharedScreen').hide();
+
+    }
+  };
+
+  var _addEventListeners = function () {
+
+    // Call events
+    _accPack.registerEventListener('streamCreated', function (event) {
+
+      if (event.stream.videoType === 'camera') {
+        _remoteParticipant = true;
+        if (_callActive) {
+          _swapVideoPositions('joined');
+        }
+      }
+
+    });
+
+    _accPack.registerEventListener('streamDestroyed', function (event) {
+
+      if (event.stream.videoType === 'camera') {
+        _remoteParticipant = false;
+        if (_callActive) {
+          _swapVideoPositions('left');
+        }
+      }
+
+    });
+
+    _accPack.registerEventListener('startScreenSharing', function () {
+      $('#sharingMask').show();
+    });
+
+    _accPack.registerEventListener('endScreenSharing', function () {
+      $('#sharingMask').hide();
+    });
+
+    _accPack.registerEventListener('startViewingSharedScreen', function () {
+      _viewSharedScreen(true);
+    });
+
+    _accPack.registerEventListener('endViewingSharedScreen', function () {
+      _viewSharedScreen(false);
+    });
+
+    // Start or end call
+    $('#callActive').on('click', _connectCall);
+
+    // Click events for enabling/disabling audio/video
+    var controls = [
+      'enableLocalAudio',
+      'enableLocalVideo',
+      'enableRemoteAudio',
+      'enableRemoteVideo'
+    ];
+    controls.forEach(function (control) {
+      $(['#', control].join('')).on('click', function () {
+        _toggleMediaProperties(control);
+      });
+    });
+  };
+
+  var init = function () {
+
+
     var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'screensharing']);
 
     _accPack = new AcceleratorPack(accPackOptions);
@@ -235,11 +218,26 @@ var app = (function() {
     _.extend(_options, _accPack.getOptions());
 
     _session.on({
-      connectionCreated: _onConnectionCreated
+      connectionCreated: function () {
+
+        if (_connected) {
+          return;
+        }
+
+        _connected = true;
+
+        var commOptions = _.extend({}, _options, {
+          session: _session,
+          accPack: _accPack
+        }, _accPack.getOptions());
+
+        _communication = new CommunicationAccPack(commOptions);
+        _addEventListeners();
+      }
     });
   };
 
   return init;
-})();
+}());
 
 app();
