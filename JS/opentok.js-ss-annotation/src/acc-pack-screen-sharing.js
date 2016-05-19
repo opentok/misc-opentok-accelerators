@@ -64,6 +64,7 @@
     $('#startScreenSharing')[show ? 'show' : 'hide']();
   };
 
+  // Trigger event via common layer API
   var _triggerEvent = function (event, data) {
     if (_accPack) {
       _accPack.triggerEvent(event, data);
@@ -156,7 +157,9 @@
           _triggerEvent('screenSharingError', customError);
         }
       } else {
-        _accPack.linkAnnotation(_this.publisher, annotationContainer, _this.annotationWindow);
+        if (_this.annotation) {
+          _accPack.linkAnnotation(_this.publisher, annotationContainer, _this.annotationWindow);
+        }
         _active = true;
         _triggerEvent('startScreenSharing');
 
@@ -314,8 +317,8 @@
       throw new Error('Screen Share Acc Pack requires an OpenTok session');
     }
 
-    _session = _.property('session', options);
-    _accPack = _.property('accPack', options);
+    _session = _.property('session')(options);
+    _accPack = _.property('accPack')(options);
 
     _validateExtension(_.property('extensionID')(options), _.property('extensionPathFF')(options));
   };
@@ -325,10 +328,10 @@
    * Represents a screensharing component
    * @param {object} options
    * @param {string} options.session
-   * @param [object] options.accPack
-   * @param [string] options.extensionID
-   * @param [string] options.extentionPathFF
-   * @param [string] options.screensharingParent
+   * @param {object} [options.accPack]
+   * @param {string} [options.extensionID]
+   * @param {string} [options.extentionPathFF]
+   * @param {string} [options.screensharingParent]
    */
   var ScreenSharingAccPack = function (options) {
 
