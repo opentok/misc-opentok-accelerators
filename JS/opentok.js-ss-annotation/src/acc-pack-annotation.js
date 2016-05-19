@@ -1,9 +1,9 @@
 /* global OT OTSolution ScreenSharingAccPack define */
-
 (function () {
 
   var _this;
   var _accPack;
+  var _canvas;
   var _elements = {};
 
   // Trigger event via common layer API
@@ -115,7 +115,7 @@
   /** Private methods */
 
   var _refreshCanvas = _.throttle(function () {
-    _this.elements.canvas.onResize();
+    _canvas.onResize();
   }, 1000);
 
   /** Resize the canvas to match the size of its container */
@@ -308,25 +308,24 @@
     _elements.canvasContainer = container;
 
 
-    _this.elements.canvas = new OTSolution.Annotations({
+    // The canvas object
+    _canvas = new OTSolution.Annotations({
       feed: pubSub,
       container: container,
       externalWindow: _elements.externalWindow
     });
 
-    // ???
-    // _elements.externalWindow
+    toolbar.addCanvas(_canvas);
 
-    var context = _elements.externalWindow ? _elements.externalWindow : window;
-
-    _elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
-
-    toolbar.addCanvas(_this.elements.canvas);
-
-    _this.elements.canvas.onScreenCapture(function (dataUrl) {
+    _canvas.onScreenCapture(function (dataUrl) {
       var win = window.open(dataUrl, '_blank');
       win.focus();
     });
+
+
+    var context = _elements.externalWindow ? _elements.externalWindow : window;
+    // The canvas DOM element
+    _elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
 
     _listenForResize();
     _resizeCanvas();
@@ -344,7 +343,7 @@
    */
   var end = function () {
     _removeToolbar();
-    _this.elements.canvas = null;
+    _elements.canvas = null;
     if (!!_elements.externalWindow) {
       _elements.externalWindow.close();
       _elements.externalWindow = null;
