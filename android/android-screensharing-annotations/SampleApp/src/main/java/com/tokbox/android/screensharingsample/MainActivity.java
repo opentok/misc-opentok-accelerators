@@ -219,11 +219,18 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             showAVCall(false);
             if ( mScreenSharingFragment != null ) {
                 Log.i(LOG_TAG, "Screensharing start");
-                Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+
 
                 mScreenSharingFragment.start();
                 mScreenSharingContainer.setVisibility(View.VISIBLE);
-                startActivity(myIntent);
+
+                //request permission to add screensharing bar on top
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!Settings.canDrawOverlays(this)) {
+                        Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                        startActivity(myIntent);
+                    }
+                }
             }
         }
 

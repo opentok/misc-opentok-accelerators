@@ -63,7 +63,6 @@ public class ScreenSharingService extends Service {
         if(mScreenSharingBar != null)
         {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mScreenSharingBar);
-            //wm.removeView(mScreenSharingBar);
             mScreenSharingBar = null;
         }
     }

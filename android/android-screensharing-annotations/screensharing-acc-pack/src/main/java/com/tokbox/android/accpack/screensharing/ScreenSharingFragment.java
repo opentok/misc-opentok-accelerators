@@ -71,7 +71,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private Intent mResultData;
 
     private RelativeLayout mScreenView;
-    private TextView mScreenSharingBar;
+
 
     Intent mIntent;
 
@@ -181,7 +181,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
 
-        //mScreenView = rootView.findViewById(R.id.screen_view);
         mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
 
         mToolbar = (AnnotationToolbar) rootView.findViewById(R.id.toolbar);
