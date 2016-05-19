@@ -1,11 +1,17 @@
 package com.tokbox.android.screensharingsample;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA};
+    private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.SYSTEM_ALERT_WINDOW};
     private final int permsRequestCode = 200;
 
     //OpenTok calls
@@ -57,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     //Dialog
     ProgressDialog mProgressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             case 200:
                 boolean video = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 boolean audio = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                boolean systemOverlay = grantResults[2] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
     }
@@ -200,16 +208,23 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onScreenSharing() {
-        Log.i(LOG_TAG, "Screensharing start");
 
         if (mScreenSharingContainer.getVisibility() == View.VISIBLE){
+            Log.i(LOG_TAG, "Screensharing stop");
             mScreenSharingContainer.setVisibility(View.GONE);
+            mScreenSharingFragment.stop();
             showAVCall(true);
         }
         else {
             showAVCall(false);
-            mScreenSharingFragment.start();
-            mScreenSharingContainer.setVisibility(View.VISIBLE);
+            if ( mScreenSharingFragment != null ) {
+                Log.i(LOG_TAG, "Screensharing start");
+                Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+
+                mScreenSharingFragment.start();
+                mScreenSharingContainer.setVisibility(View.VISIBLE);
+                startActivity(myIntent);
+            }
         }
 
     }
@@ -371,13 +386,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private void showAVCall(boolean show){
         if(show) {
-            mActionBarContainer.setVisibility(View.VISIBLE);
+            //mActionBarContainer.setVisibility(View.VISIBLE);
             mPreviewViewContainer.setVisibility(View.VISIBLE);
             mRemoteViewContainer.setVisibility(View.VISIBLE);
             mCameraFragmentContainer.setVisibility(View.VISIBLE);
         }
         else {
-            mActionBarContainer.setVisibility(View.GONE);
+            //mActionBarContainer.setVisibility(View.GONE);
             mPreviewViewContainer.setVisibility(View.GONE);
             mRemoteViewContainer.setVisibility(View.GONE);
             mCameraFragmentContainer.setVisibility(View.GONE);

@@ -3,25 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_backg">
-    
-    <!--<RelativeLayout
-        android:id="@+id/screensharing_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/screensharing_bar_height"
-        android:background="@color/screensharing_bar"
-        android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/screensharing_text"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>!-->
-    <View
+    <RelativeLayout
         android:id="@+id/screen_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"/>
+
+    <com.tokbox.android.accpack.screensharing.annotations.toolbar.AnnotationToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"/>
 
 </RelativeLayout>

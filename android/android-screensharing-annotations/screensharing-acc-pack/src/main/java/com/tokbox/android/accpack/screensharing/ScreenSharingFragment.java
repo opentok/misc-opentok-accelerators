@@ -26,6 +26,8 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.opentok.android.BaseVideoRenderer;
+import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
@@ -34,10 +36,12 @@ import com.opentok.android.Stream;
 import com.tokbox.android.accpack.AccPackSession;
 
 
-import screensharing.accpack.android.tokbox.com.screensharing_acc_pack.R;
+import com.tokbox.android.accpack.screensharing.R;
+import com.tokbox.android.accpack.screensharing.annotations.toolbar.AnnotationToolbar;
+import com.tokbox.android.accpack.screensharing.services.ScreenSharingService;
 
 
-public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener {
+public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener, AccPackSession.SignalListener {
 
     private static final String LOG_TAG = ScreenSharingFragment.class.getSimpleName();
     private static final String STATE_RESULT_CODE = "result_code";
@@ -57,7 +61,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private int mDensity;
     private int mWidth;
     private int mHeight;
-    private int mRotation;
 
     private MediaProjectionManager mMediaProjectionManager;
     private MediaProjection mMediaProjection;
@@ -67,11 +70,19 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private int mResultCode;
     private Intent mResultData;
 
-    private View mScreenView;
-    //private RelativeLayout mScreenSharingBar;
+    private RelativeLayout mScreenView;
     private TextView mScreenSharingBar;
-    WindowManager mWindowManager;
-    WindowManager.LayoutParams mWindowLayoutParams;
+
+    Intent mIntent;
+
+    private AnnotationToolbar mToolbar;
+
+    @Override
+    public void onSignalReceived(Session session, String type, String data, Connection connection) {
+        if (type.equals("annotations")){
+            Log.i(LOG_TAG, "New annotation received");
+        }
+    }
 
     /**
      * Monitors state changes in the TextChatFragment.
@@ -170,24 +181,10 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
 
-        mScreenView = rootView.findViewById(R.id.screen_view);
-        //mScreenSharingBar = (RelativeLayout) rootView.findViewById(R.id.screensharing_bar);
+        //mScreenView = rootView.findViewById(R.id.screen_view);
+        mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
 
-        mScreenSharingBar = new TextView(getContext());
-        mScreenSharingBar.setText(R.string.screensharing_text);
-        mScreenSharingBar.setGravity(Gravity.CENTER_HORIZONTAL);
-        mScreenSharingBar.setBackgroundColor(getResources().getColor(R.color.screensharing_bar));
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-        //params.height= (int)getResources().getDimension(R.dimen.screensharing_bar_height);
-        params.height= 40;
-        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-
-        mScreenSharingBar.setLayoutParams(params);
-
-        mWindowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        mWindowLayoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_APPLICATION, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
-        mWindowLayoutParams.gravity = Gravity.TOP;
+        mToolbar = (AnnotationToolbar) rootView.findViewById(R.id.toolbar);
 
         return rootView;
     }
@@ -237,12 +234,37 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
             //create ScreenCapturer
             ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreenView, mImageReader, size);
-            PublisherKit screenPublisher = new Publisher(getContext(), "screenPublisher", capturer);
-            screenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
-            screenPublisher.setPublisherListener(this);
-            mSession.publish(screenPublisher);
+            mScreenPublisher = new Publisher(getContext(), "screenPublisher", capturer);
+            mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
+            mScreenPublisher.setPublisherListener(this);
+
+            AnnotationVideoRenderer renderer = new AnnotationVideoRenderer(getContext());
+            mScreenPublisher.setRenderer(renderer);
+
+            attachPublisherView((Publisher) mScreenPublisher);
+            mSession.publish(mScreenPublisher);
+
+
+            // Add this line to attach the annotation view to the toolbar
+            //annotationView.attachToolbar(mToolbar);
 
         }
+    }
+
+    private void attachPublisherView(Publisher publisher) {
+        mScreenPublisher.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
+                BaseVideoRenderer.STYLE_VIDEO_FILL);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                mWidth, mHeight);
+
+        // Add these 3 lines to attach the annotation view to the publisher view
+        AnnotationView annotationView = new AnnotationView(getContext());
+        mScreenView.addView(annotationView, layoutParams);
+        annotationView.attachPublisher((Publisher)mScreenPublisher);
+
+        // Add this line to attach the annotation view to the toolbar
+        annotationView.attachToolbar(mToolbar);
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -303,6 +325,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         }
         mVirtualDisplay.release();
         mVirtualDisplay = null;
+
+        tearDownMediaProjection();
     }
 
     protected void onScreenSharingStarted(){
@@ -357,15 +381,18 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         Log.i(LOG_TAG, "OnStreamCreated");
 
-        mWindowManager.addView(mScreenSharingBar, mWindowLayoutParams);
+        mIntent = new Intent(getActivity(), ScreenSharingService.class);
+        getActivity().startService(mIntent);
 
         onScreenSharingStarted();
     }
 
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
-        mWindowManager.removeView(mScreenSharingBar);
+        getActivity().stopService(mIntent);
+
         onScreenSharingStopped();
+
     }
 
     @Override
