@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var importCss = require('gulp-import-css');
 var uglify = require('gulp-uglify');
-inlineCss = require('gulp-inline-css');
 
 gulp.task('default', ['js', 'css']);
 gulp.task('dev', ['js-dev', 'css']);
