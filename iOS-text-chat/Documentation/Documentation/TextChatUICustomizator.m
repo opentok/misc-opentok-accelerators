@@ -7,6 +7,7 @@
 //
 
 #import "TextChatUICustomizator.h"
+#import "TextChatUICustomizator_Private.h"
 
 @implementation TextChatUICustomizator
 

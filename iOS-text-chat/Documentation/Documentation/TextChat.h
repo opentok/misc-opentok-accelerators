@@ -25,7 +25,7 @@
  */
 @property (nonatomic, copy) NSString *text;
 /**
- *  Date and time when the message was send (UNIXTIMESTAMP format)
+ *  Date and time when the message was sent (UNIXTIMESTAMP format)
  */
 @property (nonatomic, copy) NSDate *dateTime;
 @end
