@@ -13,6 +13,7 @@ var app = (function () {
   var _connected = false;
   var _callActive = false;
   var _remoteParticipant = false;
+  var _viewingSharedScreen = false;
   var _callProps = {
     enableLocalAudio: true,
     enableLocalVideo: true,
@@ -26,8 +27,8 @@ var app = (function () {
     sessionId: '', // Replace with a generated Session ID
     token: '', // Replace with a generated token
     screensharing: {
-      extensionID: 'oagfonchgbmbjbglbpkekjkckblnanoh',
-      extensionPathFF: 'ff-extension/wms-screensharing.xpi',
+      extensionID: '', // Add your Chrome extension ID
+      extensionPathFF: '', // Add the path to the Firefox extension
       annotation: true
     }
   };
@@ -41,6 +42,28 @@ var app = (function () {
   var _makeSecondaryVideo = function (element) {
     $(element).removeClass('primary-video');
     $(element).addClass('secondary-video');
+  };
+
+  var _viewSharedScreen = function (viewing) {
+
+    if (viewing) {
+
+      if (_callActive) {
+        $('#videoHolderSmall').hide();
+        $('#videoHolderBig').hide();
+        $('#videoHolderSharedScreen').show();
+        $('#toolbar').show();
+        $('#feedControls').addClass('viewing-shared-screen');
+      }
+
+    } else {
+
+      $('#videoHolderSmall').show();
+      $('#videoHolderBig').show();
+      $('#videoHolderSharedScreen').hide();
+      $('#feedControls').removeClass('viewing-shared-screen');
+
+    }
   };
 
   // Swap positions of the small and large video elements when participant joins or leaves call
@@ -59,6 +82,11 @@ var app = (function () {
         $('#videoHolderBig').show();
       }
 
+      if (_viewingSharedScreen) {
+        _viewSharedScreen(true);
+      }
+
+
     } else if ((type === 'end' && !!_remoteParticipant) || type === 'left') {
 
       _makePrimaryVideo('#videoHolderSmall');
@@ -66,6 +94,10 @@ var app = (function () {
 
       $('#remoteControls').hide();
       $('#videoHolderBig').hide();
+
+      if (_viewingSharedScreen) {
+        $('#videoHolderSharedScreen').hide();
+      }
     }
 
   };
@@ -109,11 +141,7 @@ var app = (function () {
 
   var _connectCall = function () {
 
-    if (!!_callActive) {
-      _endCall();
-    } else {
-      _startCall();
-    }
+    _callActive ? _endCall() : _startCall();
 
   };
 
@@ -126,24 +154,6 @@ var app = (function () {
 
     $(['#', type].join('')).toggleClass('disabled');
 
-  };
-
-  var _viewSharedScreen = function (viewing) {
-
-    if (viewing) {
-
-      $('#videoHolderSmall').hide();
-      $('#videoHolderBig').hide();
-      $('#videoHolderSharedScreen').show();
-
-
-    } else {
-
-      $('#videoHolderSmall').show();
-      $('#videoHolderBig').show();
-      $('#videoHolderSharedScreen').hide();
-
-    }
   };
 
   var _addEventListeners = function () {
@@ -181,6 +191,7 @@ var app = (function () {
 
     _accPack.registerEventListener('startViewingSharedScreen', function () {
       _viewSharedScreen(true);
+      _viewingSharedScreen = true;
     });
 
     _accPack.registerEventListener('endViewingSharedScreen', function () {
@@ -205,7 +216,6 @@ var app = (function () {
   };
 
   var init = function () {
-
 
     var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'screensharing']);
 
