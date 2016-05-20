@@ -26,6 +26,7 @@ button {
     min-height: calc(720px/(1024/760));
     margin: 35px auto;
     border: 1px solid rgba(87, 193, 228, .85);
+    border-radius: 6px;
     padding: 15px;
 }
 
@@ -64,7 +65,7 @@ button {
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100%;  
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,6 +111,12 @@ button {
     -webkit-justify-content: center;
     justify-content: center;
     z-index: 1001;
+}
+
+/* Move down so as to not cover canvas */
+.local-controls.viewing-shared-screen {
+    height: 65px;
+    bottom: -60px;
 }
 
 .secondary-video {
