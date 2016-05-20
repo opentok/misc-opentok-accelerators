@@ -282,15 +282,15 @@
   var _onIncomingMessage = function (signal) {
     _log(_logEventData.actionReceiveMessage, _logEventData.variationAttempt);
 
-    var signalData = JSON.parse(signal.data);
+    var data = JSON.parse(signal.data);
 
-    if (_shouldAppendMessage(signalData)) {
-      $('.wms-item-text').last().append(['<span>', signalData.text, '</span>'].join(''));
+    if (_shouldAppendMessage(data)) {
+      $('.wms-item-text').last().append(['<span>', data.text, '</span>'].join(''));
     } else {
-      _renderChatMessage(signalData.sender.id, signalData.sender.alias, signalData.text, signalData.sentOn);
+      _renderChatMessage(data.sender.id, data.sender.alias, data.text, data.sentOn);
     }
 
-    _lastMessage = signalData;
+    _lastMessage = data;
     _log(_logEventData.actionReceiveMessage, _logEventData.variationSuccess);
   };
 
@@ -314,6 +314,7 @@
     _displayed = true;
     _initialized = true;
     _setupUI();
+    _triggerEvent('showTextChat');
     _session.on('signal:text-chat', _handleTextChat);
   };
 
@@ -323,6 +324,7 @@
 
     document.querySelector(_this.options.textChatContainer).classList.remove('hidden');
     _displayed = true;
+    _triggerEvent('showTextChat');
 
     // Add MAXIMIZE success log event
     _log(_logEventData.actionMaximize, _logEventData.variationSuccess);
@@ -334,6 +336,7 @@
 
     document.querySelector(_this.options.textChatContainer).classList.add('hidden');
     _displayed = false;
+    _triggerEvent('hideTextChat');
 
     // Add MINIMIZE success log event
     _log(_logEventData.actionMinimize, _logEventData.variationSuccess);
@@ -383,7 +386,13 @@
   };
 
   var _registerEvents = function () {
-    var events = ['messageSent', 'errorSendingMessage', 'messageReceived'];
+    var events = [
+      'showTextChat',
+      'hideTextChat',
+      'messageSent',
+      'errorSendingMessage',
+      'messageReceived'
+    ];
     _accPack.registerEvents(events);
   };
 
