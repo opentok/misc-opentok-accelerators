@@ -8,8 +8,11 @@
 
 #import "ScreenShareView.h"
 #import "AnnotationPath.h"
-
 #import "AnnotationView.h"
+
+#import "ShareViewController.h"
+
+#import "UIViewController+Helper.h"
 
 @interface ScreenShareView() <UIScrollViewDelegate>
 
@@ -73,6 +76,12 @@
 
 - (void)testErasing {
     [self.annotationView undoAnnotatable];
+}
+
+- (void)testSharing:(UIImage *)image {
+    ShareViewController *shareViewController = [[ShareViewController alloc] initWithSharedImage:image];
+    UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
+    [topViewController presentViewController:shareViewController animated:YES completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate

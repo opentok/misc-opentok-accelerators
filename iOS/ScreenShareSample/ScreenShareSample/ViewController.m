@@ -46,8 +46,13 @@
 }
 
 
-- (IBAction)eraseButton:(id)sender {
+- (IBAction)eraseButtonPressed:(id)sender {
     [self.shareView testErasing];
 }
+
+- (IBAction)shareButtonPressed:(id)sender {
+    [self.shareView testSharing:[UIImage imageNamed:@"mvc"]];
+}
+
 
 @end

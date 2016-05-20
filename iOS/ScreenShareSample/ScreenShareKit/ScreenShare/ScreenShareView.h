@@ -20,4 +20,6 @@
 
 - (void)testErasing;
 
+- (void)testSharing:(UIImage *)image;
+
 @end
