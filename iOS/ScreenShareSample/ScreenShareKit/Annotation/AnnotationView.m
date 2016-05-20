@@ -55,6 +55,20 @@
     }
 }
 
+- (void)undoAnnotatable {
+    
+    id<Annotatable> annotatable = [self.annotationnManager peakOfAnnotatable];
+    if ([annotatable isMemberOfClass:[AnnotationPath class]]) {
+        [self.annotationnManager undo];
+        [self setNeedsDisplay];
+    }
+    else if ([annotatable isMemberOfClass:[AnnotationTextField class]]) {
+        [self.annotationnManager undo];
+        AnnotationTextField *textfield = (AnnotationTextField *)annotatable;
+        [textfield removeFromSuperview];
+    }
+}
+
 - (void)drawRect:(CGRect)rect {
     [self.annotationnManager.annotatable enumerateObjectsUsingBlock:^(id<Annotatable> annotatable, NSUInteger idx, BOOL *stop) {
         

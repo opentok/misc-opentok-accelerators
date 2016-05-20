@@ -37,7 +37,7 @@
     return lastObject;
 }
 
-- (id<Annotatable>)peakOfPaths {
+- (id<Annotatable>)peakOfAnnotatable {
     if (self.mutableAnnotatable.count == 0) return nil;
     return [self.mutableAnnotatable lastObject];
 }
@@ -45,6 +45,10 @@
 - (BOOL)containsAnnotatable:(id<Annotatable>)annotatable {
     if (!annotatable || ![annotatable conformsToProtocol:@protocol(Annotatable)]) return NO;
     return [self.mutableAnnotatable containsObject:annotatable];
+}
+
+- (void)undo {
+    [self pop];
 }
 
 @end

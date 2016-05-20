@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3FC6B2831CD7E96D00084DF4 /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */; };
-		3FC6B2841CD7E96D00084DF4 /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */; };
+		A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A1781CEE7AFB00935C9E /* ScreenCapture.h */; };
+		A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = A012A1791CEE7AFB00935C9E /* ScreenCapture.m */; };
+		A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A012A1801CEE7AFB00935C9E /* ScreenShareView.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A012A1811CEE7AFB00935C9E /* ScreenShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = A012A17C1CEE7AFB00935C9E /* ScreenShareView.m */; };
 		A0253AFD1CD33BC1006829E6 /* ScreenShareColorPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0253AFB1CD33BC1006829E6 /* ScreenShareColorPickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0253AFE1CD33BC1006829E6 /* ScreenShareColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0253AFC1CD33BC1006829E6 /* ScreenShareColorPickerView.m */; };
 		A0253B041CD72713006829E6 /* mvc.png in Resources */ = {isa = PBXBuildFile; fileRef = A0253B031CD72713006829E6 /* mvc.png */; };
@@ -36,11 +39,8 @@
 		A09A4AAF1CD02A800024C349 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AAD1CD02A800024C349 /* Main.storyboard */; };
 		A09A4AB11CD02A800024C349 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AB01CD02A800024C349 /* Assets.xcassets */; };
 		A09A4AB41CD02A800024C349 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A09A4AB21CD02A800024C349 /* LaunchScreen.storyboard */; };
-		A09A4AC31CD02A990024C349 /* ScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A09A4AC21CD02A990024C349 /* ScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A09A4AC71CD02A990024C349 /* ScreenShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* ScreenShareKit.framework */; };
 		A09A4AC81CD02A990024C349 /* ScreenShareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* ScreenShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A09A4B731CD030800024C349 /* ScreenShareView.h in Headers */ = {isa = PBXBuildFile; fileRef = A09A4B711CD030800024C349 /* ScreenShareView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A09A4B741CD030800024C349 /* ScreenShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4B721CD030800024C349 /* ScreenShareView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,8 +68,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
-		3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCapture.m; sourceTree = "<group>"; };
+		A012A1781CEE7AFB00935C9E /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
+		A012A1791CEE7AFB00935C9E /* ScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCapture.m; sourceTree = "<group>"; };
+		A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareKit.h; sourceTree = "<group>"; };
+		A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareView.h; sourceTree = "<group>"; };
+		A012A17C1CEE7AFB00935C9E /* ScreenShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareView.m; sourceTree = "<group>"; };
 		A0253AFB1CD33BC1006829E6 /* ScreenShareColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareColorPickerView.h; sourceTree = "<group>"; };
 		A0253AFC1CD33BC1006829E6 /* ScreenShareColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareColorPickerView.m; sourceTree = "<group>"; };
 		A0253B031CD72713006829E6 /* mvc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mvc.png; sourceTree = "<group>"; };
@@ -102,10 +105,7 @@
 		A09A4AB31CD02A800024C349 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A09A4AB51CD02A800024C349 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A09A4AC01CD02A990024C349 /* ScreenShareKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScreenShareKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A09A4AC21CD02A990024C349 /* ScreenShareKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScreenShareKit.h; sourceTree = "<group>"; };
 		A09A4AC41CD02A990024C349 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A09A4B711CD030800024C349 /* ScreenShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareView.h; sourceTree = "<group>"; };
-		A09A4B721CD030800024C349 /* ScreenShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareView.m; sourceTree = "<group>"; };
 		A0A7D02E1CEA34C300252AEE /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,13 +128,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3FC6B2851CD7E97300084DF4 /* ScreenCapture */ = {
+		A012A1771CEE7AFB00935C9E /* ScreenShare */ = {
 			isa = PBXGroup;
 			children = (
-				3FC6B2811CD7E96D00084DF4 /* ScreenCapture.h */,
-				3FC6B2821CD7E96D00084DF4 /* ScreenCapture.m */,
+				A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */,
+				A012A1781CEE7AFB00935C9E /* ScreenCapture.h */,
+				A012A1791CEE7AFB00935C9E /* ScreenCapture.m */,
+				A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */,
+				A012A17C1CEE7AFB00935C9E /* ScreenShareView.m */,
 			);
-			name = ScreenCapture;
+			path = ScreenShare;
 			sourceTree = "<group>";
 		};
 		A0253AFA1CD33BC1006829E6 /* Toolbar */ = {
@@ -216,12 +219,9 @@
 		A09A4AC11CD02A990024C349 /* ScreenShareKit */ = {
 			isa = PBXGroup;
 			children = (
+				A012A1771CEE7AFB00935C9E /* ScreenShare */,
 				A044C3AD1CED1D65000F7489 /* Annotation */,
-				3FC6B2851CD7E97300084DF4 /* ScreenCapture */,
 				A0253AFA1CD33BC1006829E6 /* Toolbar */,
-				A09A4AC21CD02A990024C349 /* ScreenShareKit.h */,
-				A09A4B711CD030800024C349 /* ScreenShareView.h */,
-				A09A4B721CD030800024C349 /* ScreenShareView.m */,
 				A0A7D02E1CEA34C300252AEE /* Constants.h */,
 				A09A4AC41CD02A990024C349 /* Info.plist */,
 				A07FCC391CE28A14005D9927 /* Assets.xcassets */,
@@ -236,8 +236,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */,
+				A012A1801CEE7AFB00935C9E /* ScreenShareView.h in Headers */,
 				A044C3C51CED285A000F7489 /* Annotatable.h in Headers */,
-				A09A4B731CD030800024C349 /* ScreenShareView.h in Headers */,
+				A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */,
 				A044C3C01CED266E000F7489 /* AnnotationPoint.h in Headers */,
 				A044C3BC1CED1D65000F7489 /* AnnotationView.h in Headers */,
 				A044C3BA1CED1D65000F7489 /* AnnotationTextField.h in Headers */,
@@ -246,9 +248,7 @@
 				A07FCC351CE2889B005D9927 /* ScreenShareToolbarView.h in Headers */,
 				A0253AFD1CD33BC1006829E6 /* ScreenShareColorPickerView.h in Headers */,
 				A07FCC581CE29DD8005D9927 /* ScreenShareToolbarView_UserInterfaces.h in Headers */,
-				3FC6B2831CD7E96D00084DF4 /* ScreenCapture.h in Headers */,
 				A07FCC5F1CE2A137005D9927 /* ScreenShareToolbarView+Animation.h in Headers */,
-				A09A4AC31CD02A990024C349 /* ScreenShareKit.h in Headers */,
 				A044C3B61CED1D65000F7489 /* AnnotationManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,15 +367,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A044C3B91CED1D65000F7489 /* AnnotationPath.m in Sources */,
+				A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */,
+				A012A1811CEE7AFB00935C9E /* ScreenShareView.m in Sources */,
 				A044C3B71CED1D65000F7489 /* AnnotationManager.m in Sources */,
 				A07FCC601CE2A137005D9927 /* ScreenShareToolbarView+Animation.m in Sources */,
 				A0253AFE1CD33BC1006829E6 /* ScreenShareColorPickerView.m in Sources */,
 				A044C3BB1CED1D65000F7489 /* AnnotationTextField.m in Sources */,
 				A07FCC361CE2889B005D9927 /* ScreenShareToolbarView.m in Sources */,
-				3FC6B2841CD7E96D00084DF4 /* ScreenCapture.m in Sources */,
 				A044C3C11CED266E000F7489 /* AnnotationPoint.m in Sources */,
 				A044C3BD1CED1D65000F7489 /* AnnotationView.m in Sources */,
-				A09A4B741CD030800024C349 /* ScreenShareView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
