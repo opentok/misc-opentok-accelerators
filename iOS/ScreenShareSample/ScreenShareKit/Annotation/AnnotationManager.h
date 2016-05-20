@@ -6,7 +6,8 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "AnnotationPath.h"
+#import <ScreenShareKit/AnnotationPath.h>
+#import <ScreenShareKit/AnnotationTextField.h>
 
 @interface AnnotationManager : NSObject
 
@@ -18,8 +19,10 @@
 
 - (id<Annotatable>)pop;
 
-- (id<Annotatable>)peakOfPaths;
+- (id<Annotatable>)peakOfAnnotatable;
 
 - (BOOL)containsAnnotatable:(id<Annotatable>)annotatable;
+
+- (void)undo;
 
 @end

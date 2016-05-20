@@ -31,7 +31,7 @@
     imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     [self.shareView addContentView:imageView];
     
-    self.shareView.frame = CGRectMake(0, 50, CGRectGetWidth(self.shareView.bounds), CGRectGetHeight(self.shareView.bounds));
+    self.shareView.frame = CGRectMake(0, 100, CGRectGetWidth(self.shareView.bounds), CGRectGetHeight(self.shareView.bounds));
     [self.view addSubview:self.shareView];
     
     self.toolbarView = [[ScreenShareToolbarView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight([UIScreen mainScreen].bounds) - 50, CGRectGetWidth([UIScreen mainScreen].bounds), 50)];
@@ -44,4 +44,10 @@
 - (IBAction)changeScrollable:(id)sender {
     self.shareView.scrollEnabled = !self.shareView.scrollEnabled;
 }
+
+
+- (IBAction)eraseButton:(id)sender {
+    [self.shareView testErasing];
+}
+
 @end

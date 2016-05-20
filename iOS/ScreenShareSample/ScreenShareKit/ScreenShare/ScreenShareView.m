@@ -71,6 +71,9 @@
     [self.annotationView addAnnotatable:textField];
 }
 
+- (void)testErasing {
+    [self.annotationView undoAnnotatable];
+}
 
 #pragma mark - UIScrollViewDelegate
 

@@ -167,7 +167,9 @@
   };
 
   var _listenForResize = function () {
-    $(_elements.resizeSubject).on('resize', _resizeCanvas);
+    $(_elements.resizeSubject).on('resize', _.throttle(function () {
+      _resizeCanvas();
+    }, 500));
   };
 
   var _createToolbar = function (session, options, externalWindow) {
