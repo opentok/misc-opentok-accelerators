@@ -10,12 +10,17 @@
 
 @interface AnnotationTextField() <UITextFieldDelegate>
 @property (nonatomic) CGPoint referenceCenter;
+@property (nonatomic) CGAffineTransform referenceRotateTransform;
+@property (nonatomic) CGAffineTransform currentRotateTransform;
+@property (nonatomic) UIPinchGestureRecognizer *activePinchRecognizer;
+@property (nonatomic) UIRotationGestureRecognizer *activeRotationRecognizer;
+@property (nonatomic) CGFloat scale;
 @end
 
 @implementation AnnotationTextField
 
 + (instancetype)textField {
-    AnnotationTextField *textField = [[AnnotationTextField alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    AnnotationTextField *textField = [[AnnotationTextField alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
     textField.delegate = textField;
     [textField setTextAlignment:NSTextAlignmentCenter];
     [textField setText:@"Testing"];
@@ -24,6 +29,17 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:textField
                                                                           action:@selector(handlePanGesture:)];
     [textField addGestureRecognizer:pan];
+    
+    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:textField action:@selector(handlePinchOrRotateGesture:)];
+    [textField addGestureRecognizer:pinch];
+    textField.activePinchRecognizer = pinch;
+    
+    UIRotationGestureRecognizer *rotate = [[UIRotationGestureRecognizer alloc] initWithTarget:textField action:@selector(handlePinchOrRotateGesture:)];
+    [textField addGestureRecognizer:rotate];
+    textField.activeRotationRecognizer = rotate;
+    textField.scale = 1.f;
+    textField.referenceRotateTransform = CGAffineTransformIdentity;
+    textField.currentRotateTransform = CGAffineTransformIdentity;
     return textField;
 }
 
@@ -54,6 +70,73 @@
         default:
             break;
     }
+}
+
+- (void)handlePinchOrRotateGesture:(UIGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan: {
+            if ([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]) {
+                self.currentRotateTransform = self.referenceRotateTransform;
+                self.activeRotationRecognizer = (UIRotationGestureRecognizer *)recognizer;
+            } else {
+                self.activePinchRecognizer = (UIPinchGestureRecognizer *)recognizer;
+            }
+            break;
+        }
+            
+        case UIGestureRecognizerStateChanged: {
+            
+            CGAffineTransform currentTransform = self.referenceRotateTransform;
+            
+            if ([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]) {
+                self.currentRotateTransform = [self.class applyRecognizer:recognizer toTransform:self.referenceRotateTransform];
+            }
+            
+            currentTransform = [self applyRecognizer:self.activePinchRecognizer toTransform:currentTransform];
+            currentTransform = [self applyRecognizer:self.activeRotationRecognizer toTransform:currentTransform];
+            
+            self.transform = currentTransform;
+            
+            break;
+        }
+            
+        case UIGestureRecognizerStateEnded: {
+            if ([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]) {
+                
+                self.referenceRotateTransform = [self applyRecognizer:recognizer toTransform:self.referenceRotateTransform];
+                self.currentRotateTransform = self.referenceRotateTransform;
+                self.activeRotationRecognizer = nil;
+                
+            } else if ([recognizer isKindOfClass:[UIPinchGestureRecognizer class]]) {
+                
+                self.scale *= [(UIPinchGestureRecognizer *)recognizer scale];
+                self.activePinchRecognizer = nil;
+            }
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+- (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform
+{
+    if (!recognizer
+        || !([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]
+             || [recognizer isKindOfClass:[UIPinchGestureRecognizer class]])) {
+            return transform;
+        }
+    
+    if ([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]) {
+        
+        return CGAffineTransformRotate(transform, [(UIRotationGestureRecognizer *)recognizer rotation]);
+    }
+    
+    CGFloat scale = [(UIPinchGestureRecognizer *)recognizer scale];
+    return CGAffineTransformScale(transform, scale, scale);
 }
 
 @end

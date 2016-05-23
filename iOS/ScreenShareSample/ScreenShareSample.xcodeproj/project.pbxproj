@@ -32,6 +32,8 @@
 		A044C3C11CED266E000F7489 /* AnnotationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = A044C3BF1CED266E000F7489 /* AnnotationPoint.m */; };
 		A044C3C51CED285A000F7489 /* Annotatable.h in Headers */ = {isa = PBXBuildFile; fileRef = A044C3C41CED285A000F7489 /* Annotatable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A044C3C71CED95D3000F7489 /* AnnotationPoint_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A044C3C61CED95D3000F7489 /* AnnotationPoint_Private.h */; };
+		A060AF561CF2CB6200589311 /* ScreenShareEditTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A060AF541CF2CB6200589311 /* ScreenShareEditTextView.h */; };
+		A060AF571CF2CB6200589311 /* ScreenShareEditTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A060AF551CF2CB6200589311 /* ScreenShareEditTextView.m */; };
 		A07FCC351CE2889B005D9927 /* ScreenShareToolbarView.h in Headers */ = {isa = PBXBuildFile; fileRef = A07FCC331CE2889B005D9927 /* ScreenShareToolbarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A07FCC361CE2889B005D9927 /* ScreenShareToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A07FCC341CE2889B005D9927 /* ScreenShareToolbarView.m */; };
 		A07FCC3A1CE28A14005D9927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07FCC391CE28A14005D9927 /* Assets.xcassets */; };
@@ -100,6 +102,8 @@
 		A044C3BF1CED266E000F7489 /* AnnotationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationPoint.m; sourceTree = "<group>"; };
 		A044C3C41CED285A000F7489 /* Annotatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotatable.h; sourceTree = "<group>"; };
 		A044C3C61CED95D3000F7489 /* AnnotationPoint_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationPoint_Private.h; sourceTree = "<group>"; };
+		A060AF541CF2CB6200589311 /* ScreenShareEditTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareEditTextView.h; sourceTree = "<group>"; };
+		A060AF551CF2CB6200589311 /* ScreenShareEditTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareEditTextView.m; sourceTree = "<group>"; };
 		A07FCC331CE2889B005D9927 /* ScreenShareToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareToolbarView.h; sourceTree = "<group>"; };
 		A07FCC341CE2889B005D9927 /* ScreenShareToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareToolbarView.m; sourceTree = "<group>"; };
 		A07FCC391CE28A14005D9927 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 			children = (
 				A0253AFB1CD33BC1006829E6 /* ScreenShareColorPickerView.h */,
 				A0253AFC1CD33BC1006829E6 /* ScreenShareColorPickerView.m */,
+				A060AF541CF2CB6200589311 /* ScreenShareEditTextView.h */,
+				A060AF551CF2CB6200589311 /* ScreenShareEditTextView.m */,
 				A07FCC571CE29DD8005D9927 /* ScreenShareToolbarView_UserInterfaces.h */,
 				A07FCC5D1CE2A137005D9927 /* ScreenShareToolbarView+Animation.h */,
 				A07FCC5E1CE2A137005D9927 /* ScreenShareToolbarView+Animation.m */,
@@ -281,6 +287,7 @@
 				A044C3BC1CED1D65000F7489 /* AnnotationView.h in Headers */,
 				A044C3BA1CED1D65000F7489 /* AnnotationTextField.h in Headers */,
 				A0900B001CEFCBA000B12800 /* UIViewController+Helper.h in Headers */,
+				A060AF561CF2CB6200589311 /* ScreenShareEditTextView.h in Headers */,
 				A044C3B81CED1D65000F7489 /* AnnotationPath.h in Headers */,
 				A044C3C71CED95D3000F7489 /* AnnotationPoint_Private.h in Headers */,
 				A07FCC351CE2889B005D9927 /* ScreenShareToolbarView.h in Headers */,
@@ -420,6 +427,7 @@
 				A044C3C11CED266E000F7489 /* AnnotationPoint.m in Sources */,
 				A0900B011CEFCBA000B12800 /* UIViewController+Helper.m in Sources */,
 				A044C3BD1CED1D65000F7489 /* AnnotationView.m in Sources */,
+				A060AF571CF2CB6200589311 /* ScreenShareEditTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

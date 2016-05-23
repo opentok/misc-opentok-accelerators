@@ -56,7 +56,7 @@
     
     NSData *sharedImageData = UIImageJPEGRepresentation(shareModel.sharedImage, 1.0);
     if (sharedImageData) {
-        [self.imageSizeLabel setText:[NSString stringWithFormat:@"%ld MB", (unsigned long)[sharedImageData length] / 1024 / 1024]];
+        [self.imageSizeLabel setText:[NSString stringWithFormat:@"%ld KB", (unsigned long)[sharedImageData length] / 1024]];
     }
 }
 
