@@ -25,10 +25,14 @@ gulp.task('css', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('zip', function () {
-  return gulp.src('dist/*')
-    .pipe(zip('deliverable.zip'))
-    .pipe(gulp.dest('dist'));
-});
+gulp.task('zip', function() {
+  return gulp.src(
+        [
+         "dist/theme.css",
+         "dist/text-chat-acc-pack.js"
+        ])
+        .pipe(zip('opentok-js-text-chat-acc-pack-1.0.0.zip'))
+        .pipe(gulp.dest('dist'));
+})
 
 gulp.task('dist', ['js', 'css', 'zip']);
