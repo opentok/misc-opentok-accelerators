@@ -36,7 +36,7 @@ public class AnnotationsToolbar extends LinearLayout {
         Display display = wm.getDefaultDisplay();
 
         viewWidth = display.getWidth();
-        viewHeight = display.getHeight() - 300;
+        viewHeight = display.getHeight() - 400;
 
         init();
     }
