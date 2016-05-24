@@ -2,17 +2,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_backg">
+    android:background="#FFFFFF">
 
-    <RelativeLayout
+   <RelativeLayout
         android:id="@+id/screen_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true">
+      <com.tokbox.android.accpack.annotations.AnnotationsView
+          android:id="@+id/annotations_view"
+          android:layout_height="match_parent"
+          android:layout_width="match_parent"/>
 
-    <com.tokbox.android.accpack.screensharing.annotations.toolbar.AnnotationToolbar
+      </RelativeLayout>
+
+    <!--<com.tokbox.android.accpack.screensharing.annotations.toolbar.AnnotationsToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"/>
+        android:layout_height="?android:attr/actionBarSize"/>-->
 
 </RelativeLayout>

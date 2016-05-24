@@ -1,5 +1,6 @@
 package com.tokbox.android.screensharingsample;
 
+
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,6 @@ import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
 import com.tokbox.android.accpack.AccPackSession;
 import com.tokbox.android.screensharingsample.config.OpenTokConfig;
-
 
 import java.util.ArrayList;
 
@@ -41,6 +41,10 @@ public class OneToOneCommunication implements
     private boolean startPublish = false;
 
     protected Listener mListener;
+
+    //private OTKAnalyticsData mAnalyticsData;
+    //private OTKAnalytics mAnalytics;
+
 
     /**
      * Defines values for the {@link #enableLocalMedia(MediaType, boolean)}
@@ -129,6 +133,8 @@ public class OneToOneCommunication implements
      */
     public void start() {
         if (mSession != null && isInitialized) {
+            //add START_COMM attempt log event
+          //  addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             if (mPublisher == null) {
                 mPublisher = new Publisher(mContext, "myPublisher");
                 mPublisher.setPublisherListener(this);
@@ -146,16 +152,23 @@ public class OneToOneCommunication implements
      * End the communication.
      */
     public void end() {
-        if ( mPublisher != null ) {
-            mSession.unpublish(mPublisher);
+        if ( mSession != null ) {
+            //add END_COMM attempt log event
+           // addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
+            if (mPublisher != null) {
+                mSession.unpublish(mPublisher);
+
+            }
+            if (mSubscriber != null) {
+                mSession.unsubscribe(mSubscriber);
+                isRemote = false;
+            }
+            restartViews();
             mPublisher = null;
-        }
-        if ( mSubscriber != null ) {
-            mSession.unsubscribe(mSubscriber);
             mSubscriber = null;
+            isStarted = false;
         }
-        isStarted = false;
-        restartViews();
     }
 
     /**
@@ -320,7 +333,7 @@ public class OneToOneCommunication implements
         if ( mStreams.size() > 0 ) {
             mStreams.remove(stream);
             isRemote = false;
-            onRemoteViewReady(null);
+            onRemoteViewReady(mSubscriber.getView());
             if ( mSubscriber != null && mSubscriber.getStream().equals(stream) ) {
                 mSubscriber = null;
                 if ( !mStreams.isEmpty() ) {
@@ -359,6 +372,10 @@ public class OneToOneCommunication implements
         isInitialized = false;
         isStarted = false;
         mPublisher = null;
+        mLocalAudio = true;
+        mLocalVideo = true;
+        mRemoteAudio = true;
+        mRemoteVideo = true;
         mStreams.clear();
         mSession = null;
     }
@@ -379,20 +396,34 @@ public class OneToOneCommunication implements
                 subscribeToStream(stream);
             }
         }
-     }
+        //add START_COMM success log event
+      //  addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
+    }
 
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
         if ( OpenTokConfig.SUBSCRIBE_TO_SELF && mSubscriber != null ) {
             unsubscribeFromStream(stream);
         }
+        //restart media status
+        mLocalAudio = true;
+        mLocalVideo = true;
+        mRemoteAudio = true;
+        mRemoteVideo = true;
+
+        //add END_COMM success log event
+      //  addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
+
 
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         Log.i(LOGTAG, "Error publishing: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
         onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
+
+        //add START_COMM error log event
+      //  addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ERROR);
     }
 
     @Override
@@ -400,6 +431,12 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "Connected to the session.");
         isInitialized = true;
 
+        //Init the analytics logging
+       // mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.SESSION_ID, OpenTokConfig.API_KEY, mSession.getConnection().getConnectionId(), OpenTokConfig.LOG_CLIENT_VERSION, OpenTokConfig.LOG_SOURCE).build();
+       // mAnalytics = new OTKAnalytics(mAnalyticsData);
+
+        //add INITIALIZE attempt log event
+       // addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
 
         onInitialized();
 
@@ -439,6 +476,9 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "Session error: " + opentokError.getErrorCode() + "-" + opentokError.getMessage());
         onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
         restartComm();
+
+        //add INITIALIZE error log event
+       // addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR );
     }
 
     @Override
@@ -503,14 +543,21 @@ public class OneToOneCommunication implements
     }
 
     private void restartViews() {
-        onRemoteViewReady(null);
-        onPreviewReady(null);
+        if ( mSubscriber != null ) {
+            onRemoteViewReady(mSubscriber.getView());
+        }
+        if ( mPublisher != null ){
+            onPreviewReady(null);
+        }
     }
 
     protected void onInitialized() {
         if ( this.mListener != null ) {
             this.mListener.onInitialized();
         }
+
+        //add INITIALIZE success log event
+      //  addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     protected void onError(String error) {
@@ -543,4 +590,9 @@ public class OneToOneCommunication implements
         }
     }
 
+   /* private void addLogEvent(String action, String variation){
+        if ( mAnalytics!= null ) {
+            mAnalytics.logEvent(action, variation);
+        }
+    }*/
 }

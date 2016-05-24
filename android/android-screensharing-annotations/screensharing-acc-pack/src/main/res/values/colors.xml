@@ -7,4 +7,5 @@
     <color name="Purple">#4B0082</color>
     <color name="Brown">#800000</color>
     <color name="TransparentBlack">#CC000000</color>
+    <color name="annotations_toolbar_bckg">#666666</color>
 </resources>

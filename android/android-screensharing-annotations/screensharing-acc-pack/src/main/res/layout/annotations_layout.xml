@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:id="@+id/annotations_toolbar"
+    android:background="#c3c3"
+    android:layout_alignParentBottom="true">
+        <ImageButton
+            android:id="@+id/draw_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_freehand" />
+        <ImageButton
+            android:id="@+id/draw_line2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_freehand" />
+
+</RelativeLayout>

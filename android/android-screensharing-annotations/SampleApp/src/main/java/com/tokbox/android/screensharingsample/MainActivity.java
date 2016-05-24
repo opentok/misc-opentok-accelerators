@@ -322,27 +322,32 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 if (mComm.getLocalVideo()) {
                     preview.setBackgroundResource(R.drawable.preview);
                 }
-                else {
-                    //local video is disabled
-                    onDisableLocalVideo(false);
-                }
             } else {
                 preview.setBackground(null);
             }
-            mPreviewViewContainer.setLayoutParams(layoutParamsPreview);
+
             mPreviewViewContainer.addView(preview);
+            mPreviewViewContainer.setLayoutParams(layoutParamsPreview);
+            if (!mComm.getLocalVideo()){
+                onDisableLocalVideo(false);
+            }
         }
     }
 
     @Override
     public void onRemoteViewReady(View remoteView) {
         //update preview when a new participant joined to the communication
-        onPreviewReady(mPreviewViewContainer.getChildAt(0)); //main preview view
-        if (remoteView == null ){
-            mRemoteViewContainer.removeAllViews();
+        if (mPreviewViewContainer.getChildCount() > 0) {
+            onPreviewReady(mPreviewViewContainer.getChildAt(0)); //main preview view
+        }
+        if (!mComm.isRemote()) {
+            //clear views
+            onAudioOnly(false);
+            mRemoteViewContainer.removeView(remoteView);
             mRemoteViewContainer.setClickable(false);
         }
         else {
+            //show remote view
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     this.getResources().getDisplayMetrics().widthPixels, this.getResources()
                     .getDisplayMetrics().heightPixels);

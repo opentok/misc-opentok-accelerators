@@ -23,8 +23,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.AbsoluteLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.opentok.android.BaseVideoRenderer;
 import com.opentok.android.Connection;
@@ -36,9 +39,11 @@ import com.opentok.android.Stream;
 import com.tokbox.android.accpack.AccPackSession;
 
 
-import com.tokbox.android.accpack.screensharing.R;
-import com.tokbox.android.accpack.screensharing.annotations.toolbar.AnnotationToolbar;
+import com.tokbox.android.accpack.annotations.AnnotationsVideoRenderer;
+import com.tokbox.android.accpack.annotations.AnnotationsView;
 import com.tokbox.android.accpack.screensharing.services.ScreenSharingService;
+
+import java.io.Serializable;
 
 
 public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener, AccPackSession.SignalListener {
@@ -51,7 +56,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
 
     private AccPackSession mSession;
-    private PublisherKit mScreenPublisher;
+    private ScreenPublisher mScreenPublisher;
     private String mApiKey;
     private boolean isConnected;
 
@@ -71,11 +76,11 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private Intent mResultData;
 
     private RelativeLayout mScreenView;
-
-
+    private AnnotationsView mAnnotationView;
     Intent mIntent;
 
-    private AnnotationToolbar mToolbar;
+    //private AnnotationToolbar mToolbar;
+    //private AnnotationsToolbar mToolbar;
 
     @Override
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
@@ -83,6 +88,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
             Log.i(LOG_TAG, "New annotation received");
         }
     }
+
 
     /**
      * Monitors state changes in the TextChatFragment.
@@ -139,6 +145,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         this.mListener = mListener;
     }
 
+
+
     public void start(){
         if (isConnected) {
 
@@ -182,8 +190,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
 
         mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
-
-        mToolbar = (AnnotationToolbar) rootView.findViewById(R.id.toolbar);
+        mAnnotationView = (AnnotationsView) rootView.findViewById(R.id.annotations_view);
+        //mToolbar = (AnnotationsToolbar) rootView.findViewById(R.id.toolbar);
+       // mToolbar = new AnnotationsToolbar(getContext());
 
         return rootView;
     }
@@ -233,37 +242,33 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
             //create ScreenCapturer
             ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreenView, mImageReader, size);
-            mScreenPublisher = new Publisher(getContext(), "screenPublisher", capturer);
+            mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", capturer);
             mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
             mScreenPublisher.setPublisherListener(this);
 
-            AnnotationVideoRenderer renderer = new AnnotationVideoRenderer(getContext());
+            AnnotationsVideoRenderer renderer = new AnnotationsVideoRenderer(getContext());
             mScreenPublisher.setRenderer(renderer);
 
             attachPublisherView((Publisher) mScreenPublisher);
             mSession.publish(mScreenPublisher);
-
-
-            // Add this line to attach the annotation view to the toolbar
-            //annotationView.attachToolbar(mToolbar);
-
         }
     }
 
     private void attachPublisherView(Publisher publisher) {
+
         mScreenPublisher.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
                 BaseVideoRenderer.STYLE_VIDEO_FILL);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 mWidth, mHeight);
 
+
         // Add these 3 lines to attach the annotation view to the publisher view
-        AnnotationView annotationView = new AnnotationView(getContext());
-        mScreenView.addView(annotationView, layoutParams);
-        annotationView.attachPublisher((Publisher)mScreenPublisher);
+      //  AnnotationsView annotationView = new AnnotationsView(getContext());
+        //mScreenView.addView(annotationView, layoutParams);
+        mAnnotationView.attachPublisher((Publisher)mScreenPublisher);
 
         // Add this line to attach the annotation view to the toolbar
-        annotationView.attachToolbar(mToolbar);
-
+       // annotationView.attachToolbar(mToolbar);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -278,7 +283,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         mDensity = metrics.densityDpi;
         Display mDisplay = getActivity().getWindowManager().getDefaultDisplay();
-
 
         // get width and height
         Point size = new Point();
@@ -381,7 +385,13 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         Log.i(LOG_TAG, "OnStreamCreated");
 
         mIntent = new Intent(getActivity(), ScreenSharingService.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("annotations", true);
+        //bundle.putSerializable("screenPublisher", mScreenPublisher);
+        mIntent.putExtras(bundle);
         getActivity().startService(mIntent);
+
 
         onScreenSharingStarted();
     }
@@ -398,6 +408,4 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         onScreenSharingError(opentokError.getMessage());
     }
-
-
 }

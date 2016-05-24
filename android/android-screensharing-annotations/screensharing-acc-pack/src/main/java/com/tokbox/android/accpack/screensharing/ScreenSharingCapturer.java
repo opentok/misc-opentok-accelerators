@@ -15,6 +15,7 @@ import android.view.View;
 import com.opentok.android.BaseVideoCapturer;
 
 import java.io.FileOutputStream;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -39,6 +40,8 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
     private ImageReader mImageReader;
 
     Bitmap lastBmp;
+    int width_final=0;
+    int height_final = 0;
 
     private final Lock mImageReaderLock = new ReentrantLock(true /*fair*/);
 
@@ -48,16 +51,16 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
         public void run() {
             if (capturing) {
                 frame = null;
-                int width = contentView.getWidth();
-                int height = contentView.getHeight();
+               // int width = contentView.getWidth();
+               // int height = contentView.getHeight();
 
-                if (frame == null ||
+               /* if (frame == null ||
                         ScreenSharingCapturer.this.width != width ||
-                        ScreenSharingCapturer.this.height != height) {
+                        ScreenSharingCapturer.this.height != height) {*/
 
-                    ScreenSharingCapturer.this.width = width;
-                    ScreenSharingCapturer.this.height = height;
-
+                 //   ScreenSharingCapturer.this.width = width;
+                  //  ScreenSharingCapturer.this.height = height;
+                if (frame == null ){
                     if (lastBmp != null){
                         canvas = new Canvas(lastBmp);
                         frame = new int[width * height];
@@ -67,7 +70,6 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
                         contentView.draw(canvas);
 
                         lastBmp.getPixels(frame, 0, width, 0, 0, width, height);
-
                         provideIntArrayFrame(frame, ARGB, width, height, 0, false);
 
                         canvas.restore();
@@ -85,6 +87,7 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
             }
         }
     };
+
 
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -164,18 +167,30 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
                     mImage = mImageReader.acquireLatestImage();
                     Log.i(LOG_TAG, " NEW IMAGE");
 
-                    if (mImage != null) {
+
+                   if (mImage != null) {
                         Image.Plane[] planes = mImage.getPlanes();
                         ByteBuffer buffer = planes[0].getBuffer();
                         int pixelStride = planes[0].getPixelStride();
                         int rowStride = planes[0].getRowStride();
                         int rowPadding = rowStride - pixelStride * width;
+                           // create bitmap
+                        //bmp = Bitmap.createBitmap(width + rowPadding / pixelStride, height, Bitmap.Config.ARGB_8888);
+                        //bmp.copyPixelsFromBuffer(buffer);
+                        //lastBmp = bmp.copy(bmp.getConfig(), true);
 
-                        // create bitmap
-                        bmp = Bitmap.createBitmap(width + rowPadding / pixelStride, height, Bitmap.Config.ARGB_8888);
-                        bmp.copyPixelsFromBuffer(buffer);
-                        lastBmp = Bitmap.createBitmap(bmp);
 
+
+                        Buffer buffer2 = planes[0].getBuffer().rewind();
+                        bmp = Bitmap.createBitmap(mImage.getWidth()+ rowPadding / pixelStride, mImage.getHeight(), Bitmap.Config.ARGB_8888);
+
+
+                       width_final = mImage.getWidth() + rowPadding / pixelStride;
+                       height_final = mImage.getHeight();
+
+
+                       bmp.copyPixelsFromBuffer(buffer2);
+                        lastBmp = bmp.copy(bmp.getConfig(), true);
                     }
 
                 } catch (Exception e) {

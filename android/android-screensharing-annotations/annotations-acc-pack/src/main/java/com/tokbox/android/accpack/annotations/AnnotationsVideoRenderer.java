@@ -1,9 +1,9 @@
-package com.tokbox.android.accpack.screensharing;
-
+package com.tokbox.android.accpack.annotations;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.opengl.GLES20;
+import android.opengl.GLException;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
@@ -14,13 +14,14 @@ import com.opentok.android.BaseVideoRenderer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class AnnotationVideoRenderer extends BaseVideoRenderer {
+public class AnnotationsVideoRenderer extends BaseVideoRenderer {
 
     private Context mContext;
 
@@ -344,7 +345,7 @@ public class AnnotationVideoRenderer extends BaseVideoRenderer {
         }
     }
 
-    public AnnotationVideoRenderer(Context context) {
+    public AnnotationsVideoRenderer(Context context) {
         this.mContext = context;
 
         mView = new GLSurfaceView(context);
@@ -369,11 +370,17 @@ public class AnnotationVideoRenderer extends BaseVideoRenderer {
     }
 
     public int getVideoWidth() {
-        return mRenderer.mCurrentFrame.getWidth();
+        if ( mRenderer.mCurrentFrame != null ) {
+            return mRenderer.mCurrentFrame.getWidth();
+        }
+        return 0;
     }
 
     public int getVideoHeight() {
-        return mRenderer.mCurrentFrame.getHeight();
+        if ( mRenderer.mCurrentFrame != null ) {
+            return mRenderer.mCurrentFrame.getHeight();
+        }
+        return 0;
     }
 
     public Bitmap captureScreenshot() {
