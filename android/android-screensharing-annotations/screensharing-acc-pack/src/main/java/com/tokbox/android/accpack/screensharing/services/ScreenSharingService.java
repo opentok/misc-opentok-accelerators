@@ -72,6 +72,7 @@ public class ScreenSharingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         mIntent = intent;
 
         Bundle bundle = intent.getExtras();
@@ -88,15 +89,20 @@ public class ScreenSharingService extends Service {
             windowParams2.y = 600;
             windowParams2.x = 0;
             mAnnotationsToolbar = new AnnotationsToolbar(getApplicationContext());
-
+           // mAnnotationsToolbar.setOnClickListener(new AnnotationsClick());
             ((WindowManager) getSystemService(WINDOW_SERVICE)).addView(mAnnotationsToolbar, windowParams2);
         }
-
-
-
         return super.onStartCommand(intent, flags, startId);
     }
+/*
+    public class AnnotationsClick implements View.OnClickListener {
 
+        @Override
+        public void onClick(View v) {
+            Intent mIntent = new Intent(getApplicationContext(), AnnotationsService.class);
+            getApplicationContext().startService(mIntent);
+        }
+    }*/
     @Override
     public void onDestroy() {
         super.onDestroy();

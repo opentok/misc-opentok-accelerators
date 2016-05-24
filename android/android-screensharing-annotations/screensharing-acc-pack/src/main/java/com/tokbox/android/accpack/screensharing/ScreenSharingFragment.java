@@ -18,15 +18,9 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.AbsoluteLayout;
 import android.widget.RelativeLayout;
 
 import com.opentok.android.BaseVideoRenderer;
@@ -246,10 +240,10 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
             mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
             mScreenPublisher.setPublisherListener(this);
 
-            AnnotationsVideoRenderer renderer = new AnnotationsVideoRenderer(getContext());
-            mScreenPublisher.setRenderer(renderer);
+            //AnnotationsVideoRenderer renderer = new AnnotationsVideoRenderer(getContext());
+            //mScreenPublisher.setRenderer(renderer);
 
-            attachPublisherView((Publisher) mScreenPublisher);
+          //  attachPublisherView((Publisher) mScreenPublisher);
             mSession.publish(mScreenPublisher);
         }
     }
@@ -294,7 +288,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         mImageReader = ImageReader.newInstance(mWidth, mHeight, PixelFormat.RGBA_8888, 2);
         mVirtualDisplay = mMediaProjection.createVirtualDisplay("ScreenCapture", mWidth, mHeight, mDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, mImageReader.getSurface(), null, null);
     }
-
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void tearDownMediaProjection() {
@@ -392,14 +385,12 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         mIntent.putExtras(bundle);
         getActivity().startService(mIntent);
 
-
         onScreenSharingStarted();
     }
 
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
         getActivity().stopService(mIntent);
-
         onScreenSharingStopped();
 
     }
