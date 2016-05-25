@@ -6,20 +6,20 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "ShareViewController.h"
-#import "ShareView.h"
+#import "CaptureViewController.h"
+#import "CaptureView.h"
 
-@interface ShareViewController ()
-@property (nonatomic) ShareModel *shareModel;
-@property (strong, nonatomic) IBOutlet ShareView *shareView;
+@interface CaptureViewController ()
+@property (nonatomic) CaptureModel *captureModel;
+@property (strong, nonatomic) CaptureView *captureView;
 @property (nonatomic) UIActivityViewController *activityViewController;
 @end
 
-@implementation ShareViewController
+@implementation CaptureViewController
 
 - (UIActivityViewController *)activityViewController {
     if (!_activityViewController) {
-        _activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self.shareModel.sharedImage] applicationActivities:nil];
+        _activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self.captureModel.sharedImage] applicationActivities:nil];
     }
     return _activityViewController;
 }
@@ -29,7 +29,7 @@
     if (!sharedImage) return nil;
     if (self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleForClass:self.class]]) {
     
-        _shareModel = [[ShareModel alloc] initWithSharedImage:sharedImage sharedDate:[NSDate date]];
+        _captureModel = [[CaptureModel alloc] initWithSharedImage:sharedImage sharedDate:[NSDate date]];
         
         self.providesPresentationContextTransitionStyle = YES;
         self.definesPresentationContext = YES;
@@ -41,8 +41,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.shareView = (ShareView *)self.view;
-    [self.shareView updateWithShareModel: self.shareModel];
+    self.captureView = (CaptureView *)self.view;
+    [self.captureView updateWithShareModel: self.captureModel];
 }
 
 - (IBAction)shareButtonPressed:(id)sender {
@@ -50,7 +50,7 @@
 }
 
 - (IBAction)saveButtonPressed:(id)sender {
-    UIImageWriteToSavedPhotosAlbum(self.shareModel.sharedImage,
+    UIImageWriteToSavedPhotosAlbum(self.captureModel.sharedImage,
                                    self,
                                    @selector(finishSavingImage:error:contextInfo:),
                                    nil);

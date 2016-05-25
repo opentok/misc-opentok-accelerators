@@ -12,14 +12,14 @@
 
 + (instancetype)view;
 
-@property (nonatomic) BOOL scrollEnabled;
-
 - (void)addContentView:(UIView *)view;
 
-- (void)testAnnotating;
+@property (nonatomic, getter = isAnnotating) BOOL annotating;
 
-- (void)testErasing;
+- (void)selectColor:(UIColor *)selectedColor;
 
-- (void)testSharing:(UIImage *)image;
+- (void)captureAndShare;
+
+- (void)erase;
 
 @end

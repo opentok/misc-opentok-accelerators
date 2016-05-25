@@ -6,10 +6,12 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <ScreenShareKit/ScreenShareKit.h>
 
 @interface ScreenShareToolbarView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame;
+@property (readonly, nonatomic) ScreenShareView *screenShareView;
+
++ (instancetype)toolbar;
 
 @end

@@ -6,14 +6,14 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "ShareView.h"
+#import "CaptureView.h"
 
-@interface ShareModel()
+@interface CaptureModel()
 @property (nonatomic) UIImage *sharedImage;
 @property (nonatomic) NSDate *sharedDate;
 @end
 
-@implementation ShareModel
+@implementation CaptureModel
 
 - (instancetype)initWithSharedImage:(UIImage *)sharedImage
                          sharedDate:(NSDate *)sharedDate {
@@ -27,14 +27,14 @@
 @end
 
 
-@interface ShareView()
+@interface CaptureView()
 @property (weak, nonatomic) IBOutlet UIView *contenView;
 @property (weak, nonatomic) IBOutlet UIImageView *sharedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageSizeLabel;
 @end
 
-@implementation ShareView
+@implementation CaptureView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -48,7 +48,7 @@
     [self.sharedImageView.layer setBorderWidth:1.0f];
 }
 
-- (void)updateWithShareModel:(ShareModel *)shareModel {
+- (void)updateWithShareModel:(CaptureModel *)shareModel {
     
     if (!shareModel) return;
     

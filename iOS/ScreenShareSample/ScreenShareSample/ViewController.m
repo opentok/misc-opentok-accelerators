@@ -10,11 +10,6 @@
 #import <ScreenShareKit/ScreenShareKit.h>
 
 @interface ViewController () <UIScrollViewDelegate>
-//@property (nonatomic) ScreenShareTextField *textField;
-//@property (nonatomic) UIView *contentView;
-//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
-@property (nonatomic) ScreenShareView *shareView;
 @property (nonatomic) ScreenShareToolbarView *toolbarView;
 @end
 
@@ -22,37 +17,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // tool bar
+    self.toolbarView = [ScreenShareToolbarView toolbar];
     
-    // ScreenShareView example
-    self.shareView = [ScreenShareView view];
-    
+    // screen share view
     UIImage *image = [UIImage imageNamed:@"mvc"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    [self.shareView addContentView:imageView];
+    [self.toolbarView.screenShareView addContentView:imageView];
     
-    self.shareView.frame = CGRectMake(0, 100, CGRectGetWidth(self.shareView.bounds), CGRectGetHeight(self.shareView.bounds));
-    [self.view addSubview:self.shareView];
-    
-    self.toolbarView = [[ScreenShareToolbarView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight([UIScreen mainScreen].bounds) - 50, CGRectGetWidth([UIScreen mainScreen].bounds), 50)];
+    [self.view addSubview:self.toolbarView.screenShareView];
     [self.view addSubview:self.toolbarView];
-    
-    [self.shareView testAnnotating];
 }
 
-
-- (IBAction)changeScrollable:(id)sender {
-    self.shareView.scrollEnabled = !self.shareView.scrollEnabled;
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
-
-
-- (IBAction)eraseButtonPressed:(id)sender {
-    [self.shareView testErasing];
-}
-
-- (IBAction)shareButtonPressed:(id)sender {
-    [self.shareView testSharing:[UIImage imageNamed:@"mvc"]];
-}
-
 
 @end

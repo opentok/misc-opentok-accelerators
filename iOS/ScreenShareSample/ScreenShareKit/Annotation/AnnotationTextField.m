@@ -20,7 +20,7 @@
 @implementation AnnotationTextField
 
 + (instancetype)textField {
-    AnnotationTextField *textField = [[AnnotationTextField alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
+    AnnotationTextField *textField = [[AnnotationTextField alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     textField.delegate = textField;
     [textField setTextAlignment:NSTextAlignmentCenter];
     [textField setText:@"Testing"];
@@ -40,6 +40,11 @@
     textField.scale = 1.f;
     textField.referenceRotateTransform = CGAffineTransformIdentity;
     textField.currentRotateTransform = CGAffineTransformIdentity;
+    
+    textField.layer.borderWidth = 2.0f;
+    textField.layer.borderColor = [UIColor blackColor].CGColor;
+    
+    
     return textField;
 }
 
@@ -90,7 +95,7 @@
             CGAffineTransform currentTransform = self.referenceRotateTransform;
             
             if ([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]) {
-                self.currentRotateTransform = [self.class applyRecognizer:recognizer toTransform:self.referenceRotateTransform];
+                self.currentRotateTransform = [self applyRecognizer:recognizer toTransform:self.referenceRotateTransform];
             }
             
             currentTransform = [self applyRecognizer:self.activePinchRecognizer toTransform:currentTransform];

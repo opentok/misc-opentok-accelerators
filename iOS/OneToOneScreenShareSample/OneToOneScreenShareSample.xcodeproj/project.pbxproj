@@ -10,6 +10,7 @@
 		3F65DAB51CF377100012111D /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F65DAB21CF377100012111D /* OneToOneCommunicator.m */; };
 		3F65DAB61CF377100012111D /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F65DAB41CF377100012111D /* OTKAnalytics.m */; };
 		3F65DAB91CF377D30012111D /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F65DAB81CF377D30012111D /* MainView.m */; };
+		A022F5F01CF58330008E8C70 /* ScreenShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A022F5EF1CF58330008E8C70 /* ScreenShareKit.framework */; };
 		A060AF661CF36B0700589311 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A060AF651CF36B0700589311 /* main.m */; };
 		A060AF691CF36B0700589311 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A060AF681CF36B0700589311 /* AppDelegate.m */; };
 		A060AF6C1CF36B0700589311 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A060AF6B1CF36B0700589311 /* MainViewController.m */; };
@@ -25,6 +26,7 @@
 		3F65DAB41CF377100012111D /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		3F65DAB71CF377D30012111D /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		3F65DAB81CF377D30012111D /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
+		A022F5EF1CF58330008E8C70 /* ScreenShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ScreenShareKit.framework; sourceTree = "<group>"; };
 		A060AF611CF36B0700589311 /* OneToOneScreenShareSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneToOneScreenShareSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A060AF651CF36B0700589311 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A060AF671CF36B0700589311 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A022F5F01CF58330008E8C70 /* ScreenShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +81,7 @@
 		A060AF631CF36B0700589311 /* OneToOneScreenShareSample */ = {
 			isa = PBXGroup;
 			children = (
+				A022F5EF1CF58330008E8C70 /* ScreenShareKit.framework */,
 				A060AF671CF36B0700589311 /* AppDelegate.h */,
 				A060AF681CF36B0700589311 /* AppDelegate.m */,
 				A060AF6A1CF36B0700589311 /* MainViewController.h */,
@@ -291,6 +295,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OneToOneScreenShareSample",
+				);
 				INFOPLIST_FILE = OneToOneScreenShareSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.OneToOneScreenShareSample;
@@ -302,6 +310,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OneToOneScreenShareSample",
+				);
 				INFOPLIST_FILE = OneToOneScreenShareSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.OneToOneScreenShareSample;

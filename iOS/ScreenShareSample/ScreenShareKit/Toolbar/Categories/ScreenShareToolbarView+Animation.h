@@ -10,10 +10,9 @@
 
 @interface ScreenShareToolbarView (Animation)
 
-- (void)moveSelectionShadowViewTo:(UIButton *)sender
-                         animated:(BOOL)animated;
-
-- (void)showColorPickerViewWithAnimation:(BOOL)animated;
-- (void)dismissColorPickerViewWithAnimation:(BOOL)animated;
+- (void)moveSelectionShadowViewTo:(UIButton *)sender;
+- (void)showColorPickerView;
+- (void)dismissColorPickerView
+;
 
 @end

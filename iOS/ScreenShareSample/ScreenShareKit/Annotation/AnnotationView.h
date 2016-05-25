@@ -6,9 +6,8 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <ScreenShareKit/Annotatable.h>
 #import <ScreenShareKit/AnnotationPath.h>
-#import <ScreenShareKit/AnnotationTextField.h>
+#import <ScreenShareKit/Annotatable.h>
 
 @interface AnnotationView : UIView
 

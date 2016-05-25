@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShareModel : NSObject
+@interface CaptureModel : NSObject
 @property (readonly, nonatomic) UIImage *sharedImage;
 - (instancetype)initWithSharedImage:(UIImage *)sharedImage
                          sharedDate:(NSDate *)sharedDate;
 @end
 
-@interface ShareView : UIView
-- (void)updateWithShareModel:(ShareModel *)shareModel;
+@interface CaptureView : UIView
+- (void)updateWithShareModel:(CaptureModel *)shareModel;
 @end

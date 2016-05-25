@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShareViewController : UIViewController
+@interface CaptureViewController : UIViewController
 
 - (instancetype)initWithSharedImage:(UIImage *)sharedImage;
 

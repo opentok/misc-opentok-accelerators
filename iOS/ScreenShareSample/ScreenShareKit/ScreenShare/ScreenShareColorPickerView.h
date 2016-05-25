@@ -9,13 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @class ScreenShareColorPickerView;
-@protocol ScreenShareColorPickerView <NSObject>
+
+@interface ScreenShareColorPickerViewButton : UIButton
+@end
+
+@protocol ScreenShareColorPickerViewProtocol <NSObject>
 - (void)colorPickerView:(ScreenShareColorPickerView *)colorPickerView
-       didSelectColor:(UIColor *)color;
+   didSelectColorButton:(ScreenShareColorPickerViewButton *)button
+          selectedColor:(UIColor *)selectedColor;
 @end
 
 @interface ScreenShareColorPickerView : UIView
 - (instancetype)initWithFrame:(CGRect)frame;
 @property (readonly, nonatomic) UIColor *selectedColor;
-@property (nonatomic) id<ScreenShareColorPickerView> delegate;
+@property (nonatomic) id<ScreenShareColorPickerViewProtocol> delegate;
 @end

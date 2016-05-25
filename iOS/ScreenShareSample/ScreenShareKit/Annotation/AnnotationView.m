@@ -13,7 +13,7 @@
 #import "AnnotationPoint_Private.h"
 
 @interface AnnotationView()
-@property (nonatomic) AnnotationPath *drawingPath;
+@property (nonatomic) AnnotationPath *currentDrawPath;
 @property (nonatomic) AnnotationManager *annotationnManager;
 @end
 
@@ -24,15 +24,13 @@
     if (self = [super initWithFrame:frame]) {
         // init
         _annotationnManager = [[AnnotationManager alloc] init];
-        _drawingPath = [AnnotationPath pathWithStrokeColor: nil];
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
 }
 
-- (void)setCurrentDrawPath:(AnnotationPath *)drawingPath {
-    if (!drawingPath) return;
-    _drawingPath = drawingPath;
+- (void)setCurrentDrawPath:(AnnotationPath *)currentDrawPath {
+    _currentDrawPath = currentDrawPath;
 }
 
 - (void)addAnnotatable:(id<Annotatable>)annotatable {
@@ -82,21 +80,29 @@
 
 #pragma mark - UIResponder
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self.annotationnManager addAnnotatable:_drawingPath];
-    UITouch *touch = [touches anyObject];
-    AnnotationPoint *touchPoint = [[AnnotationPoint alloc] initWithTouchPoint:touch];
-    [_drawingPath drawAtPoint:touchPoint];
+    
+    if (_currentDrawPath) {
+        [self.annotationnManager addAnnotatable:_currentDrawPath];
+        UITouch *touch = [touches anyObject];
+        AnnotationPoint *touchPoint = [[AnnotationPoint alloc] initWithTouchPoint:touch];
+        [_currentDrawPath drawAtPoint:touchPoint];
+    }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    AnnotationPoint *touchPoint = [[AnnotationPoint alloc] initWithTouchPoint:touch];
-    [_drawingPath drawToPoint:touchPoint];
-    [self setNeedsDisplay];
+    
+    if (_currentDrawPath) {
+        UITouch *touch = [touches anyObject];
+        AnnotationPoint *touchPoint = [[AnnotationPoint alloc] initWithTouchPoint:touch];
+        [_currentDrawPath drawToPoint:touchPoint];
+        [self setNeedsDisplay];
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    _drawingPath = [AnnotationPath pathWithStrokeColor:_drawingPath.strokeColor];
+    if (_currentDrawPath) {
+        _currentDrawPath = [AnnotationPath pathWithStrokeColor:_currentDrawPath.strokeColor];
+    }
 }
 
 @end

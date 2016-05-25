@@ -7,9 +7,7 @@
 //
 
 #import "ScreenShareColorPickerView.h"
-
-@interface ScreenShareColorPickerViewButton : UIButton
-@end
+#import "UIButton+AutoLayoutHelper.h"
 
 #pragma mark - ScreenShareColorPickerViewButton
 @implementation ScreenShareColorPickerViewButton
@@ -19,6 +17,8 @@
         self.layer.borderWidth = 2.0f;
         self.layer.borderColor = [UIColor clearColor].CGColor;
         self.clipsToBounds = YES;
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        self.backgroundColor = [UIColor colorWithRed:68.0/255.0f green:140.0/255.0f blue:230.0/255.0f alpha:1.0];
     }
     return self;
 }
@@ -26,6 +26,14 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.layer.cornerRadius = CGRectGetWidth(self.bounds) / 2.0;
+}
+
+- (void)didMoveToSuperview {
+    if (!self.superview) return;
+    [self addCenterConstraints];
+    
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
+    heightConstraint.active = YES;
 }
 
 - (void)setSelected:(BOOL)selected {
@@ -83,15 +91,18 @@
 }
 
 - (void)configureColorPickerButtons {
+
+    // first button
+    ScreenShareColorPickerViewButton *button = [[ScreenShareColorPickerViewButton alloc] init];
+    [button setBackgroundColor:self.colorDict[@(1)]];
+    [button addTarget:self action:@selector(colorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.colorToolbar setContentView:button atIndex:0];
+    self.selectedButton = button;
+    [self.selectedButton setSelected:YES];
     
-    NSUInteger gap = 4;
-    CGRect mainScreenBounds = [UIScreen mainScreen].bounds;
-    CGFloat widthOfButton = CGRectGetWidth(mainScreenBounds) / self.colorDict.count;
-    
-    for (NSUInteger i = 1; i < 10; i++) {
+    for (NSUInteger i = 2; i < 10; i++) {
         
         ScreenShareColorPickerViewButton *button = [[ScreenShareColorPickerViewButton alloc] init];
-        button.frame = CGRectMake(gap, gap, widthOfButton - 2 * gap, widthOfButton - 2 * gap);
         [button setBackgroundColor:self.colorDict[@(i)]];
         [button addTarget:self action:@selector(colorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.colorToolbar setContentView:button atIndex:i - 1];
@@ -105,7 +116,7 @@
     [self.selectedButton setSelected:YES];
     
     if (self.delegate) {
-        [self.delegate colorPickerView:self didSelectColor:self.selectedButton.backgroundColor];
+        [self.delegate colorPickerView:self didSelectColorButton:self.selectedButton selectedColor:self.selectedColor];
     }
 }
 
