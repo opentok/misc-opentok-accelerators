@@ -6,7 +6,7 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol Annotatable <NSObject>
 

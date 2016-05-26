@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A1781CEE7AFB00935C9E /* ScreenCapture.h */; };
+		A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A1781CEE7AFB00935C9E /* ScreenCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = A012A1791CEE7AFB00935C9E /* ScreenCapture.m */; };
 		A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A012A1801CEE7AFB00935C9E /* ScreenShareView.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -316,9 +316,9 @@
 				A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */,
 				A0166D371CF4CD7600DED33F /* ScreenShareToolbarView.h in Headers */,
 				A012A1801CEE7AFB00935C9E /* ScreenShareView.h in Headers */,
+				A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */,
 				A0166D2B1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.h in Headers */,
 				A0166D451CF505A400DED33F /* ScreenShareToolbarButton.h in Headers */,
-				A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */,
 				A0166D2A1CF4BBA700DED33F /* ScreenShareToolbarView_UserInterfaces.h in Headers */,
 				A044C3C51CED285A000F7489 /* Annotatable.h in Headers */,
 				A044C3C01CED266E000F7489 /* AnnotationPoint.h in Headers */,

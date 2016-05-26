@@ -7,6 +7,7 @@
 //
 
 #import <ScreenShareKit/ScreenShareKit.h>
+#import "ScreenShareColorPickerView.h"
 
 @interface ScreenShareToolbarView ()
 
