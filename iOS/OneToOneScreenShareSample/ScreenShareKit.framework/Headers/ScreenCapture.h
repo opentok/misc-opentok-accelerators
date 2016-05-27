@@ -21,28 +21,4 @@
  */
 - (instancetype)initWithView:(UIView*)view;
 
-/**
- * Create - Use shared session from Accelerator pack.
- */
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token;
-
-/**
- * returns the publisher to be able to add it to the subview that correspond
- */
-
-- (id)connectPublisher;
-
-/**
- * Allocate capture resources; in this case we're just setting up a timer and
- * block to execute periodically to send video frames.
- */
-- (void)startCapture;
-
-/**
- * stops screenshare and release the resouces 
- */
-- (void)stopCapture;
-
 @end

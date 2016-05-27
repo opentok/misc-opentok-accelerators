@@ -17,12 +17,15 @@
 @property (strong, nonatomic) IBOutlet UIButton *callHolder;
 @property (strong, nonatomic) IBOutlet UIButton *micHolder;
 @property (strong, nonatomic) IBOutlet UIButton *screenShareHolder;
+@property (strong, nonatomic) IBOutlet UIButton *annotationHolder;
 
 @property (strong, nonatomic) IBOutlet UIButton *subscriberVideoButton;
 @property (strong, nonatomic) IBOutlet UIButton *subscriberAudioButton;
 
 @property (strong, nonatomic) UIImageView *subscriberPlaceHolderImageView;
 @property (strong, nonatomic) UIImageView *publisherPlaceHolderImageView;
+
+@property (nonatomic) ScreenShareToolbarView *toolbarView;
 @end
 
 @implementation MainView
@@ -62,6 +65,7 @@
     [self drawBorderOn:self.callHolder withWhiteBorder:NO];
     [self drawBorderOn:self.videoHolder withWhiteBorder:YES];
     [self drawBorderOn:self.screenShareHolder withWhiteBorder:YES];
+    [self drawBorderOn:self.annotationHolder withWhiteBorder:YES];
     [self hideSubscriberControls];
 }
 
@@ -178,8 +182,17 @@
     [self.videoHolder setEnabled: status];
     [self.micHolder setEnabled: status];
     [self.screenShareHolder setEnabled: status];
+    [self.annotationHolder setEnabled:status];
 }
 
+- (void) setupAnnotationToolBar {
+    // tool bar
+    self.toolbarView = [ScreenShareToolbarView toolbar];
+    [self.toolbarView.screenShareView addContentView: self.subscriberView];
+    
+    [self addSubview:self.toolbarView.screenShareView];
+    [self addSubview:self.toolbarView];
+}
 
 #pragma mark - private method
 -(void)addAttachedLayoutConstantsToSuperview:(UIView *)view {

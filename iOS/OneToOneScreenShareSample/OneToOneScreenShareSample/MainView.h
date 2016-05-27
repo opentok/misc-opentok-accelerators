@@ -5,10 +5,13 @@
 //  Created by Esteban Cordero on 5/23/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
+
+#import <ScreenShareKit/ScreenShareKit.h>
+
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-@interface MainView : UIView
+@interface MainView : UIView<UIScrollViewDelegate>
 
 // publisher view
 - (void)addPublisherView:(UIView *)publisherView;
@@ -37,5 +40,7 @@
 // other controls
 - (void)removePlaceHolderImage;
 - (void) buttonsStatusSetter: (BOOL)status;
+
+- (void) setupAnnotationToolBar;
 
 @end

@@ -18,9 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [OneToOneCommunicator setOpenTokApiKey:@"<# Replace #>"
-                                 sessionId:@"<# Replace #>"
-                                     token:@"<# Replace #>"];
+    [OneToOneCommunicator setOpenTokApiKey:@"<#replace#>"
+                                 sessionId:@"<#replace#>"
+                                     token:@"<#replace#>"];
     
     return YES;
 }

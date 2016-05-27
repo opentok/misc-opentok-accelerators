@@ -15,6 +15,8 @@
 @interface MainViewController ()
 @property (nonatomic) MainView *mainView;
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
+
+@property (nonatomic) ScreenCapture *screenShare;
 @end
 
 @implementation MainViewController
@@ -129,11 +131,17 @@
     self.oneToOneCommunicator.publishAudio = !self.oneToOneCommunicator.publishAudio;
 }
 
+- (IBAction)annotationButtonPressed:(UIButton *)sender {
+    [self.mainView setupAnnotationToolBar];
+}
 
 /**
  *  toggles the screen share of the current content of the screen
  */
 - (IBAction)ScreenShareButtonPressed:(UIButton *)sender {
+    _screenShare = [[ScreenCapture alloc] initWithView: self.mainView];
+    [self.oneToOneCommunicator setScreenCaptureSource: _screenShare];
+    [self.oneToOneCommunicator setVideoSourceToScreenShare:YES];
 }
 
 /**
