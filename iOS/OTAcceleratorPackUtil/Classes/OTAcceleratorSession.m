@@ -29,7 +29,7 @@ static NSString * InternalToken = @"";
 }
 
 - (NSString *)sessionId {
-    return InternalToken;
+    return InternalSessionId;
 }
 
 + (NSSet<id<OTSessionDelegate>> *)getRegisters {
