@@ -48,15 +48,20 @@
         android:layout_alignParentLeft="true"
         android:background="@color/accent">
 
-        <EditText
-            android:id="@+id/edit_msg"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_height"
-            android:hint="Type message"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/input_text">
+
+        <EditText
+            android:id="@+id/edit_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/input_height"
+            android:hint="Type message"
             android:paddingLeft="15dp"
             android:textSize="@dimen/input_text"
             android:textColor="@color/input_text"
@@ -64,7 +69,7 @@
             android:focusable="true"
             android:inputType="text"
             android:imeOptions="actionDone"
-            android:background="@drawable/input_text"/>
+            android:background="@null"/>
 
         <TextView
             android:id="@+id/characteres_msg"
@@ -74,10 +79,13 @@
             android:textColor="@color/info"
             android:text="1000"
             android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:layout_toRightOf="@+id/edit_msg"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="30dp"/>
-
+            android:gravity="right"
+            android:maxLines="1"/>
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>
