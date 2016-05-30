@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -192,6 +193,11 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                 return false;
             }
         });
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+
+        mMsgEditText.setMaxWidth(displaymetrics.widthPixels - (int)getResources().getDimension(R.dimen.edit_text_width));
 
         try {
             mMessageAdapter = new MessagesAdapter(messagesList);
@@ -465,12 +471,17 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             mMsgCharsView.setText(String.valueOf((maxTextLength - s.length())));
             if (chars_left < 4) {
                 mMsgCharsView.setTextColor(Color.RED);
+
+                if (chars_left < 0) {
+                    String maxStr = mMsgEditText.getText().toString().substring(0, mMsgEditText.getText().length() - 1);
+                    mMsgEditText.setText(maxStr);
+                    mMsgEditText.setSelection(mMsgEditText.getText().length());
+                }
             }
-            if (chars_left < 0) {
-                String maxStr  = mMsgEditText.getText().toString().substring( 0, mMsgEditText.getText().length() - 1 );
-                mMsgEditText.setText (maxStr);
-                mMsgEditText.setSelection(mMsgEditText.getText().length());
+            else {
+                mMsgCharsView.setTextColor(getResources().getColor(R.color.info));
             }
+
         }
 
         @Override
@@ -631,5 +642,16 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         else {
             addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR);
         }
+    }
+
+    /**
+     * Converts dp to real pixels, according to the screen density.
+     *
+     * @param dp A number of density-independent pixels.
+     * @return The equivalent number of real pixels.
+     */
+    private int dpToPx(int dp) {
+        double screenDensity = this.getResources().getDisplayMetrics().density;
+        return (int) (screenDensity * (double) dp);
     }
 }
