@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="toolbar_bckg">#666666</color>
+    <color name="done_btn">#62ADBF</color>
 </resources>

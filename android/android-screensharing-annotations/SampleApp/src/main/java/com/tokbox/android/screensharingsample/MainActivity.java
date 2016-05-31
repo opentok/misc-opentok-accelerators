@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //Dialog
     ProgressDialog mProgressDialog;
 
+    private Activity activityReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.setTitle("Please wait");
         mProgressDialog.setMessage("Connecting...");
         mProgressDialog.show();
+
+        activityReference = this;
     }
 
     @Override
@@ -378,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private void initScreenSharingFragment(){
         mScreenSharingFragment = ScreenSharingFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
-
+        mScreenSharingFragment.setListener(this);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.screensharing_fragment_container, mScreenSharingFragment).commit();
     }
@@ -439,7 +443,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onClosed() {
-        Log.i(LOG_TAG, "onClosed");
+        Log.i("MARINAS", "onClosed callbacks");
+
+
+        /*Intent returnBtn = new Intent(activityReference, MainActivity.class);
+        startActivity(returnBtn);*/
+
+        onScreenSharing();
     }
 
     /*public void onLineDrawn(){

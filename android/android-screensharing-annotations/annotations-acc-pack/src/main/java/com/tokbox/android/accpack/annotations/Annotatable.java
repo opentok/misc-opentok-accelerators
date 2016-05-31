@@ -3,12 +3,14 @@ package com.tokbox.android.accpack.annotations;
 
 import android.graphics.Paint;
 
+import java.util.UUID;
+
 public class Annotatable {
 
     private String mode;
     private String data;
 
-
+    private UUID id;
     private AnnotatableType type;
     private AnnotationsPath path;
 
@@ -28,6 +30,7 @@ public class Annotatable {
     }
 
     public Annotatable(String mode, AnnotationsPath path, Paint paint, int canvasWidth, int canvasHeight) {
+        this.id = UUID.randomUUID();
         this.mode = mode;
         this.path = path;
         this.canvasWidth = canvasWidth;
@@ -68,6 +71,10 @@ public class Annotatable {
 
     public AnnotatableType getType() {
         return type;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
 }

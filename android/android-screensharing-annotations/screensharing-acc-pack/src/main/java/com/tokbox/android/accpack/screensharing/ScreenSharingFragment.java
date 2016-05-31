@@ -12,6 +12,9 @@ import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -33,14 +36,12 @@ import com.opentok.android.Stream;
 import com.tokbox.android.accpack.AccPackSession;
 
 
-import com.tokbox.android.accpack.annotations.AnnotationsVideoRenderer;
 import com.tokbox.android.accpack.annotations.AnnotationsView;
 import com.tokbox.android.accpack.screensharing.services.ScreenSharingService;
+import com.tokbox.android.accpack.annotations.services.ServiceManager;
 
-import java.io.Serializable;
 
-
-public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener, AccPackSession.SignalListener {
+public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener, AccPackSession.SignalListener{
 
     private static final String LOG_TAG = ScreenSharingFragment.class.getSimpleName();
     private static final String STATE_RESULT_CODE = "result_code";
@@ -71,10 +72,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     private RelativeLayout mScreenView;
     private AnnotationsView mAnnotationView;
-    Intent mIntent;
-
-    //private AnnotationToolbar mToolbar;
-    //private AnnotationsToolbar mToolbar;
+    private Intent mIntent;
+    private ServiceManager mService;
 
     @Override
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
@@ -82,7 +81,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
             Log.i(LOG_TAG, "New annotation received");
         }
     }
-
 
     /**
      * Monitors state changes in the TextChatFragment.
@@ -153,7 +151,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public void stop(){
         stopScreenCapture();
         mSession.unpublish(mScreenPublisher);
-        mScreenPublisher = null;
     }
 
     @Override
@@ -166,6 +163,12 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public void onDestroy() {
         super.onDestroy();
         tearDownMediaProjection();
+
+        try {
+            mService.unbind();
+        } catch (Throwable t) {
+            Log.e("MainActivity", "Failed to unbind from the service", t);
+        }
     }
 
     @Override
@@ -184,7 +187,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
 
         mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
-        mAnnotationView = (AnnotationsView) rootView.findViewById(R.id.annotations_view);
+        //mAnnotationView = (AnnotationsView) rootView.findViewById(R.id.annotations_view);
         //mToolbar = (AnnotationsToolbar) rootView.findViewById(R.id.toolbar);
        // mToolbar = new AnnotationsToolbar(getContext());
 
@@ -377,26 +380,65 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         Log.i(LOG_TAG, "OnStreamCreated");
 
-        mIntent = new Intent(getActivity(), ScreenSharingService.class);
+      /*  mIntent = new Intent(getActivity(), ScreenSharingService.class);
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("annotations", true);
         //bundle.putSerializable("screenPublisher", mScreenPublisher);
         mIntent.putExtras(bundle);
+
         getActivity().startService(mIntent);
 
         onScreenSharingStarted();
+*/
+
+       this.mService = new ServiceManager(getContext(), ScreenSharingService.class, new Handler() {
+           @Override
+           public void handleMessage(Message msg) {
+               switch (msg.what) {
+                   case ScreenSharingService.MSG_CLOSE:
+                       Log.i("MARINAS", "MSG_CLOSE");
+                       stop();
+                       break;
+                   case ScreenSharingService.MSG_STARTED:
+                       Log.i("MARINAS", "MSG_STARTED");
+
+                       try {
+                           Message annotationsMsg = Message.obtain(null, ScreenSharingService.MSG_ANNOTATIONS, 1);
+                           Bundle b = new Bundle();
+                           b.putInt("annotations", 1); // for example
+                           annotationsMsg.setData(b);
+
+                           mService.send(annotationsMsg);
+                        } catch (RemoteException e) {
+                           e.printStackTrace();
+                       }
+                   default:
+                       super.handleMessage(msg);
+               }
+           }
+       });
+
+
+        this.mService.start();
+
+        onScreenSharingStarted();
+
+
     }
 
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
-        getActivity().stopService(mIntent);
+        //getActivity().stopService(mIntent);
+        mScreenPublisher = null;
         onScreenSharingStopped();
-
+        onClosed();
     }
 
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         onScreenSharingError(opentokError.getMessage());
     }
+
+
 }

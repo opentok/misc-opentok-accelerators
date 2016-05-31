@@ -40,15 +40,15 @@ public class AnnotationsManager {
         mAnnotatableList.add(annotatable);
         if ( annotatable.getPath() != null){
             annotatable.setType (Annotatable.AnnotatableType.PATH);
-            String updatedSignal = buildSignal(annotatable);
+            //String updatedSignal = buildSignal(annotatable);
            // mAnnotationsPathList.add(annotatable.getPath());
 
             // Pass this through signal
-            if (mSubscriber != null) {
+           /* if (mSubscriber != null) {
                 mSubscriber.getSession().sendSignal(SIGNAL_TYPE, updatedSignal);
             } else if (mPublisher != null) {
                 mPublisher.getSession().sendSignal(SIGNAL_TYPE, updatedSignal);
-            }
+            }*/
 
         }
     }

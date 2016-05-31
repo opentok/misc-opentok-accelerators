@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class AnnotationsView extends View implements AccPackSession.SignalListener{
@@ -168,9 +171,22 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
     }
 
     private void sendPathUpdate(String mode) {
-
         Annotatable annotatable = new Annotatable(mode, mCurrentPath, mCurrentPaint, width, height);
         mAnnotationsManager.addAnnotatable(annotatable);
+    }
+
+    public void clearCanvas() {
+        int lastItem = mAnnotationsManager.getAnnotatableList().size()-1;
+        UUID lastId =  mAnnotationsManager.getAnnotatableList().get(lastItem).getPath().getId();
+        for (int i = (mAnnotationsManager.getAnnotatableList().size()-1); i >=0; i--) {
+            Annotatable annotatable = mAnnotationsManager.getAnnotatableList().get(i);
+
+            if (annotatable.getPath().getId().equals(lastId)){
+                annotatable.getPath().reset();
+                mAnnotationsManager.getAnnotatableList().remove(i);
+            }
+        }
+        invalidate();
     }
 
     /*private void onTouchEvent(MotionEvent event, FloatPoint[] points) {
@@ -274,11 +290,13 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         for (Annotatable drawing: mAnnotationsManager.getAnnotatableList()){
             if (drawing.getType().equals(Annotatable.AnnotatableType.PATH)) {
                 canvas.drawPath(drawing.getPath(), drawing.getPaint());
             }
+        }
+        if (mAnnotationsManager.getAnnotatableList().size() == 0 ){
+            canvas.drawColor(Color.TRANSPARENT);
         }
         /*
         for (AnnotationText label : mLabels) {
@@ -323,6 +341,9 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
         mCurrentPaint.setStrokeJoin(Paint.Join.ROUND);
         //mCurrentPaint.setStrokeWidth(incoming ? activeStrokeWidth : userStrokeWidth);
         //TODO MODE
+
+        Annotatable annotatable = new Annotatable(Mode.Pen.toString(), mCurrentPath, mCurrentPaint, width, height);
+        mAnnotationsManager.addAnnotatable(annotatable);
 
         //Annotatable annotatable = new Annotatable(Mode.Pen.toString(), path, paint, width, height);
         //mAnnotationsManager.addAnnotatable(annotatable);

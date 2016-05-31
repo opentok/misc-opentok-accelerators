@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -14,23 +16,15 @@ import com.tokbox.android.accpack.annotations.AnnotationsView;
 import com.tokbox.android.accpack.annotations.R;
 
 
-public class AnnotationsService extends Service {
+public class AnnotationsService extends AbstractService {
+
+    public static final int MSG_ERASE = 1;
+    public static final int MSG_DONE = 2;
 
     AnnotationsView mAnnotationsView;
     Intent mIntent;
     int width;
     int height;
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public void onCreate() {
-
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -63,6 +57,37 @@ public class AnnotationsService extends Service {
 
         if( mAnnotationsView != null ){
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mAnnotationsView);
+        }
+    }
+
+    @Override
+    public void onStartService() {
+        Log.i("MARINAS", "ON START ANNOTATIONS SERVICE ");
+    }
+
+    @Override
+    public void onStopService() {
+        Log.i("MARINAS", "ON STOP ANNOTATIONS SERVICE ");
+    }
+
+    @Override
+    public void onReceiveMessage(Message msg) {
+        Log.i("MARINAS", "ON RECEIVE MESSAGE ANNOTATIONS SERVICE ");
+
+        switch (msg.what) {
+            case AnnotationsService.MSG_ERASE:
+                Log.i("MARINAS", "ON RECEIVE MESSAGE ERASE ");
+                mAnnotationsView.clearCanvas();
+                break;
+
+            case AnnotationsService.MSG_DONE:
+                Log.i("MARINAS", "ON RECEIVE MESSAGE DONE ");
+                this.stopSelf();
+                this.onDestroy();
+                break;
+
+            default:
+
         }
     }
 

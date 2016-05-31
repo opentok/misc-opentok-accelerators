@@ -5,18 +5,56 @@
     android:layout_height="50dp"
     android:background="@color/toolbar_bckg">
 
-    <ImageButton
-        android:id="@+id/draw_freehand"
+    <TextView
+        android:id="@+id/annotations_tool"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_freehand" />
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:gravity="center_vertical"
+        android:text="@string/annotations_tool"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <TextView
         android:id="@+id/done"
-        android:layout_width="70dp"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="done"
-        android:background="#c2c3"
-        android:clickable="true"/>
+        android:gravity="center_vertical"
+        android:textAlignment="center"
+        android:text="@string/done_btn"
+        android:background="@color/done_btn"
+        android:clickable="true" />
+
+    <ImageButton
+        android:id="@+id/draw_freehand"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_pencil"
+        android:layout_gravity="center_vertical"
+        android:background="@null"/>
+
+    <ImageButton
+        android:id="@+id/picker_color"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_color_picker"
+        android:background="@null"/>
+
+    <ImageButton
+        android:id="@+id/type_tool"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_type_tool"
+        android:background="@null"/>
+
+    <ImageButton
+        android:id="@+id/erase"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_erase"
+        android:background="@null"/>
 
 </LinearLayout>

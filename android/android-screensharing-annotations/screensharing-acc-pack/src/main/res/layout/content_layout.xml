@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true">
-      <com.tokbox.android.accpack.annotations.AnnotationsView
+      <!--<com.tokbox.android.accpack.annotations.AnnotationsView
           android:id="@+id/annotations_view"
           android:layout_height="match_parent"
-          android:layout_width="match_parent"/>
+          android:layout_width="match_parent"/>-->
 
       </RelativeLayout>
 
