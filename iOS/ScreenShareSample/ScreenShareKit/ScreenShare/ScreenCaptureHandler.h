@@ -12,10 +12,6 @@
  */
 + (instancetype)screenCaptureHandler;
 
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token;
-
 + (instancetype)sharedInstance;
 
 /**

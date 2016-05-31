@@ -19,14 +19,6 @@
     return [ScreenCaptureHandler sharedInstance];
 }
 
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token {
-
-    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
-    [ScreenCaptureHandler sharedInstance];
-}
-
 + (instancetype)sharedInstance {
     
     static ScreenCaptureHandler *sharedInstance;

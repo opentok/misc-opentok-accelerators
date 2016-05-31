@@ -19,12 +19,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [OneToOneCommunicator setOpenTokApiKey:@"45589022"
-                                 sessionId:@"2_MX40NTU4OTAyMn5-MTQ2NDAyOTEzMTQxMH5sSlJrKzR6Zmp0RkV2dFlORXl4RzRUK3J-fg"
-                                     token:@"T1==cGFydG5lcl9pZD00NTU4OTAyMiZzaWc9MjM0NTczMWJiN2NlMzM2NTE1YTEzOGEwMDk1NTljODMwOWZkMzVlMjpzZXNzaW9uX2lkPTJfTVg0ME5UVTRPVEF5TW41LU1UUTJOREF5T1RFek1UUXhNSDVzU2xKckt6UjZabXAwUmtWMmRGbE9SWGw0UnpSVUszSi1mZyZjcmVhdGVfdGltZT0xNDY0MDI5MTQ3Jm5vbmNlPTAuMDUzMjcxMjMxNDc0MzU0ODYmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ2NjYyMTE0Ng=="];
-    [ScreenCaptureHandler setOpenTokApiKey:@"45589022"
-                                 sessionId:@"2_MX40NTU4OTAyMn5-MTQ2NDAyOTEzMTQxMH5sSlJrKzR6Zmp0RkV2dFlORXl4RzRUK3J-fg"
-                                     token:@"T1==cGFydG5lcl9pZD00NTU4OTAyMiZzaWc9MjM0NTczMWJiN2NlMzM2NTE1YTEzOGEwMDk1NTljODMwOWZkMzVlMjpzZXNzaW9uX2lkPTJfTVg0ME5UVTRPVEF5TW41LU1UUTJOREF5T1RFek1UUXhNSDVzU2xKckt6UjZabXAwUmtWMmRGbE9SWGw0UnpSVUszSi1mZyZjcmVhdGVfdGltZT0xNDY0MDI5MTQ3Jm5vbmNlPTAuMDUzMjcxMjMxNDc0MzU0ODYmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ2NjYyMTE0Ng=="];
+    [OneToOneCommunicator setOpenTokApiKey:@"<#Replace#>"
+                                 sessionId:@"<#Replace#>"
+                                     token:@"<#Replace#>"];
+    [ScreenCaptureHandler screenCaptureHandler];
     
     return YES;
 }
