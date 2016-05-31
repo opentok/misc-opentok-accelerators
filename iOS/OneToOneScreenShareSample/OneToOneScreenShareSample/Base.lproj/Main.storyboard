@@ -113,18 +113,17 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="hba-ab-38p" firstAttribute="top" secondItem="eE0-oO-5Jh" secondAttribute="top" constant="8" id="993-kl-lnF"/>
-                                    <constraint firstAttribute="width" secondItem="eE0-oO-5Jh" secondAttribute="height" multiplier="347:66" id="BQA-nP-4kH"/>
                                     <constraint firstItem="hba-ab-38p" firstAttribute="width" secondItem="hba-ab-38p" secondAttribute="height" multiplier="1:1" id="GDo-oU-paw"/>
                                     <constraint firstAttribute="bottom" secondItem="8pM-Hs-hJW" secondAttribute="bottom" constant="8" id="KsD-ql-dRM"/>
                                     <constraint firstAttribute="trailing" secondItem="hba-ab-38p" secondAttribute="trailing" constant="9" id="LTU-oE-QzT"/>
                                     <constraint firstItem="tOc-nt-OCo" firstAttribute="leading" secondItem="eE0-oO-5Jh" secondAttribute="leading" constant="8" id="Pdi-L7-Den"/>
                                     <constraint firstItem="2zE-c7-jId" firstAttribute="top" secondItem="eE0-oO-5Jh" secondAttribute="top" constant="8" id="Q8C-ve-jx4"/>
                                     <constraint firstItem="hba-ab-38p" firstAttribute="leading" secondItem="2zE-c7-jId" secondAttribute="trailing" constant="20" id="Qxc-6T-bZg"/>
-                                    <constraint firstAttribute="trailing" secondItem="2zE-c7-jId" secondAttribute="trailing" constant="20" symbolic="YES" id="SOr-Ju-3UB"/>
                                     <constraint firstItem="hba-ab-38p" firstAttribute="leading" secondItem="2zE-c7-jId" secondAttribute="trailing" constant="20" id="WQQ-gh-bUZ"/>
                                     <constraint firstAttribute="bottom" secondItem="hba-ab-38p" secondAttribute="bottom" constant="8" id="Wvn-V2-FMr"/>
                                     <constraint firstItem="2zE-c7-jId" firstAttribute="bottom" secondItem="eE0-oO-5Jh" secondAttribute="bottom" constant="-8" id="aER-we-OpH"/>
                                     <constraint firstAttribute="bottom" secondItem="tOc-nt-OCo" secondAttribute="bottom" constant="8" id="bxv-nL-dhV"/>
+                                    <constraint firstAttribute="width" secondItem="eE0-oO-5Jh" secondAttribute="height" multiplier="347:66" id="cgc-cC-N5h"/>
                                     <constraint firstItem="8pM-Hs-hJW" firstAttribute="top" secondItem="eE0-oO-5Jh" secondAttribute="top" constant="8" id="ej1-6n-oo8"/>
                                     <constraint firstItem="8pM-Hs-hJW" firstAttribute="leading" secondItem="tOc-nt-OCo" secondAttribute="trailing" constant="20" id="gd8-Mc-f4b"/>
                                     <constraint firstItem="tOc-nt-OCo" firstAttribute="top" secondItem="eE0-oO-5Jh" secondAttribute="top" constant="8" id="i9Y-94-3aO"/>
@@ -135,7 +134,6 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="SOr-Ju-3UB"/>
                                         <exclude reference="GDo-oU-paw"/>
                                         <exclude reference="WQQ-gh-bUZ"/>
                                     </mask>

@@ -5,17 +5,11 @@
 //  Created by Esteban Cordero on 3/7/16.
 //  Copyright © 2016 Esteban Cordero. All rights reserved.
 //
-
 #include <mach/mach.h>
 #include <mach/mach_time.h>
 #import "ScreenCapture.h"
-#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 @interface ScreenCapture() <OTVideoCapture>
-
-@property (nonatomic) OTPublisher *publisher;
-@property (nonatomic) OTAcceleratorSession *session;
-@property (nonatomic) ScreenCapture *videoCapture;
 
 @end
 
@@ -23,36 +17,17 @@
     CMTime _minFrameDuration;
     dispatch_queue_t _queue;
     dispatch_source_t _timer;
-
+    
     CVPixelBufferRef _pixelBuffer;
     BOOL _capturing;
     OTVideoFrame* _videoFrame;
     UIView* _view;
+    
 }
-
 
 @synthesize videoCaptureConsumer;
 
 #pragma mark - Class Lifecycle.
-
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token {
-    
-    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
-    [ScreenCapture sharedInstance];
-}
-
-+ (instancetype)sharedInstance {
-    
-    static ScreenCapture *sharedInstance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[ScreenCapture alloc] init];
-        sharedInstance.session = [OTAcceleratorSession getAcceleratorPackSession];
-    });
-    return sharedInstance;
-}
 
 - (instancetype)initWithView:(UIView *)view {
     self = [super init];
@@ -62,36 +37,14 @@
         // quality per frame
         _minFrameDuration = CMTimeMake(1, 5);
         _queue = dispatch_queue_create("SCREEN_CAPTURE", NULL);
-
+        
         OTVideoFormat *format = [[OTVideoFormat alloc] init];
         [format setPixelFormat:OTPixelFormatARGB];
-
+        
         _videoFrame = [[OTVideoFrame alloc] initWithFormat:format];
-
+        
     }
     return self;
-}
-
-- (id)connectPublisher {
-    
-    [OTAcceleratorSession registerWithAccePack:self];
-    
-    // need to explcitly publish and subscribe if the communicator joins/rejoins a connected session
-    if (self.session.sessionConnectionStatus == OTSessionConnectionStatusConnected &&
-        self.session.streams[self.publisher.stream.streamId]) {
-        
-        [_publisher setVideoType:OTPublisherKitVideoTypeScreen];
-        
-        _videoCapture = [[ScreenCapture alloc] initWithView: _view];
-        [_publisher setVideoCapture:_videoCapture];
-        
-        OTError *error = nil;
-        [self.session publish:self.publisher error:&error];
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }
-    return self.publisher.view;
 }
 
 - (void)dealloc { //ARC should handle everythihg else
@@ -106,13 +59,13 @@
  * Allocate capture resources; in this case we're just setting up a timer and
  * block to execute periodically to send video frames.
  */
-- (void)startCapture {
+- (void)initCapture {
     __unsafe_unretained ScreenCapture* _self = self;
     _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, _queue);
-
+    
     dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0),
                               100ull * NSEC_PER_MSEC, 100ull * NSEC_PER_MSEC);
-
+    
     dispatch_source_set_event_handler(_timer, ^{
         @autoreleasepool {
             __block UIImage* screen = [_self screenshot];
@@ -121,27 +74,28 @@
     });
 }
 
-- (void)stopCapture{
+- (void)releaseCapture{
     _timer = nil;
 }
 
-- (void)initCapture {
+- (int32_t)startCapture {
     _capturing = YES;
-
+    
     if (_timer) {
         dispatch_resume(_timer);
     }
-
+    return 0;
 }
 
-- (void)releaseCapture  {
+- (int32_t)stopCapture {
     _capturing = NO;
-
+    if(!_queue) return 0;
     dispatch_sync(_queue, ^{
         if (_timer) {
             dispatch_source_cancel(_timer);
         }
     });
+    return 0;
 }
 
 - (BOOL)isCaptureStarted {
@@ -157,7 +111,7 @@
     
     CVPixelBufferLockBaseAddress(_pixelBuffer, 0);
     void *pxdata = CVPixelBufferGetBaseAddress(_pixelBuffer);
-
+    
     CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context =
     CGBitmapContextCreate(pxdata,
@@ -168,14 +122,14 @@
                           rgbColorSpace,
                           kCGImageAlphaPremultipliedFirst |
                           kCGBitmapByteOrder32Little);
-
-
+    
+    
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), image);
     CGColorSpaceRelease(rgbColorSpace);
     CGContextRelease(context);
-
+    
     CVPixelBufferUnlockBaseAddress(_pixelBuffer, 0);
-
+    
     return _pixelBuffer;
 }
 
@@ -186,42 +140,42 @@
 
 - (UIImage *)screenshot {
     CGSize imageSize = CGSizeZero;
-
-    imageSize = [UIScreen mainScreen].bounds.size;
-
+    
+    imageSize = _view.bounds.size;
+    
     UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
-
+    
     if ([_view respondsToSelector: @selector(drawViewHierarchyInRect:afterScreenUpdates:)]) {
         [_view drawViewHierarchyInRect:_view.bounds afterScreenUpdates:NO];
     } else {
         [_view.layer renderInContext:UIGraphicsGetCurrentContext()];
     }
-
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
 }
 
 - (void) consumeFrame:(CGImageRef)frame {
-
+    
     [self checkImageSize:frame];
-
+    
     static mach_timebase_info_data_t time_info;
     uint64_t time_stamp = 0;
-
+    
     if (!(_capturing && self.videoCaptureConsumer)) return;
-
+    
     if (time_info.denom == 0) (void) mach_timebase_info(&time_info);
-
+    
     time_stamp = mach_absolute_time();
     time_stamp *= time_info.numer;
     time_stamp /= time_info.denom;
-
+    
     CMTime time = CMTimeMake(time_stamp, 1000);
     CVImageBufferRef ref = [self pixelBufferFromCGImage:frame];
-
+    
     CVPixelBufferLockBaseAddress(ref, 0);
-
+    
     _videoFrame.timestamp = time;
     _videoFrame.format.estimatedFramesPerSecond = _minFrameDuration.timescale / _minFrameDuration.value;
     _videoFrame.format.estimatedCaptureDelay = 100;
@@ -269,5 +223,6 @@
     
     NSParameterAssert(status == kCVReturnSuccess && _pixelBuffer != NULL);
 }
+
 
 @end
