@@ -266,14 +266,13 @@
                                                                 attribute:NSLayoutAttributeTrailing
                                                                multiplier:1.0
                                                                  constant:0.0];
-
     NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:view
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:view.superview
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1.0
-                                                           constant:0.0];
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:view.superview
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:0.0];
     [NSLayoutConstraint activateConstraints:@[top, leading, trailing, bottom]];
 }
 
