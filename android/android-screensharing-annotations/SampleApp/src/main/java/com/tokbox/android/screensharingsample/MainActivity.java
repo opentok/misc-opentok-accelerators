@@ -216,7 +216,9 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         if (mScreenSharingContainer.getVisibility() == View.VISIBLE){
             Log.i(LOG_TAG, "Screensharing stop");
             mScreenSharingContainer.setVisibility(View.GONE);
-            mScreenSharingFragment.stop();
+            if (mScreenSharingFragment.isStarted()) {
+                mScreenSharingFragment.stop();
+            }
             showAVCall(true);
         }
         else {
@@ -224,8 +226,10 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             if ( mScreenSharingFragment != null ) {
                 Log.i(LOG_TAG, "Screensharing start");
 
-
-                mScreenSharingFragment.start();
+                if (!mScreenSharingFragment.isStarted()) {
+                    Log.i("MARINAS", "isStarted no");
+                    mScreenSharingFragment.start();
+                }
                 mScreenSharingContainer.setVisibility(View.VISIBLE);
 
                 //request permission to add screensharing bar on top
@@ -428,17 +432,17 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onScreenSharingStarted() {
-        Log.i(LOG_TAG, "onScreenSharingStarted");
+        Log.i("MARINAS", "onScreenSharingStarted");
     }
 
     @Override
     public void onScreenSharingStopped() {
-        Log.i(LOG_TAG, "onScreenSharingStopped");
+            Log.i("MARINAS", "onScreenSharingStopped");
     }
 
     @Override
     public void onScreenSharingError(String error) {
-        Log.i(LOG_TAG, "onScreenSharingError");
+        Log.i("MARINAS", "onScreenSharingError");
     }
 
     @Override

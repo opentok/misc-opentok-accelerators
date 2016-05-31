@@ -21,7 +21,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ScreenSharingCapturer extends BaseVideoCapturer{
-    private static final String LOG_TAG = ScreenSharingFragment.class.getSimpleName();
+    private static final String LOG_TAG = ScreenSharingCapturer.class.getSimpleName();
     private Context mContext;
 
     private boolean capturing = false;

@@ -54,6 +54,7 @@ public abstract class AbstractService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(LOG_TAG, "Received start id " + startId + ": " + intent);
         onStartService();
+        mClients = new ArrayList<Messenger>();
         return START_STICKY; // run until explicitly stopped.
     }
 

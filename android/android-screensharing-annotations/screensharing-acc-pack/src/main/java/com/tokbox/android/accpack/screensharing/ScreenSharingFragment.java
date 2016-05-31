@@ -49,7 +49,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     private static final int REQUEST_MEDIA_PROJECTION = 1;
 
-
     private AccPackSession mSession;
     private ScreenPublisher mScreenPublisher;
     private String mApiKey;
@@ -74,6 +73,10 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private AnnotationsView mAnnotationView;
     private Intent mIntent;
     private ServiceManager mService;
+
+
+
+    private boolean isStarted = false;
 
     @Override
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
@@ -143,6 +146,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         if (isConnected) {
 
             if (mVirtualDisplay == null) {
+                Log.i("MARINAS", "MVIRTUALDISPLAY NULL --> START SCREENCAPTURE");
                 startScreenCapture();
             }
         }
@@ -187,9 +191,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
 
         mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
-        //mAnnotationView = (AnnotationsView) rootView.findViewById(R.id.annotations_view);
-        //mToolbar = (AnnotationsToolbar) rootView.findViewById(R.id.toolbar);
-       // mToolbar = new AnnotationsToolbar(getContext());
 
         return rootView;
     }
@@ -234,39 +235,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
             setUpMediaProjection();
             setUpVirtualDisplay();
 
-            Point size = new Point();
-            size.set(mWidth, mHeight);
-
-            //create ScreenCapturer
-            ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreenView, mImageReader, size);
-            mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", capturer);
-            mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
-            mScreenPublisher.setPublisherListener(this);
-
-            //AnnotationsVideoRenderer renderer = new AnnotationsVideoRenderer(getContext());
-            //mScreenPublisher.setRenderer(renderer);
-
-          //  attachPublisherView((Publisher) mScreenPublisher);
-            mSession.publish(mScreenPublisher);
         }
     }
 
-    private void attachPublisherView(Publisher publisher) {
-
-        mScreenPublisher.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
-                BaseVideoRenderer.STYLE_VIDEO_FILL);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                mWidth, mHeight);
-
-
-        // Add these 3 lines to attach the annotation view to the publisher view
-      //  AnnotationsView annotationView = new AnnotationsView(getContext());
-        //mScreenView.addView(annotationView, layoutParams);
-        mAnnotationView.attachPublisher((Publisher)mScreenPublisher);
-
-        // Add this line to attach the annotation view to the toolbar
-       // annotationView.attachToolbar(mToolbar);
-    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setUpMediaProjection() {
@@ -290,6 +261,16 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         // start capture reader
         mImageReader = ImageReader.newInstance(mWidth, mHeight, PixelFormat.RGBA_8888, 2);
         mVirtualDisplay = mMediaProjection.createVirtualDisplay("ScreenCapture", mWidth, mHeight, mDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, mImageReader.getSurface(), null, null);
+
+        size.set(mWidth, mHeight);
+
+        //create ScreenCapturer
+        ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreenView, mImageReader, size);
+        mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", capturer);
+        mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
+        mScreenPublisher.setPublisherListener(this);
+
+        mSession.publish(mScreenPublisher);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -305,8 +286,11 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         Activity activity = getActivity();
 
         if (mMediaProjection != null) {
+            Log.i(LOG_TAG, "mMediaProjection != null");
+
             setUpVirtualDisplay();
         } else if (mResultCode != 0 && mResultData != null) {
+            Log.i(LOG_TAG, "mResultCode != 0 && mResultData != null");
             setUpMediaProjection();
             setUpVirtualDisplay();
         } else {
@@ -329,12 +313,14 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     }
 
     protected void onScreenSharingStarted(){
+        isStarted = true;
         if ( mListener != null ){
            mListener.onScreenSharingStarted();
         }
     }
 
     protected void onScreenSharingStopped(){
+        isStarted = false;
         if ( mListener != null ){
             mListener.onScreenSharingStopped();
         }
@@ -380,28 +366,16 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         Log.i(LOG_TAG, "OnStreamCreated");
 
-      /*  mIntent = new Intent(getActivity(), ScreenSharingService.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("annotations", true);
-        //bundle.putSerializable("screenPublisher", mScreenPublisher);
-        mIntent.putExtras(bundle);
-
-        getActivity().startService(mIntent);
-
-        onScreenSharingStarted();
-*/
-
        this.mService = new ServiceManager(getContext(), ScreenSharingService.class, new Handler() {
            @Override
            public void handleMessage(Message msg) {
                switch (msg.what) {
                    case ScreenSharingService.MSG_CLOSE:
-                       Log.i("MARINAS", "MSG_CLOSE");
+                       Log.i(LOG_TAG, "MSG_CLOSE");
                        stop();
                        break;
                    case ScreenSharingService.MSG_STARTED:
-                       Log.i("MARINAS", "MSG_STARTED");
+                       Log.i(LOG_TAG, "MSG_STARTED");
 
                        try {
                            Message annotationsMsg = Message.obtain(null, ScreenSharingService.MSG_ANNOTATIONS, 1);
@@ -429,7 +403,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
-        //getActivity().stopService(mIntent);
         mScreenPublisher = null;
         onScreenSharingStopped();
         onClosed();
@@ -440,5 +413,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         onScreenSharingError(opentokError.getMessage());
     }
 
-
+    public boolean isStarted() {
+        return isStarted;
+    }
 }
