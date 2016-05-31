@@ -3,8 +3,9 @@
 #import "ScreenCaptureHandler.h"
 #import "OTAcceleratorSession.h"
 
-@interface ScreenCaptureHandler()<OTSessionDelegate, OTPublisherDelegate>
-@property (nonatomic) OTPublisher *screenShare;
+@interface ScreenCaptureHandler()<OTSessionDelegate, OTPublisherDelegate, OTSubscriberDelegate>
+@property (nonatomic) OTPublisher *publisher;
+@property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTAcceleratorSession *session;
 
 @property (strong, nonatomic) ScreenCapture *screenCapture;
@@ -46,36 +47,34 @@
 
 - (void)setVideoSourceToScreenShare; {
     OTError *error;
-    if (!self.screenShare) {
-        self.screenShare = [[OTPublisher alloc] initWithDelegate:self name:@"ScreenShareS" audioTrack:NO videoTrack:YES];
+    if (!self.publisher) {
+        self.publisher = [[OTPublisher alloc] initWithDelegate:self name:@"screenshare" audioTrack:NO videoTrack:YES];
     }
     // Additionally, the publisher video type can be updated to signal to
     // receivers that the video is from a screencast. This value also disables
     // some downsample scaling that is used to adapt to changing network
     // conditions. We will send at a lower framerate to compensate for this.
-    [self.screenShare setVideoType:OTPublisherKitVideoTypeScreen];
+    [self.publisher setVideoType:OTPublisherKitVideoTypeScreen];
     
     // This disables the audio fallback feature when using routed sessions.
-    self.screenShare.audioFallbackEnabled = NO;
+    self.publisher.audioFallbackEnabled = NO;
     
     // Finally, wire up the video source.
-    [self.screenShare setVideoCapture: (id)self.screenCapture];
-    [self.session publish:self.screenShare error:&error];
+    [self.publisher setVideoCapture: (id)self.screenCapture];
+    [self.session publish:self.publisher error:&error];
     if (error) NSLog(@"ERROR adding the videoCapture Source %@", error);
     self.isScreenSharing = YES;
 }
 
 - (void)removeVideoSourceScreenShare; {
     OTError *error;
-    [self.screenShare setVideoType:OTPublisherKitVideoTypeCamera];
-    
     [OTAcceleratorSession deregisterWithAccePack:self];
-    if (self.screenShare){
-        [self.session unpublish:self.screenShare error:&error];
+    if (self.publisher){
+        [self.session unpublish:self.publisher error:&error];
         if (error) NSLog(@"ERROR removing the videoCapture Source %@", error);
         self.isScreenSharing = NO;
-        self.screenShare = nil;
     }
+    self.publisher = nil;
 }
 
 - (void)sessionDidConnect:(OTSession *)session {
@@ -86,8 +85,27 @@
     [self removeVideoSourceScreenShare];
     NSLog(@" %@ ,  %@", [self class], NSStringFromSelector(_cmd));
 }
-- (void)session:(OTSession *)session streamCreated:(OTStream *)stream {}
-- (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {}
+- (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
+    if ([self.publisher.stream.streamId isEqualToString: stream.streamId]) {
+        NSLog(@"session streamCreated (%@)", stream.streamId);
+        
+        OTError *error;
+        self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
+        [self.session subscribe:self.subscriber error:&error];
+        if (error) NSLog(@"ERROR adding screenshare subscriber %@", error);
+    }
+
+}
+- (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
+    NSLog(@"session streamDestroyed (%@)", stream.streamId);
+    
+    if ([self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
+        [self.session unsubscribe:self.subscriber error:nil];
+        [self.subscriber.view removeFromSuperview];
+        self.subscriber = nil;
+    }
+
+}
 - (void)session:(OTSession *)session didFailWithError:(OTError *)error { NSLog(@" DidfailWithError (%@)", error); }
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error { NSLog(@" fail Handler (%@)", error);}
 @end

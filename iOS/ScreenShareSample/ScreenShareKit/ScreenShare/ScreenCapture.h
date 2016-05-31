@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <OpenTok/OpenTok.h>
 
 /**
  * Periodically sends video frames to an OpenTok Publisher by rendering the

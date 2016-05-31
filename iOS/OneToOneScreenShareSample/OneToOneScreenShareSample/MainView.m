@@ -27,6 +27,7 @@
 
 @property (nonatomic) ScreenShareToolbarView *toolbarView;
 @property (nonatomic) UIView *sharingYourScreen;
+@property (strong, nonatomic) IBOutlet UIView *actionButtonView;
 @end
 
 @implementation MainView
@@ -82,7 +83,7 @@
     }
 }
 
-- (void)usingBorderOn: (UIView *)view andShouldAdd: (BOOL)shoudlAdd {
+- (void)usingBorder:(BOOL)shoudlAdd; {
     CGRect viewSize = CGRectMake(0, 0, self.frame.size.width, 40);
     [self.sharingYourScreen setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     UIColor *backgroundShare = [UIColor colorWithRed:102/255.0 green:173/255.0 blue:191/255.0 alpha:1];
@@ -96,14 +97,10 @@
         sharingScreenLabel.frame = viewSize;
         sharingScreenLabel.textAlignment = NSTextAlignmentCenter;
         sharingScreenLabel.textColor = [UIColor whiteColor];
-    
         UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 8, 20, 18)];
         icon.image = [UIImage imageNamed:@"screenshare"];
-        
         UIImageView *close = [[UIImageView alloc] initWithFrame:CGRectMake((self.sharingYourScreen.frame.size.width - 30), 14, 13, 13)];
         close.image = [UIImage imageNamed:@"smallClose"];
-        
-        
         [topScreen addSubview:icon];
         
         [topScreen addSubview:close];
@@ -117,6 +114,7 @@
         self.screenShareHolder.layer.borderWidth = 2;
         self.screenShareHolder.layer.borderColor = backgroundShare.CGColor;
         [self addSubview:self.sharingYourScreen];
+        [self bringSubviewToFront:self.actionButtonView];
         self.sharingYourScreen.translatesAutoresizingMaskIntoConstraints = NO;
         [self addAttachedLayoutConstantsToSuperview: self.sharingYourScreen];
     } else {
@@ -268,13 +266,14 @@
                                                                 attribute:NSLayoutAttributeTrailing
                                                                multiplier:1.0
                                                                  constant:0.0];
+
     NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:view
-                                                              attribute:NSLayoutAttributeBottom
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:view.superview
-                                                              attribute:NSLayoutAttributeBottom
-                                                             multiplier:1.0
-                                                               constant:0.0];
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:view.superview
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0.0];
     [NSLayoutConstraint activateConstraints:@[top, leading, trailing, bottom]];
 }
 
