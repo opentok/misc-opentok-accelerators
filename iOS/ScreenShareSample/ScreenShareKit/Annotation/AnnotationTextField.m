@@ -19,10 +19,11 @@
 
 @implementation AnnotationTextField
 
-+ (instancetype)textField {
++ (instancetype)textFieldWithTextColor:(UIColor *)textColor {
     AnnotationTextField *textField = [[AnnotationTextField alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     textField.delegate = textField;
     [textField setTextAlignment:NSTextAlignmentCenter];
+    [textField setTextColor:textColor];
     [textField setText:@"Testing"];
     textField.center = CGPointMake(CGRectGetMidX([UIScreen mainScreen].bounds), CGRectGetMidY([UIScreen mainScreen].bounds));
 
@@ -47,6 +48,24 @@
     
     return textField;
 }
+
+//- (void)setScale:(CGFloat)scale
+//{
+//    if (_scale != scale) {
+//        _scale = scale;
+//        self.transform = CGAffineTransformIdentity;
+//        CGPoint labelCenter = self.center;
+//        CGRect scaledLabelFrame = CGRectMake(0.f,
+//                                             0.f,
+//                                             CGRectGetWidth(self.bounds) * _scale * 1.05f,
+//                                             CGRectGetHeight(self.bounds) * _scale * 1.05f);
+//        CGFloat currentFontSize = self.font.pointSize * _scale;
+//        self.font = [self.font fontWithSize:currentFontSize];
+//        self.frame = scaledLabelFrame;
+//        self.center = labelCenter;
+//        self.transform = self.currentRotateTransform;
+//    }
+//}
 
 - (void)handlePanGesture:(UIGestureRecognizer *)recognizer {
     

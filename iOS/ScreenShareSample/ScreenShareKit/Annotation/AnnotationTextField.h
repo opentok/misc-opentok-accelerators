@@ -10,6 +10,6 @@
 
 @interface AnnotationTextField: UITextField <Annotatable>
 
-+ (instancetype)textField;
++ (instancetype)textFieldWithTextColor:(UIColor *)textColor;
 
 @end
