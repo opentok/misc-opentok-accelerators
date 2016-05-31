@@ -26,6 +26,7 @@
 @property (strong, nonatomic) UIImageView *publisherPlaceHolderImageView;
 
 @property (nonatomic) ScreenShareToolbarView *toolbarView;
+@property (nonatomic) UIView *sharingYourScreen;
 @end
 
 @implementation MainView
@@ -67,6 +68,8 @@
     [self drawBorderOn:self.screenShareHolder withWhiteBorder:YES];
     [self drawBorderOn:self.annotationHolder withWhiteBorder:YES];
     [self hideSubscriberControls];
+    // This is to define the screenshare area
+    self.sharingYourScreen = [[UIView alloc] init];
 }
 
 - (void)drawBorderOn:(UIView *)view
@@ -76,6 +79,49 @@
     if (withWhiteBorder) {
         view.layer.borderWidth = 1;
         view.layer.borderColor = [UIColor whiteColor].CGColor;
+    }
+}
+
+- (void)usingBorderOn: (UIView *)view andShouldAdd: (BOOL)shoudlAdd {
+    CGRect viewSize = CGRectMake(0, 0, self.frame.size.width, 40);
+    [self.sharingYourScreen setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    UIColor *backgroundShare = [UIColor colorWithRed:102/255.0 green:173/255.0 blue:191/255.0 alpha:1];
+    if (shoudlAdd){
+        UIView *topScreen = [[UIView alloc] initWithFrame: viewSize];
+        topScreen.backgroundColor = backgroundShare;
+    
+        UILabel *sharingScreenLabel = [[UILabel alloc] init];
+        sharingScreenLabel.text = @"You are sharing your screen";
+        sharingScreenLabel.font = [UIFont fontWithName:@"AvantGarde-Book" size:12.0];
+        sharingScreenLabel.frame = viewSize;
+        sharingScreenLabel.textAlignment = NSTextAlignmentCenter;
+        sharingScreenLabel.textColor = [UIColor whiteColor];
+    
+        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 8, 20, 18)];
+        icon.image = [UIImage imageNamed:@"screenshare"];
+        
+        UIImageView *close = [[UIImageView alloc] initWithFrame:CGRectMake((self.sharingYourScreen.frame.size.width - 30), 14, 13, 13)];
+        close.image = [UIImage imageNamed:@"smallClose"];
+        
+        
+        [topScreen addSubview:icon];
+        
+        [topScreen addSubview:close];
+        [topScreen addSubview:sharingScreenLabel];
+        topScreen.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.sharingYourScreen addSubview:topScreen];
+        
+        self.sharingYourScreen.layer.borderWidth = 5;
+        self.sharingYourScreen.layer.borderColor = backgroundShare.CGColor;
+        // UIButton
+        self.screenShareHolder.layer.borderWidth = 2;
+        self.screenShareHolder.layer.borderColor = backgroundShare.CGColor;
+        [self addSubview:self.sharingYourScreen];
+        self.sharingYourScreen.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addAttachedLayoutConstantsToSuperview: self.sharingYourScreen];
+    } else {
+        self.screenShareHolder.layer.borderColor = [UIColor whiteColor].CGColor;
+        [self.sharingYourScreen removeFromSuperview];
     }
 }
 

@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		3F2E19771CF8EDD600465198 /* ScreenCaptureHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F2E19751CF8EDD600465198 /* ScreenCaptureHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3F2E19781CF8EDD600465198 /* ScreenCaptureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E19761CF8EDD600465198 /* ScreenCaptureHandler.m */; };
 		A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A1781CEE7AFB00935C9E /* ScreenCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = A012A1791CEE7AFB00935C9E /* ScreenCapture.m */; };
 		A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -95,6 +97,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F2E19751CF8EDD600465198 /* ScreenCaptureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCaptureHandler.h; sourceTree = "<group>"; };
+		3F2E19761CF8EDD600465198 /* ScreenCaptureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCaptureHandler.m; sourceTree = "<group>"; };
 		A012A1781CEE7AFB00935C9E /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
 		A012A1791CEE7AFB00935C9E /* ScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCapture.m; sourceTree = "<group>"; };
 		A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareKit.h; sourceTree = "<group>"; };
@@ -174,6 +178,8 @@
 				A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */,
 				A012A1781CEE7AFB00935C9E /* ScreenCapture.h */,
 				A012A1791CEE7AFB00935C9E /* ScreenCapture.m */,
+				3F2E19751CF8EDD600465198 /* ScreenCaptureHandler.h */,
+				3F2E19761CF8EDD600465198 /* ScreenCaptureHandler.m */,
 				A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */,
 				A012A17C1CEE7AFB00935C9E /* ScreenShareView.m */,
 				A0166D2D1CF4CD5000DED33F /* ScreenShareEditTextView.h */,
@@ -317,6 +323,7 @@
 				A0166D371CF4CD7600DED33F /* ScreenShareToolbarView.h in Headers */,
 				A012A1801CEE7AFB00935C9E /* ScreenShareView.h in Headers */,
 				A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */,
+				3F2E19771CF8EDD600465198 /* ScreenCaptureHandler.h in Headers */,
 				A0166D2B1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.h in Headers */,
 				A0166D451CF505A400DED33F /* ScreenShareToolbarButton.h in Headers */,
 				A0166D2A1CF4BBA700DED33F /* ScreenShareToolbarView_UserInterfaces.h in Headers */,
@@ -473,6 +480,7 @@
 				A044C3B91CED1D65000F7489 /* AnnotationPath.m in Sources */,
 				A0166D2C1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.m in Sources */,
 				A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */,
+				3F2E19781CF8EDD600465198 /* ScreenCaptureHandler.m in Sources */,
 				A012A1811CEE7AFB00935C9E /* ScreenShareView.m in Sources */,
 				A0166D381CF4CD7600DED33F /* ScreenShareToolbarView.m in Sources */,
 				A0166D301CF4CD5000DED33F /* ScreenShareEditTextView.m in Sources */,

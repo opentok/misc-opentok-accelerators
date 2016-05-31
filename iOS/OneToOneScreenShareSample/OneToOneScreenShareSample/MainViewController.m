@@ -17,6 +17,7 @@
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
 
 @property (nonatomic) ScreenCapture *screenShare;
+@property (nonatomic) ScreenCaptureHandler *screenCaptureHandler;
 @end
 
 @implementation MainViewController
@@ -26,6 +27,7 @@
     
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
+    self.screenCaptureHandler = [ScreenCaptureHandler screenCaptureHandler];
 }
 
 /**
@@ -52,6 +54,10 @@
         [self.mainView removePlaceHolderImage];
         [SVProgressHUD dismiss];
         [self.mainView buttonsStatusSetter:NO];
+        if(self.screenCaptureHandler.isScreenSharing){
+            [self.screenCaptureHandler removeVideoSourceScreenShare];
+            [self.mainView usingBorderOn: self.mainView andShouldAdd:NO];
+        }
     }
 }
 
@@ -139,9 +145,14 @@
  *  toggles the screen share of the current content of the screen
  */
 - (IBAction)ScreenShareButtonPressed:(UIButton *)sender {
-    _screenShare = [[ScreenCapture alloc] initWithView: self.mainView];
-    [self.oneToOneCommunicator setScreenCaptureSource: _screenShare];
-    [self.oneToOneCommunicator setVideoSourceToScreenShare:YES];
+    self.screenShare = [[ScreenCapture alloc] initWithView: self.mainView];
+    if(!self.screenCaptureHandler.isScreenSharing){
+        [self.screenCaptureHandler setScreenCaptureSource: self.screenShare];
+        [self.mainView usingBorderOn: self.mainView andShouldAdd:YES];
+    } else {
+        [self.screenCaptureHandler removeVideoSourceScreenShare];
+        [self.mainView usingBorderOn: self.mainView andShouldAdd:NO];
+    }
 }
 
 /**
