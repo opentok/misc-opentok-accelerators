@@ -9,7 +9,7 @@
 #import <OpenTok/OpenTok.h>
 
 #import "TextChatComponent.h"
-#import "OTAcceleratorSession.h"
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 
 static NSUInteger DefaultTextMessageLength = 120;
@@ -17,7 +17,7 @@ static NSUInteger MaximumTextMessageLength = 8196;
 
 
 NSString* const KLogSource = @"text_chat_acc_pack";
-NSString* const KLogClientVersion = @"ios-vsol-0.9";
+NSString* const KLogClientVersion = @"ios-vsol-1.0.0";
 NSString* const KLogActionInitialize = @"initialize";
 NSString* const KLogActionSendMessage = @"send_message";
 NSString* const KLogActionReceiveMessage = @"receive_message";
@@ -52,7 +52,6 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)setAlias:(NSString *)alias {
-    if (!alias) return;
     _alias = alias;
 }
 
@@ -94,7 +93,7 @@ static NSString* const kTextChatType = @"text-chat";
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"Message format is wrong. Text is empty or null"}];
         if (self.delegate) {
-            [self.delegate didAddMessageWithError:error];
+            [self.delegate didAddTextChat:nil error:error];
         }
         
         [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
@@ -112,7 +111,7 @@ static NSString* const kTextChatType = @"text-chat";
                 NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
                                                      code:-1
                                                  userInfo:@{NSLocalizedDescriptionKey:@"Error in parsing sender data"}];
-                [self.delegate didAddMessageWithError:error];
+                [self.delegate didAddTextChat:nil error:error];
             }
             return;
         }
@@ -124,7 +123,7 @@ static NSString* const kTextChatType = @"text-chat";
         
         if (error) {
             if (self.delegate) {
-                [self.delegate didAddMessageWithError:error];
+                [self.delegate didAddTextChat:nil error:error];
             }
             [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
             
@@ -149,16 +148,20 @@ static NSString* const kTextChatType = @"text-chat";
             }
         }
         [self.mutableMessages addObject:textChat];
+        
+        if (self.delegate) {
+            [self.delegate didAddTextChat:textChat error:nil];
+        }
     }
     else {
         error = [NSError errorWithDomain:NSCocoaErrorDomain
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"OTSession did not connect"}];
         [self addLogEvent:KLogActionSendMessage variation:KLogVariationFailure];
-    }
-    
-    if (self.delegate) {
-        [self.delegate didAddMessageWithError:error];
+        
+        if (self.delegate) {
+            [self.delegate didAddTextChat:nil error:error];
+        }
     }
 }
 
@@ -258,7 +261,7 @@ receivedSignalType:(NSString*)type
         if (textChat) {
             [self.mutableMessages addObject:textChat];
             if (self.delegate) {
-                [self.delegate didReceiveMessage];
+                [self.delegate didReceiveTextChat:textChat];
                 [self addLogEvent:KLogActionReceiveMessage variation:KLogVariationSuccess];
             }
         }

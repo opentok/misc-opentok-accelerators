@@ -11,8 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -108,30 +106,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-        if (mCameraFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .remove(mCameraFragment).commit();
-            initCameraFragment();
-        }
-
-        if (mPreviewFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .remove(mPreviewFragment).commit();
-            initPreviewFragment();
-        }
-
-        if (mRemoteFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .remove(mRemoteFragment).commit();
-            initRemoteFragment();
-        }
-
-        if (mTextChatFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .remove(mTextChatFragment).commit();
-            initTextChatFragment();
-        }
 
         if (mComm != null) {
             mComm.reloadViews(); //reload the local preview and the remote views
@@ -250,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.dismiss();
         if ( mTextChatFragment != null ) {
             //Init TextChat values
-            mTextChatFragment.setMaxTextLength(1050);
+            mTextChatFragment.setMaxTextLength(140);
             mTextChatFragment.setSenderAlias("Tokboxer");
             mTextChatFragment.setListener(this);
         }
@@ -312,27 +286,32 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 if (mComm.getLocalVideo()) {
                     preview.setBackgroundResource(R.drawable.preview);
                 }
-                else {
-                    //local video is disabled
-                    onDisableLocalVideo(false);
-                }
             } else {
                 preview.setBackground(null);
             }
-            mPreviewViewContainer.setLayoutParams(layoutParamsPreview);
+
             mPreviewViewContainer.addView(preview);
+            mPreviewViewContainer.setLayoutParams(layoutParamsPreview);
+            if (!mComm.getLocalVideo()){
+                onDisableLocalVideo(false);
+            }
         }
     }
 
     @Override
     public void onRemoteViewReady(View remoteView) {
         //update preview when a new participant joined to the communication
-        onPreviewReady(mPreviewViewContainer.getChildAt(0)); //main preview view
-        if (remoteView == null ){
-            mRemoteViewContainer.removeAllViews();
+        if (mPreviewViewContainer.getChildCount() > 0) {
+            onPreviewReady(mPreviewViewContainer.getChildAt(0)); //main preview view
+        }
+        if (!mComm.isRemote()) {
+            //clear views
+            onAudioOnly(false);
+            mRemoteViewContainer.removeView(remoteView);
             mRemoteViewContainer.setClickable(false);
         }
         else {
+            //show remote view
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     this.getResources().getDisplayMetrics().widthPixels, this.getResources()
                     .getDisplayMetrics().heightPixels);
@@ -392,7 +371,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private void initTextChatFragment(){
         mTextChatFragment = TextChatFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
-
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
     }
@@ -407,10 +385,15 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     //cleans views and controls
     private void cleanViewsAndControls() {
-        mPreviewFragment.restart();
-        restartTextChatLayout(true);
-        mTextChatFragment.restart();
-        mTextChatContainer.setVisibility(View.GONE);
+        if ( mPreviewFragment != null )
+            mPreviewFragment.restart();
+        if ( mRemoteFragment != null )
+            mRemoteFragment.restart();
+        if (mTextChatFragment != null ){
+            restartTextChatLayout(true);
+            mTextChatFragment.restart();
+            mTextChatContainer.setVisibility(View.GONE);
+        }
     }
 
     private void showAVCall(boolean show){

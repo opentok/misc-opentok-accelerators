@@ -1,10 +1,15 @@
 package com.tokbox.android.accpack.textchat;
 
+import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -55,6 +60,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     private EditText mMsgEditText;
     private TextView mTitleBar;
     private ImageButton mCloseBtn;
+    private TextView mMsgCharsView;
 
     private int maxTextLength = MAX_DEFAULT_LENGTH;
     private TextChatListener mListener;
@@ -122,6 +128,14 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Retain this fragment across configuration changes.
+        setRetainInstance(true);
+    }
+
     /*
     * Constructor
     * @param session The OpenTok session instance.
@@ -157,6 +171,9 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         mCloseBtn = (ImageButton) rootView.findViewById(R.id.close);
         mActionBarView = (ViewGroup) rootView.findViewById(R.id.action_bar);
         mSendMessageView = (ViewGroup) rootView.findViewById(R.id.send_msg);
+        mMsgCharsView = (TextView) rootView.findViewById(R.id.characteres_msg);
+        mMsgCharsView.setText(String.valueOf(maxTextLength));
+        mMsgEditText.addTextChangedListener(mTextEditorWatcher);
 
         mContentView = (LinearLayout) rootView.findViewById(R.id.content_layout);
 
@@ -176,6 +193,11 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                 return false;
             }
         });
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+
+        mMsgEditText.setMaxWidth(displaymetrics.widthPixels - (int)getResources().getDimension(R.dimen.edit_text_width));
 
         try {
             mMessageAdapter = new MessagesAdapter(messagesList);
@@ -238,6 +260,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         }
         else {
             maxTextLength = length;
+            mMsgCharsView.setText(String.valueOf(maxTextLength));
             addLogEvent(OpenTokConfig.LOG_ACTION_SET_MAX_LENGTH, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
     }
@@ -366,7 +389,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             if (msgStr.length() > maxTextLength) {
                 onError("Your chat message is over size limit");
             } else {
-
                 JSONObject messageObj = new JSONObject();
                 JSONObject sender = new JSONObject();
 
@@ -437,6 +459,36 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         }
     }
 
+    // Count down the characters left.
+    private TextWatcher mTextEditorWatcher = new TextWatcher() {
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int chars_left = maxTextLength - s.length();
+
+            mMsgCharsView.setText(String.valueOf((maxTextLength - s.length())));
+            if (chars_left < 4) {
+                mMsgCharsView.setTextColor(Color.RED);
+
+                if (chars_left < 0) {
+                    String maxStr = mMsgEditText.getText().toString().substring(0, mMsgEditText.getText().length() - 1);
+                    mMsgEditText.setText(maxStr);
+                    mMsgEditText.setSelection(mMsgEditText.getText().length());
+                }
+            }
+            else {
+                mMsgCharsView.setTextColor(getResources().getColor(R.color.info));
+            }
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
     //TEXTCHAT LISTENER events
     protected void onError(String error) {
         if (this.mListener != null) {
@@ -501,7 +553,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             if (text == null || text.isEmpty()){
                 onError("Message format is wrong. Text is empty or null");
                 if(connection.getConnectionId().equals(mSession.getConnection().getConnectionId()) ) {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_SEND_MESSAGE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+                    addLogEvent(OpenTokConfig.LOG_ACTION_SEND_MESSAGE, OpenTokConfig.LOG_VARIATION_ERROR);
                 }
                 else {
                     addLogEvent(OpenTokConfig.LOG_ACTION_RECEIVE_MESSAGE, OpenTokConfig.LOG_VARIATION_ERROR);
@@ -518,6 +570,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                         mMsgEditText.setEnabled(true);
                         mMsgEditText.setFocusable(true);
                         mMsgEditText.setText("");
+                        mMsgCharsView.setTextColor(getResources().getColor(R.color.info));
                         addMessage(msg);
                         onNewSentMessage(msg);
                     } catch (Exception e) {
@@ -589,5 +642,16 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         else {
             addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR);
         }
+    }
+
+    /**
+     * Converts dp to real pixels, according to the screen density.
+     *
+     * @param dp A number of density-independent pixels.
+     * @return The equivalent number of real pixels.
+     */
+    private int dpToPx(int dp) {
+        double screenDensity = this.getResources().getDisplayMetrics().density;
+        return (int) (screenDensity * (double) dp);
     }
 }

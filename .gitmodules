@@ -1,6 +1,3 @@
-[submodule "iOS-text-chat/TextChatSample/TextChatKit/acc-pack-common"]
-	path = iOS-text-chat/TextChatSample/TextChatKit/acc-pack-common
-	url = https://github.com/opentok/acc-pack-common.git
 [submodule "iOS-text-chat/TextChatSample/TextChatKit/OneToOne/one-to-one-sample-apps-origin"]
 	path = iOS-text-chat/TextChatSample/TextChatKit/OneToOne/one-to-one-sample-apps-origin
 	url = https://github.com/opentok/one-to-one-sample-apps.git

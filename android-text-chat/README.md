@@ -1,6 +1,6 @@
-![logo](../tokbox-logo.png)
+![logo](../../tokbox-logo.png)
 
-# OpenTok Text Chat Sample App for Android<br/>Version 0.9
+# OpenTok Text Chat Sample App for Android<br/>Version 1.0
 
 This document describes how to use the OpenTok Text Chat Accelerator Pack for Android. Through the exploration of the OpenTok Text Chat Sample App, you will learn best practices for exchanging text messages on an Android mobile device.  
 
@@ -18,7 +18,7 @@ This guide has the following sections:
 To be prepared to develop your text chat app:
 
 1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
-2. Download the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common).
+2. Download the TokBox Common Accelerator Session Pack provided by TokBox.
 3. Download the **Text Chat Accelerator Pack AAR** file provided by TokBox.
 4. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
 5. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
@@ -44,13 +44,41 @@ To learn more about the best practices used to design this app, see [Exploring t
 4. Navigate to the **android** folder, select the **TextChatSample** folder, and click **Choose**.
 
 <h3 id=addaccpackcommon>Adding the TokBox Common Accelerator Session Pack</h3>
-1. Right-click the app name and select **New > Module > Import Gradle Project**.
-2. Navigate to the directory in which you cloned **TokBox Common Accelerator Session Pack**, select **android-acc-pack**, and click **Finish**.
-3. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
+
+You can add the TokBox Common Accelerator Session Pack either by using the repository or using Maven.
+
+#### Using the repository
+
+1. Clone the [TokBox Common Accelerator Session Pack repo](https://github.com/opentok/acc-pack-common).
+2. From the OpenTok Text Chat Sample app project, right-click the app name and select **New > Module > Import Gradle Project**.
+3. Navigate to the directory in which you cloned **TokBox Common Accelerator Session Pack**, select **android-acc-pack**, and click **Finish**.
+4. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
 ```
-compile project(':android-acc-pack')
-compile project(':opentok-text-chat-acc-pack-1.0')
+compile project(':opentok-android-accelerator-pack-1.0')
 ```
+
+#### Using Maven
+
+<ol>
+
+<li>Modify the **build.gradle** for your solution and add the following code snippet to the section labeled 'repositories’:
+
+<code>
+maven { url  "http://tokbox.bintray.com/maven" }
+</code>
+
+</li>
+
+<li>Modify the **build.gradle** for your activity and add the following code snippet to the section labeled 'dependencies’: 
+
+
+<code>
+compile 'com.opentok.android:opentok-android-accelerator-pack:1.0'
+</code>
+
+</li>
+
+</ol>
 
 
 <h3 id=addlibrary> Adding the OpenTok Text Chat Accelerator Pack library</h3>
@@ -90,7 +118,7 @@ _At this point you can try running the app! You can either use a simulator or an
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the `com.tokbox.android.textchat` classes.
+This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](../../one-to-one-sample-app) by adding logic using the `com.tokbox.android.textchat` classes.
 
 For detail about the APIs used to develop this sample, see the [OpenTok Android SDK Reference](https://tokbox.com/developer/sdks/android/reference/) and [Android API Reference](http://developer.android.com/reference/packages.html).
 
@@ -102,7 +130,7 @@ _**NOTE:** The sample app contains logic used for logging. This is used to submi
 
 ### Class design
 
-The following classes represent the software design for this sample app, focusing primarily on the text chat features. For details about the one-to-one communication aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps).
+The following classes represent the software design for this sample app, focusing primarily on the text chat features. For details about the one-to-one communication aspects of the design, see the [OpenTok One-to-One Communication Sample App](../../one-to-one-sample-app).
 
 | Class        | Description  |
 | ------------- | ------------- |
@@ -136,8 +164,6 @@ public interface TextChatListener {
         void onNewReceivedMessage(ChatMessage message);
         void onTextChatError(String error);
         void onClose();
-        void onMinimize();
-        void onMaximize();
 }
 ```
 
@@ -155,18 +181,24 @@ The following `TextChatFragment` methods are used to initialize the app and prov
 | Set the listener object to monitor state changes.   | `setListener()` |
 
 
-For example, the following private method instantiates a `TextChatFragment` object, setting the maximum message length to 1050 characters.
+For example, the following private method instantiates a `TextChatFragment` object:
 
 ```java
     private void initTextChatFragment(){
-        mTextChatFragment = new TextChatFragment(mComm.getSession());
-        mTextChatFragment.setMaxTextLength(1050);
-        mTextChatFragment.setSenderAlias("user1");
-        mTextChatFragment.setListener(this);
+        mTextChatFragment = TextChatFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
     }
+```
+
+
+This line of code illustrates how to set the maximum message length to 1050 characters and set a new sender alias:
+
+```java
+mTextChatFragment.setMaxTextLength(1050);
+            mTextChatFragment.setSenderAlias("Tokboxer");
+            mTextChatFragment.setListener(this);
 ```
 
 
@@ -176,10 +208,9 @@ By implementing the `TextChatFragment.TextChatListener` interface, the `MainActi
 
 The method implementations shown below use the `ChatMessage` object to send and receive messages. 
 
-The `onNewSentMessage()` method uses the [OpenTok signaling API](https://tokbox.com/developer/sdks/android/reference/com/opentok/android/Session.html#sendSignal(java.lang.String,%20java.lang.String)) to send an individual chat message to the other client connected to the OpenTok session.
+The `onNewSentMessage()` event is fired when a new individual `ChatMessage` is sent to other client connected to the OpenTok session. To send a `ChatMessage`, the `TextChatFragment` uses the [OpenTok signaling API](https://tokbox.com/developer/sdks/android/reference/com/opentok/android/Session.html#sendSignal(java.lang.String,%20java.lang.String)).
 
-The `onNewReceivedMessage()` method uses the `ChatMessage` object to build and display the individual chat message received from the other client.
-
+The `onNewReceivedMessage()` event is fired when a new `ChatMessage` is received from the other client.
 
 ```java
     @Override

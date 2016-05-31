@@ -12,7 +12,7 @@ public class ChatMessage {
     private static final String LOG_TAG = "text-chat-message";
 
     private static final int MAX_ALIAS_LENGTH = 50;
-    private static final int MAX_SENDERID_LENGTH = 60;
+    private static final int MAX_SENDERID_LENGTH = 1000;
     private final static int MAX_TEXT_LENGTH = 8196;
     private static final int MAX_MESSAGEID_LENGTH = 36;
     private static final String RELEASE_DATE = "2016-05-01";
@@ -108,8 +108,8 @@ public class ChatMessage {
 
         long MIN_TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd").parse(RELEASE_DATE).getTime();
 
-        if (timestamp < MIN_TIMESTAMP || timestamp > System.currentTimeMillis()){
-            throw new Exception("Timestamp cannot be greater than "+System.currentTimeMillis() +" or less than" + MIN_TIMESTAMP);
+        if ( timestamp < MIN_TIMESTAMP ){
+            throw new Exception("Timestamp cannot be less than" + MIN_TIMESTAMP);
         }
         this.timestamp = timestamp;
     }
@@ -214,8 +214,8 @@ public class ChatMessage {
         public ChatMessageBuilder timestamp(long timestamp) throws Exception {
             long MIN_TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd").parse(RELEASE_DATE).getTime();
 
-            if (timestamp < MIN_TIMESTAMP || timestamp > System.currentTimeMillis()){
-                throw new Exception("Timestamp cannot be greater than "+System.currentTimeMillis() +" or less than" + MIN_TIMESTAMP);
+            if ( timestamp < MIN_TIMESTAMP ){
+                throw new Exception("Timestamp cannot be less than" + MIN_TIMESTAMP);
             }
 
             this.timestamp = timestamp;

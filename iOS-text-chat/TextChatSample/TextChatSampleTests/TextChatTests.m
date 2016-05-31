@@ -1,7 +1,7 @@
 #import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
-#import "TextChatComponent.h"
-#import "OneToOneCommunicator.h"
+#import <TextChatkit/TextChatKit.h>
+#import "TextChat_Private.h"
 
 
 SPEC_BEGIN(TextChatTest)
@@ -22,8 +22,8 @@ describe(@"initWithMessage", ^(){
     
     NSMutableString *randomString = [NSMutableString stringWithCapacity: 100*1024*1024];
     
-    for (int i=0; i<100*1024*1024; i++) {
-        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform([letters length])]];
+    for (int i=0; i<100; i++) {
+        [randomString appendFormat: @"%c", [letters characterAtIndex: arc4random_uniform([letters length])]];
     }
     
     it(@"Message is null", ^{
@@ -105,25 +105,6 @@ describe(@"initWithMessage", ^(){
         [[[tc text] should] equal:@"Good morning!"];
         [[[tc alias] should] equal:@"Bob"];
         [[[tc senderId] should] equal:@"1234"];
-    });
-    
-});
-
-
-describe(@"initWithJSONString", ^(){
-    
-    it(@"JSON is null", ^{
-        tc = [tc initWithJSONString:nil];
-    });
-    it(@"JSON is empty", ^{
-        tc = [tc initWithJSONString:@""];
-    });
-    it(@"JSON is not valid", ^{
-        tc = [tc initWithJSONString:@""];
-    });
-    it(@"Message is set properly", ^{
-        tc = [tc initWithJSONString:@""];
-        [[[tc getTextChatSignalJSONString] should] equal:@""];
     });
     
 });
