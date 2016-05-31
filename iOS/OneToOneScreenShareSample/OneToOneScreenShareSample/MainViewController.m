@@ -54,10 +54,9 @@
         [self.mainView removePlaceHolderImage];
         [SVProgressHUD dismiss];
         [self.mainView buttonsStatusSetter:NO];
-        if(self.screenCaptureHandler.isScreenSharing){
-            [self.screenCaptureHandler removeVideoSourceScreenShare];
-            [self.mainView usingBorderOn: self.mainView andShouldAdd:NO];
-        }
+        
+        [self.screenCaptureHandler removeVideoSourceScreenShare];
+        [self.mainView usingBorder: NO];
     }
 }
 
@@ -148,10 +147,10 @@
     self.screenShare = [[ScreenCapture alloc] initWithView: self.mainView];
     if(!self.screenCaptureHandler.isScreenSharing){
         [self.screenCaptureHandler setScreenCaptureSource: self.screenShare];
-        [self.mainView usingBorderOn: self.mainView andShouldAdd:YES];
+        [self.mainView usingBorder:YES];
     } else {
         [self.screenCaptureHandler removeVideoSourceScreenShare];
-        [self.mainView usingBorderOn: self.mainView andShouldAdd:NO];
+        [self.mainView usingBorder:NO];
     }
 }
 

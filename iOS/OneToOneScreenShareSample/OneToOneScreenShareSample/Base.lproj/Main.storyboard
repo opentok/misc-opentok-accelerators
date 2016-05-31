@@ -165,6 +165,7 @@
                             <constraint firstItem="6Y4-Qa-Kly" firstAttribute="top" secondItem="7sn-ld-RRG" secondAttribute="top" constant="60" id="wTx-0y-iln"/>
                         </constraints>
                         <connections>
+                            <outlet property="actionButtonView" destination="eE0-oO-5Jh" id="COD-bY-Aq6"/>
                             <outlet property="annotationHolder" destination="2zE-c7-jId" id="5Yj-dR-NeD"/>
                             <outlet property="callHolder" destination="8pM-Hs-hJW" id="TvW-2h-yYl"/>
                             <outlet property="micHolder" destination="R41-gq-V3R" id="MiG-0W-4M1"/>

@@ -40,7 +40,7 @@
 // other controls
 - (void)removePlaceHolderImage;
 - (void) buttonsStatusSetter: (BOOL)status;
-- (void)usingBorderOn: (UIView *)view andShouldAdd: (BOOL)shoudlAdd;
+- (void)usingBorder:(BOOL)shoudlAdd;
 
 - (void) setupAnnotationToolBar;
 
