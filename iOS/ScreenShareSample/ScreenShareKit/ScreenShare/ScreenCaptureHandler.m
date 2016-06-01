@@ -19,6 +19,14 @@
     return [ScreenCaptureHandler sharedInstance];
 }
 
++ (void)setOpenTokApiKey:(NSString *)apiKey
+               sessionId:(NSString *)sessionId
+                   token:(NSString *)token; {
+    
+    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
+    [ScreenCaptureHandler sharedInstance];
+}
+
 + (instancetype)sharedInstance {
     
     static ScreenCaptureHandler *sharedInstance;
@@ -33,7 +41,6 @@
 
 - (void)setScreenCaptureSource:(ScreenCapture *)screenCapture {
     [OTAcceleratorSession registerWithAccePack:self];
-    // need to explcitly publish and subscribe if the communicator joins/rejoins a connected session
     self.screenCapture = screenCapture;
 }
 
@@ -71,15 +78,15 @@
 
 - (void)sessionDidConnect:(OTSession *)session {
     [self setVideoSourceToScreenShare];
-    NSLog(@" %@ ,  %@", [self class], NSStringFromSelector(_cmd));
+    NSLog(@" %@, %@", [self class], NSStringFromSelector(_cmd));
 }
 - (void)sessionDidDisconnect:(OTSession *)session {
     [self removeVideoSourceScreenShare];
-    NSLog(@" %@ ,  %@", [self class], NSStringFromSelector(_cmd));
+    NSLog(@" %@ , %@", [self class], NSStringFromSelector(_cmd));
 }
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
     if ([self.publisher.stream.streamId isEqualToString: stream.streamId]) {
-        NSLog(@"session streamCreated (%@)", stream.streamId);
+        NSLog(@"screenshare session streamCreated (%@)", stream.streamId);
         
         OTError *error;
         self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
@@ -89,7 +96,7 @@
 
 }
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
-    NSLog(@"session streamDestroyed (%@)", stream.streamId);
+    NSLog(@"screenshare session streamDestroyed (%@)", stream.streamId);
     
     if ([self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
         [self.session unsubscribe:self.subscriber error:nil];
@@ -98,6 +105,11 @@
     }
 
 }
-- (void)session:(OTSession *)session didFailWithError:(OTError *)error { NSLog(@" DidfailWithError (%@)", error); }
-- (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error { NSLog(@" fail Handler (%@)", error);}
+- (void)session:(OTSession *)session didFailWithError:(OTError *)error { NSLog(@" screenshare DidfailWithError (%@)", error); }
+- (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error { NSLog(@" screenshare publisher fail (%@)", error);}
+- (void) subscriber:(OTSubscriberKit *)subscriber didFailWithError:(OTError *)error { NSLog(@" screenshare subscriber fail (%@)", error); }
+
+- (void) subscriberDidConnectToStream:(OTSubscriberKit *)subscriber { NSLog(@" Screenshare subscriber connected to stream"); }
+- (void) subscriberVideoDataReceived:(OTSubscriber *)subscriber { NSLog(@" Subscriber is receiving data");}
+
 @end

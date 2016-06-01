@@ -12,6 +12,10 @@
  */
 + (instancetype)screenCaptureHandler;
 
++ (void)setOpenTokApiKey:(NSString *)apiKey
+               sessionId:(NSString *)sessionId
+                   token:(NSString *)token;
+
 + (instancetype)sharedInstance;
 
 /**
@@ -22,6 +26,7 @@
 - (void)setScreenCaptureSource:(ScreenCapture *)screenCapture ;
 
 - (void)setVideoSourceToScreenShare;
+
 - (void)removeVideoSourceScreenShare;
 
 @end

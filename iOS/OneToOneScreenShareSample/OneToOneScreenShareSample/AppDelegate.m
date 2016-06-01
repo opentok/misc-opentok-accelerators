@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "OneToOneCommunicator.h"
-#import <ScreenShareKit/ScreenShareKit.h>
 
 @interface AppDelegate ()
 
@@ -22,7 +21,6 @@
     [OneToOneCommunicator setOpenTokApiKey:@"<#Replace#>"
                                  sessionId:@"<#Replace#>"
                                      token:@"<#Replace#>"];
-    [ScreenCaptureHandler screenCaptureHandler];
     
     return YES;
 }

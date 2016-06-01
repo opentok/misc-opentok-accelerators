@@ -5,8 +5,8 @@
 //  Created by Xi Huang on 4/26/16.
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
-#import <ScreenShareKit/ScreenShareKit.h>
 #import "ViewController.h"
+#import <ScreenShareKit/ScreenShareKit.h>
 
 @interface ViewController () <UIScrollViewDelegate>
 @property (nonatomic) ScreenShareToolbarView *toolbarView;
@@ -16,13 +16,6 @@
 @end
 
 @implementation ViewController
-
-- (ScreenCaptureHandler *)screenCaptureHandler {
-    if (!_screenCaptureHandler) {
-       _screenCaptureHandler = [ScreenCaptureHandler screenCaptureHandler];
-   }
-    return _screenCaptureHandler;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,7 +37,7 @@
     [screenshare setTitle:@"Screenshare" forState:UIControlStateNormal];
     [screenshare setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [screenshare addTarget:self action:@selector(ScreenShareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [screenshare setFrame:CGRectMake(100, 0, 88, 30)];
+    [screenshare setFrame:CGRectMake(100, 0, 120, 30)];
     [self.view addSubview:screenshare];
     
 }

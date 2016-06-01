@@ -169,6 +169,7 @@
                             <outlet property="annotationHolder" destination="2zE-c7-jId" id="5Yj-dR-NeD"/>
                             <outlet property="callHolder" destination="8pM-Hs-hJW" id="TvW-2h-yYl"/>
                             <outlet property="micHolder" destination="R41-gq-V3R" id="MiG-0W-4M1"/>
+                            <outlet property="publisherCameraButton" destination="aZt-Qo-ZC4" id="3S2-dv-afL"/>
                             <outlet property="publisherView" destination="1Bm-tC-LWC" id="aO7-cL-J18"/>
                             <outlet property="screenShareHolder" destination="hba-ab-38p" id="Kzf-MD-5zA"/>
                             <outlet property="subscriberAudioButton" destination="6Y4-Qa-Kly" id="4Z4-dj-f5t"/>

@@ -22,6 +22,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *subscriberVideoButton;
 @property (strong, nonatomic) IBOutlet UIButton *subscriberAudioButton;
 
+@property (strong, nonatomic) IBOutlet UIButton *publisherCameraButton;
+
 @property (strong, nonatomic) UIImageView *subscriberPlaceHolderImageView;
 @property (strong, nonatomic) UIImageView *publisherPlaceHolderImageView;
 
@@ -115,6 +117,9 @@
         self.screenShareHolder.layer.borderColor = backgroundShare.CGColor;
         [self addSubview:self.sharingYourScreen];
         [self bringSubviewToFront:self.actionButtonView];
+        [self bringSubviewToFront:self.subscriberAudioButton];
+        [self bringSubviewToFront:self.subscriberVideoButton];
+        [self bringSubviewToFront:self.publisherCameraButton];
         self.sharingYourScreen.translatesAutoresizingMaskIntoConstraints = NO;
         [self addAttachedLayoutConstantsToSuperview: self.sharingYourScreen];
     } else {
