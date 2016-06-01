@@ -21,7 +21,6 @@
     [OneToOneCommunicator setOpenTokApiKey:@"<#Replace#>"
                                  sessionId:@"<#Replace#>"
                                      token:@"<#Replace#>"];
-    
     return YES;
 }
 

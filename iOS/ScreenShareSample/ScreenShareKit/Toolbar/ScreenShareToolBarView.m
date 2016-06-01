@@ -71,6 +71,11 @@
         [self configureToolbarButtons];
         _screenShareView = [ScreenShareView view];
         [_screenShareView selectColor:self.colorPickerView.selectedColor];
+        
+        [_screenShareView addObserver:self
+                           forKeyPath:@"annotating"
+                              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                              context:NULL];
     }
     return self;
 }
@@ -113,23 +118,37 @@
     [self.toolbar reloadToolbar];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    if ([keyPath isEqual:@"annotating"] && [change[@"new"] boolValue] != [change[@"old"] boolValue]) {
+        if ([change[@"new"] boolValue]) {
+            [self.toolbar insertContentView:self.doneButton atIndex:0];
+        }
+        else {
+            [self.toolbar removeContentViewAtIndex:0];
+        }
+    }
+}
+
 - (void)toolbarButtonPressed:(UIButton *)sender {
     
     [self.selectionShadowView removeFromSuperview];
     
     if (sender == self.doneButton) {
         self.screenShareView.annotating = NO;
-        [self.toolbar removeContentViewAtIndex:0];
         [self dismissColorPickerView];
     }
     else if (sender == self.annotateButton) {
-        
-        if (!self.screenShareView.annotating) {
-            self.screenShareView.annotating = YES;
-            [self.screenShareView selectColor:self.colorPickerView.selectedColor];
-            [self.toolbar insertContentView:self.doneButton atIndex:0];
-        }
+        self.screenShareView.annotating = YES;
+        [self.screenShareView selectColor:self.colorPickerView.selectedColor];
         [self dismissColorPickerView];
+    }
+    else if (sender == self.textButton) {
+        self.screenShareView.annotating = YES;
+        [self.screenShareView addTextAnnotationWithColor:self.colorButton.backgroundColor];
     }
     else if (sender == self.colorButton) {
         [self showColorPickerView];

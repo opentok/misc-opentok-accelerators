@@ -16,6 +16,8 @@
 
 @property (nonatomic, getter = isAnnotating) BOOL annotating;
 
+- (void)addTextAnnotationWithColor:(UIColor *)color;
+
 - (void)selectColor:(UIColor *)selectedColor;
 
 - (void)captureAndShare;

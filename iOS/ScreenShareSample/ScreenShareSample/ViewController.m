@@ -5,8 +5,8 @@
 //  Created by Xi Huang on 4/26/16.
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
-#import "ViewController.h"
 #import <ScreenShareKit/ScreenShareKit.h>
+#import "ViewController.h"
 
 @interface ViewController () <UIScrollViewDelegate>
 @property (nonatomic) ScreenShareToolbarView *toolbarView;
@@ -16,6 +16,13 @@
 @end
 
 @implementation ViewController
+
+- (ScreenCaptureHandler *)screenCaptureHandler {
+    if (!_screenCaptureHandler) {
+       _screenCaptureHandler = [ScreenCaptureHandler screenCaptureHandler];
+   }
+    return _screenCaptureHandler;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

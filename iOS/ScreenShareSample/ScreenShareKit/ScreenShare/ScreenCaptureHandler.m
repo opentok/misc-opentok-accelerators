@@ -78,15 +78,15 @@
 
 - (void)sessionDidConnect:(OTSession *)session {
     [self setVideoSourceToScreenShare];
-    NSLog(@" %@, %@", [self class], NSStringFromSelector(_cmd));
+    NSLog(@" %@ ,  %@", [self class], NSStringFromSelector(_cmd));
 }
 - (void)sessionDidDisconnect:(OTSession *)session {
     [self removeVideoSourceScreenShare];
-    NSLog(@" %@ , %@", [self class], NSStringFromSelector(_cmd));
+    NSLog(@" %@ ,  %@", [self class], NSStringFromSelector(_cmd));
 }
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
     if ([self.publisher.stream.streamId isEqualToString: stream.streamId]) {
-        NSLog(@"screenshare session streamCreated (%@)", stream.streamId);
+        NSLog(@"session streamCreated (%@)", stream.streamId);
         
         OTError *error;
         self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
@@ -105,6 +105,7 @@
     }
 
 }
+
 - (void)session:(OTSession *)session didFailWithError:(OTError *)error { NSLog(@" screenshare DidfailWithError (%@)", error); }
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error { NSLog(@" screenshare publisher fail (%@)", error);}
 - (void) subscriber:(OTSubscriberKit *)subscriber didFailWithError:(OTError *)error { NSLog(@" screenshare subscriber fail (%@)", error); }
