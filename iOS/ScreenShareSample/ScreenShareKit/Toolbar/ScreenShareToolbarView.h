@@ -6,7 +6,7 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <ScreenShareKit/ScreenShareKit.h>
+#import <ScreenShareKit/ScreenShareView.h>
 
 @interface ScreenShareToolbarView : UIView
 

@@ -7,6 +7,7 @@
 //
 #include <mach/mach.h>
 #include <mach/mach_time.h>
+#import <OpenTok/OpenTok.h>
 #import "ScreenCapture.h"
 
 @interface ScreenCapture() <OTVideoCapture>

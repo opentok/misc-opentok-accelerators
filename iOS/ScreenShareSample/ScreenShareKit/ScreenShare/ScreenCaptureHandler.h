@@ -1,7 +1,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "ScreenCapture.h"
+#import <ScreenShareKit/ScreenCapture.h>
 
 @interface ScreenCaptureHandler : NSObject
 

@@ -1,7 +1,5 @@
-
-#import "ScreenCapture.h"
 #import "ScreenCaptureHandler.h"
-#import "OTAcceleratorSession.h"
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 @interface ScreenCaptureHandler()<OTSessionDelegate, OTPublisherDelegate, OTSubscriberDelegate>
 @property (nonatomic) OTPublisher *publisher;
