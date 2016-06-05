@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CaptureViewController : UIViewController
+@interface ScreenShareCaptureViewController : UIViewController
 
+@property (nonatomic) UIImage *sharedImage;
 - (instancetype)initWithSharedImage:(UIImage *)sharedImage;
 
 @end

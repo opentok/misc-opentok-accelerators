@@ -13,6 +13,7 @@
 #import "AnnotationPoint_Private.h"
 
 @interface AnnotationView()
+@property (nonatomic) AnnotationTextView *currentEditingTextView;
 @property (nonatomic) AnnotationPath *currentDrawPath;
 @property (nonatomic) AnnotationManager *annotationnManager;
 @end
@@ -29,8 +30,22 @@
     return self;
 }
 
-- (void)setCurrentDrawPath:(AnnotationPath *)currentDrawPath {
-    _currentDrawPath = currentDrawPath;
+- (void)setCurrentAnnotatable:(id<Annotatable>)annotatable {
+    
+    if ([annotatable isKindOfClass:[AnnotationPath class]]) {
+        _currentDrawPath = (AnnotationPath *)annotatable;
+    }
+    else if ([annotatable isKindOfClass:[AnnotationTextView class]]) {
+        _currentEditingTextView = (AnnotationTextView *)annotatable;
+    }
+    else {
+        _currentDrawPath = nil;
+        
+        if (_currentEditingTextView) {
+            [_currentEditingTextView commit];
+        }
+        _currentEditingTextView = nil;
+    }
 }
 
 - (void)addAnnotatable:(id<Annotatable>)annotatable {
@@ -45,9 +60,9 @@
         [self.annotationnManager addAnnotatable:path];
         [self setNeedsDisplay];
     }
-    else if ([annotatable isMemberOfClass:[AnnotationTextField class]]) {
+    else if ([annotatable isMemberOfClass:[AnnotationTextView class]]) {
         
-        AnnotationTextField *textfield = (AnnotationTextField *)annotatable;
+        AnnotationTextView *textfield = (AnnotationTextView *)annotatable;
         [self addSubview:textfield];
         [self.annotationnManager addAnnotatable:textfield];
     }
@@ -60,9 +75,9 @@
         [self.annotationnManager undo];
         [self setNeedsDisplay];
     }
-    else if ([annotatable isMemberOfClass:[AnnotationTextField class]]) {
+    else if ([annotatable isMemberOfClass:[AnnotationTextView class]]) {
         [self.annotationnManager undo];
-        AnnotationTextField *textfield = (AnnotationTextField *)annotatable;
+        AnnotationTextView *textfield = (AnnotationTextView *)annotatable;
         [textfield removeFromSuperview];
     }
 }

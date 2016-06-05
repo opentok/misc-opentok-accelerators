@@ -13,7 +13,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-- (void)setCurrentDrawPath:(AnnotationPath *)drawingPath;
+- (void)setCurrentAnnotatable:(id<Annotatable>)annotatable;
 
 - (void)addAnnotatable:(id<Annotatable>)annotatable;
 

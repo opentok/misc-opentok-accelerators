@@ -15,7 +15,10 @@
 - (void)moveSelectionShadowViewTo:(UIButton *)sender {
     
     [self setUserInteractionEnabled:NO];
-    if (![sender isKindOfClass:[UIButton class]]) return;
+    if (![sender isKindOfClass:[UIButton class]]) {
+        [self.selectionShadowView removeFromSuperview];
+        return;
+    }
     
     CGRect holderViewFrame = sender.superview.frame;
     CGRect hodlerViewBounds = sender.superview.bounds;

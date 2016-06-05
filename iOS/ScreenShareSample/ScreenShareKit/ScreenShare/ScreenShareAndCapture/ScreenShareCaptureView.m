@@ -6,7 +6,7 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "CaptureView.h"
+#import "ScreenShareCaptureView.h"
 
 @interface CaptureModel()
 @property (nonatomic) UIImage *sharedImage;
@@ -27,14 +27,14 @@
 @end
 
 
-@interface CaptureView()
+@interface ScreenShareCaptureView()
 @property (weak, nonatomic) IBOutlet UIView *contenView;
 @property (weak, nonatomic) IBOutlet UIImageView *sharedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageSizeLabel;
 @end
 
-@implementation CaptureView
+@implementation ScreenShareCaptureView
 
 - (void)awakeFromNib {
     [super awakeFromNib];

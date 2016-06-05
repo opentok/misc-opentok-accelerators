@@ -14,6 +14,6 @@
                          sharedDate:(NSDate *)sharedDate;
 @end
 
-@interface CaptureView : UIView
+@interface ScreenShareCaptureView : UIView
 - (void)updateWithShareModel:(CaptureModel *)shareModel;
 @end

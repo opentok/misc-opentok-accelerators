@@ -6,16 +6,22 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "CaptureViewController.h"
-#import "CaptureView.h"
+#import "ScreenShareCaptureViewController.h"
+#import "ScreenShareCaptureView.h"
 
-@interface CaptureViewController ()
+@interface ScreenShareCaptureViewController ()
 @property (nonatomic) CaptureModel *captureModel;
-@property (strong, nonatomic) CaptureView *captureView;
+@property (strong, nonatomic) ScreenShareCaptureView *captureView;
 @property (nonatomic) UIActivityViewController *activityViewController;
 @end
 
-@implementation CaptureViewController
+@implementation ScreenShareCaptureViewController
+
+- (void)setSharedImage:(UIImage *)sharedImage {
+    _sharedImage = sharedImage;
+    _captureModel = [[CaptureModel alloc] initWithSharedImage:sharedImage sharedDate:[NSDate date]];
+    [self.captureView updateWithShareModel:_captureModel];
+}
 
 - (UIActivityViewController *)activityViewController {
     if (!_activityViewController) {
@@ -26,7 +32,6 @@
 
 - (instancetype)initWithSharedImage:(UIImage *)sharedImage {
     
-    if (!sharedImage) return nil;
     if (self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleForClass:self.class]]) {
     
         _captureModel = [[CaptureModel alloc] initWithSharedImage:sharedImage sharedDate:[NSDate date]];
@@ -41,8 +46,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.captureView = (CaptureView *)self.view;
-    [self.captureView updateWithShareModel: self.captureModel];
+    self.captureView = (ScreenShareCaptureView *)self.view;
+    if (self.captureModel) {
+        [self.captureView updateWithShareModel: self.captureModel];
+    }
 }
 
 - (IBAction)shareButtonPressed:(id)sender {

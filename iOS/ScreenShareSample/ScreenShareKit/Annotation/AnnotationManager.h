@@ -7,7 +7,7 @@
 //
 
 #import <ScreenShareKit/AnnotationPath.h>
-#import <ScreenShareKit/AnnotationTextField.h>
+#import <ScreenShareKit/AnnotationTextView.h>
 
 @interface AnnotationManager : NSObject
 

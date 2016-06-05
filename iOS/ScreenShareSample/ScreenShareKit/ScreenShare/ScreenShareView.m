@@ -9,9 +9,10 @@
 #import "ScreenShareView.h"
 #import "AnnotationPath.h"
 #import "AnnotationView.h"
-#import "AnnotationTextField.h"
+#import "AnnotationTextView.h"
 
-#import "CaptureViewController.h"
+#import "ScreenShareEditTextViewController.h"
+#import "ScreenShareCaptureViewController.h"
 
 #import "UIViewController+Helper.h"
 
@@ -28,8 +29,9 @@
 - (void)setAnnotating:(BOOL)annotating {
     _annotating = annotating;
     self.scrollView.scrollEnabled = !_annotating;
+    self.scrollView.pinchGestureRecognizer.enabled = !annotating;
     if (!_annotating) {
-        [self.annotationView setCurrentDrawPath:nil];
+        [self.annotationView setCurrentAnnotatable:nil];
     }
 }
 
@@ -81,15 +83,15 @@
     [self.annotationView setFrame:CGRectMake(0, 0, width, height)];
 }
 
-- (void)addTextAnnotationWithColor:(UIColor *)color {
-    
-    AnnotationTextField *textField = [AnnotationTextField textFieldWithTextColor:color];
-    [self.annotationView addAnnotatable:textField];
+- (void)addTextAnnotation:(AnnotationTextView *)annotationTextView {
+    annotationTextView.frame = CGRectMake(self.scrollView.contentOffset.x, annotationTextView.frame.origin.y, CGRectGetWidth(annotationTextView.bounds), CGRectGetHeight(annotationTextView.bounds));
+    [self.annotationView addAnnotatable:annotationTextView];
+    [self.annotationView setCurrentAnnotatable:annotationTextView];
 }
 
 - (void)selectColor:(UIColor *)selectedColor {
     if (self.isAnnotating) {
-        [self.annotationView setCurrentDrawPath:[AnnotationPath pathWithStrokeColor:selectedColor]];
+        [self.annotationView setCurrentAnnotatable:[AnnotationPath pathWithStrokeColor:selectedColor]];
     }
 }
 
@@ -98,12 +100,11 @@
 }
 
 - (void)captureAndShare {
-    CaptureViewController *captureViewController = [[CaptureViewController alloc] initWithSharedImage:[self captureScreen]];
+    ScreenShareCaptureViewController *captureViewController = [[ScreenShareCaptureViewController alloc] initWithSharedImage:[self captureScreen]];
     UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
     [topViewController presentViewController:captureViewController animated:YES completion:nil];
 }
 
-#pragma mark - private method
 - (UIImage *)captureScreen {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size,
                                            NO, [UIScreen mainScreen].scale);
@@ -111,7 +112,6 @@
                afterScreenUpdates:YES];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     return image;
 }
 

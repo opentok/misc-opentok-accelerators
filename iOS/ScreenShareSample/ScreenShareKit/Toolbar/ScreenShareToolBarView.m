@@ -7,18 +7,19 @@
 //
 
 #import "ScreenShareToolbarView.h"
-
 #import "ScreenShareToolbarView_UserInterfaces.h"
 #import "ScreenShareToolbarView+Animation.h"
-
 #import "ScreenShareColorPickerView.h"
-
 #import "ScreenShareToolbarButton.h"
 
 #import <LHToolbar/LHToolbar.h>
+
+#import "ScreenShareCaptureViewController.h"
+#import "ScreenShareEditTextViewController.h"
+#import "UIViewController+Helper.h"
 #import "Constants.h"
 
-@interface ScreenShareToolbarView() <ScreenShareColorPickerViewProtocol>
+@interface ScreenShareToolbarView() <ScreenShareColorPickerViewProtocol, ScreenShareEditTextViewProtocol>
 @property (nonatomic) LHToolbar *toolbar;
 @property (nonatomic) ScreenShareView *screenShareView;
 
@@ -28,6 +29,8 @@
 @property (nonatomic) ScreenShareToolbarButton *textButton;
 @property (nonatomic) ScreenShareToolbarButton *screenshotButton;
 @property (nonatomic) ScreenShareToolbarButton *eraseButton;
+
+@property (nonatomic) ScreenShareCaptureViewController *captureViewController;
 @end
 
 @implementation ScreenShareToolbarView
@@ -62,6 +65,13 @@
     return _doneButton;
 }
 
+- (ScreenShareCaptureViewController *)captureViewController {
+    if (!_captureViewController) {
+        _captureViewController = [[ScreenShareCaptureViewController alloc] initWithSharedImage:nil];
+    }
+    return _captureViewController;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _toolbar = [[LHToolbar alloc] initWithNumberOfItems:5];
@@ -72,10 +82,10 @@
         _screenShareView = [ScreenShareView view];
         [_screenShareView selectColor:self.colorPickerView.selectedColor];
         
-        [_screenShareView addObserver:self
-                           forKeyPath:@"annotating"
-                              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                              context:NULL];
+        [self addObserver:self
+               forKeyPath:@"screenShareView.annotating"
+                  options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                  context:NULL];
     }
     return self;
 }
@@ -123,7 +133,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     
-    if ([keyPath isEqual:@"annotating"] && [change[@"new"] boolValue] != [change[@"old"] boolValue]) {
+    if ([keyPath isEqual:@"screenShareView.annotating"] && [change[@"new"] boolValue] != [change[@"old"] boolValue]) {
         if ([change[@"new"] boolValue]) {
             [self.toolbar insertContentView:self.doneButton atIndex:0];
         }
@@ -133,22 +143,31 @@
     }
 }
 
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"screenShareView.annotating"];
+}
+
 - (void)toolbarButtonPressed:(UIButton *)sender {
     
-    [self.selectionShadowView removeFromSuperview];
+    if (self.screenShareView.annotating && sender != self.doneButton) return;
     
     if (sender == self.doneButton) {
         self.screenShareView.annotating = NO;
         [self dismissColorPickerView];
+        [self moveSelectionShadowViewTo:nil];
     }
     else if (sender == self.annotateButton) {
+        [self dismissColorPickerView];
         self.screenShareView.annotating = YES;
         [self.screenShareView selectColor:self.colorPickerView.selectedColor];
-        [self dismissColorPickerView];
     }
     else if (sender == self.textButton) {
+        [self dismissColorPickerView];
         self.screenShareView.annotating = YES;
-        [self.screenShareView addTextAnnotationWithColor:self.colorButton.backgroundColor];
+        ScreenShareEditTextViewController *editTextViewController = [ScreenShareEditTextViewController defaultWithTextColor:self.colorButton.backgroundColor];
+        editTextViewController.delegate = self;
+        UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
+        [topViewController presentViewController:editTextViewController animated:YES completion:nil];
     }
     else if (sender == self.colorButton) {
         [self showColorPickerView];
@@ -157,14 +176,29 @@
         [self.screenShareView erase];
     }
     else if (sender == self.screenshotButton) {
-        [self.screenShareView captureAndShare];
+        self.captureViewController.sharedImage = [self.screenShareView captureScreen];
+        UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
+        [topViewController presentViewController:self.captureViewController animated:YES completion:nil];
     }
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (sender != self.eraseButton && sender != self.screenshotButton) {
+        if (sender != self.screenshotButton && sender != self.eraseButton) {
             [self moveSelectionShadowViewTo:sender];
         }
     });
+}
+
+#pragma mark - ScreenShareEditTextViewProtocol
+- (void)screenShareEditTextViewController:(ScreenShareEditTextViewController *)editTextViewController
+                         didFinishEditing:(AnnotationTextView *)annotationTextView {
+    
+    if (annotationTextView) {
+        [annotationTextView setEditable:NO];
+        [self.screenShareView addTextAnnotation: annotationTextView];
+    }
+    else {
+        [self toolbarButtonPressed:self.doneButton];
+    }
 }
 
 #pragma mark - ScreenShareColorPickerViewProtocol

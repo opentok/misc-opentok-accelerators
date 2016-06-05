@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ScreenShareKit/AnnotationTextView.h>
 
 @interface ScreenShareView : UIView
 
@@ -16,11 +17,11 @@
 
 @property (nonatomic, getter = isAnnotating) BOOL annotating;
 
-- (void)addTextAnnotationWithColor:(UIColor *)color;
+- (void)addTextAnnotation:(AnnotationTextView *)annotationTextView;
 
 - (void)selectColor:(UIColor *)selectedColor;
 
-- (void)captureAndShare;
+- (UIImage *)captureScreen;
 
 - (void)erase;
 

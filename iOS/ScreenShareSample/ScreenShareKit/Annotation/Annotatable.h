@@ -10,4 +10,6 @@
 
 @protocol Annotatable <NSObject>
 
+@optional
+- (void)commit;
 @end
