@@ -57,13 +57,11 @@
         [self addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                            action:@selector(handlePanGesture:)]];
         
-        UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
-        [self addGestureRecognizer:pinch];
-        _activePinchRecognizer = pinch;
+        _activePinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
+        [self addGestureRecognizer:_activePinchRecognizer];
         
-        UIRotationGestureRecognizer *rotate = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
-        [self addGestureRecognizer:rotate];
-        _activeRotationRecognizer = rotate;
+        _activeRotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
+        [self addGestureRecognizer:_activeRotationRecognizer];
         _referenceRotateTransform = CGAffineTransformIdentity;
         _currentRotateTransform = CGAffineTransformIdentity;
         
@@ -78,6 +76,11 @@
         _dotborder.frame = self.bounds;
     }
     return self;
+}
+
+- (void)setFont:(UIFont *)font {
+    super.font = font;
+    [self resizeTextView:self];
 }
 
 - (void)commit {
@@ -118,13 +121,7 @@
 {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
-            if ([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]) {
-                self.currentRotateTransform = self.referenceRotateTransform;
-                self.activeRotationRecognizer = (UIRotationGestureRecognizer *)recognizer;
-            }
-            else {
-                self.activePinchRecognizer = (UIPinchGestureRecognizer *)recognizer;
-            }
+            self.currentRotateTransform = self.referenceRotateTransform;
             break;
         }
             
@@ -132,30 +129,19 @@
             
             if (recognizer == self.activeRotationRecognizer) {
                 
-                self.currentRotateTransform = CGAffineTransformRotate(self.currentRotateTransform, self.activeRotationRecognizer.rotation);
+                self.currentRotateTransform = CGAffineTransformRotate(self.referenceRotateTransform, self.activeRotationRecognizer.rotation);
             }
-            else if (recognizer == self.activePinchRecognizer) {
+            
+            if (recognizer == self.activePinchRecognizer) {
                 
-                self.currentRotateTransform = CGAffineTransformScale(self.currentRotateTransform, self.activePinchRecognizer.scale, self.activePinchRecognizer.scale);
+                self.currentRotateTransform = CGAffineTransformScale(self.referenceRotateTransform, self.activePinchRecognizer.scale, self.activePinchRecognizer.scale);
             }
             self.transform = self.currentRotateTransform;
-            
             break;
         }
             
         case UIGestureRecognizerStateEnded: {
-            if (recognizer == self.activeRotationRecognizer) {
-                
-                self.currentRotateTransform = CGAffineTransformRotate(self.currentRotateTransform, self.activeRotationRecognizer.rotation);
-            }
-            else if (recognizer == self.activePinchRecognizer) {
-                
-                self.currentRotateTransform = CGAffineTransformScale(self.currentRotateTransform, self.activePinchRecognizer.scale, self.activePinchRecognizer.scale);
-            }
-            self.transform = self.currentRotateTransform;
-            self.activeRotationRecognizer = nil;
-            self.activePinchRecognizer = nil;
-            
+            self.referenceRotateTransform = self.currentRotateTransform;
             break;
         }
             

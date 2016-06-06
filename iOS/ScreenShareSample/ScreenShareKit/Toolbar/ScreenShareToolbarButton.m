@@ -7,7 +7,6 @@
 //
 
 #import "ScreenShareToolbarButton.h"
-
 #import "UIButton+AutoLayoutHelper.h"
 
 @implementation ScreenShareToolbarButton
