@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <ScreenShareKit/ScreenShareKit.h>
+#import "OneToOneCommunicator.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [OneToOneCommunicator setOpenTokApiKey:@"<#Replace#>"
+                                 sessionId:@"<#Replace#>"
+                                     token:@"<#Replace#>"];
     [ScreenCaptureHandler setOpenTokApiKey:@"<#Replace#>"
                                  sessionId:@"<#Replace#>"
                                      token:@"<#Replace#>"];

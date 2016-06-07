@@ -22,7 +22,6 @@
     CVPixelBufferRef _pixelBuffer;
     BOOL _capturing;
     OTVideoFrame* _videoFrame;
-    UIView* _view;
     
 }
 

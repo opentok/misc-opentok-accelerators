@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		3F29F9F01D0619B700FF652C /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F29F9ED1D0619B700FF652C /* OneToOneCommunicator.m */; };
+		3F29F9F11D0619B700FF652C /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F29F9EF1D0619B700FF652C /* OTKAnalytics.m */; };
 		3F2E19771CF8EDD600465198 /* ScreenCaptureHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F2E19751CF8EDD600465198 /* ScreenCaptureHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3F2E19781CF8EDD600465198 /* ScreenCaptureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E19761CF8EDD600465198 /* ScreenCaptureHandler.m */; };
 		A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A1781CEE7AFB00935C9E /* ScreenCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -97,6 +99,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F29F9EC1D0619B700FF652C /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "OneToOne/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
+		3F29F9ED1D0619B700FF652C /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "OneToOne/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
+		3F29F9EE1D0619B700FF652C /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "OneToOne/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.h"; sourceTree = "<group>"; };
+		3F29F9EF1D0619B700FF652C /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "OneToOne/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		3F2E19751CF8EDD600465198 /* ScreenCaptureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCaptureHandler.h; sourceTree = "<group>"; };
 		3F2E19761CF8EDD600465198 /* ScreenCaptureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCaptureHandler.m; sourceTree = "<group>"; };
 		A012A1781CEE7AFB00935C9E /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
@@ -172,6 +178,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F29F9EB1D0619A400FF652C /* OneToOne */ = {
+			isa = PBXGroup;
+			children = (
+				3F29F9EC1D0619B700FF652C /* OneToOneCommunicator.h */,
+				3F29F9ED1D0619B700FF652C /* OneToOneCommunicator.m */,
+				3F29F9EE1D0619B700FF652C /* OTKAnalytics.h */,
+				3F29F9EF1D0619B700FF652C /* OTKAnalytics.m */,
+			);
+			name = OneToOne;
+			sourceTree = "<group>";
+		};
 		A012A1771CEE7AFB00935C9E /* ScreenShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +292,7 @@
 		A09A4AA31CD02A800024C349 /* ScreenShareSample */ = {
 			isa = PBXGroup;
 			children = (
+				3F29F9EB1D0619A400FF652C /* OneToOne */,
 				A0253B031CD72713006829E6 /* mvc.png */,
 				A09A4AA71CD02A800024C349 /* AppDelegate.h */,
 				A09A4AA81CD02A800024C349 /* AppDelegate.m */,
@@ -468,6 +486,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A09A4AAC1CD02A800024C349 /* ViewController.m in Sources */,
+				3F29F9F01D0619B700FF652C /* OneToOneCommunicator.m in Sources */,
+				3F29F9F11D0619B700FF652C /* OTKAnalytics.m in Sources */,
 				A09A4AA91CD02A800024C349 /* AppDelegate.m in Sources */,
 				A09A4AA61CD02A800024C349 /* main.m in Sources */,
 			);
@@ -629,6 +649,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/OpenTok",
+				);
 				INFOPLIST_FILE = ScreenShareSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -641,6 +666,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/OpenTok",
+				);
 				INFOPLIST_FILE = ScreenShareSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -657,7 +687,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/OpenTok",
+				);
 				INFOPLIST_FILE = ScreenShareKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -677,7 +710,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/OpenTok",
+				);
 				INFOPLIST_FILE = ScreenShareKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -699,6 +735,7 @@
 				A022F5F31CF584F0008E8C70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A09A4A9C1CD02A800024C349 /* Build configuration list for PBXProject "ScreenShareSample" */ = {
 			isa = XCConfigurationList;

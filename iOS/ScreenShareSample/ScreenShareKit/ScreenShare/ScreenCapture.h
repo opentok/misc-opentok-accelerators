@@ -14,6 +14,8 @@
  */
 @interface ScreenCapture : NSObject
 
+@property (nonatomic) UIView *view;
+
 /**
  * Initializes a video capturer that will grab rendered stills of the view.
  */
