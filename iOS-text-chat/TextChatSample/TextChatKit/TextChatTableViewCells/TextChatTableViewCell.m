@@ -44,7 +44,7 @@
     self.cornerUpLeft.layer.mask = maskleft;
 }
 
-- (void)updateCellFromTextChat:(TextChat *)textChat
+- (void)updateCellFromTextChat:(TextMessage *)textChat
                   customizator:(TextChatUICustomizator *)customizator {
     
     if (!textChat) return;

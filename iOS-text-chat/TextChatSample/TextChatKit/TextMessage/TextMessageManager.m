@@ -8,7 +8,7 @@
 
 #import <OpenTok/OpenTok.h>
 
-#import "TextChatComponent.h"
+#import "TextMessageManager.h"
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 
@@ -30,10 +30,10 @@ NSString* const KLogVariationAttempt = @"Attempt";
 NSString* const KLogVariationSuccess = @"Success";
 NSString* const KLogVariationFailure = @"Failure";
 
-@interface TextChatComponent() <OTSessionDelegate>
+@interface TextMessageManager() <OTSessionDelegate>
 @property (nonatomic) OTAcceleratorSession *session;
 
-@property (nonatomic) NSMutableArray<TextChat *> *mutableMessages;
+@property (nonatomic) NSMutableArray<TextMessage *> *mutableMessages;
 
 @property (nonatomic) NSString *senderId;
 @property (nonatomic) NSString *alias;
@@ -45,9 +45,9 @@ NSString* const KLogVariationFailure = @"Failure";
 
 static NSString* const kTextChatType = @"text-chat";
 
-@implementation TextChatComponent
+@implementation TextMessageManager
 
-- (NSArray<TextChat *> *)messages {
+- (NSArray<TextMessage *> *)messages {
     return [self.mutableMessages copy];
 }
 
@@ -103,7 +103,7 @@ static NSString* const kTextChatType = @"text-chat";
     
     if (self.session.sessionId) {
         
-        TextChat *textChat = [[TextChat alloc] initWithMessage:message alias:self.alias senderId:self.senderId];
+        TextMessage *textChat = [[TextMessage alloc] initWithMessage:message alias:self.alias senderId:self.senderId];
         
         NSString *jsonString = [textChat getTextChatSignalJSONString];
         if (!jsonString) {
@@ -133,7 +133,7 @@ static NSString* const kTextChatType = @"text-chat";
         // determine new type
         if ([self.messages count] > 0) {
             
-            TextChat *prev = self.messages[self.messages.count - 1];
+            TextMessage *prev = self.messages[self.messages.count - 1];
             
             // not sure why 120
             if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < 120 &&
@@ -165,7 +165,7 @@ static NSString* const kTextChatType = @"text-chat";
     }
 }
 
-- (TextChat *)getTextChatFromIndexPath:(NSIndexPath *)indexPath {
+- (TextMessage *)getTextChatFromIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < 0 || indexPath.row >= self.messages.count) {
         return nil;
     }
@@ -234,7 +234,7 @@ receivedSignalType:(NSString*)type
     if (![connection.connectionId isEqualToString:self.session.connection.connectionId]) {
         [self addLogEvent:KLogActionReceiveMessage variation:KLogVariationAttempt];
         
-        TextChat *textChat = [[TextChat alloc] initWithJSONString:string];
+        TextMessage *textChat = [[TextMessage alloc] initWithJSONString:string];
         
         if (!self.receiverAlias || ![self.receiverAlias isEqualToString:textChat.alias]) {
             self.receiverAlias = textChat.alias;
@@ -243,7 +243,7 @@ receivedSignalType:(NSString*)type
         // determine new type
         if ([self.messages count] > 0) {
             
-            TextChat *prev = self.messages[self.messages.count - 1];
+            TextMessage *prev = self.messages[self.messages.count - 1];
             
             // not sure why 120
             if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < 120 &&

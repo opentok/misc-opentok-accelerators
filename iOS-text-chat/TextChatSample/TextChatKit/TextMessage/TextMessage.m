@@ -6,8 +6,8 @@
 //  Copyright © 2016 TokBox. All rights reserved.
 //
 
-#import "TextChat.h"
-#import "TextChat_Private.h"
+#import "TextMessage.h"
+#import "TextMessage_Private.h"
 
 static NSString * const kText = @"text";
 
@@ -17,7 +17,7 @@ static NSString * const kSenderId = @"id";
 
 static NSString * const kSendOn = @"sentOn";
 
-@implementation TextChat
+@implementation TextMessage
 
 - (instancetype)initWithMessage:(NSString *)message
                           alias:(NSString *)alias

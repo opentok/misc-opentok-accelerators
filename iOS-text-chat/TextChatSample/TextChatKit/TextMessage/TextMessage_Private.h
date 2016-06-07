@@ -6,9 +6,9 @@
 //  Copyright © 2016 Esteban Cordero. All rights reserved.
 //
 
-#import "TextChat.h"
+#import "TextMessage.h"
 
-@interface TextChat ()
+@interface TextMessage ()
 
 typedef NS_ENUM(NSUInteger, TCMessageTypes) {
     TCMessageTypesSent = 0,

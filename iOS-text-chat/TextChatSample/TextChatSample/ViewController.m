@@ -40,7 +40,7 @@
 }
 
 - (IBAction)connectToTextChatButtonPressed:(id)sender {
-    [self.textChatView connectWithHandler:^(TextChatViewEventSignal signal, TextChat *textChat, NSError *error) {
+    [self.textChatView connectWithHandler:^(TextChatViewEventSignal signal, TextMessage *textChat, NSError *error) {
         
     }];
 }
@@ -86,11 +86,11 @@
     [self.textChatView dismiss];
 }
 
-- (void)textChatView:(TextChatView *)textChatView didSendtextChat:(TextChat *)textChat error:(NSError *)error {
+- (void)textChatView:(TextChatView *)textChatView didSendtextChat:(TextMessage *)textChat error:(NSError *)error {
     NSLog(@"%s: error: %@", __PRETTY_FUNCTION__, error);
 }
 
-- (void)textChatView:(TextChatView *)textChatView didReceiveTextChat:(TextChat *)textChat {
+- (void)textChatView:(TextChatView *)textChatView didReceiveTextChat:(TextMessage *)textChat {
     NSLog(@"%s: ", __PRETTY_FUNCTION__);
 }
 

@@ -6,10 +6,10 @@
 //  Copyright © 2016 AgilityFeat. All rights reserved.
 //
 
-#import "TextChat.h"
+#import "TextMessage.h"
 #import "TextChatView.h"
 #import "TextChatTableViewCell.h"
-#import "TextChatComponent.h"
+#import "TextMessageManager.h"
 
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
@@ -21,10 +21,10 @@
 
 static CGFloat StatusBarHeight = 20.0;
 
-@interface TextChatView() <UITableViewDataSource, UITextFieldDelegate, TextChatComponentDelegate>
+@interface TextChatView() <UITableViewDataSource, UITextFieldDelegate, TextMessageManagerDelegate>
 
 @property (nonatomic) BOOL show;
-@property (nonatomic) TextChatComponent *textChatComponent;
+@property (nonatomic) TextMessageManager *textChatComponent;
 @property (nonatomic) TextChatUICustomizator *customizator;
 @property (nonatomic) UIView *attachedBottomView;
 
@@ -70,7 +70,7 @@ static CGFloat StatusBarHeight = 20.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 130.0;
     self.textField.delegate = self;
-    self.textChatComponent = [[TextChatComponent alloc] init];
+    self.textChatComponent = [[TextMessageManager alloc] init];
     self.customizator = [[TextChatUICustomizator alloc] init];
     self.textChatComponent.delegate = self;
     self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.textChatComponent.maximumTextMessageLength];
@@ -106,18 +106,47 @@ static CGFloat StatusBarHeight = 20.0;
     
     [self updateTopBarUserInterface];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updatetTextChatUserInterface)
-                                                 name:TextChatUIUpdatedNotificationName
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillShowNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *notification) {
+        
+        NSDictionary* info = [notification userInfo];
+        CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+        double duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        [UIView animateWithDuration:duration animations:^{
+            
+            CGFloat extreHeight = self.attachedBottomView ? CGRectGetHeight(self.attachedBottomView.bounds) : 0;
+            self.bottomViewLayoutConstraint.constant = -kbSize.height + extreHeight;
+        } completion:^(BOOL finished) {
+            
+            [self scrollTableViewToBottom];
+        }];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillHideNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *notification) {
+        
+        NSDictionary* info = [notification userInfo];
+        double duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        [UIView animateWithDuration:duration animations:^{
+            
+            self.bottomViewLayoutConstraint.constant = 0;
+        }];
+    }];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:TextChatUIUpdatedNotificationName
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *notification) {
+    
+        [self.tableView reloadData];
+        [self updateTopBarUserInterface];
+    }];
+
     
     [self addObserver:self
            forKeyPath:@"textChatComponent.receiverAlias"
@@ -132,29 +161,6 @@ static CGFloat StatusBarHeight = 20.0;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeObserver:self forKeyPath:@"textChatComponent.receiverAlias"];
-}
-
-- (void)keyboardWillShow:(NSNotification*)aNotification {
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    double duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    [UIView animateWithDuration:duration animations:^{
-    
-        CGFloat extreHeight = self.attachedBottomView ? CGRectGetHeight(self.attachedBottomView.bounds) : 0;
-        self.bottomViewLayoutConstraint.constant = -kbSize.height + extreHeight;
-    } completion:^(BOOL finished) {
-        
-        [self scrollTableViewToBottom];
-    }];
-}
-
-- (void)keyboardWillHide:(NSNotification*)aNotification {
-    NSDictionary* info = [aNotification userInfo];
-    double duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    [UIView animateWithDuration:duration animations:^{
-        
-        self.bottomViewLayoutConstraint.constant = 0;
-    }];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -237,11 +243,6 @@ static CGFloat StatusBarHeight = 20.0;
     [self.tableView scrollToRowAtIndexPath:lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
-- (void)updatetTextChatUserInterface {
-    [self.tableView reloadData];
-    [self updateTopBarUserInterface];
-}
-
 - (void)updateTopBarUserInterface {
     if(self.customizator.topBarBackgroundColor != nil) self.textChatTopView.backgroundColor = self.customizator.topBarBackgroundColor;
     if(self.customizator.topBarTitleTextColor != nil) self.textChatTopViewTitle.textColor = self.customizator.topBarTitleTextColor;
@@ -267,7 +268,7 @@ static CGFloat StatusBarHeight = 20.0;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // check if final divider
-    TextChat *textChat = [self.textChatComponent getTextChatFromIndexPath:indexPath];
+    TextMessage *textChat = [self.textChatComponent getTextChatFromIndexPath:indexPath];
     TCMessageTypes type;
     if (indexPath.row < [self.textChatComponent.messages count]) {
         type = textChat.type;
@@ -338,7 +339,7 @@ static CGFloat StatusBarHeight = 20.0;
 }
 
 #pragma mark - TextChatComponentDelegate
-- (void)didAddTextChat:(TextChat *)textChat error:(NSError *)error {
+- (void)didAddTextChat:(TextMessage *)textChat error:(NSError *)error {
     if(!error) {
         
         [self refreshTitleBar];
@@ -370,7 +371,7 @@ static CGFloat StatusBarHeight = 20.0;
     }
 }
 
-- (void)didReceiveTextChat:(TextChat *)textChat {
+- (void)didReceiveTextChat:(TextMessage *)textChat {
     [self refreshTitleBar];
     [self insertNewTextMessageToTableView];
     [self scrollTableViewToBottom];

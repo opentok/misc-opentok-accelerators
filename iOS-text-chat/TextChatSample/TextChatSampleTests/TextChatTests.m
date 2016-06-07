@@ -1,19 +1,19 @@
 #import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
 #import <TextChatkit/TextChatKit.h>
-#import "TextChat_Private.h"
+#import "TextMessage_Private.h"
 
 
 SPEC_BEGIN(TextChatTest)
 
-__block TextChat *tc;
+__block TextMessage *tc;
 
 beforeAll(^(){
     [OneToOneCommunicator setOpenTokApiKey:@"testTextChat"
                                  sessionId:@"testTextChat"
                                      token:@"testTextChat"];
     
-    tc = [[TextChat alloc] init];
+    tc = [[TextMessage alloc] init];
 });
 
 describe(@"initWithMessage", ^(){

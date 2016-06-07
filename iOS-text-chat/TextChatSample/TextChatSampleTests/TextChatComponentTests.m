@@ -1,17 +1,17 @@
 #import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
-#import "TextChatComponent.h"
+#import "TextMessageManager.h"
 
 
 SPEC_BEGIN(TextChatComponentTests)
 
-__block TextChatComponent *tcc;
+__block TextMessageManager *tcc;
 
 beforeAll(^(){
     [TextChatView setOpenTokApiKey:@"testTextChatComponent"
                                  sessionId:@"testTextChatComponent"
                                      token:@"testTextChatComponent"];
-    tcc = [[TextChatComponent alloc] init];
+    tcc = [[TextMessageManager alloc] init];
 });
 
 describe(@"init", ^(){

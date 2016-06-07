@@ -6,16 +6,16 @@
 //  Copyright © 2016 AgilityFeat. All rights reserved.
 //
 
-#import "TextChat.h"
-#import "TextChat_Private.h"
+#import "TextMessage.h"
+#import "TextMessage_Private.h"
 #import "TextChatView.h"
 #import "OTKAnalytics.h"
 
-@protocol TextChatComponentDelegate <NSObject>
+@protocol TextMessageManagerDelegate <NSObject>
 - (void)didConnectWithError:(NSError *)error;
 - (void)didDisConnectWithError:(NSError *)error;
-- (void)didAddTextChat:(TextChat *)textChat error:(NSError *)error;
-- (void)didReceiveTextChat:(TextChat *)textChat;
+- (void)didAddTextChat:(TextMessage *)textChat error:(NSError *)error;
+- (void)didReceiveTextChat:(TextMessage *)textChat;
 @end
 
 //analytics
@@ -33,10 +33,10 @@ extern NSString* const KLogVariationAttempt;
 extern NSString* const KLogVariationSuccess;
 extern NSString* const KLogVariationFailure;
 
-@interface TextChatComponent : NSObject
-@property (weak, nonatomic) id<TextChatComponentDelegate> delegate;
+@interface TextMessageManager : NSObject
+@property (weak, nonatomic) id<TextMessageManagerDelegate> delegate;
 
-@property (readonly, nonatomic) NSArray<TextChat *> *messages;
+@property (readonly, nonatomic) NSArray<TextMessage *> *messages;
 @property (readonly, nonatomic) NSString *alias;
 @property (readonly, nonatomic) NSString *receiverAlias;
 @property (readonly, nonatomic) NSUInteger maximumTextMessageLength;
@@ -48,7 +48,7 @@ extern NSString* const KLogVariationFailure;
 
 - (void)sendMessage:(NSString *)message;
 
-- (TextChat *)getTextChatFromIndexPath:(NSIndexPath *)indexPath;
+- (TextMessage *)getTextChatFromIndexPath:(NSIndexPath *)indexPath;
 
 - (void)setAlias:(NSString *)alias;
 

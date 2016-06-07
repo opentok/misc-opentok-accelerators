@@ -7,8 +7,8 @@
 //
 
 #import <TextChatKit/TextChatUICustomizator.h>
-#import "TextChat.h"
-#import "TextChat_Private.h"
+#import "TextMessage.h"
+#import "TextMessage_Private.h"
 
 @interface TextChatTableViewCell : UITableViewCell
 
@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *cornerUp;
 @property (weak, nonatomic) IBOutlet UIView *cornerUpLeft;
 
-- (void)updateCellFromTextChat:(TextChat *)textChat
+- (void)updateCellFromTextChat:(TextMessage *)textChat
                   customizator:(TextChatUICustomizator *)customizator;
 
 @end
