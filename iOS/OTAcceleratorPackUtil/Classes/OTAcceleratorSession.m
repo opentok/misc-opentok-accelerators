@@ -67,16 +67,26 @@ static NSString * InternalToken = @"";
 
 + (void)registerWithAccePack:(id)delegate {
     
-    OTAcceleratorSession *session = [OTAcceleratorSession getAcceleratorPackSession];
+    OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
     
     if ([delegate conformsToProtocol:@protocol(OTSessionDelegate)]) {
-        if ([session.inactiveDelegate containsObject:delegate]) {
-            [session.inactiveDelegate removeObject:delegate];
+        if ([sharedSession.inactiveDelegate containsObject:delegate]) {
+            [sharedSession.inactiveDelegate removeObject:delegate];
         }
-        [session.delegates addObject:delegate];
+        [sharedSession.delegates addObject:delegate];
     }
-
-    OTError *error = [OTAcceleratorSession connect];
+    
+    // notify sessionDidConnect when session has connected
+    if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnected) {
+        [delegate sessionDidConnect:sharedSession];
+        return;
+    }
+    
+    if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnecting ||
+        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusReconnecting) return;
+    
+    OTError *error;
+    [sharedSession connectWithToken:InternalToken error:&error];
     if (error) {
         NSLog(@"AcceleratorSesssion Error: %@", error.localizedDescription);
     }
@@ -84,15 +94,21 @@ static NSString * InternalToken = @"";
 
 + (void)deregisterWithAccePack:(id)delegate {
     
-    OTAcceleratorSession *session = [OTAcceleratorSession getAcceleratorPackSession];
+    OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
     
-    if ([session.delegates containsObject:delegate]) {
-        [session.delegates removeObject:delegate];
-        [session.inactiveDelegate addObject:delegate];
+    // notify sessionDidDisconnect to delegates who has de-registered
+    if ([sharedSession.delegates containsObject:delegate]) {
+        [sharedSession.delegates removeObject:delegate];
+        [sharedSession.inactiveDelegate addObject:delegate];
     }
 
-    if (session.delegates.count == 0) {
-        OTError *error = [OTAcceleratorSession disconnect];
+    if (sharedSession.delegates.count == 0) {
+        
+        if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusNotConnected ||
+            sharedSession.sessionConnectionStatus == OTSessionConnectionStatusDisconnecting) return;
+        
+        OTError *error;
+        [sharedSession disconnect:&error];
         if (error) {
             NSLog(@"AcceleratorSesssion Error: %@", error.localizedDescription);
         }
@@ -103,31 +119,6 @@ static NSString * InternalToken = @"";
     
     OTAcceleratorSession *session = [OTAcceleratorSession getAcceleratorPackSession];
     return [session.delegates containsObject:delegate];
-}
-
-+ (OTError *)connect {
-    
-    OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
-    
-    if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnected ||
-        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnecting ||
-        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusReconnecting) return nil;
-    
-    OTError *error;
-    [sharedSession connectWithToken:InternalToken error:&error];
-    return error;
-}
-
-+ (OTError *)disconnect {
-    
-    OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
-    
-    if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusNotConnected ||
-        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusDisconnecting) return nil;
-    
-    OTError *error;
-    [sharedSession disconnect:&error];
-    return error;
 }
 
 #pragma mark - OTSessionDelegate
