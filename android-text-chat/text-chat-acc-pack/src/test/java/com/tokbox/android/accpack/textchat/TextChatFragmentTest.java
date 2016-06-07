@@ -25,9 +25,8 @@ public  class TextChatFragmentTest {
 
     @Test(expected=Exception.class)
     public void TextChatFragment_When_SessionIsNull() throws IllegalArgumentException {
-        textChatFragment = TextChatFragment.newInstance(null, "100");
 
-        Assert.assertNull(textChatFragment);
+        textChatFragment = TextChatFragment.newInstance(null, "100");
 
     }
 
