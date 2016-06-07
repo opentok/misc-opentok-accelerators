@@ -54,4 +54,6 @@ extern NSString* const KLogVariationFailure;
 
 - (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength;
 
+- (void)addLogEvent:(NSString*)action variation:(NSString*)variation; //for internal use
+
 @end

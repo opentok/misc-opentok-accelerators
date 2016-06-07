@@ -49,7 +49,6 @@
                                 <rect key="frame" x="254" y="154" width="93" height="30"/>
                                 <state key="normal" title="ConnectToTC"/>
                                 <connections>
-                                    <action selector="connectToAVButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ovk-7o-84e"/>
                                     <action selector="connectToTextChatButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TD8-7Q-iaD"/>
                                 </connections>
                             </button>
@@ -85,7 +84,6 @@
                                 <rect key="frame" x="244" y="192" width="112" height="30"/>
                                 <state key="normal" title="DisconnectToTC"/>
                                 <connections>
-                                    <action selector="disconnectToAVButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LM8-9h-Fxx"/>
                                     <action selector="disconnectToTextChatButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7I3-7c-PNo"/>
                                 </connections>
                             </button>

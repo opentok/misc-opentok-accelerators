@@ -214,7 +214,7 @@ static CGFloat StatusBarHeight = 20.0;
     if (self.isShown) {
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self removeFromSuperview];
-        [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationSuccess];
+        [OTKAnalytics logEventAction:KLogActionClose variation:KLogVariationSuccess completion:nil];
     }
 }
 
@@ -250,7 +250,7 @@ static CGFloat StatusBarHeight = 20.0;
 
 #pragma mark - IBActions
 - (IBAction)closeButton:(UIButton *)sender {
-    [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationAttempt];
+    [OTKAnalytics logEventAction:KLogActionClose variation:KLogVariationAttempt completion:nil];
     [self dismiss];
 }
 
