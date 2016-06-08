@@ -17,12 +17,19 @@
 @property (strong, nonatomic) IBOutlet UIButton *callHolder;
 @property (strong, nonatomic) IBOutlet UIButton *micHolder;
 @property (strong, nonatomic) IBOutlet UIButton *screenShareHolder;
+@property (strong, nonatomic) IBOutlet UIButton *annotationHolder;
 
 @property (strong, nonatomic) IBOutlet UIButton *subscriberVideoButton;
 @property (strong, nonatomic) IBOutlet UIButton *subscriberAudioButton;
 
+@property (strong, nonatomic) IBOutlet UIButton *publisherCameraButton;
+
 @property (strong, nonatomic) UIImageView *subscriberPlaceHolderImageView;
 @property (strong, nonatomic) UIImageView *publisherPlaceHolderImageView;
+
+@property (nonatomic) ScreenShareToolbarView *toolbarView;
+@property (nonatomic) UIView *sharingYourScreen;
+@property (strong, nonatomic) IBOutlet UIView *actionButtonView;
 @end
 
 @implementation MainView
@@ -62,7 +69,10 @@
     [self drawBorderOn:self.callHolder withWhiteBorder:NO];
     [self drawBorderOn:self.videoHolder withWhiteBorder:YES];
     [self drawBorderOn:self.screenShareHolder withWhiteBorder:YES];
+    [self drawBorderOn:self.annotationHolder withWhiteBorder:YES];
     [self hideSubscriberControls];
+    // This is to define the screenshare area
+    self.sharingYourScreen = [[UIView alloc] init];
 }
 
 - (void)drawBorderOn:(UIView *)view
@@ -72,6 +82,49 @@
     if (withWhiteBorder) {
         view.layer.borderWidth = 1;
         view.layer.borderColor = [UIColor whiteColor].CGColor;
+    }
+}
+
+- (void)usingBorder:(BOOL)shoudlAdd; {
+    CGRect viewSize = CGRectMake(0, 0, self.frame.size.width, 40);
+    [self.sharingYourScreen setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    UIColor *backgroundShare = [UIColor colorWithRed:102/255.0 green:173/255.0 blue:191/255.0 alpha:1];
+    if (shoudlAdd){
+        UIView *topScreen = [[UIView alloc] initWithFrame: viewSize];
+        topScreen.backgroundColor = backgroundShare;
+    
+        UILabel *sharingScreenLabel = [[UILabel alloc] init];
+        sharingScreenLabel.text = @"You are sharing your screen";
+        sharingScreenLabel.font = [UIFont fontWithName:@"AvantGarde-Book" size:12.0];
+        sharingScreenLabel.frame = viewSize;
+        sharingScreenLabel.textAlignment = NSTextAlignmentCenter;
+        sharingScreenLabel.textColor = [UIColor whiteColor];
+        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 8, 20, 18)];
+        icon.image = [UIImage imageNamed:@"screenshare"];
+        UIImageView *close = [[UIImageView alloc] initWithFrame:CGRectMake((self.sharingYourScreen.frame.size.width - 30), 14, 13, 13)];
+        close.image = [UIImage imageNamed:@"smallClose"];
+        [topScreen addSubview:icon];
+        
+        [topScreen addSubview:close];
+        [topScreen addSubview:sharingScreenLabel];
+        topScreen.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.sharingYourScreen addSubview:topScreen];
+        
+        self.sharingYourScreen.layer.borderWidth = 5;
+        self.sharingYourScreen.layer.borderColor = backgroundShare.CGColor;
+        // UIButton
+        self.screenShareHolder.layer.borderWidth = 2;
+        self.screenShareHolder.layer.borderColor = backgroundShare.CGColor;
+        [self addSubview:self.sharingYourScreen];
+        [self bringSubviewToFront:self.actionButtonView];
+        [self bringSubviewToFront:self.subscriberAudioButton];
+        [self bringSubviewToFront:self.subscriberVideoButton];
+        [self bringSubviewToFront:self.publisherCameraButton];
+        self.sharingYourScreen.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addAttachedLayoutConstantsToSuperview: self.sharingYourScreen];
+    } else {
+        self.screenShareHolder.layer.borderColor = [UIColor whiteColor].CGColor;
+        [self.sharingYourScreen removeFromSuperview];
     }
 }
 
@@ -178,8 +231,17 @@
     [self.videoHolder setEnabled: status];
     [self.micHolder setEnabled: status];
     [self.screenShareHolder setEnabled: status];
+    [self.annotationHolder setEnabled:status];
 }
 
+- (void) setupAnnotationToolBar {
+    // tool bar
+    self.toolbarView = [ScreenShareToolbarView toolbar];
+    [self.toolbarView.screenShareView addContentView: self.subscriberView];
+    
+    [self addSubview:self.toolbarView.screenShareView];
+    [self addSubview:self.toolbarView];
+}
 
 #pragma mark - private method
 -(void)addAttachedLayoutConstantsToSuperview:(UIView *)view {

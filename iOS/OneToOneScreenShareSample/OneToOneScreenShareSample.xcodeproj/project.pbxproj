@@ -10,7 +10,8 @@
 		3F65DAB51CF377100012111D /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F65DAB21CF377100012111D /* OneToOneCommunicator.m */; };
 		3F65DAB61CF377100012111D /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F65DAB41CF377100012111D /* OTKAnalytics.m */; };
 		3F65DAB91CF377D30012111D /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F65DAB81CF377D30012111D /* MainView.m */; };
-		A022F5F01CF58330008E8C70 /* ScreenShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A022F5EF1CF58330008E8C70 /* ScreenShareKit.framework */; };
+		3FE4078C1CFBF8D40066A6C2 /* ScreenShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE4078A1CFBF8CB0066A6C2 /* ScreenShareKit.framework */; };
+		3FE4078D1CFBF8D40066A6C2 /* ScreenShareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE4078A1CFBF8CB0066A6C2 /* ScreenShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A060AF661CF36B0700589311 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A060AF651CF36B0700589311 /* main.m */; };
 		A060AF691CF36B0700589311 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A060AF681CF36B0700589311 /* AppDelegate.m */; };
 		A060AF6C1CF36B0700589311 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A060AF6B1CF36B0700589311 /* MainViewController.m */; };
@@ -19,6 +20,20 @@
 		A060AF741CF36B0700589311 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A060AF721CF36B0700589311 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3F6125CD1CF7BC3D00F67CD9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3FE4078D1CFBF8D40066A6C2 /* ScreenShareKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3F65DAB11CF377100012111D /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
 		3F65DAB21CF377100012111D /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
@@ -26,7 +41,7 @@
 		3F65DAB41CF377100012111D /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
 		3F65DAB71CF377D30012111D /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		3F65DAB81CF377D30012111D /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
-		A022F5EF1CF58330008E8C70 /* ScreenShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ScreenShareKit.framework; sourceTree = "<group>"; };
+		3FE4078A1CFBF8CB0066A6C2 /* ScreenShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ScreenShareKit.framework; sourceTree = "<group>"; };
 		A060AF611CF36B0700589311 /* OneToOneScreenShareSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneToOneScreenShareSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A060AF651CF36B0700589311 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A060AF671CF36B0700589311 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -44,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A022F5F01CF58330008E8C70 /* ScreenShareKit.framework in Frameworks */,
+				3FE4078C1CFBF8D40066A6C2 /* ScreenShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +80,7 @@
 		A060AF581CF36B0700589311 = {
 			isa = PBXGroup;
 			children = (
+				3FE4078A1CFBF8CB0066A6C2 /* ScreenShareKit.framework */,
 				A060AF631CF36B0700589311 /* OneToOneScreenShareSample */,
 				A060AF621CF36B0700589311 /* Products */,
 			);
@@ -81,7 +97,6 @@
 		A060AF631CF36B0700589311 /* OneToOneScreenShareSample */ = {
 			isa = PBXGroup;
 			children = (
-				A022F5EF1CF58330008E8C70 /* ScreenShareKit.framework */,
 				A060AF671CF36B0700589311 /* AppDelegate.h */,
 				A060AF681CF36B0700589311 /* AppDelegate.m */,
 				A060AF6A1CF36B0700589311 /* MainViewController.h */,
@@ -116,6 +131,7 @@
 				A060AF5D1CF36B0700589311 /* Sources */,
 				A060AF5E1CF36B0700589311 /* Frameworks */,
 				A060AF5F1CF36B0700589311 /* Resources */,
+				3F6125CD1CF7BC3D00F67CD9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -298,6 +314,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OneToOneScreenShareSample",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = OneToOneScreenShareSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -313,6 +330,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OneToOneScreenShareSample",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = OneToOneScreenShareSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

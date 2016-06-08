@@ -6,6 +6,6 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <ScreenShareKit/ScreenCapture.h>
+#import <ScreenShareKit/ScreenSharer.h>
 #import <ScreenShareKit/ScreenShareView.h>
 #import <ScreenShareKit/ScreenShareToolbarView.h>

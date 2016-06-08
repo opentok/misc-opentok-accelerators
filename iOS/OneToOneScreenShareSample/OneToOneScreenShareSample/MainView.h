@@ -5,6 +5,9 @@
 //  Created by Esteban Cordero on 5/23/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
+
+#import <ScreenShareKit/ScreenShareKit.h>
+
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
@@ -37,5 +40,8 @@
 // other controls
 - (void)removePlaceHolderImage;
 - (void) buttonsStatusSetter: (BOOL)status;
+- (void)usingBorder:(BOOL)shoudlAdd;
+
+- (void) setupAnnotationToolBar;
 
 @end

@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ScreenShareKit/ScreenShareKit.h>
 
 @interface MainViewController : UIViewController
-
-
 @end
 

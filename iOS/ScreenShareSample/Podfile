@@ -1,9 +1,10 @@
-
-source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
-inhibit_all_warnings!
 
-target 'ScreenShareKit' do 
+target 'ScreenShareKit' do
   pod 'OTAcceleratorPackUtil'
   pod 'LHToolbar', '1.2.1-beta'
+end
+
+target 'ScreenShareSample' do
+  pod 'OTAcceleratorPackUtil'
 end
