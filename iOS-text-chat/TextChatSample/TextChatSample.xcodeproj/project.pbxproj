@@ -43,8 +43,6 @@
 		643553731CB69D4300643E2F /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6435536F1CB69D4300643E2F /* UIViewController+Helper.h */; };
 		643553741CB69D4300643E2F /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553701CB69D4300643E2F /* UIViewController+Helper.m */; };
 		643553771CB69D5B00643E2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643553761CB69D5B00643E2F /* Assets.xcassets */; };
-		A02410D01D0771D30001670C /* OneToOneCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410CE1D0771D30001670C /* OneToOneCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A02410D11D0771D30001670C /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410CF1D0771D30001670C /* OneToOneCommunicator.m */; };
 		A02410D41D0771E00001670C /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410D21D0771E00001670C /* OTKAnalytics.h */; };
 		A02410D51D0771E00001670C /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410D31D0771E00001670C /* OTKAnalytics.m */; };
 		A02410E71D0772130001670C /* TextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410E21D0772130001670C /* TextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -127,8 +125,6 @@
 		6435536F1CB69D4300643E2F /* UIViewController+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Helper.h"; sourceTree = "<group>"; };
 		643553701CB69D4300643E2F /* UIViewController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Helper.m"; sourceTree = "<group>"; };
 		643553761CB69D5B00643E2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A02410CE1D0771D30001670C /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
-		A02410CF1D0771D30001670C /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
 		A02410D21D0771E00001670C /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "Logging/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.h"; sourceTree = "<group>"; };
 		A02410D31D0771E00001670C /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "Logging/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A02410E21D0772130001670C /* TextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessage.h; sourceTree = "<group>"; };
@@ -230,8 +226,6 @@
 				643553611CB69D1400643E2F /* TextChatTableViewCells */,
 				643553401CB69CBE00643E2F /* Info.plist */,
 				643553761CB69D5B00643E2F /* Assets.xcassets */,
-				A02410CE1D0771D30001670C /* OneToOneCommunicator.h */,
-				A02410CF1D0771D30001670C /* OneToOneCommunicator.m */,
 				A02410D21D0771E00001670C /* OTKAnalytics.h */,
 				A02410D31D0771E00001670C /* OTKAnalytics.m */,
 			);
@@ -317,7 +311,6 @@
 				A02410E71D0772130001670C /* TextMessage.h in Headers */,
 				A03B1F611CC0B0C800D765F7 /* TextChatView.h in Headers */,
 				A03B1F651CC0B0C800D765F7 /* TextChatView_UserInterface.h in Headers */,
-				A02410D01D0771D30001670C /* OneToOneCommunicator.h in Headers */,
 				A02410E91D0772130001670C /* TextMessage_Private.h in Headers */,
 				A0EBC8201CECF20D001881EE /* TextChatUICustomizator_Private.h in Headers */,
 				A03B1F721CC0B26400D765F7 /* TextChatUICustomizator.h in Headers */,
@@ -547,7 +540,6 @@
 			files = (
 				643553601CB69D0600643E2F /* TextChatTableViewCell.m in Sources */,
 				A02410EB1D0772130001670C /* TextMessageManager.m in Sources */,
-				A02410D11D0771D30001670C /* OneToOneCommunicator.m in Sources */,
 				A02410E81D0772130001670C /* TextMessage.m in Sources */,
 				A03B1F621CC0B0C800D765F7 /* TextChatView.m in Sources */,
 				643553741CB69D4300643E2F /* UIViewController+Helper.m in Sources */,

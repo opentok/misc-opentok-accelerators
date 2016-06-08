@@ -12,7 +12,7 @@
 @interface ViewController () <TextChatViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (strong, nonatomic) TextChatView *textChatView;
-@property (strong, nonatomic) OneToOneCommunicator *oneToOneCommunicator;
+//@property (strong, nonatomic) OneToOneCommunicator *oneToOneCommunicator;
 @end
 
 @implementation ViewController
@@ -24,12 +24,12 @@
     return _textChatView;
 }
 
-- (OneToOneCommunicator *)oneToOneCommunicator {
-    if (!_oneToOneCommunicator) {
-        _oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
-    }
-    return _oneToOneCommunicator;
-}
+//- (OneToOneCommunicator *)oneToOneCommunicator {
+//    if (!_oneToOneCommunicator) {
+//        _oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
+//    }
+//    return _oneToOneCommunicator;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,15 +49,15 @@
     [self.textChatView disconnect];
 }
 
-- (IBAction)connectToAVButtonPressed:(id)sender {
-    [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
-        
-    }];
-}
-
-- (IBAction)disconnectToAVButtonPressed:(id)sender {
-    [self.oneToOneCommunicator disconnect];
-}
+//- (IBAction)connectToAVButtonPressed:(id)sender {
+//    [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
+//        
+//    }];
+//}
+//
+//- (IBAction)disconnectToAVButtonPressed:(id)sender {
+//    [self.oneToOneCommunicator disconnect];
+//}
 
 - (IBAction)ChangeTopColor:(id)sender {
     [self.textChatView.customizator setTopBarBackgroundColor:[UIColor orangeColor]];
