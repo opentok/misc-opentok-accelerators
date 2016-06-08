@@ -2,7 +2,7 @@
 #import "ScreenCapture.h"
 #import "ScreenSharer.h"
 
-@interface ScreenSharer()<OTSessionDelegate, OTPublisherDelegate, OTSubscriberDelegate>
+@interface ScreenSharer()<OTSessionDelegate, OTPublisherDelegate, OTSubscriberKitDelegate>
 
 @property (nonatomic) BOOL isScreenSharing;
 
@@ -11,6 +11,8 @@
 @property (nonatomic) OTPublisher *publisher;
 @property (nonatomic) ScreenCapture *screenCapture;
 //@property (nonatomic) UIView *topScreen;
+
+@property (strong, nonatomic) ScreenShareBlock handler;
 
 @end
 
@@ -46,6 +48,15 @@
 - (void)connectWithView:(UIView *)view {
     self.screenCapture = [[ScreenCapture alloc] initWithView:view];
     [OTAcceleratorSession registerWithAccePack:self];
+    
+    // perhaps we need to work on something here
+}
+
+- (void)connectWithView:(UIView *)view
+                handler:(ScreenShareBlock)handler {
+    
+    self.handler = handler;
+    [self connectWithView:view];
 }
 
 - (void)disconnect {
@@ -73,6 +84,17 @@
     [OTAcceleratorSession deregisterWithAccePack:self];
 }
 
+- (void)notifiyAllWithSignal:(ScreenShareSignal)signal error:(NSError *)error {
+    
+    if (self.handler) {
+        self.handler(signal, error);
+    }
+    
+    if (self.delegate) {
+        [self.delegate screenShareWithSignal:signal error:error];
+    }
+}
+
 - (void) sessionDidConnect:(OTSession *)session {
     if (!self.publisher) {
         self.publisher = [[OTPublisher alloc] initWithDelegate:self name:@"screenshare" audioTrack:NO videoTrack:YES];
@@ -86,11 +108,18 @@
     if (error) {
         NSLog(@"%@", error.localizedDescription);
     }
+    else {
+        [self notifiyAllWithSignal:ScreenShareSignalSessionDidConnect
+                             error:nil];
+    }
 }
 
 - (void) sessionDidDisconnect:(OTSession *)session {
     self.publisher = nil;
     self.subscriber = nil;
+    
+    [self notifiyAllWithSignal:ScreenShareSignalSessionDidDisconnect
+                         error:nil];
 }
 
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
@@ -102,6 +131,10 @@
         if (error) {
         
         }
+        else {
+            [self notifiyAllWithSignal:ScreenShareSignalSessionStreamCreated
+                                 error:nil];
+        }
     }
 }
 
@@ -112,26 +145,54 @@
         [self.subscriber.view removeFromSuperview];
         self.subscriber = nil;
     }
+    
+    [self notifiyAllWithSignal:ScreenShareSignalSessionStreamDestroyed
+                         error:nil];
 }
 
-- (void) session:(OTSession *)session didFailWithError:(OTError *)error {
+- (void)session:(OTSession *)session didFailWithError:(OTError *)error {
     NSLog(@"session did failed with error: (%@)", error);
+    [self notifiyAllWithSignal:ScreenShareSignalSessionDidFail
+                         error:nil];
 }
 
-- (void) publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
+#pragma mark - OTPublisherDelegate
+- (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
     NSLog(@"publisher did failed with error: (%@)", error);
+    [self notifiyAllWithSignal:ScreenShareSignalPublisherDidFail
+                         error:nil];
 }
 
-- (void) subscriber:(OTSubscriberKit *)subscriber didFailWithError:(OTError *)error {
-   NSLog(@"subscriber did failed with error: (%@)", error);
+#pragma mark - OTSubscriberKitDelegate
+-(void) subscriberDidConnectToStream:(OTSubscriberKit*)subscriber {
+    [self notifiyAllWithSignal:ScreenShareSignalSubscriberConnect
+                         error:nil];
 }
 
-- (void)subscriberVideoDataReceived:(OTSubscriber *)subscriber {
-    
+-(void)subscriberVideoDisabled:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    [self notifiyAllWithSignal:ScreenShareSignalSubscriberVideoDisabled
+                         error:nil];
 }
 
-- (void)subscriberDidConnectToStream:(OTSubscriberKit *)subscriber {
-    
+- (void)subscriberVideoEnabled:(OTSubscriberKit *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    [self notifiyAllWithSignal:ScreenShareSignalSubscriberVideoEnabled
+                         error:nil];
+}
+
+-(void) subscriberVideoDisableWarning:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    [self notifiyAllWithSignal:ScreenShareSignalSubscriberVideoDisableWarning
+                         error:nil];
+}
+
+-(void) subscriberVideoDisableWarningLifted:(OTSubscriberKit *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    [self notifiyAllWithSignal:ScreenShareSignalSubscriberVideoDisableWarningLifted
+                         error:nil];
+}
+
+- (void)subscriber:(OTSubscriberKit *)subscriber didFailWithError:(OTError *)error {
+    NSLog(@"subscriber did failed with error: (%@)", error);
+    [self notifiyAllWithSignal:ScreenShareSignalSubscriberDidFail
+                         error:nil];
 }
 
 #pragma mark - other components
@@ -227,5 +288,46 @@
 //- (id) getSessionStreams; {
 //    return self.session.streams;
 //}
+
+#pragma mark - Setters and Getters
+- (UIView *)subscriberView {
+    return _subscriber.view;
+}
+
+- (UIView *)publisherView {
+    return _publisher.view;
+}
+
+- (void)setSubscribeToAudio:(BOOL)subscribeToAudio {
+    _subscriber.subscribeToAudio = subscribeToAudio;
+}
+
+- (BOOL)subscribeToAudio {
+    return _subscriber.subscribeToAudio;
+}
+
+- (void)setSubscribeToVideo:(BOOL)subscribeToVideo {
+    _subscriber.subscribeToVideo = subscribeToVideo;
+}
+
+- (BOOL)subscribeToVideo {
+    return _subscriber.subscribeToVideo;
+}
+
+- (void)setPublishAudio:(BOOL)publishAudio {
+    _publisher.publishAudio = publishAudio;
+}
+
+- (BOOL)publishAudio {
+    return _publisher.publishAudio;
+}
+
+- (void)setPublishVideo:(BOOL)publishVideo {
+    _publisher.publishVideo = publishVideo;
+}
+
+- (BOOL)publishVideo {
+    return _publisher.publishVideo;
+}
 
 @end
