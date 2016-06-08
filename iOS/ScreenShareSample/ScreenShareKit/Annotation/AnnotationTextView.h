@@ -6,7 +6,7 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "Annotatable.h"
+#import <ScreenShareKit/Annotatable.h>
 
 @interface AnnotationTextView: UITextView <Annotatable>
 

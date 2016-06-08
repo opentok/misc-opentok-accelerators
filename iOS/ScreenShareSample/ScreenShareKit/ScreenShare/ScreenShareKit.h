@@ -9,3 +9,5 @@
 #import <ScreenShareKit/ScreenSharer.h>
 #import <ScreenShareKit/ScreenShareView.h>
 #import <ScreenShareKit/ScreenShareToolbarView.h>
+#import <ScreenShareKit/Annotatable.h>
+#import <ScreenShareKit/AnnotationTextView.h>
