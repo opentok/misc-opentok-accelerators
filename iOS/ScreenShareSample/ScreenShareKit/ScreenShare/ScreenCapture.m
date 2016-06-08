@@ -5,14 +5,9 @@
 //  Created by Esteban Cordero on 3/7/16.
 //  Copyright © 2016 Esteban Cordero. All rights reserved.
 //
-#include <mach/mach.h>
+
 #include <mach/mach_time.h>
-#import <OpenTok/OpenTok.h>
 #import "ScreenCapture.h"
-
-@interface ScreenCapture() <OTVideoCapture>
-
-@end
 
 @implementation ScreenCapture {
     CMTime _minFrameDuration;
@@ -22,7 +17,6 @@
     CVPixelBufferRef _pixelBuffer;
     BOOL _capturing;
     OTVideoFrame* _videoFrame;
-    
 }
 
 @synthesize videoCaptureConsumer;

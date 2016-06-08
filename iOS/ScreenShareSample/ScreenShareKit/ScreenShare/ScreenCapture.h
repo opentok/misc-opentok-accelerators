@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OpenTok/OpenTok.h>
 
 /**
  * Periodically sends video frames to an OpenTok Publisher by rendering the
  * CALayer for a UIView.
  */
-@interface ScreenCapture : NSObject
+@interface ScreenCapture : NSObject <OTVideoCapture>
 
-@property (nonatomic) UIView *view;
+@property (readonly, nonatomic) UIView *view;
 
 /**
  * Initializes a video capturer that will grab rendered stills of the view.

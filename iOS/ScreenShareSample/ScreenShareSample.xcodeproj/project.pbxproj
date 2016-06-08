@@ -21,11 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		3F29F9F01D0619B700FF652C /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F29F9ED1D0619B700FF652C /* OneToOneCommunicator.m */; };
-		3F29F9F11D0619B700FF652C /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F29F9EF1D0619B700FF652C /* OTKAnalytics.m */; };
-		3F2E19771CF8EDD600465198 /* ScreenCaptureHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F2E19751CF8EDD600465198 /* ScreenCaptureHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3F2E19781CF8EDD600465198 /* ScreenCaptureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E19761CF8EDD600465198 /* ScreenCaptureHandler.m */; };
-		A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A1781CEE7AFB00935C9E /* ScreenCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3F2E19771CF8EDD600465198 /* ScreenSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F2E19751CF8EDD600465198 /* ScreenSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3F2E19781CF8EDD600465198 /* ScreenSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E19761CF8EDD600465198 /* ScreenSharer.m */; };
+		A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A1781CEE7AFB00935C9E /* ScreenCapture.h */; };
 		A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = A012A1791CEE7AFB00935C9E /* ScreenCapture.m */; };
 		A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A012A1801CEE7AFB00935C9E /* ScreenShareView.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -99,12 +97,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3F29F9EC1D0619B700FF652C /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "OneToOne/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
-		3F29F9ED1D0619B700FF652C /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "OneToOne/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
-		3F29F9EE1D0619B700FF652C /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "OneToOne/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.h"; sourceTree = "<group>"; };
-		3F29F9EF1D0619B700FF652C /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "OneToOne/one-to-one-sample-app/iOS/SampleApp/OTKAnalytics.m"; sourceTree = "<group>"; };
-		3F2E19751CF8EDD600465198 /* ScreenCaptureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCaptureHandler.h; sourceTree = "<group>"; };
-		3F2E19761CF8EDD600465198 /* ScreenCaptureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCaptureHandler.m; sourceTree = "<group>"; };
+		3F2E19751CF8EDD600465198 /* ScreenSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenSharer.h; sourceTree = "<group>"; };
+		3F2E19761CF8EDD600465198 /* ScreenSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenSharer.m; sourceTree = "<group>"; };
 		A012A1781CEE7AFB00935C9E /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
 		A012A1791CEE7AFB00935C9E /* ScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCapture.m; sourceTree = "<group>"; };
 		A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareKit.h; sourceTree = "<group>"; };
@@ -178,25 +172,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F29F9EB1D0619A400FF652C /* OneToOne */ = {
-			isa = PBXGroup;
-			children = (
-				3F29F9EC1D0619B700FF652C /* OneToOneCommunicator.h */,
-				3F29F9ED1D0619B700FF652C /* OneToOneCommunicator.m */,
-				3F29F9EE1D0619B700FF652C /* OTKAnalytics.h */,
-				3F29F9EF1D0619B700FF652C /* OTKAnalytics.m */,
-			);
-			name = OneToOne;
-			sourceTree = "<group>";
-		};
 		A012A1771CEE7AFB00935C9E /* ScreenShare */ = {
 			isa = PBXGroup;
 			children = (
 				A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */,
 				A012A1781CEE7AFB00935C9E /* ScreenCapture.h */,
 				A012A1791CEE7AFB00935C9E /* ScreenCapture.m */,
-				3F2E19751CF8EDD600465198 /* ScreenCaptureHandler.h */,
-				3F2E19761CF8EDD600465198 /* ScreenCaptureHandler.m */,
+				3F2E19751CF8EDD600465198 /* ScreenSharer.h */,
+				3F2E19761CF8EDD600465198 /* ScreenSharer.m */,
 				A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */,
 				A012A17C1CEE7AFB00935C9E /* ScreenShareView.m */,
 				A0166D2D1CF4CD5000DED33F /* ScreenShareEditTextView.h */,
@@ -292,7 +275,6 @@
 		A09A4AA31CD02A800024C349 /* ScreenShareSample */ = {
 			isa = PBXGroup;
 			children = (
-				3F29F9EB1D0619A400FF652C /* OneToOne */,
 				A0253B031CD72713006829E6 /* mvc.png */,
 				A09A4AA71CD02A800024C349 /* AppDelegate.h */,
 				A09A4AA81CD02A800024C349 /* AppDelegate.m */,
@@ -340,8 +322,8 @@
 				A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */,
 				A0166D371CF4CD7600DED33F /* ScreenShareToolbarView.h in Headers */,
 				A012A1801CEE7AFB00935C9E /* ScreenShareView.h in Headers */,
+				3F2E19771CF8EDD600465198 /* ScreenSharer.h in Headers */,
 				A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */,
-				3F2E19771CF8EDD600465198 /* ScreenCaptureHandler.h in Headers */,
 				A0166D2B1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.h in Headers */,
 				A0166D451CF505A400DED33F /* ScreenShareToolbarButton.h in Headers */,
 				A0166D2A1CF4BBA700DED33F /* ScreenShareToolbarView_UserInterfaces.h in Headers */,
@@ -486,8 +468,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A09A4AAC1CD02A800024C349 /* ViewController.m in Sources */,
-				3F29F9F01D0619B700FF652C /* OneToOneCommunicator.m in Sources */,
-				3F29F9F11D0619B700FF652C /* OTKAnalytics.m in Sources */,
 				A09A4AA91CD02A800024C349 /* AppDelegate.m in Sources */,
 				A09A4AA61CD02A800024C349 /* main.m in Sources */,
 			);
@@ -500,7 +480,7 @@
 				A044C3B91CED1D65000F7489 /* AnnotationPath.m in Sources */,
 				A0166D2C1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.m in Sources */,
 				A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */,
-				3F2E19781CF8EDD600465198 /* ScreenCaptureHandler.m in Sources */,
+				3F2E19781CF8EDD600465198 /* ScreenSharer.m in Sources */,
 				A012A1811CEE7AFB00935C9E /* ScreenShareView.m in Sources */,
 				A0166D381CF4CD7600DED33F /* ScreenShareToolbarView.m in Sources */,
 				A0166D301CF4CD5000DED33F /* ScreenShareEditTextView.m in Sources */,
