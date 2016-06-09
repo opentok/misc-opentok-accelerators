@@ -173,7 +173,7 @@ static NSString* const kTextChatType = @"text-chat";
     NSString *apiKey = _session.apiKey;
     NSString *sessionId = _session.sessionId;
     NSInteger partner = [apiKey integerValue];
-    [OTKAnalytics analyticsWithApiKey:[NSString stringWithFormat:@"%ld", (unsigned long)partner] sessionId:sessionId connectionId:self.session.connection.connectionId clientVersion:KLogClientVersion source:KLogSource];
+    [OTKAnalytics analyticsWithApiKey:@(partner) sessionId:sessionId connectionId:self.session.connection.connectionId clientVersion:KLogClientVersion source:KLogSource];
     [OTKAnalytics logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
     
     self.senderId = session.connection.connectionId;
