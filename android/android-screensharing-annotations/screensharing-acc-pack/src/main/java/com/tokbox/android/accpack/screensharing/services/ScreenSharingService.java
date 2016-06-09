@@ -20,8 +20,7 @@ public class ScreenSharingService extends AbstractService implements ScreenShari
     private static final String LOG_TAG = ScreenSharingService.class.getSimpleName();
 
     public static final int MSG_CLOSE = 1;
-    public static final int MSG_ANNOTATIONS = 2;
-    public static final int MSG_STARTED = 3;
+    public static final int MSG_STARTED = 2;
 
 
     private Intent mIntent;
@@ -78,34 +77,8 @@ public class ScreenSharingService extends AbstractService implements ScreenShari
     @Override
     public void onReceiveMessage(Message msg) {
         Log.i(LOG_TAG, "onReceiveMessage: ScreenSharingService");
-
-        if (msg.what == MSG_ANNOTATIONS) {
-            Log.i(LOG_TAG, "onReceiveMessage MSG_ANNOTATIONS: " + msg.getData().getInt("annotations"));
-            mAnnotations = msg.getData().getInt("annotations") != 0;
-            enableAnnotations();
-        }
     }
-    private void enableAnnotations(){
 
-        if (mAnnotations){
-            WindowManager.LayoutParams windowParams2 = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_PHONE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            |  WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                    PixelFormat.TRANSLUCENT);
-            windowParams2.y = 600;
-            windowParams2.x = 0;
-            mAnnotationsToolbar = new AnnotationsToolbar(getApplicationContext());
-            ((WindowManager) getSystemService(WINDOW_SERVICE)).addView(mAnnotationsToolbar, windowParams2);
-        }
-        else {
-            if ( mAnnotationsToolbar != null )
-             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mAnnotationsToolbar);
-        }
-
-    }
 
     @Override
     public void onClose() {

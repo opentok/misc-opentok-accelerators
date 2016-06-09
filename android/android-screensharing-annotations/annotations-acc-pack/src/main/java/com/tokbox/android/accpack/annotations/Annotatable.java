@@ -14,6 +14,9 @@ public class Annotatable {
     private AnnotatableType type;
     private AnnotationsPath path;
 
+    private AnnotationsText text;
+    private Paint paint;
+
 
     private int canvasWidth;
     private int canvasHeight;
@@ -21,8 +24,6 @@ public class Annotatable {
     public Paint getPaint() {
         return paint;
     }
-
-    private Paint paint;
 
     public static enum AnnotatableType {
         PATH,
@@ -33,6 +34,15 @@ public class Annotatable {
         this.id = UUID.randomUUID();
         this.mode = mode;
         this.path = path;
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.paint = paint;
+    }
+
+    public Annotatable(String mode, AnnotationsText text, Paint paint, int canvasWidth, int canvasHeight) {
+        this.id = UUID.randomUUID();
+        this.mode = mode;
+        this.text = text;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.paint = paint;
@@ -75,6 +85,10 @@ public class Annotatable {
 
     public UUID getId() {
         return id;
+    }
+
+    public AnnotationsText getText() {
+        return text;
     }
 
 }

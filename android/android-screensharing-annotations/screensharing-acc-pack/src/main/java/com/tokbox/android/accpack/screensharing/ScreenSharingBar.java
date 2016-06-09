@@ -45,7 +45,6 @@ public class ScreenSharingBar extends RelativeLayout{
         mCloseBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Marinas", "onClose in bar");
                 mListener.onClose();
 
             }

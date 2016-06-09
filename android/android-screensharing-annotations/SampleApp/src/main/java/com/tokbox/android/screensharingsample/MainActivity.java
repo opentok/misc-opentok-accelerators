@@ -386,6 +386,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private void initScreenSharingFragment(){
         mScreenSharingFragment = ScreenSharingFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
+        mScreenSharingFragment.setAnnotationsEnabled(true);
         mScreenSharingFragment.setListener(this);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.screensharing_fragment_container, mScreenSharingFragment).commit();
@@ -406,13 +407,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private void showAVCall(boolean show){
         if(show) {
-            //mActionBarContainer.setVisibility(View.VISIBLE);
+            mActionBarContainer.setVisibility(View.VISIBLE);
             mPreviewViewContainer.setVisibility(View.VISIBLE);
             mRemoteViewContainer.setVisibility(View.VISIBLE);
             mCameraFragmentContainer.setVisibility(View.VISIBLE);
         }
         else {
-            //mActionBarContainer.setVisibility(View.GONE);
+            mActionBarContainer.setVisibility(View.GONE);
             mPreviewViewContainer.setVisibility(View.GONE);
             mRemoteViewContainer.setVisibility(View.GONE);
             mCameraFragmentContainer.setVisibility(View.GONE);

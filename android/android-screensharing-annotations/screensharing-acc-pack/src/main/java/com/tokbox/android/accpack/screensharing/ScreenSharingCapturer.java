@@ -50,7 +50,7 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
         @Override
         public void run() {
             if (capturing) {
-                frame = null;
+            frame = null;
                // int width = contentView.getWidth();
                // int height = contentView.getHeight();
 
@@ -62,22 +62,13 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
                   //  ScreenSharingCapturer.this.height = height;
                 if (frame == null ){
                     if (lastBmp != null){
-                        canvas = new Canvas(lastBmp);
-                        frame = new int[width * height];
+                        width = contentView.getWidth();
+                        height = contentView.getHeight();
 
-                        canvas.save(Canvas.MATRIX_SAVE_FLAG);
-                        canvas.translate(-contentView.getScrollX(), -contentView.getScrollY());
-                        contentView.draw(canvas);
+                        frame = new int[width * height];
 
                         lastBmp.getPixels(frame, 0, width, 0, 0, width, height);
                         provideIntArrayFrame(frame, ARGB, width, height, 0, false);
-
-                        canvas.restore();
-
-                        if (lastBmp != null) {
-                            lastBmp.recycle();
-                            lastBmp = null;
-                        }
                     }
 
                     mHandler.postDelayed(newFrame, 1000 / fps);

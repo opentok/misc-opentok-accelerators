@@ -145,6 +145,7 @@ public class OneToOneCommunication implements
         } else {
             startPublish = true;
             init();
+
         }
     }
 
@@ -168,6 +169,8 @@ public class OneToOneCommunication implements
             mPublisher = null;
             mSubscriber = null;
             isStarted = false;
+            isRemote = false;
+
         }
     }
 

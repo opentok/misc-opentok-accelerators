@@ -24,6 +24,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.opentok.android.BaseVideoRenderer;
@@ -36,8 +38,8 @@ import com.opentok.android.Stream;
 import com.tokbox.android.accpack.AccPackSession;
 
 
+import com.tokbox.android.accpack.annotations.AnnotationsToolbar;
 import com.tokbox.android.accpack.annotations.AnnotationsView;
-import com.tokbox.android.accpack.screensharing.services.ScreenSharingService;
 import com.tokbox.android.accpack.annotations.services.ServiceManager;
 
 
@@ -71,12 +73,18 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     private RelativeLayout mScreenView;
     private AnnotationsView mAnnotationView;
+    private AnnotationsToolbar mAnnotationsToolbar;
     private Intent mIntent;
     private ServiceManager mService;
 
-
+    private RelativeLayout mScreensharingBar;
+    private View mScreensharingLeftView;
+    private View mScreensharingRightView;
+    private View mScreensharingBottomView;
+    private ImageButton mCloseBtn;
 
     private boolean isStarted = false;
+    private boolean isAnnotationsEnabled = false;
 
     @Override
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
@@ -140,13 +148,10 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         this.mListener = mListener;
     }
 
-
-
     public void start(){
         if (isConnected) {
 
             if (mVirtualDisplay == null) {
-                Log.i("MARINAS", "MVIRTUALDISPLAY NULL --> START SCREENCAPTURE");
                 startScreenCapture();
             }
         }
@@ -191,6 +196,23 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
 
         mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
+        mAnnotationsToolbar = (AnnotationsToolbar) rootView.findViewById(R.id.annotations_bar);
+
+        mScreensharingBar = (RelativeLayout) rootView.findViewById(R.id.screnesharing_bar);
+        mScreensharingLeftView = (View) rootView.findViewById(R.id.left_line);
+        mScreensharingRightView = (View) rootView.findViewById(R.id.right_line);
+        mScreensharingBottomView = (View) rootView.findViewById(R.id.bottom_line);
+        mCloseBtn = (ImageButton) rootView.findViewById(R.id.screensharing_close);
+
+        mCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isStarted)
+                    stop();
+            }
+        });
+
+        //mAnnotationView = new AnnotationsView(getContext());
 
         return rootView;
     }
@@ -247,6 +269,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setUpVirtualDisplay() {
 
+        Log.i("MARINAS", "SETUPVIRTUALDISPLAY 1");
+
         // display metrics
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         mDensity = metrics.densityDpi;
@@ -264,13 +288,27 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
         size.set(mWidth, mHeight);
 
+        Log.i("MARINAS", "SETUPVIRTUALDISPLAY 2");
+
+
         //create ScreenCapturer
         ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreenView, mImageReader, size);
         mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", capturer);
         mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
         mScreenPublisher.setPublisherListener(this);
 
+        mAnnotationView = new AnnotationsView(getContext());
+        mAnnotationView.attachToolbar(mAnnotationsToolbar);
+        mAnnotationView.setLayoutParams(mScreenView.getLayoutParams());
+
+        mScreenView.addView(mAnnotationView);
+        Log.i("MARINAS", "SETUPVIRTUALDISPLAY 3");
+
+
         mSession.publish(mScreenPublisher);
+
+        Log.i("MARINAS", "SETUPVIRTUALDISPLAY");
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -321,6 +359,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     protected void onScreenSharingStopped(){
         isStarted = false;
+        //checkAnnotations();
         if ( mListener != null ){
             mListener.onScreenSharingStopped();
         }
@@ -364,47 +403,48 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
-        Log.i(LOG_TAG, "OnStreamCreated");
-
-       this.mService = new ServiceManager(getContext(), ScreenSharingService.class, new Handler() {
-           @Override
-           public void handleMessage(Message msg) {
-               switch (msg.what) {
-                   case ScreenSharingService.MSG_CLOSE:
-                       Log.i(LOG_TAG, "MSG_CLOSE");
-                       stop();
-                       break;
-                   case ScreenSharingService.MSG_STARTED:
-                       Log.i(LOG_TAG, "MSG_STARTED");
-
-                       try {
-                           Message annotationsMsg = Message.obtain(null, ScreenSharingService.MSG_ANNOTATIONS, 1);
-                           Bundle b = new Bundle();
-                           b.putInt("annotations", 1); // for example
-                           annotationsMsg.setData(b);
-
-                           mService.send(annotationsMsg);
-                        } catch (RemoteException e) {
-                           e.printStackTrace();
-                       }
-                   default:
-                       super.handleMessage(msg);
-               }
-           }
-       });
-
-
-        this.mService.start();
-
+        Log.i("MARINAS", "ONSTREAMCREATED PUBLISHER SCREEN");
+        enableScreensharingBar(true);
         onScreenSharingStarted();
+        checkAnnotations();
 
 
     }
 
+    private void enableScreensharingBar(boolean visible){
+        if (visible) {
+            mScreensharingBar.setVisibility(View.VISIBLE);
+            mScreensharingBottomView.setVisibility(View.VISIBLE);
+            mScreensharingRightView.setVisibility(View.VISIBLE);
+            mScreensharingLeftView.setVisibility(View.VISIBLE);
+        }
+        else {
+            mScreensharingBar.setVisibility(View.GONE);
+            mScreensharingBottomView.setVisibility(View.GONE);
+            mScreensharingRightView.setVisibility(View.GONE);
+            mScreensharingLeftView.setVisibility(View.GONE);
+        }
+    }
+
+    private void checkAnnotations() {
+        if (isAnnotationsEnabled) {
+            if (mAnnotationsToolbar.getVisibility() == View.VISIBLE) {
+                mAnnotationsToolbar.setVisibility(View.GONE);
+            } else {
+                //VISIBLE TOOLBAR
+                mAnnotationsToolbar.setVisibility(View.VISIBLE);
+
+                //Add annotations view
+                //mScreenView.addView(mAnnotationView);
+            }
+        }
+    }
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
         mScreenPublisher = null;
+        enableScreensharingBar(false);
         onScreenSharingStopped();
+        mScreenView.removeView(mAnnotationView);
         onClosed();
     }
 
@@ -415,5 +455,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     public boolean isStarted() {
         return isStarted;
+    }
+
+    public void setAnnotationsEnabled(boolean annotationsEnabled) {
+        isAnnotationsEnabled = annotationsEnabled;
     }
 }

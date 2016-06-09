@@ -51,6 +51,11 @@ public class AnnotationsManager {
             }*/
 
         }
+        else  {
+            if ( annotatable.getText() != null ){
+                annotatable.setType(Annotatable.AnnotatableType.TEXT);
+            }
+        }
     }
 
     public void removeAnnotatable(Annotatable annotatable){

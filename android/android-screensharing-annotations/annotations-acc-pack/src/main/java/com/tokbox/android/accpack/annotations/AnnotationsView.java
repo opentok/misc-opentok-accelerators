@@ -1,21 +1,34 @@
 package com.tokbox.android.accpack.annotations;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
+import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsoluteLayout;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.opentok.android.Connection;
 import com.opentok.android.Publisher;
 import com.opentok.android.Session;
+import com.opentok.android.VideoUtils;
 import com.tokbox.android.accpack.AccPackSession;
 
 import org.json.JSONArray;
@@ -28,12 +41,16 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class AnnotationsView extends View implements AccPackSession.SignalListener{
+public class AnnotationsView extends ViewGroup implements AccPackSession.SignalListener, AnnotationsToolbar.AnnotationsListener{
 
     protected final String SIGNAL_TYPE = "annotations";
 
-    private AnnotationsPath mCurrentPath;
+    private AnnotationsPath mCurrentPath = null;
+    private AnnotationsText mCurrentText = null;
     private Paint mCurrentPaint;
+
+
+    private int mCurrentColor = Color.BLACK;
     private AnnotationsManager mAnnotationsManager;
 
     private float mStartX, mStartY;
@@ -42,16 +59,20 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
     private int width;
     private int height;
 
+    private Mode mode;
 
+    private AnnotationsToolbar mToolbar;
     /**
      * Indicates if you are drawing
      */
     private boolean isDrawing = false;
 
-    protected enum Mode {
+    public enum Mode {
         Pen("annotation-pen"),
         Clear("annotation-clear"),
-        Text("annotation-text");
+        Text("annotation-text"),
+        Shape("annotation-shape"),
+        Capture("annotation-capture");
 
         private String type;
 
@@ -64,74 +85,206 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
         }
     }
 
+
+    public void setColor(int color) {
+        this.mCurrentColor = color;
+    }
+
+    public void setMode(String mode) {
+        if (mode.equals(Mode.Pen.toString())){
+            this.mode = Mode.Pen;
+        }
+        else {
+            if (mode.equals(Mode.Text.toString())){
+                this.mode = Mode.Text;
+            }
+        }
+
+    }
+
     public AnnotationsView(Context context) {
         super(context);
-
+        setWillNotDraw(false);
         mAnnotationsManager = new AnnotationsManager();
     }
 
     public AnnotationsView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
+        setWillNotDraw(false);
         mAnnotationsManager = new AnnotationsManager();
     }
+    public void setLayoutParams(RelativeLayout.LayoutParams params){
+        this.setLayoutParams(params);
 
-
-
+    }
     /** ==== Touch Events ==== **/
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        Log.i("MARINAS", "onInterceptTouchEvent");
+        return true;
+    }
 
-      //  if (selectedResourceId == R.id.ot_item_pen) {
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        final float x = event.getX();
+        final float y = event.getY();
+
+        if ( mode == Mode.Pen ) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
-                   //createPath(false, mycid);
                     createAnnotatable(false);
-
-                    beginTouch(x, y);
                     mCurrentPath.setLastPointF(new PointF(x, y));
-
                     mCurrentPath.setStartPoint(true);
-
-                    invalidate();
+                    beginTouch(x, y);
+                    //invalidate();
                 }
                 break;
                 case MotionEvent.ACTION_MOVE: {
                     moveTouch(x, y, true);
-                    invalidate();
 
                     //marinas sendUpdate(Mode.Pen.toString(), buildSignalFromPoint(x, y, isStartPoint, false));
                     mCurrentPath.setEndPoint(false);
-                    sendPathUpdate(Mode.Pen.toString());
+                   // sendPathUpdate(mode.toString());
                     mCurrentPath.setStartPoint(false);
                     mCurrentPath.setLastPointF(new PointF(x, y));
+                    //createAnnotatable(false);
+
+                    //invalidate();
+
 
                 }
                 break;
                 case MotionEvent.ACTION_UP: {
                     upTouch();
+                    addAnnotatable();
                     invalidate();
                 }
                 break;
+                }
             }
-        /*} else if (selectedResourceId == R.id.ot_item_capture) {
+            else {
+                if ( mode == Mode.Text){
+                    Log.i("MARINAS", "MODE TEXT");
+                    final String myString;
+
+                   // if (mCurrentText == null ) {
+                        Log.i("MARINAS", "mCurrentText != null");
+                     EditText   editText = new EditText(getContext());
+                    editText.setVisibility(VISIBLE);
+                    //editText.setSingleLine();
+                    editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                    //editText.setText();
+                    editText.requestFocus();
+                        editText.setWidth(180);
+                        editText.setInputType(2);
+                        editText.setBackgroundColor(getResources().getColor(R.color.done_btn));
+
+                    // Add whatever you want as size
+                    int editTextHeight = 70;
+                    int editTextWidth = 200;
+
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(editTextWidth, editTextHeight);
+
+                    //You could adjust the position
+                    params.topMargin = (int) (event.getRawY());
+                    params.leftMargin = (int) (event.getRawX());
+                    this.addView(editText, params);
+                    editText.requestFocus();
+                       // InputMethodManager imm = (InputMethodManager)getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                       // imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+                        mCurrentText = new AnnotationsText(editText, x, y);
+                        createAnnotatable(false);
+                        invalidate();
+                   /* }
+                    else {
+                        checkTextPosition(x,y);
+                    }*/
+                    /*editText.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            editText.setVisibility(View.INVISIBLE); //Optional
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                           //editText.getText().toString(); //Here you will get what you want
+                        }
+
+                    });*/
+                    mCurrentText.getEditText().setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.i("MARINAS", "click label");
+                        }
+                    });
+                    mCurrentText.getEditText().addTextChangedListener(new TextWatcher() {
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            Log.i("MARINAS", "UPDATE CANVAS");
+                            //updateCanvas(); // Call the canvas update
+                        }
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        public void afterTextChanged(Editable s) {
+                        }
+                    });
+                    mCurrentText.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                            Log.i("MARINAS", "EDITOR ACTION");
+
+                            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                                Log.i("MARINAS", "TEXT DONE: "+mCurrentText.getEditText().getText().toString());
+                               // mCurrentText = new AnnotationsText(editText.getText().toString(), x, y);
+
+                                createAnnotatable(false);
+                                return true;
+                            }
+                            return false;
+                        }
+                    });
+                }
+                else{
+                    if (mode == Mode.Capture) {
 
 
+                    }else {
+                        if (mode == Mode.Shape){
 
-            captureView();
-        } else {
-            if (selectedItem != null && selectedItem.getPoints() != null) {
-                mX = x;
-                mY = y;
-                onTouchEvent(event, selectedItem.getPoints());
-            }
-        }*/
+                        }
+                    }
+                }
+
+           // captureView();
+        }
         return true;
     }
 
+    private boolean checkTextPosition(float x, float y) {
+        boolean samePosition = false;
+
+        for (Annotatable annotatable : mAnnotationsManager.getAnnotatableList()) {
+            if (annotatable.getType().equals(Annotatable.AnnotatableType.TEXT)){
+                if ( x >= annotatable.getText().getX() || x <= annotatable.getText().getEditText().getWidth()){
+                    Log.i("MARINAS", "SAME POSITION");
+                    samePosition = true;
+                }
+            }
+        }
+        return  samePosition;
+    }
     private void beginTouch(float x, float y) {
         mCurrentPath.moveTo(x, y);
         mCurrentPath.setCurrentPoint(new PointF(x, y));
@@ -176,108 +329,20 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
     }
 
     public void clearCanvas() {
-        int lastItem = mAnnotationsManager.getAnnotatableList().size()-1;
-        UUID lastId =  mAnnotationsManager.getAnnotatableList().get(lastItem).getPath().getId();
-        for (int i = (mAnnotationsManager.getAnnotatableList().size()-1); i >=0; i--) {
-            Annotatable annotatable = mAnnotationsManager.getAnnotatableList().get(i);
+        if ( mAnnotationsManager.getAnnotatableList().size() > 0 ) {
+            int lastItem = mAnnotationsManager.getAnnotatableList().size()-1;
+            UUID lastId =  mAnnotationsManager.getAnnotatableList().get(lastItem).getPath().getId();
+            for (int i = (mAnnotationsManager.getAnnotatableList().size()-1); i >=0; i--) {
+                Annotatable annotatable = mAnnotationsManager.getAnnotatableList().get(i);
 
-            if (annotatable.getPath().getId().equals(lastId)){
-                annotatable.getPath().reset();
-                mAnnotationsManager.getAnnotatableList().remove(i);
-            }
-        }
-        invalidate();
-    }
-
-    /*private void onTouchEvent(MotionEvent event, FloatPoint[] points) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
-                createPath(false, mycid);
-
-                isDrawing = true;
-                // Last x and y for shape paths is the start touch point
-                mStartX = mX;
-                mStartY = mY;
-                invalidate();
-            }
-            break;
-            case MotionEvent.ACTION_MOVE: {
-                invalidate();
-            }
-            break;
-            case MotionEvent.ACTION_UP: {
-                isDrawing = false;
-
-                if (points.length == 2) {
-                    // We have a line
-                    getActivePath().moveTo(mStartX, mStartY);
-                    mLastX = mStartX;
-                    mLastY = mStartY;
-                    moveTouch(mX, mY, false);
-                    upTouch();
-                    Log.i(TAG, "Points: (" + mStartX + ", " + mStartY + "), (" + mX + ", " + mY + ")");
-                    sendUpdate(Mode.Pen.toString(), buildSignalFromPoint(mX, mY, true, true));
-                } else {
-                    FloatPoint scale = scaleForPoints(points);
-
-                    for (int i = 0; i < points.length; i++) {
-                        boolean startPoint = false;
-                        boolean endPoint = false;
-
-                        // Scale the points according to the difference between the start and end points
-                        float pointX = mStartX + (scale.x * points[i].x);
-                        float pointY = mStartY + (scale.y * points[i].y);
-
-                        if (selectedItem.isSmoothDrawEnabled()) {
-                            if (i == 0) {
-                                startPoint = true;
-                            } else if (i == 1) {
-                                getActivePath().moveTo((pointX + mLastX) / 2, (pointY + mLastY) / 2);
-                            } else {
-                                getActivePath().quadTo(mLastX, mLastY, (pointX + mLastX) / 2, (pointY + mLastY) / 2);
-
-                                if (i == points.length-1) {
-                                    getActivePath().close();
-                                    endPoint = true;
-                                }
-                            }
-                        } else {
-                            if (i == 0) {
-                                startPoint = true;
-                                mLastX = pointX;
-                                mLastY = pointY;
-                                startTouch(pointX, pointY);
-                            } else {
-                                moveTouch(pointX, pointY, false);
-
-                                if (i == points.length-1) {
-                                    getActivePath().close();
-                                    endPoint = true;
-                                }
-                            }
-                        }
-
-                        sendUpdate(Mode.Pen.toString(), buildSignalFromPoint(pointX, pointY, startPoint, endPoint));
-
-                        mLastX = pointX;
-                        mLastY = pointY;
-                    }
+                if (annotatable.getPath().getId().equals(lastId)){
+                    annotatable.getPath().reset();
+                    mAnnotationsManager.getAnnotatableList().remove(i);
                 }
-
-                invalidate();
-
-
             }
-            break;
+            invalidate();
         }
     }
-
-    private void startTouch(float x, float y) {
-        getActivePath().moveTo(x, y);
-        mX = x;
-        mY = y;
-    }*/
-
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -290,9 +355,37 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.i("MARINAS", "annotatable list " + mAnnotationsManager.getAnnotatableList().size());
+
         for (Annotatable drawing: mAnnotationsManager.getAnnotatableList()){
             if (drawing.getType().equals(Annotatable.AnnotatableType.PATH)) {
                 canvas.drawPath(drawing.getPath(), drawing.getPaint());
+            }
+
+            if (drawing.getType().equals(Annotatable.AnnotatableType.TEXT)){
+                Log.i("MARINAS", "RECTANGLE x "+(int)drawing.getText().getX());
+                Log.i("MARINAS", "RECTANGLE y "+(int)drawing.getText().getY());
+
+                //if (drawing.getText().getEditText().getText().toString().isEmpty()){
+               /*     Rect rectangle = new Rect((int)drawing.getText().getX(), (int)drawing.getText().getY(), 200, 200);
+                    Paint paint = new Paint();
+                    paint.setColor(Color.GRAY);
+                    canvas.drawRect(rectangle, paint);
+*/
+                int x = 50;
+                int y = 250;
+                int sideLength = 200;
+
+                // create a rectangle that we'll draw later
+                Rect rectangle = new Rect(x, y, 500, 200);
+
+                // create the Paint and set its color
+                Paint paint = new Paint();
+                paint.setColor(Color.GRAY);
+                //canvas.drawColor(Color.BLUE);
+                canvas.drawRect(rectangle, paint);
+                //}
+                //canvas.drawText(drawing.getText().getEditText().getText().toString(), drawing.getText().x, drawing.getText().y, drawing.getPaint());
             }
         }
         if (mAnnotationsManager.getAnnotatableList().size() == 0 ){
@@ -329,26 +422,39 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
         //mAnnotationsManager.getSession().setSignalListener(this);
     }
 
-
     public void createAnnotatable(boolean incoming){
-        mCurrentPath = new AnnotationsPath(incoming);
-
+        Log.i("MARINAS", "Create annotatable");
         mCurrentPaint = new Paint();
         mCurrentPaint.setAntiAlias(true);
         // mCurrentPaint.setColor(incoming ? activeColor : userColor);
-        mCurrentPaint.setColor(Color.RED);
+        mCurrentPaint.setColor(mCurrentColor);
         mCurrentPaint.setStyle(Paint.Style.STROKE);
         mCurrentPaint.setStrokeJoin(Paint.Join.ROUND);
         //mCurrentPaint.setStrokeWidth(incoming ? activeStrokeWidth : userStrokeWidth);
+        mCurrentPaint.setStrokeWidth(20);
         //TODO MODE
-
-        Annotatable annotatable = new Annotatable(Mode.Pen.toString(), mCurrentPath, mCurrentPaint, width, height);
-        mAnnotationsManager.addAnnotatable(annotatable);
+        Annotatable annotatable;
+        if ( mode == Mode.Pen ) {
+            mCurrentPath = new AnnotationsPath(incoming);
+            //annotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
+            //annotatable.setType(Annotatable.AnnotatableType.PATH);
+        }else {
+            mCurrentPaint.setTextSize(48);
+            //annotatable = new Annotatable(mode.toString(), mCurrentText, mCurrentPaint, width, height);
+            //annotatable.setType(Annotatable.AnnotatableType.TEXT);
+        }
+        //mAnnotationsManager.addAnnotatable(annotatable);
 
         //Annotatable annotatable = new Annotatable(Mode.Pen.toString(), path, paint, width, height);
         //mAnnotationsManager.addAnnotatable(annotatable);
     }
 
+    private void addAnnotatable(){
+        Log.i("MARINAS", "ADD ANNOTATABLE");
+        Annotatable annotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
+        annotatable.setType(Annotatable.AnnotatableType.PATH);
+        mAnnotationsManager.addAnnotatable(annotatable);
+    }
     @Override
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
         if (mAnnotationsManager.getPublisher() == null || mAnnotationsManager.getPublisher().getSession().getConnection().getConnectionId() != connection.getConnectionId()) {
@@ -561,5 +667,32 @@ public class AnnotationsView extends View implements AccPackSession.SignalListen
                 }
             }
         }
+    }
+
+    @Override
+    public void onItemSelected(View v) {
+        if (v.getId() == R.id.erase){
+            clearCanvas();
+        }
+        if (v.getId() == R.id.done) {
+            //enable view
+        }
+        if (v.getId() == R.id.type_tool){
+            //type text
+            mode = Mode.Text;
+
+
+        }
+        if (v.getId() == R.id.draw_freehand){
+            //freehand lines
+            mode = Mode.Pen;
+        }
+        //screenshot capture
+    }
+
+
+    public void attachToolbar(AnnotationsToolbar toolbar){
+        mToolbar = toolbar;
+        mToolbar.setListener(this);
     }
 }

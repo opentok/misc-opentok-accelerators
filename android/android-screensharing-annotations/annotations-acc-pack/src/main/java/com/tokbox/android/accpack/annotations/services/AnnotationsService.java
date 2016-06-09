@@ -20,11 +20,14 @@ public class AnnotationsService extends AbstractService {
 
     public static final int MSG_ERASE = 1;
     public static final int MSG_DONE = 2;
+    public static final int MSG_UPDATE_MODE = 3;
+    public static final int MSG_COLOR = 4;
 
     AnnotationsView mAnnotationsView;
     Intent mIntent;
     int width;
     int height;
+    String mode;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -35,9 +38,11 @@ public class AnnotationsService extends AbstractService {
         Bundle bundle = intent.getExtras();
         width = bundle.getInt("view_width");
         height = bundle.getInt("view_height");
+        mode = bundle.getString("mode");
 
         mAnnotationsView = new AnnotationsView(getApplicationContext());
         mAnnotationsView.setLayoutByDefault();
+        mAnnotationsView.setMode(mode);
         WindowManager.LayoutParams windowParams2 = new WindowManager.LayoutParams(
                 width,
                 height,
@@ -84,6 +89,16 @@ public class AnnotationsService extends AbstractService {
                 Log.i("MARINAS", "ON RECEIVE MESSAGE DONE ");
                 this.stopSelf();
                 this.onDestroy();
+                break;
+
+            case AnnotationsService.MSG_UPDATE_MODE:
+                Log.i("MARINAS", "ON RECEIVE MESSAGE UPDATE_MODE "+msg.getData().getString("mode"));
+                mAnnotationsView.setMode(msg.getData().getString("mode"));
+                break;
+
+            case AnnotationsService.MSG_COLOR:
+                Log.i("MARINAS", "ON RECEIVE MESSAGE COLOR "+msg.getData().getInt("color"));
+                mAnnotationsView.setColor(msg.getData().getInt("color"));
                 break;
 
             default:
