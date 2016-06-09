@@ -12,9 +12,6 @@ import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -40,7 +37,7 @@ import com.tokbox.android.accpack.AccPackSession;
 
 import com.tokbox.android.accpack.annotations.AnnotationsToolbar;
 import com.tokbox.android.accpack.annotations.AnnotationsView;
-import com.tokbox.android.accpack.annotations.services.ServiceManager;
+import com.tokbox.android.accpack.annotations.utils.AnnotationsVideoRenderer;
 
 
 public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener, AccPackSession.SignalListener{
@@ -72,10 +69,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private Intent mResultData;
 
     private RelativeLayout mScreenView;
-    private AnnotationsView mAnnotationView;
+
+    private AnnotationsView mAnnotationsView;
     private AnnotationsToolbar mAnnotationsToolbar;
-    private Intent mIntent;
-    private ServiceManager mService;
 
     private RelativeLayout mScreensharingBar;
     private View mScreensharingLeftView;
@@ -119,6 +115,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
          */
         void onScreenSharingError(String error);
 
+
+        void onAnnotationsViewReady(AnnotationsView view);
         /**
          * Invoked when the close button is clicked.
          *
@@ -173,11 +171,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         super.onDestroy();
         tearDownMediaProjection();
 
-        try {
-            mService.unbind();
-        } catch (Throwable t) {
-            Log.e("MainActivity", "Failed to unbind from the service", t);
-        }
     }
 
     @Override
@@ -211,9 +204,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
                     stop();
             }
         });
-
-        //mAnnotationView = new AnnotationsView(getContext());
-
         return rootView;
     }
 
@@ -269,8 +259,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setUpVirtualDisplay() {
 
-        Log.i("MARINAS", "SETUPVIRTUALDISPLAY 1");
-
         // display metrics
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         mDensity = metrics.densityDpi;
@@ -288,26 +276,24 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
         size.set(mWidth, mHeight);
 
-        Log.i("MARINAS", "SETUPVIRTUALDISPLAY 2");
-
-
         //create ScreenCapturer
         ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreenView, mImageReader, size);
         mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", capturer);
         mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
         mScreenPublisher.setPublisherListener(this);
 
-        mAnnotationView = new AnnotationsView(getContext());
-        mAnnotationView.attachToolbar(mAnnotationsToolbar);
-        mAnnotationView.setLayoutParams(mScreenView.getLayoutParams());
+        mAnnotationsView = new AnnotationsView(getContext());
+        mAnnotationsView.attachToolbar(mAnnotationsToolbar);
+        mAnnotationsView.setLayoutParams(mScreenView.getLayoutParams());
 
-        mScreenView.addView(mAnnotationView);
-        Log.i("MARINAS", "SETUPVIRTUALDISPLAY 3");
+        AnnotationsVideoRenderer annotationsRenderer = new AnnotationsVideoRenderer(getContext());
+        mScreenPublisher.setRenderer(annotationsRenderer);
+        mAnnotationsView.setVideoRenderer(annotationsRenderer); //to use screencapture
 
+        onAnnotationsViewReady(mAnnotationsView);
 
+        mScreenView.addView(mAnnotationsView);
         mSession.publish(mScreenPublisher);
-
-        Log.i("MARINAS", "SETUPVIRTUALDISPLAY");
 
     }
 
@@ -321,7 +307,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void startScreenCapture() {
-        Activity activity = getActivity();
 
         if (mMediaProjection != null) {
             Log.i(LOG_TAG, "mMediaProjection != null");
@@ -376,6 +361,13 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
             mListener.onClosed();
         }
     }
+
+    protected void onAnnotationsViewReady(AnnotationsView view){
+        if ( mListener != null ){
+            mListener.onAnnotationsViewReady(view);
+        }
+    }
+
     @Override
     public void onConnected(Session session) {
         isConnected = true;
@@ -444,7 +436,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         mScreenPublisher = null;
         enableScreensharingBar(false);
         onScreenSharingStopped();
-        mScreenView.removeView(mAnnotationView);
+        mScreenView.removeView(mAnnotationsView);
         onClosed();
     }
 
@@ -459,5 +451,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     public void setAnnotationsEnabled(boolean annotationsEnabled) {
         isAnnotationsEnabled = annotationsEnabled;
+    }
+
+    public AnnotationsView getAnnotationsView() {
+        return mAnnotationsView;
     }
 }

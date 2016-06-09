@@ -1,12 +1,9 @@
-package com.tokbox.android.accpack.annotations;
+package com.tokbox.android.accpack.annotations.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.opengl.GLES20;
-import android.opengl.GLException;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.util.Log;
 import android.view.View;
 
 import com.opentok.android.BaseVideoRenderer;
@@ -14,7 +11,6 @@ import com.opentok.android.BaseVideoRenderer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -30,6 +26,7 @@ public class AnnotationsVideoRenderer extends BaseVideoRenderer {
 
     static class MyRenderer implements GLSurfaceView.Renderer {
 
+        private static final android.opengl.GLES20 GLES20 = null;
         int mTextureIds[] = new int[3];
         float[] mScaleMatrix = new float[16];
 
@@ -343,6 +340,7 @@ public class AnnotationsVideoRenderer extends BaseVideoRenderer {
         public void enableVideoFit(boolean enableVideoFit) {
             mVideoFitEnabled = enableVideoFit;
         }
+
     }
 
     public AnnotationsVideoRenderer(Context context) {

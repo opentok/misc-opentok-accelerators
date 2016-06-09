@@ -2,25 +2,15 @@ package com.tokbox.android.accpack.annotations;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.RemoteException;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.tokbox.android.accpack.annotations.services.AnnotationsService;
-import com.tokbox.android.accpack.annotations.services.ServiceManager;
 
 public class AnnotationsToolbar extends LinearLayout {
 
@@ -28,22 +18,20 @@ public class AnnotationsToolbar extends LinearLayout {
     private ImageButton mFreeHandBtn;
     private ImageButton mEraseBtn;
     private ImageButton mTypeBtn;
+    private ImageButton mScreenshotBtn;
     private ImageButton mPickerColorBtn;
-    private TextView mDoneBtn;
     private Context mContext;
     private View mainToolbar;
     private LinearLayout colortToolbar;
 
-    private AnnotationsListener mListener;
+    private ActionsListener mActionsListener;
 
-    public  interface AnnotationsListener {
-
+    public  interface ActionsListener {
         void onItemSelected(View v);
-
     }
 
-    public void setListener(AnnotationsListener listener) {
-        this.mListener = listener;
+    public void setActionListener(ActionsListener listener) {
+        this.mActionsListener = listener;
     }
 
 
@@ -126,8 +114,8 @@ public class AnnotationsToolbar extends LinearLayout {
         mFreeHandBtn = (ImageButton) mainToolbar.findViewById(R.id.draw_freehand);
         mPickerColorBtn = (ImageButton) mainToolbar.findViewById(R.id.picker_color);
         mTypeBtn = (ImageButton) mainToolbar.findViewById(R.id.type_tool);
+        mScreenshotBtn = (ImageButton) mainToolbar.findViewById(R.id.screenshot);
         mEraseBtn = (ImageButton) mainToolbar.findViewById(R.id.erase);
-        mDoneBtn = (TextView) mainToolbar.findViewById(R.id.done);
 
         final int mCount = colortToolbar.getChildCount();
 
@@ -137,20 +125,18 @@ public class AnnotationsToolbar extends LinearLayout {
         }
 
         //Init actions
-        mFreeHandBtn.setOnClickListener(mActionListener);
-        mTypeBtn.setOnClickListener(mActionListener);
-        mEraseBtn.setOnClickListener(mActionListener);
-        mDoneBtn.setOnClickListener(mActionListener);
+        mFreeHandBtn.setOnClickListener(mActionsClickListener);
+        mTypeBtn.setOnClickListener(mActionsClickListener);
+        mEraseBtn.setOnClickListener(mActionsClickListener);
+        mScreenshotBtn.setOnClickListener(mActionsClickListener);
     }
 
-    private OnClickListener mActionListener = new OnClickListener() {
+    private OnClickListener mActionsClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             Log.i("MARINAS", "ONCLICK BUTTON TOOLBAR");
-            if ( mListener != null ){
-                Log.i("MARINAS", "ONCLICK BUTTON TOOLBAR LISTENER !=NULL");
-
-                mListener.onItemSelected(v);
+            if ( mActionsListener != null ){
+                mActionsListener.onItemSelected(v);
             }
         }
     };

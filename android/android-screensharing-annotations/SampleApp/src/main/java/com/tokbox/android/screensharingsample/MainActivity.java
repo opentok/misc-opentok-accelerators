@@ -7,9 +7,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -23,18 +26,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tokbox.android.accpack.annotations.AnnotationsView;
 import com.tokbox.android.accpack.screensharing.ScreenSharingFragment;
 import com.tokbox.android.screensharingsample.config.OpenTokConfig;
 import com.tokbox.android.screensharingsample.ui.PreviewCameraFragment;
 import com.tokbox.android.screensharingsample.ui.PreviewControlFragment;
 import com.tokbox.android.screensharingsample.ui.RemoteControlFragment;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements OneToOneCommunication.Listener, PreviewControlFragment.PreviewControlCallbacks,
-        RemoteControlFragment.RemoteControlCallbacks, PreviewCameraFragment.PreviewCameraCallbacks, ScreenSharingFragment.ScreenSharingListener{
+        RemoteControlFragment.RemoteControlCallbacks, PreviewCameraFragment.PreviewCameraCallbacks, ScreenSharingFragment.ScreenSharingListener, AnnotationsView.AnnotationsListener{
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.SYSTEM_ALERT_WINDOW};
+    private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private final int permsRequestCode = 200;
 
     //OpenTok calls
@@ -153,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             case 200:
                 boolean video = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 boolean audio = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                boolean systemOverlay = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                boolean externalStorage = grantResults[2] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
     }
@@ -272,6 +282,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onInitialized() {
         mProgressDialog.dismiss();
+    }
+
+    @Override
+    public void onScreencaptureReady(Bitmap bmp) {
+        Log.i("MARINAS", "Screenscapture ready");
+        saveScreencapture(bmp);
     }
 
     //OneToOneCommunication callbacks
@@ -447,17 +463,40 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     @Override
+    public void onAnnotationsViewReady(AnnotationsView view) {
+        view.setAnnotationsListener(this);
+    }
+
+    @Override
     public void onClosed() {
         Log.i("MARINAS", "onClosed callbacks");
-
-
-        /*Intent returnBtn = new Intent(activityReference, MainActivity.class);
-        startActivity(returnBtn);*/
 
         onScreenSharing();
     }
 
-    /*public void onLineDrawn(){
+    public void saveScreencapture(Bitmap bmp){
 
-    }*/
+        if (bmp != null ){
+            String filename;
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMddHHmmss");
+            filename =  sdf.format(date);
+            try{
+                String path = Environment.getExternalStorageDirectory().toString();
+                OutputStream fOut = null;
+                File file = new File(path, filename+".jpg");
+                fOut = new FileOutputStream(file);
+
+                bmp.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+                fOut.flush();
+                fOut.close();
+
+                MediaStore.Images.Media.insertImage(getContentResolver()
+                        ,file.getAbsolutePath(),file.getName(),file.getName());
+
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

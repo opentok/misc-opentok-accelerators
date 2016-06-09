@@ -6,6 +6,7 @@ import com.opentok.android.Publisher;
 import com.opentok.android.Session;
 import com.opentok.android.Subscriber;
 import com.tokbox.android.accpack.AccPackSession;
+import com.tokbox.android.accpack.annotations.utils.AnnotationsVideoRenderer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
