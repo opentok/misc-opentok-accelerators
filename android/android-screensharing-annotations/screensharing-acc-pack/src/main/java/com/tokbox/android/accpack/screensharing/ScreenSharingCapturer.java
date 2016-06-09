@@ -51,16 +51,7 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
         public void run() {
             if (capturing) {
             frame = null;
-               // int width = contentView.getWidth();
-               // int height = contentView.getHeight();
-
-               /* if (frame == null ||
-                        ScreenSharingCapturer.this.width != width ||
-                        ScreenSharingCapturer.this.height != height) {*/
-
-                 //   ScreenSharingCapturer.this.width = width;
-                  //  ScreenSharingCapturer.this.height = height;
-                if (frame == null ){
+                  if (frame == null ){
                     if (lastBmp != null){
                         width = contentView.getWidth();
                         height = contentView.getHeight();
@@ -149,15 +140,12 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
 
         @Override
         public void onImageAvailable(ImageReader reader) {
-            Log.i(LOG_TAG, " onImageAvailable");
 
                 Image mImage = null;
                 FileOutputStream fos = null;
 
                 try {
                     mImage = mImageReader.acquireLatestImage();
-                    Log.i(LOG_TAG, " NEW IMAGE");
-
 
                    if (mImage != null) {
                         Image.Plane[] planes = mImage.getPlanes();
@@ -165,16 +153,9 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
                         int pixelStride = planes[0].getPixelStride();
                         int rowStride = planes[0].getRowStride();
                         int rowPadding = rowStride - pixelStride * width;
-                           // create bitmap
-                        //bmp = Bitmap.createBitmap(width + rowPadding / pixelStride, height, Bitmap.Config.ARGB_8888);
-                        //bmp.copyPixelsFromBuffer(buffer);
-                        //lastBmp = bmp.copy(bmp.getConfig(), true);
-
-
 
                         Buffer buffer2 = planes[0].getBuffer().rewind();
                         bmp = Bitmap.createBitmap(mImage.getWidth()+ rowPadding / pixelStride, mImage.getHeight(), Bitmap.Config.ARGB_8888);
-
 
                        width_final = mImage.getWidth() + rowPadding / pixelStride;
                        height_final = mImage.getHeight();

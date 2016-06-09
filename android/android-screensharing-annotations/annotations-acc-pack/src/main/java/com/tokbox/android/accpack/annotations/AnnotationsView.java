@@ -36,7 +36,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     private AnnotationsVideoRenderer videoRenderer;
 
-    private int mCurrentColor = Color.BLACK;
+    private int mCurrentColor = 0;
     private AnnotationsManager mAnnotationsManager;
 
     private static final float TOLERANCE = 5;
@@ -102,12 +102,16 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         super(context);
         setWillNotDraw(false);
         mAnnotationsManager = new AnnotationsManager();
+
+        mCurrentColor = getResources().getColor(R.color.picker_color_orange);
     }
 
     public AnnotationsView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
         mAnnotationsManager = new AnnotationsManager();
+
+        mCurrentColor = getResources().getColor(R.color.picker_color_orange);
     }
 
     @Override
@@ -141,120 +145,121 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     public boolean onTouchEvent(MotionEvent event) {
         final float x = event.getX();
         final float y = event.getY();
+        if (    mode != null ) {
+            if (mode == Mode.Pen) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        createAnnotatable(false);
+                        mCurrentPath.setLastPointF(new PointF(x, y));
+                        mCurrentPath.setStartPoint(true);
+                        beginTouch(x, y);
+                        //invalidate();
+                    }
+                    break;
+                    case MotionEvent.ACTION_MOVE: {
+                        moveTouch(x, y, true);
 
-        if (mode == Mode.Pen) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    createAnnotatable(false);
-                    mCurrentPath.setLastPointF(new PointF(x, y));
-                    mCurrentPath.setStartPoint(true);
-                    beginTouch(x, y);
-                    //invalidate();
+                        //marinas sendUpdate(Mode.Pen.toString(), buildSignalFromPoint(x, y, isStartPoint, false));
+                        mCurrentPath.setEndPoint(false);
+                        // sendPathUpdate(mode.toString());
+                        mCurrentPath.setStartPoint(false);
+                        mCurrentPath.setLastPointF(new PointF(x, y));
+                        //createAnnotatable(false);
+
+                        //invalidate();
+
+
+                    }
+                    break;
+                    case MotionEvent.ACTION_UP: {
+                        upTouch();
+                        addAnnotatable();
+                        invalidate();
+                    }
+                    break;
                 }
-                break;
-                case MotionEvent.ACTION_MOVE: {
-                    moveTouch(x, y, true);
-
-                    //marinas sendUpdate(Mode.Pen.toString(), buildSignalFromPoint(x, y, isStartPoint, false));
-                    mCurrentPath.setEndPoint(false);
-                    // sendPathUpdate(mode.toString());
-                    mCurrentPath.setStartPoint(false);
-                    mCurrentPath.setLastPointF(new PointF(x, y));
-                    //createAnnotatable(false);
-
-                    //invalidate();
-
-
-                }
-                break;
-                case MotionEvent.ACTION_UP: {
-                    upTouch();
-                    addAnnotatable();
-                    invalidate();
-                }
-                break;
-            }
-        } else {
-            if (mode == Mode.Text) {
-                Log.i("MARINAS", "MODE TEXT");
-                final String myString;
-
-                mAnnotationsActive = true;
-
-                EditText editText = new EditText(getContext());
-                editText.setVisibility(VISIBLE);
-                editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-                // Add whatever you want as size
-                int editTextHeight = 70;
-                int editTextWidth = 200;
-
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(editTextWidth, editTextHeight);
-
-                //You could adjust the position
-                params.topMargin = (int) (event.getRawY());
-                params.leftMargin = (int) (event.getRawX());
-                this.addView(editText, params);
-                editText.setVisibility(VISIBLE);
-                editText.setSingleLine();
-                editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                editText.requestFocus();
-
-                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
-                createTextAnnotatable(editText, x, y);
-                // mCurrentText = new AnnotationsText(editText, x, y);
-                //  createAnnotatable(false);
-                // invalidate();
-
-                editText.addTextChangedListener(new TextWatcher() {
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before,
-                                              int count) {
-                        Log.i("MARINAS", "ONTEXTCHANGED " + s.toString());
-                        drawText();
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count,
-                                                  int after) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                });
-
-                editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                        if (actionId == EditorInfo.IME_ACTION_DONE) {
-                            InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                            //Create annotatable text and add it to the canvas
-                            mAnnotationsActive = false;
-                            addAnnotatable();
-                            invalidate();
-                            return true;
-                        }
-                        return false;
-                    }
-                });
             } else {
-                if (mode == Mode.Capture) {
+                if (mode == Mode.Text) {
+                    Log.i("MARINAS", "MODE TEXT");
+                    final String myString;
+
+                    mAnnotationsActive = true;
+
+                    EditText editText = new EditText(getContext());
+                    editText.setVisibility(VISIBLE);
+                    editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+                    // Add whatever you want as size
+                    int editTextHeight = 70;
+                    int editTextWidth = 200;
+
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(editTextWidth, editTextHeight);
+
+                    //You could adjust the position
+                    params.topMargin = (int) (event.getRawY());
+                    params.leftMargin = (int) (event.getRawX());
+                    this.addView(editText, params);
+                    editText.setVisibility(VISIBLE);
+                    editText.setSingleLine();
+                    editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                    editText.requestFocus();
+
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+                    createTextAnnotatable(editText, x, y);
+                    // mCurrentText = new AnnotationsText(editText, x, y);
+                    //  createAnnotatable(false);
+                    // invalidate();
+
+                    editText.addTextChangedListener(new TextWatcher() {
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before,
+                                                  int count) {
+                            Log.i("MARINAS", "ONTEXTCHANGED " + s.toString());
+                            drawText();
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            // TODO Auto-generated method stub
+
+                        }
+
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count,
+                                                      int after) {
+                            // TODO Auto-generated method stub
+
+                        }
+
+                    });
+
+                    editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                                //Create annotatable text and add it to the canvas
+                                mAnnotationsActive = false;
+                                addAnnotatable();
+                                invalidate();
+                                return true;
+                            }
+                            return false;
+                        }
+                    });
+                } else {
+                    if (mode == Mode.Capture) {
 
 
+                    }
                 }
-            }
 
-            // captureView();
+                // captureView();
+            }
         }
         return true;
     }
@@ -405,18 +410,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         this.setLayoutParams(layoutParams);
     }
 
-    public void attachPublisher(Publisher publisher) {
-        if (publisher.getView().getLayoutParams() == null) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                    getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
-            this.setLayoutParams(layoutParams);
-        } else {
-            this.setLayoutParams(publisher.getView().getLayoutParams());
-        }
-        mAnnotationsManager.attachPublisher(publisher);
-        //mAnnotationsManager.getSession().setSignalListener(this);
-    }
-
     public void createTextAnnotatable(EditText editText, float x, float y) {
         Log.i("MARINAS", "Create annotatable");
         mCurrentPaint = new Paint();
@@ -468,32 +461,39 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     }
 
     @Override
-    public void onItemSelected(View v) {
-        if (v.getId() == R.id.erase) {
-            mode = Mode.Clear;
-            clearCanvas();
-        }
-        if (v.getId() == R.id.type_tool) {
-            //type text
-            mode = Mode.Text;
-        }
-        if (v.getId() == R.id.draw_freehand) {
-            //freehand lines
-            mode = Mode.Pen;
-        }
-        if (v.getId() == R.id.screenshot) {
-            Log.i("MARINAS", "ADD SCREENSHOT");
-            //screenshot capture
-            mode = Mode.Capture;
-            if (videoRenderer != null){
-                Log.i("MARINAS", "videoRenderer != NULL");
-                Bitmap bmp = videoRenderer.captureScreenshot();
-                if (mListener != null){
-                    Log.i("MARINAS", "videoRendereR MLISTENER != NULL");
-                    mListener.onScreencaptureReady(bmp);
+    public void onItemSelected(View v, boolean selected) {
+        if (selected) {
+            if (v.getId() == R.id.erase) {
+                mode = Mode.Clear;
+                clearCanvas();
+            }
+            if (v.getId() == R.id.type_tool) {
+                //type text
+                mode = Mode.Text;
+            }
+            if (v.getId() == R.id.draw_freehand) {
+                //freehand lines
+                mode = Mode.Pen;
+            }
+            if (v.getId() == R.id.screenshot) {
+                //screenshot capture
+                mode = Mode.Capture;
+                if (videoRenderer != null){
+                    Bitmap bmp = videoRenderer.captureScreenshot();
+                    if (mListener != null){
+                        mListener.onScreencaptureReady(bmp);
+                    }
                 }
             }
         }
+        else {
+            mode = null;
+        }
+    }
+
+    @Override
+    public void onColorSelected(int color) {
+        setColor(color);
     }
 
     public void attachToolbar(AnnotationsToolbar toolbar) {
