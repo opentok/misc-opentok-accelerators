@@ -423,11 +423,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
             if (mAnnotationsToolbar.getVisibility() == View.VISIBLE) {
                 mAnnotationsToolbar.setVisibility(View.GONE);
             } else {
-                //VISIBLE TOOLBAR
                 mAnnotationsToolbar.setVisibility(View.VISIBLE);
-
-                //Add annotations view
-                //mScreenView.addView(mAnnotationView);
+                mAnnotationsToolbar.restart();
             }
         }
     }
@@ -435,6 +432,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
         mScreenPublisher = null;
         enableScreensharingBar(false);
+        checkAnnotations();
         onScreenSharingStopped();
         mScreenView.removeView(mAnnotationsView);
         onClosed();

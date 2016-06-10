@@ -21,8 +21,8 @@ public class AnnotationsToolbar extends LinearLayout {
     private ImageButton mScreenshotBtn;
     private ImageButton mPickerColorBtn;
     private Context mContext;
-    private LinearLayout mainToolbar;
-    private LinearLayout mColortToolbar;
+    private LinearLayout mMainToolbar;
+    private LinearLayout mColorToolbar;
     private HorizontalScrollView mColorScrollView;
 
 
@@ -105,21 +105,21 @@ public class AnnotationsToolbar extends LinearLayout {
 
     public void init() {
         rootView = inflate(mContext, R.layout.annotations_toolbar, this);
-        mainToolbar = (LinearLayout) rootView.findViewById(R.id.main_toolbar);
+        mMainToolbar = (LinearLayout) rootView.findViewById(R.id.main_toolbar);
 
-        mColortToolbar = (LinearLayout) rootView.findViewById(R.id.color_toolbar);
+        mColorToolbar = (LinearLayout) rootView.findViewById(R.id.color_toolbar);
         mColorScrollView = (HorizontalScrollView) rootView.findViewById(R.id.color_view);
-        mFreeHandBtn = (ImageButton) mainToolbar.findViewById(R.id.draw_freehand);
-        mPickerColorBtn = (ImageButton) mainToolbar.findViewById(R.id.picker_color);
-        mTypeBtn = (ImageButton) mainToolbar.findViewById(R.id.type_tool);
-        mScreenshotBtn = (ImageButton) mainToolbar.findViewById(R.id.screenshot);
-        mEraseBtn = (ImageButton) mainToolbar.findViewById(R.id.erase);
+        mFreeHandBtn = (ImageButton) mMainToolbar.findViewById(R.id.draw_freehand);
+        mPickerColorBtn = (ImageButton) mMainToolbar.findViewById(R.id.picker_color);
+        mTypeBtn = (ImageButton) mMainToolbar.findViewById(R.id.type_tool);
+        mScreenshotBtn = (ImageButton) mMainToolbar.findViewById(R.id.screenshot);
+        mEraseBtn = (ImageButton) mMainToolbar.findViewById(R.id.erase);
 
-        final int mCount = mColortToolbar.getChildCount();
+        final int mCount = mColorToolbar.getChildCount();
 
         // Loop through all of the children.
         for (int i = 0; i < mCount; ++i) {
-            mColortToolbar.getChildAt(i).setOnClickListener(colorClickListener);
+            mColorToolbar.getChildAt(i).setOnClickListener(colorClickListener);
         }
 
         //Init actions
@@ -130,6 +130,18 @@ public class AnnotationsToolbar extends LinearLayout {
         mPickerColorBtn.setOnClickListener(mActionsClickListener);
     }
 
+    public void restart(){
+        int mCount = mMainToolbar.getChildCount();
+        for (int i = 0; i < mCount; ++i) {
+            mMainToolbar.getChildAt(i).setSelected(false);
+        }
+
+        mCount = mColorToolbar.getChildCount();
+        for (int i = 0; i < mCount; ++i) {
+            mColorToolbar.getChildAt(i).setSelected(false);
+        }
+
+    }
     private OnClickListener mActionsClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -154,20 +166,20 @@ public class AnnotationsToolbar extends LinearLayout {
         }
     };
     private void updateColorPickerSelectedButtons(View v){
-        int mCount = mColortToolbar.getChildCount();
+        int mCount = mColorToolbar.getChildCount();
 
         for (int i = 0; i < mCount; ++i) {
-            if (mColortToolbar.getChildAt(i).getId() != v.getId() && mColortToolbar.getChildAt(i).isSelected()){
-                mColortToolbar.getChildAt(i).setSelected(false);
+            if (mColorToolbar.getChildAt(i).getId() != v.getId() && mColorToolbar.getChildAt(i).isSelected()){
+                mColorToolbar.getChildAt(i).setSelected(false);
             }
         }
     }
     private void updateSelectedButtons(View v){
-        int mCount = mainToolbar.getChildCount();
+        int mCount = mMainToolbar.getChildCount();
 
         for (int i = 0; i < mCount; ++i) {
-            if (mainToolbar.getChildAt(i).getId() != v.getId() && mainToolbar.getChildAt(i).isSelected()){
-                mainToolbar.getChildAt(i).setSelected(false);
+            if (mMainToolbar.getChildAt(i).getId() != v.getId() && mMainToolbar.getChildAt(i).isSelected()){
+                mMainToolbar.getChildAt(i).setSelected(false);
             }
         }
     }

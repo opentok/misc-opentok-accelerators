@@ -9,13 +9,10 @@ import java.util.UUID;
 public class AnnotationsPath extends Path {
 
     private UUID id;
-  //  private Point mStartPoint;
-  //  private Point mEndPoint;
 
     private PointF currentPoint;
     private boolean isStartPoint = false; //related to the currentPoint
     private boolean isEndPoint = false; //related to the currentPoint
-    private boolean incoming = false;
     private PointF lastPoint;
 
     public PointF getLastPointF() {
@@ -26,9 +23,8 @@ public class AnnotationsPath extends Path {
         this.lastPoint = lastPoint;
     }
 
-    public AnnotationsPath(boolean incoming) {
+    public AnnotationsPath() {
         this.id = UUID.randomUUID();
-        this.incoming = incoming;
     }
 
     public boolean isStartPoint() {

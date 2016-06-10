@@ -22,14 +22,13 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.opentok.android.Publisher;
 import com.tokbox.android.accpack.annotations.utils.*;
 
 import java.util.UUID;
 
 
 public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.ActionsListener {
-
+    private static final String LOG_TAG = AnnotationsView.class.getSimpleName();
     private AnnotationsPath mCurrentPath = null;
     private AnnotationsText mCurrentText = null;
     private Paint mCurrentPaint;
@@ -82,20 +81,8 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         }
     }
 
-
     public void setColor(int color) {
         this.mCurrentColor = color;
-    }
-
-    public void setMode(String mode) {
-        if (mode.equals(Mode.Pen.toString())) {
-            this.mode = Mode.Pen;
-        } else {
-            if (mode.equals(Mode.Text.toString())) {
-                this.mode = Mode.Text;
-            }
-        }
-
     }
 
     public AnnotationsView(Context context) {
@@ -114,13 +101,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         mCurrentColor = getResources().getColor(R.color.picker_color_orange);
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        Log.i("MARINAS", "key pressed: " + String.valueOf(event.getKeyCode()));
-
-        return super.dispatchKeyEvent(event);
-    }
-
     public void setLayoutParams(RelativeLayout.LayoutParams params) {
         this.setLayoutParams(params);
 
@@ -132,13 +112,11 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.i("MARINAS", "onInterceptTouchEvent");
         return true;
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-
     }
 
     @Override
@@ -149,7 +127,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             if (mode == Mode.Pen) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        createAnnotatable(false);
+                        createPathAnnotatable(false);
                         mCurrentPath.setLastPointF(new PointF(x, y));
                         mCurrentPath.setStartPoint(true);
                         beginTouch(x, y);
@@ -158,17 +136,11 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                     break;
                     case MotionEvent.ACTION_MOVE: {
                         moveTouch(x, y, true);
-
-                        //marinas sendUpdate(Mode.Pen.toString(), buildSignalFromPoint(x, y, isStartPoint, false));
                         mCurrentPath.setEndPoint(false);
-                        // sendPathUpdate(mode.toString());
                         mCurrentPath.setStartPoint(false);
                         mCurrentPath.setLastPointF(new PointF(x, y));
-                        //createAnnotatable(false);
 
                         //invalidate();
-
-
                     }
                     break;
                     case MotionEvent.ACTION_UP: {
@@ -180,7 +152,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                 }
             } else {
                 if (mode == Mode.Text) {
-                    Log.i("MARINAS", "MODE TEXT");
                     final String myString;
 
                     mAnnotationsActive = true;
@@ -217,7 +188,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before,
                                                   int count) {
-                            Log.i("MARINAS", "ONTEXTCHANGED " + s.toString());
                             drawText();
                         }
 
@@ -251,22 +221,13 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                             return false;
                         }
                     });
-                } else {
-                    if (mode == Mode.Capture) {
-
-
-                    }
                 }
-
-                // captureView();
             }
         }
         return true;
     }
 
     private void drawText() {
-        Log.i("MARINAS", "DRAW TEXT " + mCurrentText.getEditText().getText());
-
         invalidate();
     }
 
@@ -320,20 +281,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     }
 
-    private boolean checkTextPosition(float x, float y) {
-        boolean samePosition = false;
-
-        for (Annotatable annotatable : mAnnotationsManager.getAnnotatableList()) {
-            if (annotatable.getType().equals(Annotatable.AnnotatableType.TEXT)) {
-                if (x >= annotatable.getText().getX() || x <= annotatable.getText().getEditText().getWidth()) {
-                    Log.i("MARINAS", "SAME POSITION");
-                    samePosition = true;
-                }
-            }
-        }
-        return samePosition;
-    }
-
     private void beginTouch(float x, float y) {
         mCurrentPath.moveTo(x, y);
         mCurrentPath.setCurrentPoint(new PointF(x, y));
@@ -372,11 +319,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         }
     }
 
-    private void sendPathUpdate(String mode) {
-        Annotatable annotatable = new Annotatable(mode, mCurrentPath, mCurrentPaint, width, height);
-        mAnnotationsManager.addAnnotatable(annotatable);
-    }
-
     public void clearCanvas() {
         if (mAnnotationsManager.getAnnotatableList().size() > 0) {
             int lastItem = mAnnotationsManager.getAnnotatableList().size() - 1;
@@ -411,44 +353,29 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     }
 
     public void createTextAnnotatable(EditText editText, float x, float y) {
-        Log.i("MARINAS", "Create annotatable");
+        Log.i(LOG_TAG, "Create TextAnnotatable");
         mCurrentPaint = new Paint();
         mCurrentPaint.setAntiAlias(true);
-        // mCurrentPaint.setColor(incoming ? activeColor : userColor);
         mCurrentPaint.setColor(mCurrentColor);
         mCurrentPaint.setTextSize(48);
         mCurrentText = new AnnotationsText(editText, x, y);
     }
 
-    public void createAnnotatable(boolean incoming) {
-        Log.i("MARINAS", "Create annotatable");
+    public void createPathAnnotatable(boolean incoming) {
+        Log.i(LOG_TAG, "Create PathAnnotatable");
         mCurrentPaint = new Paint();
         mCurrentPaint.setAntiAlias(true);
-        // mCurrentPaint.setColor(incoming ? activeColor : userColor);
         mCurrentPaint.setColor(mCurrentColor);
         mCurrentPaint.setStyle(Paint.Style.STROKE);
         mCurrentPaint.setStrokeJoin(Paint.Join.ROUND);
-        //mCurrentPaint.setStrokeWidth(incoming ? activeStrokeWidth : userStrokeWidth);
-        mCurrentPaint.setStrokeWidth(20);
-        //TODO MODE
-        Annotatable annotatable;
+        mCurrentPaint.setStrokeWidth(10);
         if (mode == Mode.Pen) {
-            mCurrentPath = new AnnotationsPath(incoming);
-            //annotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
-            //annotatable.setType(Annotatable.AnnotatableType.PATH);
-        } else {
-            mCurrentPaint.setTextSize(48);
-            //annotatable = new Annotatable(mode.toString(), mCurrentText, mCurrentPaint, width, height);
-            //annotatable.setType(Annotatable.AnnotatableType.TEXT);
+            mCurrentPath = new AnnotationsPath();
         }
-        //mAnnotationsManager.addAnnotatable(annotatable);
-
-        //Annotatable annotatable = new Annotatable(Mode.Pen.toString(), path, paint, width, height);
-        //mAnnotationsManager.addAnnotatable(annotatable);
-    }
+      }
 
     private void addAnnotatable() {
-        Log.i("MARINAS", "ADD ANNOTATABLE");
+        Log.i(LOG_TAG, "ADD ANNOTATABLE");
         Annotatable annotatable = null;
         if (mode.equals(Mode.Pen)) {
             annotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
@@ -462,33 +389,31 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     @Override
     public void onItemSelected(View v, boolean selected) {
-        if (selected) {
             if (v.getId() == R.id.erase) {
-                mode = Mode.Clear;
                 clearCanvas();
-            }
-            if (v.getId() == R.id.type_tool) {
-                //type text
-                mode = Mode.Text;
-            }
-            if (v.getId() == R.id.draw_freehand) {
-                //freehand lines
-                mode = Mode.Pen;
             }
             if (v.getId() == R.id.screenshot) {
                 //screenshot capture
-                mode = Mode.Capture;
-                if (videoRenderer != null){
+                if (videoRenderer != null) {
                     Bitmap bmp = videoRenderer.captureScreenshot();
-                    if (mListener != null){
+                    if (mListener != null) {
                         mListener.onScreencaptureReady(bmp);
                     }
                 }
             }
-        }
-        else {
-            mode = null;
-        }
+            if (selected){
+                if (v.getId() == R.id.type_tool) {
+                    //type text
+                    mode = Mode.Text;
+                }
+                if (v.getId() == R.id.draw_freehand && selected) {
+                    //freehand lines
+                    mode = Mode.Pen;
+                }
+            }
+            else {
+                mode = null;
+            }
     }
 
     @Override
