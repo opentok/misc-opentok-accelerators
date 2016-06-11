@@ -194,6 +194,7 @@
     
     if (annotationTextView) {
         [annotationTextView setEditable:NO];
+        [self.screenShareView addContentView:annotationTextView];
         [self.screenShareView addTextAnnotation: annotationTextView];
     }
     else {
