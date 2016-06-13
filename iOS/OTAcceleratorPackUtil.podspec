@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "OTAcceleratorPackUtil"
-  s.version          = "1.0.3"
+  s.version          = "1.0.4"
   s.summary          = "Common Accelerator Session Pack Version 0.9."
 
 # This description is used to generate tags and improve search results.

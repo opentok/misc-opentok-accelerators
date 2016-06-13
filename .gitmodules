@@ -1,0 +1,3 @@
+[submodule "iOS/OTAcceleratorPackUtil/Classes/opentok-solutions-logging"]
+	path = iOS/OTAcceleratorPackUtil/Classes/opentok-solutions-logging
+	url = https://github.com/opentok/acc-pack-common.git
