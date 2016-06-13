@@ -1,3 +1,6 @@
 [submodule "iOS-text-chat/TextChatSample/TextChatKit/Logging/opentok-solutions-logging"]
 	path = iOS-text-chat/TextChatSample/TextChatKit/Logging/opentok-solutions-logging
 	url = https://github.com/opentok/opentok-solutions-logging.git
+[submodule "iOS-text-chat/OneToOneTextChatSample/SampleApp/one-to-one-sample-apps"]
+	path = iOS-text-chat/OneToOneTextChatSample/SampleApp/one-to-one-sample-apps
+	url = https://github.com/opentok/one-to-one-sample-apps.git

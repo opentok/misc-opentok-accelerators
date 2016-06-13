@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/TextChatViewDelegate.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/TextChatViewDelegate</TokenIdentifier>
+			<Abstract type="html">The delegate of a TextChatView object must adopt the TextChatViewDelegate protocol.
+Optional methods of the protocol allow the delegate to notify the connectivity.</Abstract>
+			<DeclaredIn>TextChatView.h</DeclaredIn>
+            
+			
+			<NodeRef refid="4"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/TextChatViewDelegate/textChatView:didSendtextChat:error:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate the text chat view finishes sending message with or without error</Abstract>
+			<DeclaredIn>TextChatView.h</DeclaredIn>
+			
+			<Declaration>- (void)textChatView:(TextChatView *)textChatView didSendtextChat:(TextMessage *)textChat error:(NSError *)error</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>textChatView</Name>
+					<Abstract type="html">The text chat view object informing the delegate of this impending event.</Abstract>
+				</Parameter><Parameter>
+					<Name>textChat</Name>
+					<Abstract type="html">this is the message object</Abstract>
+				</Parameter><Parameter>
+					<Name>error</Name>
+					<Abstract type="html">An error object that text chat view is going to use when encountering an issue</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/textChatView:didSendtextChat:error:</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/TextChatViewDelegate/textChatView:didReceiveTextChat:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate the text chat view finishes sending message with or without error</Abstract>
+			<DeclaredIn>TextChatView.h</DeclaredIn>
+			
+			<Declaration>- (void)textChatView:(TextChatView *)textChatView didReceiveTextChat:(TextMessage *)textChat</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>textChatView</Name>
+					<Abstract type="html">The text chat view object informing the delegate of this impending event.</Abstract>
+				</Parameter><Parameter>
+					<Name>textChat</Name>
+					<Abstract type="html">this is the message object</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/textChatView:didReceiveTextChat:</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/TextChatViewDelegate/didConnectWithError:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate the text chat view has established a text chat connection with or without error</Abstract>
+			<DeclaredIn>TextChatView.h</DeclaredIn>
+			
+			<Declaration>- (void)didConnectWithError:(NSError *)error</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>error</Name>
+					<Abstract type="html">The text chat view object informing the delegate of this impending event.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/didConnectWithError:</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/TextChatViewDelegate/didDisConnectWithError:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate the text chat view has stopped a text chat connection with or without error</Abstract>
+			<DeclaredIn>TextChatView.h</DeclaredIn>
+			
+			<Declaration>- (void)didDisConnectWithError:(NSError *)error</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>error</Name>
+					<Abstract type="html">The text chat view object informing the delegate of this impending event.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/didDisConnectWithError:</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

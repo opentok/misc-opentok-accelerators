@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/TextChatUICustomizator.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/TextChatUICustomizator</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+            
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/setTableViewCellSendTextColor:</TokenIdentifier>
+			<Abstract type="html">Custom color for the send message text</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellSendTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellSendTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/tableViewCellSendTextColor</TokenIdentifier>
+			<Abstract type="html">Custom color for the send message text</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellSendTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellSendTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextChatUICustomizator/tableViewCellSendTextColor</TokenIdentifier>
+			<Abstract type="html">Custom color for the send message text</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellSendTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellSendTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/setTableViewCellReceiveTextColor:</TokenIdentifier>
+			<Abstract type="html">Custom color for the received message text</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellReceiveTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellReceiveTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/tableViewCellReceiveTextColor</TokenIdentifier>
+			<Abstract type="html">Custom color for the received message text</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellReceiveTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellReceiveTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextChatUICustomizator/tableViewCellReceiveTextColor</TokenIdentifier>
+			<Abstract type="html">Custom color for the received message text</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellReceiveTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellReceiveTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/setTableViewCellSendBackgroundColor:</TokenIdentifier>
+			<Abstract type="html">Custom background color for the send message</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellSendBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellSendBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/tableViewCellSendBackgroundColor</TokenIdentifier>
+			<Abstract type="html">Custom background color for the send message</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellSendBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellSendBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextChatUICustomizator/tableViewCellSendBackgroundColor</TokenIdentifier>
+			<Abstract type="html">Custom background color for the send message</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellSendBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellSendBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/setTableViewCellReceiveBackgroundColor:</TokenIdentifier>
+			<Abstract type="html">Custom background color for the received message</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellReceiveBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellReceiveBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/tableViewCellReceiveBackgroundColor</TokenIdentifier>
+			<Abstract type="html">Custom background color for the received message</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellReceiveBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellReceiveBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextChatUICustomizator/tableViewCellReceiveBackgroundColor</TokenIdentifier>
+			<Abstract type="html">Custom background color for the received message</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *tableViewCellReceiveBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/tableViewCellReceiveBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/setTopBarBackgroundColor:</TokenIdentifier>
+			<Abstract type="html">Custom color for the background color of the top bar of the TextChat</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *topBarBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/topBarBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/topBarBackgroundColor</TokenIdentifier>
+			<Abstract type="html">Custom color for the background color of the top bar of the TextChat</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *topBarBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/topBarBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextChatUICustomizator/topBarBackgroundColor</TokenIdentifier>
+			<Abstract type="html">Custom color for the background color of the top bar of the TextChat</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *topBarBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/topBarBackgroundColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/setTopBarTitleTextColor:</TokenIdentifier>
+			<Abstract type="html">Custom color for the text title in the top bar of the TextChat</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *topBarTitleTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/topBarTitleTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextChatUICustomizator/topBarTitleTextColor</TokenIdentifier>
+			<Abstract type="html">Custom color for the text title in the top bar of the TextChat</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *topBarTitleTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/topBarTitleTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextChatUICustomizator/topBarTitleTextColor</TokenIdentifier>
+			<Abstract type="html">Custom color for the text title in the top bar of the TextChat</Abstract>
+			<DeclaredIn>TextChatUICustomizator.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) UIColor *topBarTitleTextColor</Declaration>
+			
+			
+			<Anchor>//api/name/topBarTitleTextColor</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

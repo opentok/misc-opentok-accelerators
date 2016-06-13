@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A50B70C31FF14443183A94472166D129C6654580",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A50B70C31FF14443183A94472166D129C6654580" : 0,
+    "0E79FE5EF19CF27CB8282B4F4200320BB40E976A" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CCDE8B95-9EC3-4709-9B37-E48A36154B74",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A50B70C31FF14443183A94472166D129C6654580" : "textchat-acc-pack\/",
+    "0E79FE5EF19CF27CB8282B4F4200320BB40E976A" : "textchat-acc-pack\/iOS-text-chat\/TextChatSample\/TextChatKit\/Logging\/opentok-solutions-logging\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TextChatSample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS-text-chat\/TextChatSample\/TextChatSample.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/opentok-solutions-logging.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0E79FE5EF19CF27CB8282B4F4200320BB40E976A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/textchat-acc-pack.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A50B70C31FF14443183A94472166D129C6654580"
+    }
+  ]
+}

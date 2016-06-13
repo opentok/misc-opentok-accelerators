@@ -25,10 +25,10 @@
 		A067B2711CEB99440099F876 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B2701CEB99440099F876 /* AppDelegate.m */; };
 		A067B2791CEB99450099F876 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A067B2781CEB99450099F876 /* Assets.xcassets */; };
 		A067B27C1CEB99450099F876 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A067B27A1CEB99450099F876 /* LaunchScreen.storyboard */; };
-		A067B2991CEB9C350099F876 /* TextChat.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B2981CEB9C350099F876 /* TextChat.m */; };
 		A067B2A11CEBA7DF0099F876 /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B29B1CEBA7DF0099F876 /* OneToOneCommunicator.m */; };
 		A067B2A21CEBA7DF0099F876 /* TextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B29E1CEBA7DF0099F876 /* TextChatUICustomizator.m */; };
 		A067B2A31CEBA7DF0099F876 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B2A01CEBA7DF0099F876 /* TextChatView.m */; };
+		A071EAA91D0E843D00C0D418 /* TextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A071EAA81D0E843D00C0D418 /* TextMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,8 +39,6 @@
 		A067B2781CEB99450099F876 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A067B27B1CEB99450099F876 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A067B27D1CEB99450099F876 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A067B2971CEB9C350099F876 /* TextChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChat.h; sourceTree = "<group>"; };
-		A067B2981CEB9C350099F876 /* TextChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChat.m; sourceTree = "<group>"; };
 		A067B29A1CEBA7DF0099F876 /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneCommunicator.h; sourceTree = "<group>"; };
 		A067B29B1CEBA7DF0099F876 /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneCommunicator.m; sourceTree = "<group>"; };
 		A067B29C1CEBA7DF0099F876 /* TextChatKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatKit.h; sourceTree = "<group>"; };
@@ -48,6 +46,8 @@
 		A067B29E1CEBA7DF0099F876 /* TextChatUICustomizator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatUICustomizator.m; sourceTree = "<group>"; };
 		A067B29F1CEBA7DF0099F876 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
 		A067B2A01CEBA7DF0099F876 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
+		A071EAA71D0E843D00C0D418 /* TextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextMessage.h; path = ../../TextChatSample/TextChatKit/TextMessage/TextMessage.h; sourceTree = "<group>"; };
+		A071EAA81D0E843D00C0D418 /* TextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextMessage.m; path = ../../TextChatSample/TextChatKit/TextMessage/TextMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +83,8 @@
 				A067B26F1CEB99440099F876 /* AppDelegate.h */,
 				A067B2701CEB99440099F876 /* AppDelegate.m */,
 				A067B2781CEB99450099F876 /* Assets.xcassets */,
-				A067B2971CEB9C350099F876 /* TextChat.h */,
-				A067B2981CEB9C350099F876 /* TextChat.m */,
+				A071EAA71D0E843D00C0D418 /* TextMessage.h */,
+				A071EAA81D0E843D00C0D418 /* TextMessage.m */,
 				A067B29A1CEBA7DF0099F876 /* OneToOneCommunicator.h */,
 				A067B29B1CEBA7DF0099F876 /* OneToOneCommunicator.m */,
 				A067B29C1CEBA7DF0099F876 /* TextChatKit.h */,
@@ -187,7 +187,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatKit.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatUICustomizator/TextChatUICustomizator.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatUICustomizator/TextChatUICustomizator.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatView/TextChatView.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatView/TextChatView.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextMessage/TextMessage.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextMessage/TextMessage.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m\" \"${PROJECT_DIR}/Documentation\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChat.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChatView.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChatUICustomizator.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OneToOneCommunicator.h\"\n\n#appledoc Xcode script\n# Start constants\ncompany=\"Tokbox\";\ncompanyID=\"com.Tokbox\";\ncompanyURL=\"https://tokbox.com/\";\noutputPath=\"${PROJECT_DIR}/../OneToOneTextChatSample/docs\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--output \"${outputPath}\" \\\n--keep-intermediate-files \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}/Documentation/TextMessage.h\" \\\n\"${PROJECT_DIR}/Documentation/TextChatView.h\" \\\n\"${PROJECT_DIR}/Documentation/TextChatUICustomizator.h\" \\\n\"${PROJECT_DIR}/Documentation/OneToOneCommunicator.h\"";
+			shellScript = "cp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatKit.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatUICustomizator/TextChatUICustomizator.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatUICustomizator/TextChatUICustomizator.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatView/TextChatView.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextChatView/TextChatView.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextMessage/TextMessage.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../TextChatSample/TextChatKit/TextMessage/TextMessage.m\" \"${PROJECT_DIR}/Documentation\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChat.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChatView.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChatUICustomizator.h\"\n\n#appledoc Xcode script\n# Start constants\ncompany=\"Tokbox\";\ncompanyID=\"com.Tokbox\";\ncompanyURL=\"https://tokbox.com/\";\noutputPath=\"${PROJECT_DIR}/../OneToOneTextChatSample/docs\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--output \"${outputPath}\" \\\n--keep-intermediate-files \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}/Documentation/TextMessage.h\" \\\n\"${PROJECT_DIR}/Documentation/TextChatView.h\" \\\n\"${PROJECT_DIR}/Documentation/TextChatUICustomizator.h\" \\";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -198,9 +198,9 @@
 			files = (
 				A067B2711CEB99440099F876 /* AppDelegate.m in Sources */,
 				A067B2A11CEBA7DF0099F876 /* OneToOneCommunicator.m in Sources */,
-				A067B2991CEB9C350099F876 /* TextChat.m in Sources */,
 				A067B2A31CEBA7DF0099F876 /* TextChatView.m in Sources */,
 				A067B26E1CEB99440099F876 /* main.m in Sources */,
+				A071EAA91D0E843D00C0D418 /* TextMessage.m in Sources */,
 				A067B2A21CEBA7DF0099F876 /* TextChatUICustomizator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

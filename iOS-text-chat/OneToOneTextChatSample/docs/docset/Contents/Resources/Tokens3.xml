@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/TextMessage.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/TextMessage</TokenIdentifier>
+			<Abstract type="html">A data model describing information used in individual text chat messages.</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+            
+			
+			<NodeRef refid="3"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextMessage/setAlias:</TokenIdentifier>
+			<Abstract type="html">alias of the sender/receiver</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *alias</Declaration>
+			
+			
+			<Anchor>//api/name/alias</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextMessage/alias</TokenIdentifier>
+			<Abstract type="html">alias of the sender/receiver</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *alias</Declaration>
+			
+			
+			<Anchor>//api/name/alias</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextMessage/alias</TokenIdentifier>
+			<Abstract type="html">alias of the sender/receiver</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *alias</Declaration>
+			
+			
+			<Anchor>//api/name/alias</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextMessage/setSenderId:</TokenIdentifier>
+			<Abstract type="html">unique identifier for the sender of the message</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *senderId</Declaration>
+			
+			
+			<Anchor>//api/name/senderId</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextMessage/senderId</TokenIdentifier>
+			<Abstract type="html">unique identifier for the sender of the message</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *senderId</Declaration>
+			
+			
+			<Anchor>//api/name/senderId</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextMessage/senderId</TokenIdentifier>
+			<Abstract type="html">unique identifier for the sender of the message</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *senderId</Declaration>
+			
+			
+			<Anchor>//api/name/senderId</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextMessage/setText:</TokenIdentifier>
+			<Abstract type="html">Content of the text message</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *text</Declaration>
+			
+			
+			<Anchor>//api/name/text</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextMessage/text</TokenIdentifier>
+			<Abstract type="html">Content of the text message</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *text</Declaration>
+			
+			
+			<Anchor>//api/name/text</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextMessage/text</TokenIdentifier>
+			<Abstract type="html">Content of the text message</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSString *text</Declaration>
+			
+			
+			<Anchor>//api/name/text</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextMessage/setDateTime:</TokenIdentifier>
+			<Abstract type="html">Date and time when the message was sent (UNIXTIMESTAMP format)</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSDate *dateTime</Declaration>
+			
+			
+			<Anchor>//api/name/dateTime</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TextMessage/dateTime</TokenIdentifier>
+			<Abstract type="html">Date and time when the message was sent (UNIXTIMESTAMP format)</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSDate *dateTime</Declaration>
+			
+			
+			<Anchor>//api/name/dateTime</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TextMessage/dateTime</TokenIdentifier>
+			<Abstract type="html">Date and time when the message was sent (UNIXTIMESTAMP format)</Abstract>
+			<DeclaredIn>TextMessage.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, readonly) NSDate *dateTime</Declaration>
+			
+			
+			<Anchor>//api/name/dateTime</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

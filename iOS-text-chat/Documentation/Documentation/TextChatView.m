@@ -76,7 +76,7 @@ static CGFloat StatusBarHeight = 20.0;
     self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.textChatComponent.maximumTextMessageLength];
     
     // work on instantiation and port it to sample app, done
-    NSBundle *textChatViewBundle = [NSBundle bundleForClass:[TextChatView class]];
+    NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"TextChatKitBundle" withExtension:@"bundle"]];
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatSentTableViewCell"
                                                bundle:textChatViewBundle]
          forCellReuseIdentifier:@"SentChatMessage"];
@@ -175,9 +175,11 @@ static CGFloat StatusBarHeight = 20.0;
 
 #pragma mark - Public methods
 + (instancetype)textChatView {
-    return (TextChatView *)[[[NSBundle bundleForClass:[self class]] loadNibNamed:@"TextChatView"
-                                                                           owner:nil
-                                                                         options:nil] lastObject];
+    
+    NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"TextChatKitBundle" withExtension:@"bundle"]];
+    return (TextChatView *)[[textChatViewBundle loadNibNamed:@"TextChatView"
+                                                      owner:nil
+                                                    options:nil] lastObject];
 }
 
 + (instancetype)textChatViewWithBottomView:(UIView *)bottomView {
@@ -214,7 +216,7 @@ static CGFloat StatusBarHeight = 20.0;
     if (self.isShown) {
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self removeFromSuperview];
-        [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationSuccess];
+        [OTKAnalytics logEventAction:KLogActionClose variation:KLogVariationSuccess completion:nil];
     }
 }
 
@@ -250,7 +252,7 @@ static CGFloat StatusBarHeight = 20.0;
 
 #pragma mark - IBActions
 - (IBAction)closeButton:(UIButton *)sender {
-    [self.textChatComponent addLogEvent:KLogActionClose variation:KLogVariationAttempt];
+    [OTKAnalytics logEventAction:KLogActionClose variation:KLogVariationAttempt completion:nil];
     [self dismiss];
 }
 
