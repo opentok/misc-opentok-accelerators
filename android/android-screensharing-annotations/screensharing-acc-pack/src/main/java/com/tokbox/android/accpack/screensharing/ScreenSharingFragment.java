@@ -3,6 +3,7 @@ package com.tokbox.android.accpack.screensharing;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.hardware.display.DisplayManager;
@@ -40,12 +41,12 @@ import com.tokbox.android.accpack.annotations.AnnotationsView;
 import com.tokbox.android.accpack.annotations.utils.AnnotationsVideoRenderer;
 
 
-public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener, AccPackSession.SignalListener{
+public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener, PublisherKit.PublisherListener, AccPackSession.SignalListener, ScreenSharingBar.ScreenSharingBarListener{
 
     private static final String LOG_TAG = ScreenSharingFragment.class.getSimpleName();
     private static final String STATE_RESULT_CODE = "result_code";
     private static final String STATE_RESULT_DATA = "result_data";
-
+    private static final String ERROR = "ScreenSharing error";
     private static final int REQUEST_MEDIA_PROJECTION = 1;
 
     private AccPackSession mSession;
@@ -78,15 +79,28 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private View mScreensharingRightView;
     private View mScreensharingBottomView;
     private ImageButton mCloseBtn;
+    private ScreenSharingBar screensharingBar;
+
 
     private boolean isStarted = false;
     private boolean isAnnotationsEnabled = false;
+
+    private ViewGroup mScreen;
+    private RelativeLayout mLayout;
+
+    private AnnotationsVideoRenderer mRenderer;
 
     @Override
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
         if (type.equals("annotations")){
             Log.i(LOG_TAG, "New annotation received");
         }
+    }
+
+    @Override
+    public void onClose() {
+        if (isStarted)
+            stop();
     }
 
     /**
@@ -157,7 +171,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     public void stop(){
         stopScreenCapture();
-        mSession.unpublish(mScreenPublisher);
+        if (mScreenPublisher != null) {
+            mSession.unpublish(mScreenPublisher);
+        }
     }
 
     @Override
@@ -187,9 +203,10 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
+       // View rootView = container;
+        //mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
+       // mAnnotationsToolbar = (AnnotationsToolbar) rootView.findViewById(R.id.annotations_bar);
 
-        mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
-        mAnnotationsToolbar = (AnnotationsToolbar) rootView.findViewById(R.id.annotations_bar);
 
         mScreensharingBar = (RelativeLayout) rootView.findViewById(R.id.screnesharing_bar);
         mScreensharingLeftView = (View) rootView.findViewById(R.id.left_line);
@@ -204,6 +221,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
                     stop();
             }
         });
+
+        mScreen = container;
+
         return rootView;
     }
 
@@ -226,7 +246,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
             outState.putParcelable(STATE_RESULT_DATA, mResultData);
         }
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -277,22 +296,15 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         size.set(mWidth, mHeight);
 
         //create ScreenCapturer
-        ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreenView, mImageReader, size);
+        ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreen, mImageReader, size);
         mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", capturer);
         mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
         mScreenPublisher.setPublisherListener(this);
 
-        mAnnotationsView = new AnnotationsView(getContext());
-        mAnnotationsView.attachToolbar(mAnnotationsToolbar);
-        mAnnotationsView.setLayoutParams(mScreenView.getLayoutParams());
+        mRenderer = new AnnotationsVideoRenderer(getContext());
+        mScreenPublisher.setRenderer(mRenderer);
 
-        AnnotationsVideoRenderer annotationsRenderer = new AnnotationsVideoRenderer(getContext());
-        mScreenPublisher.setRenderer(annotationsRenderer);
-        mAnnotationsView.setVideoRenderer(annotationsRenderer); //to use screencapture
 
-        onAnnotationsViewReady(mAnnotationsView);
-
-        mScreenView.addView(mAnnotationsView);
         mSession.publish(mScreenPublisher);
 
     }
@@ -336,14 +348,12 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     }
 
     protected void onScreenSharingStarted(){
-        isStarted = true;
         if ( mListener != null ){
            mListener.onScreenSharingStarted();
         }
     }
 
     protected void onScreenSharingStopped(){
-        isStarted = false;
         //checkAnnotations();
         if ( mListener != null ){
             mListener.onScreenSharingStopped();
@@ -390,28 +400,38 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     @Override
     public void onError(Session session, OpentokError opentokError) {
+        onScreenSharingError(ERROR + ": "+ opentokError.toString());
 
     }
 
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
-        Log.i("MARINAS", "ONSTREAMCREATED PUBLISHER SCREEN");
         enableScreensharingBar(true);
         onScreenSharingStarted();
         checkAnnotations();
+        isStarted = true;
 
+        mAnnotationsView = new AnnotationsView(getContext());
+        mAnnotationsView.attachToolbar(mAnnotationsToolbar);
+        mAnnotationsView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getContext().getResources().getSystem().getDisplayMetrics().heightPixels));
+        mAnnotationsView.setVideoRenderer(mRenderer); //to use screencapture
+        onAnnotationsViewReady(mAnnotationsView);
+        mScreen.addView(mAnnotationsView);
+
+        screensharingBar = new ScreenSharingBar(getContext(), this);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        mScreen.addView(screensharingBar, params);
 
     }
 
     private void enableScreensharingBar(boolean visible){
         if (visible) {
-            mScreensharingBar.setVisibility(View.VISIBLE);
             mScreensharingBottomView.setVisibility(View.VISIBLE);
             mScreensharingRightView.setVisibility(View.VISIBLE);
             mScreensharingLeftView.setVisibility(View.VISIBLE);
         }
         else {
-            mScreensharingBar.setVisibility(View.GONE);
             mScreensharingBottomView.setVisibility(View.GONE);
             mScreensharingRightView.setVisibility(View.GONE);
             mScreensharingLeftView.setVisibility(View.GONE);
@@ -431,24 +451,27 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
         mScreenPublisher = null;
+        mScreen.removeView(screensharingBar);
+        mScreen.removeView(mAnnotationsView);
         enableScreensharingBar(false);
         checkAnnotations();
         onScreenSharingStopped();
-        mScreenView.removeView(mAnnotationsView);
         onClosed();
+        isStarted = false;
     }
 
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
-        onScreenSharingError(opentokError.getMessage());
+        onScreenSharingError(ERROR + ": "+opentokError.getMessage());
     }
 
     public boolean isStarted() {
         return isStarted;
     }
 
-    public void setAnnotationsEnabled(boolean annotationsEnabled) {
+    public void setAnnotationsEnabled(boolean annotationsEnabled, AnnotationsToolbar toolbar) {
         isAnnotationsEnabled = annotationsEnabled;
+        mAnnotationsToolbar = toolbar;
     }
 
     public AnnotationsView getAnnotationsView() {

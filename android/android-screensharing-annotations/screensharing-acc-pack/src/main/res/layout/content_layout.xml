@@ -1,8 +1,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/screen_view"
@@ -59,14 +58,4 @@
         android:layout_alignParentBottom="true"
         android:background="@color/screensharing_bar"
         android:visibility="gone"/>
-
-    <com.tokbox.android.accpack.annotations.AnnotationsToolbar
-        android:id="@+id/annotations_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_line"
-        android:layout_toRightOf="@+id/left_line"
-        android:layout_toLeftOf="@+id/right_line"
-        android:visibility="gone"/>
-
 </RelativeLayout>

@@ -51,7 +51,7 @@
             android:layout_marginLeft="14.1dp"
             android:layout_toRightOf="@+id/localAudio"
             android:background="@drawable/bckg_icon"
-            android:src="@drawable/message" />
+            android:src="@drawable/screenshare" />
 
     </RelativeLayout>
 

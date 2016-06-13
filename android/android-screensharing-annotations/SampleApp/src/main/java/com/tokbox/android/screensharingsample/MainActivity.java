@@ -14,18 +14,27 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tokbox.android.accpack.annotations.AnnotationsToolbar;
 import com.tokbox.android.accpack.annotations.AnnotationsView;
 import com.tokbox.android.accpack.screensharing.ScreenSharingFragment;
 import com.tokbox.android.screensharingsample.config.OpenTokConfig;
@@ -36,6 +45,8 @@ import com.tokbox.android.screensharingsample.ui.RemoteControlFragment;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -75,12 +86,20 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     ProgressDialog mProgressDialog;
 
     private Activity activityReference;
+    private TableLayout menu1;
+    private RelativeLayout menu2;
+    private WebView menu3;
+    private TableLayout menu4;
 
+    private AnnotationsToolbar mAnnotationsToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(LOG_TAG, "onCreate");
 
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -92,6 +111,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mCameraFragmentContainer = (RelativeLayout) findViewById(R.id.camera_preview_fragment_container);
         mActionBarContainer = (RelativeLayout) findViewById(R.id.actionbar_preview_fragment_container);
         mScreenSharingContainer = (FrameLayout) findViewById(R.id.screensharing_fragment_container);
+
+        mAnnotationsToolbar = (AnnotationsToolbar) findViewById(R.id.annotations_bar);
+
+        menu1 = (TableLayout) findViewById(R.id.menu1);
+        menu2 = (RelativeLayout) findViewById(R.id.menu2);
+        menu3 = (WebView) findViewById(R.id.menu3);
+        menu4 = (TableLayout) findViewById(R.id.menu4);
 
         //request Marshmallow camera permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -147,6 +173,63 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
         if (mComm != null) {
             mComm.reloadViews(); //reload the local preview and the remote views
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+            getMenuInflater().inflate(R.menu.activity_menu, menu);
+            return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_calendar:
+                menu1.setVisibility(View.VISIBLE);
+                menu2.setVisibility(View.GONE);
+                menu3.setVisibility(View.GONE);
+                menu4.setVisibility(View.GONE);
+                return true;
+            case R.id.menu_graphs:
+                menu1.setVisibility(View.GONE);
+                menu3.setVisibility(View.GONE);
+                menu2.setVisibility(View.VISIBLE);
+                menu4.setVisibility(View.GONE);
+                return true;
+            case R.id.menu_info:
+                menu1.setVisibility(View.GONE);
+                menu2.setVisibility(View.GONE);
+                menu3.setVisibility(View.VISIBLE);
+                menu4.setVisibility(View.GONE);
+                menu3.getSettings().setLoadsImagesAutomatically(true);
+                menu3.getSettings().setJavaScriptEnabled(true);
+                menu3.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+                    menu3.loadUrl("https://tokbox.com/");
+                return true;
+
+            case R.id.menu_call:
+                showAVCall(true);
+                return true;
+
+            case R.id.menu_settings:
+                menu1.setVisibility(View.GONE);
+                menu2.setVisibility(View.GONE);
+                menu3.setVisibility(View.GONE);
+                menu4.setVisibility(View.VISIBLE);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class MyBrowser extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
         }
     }
 
@@ -223,35 +306,18 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onScreenSharing() {
 
-        if (mScreenSharingContainer.getVisibility() == View.VISIBLE){
+        if (mScreenSharingFragment.isStarted()) {
             Log.i(LOG_TAG, "Screensharing stop");
-            mScreenSharingContainer.setVisibility(View.GONE);
-            if (mScreenSharingFragment.isStarted()) {
-                mScreenSharingFragment.stop();
-            }
+            mScreenSharingFragment.stop();
             showAVCall(true);
         }
-        else {
-            showAVCall(false);
-            if ( mScreenSharingFragment != null ) {
-                Log.i(LOG_TAG, "Screensharing start");
 
-                if (!mScreenSharingFragment.isStarted()) {
-                    Log.i("MARINAS", "isStarted no");
-                    mScreenSharingFragment.start();
-                }
-                mScreenSharingContainer.setVisibility(View.VISIBLE);
-
-                //request permission to add screensharing bar on top
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!Settings.canDrawOverlays(this)) {
-                        Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                        startActivity(myIntent);
-                    }
-                }
+        if (mScreenSharingFragment != null) {
+            if (!mScreenSharingFragment.isStarted()) {
+                showAVCall(false);
+                mScreenSharingFragment.start();
             }
         }
-
     }
 
     //Audio remote button event
@@ -286,7 +352,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onScreencaptureReady(Bitmap bmp) {
-        Log.i("MARINAS", "Screenscapture ready");
         saveScreencapture(bmp);
     }
 
@@ -402,7 +467,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private void initScreenSharingFragment(){
         mScreenSharingFragment = ScreenSharingFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
-        mScreenSharingFragment.setAnnotationsEnabled(true);
+        mScreenSharingFragment.setAnnotationsEnabled(true, mAnnotationsToolbar);
         mScreenSharingFragment.setListener(this);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.screensharing_fragment_container, mScreenSharingFragment).commit();
@@ -419,6 +484,10 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //cleans views and controls
     private void cleanViewsAndControls() {
         mPreviewFragment.restart();
+        menu1.setVisibility(View.GONE);
+        menu2.setVisibility(View.GONE);
+        menu3.setVisibility(View.GONE);
+        menu4.setVisibility(View.GONE);
     }
 
     private void showAVCall(boolean show){
@@ -427,6 +496,11 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             mPreviewViewContainer.setVisibility(View.VISIBLE);
             mRemoteViewContainer.setVisibility(View.VISIBLE);
             mCameraFragmentContainer.setVisibility(View.VISIBLE);
+
+            menu1.setVisibility(View.GONE);
+            menu2.setVisibility(View.GONE);
+            menu3.setVisibility(View.GONE);
+            menu4.setVisibility(View.GONE);
         }
         else {
             mActionBarContainer.setVisibility(View.GONE);
@@ -449,28 +523,27 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onScreenSharingStarted() {
-        Log.i("MARINAS", "onScreenSharingStarted");
+        Log.i(LOG_TAG, "onScreenSharingStarted");
     }
 
     @Override
     public void onScreenSharingStopped() {
-            Log.i("MARINAS", "onScreenSharingStopped");
+            Log.i(LOG_TAG, "onScreenSharingStopped");
     }
 
     @Override
     public void onScreenSharingError(String error) {
-        Log.i("MARINAS", "onScreenSharingError");
+        Log.i(LOG_TAG, "onScreenSharingError "+error);
     }
 
     @Override
     public void onAnnotationsViewReady(AnnotationsView view) {
+        Log.i(LOG_TAG, "onAnnotationsViewReady ");
         view.setAnnotationsListener(this);
     }
 
     @Override
     public void onClosed() {
-        Log.i("MARINAS", "onClosed callbacks");
-
         onScreenSharing();
     }
 

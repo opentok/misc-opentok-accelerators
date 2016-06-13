@@ -48,12 +48,12 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     private AnnotationsToolbar mToolbar;
 
     private boolean mAnnotationsActive = false;
-    /**
-     * Indicates if you are drawing
-     */
-    private boolean isDrawing = false;
+    private boolean loaded = false;
 
     private AnnotationsListener mListener;
+
+    private int originHeight = 0;
+    private int fullHeight = 0;
 
     public void setAnnotationsListener(AnnotationsListener listener) {
         this.mListener = listener;
@@ -68,7 +68,9 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         Pen("annotation-pen"),
         Clear("annotation-clear"),
         Text("annotation-text"),
-        Capture("annotation-capture");
+        Color("annotation-color"),
+        Capture("annotation-capture"),
+        Done("annotation-done");
 
         private String type;
 
@@ -87,23 +89,23 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     public AnnotationsView(Context context) {
         super(context);
-        setWillNotDraw(false);
-        mAnnotationsManager = new AnnotationsManager();
-
-        mCurrentColor = getResources().getColor(R.color.picker_color_orange);
+        init();
     }
 
     public AnnotationsView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    private void init(){
         setWillNotDraw(false);
         mAnnotationsManager = new AnnotationsManager();
-
         mCurrentColor = getResources().getColor(R.color.picker_color_orange);
+        this.setVisibility(View.GONE);
     }
 
     public void setLayoutParams(RelativeLayout.LayoutParams params) {
         this.setLayoutParams(params);
-
     }
 
     /**
@@ -113,6 +115,12 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return true;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        this.loaded = false;
     }
 
     @Override
@@ -250,7 +258,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                     String[] strings = text.split("(?<=\\G.{" + 10 + "})");
 
                     float x = mCurrentText.getX();
-                    float y = 240;
+                    float y = 340;
                     canvas.drawRect(x, y - result.height() - 20 + (strings.length * 50), x + result.width() + 20, y, borderPaint);
 
                     for (int i = 0; i < strings.length; i++) {
@@ -260,8 +268,8 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                         y = y + 50;
                     }
                 } else {
-                    canvas.drawRect(mCurrentText.getX(), 240 - result.height() - 20, mCurrentText.getX() + result.width() + 20, 240, borderPaint);
-                    canvas.drawText(mCurrentText.getEditText().getText().toString(), mCurrentText.getX(), 240, mCurrentPaint);
+                    canvas.drawRect(mCurrentText.getX(), 340 - result.height() - 20, mCurrentText.getX() + result.width() + 20, 340, borderPaint);
+                    canvas.drawText(mCurrentText.getEditText().getText().toString(), mCurrentText.getX(), 340, mCurrentPaint);
 
                 }
             }
@@ -274,7 +282,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             }
 
             if (drawing.getType().equals(Annotatable.AnnotatableType.TEXT)) {
-
                 canvas.drawText(drawing.getText().getEditText().getText().toString(), drawing.getText().x, drawing.getText().y, drawing.getPaint());
             }
         }
@@ -318,8 +325,12 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             mCurrentPath.lineTo(mX, mY);
         }
     }
-
-    public void clearCanvas() {
+    private void clearAll(){
+        while(mAnnotationsManager.getAnnotatableList().size() > 0){
+            clearCanvas();
+        }
+    }
+    private void clearCanvas() {
         if (mAnnotationsManager.getAnnotatableList().size() > 0) {
             int lastItem = mAnnotationsManager.getAnnotatableList().size() - 1;
             UUID lastId = mAnnotationsManager.getAnnotatableList().get(lastItem).getId();
@@ -345,13 +356,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         this.height = h;
     }
 
-
-    public void setLayoutByDefault() {
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
-        this.setLayoutParams(layoutParams);
-    }
-
     public void createTextAnnotatable(EditText editText, float x, float y) {
         Log.i(LOG_TAG, "Create TextAnnotatable");
         mCurrentPaint = new Paint();
@@ -375,7 +379,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
       }
 
     private void addAnnotatable() {
-        Log.i(LOG_TAG, "ADD ANNOTATABLE");
+        Log.i(LOG_TAG, "Add Annotatable");
         Annotatable annotatable = null;
         if (mode.equals(Mode.Pen)) {
             annotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
@@ -389,11 +393,20 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     @Override
     public void onItemSelected(View v, boolean selected) {
+
+            if (v.getId() == R.id.done) {
+                clearAll();
+                this.setVisibility(GONE);
+                loaded = false;
+                mode = Mode.Done;
+            }
             if (v.getId() == R.id.erase) {
+                mode = Mode.Clear;
                 clearCanvas();
             }
             if (v.getId() == R.id.screenshot) {
                 //screenshot capture
+                mode = Mode.Capture;
                 if (videoRenderer != null) {
                     Bitmap bmp = videoRenderer.captureScreenshot();
                     if (mListener != null) {
@@ -402,18 +415,32 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                 }
             }
             if (selected){
-                if (v.getId() == R.id.type_tool) {
-                    //type text
-                    mode = Mode.Text;
+                this.setVisibility(VISIBLE);
+
+                if (v.getId() == R.id.picker_color ){
+                    mode = Mode.Color;
+                    //this.getLayoutParams().height = this.getLayoutParams().height - dpToPx(50);
                 }
-                if (v.getId() == R.id.draw_freehand && selected) {
-                    //freehand lines
-                    mode = Mode.Pen;
+                else {
+                    //this.getLayoutParams().height = this.getLayoutParams().height + dpToPx(50);
+                    if (v.getId() == R.id.type_tool) {
+                        //type text
+                        mode = Mode.Text;
+                    }
+                    if (v.getId() == R.id.draw_freehand) {
+                        //freehand lines
+                        mode = Mode.Pen;
+                    }
                 }
             }
             else {
                 mode = null;
             }
+
+        if (!loaded){
+            this.getLayoutParams().height = this.getLayoutParams().height - dpToPx(mToolbar.getHeight()) - dpToPx(50);
+            loaded = true;
+        }
     }
 
     @Override
@@ -428,5 +455,10 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     public void setVideoRenderer(AnnotationsVideoRenderer videoRenderer) {
         this.videoRenderer = videoRenderer;
+    }
+
+    private int dpToPx(int dp) {
+        double screenDensity = this.getResources().getDisplayMetrics().density;
+        return (int) (screenDensity * (double) dp);
     }
 }

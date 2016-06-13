@@ -10,6 +10,9 @@ import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 public class AnnotationsToolbar extends LinearLayout {
@@ -20,6 +23,8 @@ public class AnnotationsToolbar extends LinearLayout {
     private ImageButton mTypeBtn;
     private ImageButton mScreenshotBtn;
     private ImageButton mPickerColorBtn;
+    private TextView mDoneBtn;
+
     private Context mContext;
     private LinearLayout mMainToolbar;
     private LinearLayout mColorToolbar;
@@ -114,6 +119,7 @@ public class AnnotationsToolbar extends LinearLayout {
         mTypeBtn = (ImageButton) mMainToolbar.findViewById(R.id.type_tool);
         mScreenshotBtn = (ImageButton) mMainToolbar.findViewById(R.id.screenshot);
         mEraseBtn = (ImageButton) mMainToolbar.findViewById(R.id.erase);
+        mDoneBtn = (TextView) mMainToolbar.findViewById(R.id.done);
 
         final int mCount = mColorToolbar.getChildCount();
 
@@ -128,6 +134,9 @@ public class AnnotationsToolbar extends LinearLayout {
         mEraseBtn.setOnClickListener(mActionsClickListener);
         mScreenshotBtn.setOnClickListener(mActionsClickListener);
         mPickerColorBtn.setOnClickListener(mActionsClickListener);
+        mDoneBtn.setOnClickListener(mActionsClickListener);
+
+        mDoneBtn.setSelected(false);
     }
 
     public void restart(){
@@ -153,8 +162,11 @@ public class AnnotationsToolbar extends LinearLayout {
                         mColorScrollView.setVisibility(View.GONE);
                     }
                 }
+                else {
+                    mColorScrollView.setVisibility(View.GONE);
+                }
                 updateSelectedButtons(v);
-                if (v.getId() != R.id.screenshot && v.getId() != R.id.erase) {
+                if (v.getId() != R.id.screenshot && v.getId() != R.id.erase && v.getId() != R.id.done) {
                     if (v.isSelected()) {
                         v.setSelected(false);
                     } else {

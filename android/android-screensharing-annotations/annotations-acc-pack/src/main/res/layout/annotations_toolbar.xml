@@ -7,16 +7,17 @@
     <HorizontalScrollView
         android:id="@+id/color_view"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/toolbar_height"
         android:isScrollContainer="true"
         android:visibility="gone"
         android:fillViewport="true"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:paddingBottom="5dp">
 
     <LinearLayout
         android:id="@+id/color_toolbar"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/toolbar_height"
         android:orientation="horizontal"
         android:background="@color/toolbar_bckg"
         android:gravity="center_horizontal"
@@ -24,110 +25,91 @@
 
         <ImageButton
             android:id="@+id/picker_blue"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:tint="@color/picker_color_blue"
             android:clickable="true" />
 
         <ImageButton
             android:id="@+id/picker_purple"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:tint="@color/picker_color_purple"
             android:clickable="true"/>
 
         <ImageButton
             android:id="@+id/picker_red"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:tint="@color/picker_color_red"
             android:clickable="true" />
 
         <ImageButton
             android:id="@+id/picker_orange"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:tint="@color/picker_color_orange"
             android:clickable="true" />
 
         <ImageButton
             android:id="@+id/picker_yellow"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:tint="@color/picker_color_yellow"
             android:clickable="true"/>
 
         <ImageButton
             android:id="@+id/picker_green"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:tint="@color/picker_color_green"
             android:clickable="true"/>
 
         <ImageButton
             android:id="@+id/picker_black"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:tint="@color/picker_color_black"
             android:clickable="true"/>
 
         <ImageButton
             android:id="@+id/picker_gray"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="1dp"
             android:tint="@color/picker_color_gray"
             android:clickable="true"/>
 
         <ImageButton
             android:id="@+id/picker_white"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
             android:background="@drawable/selector"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:tint="@color/picker_color_white"
             android:clickable="true"/>
 
@@ -137,13 +119,23 @@
     <LinearLayout
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/toolbar_height"
         android:background="@color/toolbar_bckg"
         android:gravity="center_horizontal">
 
+        <TextView
+            android:id="@+id/done"
+            android:layout_width="@dimen/done_width"
+            android:layout_height="@dimen/toolbar_height"
+            android:text="@string/done_btn"
+            android:gravity="center"
+            android:textColor="@color/picker_color_white"
+            android:background="@drawable/done_selector"
+            android:clickable="true"/>
+
         <ImageButton
             android:id="@+id/draw_freehand"
-            android:layout_width="50dp"
+            android:layout_width="@dimen/toolbar_height"
             android:layout_height="match_parent"
             android:src="@drawable/ic_pencil"
             android:layout_gravity="center_vertical"
@@ -151,19 +143,16 @@
 
         <ImageButton
             android:id="@+id/picker_color"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/color_picker"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="1dp"
             android:background="@drawable/selector"
             android:tint="@color/picker_color_orange"/>
 
         <ImageButton
             android:id="@+id/type_tool"
-            android:layout_width="50dp"
+            android:layout_width="@dimen/toolbar_height"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_type_tool"
@@ -171,7 +160,7 @@
 
         <ImageButton
             android:id="@+id/screenshot"
-            android:layout_width="50dp"
+            android:layout_width="@dimen/toolbar_height"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_screenshot"
@@ -179,7 +168,7 @@
 
         <ImageButton
             android:id="@+id/erase"
-            android:layout_width="50dp"
+            android:layout_width="@dimen/toolbar_height"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_erase"

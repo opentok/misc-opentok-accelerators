@@ -28,17 +28,6 @@ public class ScreenSharingBar extends RelativeLayout{
         this.mListener = listener;
         this.setBackgroundColor(getResources().getColor(R.color.screensharing_bar));
 
-        /* TODO: Add screensharing icon to the ss status bar
-        mScreenSharingInfo = new ImageButton(context);
-        mScreenSharingInfo.setImageDrawable(getResources().getDrawable(R.drawable.screensharing_info));
-        mScreenSharingInfo.setBackground(null);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-
-        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        this.addView(mScreenSharingInfo, params);*/
-
         mCloseBtn = new ImageButton(context);
         mCloseBtn.setImageDrawable(getResources().getDrawable(R.drawable.close));
 
