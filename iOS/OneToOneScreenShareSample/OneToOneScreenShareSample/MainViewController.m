@@ -15,9 +15,7 @@
 @interface MainViewController ()
 @property (nonatomic) MainView *mainView;
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
-
-@property (nonatomic) ScreenCapture *screenShare;
-@property (nonatomic) ScreenCaptureHandler *screenCaptureHandler;
+@property (nonatomic) ScreenSharer *screenSharer;
 @end
 
 @implementation MainViewController
@@ -27,14 +25,14 @@
     
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
-    self.screenCaptureHandler = [ScreenCaptureHandler screenCaptureHandler];
+    self.screenSharer = [ScreenSharer screenSharer];
 }
 
 /**
  * toggles the call start/end handles the color of the buttons
  */
 - (IBAction)publisherCallButtonPressed:(UIButton *)sender {
-    if (!self.oneToOneCommunicator.isCallEnabled) {
+    if (!self.oneToOneCommunicator.isCallEnabled && !self.screenSharer.isScreenSharing) {
         [self.mainView callHolderDisconnected];
         [SVProgressHUD show];
         [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
@@ -48,15 +46,13 @@
     }
     else {
         [self.mainView callHolderConnected];
+        [self.screenSharer disconnect];
         [self.oneToOneCommunicator disconnect];
         
         [self.mainView removePublisherView];
         [self.mainView removePlaceHolderImage];
-        [SVProgressHUD dismiss];
+        [self.mainView removeAnnotationToolBar];
         [self.mainView buttonsStatusSetter:NO];
-        
-        [self.screenCaptureHandler removeVideoSourceScreenShare];
-        [self.mainView usingBorder: NO];
     }
 }
 
@@ -137,20 +133,87 @@
 }
 
 - (IBAction)annotationButtonPressed:(UIButton *)sender {
-    [self.mainView setupAnnotationToolBar];
+    [self.mainView toggleAnnotationToolBar];
 }
 
 /**
  *  toggles the screen share of the current content of the screen
  */
 - (IBAction)ScreenShareButtonPressed:(UIButton *)sender {
-    self.screenShare = [[ScreenCapture alloc] initWithView: self.mainView];
-    if(!self.screenCaptureHandler.isScreenSharing){
-        [self.screenCaptureHandler setScreenCaptureSource: self.screenShare];
-        [self.mainView usingBorder:YES];
-    } else {
-        [self.screenCaptureHandler removeVideoSourceScreenShare];
-        [self.mainView usingBorder:NO];
+    
+    
+    [SVProgressHUD show];
+    if (!self.screenSharer.isScreenSharing) {
+        [self.screenSharer connectWithView:self.view handler:^(ScreenShareSignal signal, NSError *error) {
+            
+            [SVProgressHUD dismiss];
+            [self handleScreenShareSignal:signal];
+        }];
+    }
+    else {
+        [self.screenSharer disconnect];
+        [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
+            
+            [SVProgressHUD dismiss];
+            if (!error) {
+                [self handleCommunicationSignal:signal];
+            }
+        }];
+    }
+}
+
+- (void)handleScreenShareSignal:(ScreenShareSignal)signal {
+    
+    
+    switch (signal) {
+        case ScreenShareSignalSessionDidConnect: {
+            [self.oneToOneCommunicator disconnect];
+            [self.mainView addScreenShareView];
+            [self.mainView toggleAnnotationToolBar];
+            break;
+        }
+        case ScreenShareSignalSessionDidDisconnect: {
+            [self.mainView removeScreenShareView];
+            [self.mainView removeAnnotationToolBar];
+            break;
+        }
+        case ScreenShareSignalSessionDidFail:{
+            [SVProgressHUD dismiss];
+            break;
+        }
+        case ScreenShareSignalSessionStreamCreated:{
+            break;
+        }
+        case ScreenShareSignalSessionStreamDestroyed:{
+            break;
+        }
+        case ScreenShareSignalPublisherDidFail:{
+            [SVProgressHUD showErrorWithStatus:@"Problem when publishing"];
+            break;
+        }
+        case ScreenShareSignalSubscriberConnect:{
+            break;
+        }
+        case ScreenShareSignalSubscriberDidFail:{
+            [SVProgressHUD showErrorWithStatus:@"Problem when subscribing"];
+            break;
+        }
+        case ScreenShareSignalSubscriberVideoDisabled:{
+            break;
+        }
+        case ScreenShareSignalSubscriberVideoEnabled:{
+            break;
+        }
+        case ScreenShareSignalSubscriberVideoDisableWarning:{
+            [SVProgressHUD showErrorWithStatus:@"Network connection is unstable."];
+            break;
+        }
+        case ScreenShareSignalSubscriberVideoDisableWarningLifted:{
+            break;
+        }
+            
+        default:
+            break;
     }
 }
 

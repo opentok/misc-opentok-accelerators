@@ -32,7 +32,7 @@
                     fontSize:(CGFloat)fontSize {
     
     if (self = [super initWithNibName:@"ScreenShareEditTextViewController"
-                               bundle:[NSBundle bundleForClass:[ScreenShareEditTextViewController class]]]) {
+                               bundle:[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"ScreenShareKitBundle" withExtension:@"bundle"]]]) {
         
         _fontSizeArray = @[@24, @26, @28, @30, @32, @34, @36, @38, @40, @42, @44, @46, @48];
         

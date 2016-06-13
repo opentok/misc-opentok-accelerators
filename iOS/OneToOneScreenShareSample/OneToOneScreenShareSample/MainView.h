@@ -37,11 +37,13 @@
 - (void)showSubscriberControls;
 - (void)hideSubscriberControls;
 
+- (void)addScreenShareView;
+- (void)removeScreenShareView;
+
 // other controls
 - (void)removePlaceHolderImage;
-- (void) buttonsStatusSetter: (BOOL)status;
-- (void)usingBorder:(BOOL)shoudlAdd;
+- (void)buttonsStatusSetter: (BOOL)status;
 
-- (void) setupAnnotationToolBar;
-
+- (void)toggleAnnotationToolBar;
+- (void)removeAnnotationToolBar;
 @end

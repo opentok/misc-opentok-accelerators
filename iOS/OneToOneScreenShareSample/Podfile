@@ -7,4 +7,5 @@ target 'OneToOneScreenShareSample' do
   pod 'OpenTok'
   pod 'OTAcceleratorPackUtil'
   pod 'SVProgressHUD'
+  pod 'LHToolbar', '1.2.1-beta'
 end

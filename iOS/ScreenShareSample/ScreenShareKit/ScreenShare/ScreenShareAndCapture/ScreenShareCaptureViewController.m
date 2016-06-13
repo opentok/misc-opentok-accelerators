@@ -32,7 +32,7 @@
 
 - (instancetype)initWithSharedImage:(UIImage *)sharedImage {
     
-    if (self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleForClass:self.class]]) {
+    if (self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"ScreenShareKitBundle" withExtension:@"bundle"]]]) {
     
         _captureModel = [[CaptureModel alloc] initWithSharedImage:sharedImage sharedDate:[NSDate date]];
         

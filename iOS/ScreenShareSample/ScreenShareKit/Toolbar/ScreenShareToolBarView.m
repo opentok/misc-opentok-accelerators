@@ -92,12 +92,17 @@
 
 + (instancetype)toolbar {
     CGRect mainBounds = [UIScreen mainScreen].bounds;
-    return [[ScreenShareToolbarView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(mainBounds) - DefaultToolbarHeight, CGRectGetWidth(mainBounds), DefaultToolbarHeight)];
+    return [[ScreenShareToolbarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainBounds), DefaultToolbarHeight)];
+}
+
+- (void)setFrame:(CGRect)frame {
+    CGRect mainBounds = [UIScreen mainScreen].bounds;
+    super.frame = CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth(mainBounds), DefaultToolbarHeight);
 }
 
 - (void)configureToolbarButtons {
 
-    NSBundle *frameworkBundle = [NSBundle bundleForClass:self.class];
+    NSBundle *frameworkBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"ScreenShareKitBundle" withExtension:@"bundle"]];
     
     _annotateButton = [[ScreenShareToolbarButton alloc] init];
     [_annotateButton setImage:[UIImage imageNamed:@"annotate" inBundle:frameworkBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];

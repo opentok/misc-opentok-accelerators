@@ -21,10 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0B8092BEA4B7CC3300E14931 /* libPods-ScreenShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD06BE62EEE30807B2526C2 /* libPods-ScreenShareKit.a */; };
 		3F2E19771CF8EDD600465198 /* ScreenSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F2E19751CF8EDD600465198 /* ScreenSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3F2E19781CF8EDD600465198 /* ScreenSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E19761CF8EDD600465198 /* ScreenSharer.m */; };
-		A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A1781CEE7AFB00935C9E /* ScreenCapture.h */; };
-		A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = A012A1791CEE7AFB00935C9E /* ScreenCapture.m */; };
 		A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A012A1801CEE7AFB00935C9E /* ScreenShareView.h in Headers */ = {isa = PBXBuildFile; fileRef = A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A012A1811CEE7AFB00935C9E /* ScreenShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = A012A17C1CEE7AFB00935C9E /* ScreenShareView.m */; };
@@ -45,10 +44,8 @@
 		A02410FD1D08075B0001670C /* ScreenShareCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410F51D08075B0001670C /* ScreenShareCaptureView.m */; };
 		A02410FE1D08075B0001670C /* ScreenShareCaptureViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410F61D08075B0001670C /* ScreenShareCaptureViewController.h */; };
 		A02410FF1D08075B0001670C /* ScreenShareCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410F71D08075B0001670C /* ScreenShareCaptureViewController.m */; };
-		A02411001D08075B0001670C /* ScreenShareCaptureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02410F81D08075B0001670C /* ScreenShareCaptureViewController.xib */; };
 		A02411011D08075B0001670C /* ScreenShareEditTextViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410F91D08075B0001670C /* ScreenShareEditTextViewController.h */; };
 		A02411021D08075B0001670C /* ScreenShareEditTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410FA1D08075B0001670C /* ScreenShareEditTextViewController.m */; };
-		A02411031D08075B0001670C /* ScreenShareEditTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02410FB1D08075B0001670C /* ScreenShareEditTextViewController.xib */; };
 		A0253B041CD72713006829E6 /* mvc.png in Resources */ = {isa = PBXBuildFile; fileRef = A0253B031CD72713006829E6 /* mvc.png */; };
 		A044C3B61CED1D65000F7489 /* AnnotationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A044C3AE1CED1D65000F7489 /* AnnotationManager.h */; };
 		A044C3B71CED1D65000F7489 /* AnnotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A044C3AF1CED1D65000F7489 /* AnnotationManager.m */; };
@@ -60,7 +57,12 @@
 		A044C3C51CED285A000F7489 /* Annotatable.h in Headers */ = {isa = PBXBuildFile; fileRef = A044C3C41CED285A000F7489 /* Annotatable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A044C3C71CED95D3000F7489 /* AnnotationPoint_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A044C3C61CED95D3000F7489 /* AnnotationPoint_Private.h */; };
 		A060AF961CF4346700589311 /* AnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = A044C3B41CED1D65000F7489 /* AnnotationView.h */; };
-		A07FCC3A1CE28A14005D9927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07FCC391CE28A14005D9927 /* Assets.xcassets */; };
+		A063BCD41D0F4AE100AB02A3 /* TBScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A063BCD21D0F4AE100AB02A3 /* TBScreenCapture.h */; };
+		A063BCD51D0F4AE100AB02A3 /* TBScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = A063BCD31D0F4AE100AB02A3 /* TBScreenCapture.m */; };
+		A071EAB71D0E87F600C0D418 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A071EAB41D0E87F600C0D418 /* Assets.xcassets */; };
+		A071EAB81D0E87F600C0D418 /* ScreenShareCaptureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A071EAB51D0E87F600C0D418 /* ScreenShareCaptureViewController.xib */; };
+		A071EAB91D0E87F600C0D418 /* ScreenShareEditTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A071EAB61D0E87F600C0D418 /* ScreenShareEditTextViewController.xib */; };
+		A071EABA1D0E886400C0D418 /* ScreenShareKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A071EAAE1D0E879200C0D418 /* ScreenShareKitBundle.bundle */; };
 		A0900B001CEFCBA000B12800 /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0900AFE1CEFCBA000B12800 /* UIViewController+Helper.h */; };
 		A0900B011CEFCBA000B12800 /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0900AFF1CEFCBA000B12800 /* UIViewController+Helper.m */; };
 		A09A4AA61CD02A800024C349 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A4AA51CD02A800024C349 /* main.m */; };
@@ -100,8 +102,9 @@
 /* Begin PBXFileReference section */
 		3F2E19751CF8EDD600465198 /* ScreenSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenSharer.h; sourceTree = "<group>"; };
 		3F2E19761CF8EDD600465198 /* ScreenSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenSharer.m; sourceTree = "<group>"; };
-		A012A1781CEE7AFB00935C9E /* ScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCapture.h; sourceTree = "<group>"; };
-		A012A1791CEE7AFB00935C9E /* ScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenCapture.m; sourceTree = "<group>"; };
+		4392E01F6B8A4EB28B38E8BF /* Pods-ScreenShareKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenShareKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScreenShareKit/Pods-ScreenShareKit.release.xcconfig"; sourceTree = "<group>"; };
+		58EACD007EF35D7842D326C3 /* Pods-ScreenShareKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenShareKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScreenShareKit/Pods-ScreenShareKit.debug.xcconfig"; sourceTree = "<group>"; };
+		7CD06BE62EEE30807B2526C2 /* libPods-ScreenShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScreenShareKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareKit.h; sourceTree = "<group>"; };
 		A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareView.h; sourceTree = "<group>"; };
 		A012A17C1CEE7AFB00935C9E /* ScreenShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareView.m; sourceTree = "<group>"; };
@@ -122,10 +125,8 @@
 		A02410F51D08075B0001670C /* ScreenShareCaptureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareCaptureView.m; sourceTree = "<group>"; };
 		A02410F61D08075B0001670C /* ScreenShareCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareCaptureViewController.h; sourceTree = "<group>"; };
 		A02410F71D08075B0001670C /* ScreenShareCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareCaptureViewController.m; sourceTree = "<group>"; };
-		A02410F81D08075B0001670C /* ScreenShareCaptureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShareCaptureViewController.xib; sourceTree = "<group>"; };
 		A02410F91D08075B0001670C /* ScreenShareEditTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareEditTextViewController.h; sourceTree = "<group>"; };
 		A02410FA1D08075B0001670C /* ScreenShareEditTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareEditTextViewController.m; sourceTree = "<group>"; };
-		A02410FB1D08075B0001670C /* ScreenShareEditTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShareEditTextViewController.xib; sourceTree = "<group>"; };
 		A0253B031CD72713006829E6 /* mvc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mvc.png; sourceTree = "<group>"; };
 		A044C3AE1CED1D65000F7489 /* AnnotationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationManager.h; sourceTree = "<group>"; };
 		A044C3AF1CED1D65000F7489 /* AnnotationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationManager.m; sourceTree = "<group>"; };
@@ -137,7 +138,13 @@
 		A044C3BF1CED266E000F7489 /* AnnotationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationPoint.m; sourceTree = "<group>"; };
 		A044C3C41CED285A000F7489 /* Annotatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotatable.h; sourceTree = "<group>"; };
 		A044C3C61CED95D3000F7489 /* AnnotationPoint_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationPoint_Private.h; sourceTree = "<group>"; };
-		A07FCC391CE28A14005D9927 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A063BCD21D0F4AE100AB02A3 /* TBScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBScreenCapture.h; sourceTree = "<group>"; };
+		A063BCD31D0F4AE100AB02A3 /* TBScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBScreenCapture.m; sourceTree = "<group>"; };
+		A071EAAE1D0E879200C0D418 /* ScreenShareKitBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenShareKitBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		A071EAB01D0E879200C0D418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A071EAB41D0E87F600C0D418 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A071EAB51D0E87F600C0D418 /* ScreenShareCaptureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShareCaptureViewController.xib; sourceTree = "<group>"; };
+		A071EAB61D0E87F600C0D418 /* ScreenShareEditTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShareEditTextViewController.xib; sourceTree = "<group>"; };
 		A0900AFE1CEFCBA000B12800 /* UIViewController+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Helper.h"; sourceTree = "<group>"; };
 		A0900AFF1CEFCBA000B12800 /* UIViewController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Helper.m"; sourceTree = "<group>"; };
 		A09A4AA11CD02A800024C349 /* ScreenShareSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenShareSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +163,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A071EAAB1D0E879200C0D418 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A09A4A9E1CD02A800024C349 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -168,22 +182,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B8092BEA4B7CC3300E14931 /* libPods-ScreenShareKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6963EEC94F4EBF1372CA1BAE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7CD06BE62EEE30807B2526C2 /* libPods-ScreenShareKit.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A012A1771CEE7AFB00935C9E /* ScreenShare */ = {
 			isa = PBXGroup;
 			children = (
 				A02410F31D08075B0001670C /* ScreenShareAndCapture */,
 				A02410F91D08075B0001670C /* ScreenShareEditTextViewController.h */,
 				A02410FA1D08075B0001670C /* ScreenShareEditTextViewController.m */,
-				A02410FB1D08075B0001670C /* ScreenShareEditTextViewController.xib */,
 				A012A17A1CEE7AFB00935C9E /* ScreenShareKit.h */,
-				A012A1781CEE7AFB00935C9E /* ScreenCapture.h */,
-				A012A1791CEE7AFB00935C9E /* ScreenCapture.m */,
+				A063BCD21D0F4AE100AB02A3 /* TBScreenCapture.h */,
+				A063BCD31D0F4AE100AB02A3 /* TBScreenCapture.m */,
 				3F2E19751CF8EDD600465198 /* ScreenSharer.h */,
 				3F2E19761CF8EDD600465198 /* ScreenSharer.m */,
 				A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */,
@@ -211,7 +233,6 @@
 				A02410F51D08075B0001670C /* ScreenShareCaptureView.m */,
 				A02410F61D08075B0001670C /* ScreenShareCaptureViewController.h */,
 				A02410F71D08075B0001670C /* ScreenShareCaptureViewController.m */,
-				A02410F81D08075B0001670C /* ScreenShareCaptureViewController.xib */,
 			);
 			path = ScreenShareAndCapture;
 			sourceTree = "<group>";
@@ -247,6 +268,17 @@
 			path = Annotation;
 			sourceTree = "<group>";
 		};
+		A071EAAF1D0E879200C0D418 /* ScreenShareKitBundle */ = {
+			isa = PBXGroup;
+			children = (
+				A071EAB41D0E87F600C0D418 /* Assets.xcassets */,
+				A071EAB51D0E87F600C0D418 /* ScreenShareCaptureViewController.xib */,
+				A071EAB61D0E87F600C0D418 /* ScreenShareEditTextViewController.xib */,
+				A071EAB01D0E879200C0D418 /* Info.plist */,
+			);
+			path = ScreenShareKitBundle;
+			sourceTree = "<group>";
+		};
 		A0900AFD1CEFCB7A00B12800 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,7 +295,10 @@
 			children = (
 				A09A4AA31CD02A800024C349 /* ScreenShareSample */,
 				A09A4AC11CD02A990024C349 /* ScreenShareKit */,
+				A071EAAF1D0E879200C0D418 /* ScreenShareKitBundle */,
 				A09A4AA21CD02A800024C349 /* Products */,
+				F8D50F20395D3A2BD4C93CA8 /* Pods */,
+				6963EEC94F4EBF1372CA1BAE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -272,6 +307,7 @@
 			children = (
 				A09A4AA11CD02A800024C349 /* ScreenShareSample.app */,
 				A09A4AC01CD02A990024C349 /* ScreenShareKit.framework */,
+				A071EAAE1D0E879200C0D418 /* ScreenShareKitBundle.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -310,9 +346,17 @@
 				A0900AFD1CEFCB7A00B12800 /* Util */,
 				A0A7D02E1CEA34C300252AEE /* Constants.h */,
 				A09A4AC41CD02A990024C349 /* Info.plist */,
-				A07FCC391CE28A14005D9927 /* Assets.xcassets */,
 			);
 			path = ScreenShareKit;
+			sourceTree = "<group>";
+		};
+		F8D50F20395D3A2BD4C93CA8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				58EACD007EF35D7842D326C3 /* Pods-ScreenShareKit.debug.xcconfig */,
+				4392E01F6B8A4EB28B38E8BF /* Pods-ScreenShareKit.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,7 +372,6 @@
 				3F2E19771CF8EDD600465198 /* ScreenSharer.h in Headers */,
 				A02410F11D08074B0001670C /* AnnotationTextView.h in Headers */,
 				A044C3C51CED285A000F7489 /* Annotatable.h in Headers */,
-				A012A17D1CEE7AFB00935C9E /* ScreenCapture.h in Headers */,
 				A0166D2B1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.h in Headers */,
 				A0166D451CF505A400DED33F /* ScreenShareToolbarButton.h in Headers */,
 				A0166D2A1CF4BBA700DED33F /* ScreenShareToolbarView_UserInterfaces.h in Headers */,
@@ -341,6 +384,7 @@
 				A0900B001CEFCBA000B12800 /* UIViewController+Helper.h in Headers */,
 				A0166D411CF4ED2400DED33F /* UIButton+AutoLayoutHelper.h in Headers */,
 				A044C3C71CED95D3000F7489 /* AnnotationPoint_Private.h in Headers */,
+				A063BCD41D0F4AE100AB02A3 /* TBScreenCapture.h in Headers */,
 				A02410FE1D08075B0001670C /* ScreenShareCaptureViewController.h in Headers */,
 				A044C3B61CED1D65000F7489 /* AnnotationManager.h in Headers */,
 			);
@@ -349,6 +393,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		A071EAAD1D0E879200C0D418 /* ScreenShareKitBundle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A071EAB31D0E879200C0D418 /* Build configuration list for PBXNativeTarget "ScreenShareKitBundle" */;
+			buildPhases = (
+				A071EAAA1D0E879200C0D418 /* Sources */,
+				A071EAAB1D0E879200C0D418 /* Frameworks */,
+				A071EAAC1D0E879200C0D418 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenShareKitBundle;
+			productName = ScreenShareKitBundle;
+			productReference = A071EAAE1D0E879200C0D418 /* ScreenShareKitBundle.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		A09A4AA01CD02A800024C349 /* ScreenShareSample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A09A4AB81CD02A800024C349 /* Build configuration list for PBXNativeTarget "ScreenShareSample" */;
@@ -372,10 +433,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A09A4AC91CD02A990024C349 /* Build configuration list for PBXNativeTarget "ScreenShareKit" */;
 			buildPhases = (
+				D4F9567F8F964DFA9BB93234 /* 📦 Check Pods Manifest.lock */,
 				A09A4ABB1CD02A990024C349 /* Sources */,
 				A09A4ABC1CD02A990024C349 /* Frameworks */,
 				A09A4ABD1CD02A990024C349 /* Headers */,
 				A09A4ABE1CD02A990024C349 /* Resources */,
+				A56AE12F3EA3327715A801E1 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -396,6 +459,9 @@
 				ORGANIZATIONNAME = "Lucas Huang";
 				TargetAttributes = {
 					A022F5F11CF584F0008E8C70 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					A071EAAD1D0E879200C0D418 = {
 						CreatedOnToolsVersion = 7.3;
 					};
 					A09A4AA01CD02A800024C349 = {
@@ -422,15 +488,27 @@
 				A09A4AA01CD02A800024C349 /* ScreenShareSample */,
 				A09A4ABF1CD02A990024C349 /* ScreenShareKit */,
 				A022F5F11CF584F0008E8C70 /* BuildFatFramework */,
+				A071EAAD1D0E879200C0D418 /* ScreenShareKitBundle */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A071EAAC1D0E879200C0D418 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A071EAB71D0E87F600C0D418 /* Assets.xcassets in Resources */,
+				A071EAB91D0E87F600C0D418 /* ScreenShareEditTextViewController.xib in Resources */,
+				A071EAB81D0E87F600C0D418 /* ScreenShareCaptureViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A09A4A9F1CD02A800024C349 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A071EABA1D0E886400C0D418 /* ScreenShareKitBundle.bundle in Resources */,
 				A0253B041CD72713006829E6 /* mvc.png in Resources */,
 				A09A4AB41CD02A800024C349 /* LaunchScreen.storyboard in Resources */,
 				A09A4AB11CD02A800024C349 /* Assets.xcassets in Resources */,
@@ -442,9 +520,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A02411001D08075B0001670C /* ScreenShareCaptureViewController.xib in Resources */,
-				A07FCC3A1CE28A14005D9927 /* Assets.xcassets in Resources */,
-				A02411031D08075B0001670C /* ScreenShareEditTextViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,9 +539,46 @@
 			shellPath = /bin/sh;
 			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nWORKSPACE_NAME=\"ScreenShareSample.xcworkspace\"\nFRAMEWORK_NAME=\"ScreenShareKit\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\n# xcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n# xcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\"\n\n# 5\n# Remove .framework file if exists on Desktop from previous run.\nif [ -d \"../OneToOneScreenShareSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneScreenShareSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to Desktop.\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneScreenShareSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneScreenShareSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi";
 		};
+		A56AE12F3EA3327715A801E1 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ScreenShareKit/Pods-ScreenShareKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4F9567F8F964DFA9BB93234 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A071EAAA1D0E879200C0D418 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A09A4A9D1CD02A800024C349 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -485,7 +597,6 @@
 				A02410FD1D08075B0001670C /* ScreenShareCaptureView.m in Sources */,
 				A0166D2C1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.m in Sources */,
 				A02410F21D08074B0001670C /* AnnotationTextView.m in Sources */,
-				A012A17E1CEE7AFB00935C9E /* ScreenCapture.m in Sources */,
 				A02411021D08075B0001670C /* ScreenShareEditTextViewController.m in Sources */,
 				3F2E19781CF8EDD600465198 /* ScreenSharer.m in Sources */,
 				A012A1811CEE7AFB00935C9E /* ScreenShareView.m in Sources */,
@@ -493,6 +604,7 @@
 				A0166D381CF4CD7600DED33F /* ScreenShareToolbarView.m in Sources */,
 				A044C3B71CED1D65000F7489 /* AnnotationManager.m in Sources */,
 				A0166D461CF505A400DED33F /* ScreenShareToolbarButton.m in Sources */,
+				A063BCD51D0F4AE100AB02A3 /* TBScreenCapture.m in Sources */,
 				A0166D421CF4ED2400DED33F /* UIButton+AutoLayoutHelper.m in Sources */,
 				A0166D341CF4CD7100DED33F /* ScreenShareColorPickerView.m in Sources */,
 				A044C3C11CED266E000F7489 /* AnnotationPoint.m in Sources */,
@@ -542,6 +654,38 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A071EAB11D0E879200C0D418 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScreenShareKitBundle/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.ScreenShareKitBundle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		A071EAB21D0E879200C0D418 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScreenShareKitBundle/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.ScreenShareKitBundle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -665,6 +809,7 @@
 		};
 		A09A4ACA1CD02A990024C349 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58EACD007EF35D7842D326C3 /* Pods-ScreenShareKit.debug.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -677,7 +822,9 @@
 				);
 				INFOPLIST_FILE = ScreenShareKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Tokbox.ScreenShareKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -688,6 +835,7 @@
 		};
 		A09A4ACB1CD02A990024C349 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4392E01F6B8A4EB28B38E8BF /* Pods-ScreenShareKit.release.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -700,7 +848,9 @@
 				);
 				INFOPLIST_FILE = ScreenShareKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Tokbox.ScreenShareKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -717,6 +867,15 @@
 			buildConfigurations = (
 				A022F5F21CF584F0008E8C70 /* Debug */,
 				A022F5F31CF584F0008E8C70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A071EAB31D0E879200C0D418 /* Build configuration list for PBXNativeTarget "ScreenShareKitBundle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A071EAB11D0E879200C0D418 /* Debug */,
+				A071EAB21D0E879200C0D418 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

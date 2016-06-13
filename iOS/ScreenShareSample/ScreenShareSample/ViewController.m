@@ -22,7 +22,9 @@
     
     // tool bar
     self.toolbarView = [ScreenShareToolbarView toolbar];
-     self.screenCaptureHandler = [ScreenSharer screenSharer];
+    CGFloat height = self.toolbarView.bounds.size.height;
+    self.toolbarView.frame = CGRectMake(0, CGRectGetHeight([UIScreen mainScreen].bounds) - height, self.toolbarView.bounds.size.width, height);
+    self.screenCaptureHandler = [ScreenSharer screenSharer];
     
     // screen share view
     UIImage *image = [UIImage imageNamed:@"mvc"];
