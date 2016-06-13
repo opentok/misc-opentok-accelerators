@@ -13,6 +13,8 @@
 		6405A5C11C696BE600441745 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5BF1C696BE600441745 /* Main.storyboard */; };
 		6405A5C61C696BE600441745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C51C696BE600441745 /* Assets.xcassets */; };
 		6405A5C91C696BE600441745 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C71C696BE600441745 /* LaunchScreen.storyboard */; };
+		A02411061D0898C70001670C /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A02411051D0898C70001670C /* OneToOneCommunicator.m */; };
+		A02411091D0899260001670C /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A02411081D0899260001670C /* OTKAnalytics.m */; };
 		A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */; };
 		A0B1F1831CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F17A1CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m */; };
 		A0B1F1841CC5423A00E0FB00 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F17C1CC5423A00E0FB00 /* SVProgressAnimatedView.m */; };
@@ -48,6 +50,10 @@
 		6405A5C51C696BE600441745 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6405A5C81C696BE600441745 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6405A5CA1C696BE600441745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A02411041D0898C70001670C /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
+		A02411051D0898C70001670C /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
+		A02411071D0899260001670C /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.h"; sourceTree = "<group>"; };
+		A02411081D0899260001670C /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A0ADEF8A1C9FB2DE00D1A471 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
 		A0B1F1791CC5423A00E0FB00 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
@@ -95,6 +101,10 @@
 		6405A5B51C696BE600441745 /* SampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				A02411041D0898C70001670C /* OneToOneCommunicator.h */,
+				A02411051D0898C70001670C /* OneToOneCommunicator.m */,
+				A02411071D0899260001670C /* OTKAnalytics.h */,
+				A02411081D0899260001670C /* OTKAnalytics.m */,
 				A0B1F1781CC5423A00E0FB00 /* SVProgressHUD */,
 				6405A5B91C696BE600441745 /* AppDelegate.h */,
 				6405A5BA1C696BE600441745 /* AppDelegate.m */,
@@ -225,12 +235,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A02411061D0898C70001670C /* OneToOneCommunicator.m in Sources */,
 				A0B1F1831CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m in Sources */,
 				6405A5BE1C696BE600441745 /* MainViewController.m in Sources */,
 				6405A5BB1C696BE600441745 /* AppDelegate.m in Sources */,
 				A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */,
 				A0B1F1861CC5423A00E0FB00 /* SVProgressHUD.m in Sources */,
 				6405A5B81C696BE600441745 /* main.m in Sources */,
+				A02411091D0899260001670C /* OTKAnalytics.m in Sources */,
 				A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */,
 				A0B1F1841CC5423A00E0FB00 /* SVProgressAnimatedView.m in Sources */,
 			);

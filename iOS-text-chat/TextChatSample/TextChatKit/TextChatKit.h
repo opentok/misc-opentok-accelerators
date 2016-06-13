@@ -9,4 +9,4 @@
 #import <TextChatKit/TextMessage.h>
 #import <TextChatKit/TextChatView.h>
 #import <TextChatKit/TextChatUICustomizator.h>
-#import <TextChatKit/OneToOneCommunicator.h>
+//#import <TextChatKit/OneToOneCommunicator.h>
