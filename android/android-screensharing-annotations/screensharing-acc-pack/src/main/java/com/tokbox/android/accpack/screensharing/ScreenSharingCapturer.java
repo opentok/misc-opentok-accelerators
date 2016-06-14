@@ -40,8 +40,6 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
     private ImageReader mImageReader;
 
     Bitmap lastBmp;
-    int width_final=0;
-    int height_final = 0;
 
     private final Lock mImageReaderLock = new ReentrantLock(true /*fair*/);
 
@@ -51,11 +49,11 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
         public void run() {
             if (capturing) {
             frame = null;
-                  if (frame == null ){
+                  if (frame == null || width != bmp.getWidth()
+                        || height != bmp.getHeight()){
                     if (lastBmp != null){
-                        width = contentView.getWidth();
-                        height = contentView.getHeight();
-
+                        width = lastBmp.getWidth();
+                        height = lastBmp.getHeight();
                         frame = new int[width * height];
 
                         lastBmp.getPixels(frame, 0, width, 0, 0, width, height);
@@ -73,14 +71,15 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
 
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public ScreenSharingCapturer(Context context, View view, ImageReader imageReader, Point size) {
+    public ScreenSharingCapturer(Context context, View view, ImageReader imageReader) {
         this.mContext = context;
         this.contentView = view;
         this.mImageReader = imageReader;
         this.mImageReader.setOnImageAvailableListener(new ImageAvailableListener(), null);
 
-        this.width = size.x;
-        this.height = size.y;
+        this.width = contentView.getWidth();
+        this.height = contentView.getHeight();
+
     }
 
     @Override
@@ -148,18 +147,17 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
                     mImage = mImageReader.acquireLatestImage();
 
                    if (mImage != null) {
-                        Image.Plane[] planes = mImage.getPlanes();
+                       int imgWidth = mImage.getWidth();
+                       int imgHeight = mImage.getHeight();
+
+                       Image.Plane[] planes = mImage.getPlanes();
                         ByteBuffer buffer = planes[0].getBuffer();
                         int pixelStride = planes[0].getPixelStride();
                         int rowStride = planes[0].getRowStride();
-                        int rowPadding = rowStride - pixelStride * width;
+                        int rowPadding = rowStride - pixelStride * imgWidth;
 
                         Buffer buffer2 = planes[0].getBuffer().rewind();
-                        bmp = Bitmap.createBitmap(mImage.getWidth()+ rowPadding / pixelStride, mImage.getHeight(), Bitmap.Config.ARGB_8888);
-
-                       width_final = mImage.getWidth() + rowPadding / pixelStride;
-                       height_final = mImage.getHeight();
-
+                        bmp = Bitmap.createBitmap(imgWidth+ rowPadding / pixelStride, imgHeight, Bitmap.Config.ARGB_8888);
 
                        bmp.copyPixelsFromBuffer(buffer2);
                         lastBmp = bmp.copy(bmp.getConfig(), true);

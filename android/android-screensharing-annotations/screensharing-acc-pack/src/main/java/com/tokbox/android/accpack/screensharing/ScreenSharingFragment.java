@@ -296,7 +296,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         size.set(mWidth, mHeight);
 
         //create ScreenCapturer
-        ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreen, mImageReader, size);
+        ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreen, mImageReader);
         mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", capturer);
         mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
         mScreenPublisher.setPublisherListener(this);

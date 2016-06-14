@@ -378,22 +378,23 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         mCurrentPaint.setStyle(Paint.Style.STROKE);
         mCurrentPaint.setStrokeJoin(Paint.Join.ROUND);
         mCurrentPaint.setStrokeWidth(10);
-        if (mode == Mode.Pen) {
+        if (mode != null && mode == Mode.Pen) {
             mCurrentPath = new AnnotationsPath();
         }
       }
 
     private void addAnnotatable() {
         Log.i(LOG_TAG, "Add Annotatable");
-
-        if (mode.equals(Mode.Pen)) {
-            mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
-            mCurrentAnnotatable.setType(Annotatable.AnnotatableType.PATH);
-        } else {
-            mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentText, mCurrentPaint, width, height);
-            mCurrentAnnotatable.setType(Annotatable.AnnotatableType.TEXT);
+        if (mode != null) {
+            if (mode.equals(Mode.Pen)) {
+                mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
+                mCurrentAnnotatable.setType(Annotatable.AnnotatableType.PATH);
+            } else {
+                mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentText, mCurrentPaint, width, height);
+                mCurrentAnnotatable.setType(Annotatable.AnnotatableType.TEXT);
+            }
+            mAnnotationsManager.addAnnotatable(mCurrentAnnotatable);
         }
-        mAnnotationsManager.addAnnotatable(mCurrentAnnotatable);
     }
 
     @Override
