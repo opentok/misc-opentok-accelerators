@@ -372,9 +372,28 @@
       throw new Error('Text Chat Accelerator Pack requires an OpenTok session.');
     }
 
-    _accPack = _.property('accPack')(options);
-    _sender = _.property('sender')(options);
+    // Generates a random alpha-numeric string of n length
+    var uniqueString = function (length) {
+      var len = length || 3;
+      return Math.random().toString(36).substr(2, len);
+    };
+
+    // Returns session id prepended and appended with unique strings
+    var generateUserId = function () {
+      return [uniqueString(), _session.id, uniqueString()].join('');
+    };
+
     _session = _.property('session')(options);
+    _accPack = _.property('accPack')(options);
+
+    /**
+     * Create arbitary values for sender id and alias if not recieved
+     * in options hash.
+     */
+    _sender = _.defaults(_this.options.textChat.sender, {
+      id: generateUserId(),
+      alias: ['User', uniqueString()].join(' ')
+    });
 
     return _.defaults(_.omit(options, ['accPack', '_sender']), {
       limitCharacterMessage: 160,

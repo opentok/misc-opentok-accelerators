@@ -159,26 +159,10 @@
 
     if (!!TextChatAccPack) {
 
-
-      // Generates a random alpha-numeric string of n length
-      var uniqueString = function (length) {
-        var len = length || 3;
-        return Math.random().toString(36).substr(2, len);
-      };
-
-      // Returns session id prepended and appended with unique strings
-      var generateUserId = function () {
-
-        return [uniqueString(), _session.id, uniqueString()].join('');
-      };
-
       var textChatOptions = {
         accPack: _this,
         session: _session,
-        sender: _.defaults(_this.options.textChat.sender, {
-          id: generateUserId(),
-          alias: ['User', uniqueString()].join(' ')
-        }),
+        sender: _this.options.textChat.sender,
         limitCharacterMessage: _this.options.textChat.limitCharacterMessage,
         controlsContainer: _this.options.textChat.controlsContainer,
         textChatContainer: _this.options.textChat.textChatContainer
