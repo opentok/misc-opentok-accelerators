@@ -4,12 +4,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import com.opentok.android.BaseVideoCapturer;
@@ -146,20 +144,20 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
                 try {
                     mImage = mImageReader.acquireLatestImage();
 
-                   if (mImage != null) {
-                       int imgWidth = mImage.getWidth();
-                       int imgHeight = mImage.getHeight();
+                    if (mImage != null) {
+                        int imgWidth = mImage.getWidth();
+                        int imgHeight = mImage.getHeight();
 
-                       Image.Plane[] planes = mImage.getPlanes();
+                        Image.Plane[] planes = mImage.getPlanes();
                         ByteBuffer buffer = planes[0].getBuffer();
                         int pixelStride = planes[0].getPixelStride();
                         int rowStride = planes[0].getRowStride();
                         int rowPadding = rowStride - pixelStride * imgWidth;
 
                         Buffer buffer2 = planes[0].getBuffer().rewind();
-                        bmp = Bitmap.createBitmap(imgWidth+ rowPadding / pixelStride, imgHeight, Bitmap.Config.ARGB_8888);
+                        bmp = Bitmap.createBitmap(imgWidth + rowPadding / pixelStride, imgHeight, Bitmap.Config.ARGB_8888);
 
-                       bmp.copyPixelsFromBuffer(buffer2);
+                        bmp.copyPixelsFromBuffer(buffer2);
                         lastBmp = bmp.copy(bmp.getConfig(), true);
                     }
 

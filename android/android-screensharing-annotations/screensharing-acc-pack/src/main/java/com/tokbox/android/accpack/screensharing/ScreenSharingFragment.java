@@ -3,6 +3,7 @@ package com.tokbox.android.accpack.screensharing;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
@@ -413,7 +414,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
         mAnnotationsView = new AnnotationsView(getContext());
         mAnnotationsView.attachToolbar(mAnnotationsToolbar);
-        mAnnotationsView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getContext().getResources().getSystem().getDisplayMetrics().heightPixels));
         mAnnotationsView.setVideoRenderer(mRenderer); //to use screencapture
         onAnnotationsViewReady(mAnnotationsView);
         mScreen.addView(mAnnotationsView);

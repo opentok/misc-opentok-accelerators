@@ -1,6 +1,7 @@
 package com.tokbox.android.accpack.annotations;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.text.Editable;
 import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -96,6 +98,26 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         init();
     }
 
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+
+        super.onConfigurationChanged(newConfig);
+        resize();
+    }
+    private void resize(){
+        int widthPixels = getContext().getResources().getDisplayMetrics().widthPixels;
+        int heightPixels = getContext().getResources().getDisplayMetrics().heightPixels;
+        ViewGroup.LayoutParams params = this.getLayoutParams();
+
+        this.width = widthPixels;
+        this.height = heightPixels - dpToPx(mToolbar.getHeight()- 50);
+
+        params.width = this.width;
+        params.height = this.height;
+
+        this.setLayoutParams(params);
+
+    }
     private void init(){
         setWillNotDraw(false);
         mAnnotationsManager = new AnnotationsManager();
@@ -103,9 +125,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         this.setVisibility(View.GONE);
     }
 
-    public void setLayoutParams(RelativeLayout.LayoutParams params) {
-        this.setLayoutParams(params);
-    }
 
     /**
      * ==== Touch Events ====
@@ -356,9 +375,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
-        this.width = w;
-        this.height = h;
     }
 
     public void createTextAnnotatable(EditText editText, float x, float y) {
@@ -403,7 +419,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             if (v.getId() == R.id.done) {
                 clearAll();
                 this.setVisibility(GONE);
-                loaded = false;
+                //loaded = false;
                 mode = Mode.Done;
             }
             if (v.getId() == R.id.erase) {
@@ -425,10 +441,9 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
                 if (v.getId() == R.id.picker_color ){
                     mode = Mode.Color;
-                    //this.getLayoutParams().height = this.getLayoutParams().height - dpToPx(50);
+                    this.mToolbar.bringToFront();
                 }
                 else {
-                    //this.getLayoutParams().height = this.getLayoutParams().height + dpToPx(50);
                     if (v.getId() == R.id.type_tool) {
                         //type text
                         mode = Mode.Text;
@@ -444,7 +459,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             }
 
         if (!loaded){
-            this.getLayoutParams().height = this.getLayoutParams().height - dpToPx(mToolbar.getHeight()) - dpToPx(50);
+            resize();
             loaded = true;
         }
     }
