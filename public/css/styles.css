@@ -311,6 +311,7 @@ button {
 
 /*Annotation Styles*/
 .annotation-toolbar-container {
+  display: none;
   position: fixed;
   top: 125px;
   right: 0;
