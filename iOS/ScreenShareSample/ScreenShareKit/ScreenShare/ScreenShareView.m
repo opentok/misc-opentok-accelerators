@@ -44,14 +44,14 @@
     if (self = [super init]) {
         
         CGRect mainScreenBounds = [UIScreen mainScreen].bounds;
-        self.frame = CGRectMake(0, 0, CGRectGetWidth(mainScreenBounds), CGRectGetHeight(mainScreenBounds) - DefaultToolbarHeight);
+        self.frame = CGRectMake(0, 0, CGRectGetWidth(mainScreenBounds), CGRectGetHeight(mainScreenBounds));
         
         // scroll view
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
         _scrollView.maximumZoomScale = 3.0f;
         _scrollView.delegate = self;
-        _scrollView.contentSize = [UIScreen mainScreen].bounds.size;
+        _scrollView.contentSize = self.frame.size;
         [self addSubview:_scrollView];
         
         // annotation view

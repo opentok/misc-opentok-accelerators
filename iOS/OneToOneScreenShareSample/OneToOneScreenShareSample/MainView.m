@@ -230,6 +230,7 @@
 - (void)addScreenShareView {
     [self addSubview:self.toolbarView.screenShareView];
     [self.publisherView setHidden:YES];
+    [self bringSubviewToFront:self.actionButtonView];
 }
 
 - (void)removeScreenShareView {
@@ -256,8 +257,6 @@
     
     
     if (!self.toolbarView || !self.toolbarView.superview) {
-        
-        
         [self addSubview:self.toolbarView];
     }
     else {
