@@ -53,7 +53,17 @@
 }
 
 - (IBAction)shareButtonPressed:(id)sender {
-    [self presentViewController:self.activityViewController animated:YES completion:nil];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self presentViewController:self.activityViewController animated:YES completion:nil];
+    }
+    else {
+        UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:self.activityViewController];
+        [popup presentPopoverFromRect:CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 4, 0, 0)
+                               inView:self.captureView
+             permittedArrowDirections:UIPopoverArrowDirectionAny
+                             animated:YES];
+    }
 }
 
 - (IBAction)saveButtonPressed:(id)sender {
