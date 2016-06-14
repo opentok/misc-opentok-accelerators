@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -12,7 +11,6 @@ import android.text.Editable;
 import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -84,10 +82,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         }
     }
 
-    public void setColor(int color) {
-        this.mCurrentColor = color;
-    }
-
     public AnnotationsView(Context context) {
         super(context);
         init();
@@ -96,6 +90,15 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     public AnnotationsView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
+    }
+
+    public void attachToolbar(AnnotationsToolbar toolbar) {
+        mToolbar = toolbar;
+        mToolbar.setActionListener(this);
+    }
+
+    public void setVideoRenderer(AnnotationsVideoRenderer videoRenderer) {
+        this.videoRenderer = videoRenderer;
     }
 
     @Override
@@ -377,7 +380,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
-    public void createTextAnnotatable(EditText editText, float x, float y) {
+    private void createTextAnnotatable(EditText editText, float x, float y) {
         Log.i(LOG_TAG, "Create TextAnnotatable");
         mCurrentPaint = new Paint();
         mCurrentPaint.setAntiAlias(true);
@@ -386,7 +389,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         mCurrentText = new AnnotationsText(editText, x, y);
     }
 
-    public void createPathAnnotatable(boolean incoming) {
+    private void createPathAnnotatable(boolean incoming) {
         Log.i(LOG_TAG, "Create PathAnnotatable");
         mCurrentPaint = new Paint();
         mCurrentPaint.setAntiAlias(true);
@@ -466,17 +469,9 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     @Override
     public void onColorSelected(int color) {
-        setColor(color);
+        this.mCurrentColor = color;
     }
 
-    public void attachToolbar(AnnotationsToolbar toolbar) {
-        mToolbar = toolbar;
-        mToolbar.setActionListener(this);
-    }
-
-    public void setVideoRenderer(AnnotationsVideoRenderer videoRenderer) {
-        this.videoRenderer = videoRenderer;
-    }
 
     private int dpToPx(int dp) {
         double screenDensity = this.getResources().getDisplayMetrics().density;

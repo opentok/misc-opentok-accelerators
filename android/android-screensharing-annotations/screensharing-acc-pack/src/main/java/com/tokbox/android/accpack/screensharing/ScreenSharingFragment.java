@@ -131,7 +131,13 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         void onScreenSharingError(String error);
 
 
+        /**
+         * Invoked when a the annotations view has been added to the screensharing view
+         *
+         * @param view AnnotationsView.
+         */
         void onAnnotationsViewReady(AnnotationsView view);
+
         /**
          * Invoked when the close button is clicked.
          *
@@ -177,10 +183,18 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         }
     }
 
+    public boolean isStarted() {
+        return isStarted;
+    }
+
+    public void setAnnotationsEnabled(boolean annotationsEnabled, AnnotationsToolbar toolbar) {
+        isAnnotationsEnabled = annotationsEnabled;
+        mAnnotationsToolbar = toolbar;
+    }
+
     @Override
     public void onPause() {
         super.onPause();
-        //stopScreenCapture();
     }
 
     @Override
@@ -204,10 +218,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main_layout, container, false);
-       // View rootView = container;
-        //mScreenView = (RelativeLayout) rootView.findViewById(R.id.screen_view);
-       // mAnnotationsToolbar = (AnnotationsToolbar) rootView.findViewById(R.id.annotations_bar);
-
 
         mScreensharingBar = (RelativeLayout) rootView.findViewById(R.id.screnesharing_bar);
         mScreensharingLeftView = (View) rootView.findViewById(R.id.left_line);
@@ -254,7 +264,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         if (requestCode == REQUEST_MEDIA_PROJECTION) {
             if (resultCode != Activity.RESULT_OK) {
                 Log.i(LOG_TAG, "User cancelled");
-                //Toast.makeText(getActivity(), R.string.user_cancelled, Toast.LENGTH_SHORT).show();
                 return;
             }
             Activity activity = getActivity();
@@ -355,7 +364,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     }
 
     protected void onScreenSharingStopped(){
-        //checkAnnotations();
         if ( mListener != null ){
             mListener.onScreenSharingStopped();
         }
@@ -463,18 +471,5 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         onScreenSharingError(ERROR + ": "+opentokError.getMessage());
-    }
-
-    public boolean isStarted() {
-        return isStarted;
-    }
-
-    public void setAnnotationsEnabled(boolean annotationsEnabled, AnnotationsToolbar toolbar) {
-        isAnnotationsEnabled = annotationsEnabled;
-        mAnnotationsToolbar = toolbar;
-    }
-
-    public AnnotationsView getAnnotationsView() {
-        return mAnnotationsView;
     }
 }
