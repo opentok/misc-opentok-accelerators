@@ -52,8 +52,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     private AnnotationsListener mListener;
 
-    private int originHeight = 0;
-    private int fullHeight = 0;
+    private Annotatable mCurrentAnnotatable;
 
     public void setAnnotationsListener(AnnotationsListener listener) {
         this.mListener = listener;
@@ -135,11 +134,12 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             if (mode == Mode.Pen) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
+                        mAnnotationsActive = true;
                         createPathAnnotatable(false);
                         mCurrentPath.setLastPointF(new PointF(x, y));
                         mCurrentPath.setStartPoint(true);
                         beginTouch(x, y);
-                        //invalidate();
+                        invalidate();
                     }
                     break;
                     case MotionEvent.ACTION_MOVE: {
@@ -147,13 +147,14 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                         mCurrentPath.setEndPoint(false);
                         mCurrentPath.setStartPoint(false);
                         mCurrentPath.setLastPointF(new PointF(x, y));
-
-                        //invalidate();
+                        invalidate();
                     }
                     break;
                     case MotionEvent.ACTION_UP: {
                         upTouch();
                         addAnnotatable();
+                        mCurrentPath = null;
+                        mAnnotationsActive = false;
                         invalidate();
                     }
                     break;
@@ -223,6 +224,8 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                                 //Create annotatable text and add it to the canvas
                                 mAnnotationsActive = false;
                                 addAnnotatable();
+
+                                mCurrentText = null;
                                 invalidate();
                                 return true;
                             }
@@ -273,8 +276,10 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
                 }
             }
+            if ( mCurrentPath != null ) {
+                canvas.drawPath(mCurrentPath, mCurrentPaint);
+            }
         }
-
 
         for (Annotatable drawing : mAnnotationsManager.getAnnotatableList()) {
             if (drawing.getType().equals(Annotatable.AnnotatableType.PATH)) {
@@ -380,15 +385,15 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     private void addAnnotatable() {
         Log.i(LOG_TAG, "Add Annotatable");
-        Annotatable annotatable = null;
+
         if (mode.equals(Mode.Pen)) {
-            annotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
-            annotatable.setType(Annotatable.AnnotatableType.PATH);
+            mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
+            mCurrentAnnotatable.setType(Annotatable.AnnotatableType.PATH);
         } else {
-            annotatable = new Annotatable(mode.toString(), mCurrentText, mCurrentPaint, width, height);
-            annotatable.setType(Annotatable.AnnotatableType.TEXT);
+            mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentText, mCurrentPaint, width, height);
+            mCurrentAnnotatable.setType(Annotatable.AnnotatableType.TEXT);
         }
-        mAnnotationsManager.addAnnotatable(annotatable);
+        mAnnotationsManager.addAnnotatable(mCurrentAnnotatable);
     }
 
     @Override

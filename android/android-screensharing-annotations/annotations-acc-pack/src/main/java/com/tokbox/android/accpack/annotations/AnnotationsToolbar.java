@@ -2,6 +2,7 @@ package com.tokbox.android.accpack.annotations;
 
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -76,7 +77,7 @@ public class AnnotationsToolbar extends LinearLayout {
                 color = getResources().getColor(R.color.picker_color_gray);
             }
 
-            updateColorPickerSelectedButtons(v);
+            updateColorPickerSelectedButtons(v, color);
             if (v.isSelected()) {
                 v.setSelected(false);
             } else {
@@ -177,8 +178,10 @@ public class AnnotationsToolbar extends LinearLayout {
             }
         }
     };
-    private void updateColorPickerSelectedButtons(View v){
+    private void updateColorPickerSelectedButtons(View v, int color){
         int mCount = mColorToolbar.getChildCount();
+
+        mPickerColorBtn.setColorFilter(color);
 
         for (int i = 0; i < mCount; ++i) {
             if (mColorToolbar.getChildAt(i).getId() != v.getId() && mColorToolbar.getChildAt(i).isSelected()){
