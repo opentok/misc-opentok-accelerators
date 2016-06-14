@@ -16,4 +16,6 @@
 
 @interface ScreenShareCaptureView : UIView
 - (void)updateWithShareModel:(CaptureModel *)shareModel;
+- (void)resetSaveImageButton;
+- (void)doneSavingImage;
 @end

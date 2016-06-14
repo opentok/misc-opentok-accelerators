@@ -133,6 +133,7 @@
                 <outlet property="contenView" destination="fHg-Ea-UUC" id="gXW-cl-uNB"/>
                 <outlet property="dateLabel" destination="0A6-ua-Qw2" id="Wfd-Kt-wPs"/>
                 <outlet property="imageSizeLabel" destination="xJl-c5-skg" id="GAx-I9-c0B"/>
+                <outlet property="saveButton" destination="MxW-iT-8fg" id="UoH-dg-cb3"/>
                 <outlet property="sharedImageView" destination="t7S-ej-ybZ" id="61d-9A-fup"/>
             </connections>
         </view>

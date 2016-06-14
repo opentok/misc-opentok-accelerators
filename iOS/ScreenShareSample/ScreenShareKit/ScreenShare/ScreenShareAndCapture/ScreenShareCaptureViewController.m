@@ -66,7 +66,7 @@
     }
 }
 
-- (IBAction)saveButtonPressed:(id)sender {
+- (IBAction)saveButtonPressed:(UIButton *)sender {
     UIImageWriteToSavedPhotosAlbum(self.captureModel.sharedImage,
                                    self,
                                    @selector(finishSavingImage:error:contextInfo:),
@@ -77,7 +77,19 @@
                     error:(NSError *)error
               contextInfo:(void *)contextInfo {
     
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    UIAlertController *alert;
+    if (error) {
+        alert = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+    }
+    else {
+        alert = [UIAlertController alertControllerWithTitle:@"Success" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [self.captureView doneSavingImage];
+    }
+    [self presentViewController:alert animated:YES completion:^(){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [alert dismissViewControllerAnimated:YES completion:nil];
+        });
+    }];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {

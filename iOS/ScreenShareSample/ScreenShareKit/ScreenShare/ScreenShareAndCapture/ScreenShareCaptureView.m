@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *sharedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageSizeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @end
 
 @implementation ScreenShareCaptureView
@@ -58,6 +59,16 @@
     if (sharedImageData) {
         [self.imageSizeLabel setText:[NSString stringWithFormat:@"%ld KB", (unsigned long)[sharedImageData length] / 1024]];
     }
+}
+
+- (void)resetSaveImageButton {
+    [self.saveButton setEnabled:YES];
+    [self.saveButton setAlpha:1.0];
+}
+
+- (void)doneSavingImage {
+    [self.saveButton setEnabled:NO];
+    [self.saveButton setAlpha:0.6];
 }
 
 @end
