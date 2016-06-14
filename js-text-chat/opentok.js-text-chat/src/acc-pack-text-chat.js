@@ -59,9 +59,7 @@
   var _accPack;
 
   var _triggerEvent = function (event, data) {
-    if (_accPack) {
-      _accPack.triggerEvent(event, data);
-    }
+    _accPack && _accPack.triggerEvent(event, data);
   };
 
   // Private methods
@@ -141,7 +139,7 @@
 
   var _handleMessageSent = function (data) {
     if (_shouldAppendMessage(data)) {
-      $('.wms-item-text').last().append('<span>' + data.message + '</span>');
+      $('.wms-item-text').last().append(['<span>', data.message, '</span>'].join(''));
       var chatholder = $(_newMessages);
       chatholder[0].scrollTop = chatholder[0].scrollHeight;
       _cleanComposer();
@@ -393,26 +391,28 @@
       'errorSendingMessage',
       'messageReceived'
     ];
-    _accPack.registerEvents(events);
+    _accPack && _accPack.registerEvents(events);
   };
 
   var _addEventListeners = function () {
 
-    _accPack.registerEventListener('startCall', function () {
+    if (_accPack) {
 
-      if (_controlAdded) {
-        document.querySelector('#enableTextChat').classList.remove('hidden');
-      } else {
-        _appendControl();
-      }
-    });
+      _accPack.registerEventListener('startCall', function () {
+        if (_controlAdded) {
+          document.querySelector('#enableTextChat').classList.remove('hidden');
+        } else {
+          _appendControl();
+        }
+      });
 
-    _accPack.registerEventListener('endCall', function () {
-      document.getElementById('enableTextChat').classList.add('hidden');
-      if (_displayed) {
-        _hideTextChat();
-      }
-    });
+      _accPack.registerEventListener('endCall', function () {
+        document.getElementById('enableTextChat').classList.add('hidden');
+        if (_displayed) {
+          _hideTextChat();
+        }
+      });
+    }
   };
 
   // Constructor
