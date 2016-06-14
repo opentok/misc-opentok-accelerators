@@ -29,13 +29,19 @@
 
 - (void)showColorPickerView {
     
-    CGRect selfFrame = self.frame;
-    [self.superview insertSubview:self.colorPickerView belowSubview:self];
-    [UIView animateWithDuration:1.0 animations:^(){
-        
-        CGFloat newY = selfFrame.origin.y - HeightOfColorPicker - GapOfToolBarAndColorPicker;
-        self.colorPickerView.frame = CGRectMake(selfFrame.origin.x, newY, CGRectGetWidth(self.bounds), HeightOfColorPicker);
-    }];
+    if (!self.colorPickerView.superview) {
+        CGRect selfFrame = self.frame;
+        self.colorPickerView.frame = selfFrame;
+        [self.superview insertSubview:self.colorPickerView belowSubview:self];
+        [UIView animateWithDuration:1.0 animations:^(){
+            
+            CGFloat newY = selfFrame.origin.y - HeightOfColorPicker - GapOfToolBarAndColorPicker;
+            self.colorPickerView.frame = CGRectMake(selfFrame.origin.x, newY, CGRectGetWidth(self.bounds), HeightOfColorPicker);
+        }];
+    }
+    else {
+        [self dismissColorPickerView];
+    }
 }
 
 - (void)dismissColorPickerView {

@@ -144,7 +144,7 @@
     
     [SVProgressHUD show];
     if (!self.screenSharer.isScreenSharing) {
-        [self.screenSharer connectWithView:self.view handler:^(ScreenShareSignal signal, NSError *error) {
+        [self.screenSharer connectWithView:self.mainView.shareView handler:^(ScreenShareSignal signal, NSError *error) {
             
             [SVProgressHUD dismiss];
             [self handleScreenShareSignal:signal];

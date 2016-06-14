@@ -12,7 +12,6 @@
 
 - (void)moveSelectionShadowViewTo:(UIButton *)sender;
 - (void)showColorPickerView;
-- (void)dismissColorPickerView
-;
+- (void)dismissColorPickerView;
 
 @end

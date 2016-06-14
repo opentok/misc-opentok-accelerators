@@ -44,50 +44,61 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgL-3O-VOb">
                                     <rect key="frame" x="0.0" y="408" width="520" height="112"/>
                                     <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBp-6l-6Sr">
+                                            <rect key="frame" x="0.0" y="79" width="520" height="33"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Cancel">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <variation key="widthClass=regular">
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            </variation>
+                                            <connections>
+                                                <action selector="cancelButtonPressed:" destination="-1" eventType="touchUpInside" id="EYJ-Do-uv6"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxW-iT-8fg">
+                                            <rect key="frame" x="0.0" y="40" width="520" height="33"/>
+                                            <color key="backgroundColor" red="0.0" green="0.21568627450980393" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" title="Save">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <variation key="widthClass=regular">
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            </variation>
+                                            <connections>
+                                                <action selector="saveButtonPressed:" destination="-1" eventType="touchUpInside" id="Jrt-GV-tzl"/>
+                                            </connections>
+                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Azp-F2-TDQ">
                                             <rect key="frame" x="0.0" y="0.0" width="520" height="34"/>
                                             <color key="backgroundColor" red="0.2627450980392157" green="0.60784313725490191" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" title="Share">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <variation key="widthClass=regular">
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            </variation>
                                             <connections>
                                                 <action selector="shareButtonPressed:" destination="-1" eventType="touchUpInside" id="RlG-Kj-0aL"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxW-iT-8fg">
-                                            <rect key="frame" x="0.0" y="42" width="520" height="33"/>
-                                            <color key="backgroundColor" red="0.0" green="0.21568627450980393" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" title="Save">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="saveButtonPressed:" destination="-1" eventType="touchUpInside" id="Jrt-GV-tzl"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBp-6l-6Sr">
-                                            <rect key="frame" x="0.0" y="83" width="520" height="29"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <state key="normal" title="Cancel">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="cancelButtonPressed:" destination="-1" eventType="touchUpInside" id="EYJ-Do-uv6"/>
                                             </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="MxW-iT-8fg" firstAttribute="top" secondItem="Azp-F2-TDQ" secondAttribute="bottom" constant="8" id="2CK-jd-hyV"/>
+                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="5eQ-kK-PhC"/>
                                         <constraint firstItem="MxW-iT-8fg" firstAttribute="leading" secondItem="rgL-3O-VOb" secondAttribute="leading" id="7F1-jc-bG7"/>
                                         <constraint firstItem="Azp-F2-TDQ" firstAttribute="top" secondItem="rgL-3O-VOb" secondAttribute="top" id="AH6-O5-wup"/>
                                         <constraint firstAttribute="trailing" secondItem="cBp-6l-6Sr" secondAttribute="trailing" id="AdQ-mq-ks0"/>
+                                        <constraint firstItem="MxW-iT-8fg" firstAttribute="centerX" secondItem="rgL-3O-VOb" secondAttribute="centerX" id="E7P-fu-q0h"/>
                                         <constraint firstItem="MxW-iT-8fg" firstAttribute="height" secondItem="rgL-3O-VOb" secondAttribute="height" multiplier="0.3" id="ELH-NK-Fhn"/>
+                                        <constraint firstItem="cBp-6l-6Sr" firstAttribute="height" secondItem="rgL-3O-VOb" secondAttribute="height" multiplier="0.3" id="PPG-6x-H29"/>
+                                        <constraint firstItem="MxW-iT-8fg" firstAttribute="centerY" secondItem="rgL-3O-VOb" secondAttribute="centerY" id="PU0-2E-NMj"/>
                                         <constraint firstItem="cBp-6l-6Sr" firstAttribute="leading" secondItem="rgL-3O-VOb" secondAttribute="leading" id="cFF-Gx-YFG"/>
                                         <constraint firstItem="Azp-F2-TDQ" firstAttribute="height" secondItem="rgL-3O-VOb" secondAttribute="height" multiplier="0.3" id="cwr-MP-QUx"/>
                                         <constraint firstItem="Azp-F2-TDQ" firstAttribute="leading" secondItem="rgL-3O-VOb" secondAttribute="leading" id="gCj-gM-okN"/>
                                         <constraint firstAttribute="bottom" secondItem="cBp-6l-6Sr" secondAttribute="bottom" id="kr4-RI-KYy"/>
                                         <constraint firstAttribute="trailing" secondItem="MxW-iT-8fg" secondAttribute="trailing" id="mwg-EL-Tct"/>
-                                        <constraint firstItem="cBp-6l-6Sr" firstAttribute="top" secondItem="MxW-iT-8fg" secondAttribute="bottom" constant="8" id="pQH-1s-DZe"/>
                                         <constraint firstAttribute="trailing" secondItem="Azp-F2-TDQ" secondAttribute="trailing" id="vxo-3L-cmu"/>
                                     </constraints>
                                 </view>
@@ -101,8 +112,8 @@
                                 <constraint firstItem="t7S-ej-ybZ" firstAttribute="leading" secondItem="0Ny-9k-kel" secondAttribute="leading" id="DA2-na-yYn"/>
                                 <constraint firstItem="xJl-c5-skg" firstAttribute="top" secondItem="0A6-ua-Qw2" secondAttribute="bottom" constant="2" id="EdE-wY-z5T"/>
                                 <constraint firstAttribute="trailing" secondItem="rgL-3O-VOb" secondAttribute="trailing" id="FFa-Jv-iJV"/>
+                                <constraint firstItem="rgL-3O-VOb" firstAttribute="top" secondItem="xJl-c5-skg" secondAttribute="bottom" constant="8" id="Ntd-pz-aDG"/>
                                 <constraint firstAttribute="bottom" secondItem="rgL-3O-VOb" secondAttribute="bottom" id="UPC-hi-VOr"/>
-                                <constraint firstItem="rgL-3O-VOb" firstAttribute="top" secondItem="xJl-c5-skg" secondAttribute="bottom" constant="8" id="iF7-Wv-q6D"/>
                                 <constraint firstAttribute="trailing" secondItem="t7S-ej-ybZ" secondAttribute="trailing" id="jQG-Pw-2II"/>
                                 <constraint firstItem="t7S-ej-ybZ" firstAttribute="top" secondItem="0Ny-9k-kel" secondAttribute="top" id="vDu-RF-5sg"/>
                                 <constraint firstItem="t7S-ej-ybZ" firstAttribute="height" secondItem="0Ny-9k-kel" secondAttribute="height" multiplier="0.65" id="wVl-cm-jPN"/>
@@ -133,7 +144,8 @@
                 <outlet property="contenView" destination="fHg-Ea-UUC" id="gXW-cl-uNB"/>
                 <outlet property="dateLabel" destination="0A6-ua-Qw2" id="Wfd-Kt-wPs"/>
                 <outlet property="imageSizeLabel" destination="xJl-c5-skg" id="GAx-I9-c0B"/>
-                <outlet property="saveButton" destination="MxW-iT-8fg" id="UoH-dg-cb3"/>
+                <outlet property="saveButton" destination="MxW-iT-8fg" id="OnN-MG-HEU"/>
+                <outlet property="shareButton" destination="Azp-F2-TDQ" id="8af-gL-zo7"/>
                 <outlet property="sharedImageView" destination="t7S-ej-ybZ" id="61d-9A-fup"/>
             </connections>
         </view>

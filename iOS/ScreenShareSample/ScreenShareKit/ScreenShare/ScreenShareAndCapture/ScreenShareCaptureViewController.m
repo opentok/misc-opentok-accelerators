@@ -59,8 +59,8 @@
     }
     else {
         UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:self.activityViewController];
-        [popup presentPopoverFromRect:CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 4, 0, 0)
-                               inView:self.captureView
+        [popup presentPopoverFromRect:self.captureView.shareButton.bounds
+                               inView:self.captureView.shareButton
              permittedArrowDirections:UIPopoverArrowDirectionAny
                              animated:YES];
     }
@@ -93,7 +93,9 @@
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^(){
+        [self.captureView resetSaveImageButton];
+    }];
 }
 
 @end

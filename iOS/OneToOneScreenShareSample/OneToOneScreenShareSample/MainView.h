@@ -13,6 +13,8 @@
 
 @interface MainView : UIView
 
+@property (weak, nonatomic) IBOutlet UIView *shareView;
+
 // publisher view
 - (void)addPublisherView:(UIView *)publisherView;
 - (void)removePublisherView;

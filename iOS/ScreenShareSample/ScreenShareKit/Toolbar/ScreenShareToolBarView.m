@@ -154,17 +154,17 @@
 
 - (void)toolbarButtonPressed:(UIButton *)sender {
     
-    if (self.screenShareView.annotating && sender != self.doneButton) return;
-    
     if (sender == self.doneButton) {
         self.screenShareView.annotating = NO;
         [self dismissColorPickerView];
         [self moveSelectionShadowViewTo:nil];
+        [self resetToolbarButtons];
     }
     else if (sender == self.annotateButton) {
         [self dismissColorPickerView];
         self.screenShareView.annotating = YES;
         [self.screenShareView selectColor:self.colorPickerView.selectedColor];
+        [self disableButtons:@[self.textButton, self.eraseButton]];
     }
     else if (sender == self.textButton) {
         [self dismissColorPickerView];
@@ -173,6 +173,7 @@
         editTextViewController.delegate = self;
         UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
         [topViewController presentViewController:editTextViewController animated:YES completion:nil];
+        [self disableButtons:@[self.annotateButton, self.colorButton, self.screenshotButton, self.eraseButton]];
     }
     else if (sender == self.colorButton) {
         [self showColorPickerView];
@@ -191,6 +192,22 @@
             [self moveSelectionShadowViewTo:sender];
         }
     });
+}
+
+- (void)resetToolbarButtons {
+    
+    [self.annotateButton setEnabled:YES];
+    [self.colorButton setEnabled:YES];
+    [self.textButton setEnabled:YES];
+    [self.screenshotButton setEnabled:YES];
+    [self.eraseButton setEnabled:YES];
+}
+
+- (void)disableButtons:(NSArray<UIButton *> *)array {
+    
+    for (UIButton *button in array) {
+        [button setEnabled:NO];
+    }
 }
 
 #pragma mark - ScreenShareEditTextViewProtocol

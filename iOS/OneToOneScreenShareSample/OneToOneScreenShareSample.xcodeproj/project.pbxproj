@@ -181,6 +181,7 @@
 				TargetAttributes = {
 					A060AF601CF36B0700589311 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = MGD69Q275W;
 					};
 				};
 			};
@@ -389,6 +390,7 @@
 			baseConfigurationReference = 4D8D78BB8D962DEBF8081992 /* Pods-OneToOneScreenShareSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -408,6 +410,7 @@
 			baseConfigurationReference = 757CA95EECD103B4257631E8 /* Pods-OneToOneScreenShareSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
