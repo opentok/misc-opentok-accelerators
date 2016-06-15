@@ -11,8 +11,8 @@
   // Override point for customization after application launch.
     
     [TextChatView setOpenTokApiKey: @"100"
-                         sessionId: @"2_MX4xMDB-fjE0NjU3OTYzMDUzNTZ-RDJ6WTlkK21nVnJoMDNjL3VVNmVlNmxvfn4"
-                             token: @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9M2I1YTA1NjU3ZDViMzJkZjZmZjYwNGEyODBiMWZmZTkzYTUyZTU0ZTpzZXNzaW9uX2lkPTJfTVg0eE1EQi1makUwTmpVM09UWXpNRFV6TlRaLVJESjZXVGxrSzIxblZuSm9NRE5qTDNWVk5tVmxObXh2Zm40JmNyZWF0ZV90aW1lPTE0NjU3OTM5MzQmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ2NTc5MzkzNC42NDA3MjYzNDkxNDExJmV4cGlyZV90aW1lPTE0NjgzODU5MzQ="];
+                         sessionId: @"2_MX4xMDB-flR1ZSBOb3YgMTkgMTE6MDk6NTggUFNUIDIwMTN-MC4zNzQxNzIxNX4"
+                             token: @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9NDU2MjFlMjllOTY1YzUxNGRjM2E5YzEwYmM2ZDJmYWRmNmI5NThhZTpzZXNzaW9uX2lkPTJfTVg0eE1EQi1mbFIxWlNCT2IzWWdNVGtnTVRFNk1EazZOVGdnVUZOVUlESXdNVE4tTUM0ek56UXhOekl4Tlg0JmNyZWF0ZV90aW1lPTE0NjYwMjU3MDYmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ2NjAyNTcwNi45OTQ1MTA3NjMxMDc0OCZleHBpcmVfdGltZT0xNDY4NjE3NzA2"];
     return YES;
 }
 
