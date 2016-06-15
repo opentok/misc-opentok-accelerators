@@ -23,9 +23,9 @@
 
   // Options hash
   var _options = {
-    apiKey: '45589022',
-    sessionId: '1_MX40NTU4OTAyMn5-MTQ2NDc5NzE5ODUzOH5HazV0QnpCdE9zbVB3cEtuR0hnZGpYUnV-fg',
-    token: 'T1==cGFydG5lcl9pZD00NTU4OTAyMiZzaWc9NzU3ZWE1YTM0YjhlYmM1MWQ3OGJiYjA0NTY1MzYyMmI4MjVhMmYyZDpzZXNzaW9uX2lkPTFfTVg0ME5UVTRPVEF5TW41LU1UUTJORGM1TnpFNU9EVXpPSDVIYXpWMFFucENkRTl6YlZCM2NFdHVSMGhuWkdwWVVuVi1mZyZjcmVhdGVfdGltZT0xNDY1OTIyMDUzJm5vbmNlPTAuMzExODkzNzk3OTQ1MjMxMiZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNDY4NTE0MDUy',
+    apiKey: '',
+    sessionId: '',
+    token: '',
     user: {
       id: 1,
       name: 'User1'
@@ -250,7 +250,15 @@
     }
   };
 
+  var setCredenials = function () {
+    var el = document.getElementById('credentials');
+    var credentials = JSON.parse(el.getAttribute('data'));
+    el.remove();
+    $.extend(_options, credentials);
+  };
+
   document.addEventListener('DOMContentLoaded', function () {
+    setCredenials();
     $('#callActive').on('click', _connectCall);
   });
 
