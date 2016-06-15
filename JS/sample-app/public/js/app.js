@@ -1,6 +1,5 @@
 /* global AcceleratorPack CommunicationAccPack */
-
-var app = (function () {
+(function () {
 
   // Modules
   var _accPack;
@@ -10,6 +9,7 @@ var app = (function () {
   var _session;
 
   // Application State
+  var _initialized = false;
   var _connected = false;
   var _callActive = false;
   var _remoteParticipant = false;
@@ -139,11 +139,6 @@ var app = (function () {
 
   };
 
-  var _connectCall = function () {
-
-    _callActive ? _endCall() : _startCall();
-
-  };
 
   // Toggle local or remote audio/video
   var _toggleMediaProperties = function (type) {
@@ -198,9 +193,6 @@ var app = (function () {
       _viewSharedScreen(false);
     });
 
-    // Start or end call
-    $('#callActive').on('click', _connectCall);
-
     // Click events for enabling/disabling audio/video
     var controls = [
       'enableLocalAudio',
@@ -215,7 +207,7 @@ var app = (function () {
     });
   };
 
-  var init = function () {
+  var _init = function () {
 
     var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'screensharing']);
 
@@ -239,11 +231,23 @@ var app = (function () {
 
         _communication = new CommunicationAccPack(commOptions);
         _addEventListeners();
+        _initialized = true;
+        _startCall();
       }
     });
   };
 
-  return init;
-}());
+  var _connectCall = function () {
 
-app();
+    if (!_initialized) {
+      _init();
+    } else {
+      _callActive ? _endCall() : _startCall();
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    $('#callActive').on('click', _connectCall);
+  });
+
+}());
