@@ -1,21 +1,28 @@
 package com.tokbox.android.accpack.annotations;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.os.Build;
 import android.text.Editable;
 import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -108,18 +115,72 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         resize();
     }
     private void resize(){
-        int widthPixels = getContext().getResources().getDisplayMetrics().widthPixels;
-        int heightPixels = getContext().getResources().getDisplayMetrics().heightPixels;
-        ViewGroup.LayoutParams params = this.getLayoutParams();
+        int widthPixels = 0;
+        int heightPixels = 0;
 
+        if (this.getLayoutParams().width == -1 || this.getLayoutParams().height == -1) {
+            //default case
+            widthPixels = getContext().getResources().getDisplayMetrics().widthPixels;
+            heightPixels = getDisplayContentHeight();
+
+        }
+        else {
+            widthPixels = this.getLayoutParams().width;
+            heightPixels = this.getLayoutParams().height;
+        }
+
+        ViewGroup.LayoutParams params = this.getLayoutParams();
         this.width = widthPixels;
-        this.height = heightPixels - dpToPx(mToolbar.getHeight()- 50);
+        this.height = heightPixels - mToolbar.getHeight();
 
         params.width = this.width;
         params.height = this.height;
 
         this.setLayoutParams(params);
 
+    }
+    private int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    private int getActionBarHeight() {
+        int actionBarHeight = 0;
+        TypedValue tv = new TypedValue();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if (getContext().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv,
+                    true))
+                actionBarHeight = TypedValue.complexToDimensionPixelSize(
+                        tv.data, getResources().getDisplayMetrics());
+        } else {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,
+                    getResources().getDisplayMetrics());
+        }
+        return actionBarHeight;
+    }
+
+    private int getDisplayContentHeight() {
+        final WindowManager windowManager = (WindowManager) getContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+
+        final Point size = new Point();
+        int screenHeight = 0;
+        int actionBarHeight = getActionBarHeight();
+        int contentTop = getStatusBarHeight();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            windowManager.getDefaultDisplay().getSize(size);
+            screenHeight = size.y;
+        } else {
+            Display d = windowManager.getDefaultDisplay();
+            screenHeight = d.getHeight();
+        }
+
+        return (screenHeight - contentTop - actionBarHeight);
     }
     private void init(){
         setWillNotDraw(false);
@@ -472,9 +533,4 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         this.mCurrentColor = color;
     }
 
-
-    private int dpToPx(int dp) {
-        double screenDensity = this.getResources().getDisplayMetrics().density;
-        return (int) (screenDensity * (double) dp);
-    }
 }
