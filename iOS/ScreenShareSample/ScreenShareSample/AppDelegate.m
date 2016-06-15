@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <ScreenShareKit/ScreenShareKit.h>
 
 @interface AppDelegate ()
 
@@ -16,7 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [ScreenSharer setOpenTokApiKey:@"<#Replace#>"
+                         sessionId:@"<#Replace#>"
+                             token:@"<#Replace#>"];
     return YES;
 }
 

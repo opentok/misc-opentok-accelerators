@@ -1,34 +1,56 @@
 package com.tokbox.android.screensharingsample;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.tokbox.android.accpack.annotations.AnnotationsToolbar;
+import com.tokbox.android.accpack.annotations.AnnotationsView;
 import com.tokbox.android.accpack.screensharing.ScreenSharingFragment;
 import com.tokbox.android.screensharingsample.config.OpenTokConfig;
 import com.tokbox.android.screensharingsample.ui.PreviewCameraFragment;
 import com.tokbox.android.screensharingsample.ui.PreviewControlFragment;
 import com.tokbox.android.screensharingsample.ui.RemoteControlFragment;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements OneToOneCommunication.Listener, PreviewControlFragment.PreviewControlCallbacks,
-        RemoteControlFragment.RemoteControlCallbacks, PreviewCameraFragment.PreviewCameraCallbacks, ScreenSharingFragment.ScreenSharingListener{
+        RemoteControlFragment.RemoteControlCallbacks, PreviewCameraFragment.PreviewCameraCallbacks, ScreenSharingFragment.ScreenSharingListener, AnnotationsView.AnnotationsListener {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA};
+    private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private final int permsRequestCode = 200;
 
     //OpenTok calls
@@ -58,10 +80,26 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //Dialog
     ProgressDialog mProgressDialog;
 
+    private Activity activityReference;
+    private TableLayout menu1;
+    private RelativeLayout menu2;
+    private WebView menu3;
+    private TableLayout menu4;
+
+    private AnnotationsToolbar mAnnotationsToolbar;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(LOG_TAG, "onCreate");
 
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -73,6 +111,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mCameraFragmentContainer = (RelativeLayout) findViewById(R.id.camera_preview_fragment_container);
         mActionBarContainer = (RelativeLayout) findViewById(R.id.actionbar_preview_fragment_container);
         mScreenSharingContainer = (FrameLayout) findViewById(R.id.screensharing_fragment_container);
+
+        mAnnotationsToolbar = (AnnotationsToolbar) findViewById(R.id.annotations_bar);
+
+        menu1 = (TableLayout) findViewById(R.id.menu1);
+        menu2 = (RelativeLayout) findViewById(R.id.menu2);
+        menu3 = (WebView) findViewById(R.id.menu3);
+        menu4 = (TableLayout) findViewById(R.id.menu4);
 
         //request Marshmallow camera permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -100,6 +145,11 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.setTitle("Please wait");
         mProgressDialog.setMessage("Connecting...");
         mProgressDialog.show();
+
+        activityReference = this;
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -130,6 +180,63 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_calendar:
+                menu1.setVisibility(View.VISIBLE);
+                menu2.setVisibility(View.GONE);
+                menu3.setVisibility(View.GONE);
+                menu4.setVisibility(View.GONE);
+                return true;
+            case R.id.menu_graphs:
+                menu1.setVisibility(View.GONE);
+                menu3.setVisibility(View.GONE);
+                menu2.setVisibility(View.VISIBLE);
+                menu4.setVisibility(View.GONE);
+                return true;
+            case R.id.menu_info:
+                menu1.setVisibility(View.GONE);
+                menu2.setVisibility(View.GONE);
+                menu3.setVisibility(View.VISIBLE);
+                menu4.setVisibility(View.GONE);
+                menu3.getSettings().setLoadsImagesAutomatically(true);
+                menu3.getSettings().setJavaScriptEnabled(true);
+                menu3.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+                menu3.loadUrl("https://tokbox.com/");
+                return true;
+
+            case R.id.menu_call:
+                showAVCall(true);
+                return true;
+
+            case R.id.menu_settings:
+                menu1.setVisibility(View.GONE);
+                menu2.setVisibility(View.GONE);
+                menu3.setVisibility(View.GONE);
+                menu4.setVisibility(View.VISIBLE);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class MyBrowser extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mComm.destroy();
@@ -142,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             case 200:
                 boolean video = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 boolean audio = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                boolean externalStorage = grantResults[2] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
     }
@@ -200,18 +308,19 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onScreenSharing() {
-        Log.i(LOG_TAG, "Screensharing start");
 
-        if (mScreenSharingContainer.getVisibility() == View.VISIBLE){
-            mScreenSharingContainer.setVisibility(View.GONE);
+        if (mScreenSharingFragment.isStarted()) {
+            Log.i(LOG_TAG, "Screensharing stop");
+            mScreenSharingFragment.stop();
             showAVCall(true);
         }
-        else {
-            showAVCall(false);
-            mScreenSharingFragment.start();
-            mScreenSharingContainer.setVisibility(View.VISIBLE);
-        }
 
+        if (mScreenSharingFragment != null) {
+            if (!mScreenSharingFragment.isStarted()) {
+                showAVCall(false);
+                mScreenSharingFragment.start();
+            }
+        }
     }
 
     //Audio remote button event
@@ -242,6 +351,11 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onInitialized() {
         mProgressDialog.dismiss();
+    }
+
+    @Override
+    public void onScreencaptureReady(Bitmap bmp) {
+        saveScreencapture(bmp);
     }
 
     //OneToOneCommunication callbacks
@@ -275,8 +389,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     public void onAudioOnly(boolean enabled) {
         if (enabled) {
             mAudioOnlyView.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             mAudioOnlyView.setVisibility(View.GONE);
         }
     }
@@ -300,37 +413,57 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 if (mComm.getLocalVideo()) {
                     preview.setBackgroundResource(R.drawable.preview);
                 }
-                else {
-                    //local video is disabled
-                    onDisableLocalVideo(false);
-                }
             } else {
                 preview.setBackground(null);
             }
-            mPreviewViewContainer.setLayoutParams(layoutParamsPreview);
+
             mPreviewViewContainer.addView(preview);
+            mPreviewViewContainer.setLayoutParams(layoutParamsPreview);
+            if (!mComm.getLocalVideo() && !mComm.isScreensharing()) {
+                onDisableLocalVideo(false);
+            }
         }
     }
 
     @Override
     public void onRemoteViewReady(View remoteView) {
         //update preview when a new participant joined to the communication
-        onPreviewReady(mPreviewViewContainer.getChildAt(0)); //main preview view
-        if (remoteView == null ){
+
+        // check if it is screensharing
+        if (mComm.isScreensharing() && mComm.isRemote()) {
             mRemoteViewContainer.removeAllViews();
-            mRemoteViewContainer.setClickable(false);
-        }
-        else {
+            mPreviewViewContainer.removeAllViews();
+            onPreviewReady(mComm.getRemoteVideoView());
+            //show remote view
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     this.getResources().getDisplayMetrics().widthPixels, this.getResources()
                     .getDisplayMetrics().heightPixels);
-            mRemoteViewContainer.removeView(remoteView);
-            mRemoteViewContainer.addView(remoteView, layoutParams);
-            mRemoteViewContainer.setClickable(true);
+            mRemoteViewContainer.addView(mComm.getRemoteScreenView(), layoutParams);
+        }
+        else {
+
+            if (mComm.isStarted()) {
+                onPreviewReady(mComm.getPreviewView()); //main preview view
+            }
+            if (!mComm.isRemote()) {
+                //clear views
+                onAudioOnly(false);
+                mRemoteViewContainer.removeView(remoteView);
+                mRemoteViewContainer.setClickable(false);
+            } else {
+                //show remote view
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                        this.getResources().getDisplayMetrics().widthPixels, this.getResources()
+                        .getDisplayMetrics().heightPixels);
+                mRemoteViewContainer.removeView(remoteView);
+                mRemoteViewContainer.addView(mComm.getRemoteVideoView(), layoutParams);
+                mRemoteViewContainer.setClickable(true);
+            }
         }
     }
 
-    //Private methods
+        //Private methods
+
     private void initPreviewFragment() {
         mPreviewFragment = new PreviewControlFragment();
         getSupportFragmentManager().beginTransaction()
@@ -349,9 +482,10 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 .add(R.id.camera_preview_fragment_container, mCameraFragment).commit();
     }
 
-    private void initScreenSharingFragment(){
+    private void initScreenSharingFragment() {
         mScreenSharingFragment = ScreenSharingFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
-
+        mScreenSharingFragment.setAnnotationsEnabled(true, mAnnotationsToolbar);
+        mScreenSharingFragment.setListener(this);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.screensharing_fragment_container, mScreenSharingFragment).commit();
     }
@@ -367,16 +501,24 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //cleans views and controls
     private void cleanViewsAndControls() {
         mPreviewFragment.restart();
+        menu1.setVisibility(View.GONE);
+        menu2.setVisibility(View.GONE);
+        menu3.setVisibility(View.GONE);
+        menu4.setVisibility(View.GONE);
     }
 
-    private void showAVCall(boolean show){
-        if(show) {
+    private void showAVCall(boolean show) {
+        if (show) {
             mActionBarContainer.setVisibility(View.VISIBLE);
             mPreviewViewContainer.setVisibility(View.VISIBLE);
             mRemoteViewContainer.setVisibility(View.VISIBLE);
             mCameraFragmentContainer.setVisibility(View.VISIBLE);
-        }
-        else {
+
+            menu1.setVisibility(View.GONE);
+            menu2.setVisibility(View.GONE);
+            menu3.setVisibility(View.GONE);
+            menu4.setVisibility(View.GONE);
+        } else {
             mActionBarContainer.setVisibility(View.GONE);
             mPreviewViewContainer.setVisibility(View.GONE);
             mRemoteViewContainer.setVisibility(View.GONE);
@@ -407,15 +549,43 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onScreenSharingError(String error) {
-        Log.i(LOG_TAG, "onScreenSharingError");
+        Log.i(LOG_TAG, "onScreenSharingError " + error);
+    }
+
+    @Override
+    public void onAnnotationsViewReady(AnnotationsView view) {
+        Log.i(LOG_TAG, "onAnnotationsViewReady ");
+        view.setAnnotationsListener(this);
     }
 
     @Override
     public void onClosed() {
-        Log.i(LOG_TAG, "onClosed");
+        onScreenSharing();
     }
 
-    /*public void onLineDrawn(){
+    public void saveScreencapture(Bitmap bmp) {
 
-    }*/
+        if (bmp != null) {
+            String filename;
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            filename = sdf.format(date);
+            try {
+                String path = Environment.getExternalStorageDirectory().toString();
+                OutputStream fOut = null;
+                File file = new File(path, filename + ".jpg");
+                fOut = new FileOutputStream(file);
+
+                bmp.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+                fOut.flush();
+                fOut.close();
+
+                MediaStore.Images.Media.insertImage(getContentResolver()
+                        , file.getAbsolutePath(), file.getName(), file.getName());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

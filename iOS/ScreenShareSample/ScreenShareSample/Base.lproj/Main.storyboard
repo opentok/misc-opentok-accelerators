@@ -10,40 +10,36 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="gmQ-u1-LyW"/>
+                        <viewControllerLayoutGuide type="bottom" id="u5a-xz-356"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkI-wv-5LV">
-                                <rect key="frame" x="238" y="8" width="125" height="30"/>
-                                <state key="normal" title="Change Scrollable"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUr-Qt-fq5">
+                                <rect key="frame" x="256" y="285" width="88" height="30"/>
+                                <state key="normal" title="ScreenShare">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
-                                    <action selector="changeScrollable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O2C-R8-xbh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZA-bn-U6F">
-                                <rect key="frame" x="280.5" y="46" width="39" height="30"/>
-                                <state key="normal" title="Erase"/>
-                                <connections>
-                                    <action selector="eraseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FNr-4B-NrC"/>
+                                    <action selector="ScreenShareButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jX6-1d-HeV"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="kZA-bn-U6F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8o9-8A-CZe"/>
-                            <constraint firstItem="MkI-wv-5LV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HR5-9a-P1b"/>
-                            <constraint firstItem="kZA-bn-U6F" firstAttribute="top" secondItem="MkI-wv-5LV" secondAttribute="bottom" constant="8" id="j4h-Kn-UKo"/>
-                            <constraint firstItem="MkI-wv-5LV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="8" id="pvd-pp-Zb1"/>
+                            <constraint firstItem="wUr-Qt-fq5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Kzq-QB-qWt"/>
+                            <constraint firstItem="wUr-Qt-fq5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NVG-J1-Rtq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="screenShareButton" destination="wUr-Qt-fq5" id="sqL-h2-RVc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="547" y="349"/>
+            <point key="canvasLocation" x="545.625" y="348.5915492957746"/>
         </scene>
     </scenes>
 </document>

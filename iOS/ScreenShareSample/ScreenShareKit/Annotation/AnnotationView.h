@@ -6,15 +6,14 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <ScreenShareKit/Annotatable.h>
 #import <ScreenShareKit/AnnotationPath.h>
-#import <ScreenShareKit/AnnotationTextField.h>
+#import <ScreenShareKit/Annotatable.h>
 
 @interface AnnotationView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-- (void)setCurrentDrawPath:(AnnotationPath *)drawingPath;
+- (void)setCurrentAnnotatable:(id<Annotatable>)annotatable;
 
 - (void)addAnnotatable:(id<Annotatable>)annotatable;
 

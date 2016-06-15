@@ -5,17 +5,14 @@
 //  Created by Xi Huang on 4/26/16.
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
-
-#import "ViewController.h"
 #import <ScreenShareKit/ScreenShareKit.h>
+#import "ViewController.h"
 
-@interface ViewController () <UIScrollViewDelegate>
-//@property (nonatomic) ScreenShareTextField *textField;
-//@property (nonatomic) UIView *contentView;
-//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
-@property (nonatomic) ScreenShareView *shareView;
+@interface ViewController ()
 @property (nonatomic) ScreenShareToolbarView *toolbarView;
+@property (nonatomic) ScreenSharer *screenCaptureHandler;
+
+@property (weak, nonatomic) IBOutlet UIButton *screenShareButton;
 @end
 
 @implementation ViewController
@@ -23,31 +20,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // ScreenShareView example
-    self.shareView = [ScreenShareView view];
+    // tool bar
+    self.toolbarView = [ScreenShareToolbarView toolbar];
+    CGFloat height = self.toolbarView.bounds.size.height;
+    self.toolbarView.frame = CGRectMake(0, CGRectGetHeight([UIScreen mainScreen].bounds) - height, self.toolbarView.bounds.size.width, height);
+    self.screenCaptureHandler = [ScreenSharer screenSharer];
     
+    // screen share view
     UIImage *image = [UIImage imageNamed:@"mvc"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    [self.shareView addContentView:imageView];
+    [self.toolbarView.screenShareView addContentView:imageView];
     
-    self.shareView.frame = CGRectMake(0, 100, CGRectGetWidth(self.shareView.bounds), CGRectGetHeight(self.shareView.bounds));
-    [self.view addSubview:self.shareView];
-    
-    self.toolbarView = [[ScreenShareToolbarView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight([UIScreen mainScreen].bounds) - 50, CGRectGetWidth([UIScreen mainScreen].bounds), 50)];
+    [self.view addSubview:self.toolbarView.screenShareView];
     [self.view addSubview:self.toolbarView];
     
-    [self.shareView testAnnotating];
+    [self.view bringSubviewToFront:self.screenShareButton];
 }
 
+- (IBAction)ScreenShareButtonPressed:(UIButton *)sender {
 
-- (IBAction)changeScrollable:(id)sender {
-    self.shareView.scrollEnabled = !self.shareView.scrollEnabled;
+    if (!self.screenCaptureHandler.isScreenSharing){
+        [self.screenCaptureHandler connectWithView:self.view];
+    }
+    else {
+        [self.screenCaptureHandler disconnect];
+    }
 }
 
-
-- (IBAction)eraseButton:(id)sender {
-    [self.shareView testErasing];
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

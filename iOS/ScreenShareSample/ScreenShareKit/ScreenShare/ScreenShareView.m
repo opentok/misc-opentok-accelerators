@@ -8,8 +8,15 @@
 
 #import "ScreenShareView.h"
 #import "AnnotationPath.h"
-
 #import "AnnotationView.h"
+#import "AnnotationTextView.h"
+
+#import "ScreenShareEditTextViewController.h"
+#import "ScreenShareCaptureViewController.h"
+
+#import "UIViewController+Helper.h"
+
+#import "Constants.h"
 
 @interface ScreenShareView() <UIScrollViewDelegate>
 
@@ -19,35 +26,53 @@
 
 @implementation ScreenShareView
 
-- (BOOL)scrollEnabled {
-    return self.scrollView.scrollEnabled;
-}
-
-- (void)setScrollEnabled:(BOOL)scrollEnabled {
-    [self.scrollView setScrollEnabled:scrollEnabled];
+- (void)setAnnotating:(BOOL)annotating {
+    _annotating = annotating;
+    self.scrollView.scrollEnabled = !_annotating;
+    self.scrollView.pinchGestureRecognizer.enabled = !annotating;
+    if (!_annotating) {
+        [self.annotationView setCurrentAnnotatable:nil];
+    }
 }
 
 + (instancetype)view {
-    return [[ScreenShareView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    return [[ScreenShareView alloc] init];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        // scroll view
-        CGRect deviceBounds = [UIScreen mainScreen].bounds;
+- (instancetype)init {
+    
+    if (self = [super init]) {
         
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(deviceBounds), CGRectGetHeight(deviceBounds))];
-        [_scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))];
+        CGRect mainScreenBounds = [UIScreen mainScreen].bounds;
+        self.frame = CGRectMake(0, 0, CGRectGetWidth(mainScreenBounds), CGRectGetHeight(mainScreenBounds));
+        
+        // scroll view
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
         _scrollView.maximumZoomScale = 3.0f;
         _scrollView.delegate = self;
+        _scrollView.contentSize = self.frame.size;
         [self addSubview:_scrollView];
         
         // annotation view
-        _annotationView = [[AnnotationView alloc] initWithFrame:deviceBounds];
+        _annotationView = [[AnnotationView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
         [_scrollView addSubview:_annotationView];
     }
     return self;
 }
+
+//- (void)testAnnotating {
+//    AnnotationPoint *p1 = [[AnnotationPoint alloc] initWithX:119 andY:16];
+//    AnnotationPoint *p2 = [[AnnotationPoint alloc] initWithX:122 andY:16];
+//    AnnotationPoint *p3 = [[AnnotationPoint alloc] initWithX:126 andY:18];
+//    AnnotationPoint *p4 = [[AnnotationPoint alloc] initWithX:134 andY:21];
+//    AnnotationPoint *p5 = [[AnnotationPoint alloc] initWithX:144 andY:28];
+//    AnnotationPath *path = [AnnotationPath pathWithPoints:@[p1, p2, p3, p4, p5] strokeColor:nil];
+//    [self.annotationView addAnnotatable:path];
+//
+//    AnnotationTextField *textField = [AnnotationTextField textField];
+//    [self.annotationView addAnnotatable:textField];
+//}
 
 - (void)addContentView:(UIView *)view {
     
@@ -58,21 +83,36 @@
     [self.annotationView setFrame:CGRectMake(0, 0, width, height)];
 }
 
-- (void)testAnnotating {
-    AnnotationPoint *p1 = [[AnnotationPoint alloc] initWithX:119 andY:16];
-    AnnotationPoint *p2 = [[AnnotationPoint alloc] initWithX:122 andY:16];
-    AnnotationPoint *p3 = [[AnnotationPoint alloc] initWithX:126 andY:18];
-    AnnotationPoint *p4 = [[AnnotationPoint alloc] initWithX:134 andY:21];
-    AnnotationPoint *p5 = [[AnnotationPoint alloc] initWithX:144 andY:28];
-    AnnotationPath *path = [AnnotationPath pathWithPoints:@[p1, p2, p3, p4, p5] strokeColor:nil];
-    [self.annotationView addAnnotatable:path];
-    
-    AnnotationTextField *textField = [AnnotationTextField textField];
-    [self.annotationView addAnnotatable:textField];
+- (void)addTextAnnotation:(AnnotationTextView *)annotationTextView {
+    annotationTextView.frame = CGRectMake(self.scrollView.contentOffset.x, annotationTextView.frame.origin.y, CGRectGetWidth(annotationTextView.bounds), CGRectGetHeight(annotationTextView.bounds));
+    [self.annotationView addAnnotatable:annotationTextView];
+    [self.annotationView setCurrentAnnotatable:annotationTextView];
 }
 
-- (void)testErasing {
+- (void)selectColor:(UIColor *)selectedColor {
+    if (self.isAnnotating) {
+        [self.annotationView setCurrentAnnotatable:[AnnotationPath pathWithStrokeColor:selectedColor]];
+    }
+}
+
+- (void)erase {
     [self.annotationView undoAnnotatable];
+}
+
+- (void)captureAndShare {
+    ScreenShareCaptureViewController *captureViewController = [[ScreenShareCaptureViewController alloc] initWithSharedImage:[self captureScreen]];
+    UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
+    [topViewController presentViewController:captureViewController animated:YES completion:nil];
+}
+
+- (UIImage *)captureScreen {
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size,
+                                           NO, [UIScreen mainScreen].scale);
+    [self drawViewHierarchyInRect:self.bounds
+               afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 #pragma mark - UIScrollViewDelegate
