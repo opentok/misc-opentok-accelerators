@@ -10,7 +10,6 @@
 @property (nonatomic) OTAcceleratorSession *session;
 @property (nonatomic) OTPublisher *publisher;
 @property (nonatomic) TBScreenCapture *screenCapture;
-//@property (nonatomic) UIView *topScreen;
 
 @property (strong, nonatomic) ScreenShareBlock handler;
 
@@ -44,8 +43,6 @@
 - (void)connectWithView:(UIView *)view {
     self.screenCapture = [[TBScreenCapture alloc] initWithView:view];
     [OTAcceleratorSession registerWithAccePack:self];
-    
-    // perhaps we need to work on something here
 }
 
 - (void)connectWithView:(UIView *)view
@@ -56,7 +53,7 @@
 }
 
 - (void)disconnect {
-    //    [self justFrame:NO andWhere:self.screenCapture.view];
+    
     if (self.publisher) {
         
         OTError *error = nil;

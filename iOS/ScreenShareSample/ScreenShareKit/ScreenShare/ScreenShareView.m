@@ -21,6 +21,7 @@
 @interface ScreenShareView() <UIScrollViewDelegate>
 
 @property (nonatomic) UIScrollView *scrollView;
+@property (nonatomic) UIView *scrollContentView;
 @property (nonatomic) AnnotationView *annotationView;
 @end
 
@@ -47,16 +48,19 @@
         self.frame = CGRectMake(0, 0, CGRectGetWidth(mainScreenBounds), CGRectGetHeight(mainScreenBounds));
         
         // scroll view
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
-        _scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
         _scrollView.maximumZoomScale = 3.0f;
         _scrollView.delegate = self;
         _scrollView.contentSize = self.frame.size;
         [self addSubview:_scrollView];
         
+        // scroll content view
+        _scrollContentView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
+        [_scrollView addSubview:_scrollContentView];
+        
         // annotation view
         _annotationView = [[AnnotationView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
-        [_scrollView addSubview:_annotationView];
+        [_scrollContentView addSubview:_annotationView];
     }
     return self;
 }
@@ -79,11 +83,14 @@
     CGFloat width = self.scrollView.contentSize.width > CGRectGetWidth(view.bounds) ? self.scrollView.contentSize.width : CGRectGetWidth(view.bounds);
     CGFloat height = self.scrollView.contentSize.height > CGRectGetHeight(view.bounds) ? self.scrollView.contentSize.height : CGRectGetHeight(view.bounds);
     [self.scrollView setContentSize:CGSizeMake(width, height)];
-    [self.scrollView insertSubview:view belowSubview:self.annotationView];
+    [self.scrollContentView insertSubview:view belowSubview:self.annotationView];
+    [self.scrollContentView setFrame:CGRectMake(0, 0, width, height)];
     [self.annotationView setFrame:CGRectMake(0, 0, width, height)];
 }
 
 - (void)addTextAnnotation:(AnnotationTextView *)annotationTextView {
+    
+    [self.scrollView setZoomScale:1.0 animated:NO];   // this will need to reset in case that added text view is out of bound
     annotationTextView.frame = CGRectMake(self.scrollView.contentOffset.x, annotationTextView.frame.origin.y, CGRectGetWidth(annotationTextView.bounds), CGRectGetHeight(annotationTextView.bounds));
     [self.annotationView addAnnotatable:annotationTextView];
     [self.annotationView setCurrentAnnotatable:annotationTextView];
@@ -118,6 +125,6 @@
 #pragma mark - UIScrollViewDelegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.annotationView;
+    return self.scrollContentView;
 }
 @end

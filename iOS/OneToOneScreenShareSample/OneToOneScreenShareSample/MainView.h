@@ -13,7 +13,8 @@
 
 @interface MainView : UIView
 
-@property (weak, nonatomic) IBOutlet UIView *shareView;
+@property (strong, nonatomic) IBOutlet UIView *shareView;
+@property (strong, nonatomic) IBOutlet UIButton *screenShareHolder;
 
 // publisher view
 - (void)addPublisherView:(UIView *)publisherView;
@@ -39,7 +40,7 @@
 - (void)showSubscriberControls;
 - (void)hideSubscriberControls;
 
-- (void)addScreenShareView;
+- (void)addScreenShareViewWithContentView:(UIView *)view;
 - (void)removeScreenShareView;
 
 // other controls

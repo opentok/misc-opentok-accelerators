@@ -12,13 +12,63 @@
 
 #import <SVProgressHUD/SVProgressHUD.h>
 
-@interface MainViewController ()
+@interface MainViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic) MainView *mainView;
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
 @property (nonatomic) ScreenSharer *screenSharer;
+
+@property (nonatomic) UIView *customSharedContent;
+@property (nonatomic) UIImagePickerController *imagePickerViewContoller;
+@property (nonatomic) UIAlertController *screenShareMenuAlertController;
 @end
 
 @implementation MainViewController
+
+- (UIImagePickerController *)imagePickerViewContoller {
+    if (!_imagePickerViewContoller) {
+        _imagePickerViewContoller = [[UIImagePickerController alloc] init];
+        _imagePickerViewContoller.delegate = self;
+        _imagePickerViewContoller.allowsEditing = YES;
+        _imagePickerViewContoller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    return _imagePickerViewContoller;
+}
+
+- (UIAlertController *)screenShareMenuAlertController {
+    if (!_screenShareMenuAlertController) {
+        _screenShareMenuAlertController = [UIAlertController alertControllerWithTitle:nil
+                                                                              message:@"Please choose the content you want to share"
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        
+        __weak MainViewController *weakSelf = self;
+        UIAlertAction *grayAction = [UIAlertAction actionWithTitle:@"Gray Canvas"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+            
+                                                               _customSharedContent = nil;
+                                                               [weakSelf startScreenShare];
+                                                           }];
+        
+        UIAlertAction *cameraRollAction = [UIAlertAction actionWithTitle:@"Camera Roll"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+                                                               [self presentViewController:weakSelf.imagePickerViewContoller animated:YES completion:nil];
+                                                           }];
+        
+        [_screenShareMenuAlertController addAction:grayAction];
+        [_screenShareMenuAlertController addAction:cameraRollAction];
+        [_screenShareMenuAlertController addAction:
+         [UIAlertAction actionWithTitle:@"Cancel"
+                                  style:UIAlertActionStyleDestructive
+                                handler:^(UIAlertAction *action) {
+                                    
+                                    [_screenShareMenuAlertController dismissViewControllerAnimated:YES completion:nil];
+                                }]
+         ];
+    }
+    return _screenShareMenuAlertController;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -141,25 +191,43 @@
  */
 - (IBAction)ScreenShareButtonPressed:(UIButton *)sender {
     
-    
-    [SVProgressHUD show];
     if (!self.screenSharer.isScreenSharing) {
-        [self.screenSharer connectWithView:self.mainView.shareView handler:^(ScreenShareSignal signal, NSError *error) {
-            
-            [SVProgressHUD dismiss];
-            [self handleScreenShareSignal:signal];
-        }];
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [self presentViewController:self.screenShareMenuAlertController animated:YES completion:nil];
+        }
+        else {
+            UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:self.screenShareMenuAlertController];
+            [popup presentPopoverFromRect:self.mainView.screenShareHolder.bounds
+                                   inView:self.mainView.screenShareHolder
+                 permittedArrowDirections:UIPopoverArrowDirectionAny
+                                 animated:YES];
+        }
     }
     else {
-        [self.screenSharer disconnect];
-        [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
-            
-            [SVProgressHUD dismiss];
-            if (!error) {
-                [self handleCommunicationSignal:signal];
-            }
-        }];
+        [self stopScreenShareAndRecover];
     }
+}
+
+- (void)startScreenShare {
+    [SVProgressHUD show];
+    [self.screenSharer connectWithView:self.mainView.shareView handler:^(ScreenShareSignal signal, NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        [self handleScreenShareSignal:signal];
+    }];
+}
+
+- (void)stopScreenShareAndRecover {
+    [self.screenSharer disconnect];
+    [SVProgressHUD show];
+    [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        if (!error) {
+            [self handleCommunicationSignal:signal];
+        }
+    }];
 }
 
 - (void)handleScreenShareSignal:(ScreenShareSignal)signal {
@@ -168,7 +236,7 @@
     switch (signal) {
         case ScreenShareSignalSessionDidConnect: {
             [self.oneToOneCommunicator disconnect];
-            [self.mainView addScreenShareView];
+            [self.mainView addScreenShareViewWithContentView:self.customSharedContent];
             [self.mainView toggleAnnotationToolBar];
             break;
         }
@@ -292,6 +360,19 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation)interfaceOrientation {
     return YES;
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.customSharedContent = [[UIImageView alloc] initWithImage:chosenImage];
+    [picker dismissViewControllerAnimated:YES completion:^(){
+        [self startScreenShare];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

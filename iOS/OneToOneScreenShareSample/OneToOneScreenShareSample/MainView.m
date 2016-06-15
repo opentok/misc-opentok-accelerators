@@ -16,7 +16,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *videoHolder;
 @property (strong, nonatomic) IBOutlet UIButton *callHolder;
 @property (strong, nonatomic) IBOutlet UIButton *micHolder;
-@property (strong, nonatomic) IBOutlet UIButton *screenShareHolder;
 @property (strong, nonatomic) IBOutlet UIButton *annotationHolder;
 
 @property (strong, nonatomic) IBOutlet UIButton *subscriberVideoButton;
@@ -76,13 +75,18 @@
     self.publisherView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.publisherView.layer.backgroundColor = [UIColor grayColor].CGColor;
     self.publisherView.layer.cornerRadius = 3;
+
+    [self hideSubscriberControls];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
     
     [self drawBorderOn:self.micHolder withWhiteBorder:YES];
     [self drawBorderOn:self.callHolder withWhiteBorder:NO];
     [self drawBorderOn:self.videoHolder withWhiteBorder:YES];
     [self drawBorderOn:self.screenShareHolder withWhiteBorder:YES];
     [self drawBorderOn:self.annotationHolder withWhiteBorder:YES];
-    [self hideSubscriberControls];
 }
 
 - (void)drawBorderOn:(UIView *)view
@@ -186,8 +190,9 @@
     [self.subscriberVideoButton setAlpha:0.0];
 }
 
-- (void)addScreenShareView {
+- (void)addScreenShareViewWithContentView:(UIView *)view {
     self.toolbarView.screenShareView.frame = self.shareView.bounds;
+    [self.toolbarView.screenShareView addContentView:view];
     [self.shareView setHidden:NO];
     [self.shareView addSubview:self.toolbarView.screenShareView];
     [self.publisherView setHidden:YES];
