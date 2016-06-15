@@ -94,7 +94,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="21.5dp"
             android:layout_marginTop="37.5dp"
-            android:visibility="visible"></RelativeLayout>
+            android:visibility="gone"></RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/actionbar_remote_fragment_container"
@@ -110,9 +110,52 @@
             android:id="@+id/screensharing_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:background="@color/white"
+            android:visibility="visible"
             android:layout_above="@+id/actionbar_preview_fragment_container">
+
+            <include layout="@layout/calendar_layout"
+                android:id="@+id/menu1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+            </include>
+            <include layout="@layout/settings_layout"
+                android:id="@+id/menu4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+            </include>
+
+            <RelativeLayout
+                android:id="@+id/menu2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:background="@drawable/base_hero_mount">
+
+                <ImageView
+                    android:id="@+id/graph1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ira_comparison"/>
+            </RelativeLayout>
+
+            <WebView
+                android:id="@+id/menu3"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </WebView>
+
+            <com.tokbox.android.accpack.annotations.AnnotationsToolbar
+                android:id="@+id/annotations_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:layout_gravity="bottom"
+                android:visibility="gone"/>
+
         </FrameLayout>
 
     </RelativeLayout>

@@ -4,23 +4,22 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import com.opentok.android.BaseVideoCapturer;
 
 import java.io.FileOutputStream;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ScreenSharingCapturer extends BaseVideoCapturer{
-    private static final String LOG_TAG = ScreenSharingFragment.class.getSimpleName();
+    private static final String LOG_TAG = ScreenSharingCapturer.class.getSimpleName();
     private Context mContext;
 
     private boolean capturing = false;
@@ -47,35 +46,16 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
         @Override
         public void run() {
             if (capturing) {
-                frame = null;
-                int width = contentView.getWidth();
-                int height = contentView.getHeight();
-
-                if (frame == null ||
-                        ScreenSharingCapturer.this.width != width ||
-                        ScreenSharingCapturer.this.height != height) {
-
-                    ScreenSharingCapturer.this.width = width;
-                    ScreenSharingCapturer.this.height = height;
-
+            frame = null;
+                  if (frame == null || width != bmp.getWidth()
+                        || height != bmp.getHeight()){
                     if (lastBmp != null){
-                        canvas = new Canvas(lastBmp);
+                        width = lastBmp.getWidth();
+                        height = lastBmp.getHeight();
                         frame = new int[width * height];
 
-                        canvas.save(Canvas.MATRIX_SAVE_FLAG);
-                        canvas.translate(-contentView.getScrollX(), -contentView.getScrollY());
-                        contentView.draw(canvas);
-
                         lastBmp.getPixels(frame, 0, width, 0, 0, width, height);
-
                         provideIntArrayFrame(frame, ARGB, width, height, 0, false);
-
-                        canvas.restore();
-
-                        if (lastBmp != null) {
-                            lastBmp.recycle();
-                            lastBmp = null;
-                        }
                     }
 
                     mHandler.postDelayed(newFrame, 1000 / fps);
@@ -87,15 +67,17 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
     };
 
 
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public ScreenSharingCapturer(Context context, View view, ImageReader imageReader, Point size) {
+    public ScreenSharingCapturer(Context context, View view, ImageReader imageReader) {
         this.mContext = context;
         this.contentView = view;
         this.mImageReader = imageReader;
         this.mImageReader.setOnImageAvailableListener(new ImageAvailableListener(), null);
 
-        this.width = size.x;
-        this.height = size.y;
+        this.width = contentView.getWidth();
+        this.height = contentView.getHeight();
+
     }
 
     @Override
@@ -155,27 +137,28 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
 
         @Override
         public void onImageAvailable(ImageReader reader) {
-            Log.i(LOG_TAG, " onImageAvailable");
 
                 Image mImage = null;
                 FileOutputStream fos = null;
 
                 try {
                     mImage = mImageReader.acquireLatestImage();
-                    Log.i(LOG_TAG, " NEW IMAGE");
 
                     if (mImage != null) {
+                        int imgWidth = mImage.getWidth();
+                        int imgHeight = mImage.getHeight();
+
                         Image.Plane[] planes = mImage.getPlanes();
                         ByteBuffer buffer = planes[0].getBuffer();
                         int pixelStride = planes[0].getPixelStride();
                         int rowStride = planes[0].getRowStride();
-                        int rowPadding = rowStride - pixelStride * width;
+                        int rowPadding = rowStride - pixelStride * imgWidth;
 
-                        // create bitmap
-                        bmp = Bitmap.createBitmap(width + rowPadding / pixelStride, height, Bitmap.Config.ARGB_8888);
-                        bmp.copyPixelsFromBuffer(buffer);
-                        lastBmp = Bitmap.createBitmap(bmp);
+                        Buffer buffer2 = planes[0].getBuffer().rewind();
+                        bmp = Bitmap.createBitmap(imgWidth + rowPadding / pixelStride, imgHeight, Bitmap.Config.ARGB_8888);
 
+                        bmp.copyPixelsFromBuffer(buffer2);
+                        lastBmp = bmp.copy(bmp.getConfig(), true);
                     }
 
                 } catch (Exception e) {
