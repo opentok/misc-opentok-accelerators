@@ -91,13 +91,13 @@
                                           &_pixelBuffer);
     
     NSParameterAssert(status == kCVReturnSuccess && _pixelBuffer != NULL);
-    
+
 }
 
 #pragma mark - Capture lifecycle
 
 /**
- * Allocate capture resources; in this case we're just setting up a timer and
+ * Allocate capture resources; in this case we're just setting up a timer and 
  * block to execute periodically to send video frames.
  */
 - (void)initCapture {
@@ -123,7 +123,7 @@
 - (int32_t)startCapture
 {
     _capturing = YES;
-    
+
     if (_timer) {
         dispatch_resume(_timer);
     }
@@ -140,7 +140,7 @@
             dispatch_source_cancel(_timer);
         }
     });
-    
+
     return 0;
 }
 
@@ -202,6 +202,7 @@
     CGFloat destImageWidth = sourceWidth;
     CGFloat destImageHeight = sourceHeight;
     
+    // if image is wider than tall and width breaks edge size limit
     if (EDGE_LIMIT < sourceWidth && sourceAspectRatio >= 1.0) {
         destContainerWidth = EDGE_LIMIT;
         destContainerHeight = destContainerWidth / sourceAspectRatio;
@@ -211,6 +212,7 @@
         destImageHeight = destContainerWidth / sourceAspectRatio;
     }
     
+    // if image is taller than wide and height breaks edge size limit
     if (EDGE_LIMIT < destContainerHeight && sourceAspectRatio <= 1.0) {
         destContainerHeight = EDGE_LIMIT;
         destContainerWidth = destContainerHeight * sourceAspectRatio;
@@ -220,10 +222,32 @@
         destImageWidth = destContainerHeight * sourceAspectRatio;
     }
     
+    // ensure the dimensions of the resulting container are safe
+    if (fmod(destContainerWidth, DIMENSION_FACTOR) != 0) {
+        double remainder = fmod(destContainerWidth, DIMENSION_FACTOR);
+        // increase the edge size only if doing so does not break the edge limit
+        if (destContainerWidth + (DIMENSION_FACTOR - remainder) > EDGE_LIMIT) {
+            destContainerWidth -= remainder;
+        } else {
+            destContainerWidth += DIMENSION_FACTOR - remainder;
+        }
+    }
+    // ensure the dimensions of the resulting container are safe
+    if (fmod(destContainerHeight, DIMENSION_FACTOR) != 0) {
+        double remainder = fmod(destContainerHeight, DIMENSION_FACTOR);
+        // increase the edge size only if doing so does not break the edge limit
+        if (destContainerHeight + (DIMENSION_FACTOR - remainder) > EDGE_LIMIT) {
+            destContainerHeight -= remainder;
+        } else {
+            destContainerHeight += DIMENSION_FACTOR - remainder;
+        }
+    }
+    
     CGRect destRectForSourceImage = CGRectZero;
     CGSize destContainerSize =
     CGSizeMake(destContainerWidth, destContainerHeight);
     
+    // scale and recenter source image to fit in destination container
     if (sourceAspectRatio > 1.0) {
         destRectForSourceImage.origin.x = 0;
         destRectForSourceImage.origin.y =
@@ -242,14 +266,13 @@
     
     UIGraphicsBeginImageContextWithOptions(destContainerSize, NO, 1.0);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    //UIGraphicsPushContext(context);
     
+    // flip source image to match destination coordinate system
     CGContextScaleCTM(context, 1.0, -1.0);
     CGContextTranslateCTM(context, 0, -destRectForSourceImage.size.height);
     CGContextDrawImage(context, destRectForSourceImage, sourceCGImage);
     
     // Clean up and get the new image.
-    //UIGraphicsPopContext();
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -268,7 +291,7 @@
 - (void) consumeFrame:(CGImageRef)frame {
     
     [self checkImageSize:frame];
-    
+
     static mach_timebase_info_data_t time_info;
     uint64_t time_stamp = 0;
     
@@ -288,7 +311,7 @@
     CVImageBufferRef ref = [self pixelBufferFromCGImage:frame];
     
     CVPixelBufferLockBaseAddress(ref, 0);
-    
+
     _videoFrame.timestamp = time;
     _videoFrame.format.estimatedFramesPerSecond =
     _minFrameDuration.timescale / _minFrameDuration.value;

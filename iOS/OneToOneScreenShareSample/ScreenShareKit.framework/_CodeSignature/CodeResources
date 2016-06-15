@@ -30,7 +30,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		r9pLIHWi1QHEdfweEcyqEl09m8g=
+		b4ijOvk7run5RA26lSjHtklTCyk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -40,33 +40,82 @@
 	<key>files2</key>
 	<dict>
 		<key>Headers/Annotatable.h</key>
-		<data>
-		0pNr1PN3az3tvC7iJcb2+ZHBoZQ=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			0pNr1PN3az3tvC7iJcb2+ZHBoZQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			Wh7kEtZEG1m8gEFtbac3dn81ZmV39cTOspjv4bQmhBA=
+			</data>
+		</dict>
 		<key>Headers/AnnotationTextView.h</key>
-		<data>
-		rj2rnsI9z0ErpbPbi/x6R9Cum2Y=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			rj2rnsI9z0ErpbPbi/x6R9Cum2Y=
+			</data>
+			<key>hash2</key>
+			<data>
+			5nKgNeSWYOrspU1zs2TqPlMS1ZDP00wszWRfH+Kb8bQ=
+			</data>
+		</dict>
 		<key>Headers/ScreenShareKit.h</key>
-		<data>
-		xhZIN/Fqa/bkkxEDy3UiLCctyfU=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			xhZIN/Fqa/bkkxEDy3UiLCctyfU=
+			</data>
+			<key>hash2</key>
+			<data>
+			HtQa/qPBWKQo/YBqN3bQ/OqTNA5SwmvX2LbVZdkAz/s=
+			</data>
+		</dict>
 		<key>Headers/ScreenShareToolbarView.h</key>
-		<data>
-		y3YaPSm4NVTF+6tRiJGxjAdrsak=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			y3YaPSm4NVTF+6tRiJGxjAdrsak=
+			</data>
+			<key>hash2</key>
+			<data>
+			fEasbZgnE+ONTjkaKg8TVTNBLbF/0xmJbpv0nsADSB4=
+			</data>
+		</dict>
 		<key>Headers/ScreenShareView.h</key>
-		<data>
-		D0JVNlqexliK+vHT/xEqkTX8G74=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			D0JVNlqexliK+vHT/xEqkTX8G74=
+			</data>
+			<key>hash2</key>
+			<data>
+			o6cNnQhqWFnvNUUhuD7cNCu8LK6IFMilOdGCSX+TGnQ=
+			</data>
+		</dict>
 		<key>Headers/ScreenSharer.h</key>
-		<data>
-		U8ZOk/G0yTG8xFF86QrgVcu3hgI=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			U8ZOk/G0yTG8xFF86QrgVcu3hgI=
+			</data>
+			<key>hash2</key>
+			<data>
+			qlc+8lD6WW6e0vgcROovlu4a7uS3m3yXtPc9MECuTNg=
+			</data>
+		</dict>
 		<key>Modules/module.modulemap</key>
-		<data>
-		OyRChBhtlk+t9musItb3lvHZtZM=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			OyRChBhtlk+t9musItb3lvHZtZM=
+			</data>
+			<key>hash2</key>
+			<data>
+			1yQ55dDiQy0EB8eC65Oj3PFKiomwR+vv+ysKG47euXA=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>
