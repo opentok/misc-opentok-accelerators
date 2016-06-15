@@ -13,7 +13,7 @@ const OT = new OpenTok(apiKey, apiSecret);
 
 // Sessions need to be updated if we use a different api key
 const sessions = [
-  '1_MX40NTU4OTAyMn5-MTQ2NjAxODY5Nzc1N34xUXJqTGpWZFgvZWRCN1lPcUNpR2tldkV-fg',
+  '1_MX40NTU4OTAyMn5-MTQ2NDc5NzE5ODUzOH5HazV0QnpCdE9zbVB3cEtuR0hnZGpYUnV-fg',
   '1_MX40NTU4OTAyMn5-MTQ2NjAxODc2NTIzMX5BQy9oMTF3ZTVlSDRORXhRemdONHhEVFB-fg',
   '1_MX40NTU4OTAyMn5-MTQ2NjAxODc3NTk1NH5FZVMweEF5STlOVDAveEtNS2JFUTIwQWF-fg',
   '1_MX40NTU4OTAyMn5-MTQ2NjAxODc4NDY2OH5qWGNjNlNuOExPWmhKOGU1ejBwNE0vdWd-fg',
