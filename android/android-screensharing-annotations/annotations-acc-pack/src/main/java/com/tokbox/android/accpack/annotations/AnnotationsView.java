@@ -61,6 +61,8 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     private Annotatable mCurrentAnnotatable;
 
+    private boolean defaultLayout = false;
+
     public void setAnnotationsListener(AnnotationsListener listener) {
         this.mListener = listener;
     }
@@ -118,13 +120,15 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         int widthPixels = 0;
         int heightPixels = 0;
 
-        if (this.getLayoutParams().width == -1 || this.getLayoutParams().height == -1) {
+        if (this.getLayoutParams().width == -1 || this.getLayoutParams().height == -1 || defaultLayout) {
             //default case
+            defaultLayout = true;
             widthPixels = getContext().getResources().getDisplayMetrics().widthPixels;
             heightPixels = getDisplayContentHeight();
 
         }
         else {
+            defaultLayout = false;
             widthPixels = this.getLayoutParams().width;
             heightPixels = this.getLayoutParams().height;
         }
@@ -137,7 +141,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         params.height = this.height;
 
         this.setLayoutParams(params);
-
     }
     private int getStatusBarHeight() {
         int result = 0;

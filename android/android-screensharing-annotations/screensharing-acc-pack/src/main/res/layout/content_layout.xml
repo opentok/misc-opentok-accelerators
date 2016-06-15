@@ -37,7 +37,7 @@
 
     <View
     android:id="@+id/left_line"
-        android:layout_width="5dp"
+        android:layout_width="@dimen/screensharing_bar_width"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:background="@color/screensharing_bar"
@@ -45,7 +45,7 @@
 
     <View
         android:id="@+id/right_line"
-        android:layout_width="5dp"
+        android:layout_width="@dimen/screensharing_bar_width"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:background="@color/screensharing_bar"
@@ -53,7 +53,7 @@
 
     <View
         android:id="@+id/bottom_line"
-        android:layout_height="5dp"
+        android:layout_height="@dimen/screensharing_bar_width"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:background="@color/screensharing_bar"

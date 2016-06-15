@@ -23,6 +23,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -90,6 +91,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private RelativeLayout mLayout;
 
     private AnnotationsVideoRenderer mRenderer;
+    private View rootView;
 
     @Override
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
@@ -195,6 +197,17 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     @Override
     public void onPause() {
         super.onPause();
+        if (isStarted) {
+            stop();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isStarted) {
+            start();
+        }
     }
 
     @Override
@@ -217,7 +230,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_layout, container, false);
+        rootView = inflater.inflate(R.layout.main_layout, container, false);
 
         mScreensharingBar = (RelativeLayout) rootView.findViewById(R.id.screnesharing_bar);
         mScreensharingLeftView = (View) rootView.findViewById(R.id.left_line);
@@ -454,8 +467,21 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
                 mAnnotationsToolbar.setVisibility(View.VISIBLE);
                 mAnnotationsToolbar.restart();
             }
+
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)mAnnotationsToolbar.getLayoutParams();
+            params.leftMargin = dpToPx(5);
+            params.rightMargin = dpToPx(5);
+            params.bottomMargin = dpToPx(5);
+
+            mAnnotationsToolbar.setLayoutParams(params);
         }
     }
+
+    private int dpToPx(int dp) {
+        double screenDensity = this.getResources().getDisplayMetrics().density;
+        return (int) (screenDensity * (double) dp);
+    }
+
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
         mScreenPublisher = null;
