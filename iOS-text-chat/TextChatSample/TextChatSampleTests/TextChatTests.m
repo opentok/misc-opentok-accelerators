@@ -9,7 +9,7 @@ SPEC_BEGIN(TextChatTest)
 __block TextMessage *tc;
 
 beforeAll(^(){
-    [OneToOneCommunicator setOpenTokApiKey:@"testTextChat"
+    [TextChatView setOpenTokApiKey:@"testTextChat"
                                  sessionId:@"testTextChat"
                                      token:@"testTextChat"];
     

@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A50B70C31FF14443183A94472166D129C6654580",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A50B70C31FF14443183A94472166D129C6654580" : 0,
+    "99C1DC40AAA2244B8B32A930073CC0BE704419AC" : 0,
+    "0E79FE5EF19CF27CB8282B4F4200320BB40E976A" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "05DCF976-D230-40BA-A9BD-0D4CF4AB6E96",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A50B70C31FF14443183A94472166D129C6654580" : "textchat-acc-pack\/",
+    "99C1DC40AAA2244B8B32A930073CC0BE704419AC" : "textchat-acc-pack\/iOS-text-chat\/OneToOneTextChatSample\/SampleApp\/one-to-one-sample-apps\/",
+    "0E79FE5EF19CF27CB8282B4F4200320BB40E976A" : "textchat-acc-pack\/iOS-text-chat\/OneToOneTextChatSample\/SampleApp\/one-to-one-sample-apps\/one-to-one-sample-app\/iOS\/SampleApp\/opentok-solutions-logging\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "OneToOneTextChatSample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS-text-chat\/OneToOneTextChatSample\/OneToOneTextChatSample.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/opentok-solutions-logging.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0E79FE5EF19CF27CB8282B4F4200320BB40E976A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/one-to-one-sample-apps.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "99C1DC40AAA2244B8B32A930073CC0BE704419AC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/textchat-acc-pack.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A50B70C31FF14443183A94472166D129C6654580"
+    }
+  ]
+}

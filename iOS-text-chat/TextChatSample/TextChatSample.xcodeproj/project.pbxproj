@@ -7,17 +7,27 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		643553491CB69CCE00643E2F /* Build Framework */ = {
+		A00DE51A1D134B3C0053FF88 /* Distribution */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 6435534A1CB69CCE00643E2F /* Build configuration list for PBXAggregateTarget "Build Framework" */;
+			buildConfigurationList = A00DE51D1D134B3C0053FF88 /* Build configuration list for PBXAggregateTarget "Distribution" */;
 			buildPhases = (
-				6435539F1CB6B72F00643E2F /* ShellScript */,
+				A00DE51E1D134B3F0053FF88 /* ShellScript */,
 			);
 			dependencies = (
-				6435539C1CB6AEF800643E2F /* PBXTargetDependency */,
 			);
-			name = "Build Framework";
-			productName = "Build Framework";
+			name = Distribution;
+			productName = Distribution;
+		};
+		A00DE51F1D134BC00053FF88 /* Build */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A00DE5201D134BC00053FF88 /* Build configuration list for PBXAggregateTarget "Build" */;
+			buildPhases = (
+				A00DE5231D134BC30053FF88 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Build;
+			productName = Build;
 		};
 /* End PBXAggregateTarget section */
 
@@ -38,6 +48,27 @@
 		643553721CB69D4300643E2F /* GCDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6435536E1CB69D4300643E2F /* GCDHelper.m */; };
 		643553731CB69D4300643E2F /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6435536F1CB69D4300643E2F /* UIViewController+Helper.h */; };
 		643553741CB69D4300643E2F /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553701CB69D4300643E2F /* UIViewController+Helper.m */; };
+		A00DE5481D1350D00053FF88 /* TextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553591CB69D0600643E2F /* TextChatTableViewCell.m */; };
+		A00DE5491D1350D00053FF88 /* TextMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410E61D0772130001670C /* TextMessageManager.m */; };
+		A00DE54A1D1350D00053FF88 /* TextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410E31D0772130001670C /* TextMessage.m */; };
+		A00DE54B1D1350D00053FF88 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F5A1CC0B0C800D765F7 /* TextChatView.m */; };
+		A00DE54C1D1350D00053FF88 /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 643553701CB69D4300643E2F /* UIViewController+Helper.m */; };
+		A00DE54D1D1350D00053FF88 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410D31D0771E00001670C /* OTKAnalytics.m */; };
+		A00DE54E1D1350D00053FF88 /* TextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A03B1F701CC0B26400D765F7 /* TextChatUICustomizator.m */; };
+		A00DE54F1D1350D00053FF88 /* GCDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6435536E1CB69D4300643E2F /* GCDHelper.m */; };
+		A00DE5511D1350D00053FF88 /* libPods-TextChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D86F2F85715836866FD2ECF0 /* libPods-TextChatKit.a */; };
+		A00DE5531D1350D00053FF88 /* TextChatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 643553621CB69D2300643E2F /* TextChatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A00DE5541D1350D00053FF88 /* TextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410E21D0772130001670C /* TextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A00DE5551D1350D00053FF88 /* TextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F591CC0B0C800D765F7 /* TextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A00DE5561D1350D00053FF88 /* TextChatView_UserInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F5D1CC0B0C800D765F7 /* TextChatView_UserInterface.h */; };
+		A00DE5571D1350D00053FF88 /* TextMessage_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410E41D0772130001670C /* TextMessage_Private.h */; };
+		A00DE5581D1350D00053FF88 /* TextChatUICustomizator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0EBC81F1CECF20D001881EE /* TextChatUICustomizator_Private.h */; };
+		A00DE5591D1350D00053FF88 /* TextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A03B1F6F1CC0B26400D765F7 /* TextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A00DE55A1D1350D00053FF88 /* TextChatTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 643553581CB69D0600643E2F /* TextChatTableViewCell.h */; };
+		A00DE55B1D1350D00053FF88 /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6435536F1CB69D4300643E2F /* UIViewController+Helper.h */; };
+		A00DE55C1D1350D00053FF88 /* TextMessageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410E51D0772130001670C /* TextMessageManager.h */; };
+		A00DE55D1D1350D00053FF88 /* GCDHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6435536D1CB69D4300643E2F /* GCDHelper.h */; };
+		A00DE55E1D1350D00053FF88 /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410D21D0771E00001670C /* OTKAnalytics.h */; };
 		A02410D41D0771E00001670C /* OTKAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410D21D0771E00001670C /* OTKAnalytics.h */; };
 		A02410D51D0771E00001670C /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410D31D0771E00001670C /* OTKAnalytics.m */; };
 		A02410E71D0772130001670C /* TextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410E21D0772130001670C /* TextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,13 +97,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		643553411CB69CBE00643E2F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 643553151CB69CA400643E2F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6435533B1CB69CBE00643E2F;
-			remoteInfo = TextChatKit;
-		};
-		6435539B1CB6AEF800643E2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 643553151CB69CA400643E2F /* Project object */;
 			proxyType = 1;
@@ -126,6 +150,8 @@
 		6435536E1CB69D4300643E2F /* GCDHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDHelper.m; sourceTree = "<group>"; };
 		6435536F1CB69D4300643E2F /* UIViewController+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Helper.h"; sourceTree = "<group>"; };
 		643553701CB69D4300643E2F /* UIViewController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Helper.m"; sourceTree = "<group>"; };
+		A00DE5641D1350D00053FF88 /* TextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00DE5651D1350D00053FF88 /* TextChatKit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TextChatKit copy-Info.plist"; path = "/Users/lucas/textchat-acc-pack/iOS-text-chat/TextChatSample/TextChatKit copy-Info.plist"; sourceTree = "<absolute>"; };
 		A02410D21D0771E00001670C /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "Logging/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.h"; sourceTree = "<group>"; };
 		A02410D31D0771E00001670C /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "Logging/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.m"; sourceTree = "<group>"; };
 		A02410E21D0772130001670C /* TextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessage.h; sourceTree = "<group>"; };
@@ -173,6 +199,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A00DE5501D1350D00053FF88 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00DE5511D1350D00053FF88 /* libPods-TextChatKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A0253ACE1CD2A423006829E6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,6 +244,7 @@
 				6435531E1CB69CA400643E2F /* Products */,
 				94D97D39B04A048DA5920543 /* Pods */,
 				4344AF8478C194FA6E2EA06F /* Frameworks */,
+				A00DE5651D1350D00053FF88 /* TextChatKit copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -220,6 +255,7 @@
 				6435533C1CB69CBE00643E2F /* TextChatKit.framework */,
 				A0253AD11CD2A423006829E6 /* TextChatSampleTests.xctest */,
 				A071EA8E1D0E3B6F00C0D418 /* TextChatKitBundle.bundle */,
+				A00DE5641D1350D00053FF88 /* TextChatKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -374,6 +410,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A00DE5521D1350D00053FF88 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00DE5531D1350D00053FF88 /* TextChatKit.h in Headers */,
+				A00DE5541D1350D00053FF88 /* TextMessage.h in Headers */,
+				A00DE5551D1350D00053FF88 /* TextChatView.h in Headers */,
+				A00DE5561D1350D00053FF88 /* TextChatView_UserInterface.h in Headers */,
+				A00DE5571D1350D00053FF88 /* TextMessage_Private.h in Headers */,
+				A00DE5581D1350D00053FF88 /* TextChatUICustomizator_Private.h in Headers */,
+				A00DE5591D1350D00053FF88 /* TextChatUICustomizator.h in Headers */,
+				A00DE55A1D1350D00053FF88 /* TextChatTableViewCell.h in Headers */,
+				A00DE55B1D1350D00053FF88 /* UIViewController+Helper.h in Headers */,
+				A00DE55C1D1350D00053FF88 /* TextMessageManager.h in Headers */,
+				A00DE55D1D1350D00053FF88 /* GCDHelper.h in Headers */,
+				A00DE55E1D1350D00053FF88 /* OTKAnalytics.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -414,6 +469,26 @@
 			name = TextChatKit;
 			productName = TextChatKit;
 			productReference = 6435533C1CB69CBE00643E2F /* TextChatKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A00DE5451D1350D00053FF88 /* TextChatKit copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A00DE5611D1350D00053FF88 /* Build configuration list for PBXNativeTarget "TextChatKit copy" */;
+			buildPhases = (
+				A00DE5461D1350D00053FF88 /* 📦 Check Pods Manifest.lock */,
+				A00DE5471D1350D00053FF88 /* Sources */,
+				A00DE5501D1350D00053FF88 /* Frameworks */,
+				A00DE5521D1350D00053FF88 /* Headers */,
+				A00DE55F1D1350D00053FF88 /* Resources */,
+				A00DE5601D1350D00053FF88 /* 📦 Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TextChatKit copy";
+			productName = TextChatKit;
+			productReference = A00DE5641D1350D00053FF88 /* TextChatKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A0253AD01CD2A423006829E6 /* TextChatSampleTests */ = {
@@ -461,7 +536,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Esteban Cordero";
+				ORGANIZATIONNAME = "Tokbox, Inc.";
 				TargetAttributes = {
 					6435531C1CB69CA400643E2F = {
 						CreatedOnToolsVersion = 7.3;
@@ -469,7 +544,10 @@
 					6435533B1CB69CBE00643E2F = {
 						CreatedOnToolsVersion = 7.3;
 					};
-					643553491CB69CCE00643E2F = {
+					A00DE51A1D134B3C0053FF88 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					A00DE51F1D134BC00053FF88 = {
 						CreatedOnToolsVersion = 7.3;
 					};
 					A0253AD01CD2A423006829E6 = {
@@ -496,9 +574,11 @@
 			targets = (
 				6435531C1CB69CA400643E2F /* TextChatSample */,
 				6435533B1CB69CBE00643E2F /* TextChatKit */,
-				643553491CB69CCE00643E2F /* Build Framework */,
 				A0253AD01CD2A423006829E6 /* TextChatSampleTests */,
 				A071EA8D1D0E3B6F00C0D418 /* TextChatKitBundle */,
+				A00DE51A1D134B3C0053FF88 /* Distribution */,
+				A00DE51F1D134BC00053FF88 /* Build */,
+				A00DE5451D1350D00053FF88 /* TextChatKit copy */,
 			);
 		};
 /* End PBXProject section */
@@ -516,6 +596,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6435533A1CB69CBE00643E2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A00DE55F1D1350D00053FF88 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -576,19 +663,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TextChatKit/Pods-TextChatKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6435539F1CB6B72F00643E2F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nWORKSPACE_NAME=\"TextChatSample.xcworkspace\"\nFRAMEWORK_NAME=\"TextChatKit\"\nBUNDLE_NAME=\"TextChatKitBundle\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n\n# 5\n# Remove .framework file if exists on OneToOneTextChatSample folder from previous run.\nif [ -d \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to OneToOneTextChatSample folder .\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Build the resource bundle for the static library\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${BUNDLE_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n\n# 10\n# Remove .bundle file if exists on OneToOneTextChatSample folder from previous run\nif [ -d \"../OneToOneTextChatSample/${BUNDLE_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${BUNDLE_NAME}.framework\"\nfi\n\n# 11\n# Copy the resource bundle to OneToOneTextChatSample folder\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${BUNDLE_NAME}.bundle\" \"../OneToOneTextChatSample/${BUNDLE_NAME}.bundle\"\n\n# 12\n# re-direct to the Documentation folder and build the Documentation\ncd ../Documentation\nxcodebuild -project \"Documentation.xcodeproj\" -scheme \"AppleDoc\"\n\n# 13\n# re-direct to the OneToOneTextChatSample folder and zip all outputs into TextChatKit.zip\ncd ../OneToOneTextChatSample\nzip -r ../TextChatKit.zip TextChatKit.framework TextChatKitBundle.bundle docs\n\n# 15\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi";
-		};
 		994781CF3E9D71ABC5D16124 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -602,6 +676,62 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A00DE51E1D134B3F0053FF88 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nWORKSPACE_NAME=\"TextChatSample.xcworkspace\"\nFRAMEWORK_NAME=\"TextChatKit\"\nBUNDLE_NAME=\"TextChatKitBundle\"\nSCHEME_NAME=\"TextChatKit copy\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n\n# 5\n# Remove .framework file if exists on OneToOneTextChatSample folder from previous run.\nif [ -d \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to OneToOneTextChatSample folder .\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Build the resource bundle for the static library\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${BUNDLE_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n\n# 10\n# Remove .bundle file if exists on OneToOneTextChatSample folder from previous run\nif [ -d \"../OneToOneTextChatSample/${BUNDLE_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${BUNDLE_NAME}.framework\"\nfi\n\n# 11\n# Copy the resource bundle to OneToOneTextChatSample folder\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${BUNDLE_NAME}.bundle\" \"../OneToOneTextChatSample/${BUNDLE_NAME}.bundle\"\n\n# 12\n# re-direct to the Documentation folder and build the Documentation\ncd ../Documentation\nxcodebuild -project \"Documentation.xcodeproj\" -scheme \"AppleDoc\"\n\n# 13\n# re-direct to the OneToOneTextChatSample folder and zip all outputs into TextChatKit.zip\ncd ../OneToOneTextChatSample\nzip -r ../TextChatKit.zip TextChatKit.framework TextChatKitBundle.bundle docs\n\n# 15\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi";
+		};
+		A00DE5231D134BC30053FF88 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nWORKSPACE_NAME=\"TextChatSample.xcworkspace\"\nFRAMEWORK_NAME=\"TextChatKit\"\nSCHEME_NAME=\"TextChatKit copy\"\nBUNDLE_NAME=\"TextChatKitBundle\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n\n# 5\n# Remove .framework file if exists on OneToOneTextChatSample folder from previous run.\nif [ -d \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to OneToOneTextChatSample folder .\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Build the resource bundle for the static library\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${BUNDLE_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n\n# 10\n# Remove .bundle file if exists on OneToOneTextChatSample folder from previous run\nif [ -d \"../OneToOneTextChatSample/${BUNDLE_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${BUNDLE_NAME}.framework\"\nfi\n\n# 11\n# Copy the resource bundle to OneToOneTextChatSample folder\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${BUNDLE_NAME}.bundle\" \"../OneToOneTextChatSample/${BUNDLE_NAME}.bundle\"\n\n# 12\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi";
+		};
+		A00DE5461D1350D00053FF88 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A00DE5601D1350D00053FF88 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TextChatKit/Pods-TextChatKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D2BCED23F054322A01F4CBCE /* 📦 Copy Pods Resources */ = {
@@ -662,6 +792,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A00DE5471D1350D00053FF88 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00DE5481D1350D00053FF88 /* TextChatTableViewCell.m in Sources */,
+				A00DE5491D1350D00053FF88 /* TextMessageManager.m in Sources */,
+				A00DE54A1D1350D00053FF88 /* TextMessage.m in Sources */,
+				A00DE54B1D1350D00053FF88 /* TextChatView.m in Sources */,
+				A00DE54C1D1350D00053FF88 /* UIViewController+Helper.m in Sources */,
+				A00DE54D1D1350D00053FF88 /* OTKAnalytics.m in Sources */,
+				A00DE54E1D1350D00053FF88 /* TextChatUICustomizator.m in Sources */,
+				A00DE54F1D1350D00053FF88 /* GCDHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A0253ACD1CD2A423006829E6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -685,11 +830,6 @@
 			isa = PBXTargetDependency;
 			target = 6435533B1CB69CBE00643E2F /* TextChatKit */;
 			targetProxy = 643553411CB69CBE00643E2F /* PBXContainerItemProxy */;
-		};
-		6435539C1CB6AEF800643E2F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6435533B1CB69CBE00643E2F /* TextChatKit */;
-			targetProxy = 6435539B1CB6AEF800643E2F /* PBXContainerItemProxy */;
 		};
 		A0253AD71CD2A423006829E6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -849,7 +989,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = mh_dylib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.agilityfeat.TextChatKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -879,7 +1019,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = mh_dylib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.agilityfeat.TextChatKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -888,17 +1028,91 @@
 			};
 			name = Release;
 		};
-		6435534B1CB69CCE00643E2F /* Debug */ = {
+		A00DE51B1D134B3C0053FF88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		6435534C1CB69CCE00643E2F /* Release */ = {
+		A00DE51C1D134B3C0053FF88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A00DE5211D134BC00053FF88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A00DE5221D134BC00053FF88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A00DE5621D1350D00053FF88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2EE959AB7F7E8B3ABE23745D /* Pods-TextChatKit.debug.xcconfig */;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/TextChatKit",
+					"$(PROJECT_DIR)/TextChatKit/OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/acc-pack-common/iOS/Example/Pods/OpenTok",
+					"$(PROJECT_DIR)/TextChatKit/OneToOne/one-to-one-sample-apps-origin/one-to-one-text-chat/iOS",
+				);
+				INFOPLIST_FILE = "TextChatKit copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agilityfeat.TextChatKit;
+				PRODUCT_NAME = TextChatKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A00DE5631D1350D00053FF88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4EEA8D8DD1E1ACA237CFA34C /* Pods-TextChatKit.release.xcconfig */;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/TextChatKit",
+					"$(PROJECT_DIR)/TextChatKit/OneToOne/one-to-one-sample-apps-origin/one-to-one-sample-app/iOS/SampleApp/acc-pack-common/iOS/Example/Pods/OpenTok",
+					"$(PROJECT_DIR)/TextChatKit/OneToOne/one-to-one-sample-apps-origin/one-to-one-text-chat/iOS",
+				);
+				INFOPLIST_FILE = "TextChatKit copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agilityfeat.TextChatKit;
+				PRODUCT_NAME = TextChatKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -992,11 +1206,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6435534A1CB69CCE00643E2F /* Build configuration list for PBXAggregateTarget "Build Framework" */ = {
+		A00DE51D1D134B3C0053FF88 /* Build configuration list for PBXAggregateTarget "Distribution" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6435534B1CB69CCE00643E2F /* Debug */,
-				6435534C1CB69CCE00643E2F /* Release */,
+				A00DE51B1D134B3C0053FF88 /* Debug */,
+				A00DE51C1D134B3C0053FF88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A00DE5201D134BC00053FF88 /* Build configuration list for PBXAggregateTarget "Build" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A00DE5211D134BC00053FF88 /* Debug */,
+				A00DE5221D134BC00053FF88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A00DE5611D1350D00053FF88 /* Build configuration list for PBXNativeTarget "TextChatKit copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A00DE5621D1350D00053FF88 /* Debug */,
+				A00DE5631D1350D00053FF88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
