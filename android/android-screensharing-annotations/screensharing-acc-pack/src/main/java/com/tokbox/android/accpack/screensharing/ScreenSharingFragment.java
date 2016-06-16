@@ -102,8 +102,11 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     @Override
     public void onClose() {
-        if (isStarted)
+        if (isStarted) {
+            mAnnotationsView.restart();
+            mAnnotationsView = null;
             stop();
+        }
     }
 
     /**
@@ -236,15 +239,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         mScreensharingLeftView = (View) rootView.findViewById(R.id.left_line);
         mScreensharingRightView = (View) rootView.findViewById(R.id.right_line);
         mScreensharingBottomView = (View) rootView.findViewById(R.id.bottom_line);
-        mCloseBtn = (ImageButton) rootView.findViewById(R.id.screensharing_close);
-
-        mCloseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isStarted)
-                    stop();
-            }
-        });
 
         mScreen = container;
 
@@ -433,9 +427,11 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         checkAnnotations();
         isStarted = true;
 
-        mAnnotationsView = new AnnotationsView(getContext());
-        mAnnotationsView.attachToolbar(mAnnotationsToolbar);
-        mAnnotationsView.setVideoRenderer(mRenderer); //to use screencapture
+        if ( mAnnotationsView == null ){
+            mAnnotationsView = new AnnotationsView(getContext());
+            mAnnotationsView.attachToolbar(mAnnotationsToolbar);
+            mAnnotationsView.setVideoRenderer(mRenderer); //to use screencapture
+        }
         onAnnotationsViewReady(mAnnotationsView);
         mScreen.addView(mAnnotationsView);
 
