@@ -1,4 +1,0 @@
-Documentation set was installed to Xcode!
-
-Path: /Users/lucas/Library/Developer/Shared/Documentation/DocSets/com.Tokbox.Documentation.docset
-Time: 2016-06-15 22:37:27 +0000
