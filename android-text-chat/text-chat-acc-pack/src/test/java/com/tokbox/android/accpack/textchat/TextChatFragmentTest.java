@@ -204,10 +204,5 @@ public  class TextChatFragmentTest {
 //        textChatFragment.onMinimize();
 //
 //    }
-//    //
-//    //OT events
-//    //onSignalReceived
-//    //onError
-
-
+//
 }
