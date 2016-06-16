@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //Dialog
     ProgressDialog mProgressDialog;
 
-    private Activity activityReference;
     private TableLayout menu1;
     private RelativeLayout menu2;
     private WebView menu3;
@@ -139,8 +138,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.setTitle("Please wait");
         mProgressDialog.setMessage("Connecting...");
         mProgressDialog.show();
-
-        activityReference = this;
 
     }
 
@@ -426,6 +423,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 onDisableLocalVideo(false);
             }
         }
+        mActionBarContainer.setBackgroundColor(getResources().getColor(R.color.bckg_bar));
     }
 
     @Override
@@ -513,6 +511,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         menu2.setVisibility(View.GONE);
         menu3.setVisibility(View.GONE);
         menu4.setVisibility(View.GONE);
+
+        mActionBarContainer.setBackground(null);
     }
 
     private void showAVCall(boolean show) {

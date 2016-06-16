@@ -491,8 +491,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             if (v.getId() == R.id.done) {
                 clearAll();
                 this.setVisibility(GONE);
-                //loaded = false;
-                mode = Mode.Done;
+                 mode = Mode.Done;
             }
             if (v.getId() == R.id.erase) {
                 mode = Mode.Clear;
