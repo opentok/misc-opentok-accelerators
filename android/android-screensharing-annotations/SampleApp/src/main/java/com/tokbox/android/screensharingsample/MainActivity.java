@@ -443,36 +443,41 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onRemoteViewReady(View remoteView) {
         //update preview when a new participant joined to the communication
-
-        // check if it is screensharing
-        if (mComm.isScreensharing() && mComm.isRemote()) {
-            mRemoteViewContainer.removeAllViews();
-            mPreviewViewContainer.removeAllViews();
-            onPreviewReady(mComm.getRemoteVideoView());
-            //show remote view
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                    this.getResources().getDisplayMetrics().widthPixels, this.getResources()
-                    .getDisplayMetrics().heightPixels);
-            mRemoteViewContainer.addView(mComm.getRemoteScreenView(), layoutParams);
-        }
-        else {
-
-            if (mComm.isStarted()) {
-                onPreviewReady(mComm.getPreviewView()); //main preview view
-            }
-            if (!mComm.isRemote()) {
-                //clear views
-                onAudioOnly(false);
-                mRemoteViewContainer.removeView(remoteView);
-                mRemoteViewContainer.setClickable(false);
+        if ( remoteView != null ) {
+            // check if it is screensharing
+            if (mComm.isScreensharing() && mComm.isRemote()) {
+                mRemoteViewContainer.removeAllViews();
+                mPreviewViewContainer.removeAllViews();
+                onPreviewReady(mComm.getRemoteVideoView());
+                if ( mComm.getRemoteScreenView() != null ) {
+                    //show remote view
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                            this.getResources().getDisplayMetrics().widthPixels, this.getResources()
+                            .getDisplayMetrics().heightPixels);
+                    mRemoteViewContainer.addView(mComm.getRemoteScreenView(), layoutParams);
+                }
             } else {
-                //show remote view
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                        this.getResources().getDisplayMetrics().widthPixels, this.getResources()
-                        .getDisplayMetrics().heightPixels);
-                mRemoteViewContainer.removeView(remoteView);
-                mRemoteViewContainer.addView(mComm.getRemoteVideoView(), layoutParams);
-                mRemoteViewContainer.setClickable(true);
+
+                if (mComm.isStarted()) {
+                    onPreviewReady(mComm.getPreviewView()); //main preview view
+                }
+                if (!mComm.isRemote()) {
+                    //clear views
+                    onAudioOnly(false);
+                    mRemoteViewContainer.removeView(remoteView);
+                    mRemoteViewContainer.setClickable(false);
+                } else {
+                    if (mComm.getRemoteVideoView() != null) {
+                        //show remote view
+                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                                this.getResources().getDisplayMetrics().widthPixels, this.getResources()
+                                .getDisplayMetrics().heightPixels);
+                        mRemoteViewContainer.removeView(remoteView);
+
+                        mRemoteViewContainer.addView(mComm.getRemoteVideoView(), layoutParams);
+                        mRemoteViewContainer.setClickable(true);
+                    }
+                }
             }
         }
     }
