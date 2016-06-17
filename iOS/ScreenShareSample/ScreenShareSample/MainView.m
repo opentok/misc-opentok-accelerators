@@ -220,6 +220,13 @@
     [self.annotationHolder setEnabled:status];
 }
 
+- (void)resetButtonIcons;{
+    [self subscriberMicUnmuted];
+    [self subscriberVideoConnected];
+    [self publisherMicUnmuted];
+    [self publisherVideoConnected];
+}
+
 - (void)toggleAnnotationToolBar {
     
     
