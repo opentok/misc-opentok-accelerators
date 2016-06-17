@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B30A9E5CBA8F40FA672E0D5FBF52C03A467C55DC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0E79FE5EF19CF27CB8282B4F4200320BB40E976A" : 0,
+    "99C1DC40AAA2244B8B32A930073CC0BE704419AC" : 0,
+    "B30A9E5CBA8F40FA672E0D5FBF52C03A467C55DC" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4AEFBECB-4753-4139-B44D-4E08A83EE9F7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0E79FE5EF19CF27CB8282B4F4200320BB40E976A" : "screensharing-annotation-acc-pack\/iOS\/ScreenShareSample\/ScreenShareSample\/OneToOne\/one-to-one-sample-apps-origin\/one-to-one-sample-app\/iOS\/SampleApp\/opentok-solutions-logging\/",
+    "99C1DC40AAA2244B8B32A930073CC0BE704419AC" : "screensharing-annotation-acc-pack\/iOS\/ScreenShareSample\/ScreenShareSample\/OneToOne\/one-to-one-sample-apps-origin\/",
+    "B30A9E5CBA8F40FA672E0D5FBF52C03A467C55DC" : "screensharing-annotation-acc-pack\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ScreenShareSample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS\/ScreenShareSample\/ScreenShareSample.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/opentok-solutions-logging.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0E79FE5EF19CF27CB8282B4F4200320BB40E976A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/one-to-one-sample-apps.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "99C1DC40AAA2244B8B32A930073CC0BE704419AC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/screensharing-annotation-acc-pack",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B30A9E5CBA8F40FA672E0D5FBF52C03A467C55DC"
+    }
+  ]
+}

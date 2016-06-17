@@ -1,19 +1,19 @@
 ![logo](../tokbox-logo.png)
-# OpenTok Annotations with Screensharing Accelerator Pack for JavaScript<br/>Version 1.0
+# OpenTok Screensharing with Annotations Accelerator Pack for JavaScript<br/>Version 1.0
 
-This document describes how to develop a web-based application that uses the OpenTok Annotations with Screensharing Accelerator Pack for JavaScript.
+This document describes how to develop a web-based application that uses the OpenTok Screensharing with Annotations Accelerator Pack for JavaScript.
 
 This guide has the following sections:
 
 - [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-- Download the accelerator pack: Download and use the OpenTok Annotations with Screensharing Accelerator Pack provided to you by TokBox for use in your own development.
-- [Deploy](#deploy): Deploy your own application that hosts the Annotations with Screensharing Accelerator.
-- [Explore the code](#explore-the-code): This describes the sample app code design, which uses recommended best practices to create a working implementation that uses the Annotations with Screensharing Accelerator.
+- Download the accelerator pack: Download and use the OpenTok Screensharing with Annotations Accelerator Pack provided to you by TokBox for use in your own development.
+- [Deploy](#deploy): Deploy your own application that hosts the Screensharing with Annotations Accelerator.
+- [Explore the code](#explore-the-code): This describes the sample app code design, which uses recommended best practices to create a working implementation that uses the Screensharing with Annotations Accelerator.
 
 
 ## Prerequisites
 
-To be prepared to develop a web-based application that uses the OpenTok Annotations with Screensharing Accelerator for JavaScript:
+To be prepared to develop a web-based application that uses the OpenTok Screensharing with Annotations Accelerator for JavaScript:
 
 1. Review the basic requirements for [OpenTok](https://tokbox.com/developer/requirements/) and [OpenTok.js](https://tokbox.com/developer/sdks/js/#browsers).
 2. Your web page must load [OpenTok.js](https://tokbox.com/developer/sdks/js/) first, and then load [opentok-annotations.js](./sample-app/public/js/components/opentok-annotation.js) and [screenshare-annotation-acc-pack.js](./sample-app/public/js/components/screenshare-annotation-acc-pack.js).  
@@ -24,7 +24,7 @@ _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample
 
 ## Deploy
 
-The web page that loads the OpenTok Annotations with Screensharing example for JavaScript must be served over HTTP/HTTPS. Browser security limitations prevent you from publishing video using a `file://` path, as discussed in the OpenTok.js [Release Notes](https://www.tokbox.com/developer/sdks/js/release-notes.html#knownIssues). 
+The web page that loads the OpenTok Screensharing with Annotations example for JavaScript must be served over HTTP/HTTPS. Browser security limitations prevent you from publishing video using a `file://` path, as discussed in the OpenTok.js [Release Notes](https://www.tokbox.com/developer/sdks/js/release-notes.html#knownIssues). 
 
 To support clients running [Chrome 47 or later](https://groups.google.com/forum/#!topic/discuss-webrtc/sq5CVmY69sc), HTTPS is required, though localhost Chrome clients are considered secure and HTTP is permitted in such cases. 
 
@@ -32,7 +32,7 @@ A web server such as [MAMP](https://www.mamp.info/) or [Apache](https://httpd.ap
 
 ## Explore the code
 
-This section describes how the sample app code design uses recommended best practices to create a working implementation that uses the Annotations with Screensharing Accelerator. 
+This section describes how the sample app code design uses recommended best practices to create a working implementation that uses the Screensharing with Annotations Accelerator. 
 
 To develop your own application, follow this section to learn how to add the toolbar to your container and create an annotation canvas for both the publisher and subscriber. 
 
@@ -56,7 +56,7 @@ While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must
 
 * **[opentok-annotation.js](./sample-app/public/js/components/opentok-annotation.js)**: This is the OpenTok Annotation Plugin. If you already have a website making calls against the OpenTok JavaScript client, you can simply download this file and the image files.
 
-* **[screenshare-annotation-acc-pack.js](./sample-app/public/js/components/screenshare-annotation-acc-pack.js)**: _(Available only in the Annotations with Screensharing Accelerator Pack)._ Defines the annotation component that can be used with screensharing, the screensharing component, and the one-to-one communication layer used in the sample application. 
+* **[screenshare-annotation-acc-pack.js](./sample-app/public/js/components/screenshare-annotation-acc-pack.js)**: _(Available only in the Screensharing with Annotations Accelerator Pack)._ Defines the annotation component that can be used with screensharing, the screensharing component, and the one-to-one communication layer used in the sample application. 
 
 * **[screenshare.html](./sample-app/public/screenshare.html)**: The screen sharing container, which has its own toolbar and is displayed in a separate browser window.
 
@@ -145,6 +145,3 @@ The `_initAccPackComponents()` method in accelerator-pack.js initializes the com
         }
     };
 ```
-
-
-

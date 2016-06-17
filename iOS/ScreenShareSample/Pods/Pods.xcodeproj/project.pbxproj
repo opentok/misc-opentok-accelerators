@@ -1,0 +1,938 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		024FC9790579B47AE10B38B58BB1B314 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = F7E59D9F9BD6D0A8F79D9DEB481355D4 /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B383B347B142E4F682A54D3B47CCF90 /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 54986E6A4ABA7B9A9591D42C5815130C /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D9336B79ABA2278C1383641A0A3EC59 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D84F2AE543FDDC22D975724C8261B3 /* SVProgressHUD.m */; };
+		12CF5FCFB94150D60D6665170C530EF7 /* LHToolbarContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = E5AB5BB40D5D4E010CCCDF9357DF15A1 /* LHToolbarContainerView.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		14296D75EFACA14472E8B42CB153A9F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90AAE8973B935FD4979EEDFB8B1E12AC /* Foundation.framework */; };
+		15EB28A61BDEB95BFDD19B1B96290F23 /* LHToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = ECD6B9C0EBB21AFB981E7895386C6518 /* LHToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		161C7843E2A2786C1A8EAF2CD7DAA0F1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90AAE8973B935FD4979EEDFB8B1E12AC /* Foundation.framework */; };
+		185F4817ED52DB1D050A967F4F78B568 /* SVRadialGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BADBB0670D4426B7DF39B0FFC2FC9C43 /* SVRadialGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1BD6FCDD8D8CF9A01299EFFF53214938 /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 233D8CB1BD20CF34E20FAAA48AF9E3FE /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2712BF53A00E474928196D1795E4F2E2 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 063AB9FA33F5EFC5285E2A7C772EC1E8 /* SVProgressAnimatedView.m */; };
+		36FFE522F39CCD22A81DA9395695BEF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90AAE8973B935FD4979EEDFB8B1E12AC /* Foundation.framework */; };
+		3786215B6B92DED90020CD9A14585E61 /* OTAcceleratorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AC167B0EBB4626D777109535DC7500E /* OTAcceleratorSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3CFDED84765052F925522E35230FBFE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90AAE8973B935FD4979EEDFB8B1E12AC /* Foundation.framework */; };
+		423C1173E5E8137335961AF9FE2BD64E /* UIView+AutoLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EBBDE87BDEA1380AF9A0CCD8ED97A8 /* UIView+AutoLayoutHelper.m */; };
+		462BD1E15F7DDAA6E0797F4613D0CFA2 /* Pods-ScreenShareSample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4FD74380A0978458F80B57952B4A2 /* Pods-ScreenShareSample-dummy.m */; };
+		8047E033C354B7D4D104B8EDC0EADCF6 /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = EBCADD88C5621CD3035FD17DBCDCFEA1 /* Info.plist */; };
+		8241C0762CB08EFA1FFE4B38F316607B /* LHToolbar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9668B9E60DF2D89BEA8CE9D2B4004313 /* LHToolbar-dummy.m */; };
+		83AE9DCC19321391F283A613EF5FE6D0 /* LHToolbarContainerViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AE6313A56FF1F1CCC6E616E2C1212B /* LHToolbarContainerViewItem.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		88671B7181FA47227E9DF3B6A27F3BAA /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF13BFD4809BB51B52781A1637EF6FE /* SVRadialGradientLayer.m */; };
+		9122A6DABD7A698A4AC1FDC28D3FE712 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D44BE62F67E8208D1ACC65D3B312FA /* SVProgressHUD-dummy.m */; };
+		9204B72B9B21E6B9B09F2FC2F6230CC3 /* Pods-ScreenShareKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECBBB8A0C68431B99BA21132871B41B /* Pods-ScreenShareKit-dummy.m */; };
+		987E3E4C1B02824E75988BFFD42E2503 /* UIView+AutoLayoutHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D2BF29EBA338363477174909F8497F76 /* UIView+AutoLayoutHelper.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9AF02C4A308BC293D307ED1E84B87245 /* LHToolbarContainerViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B334579E7D2DD28F92CA575EC4B963D2 /* LHToolbarContainerViewItem.m */; };
+		A0F4090182A23657F377D0CCBAD0DF3F /* LHToolbarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97203505759807B8DF6722D2519AEC70 /* LHToolbarContainerView.m */; };
+		B4220C43DB8F4BA1174BD09569F240FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90AAE8973B935FD4979EEDFB8B1E12AC /* Foundation.framework */; };
+		B4BD26AC48A38A2F87A33D47FF46D79B /* LHToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 67884DC04171213C27E37E2747A168B3 /* LHToolbar.m */; };
+		D5384FD6DB7BB3B5ABDECF9262B50535 /* OTAcceleratorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBE7AF904953B4E4218D8C4BC3BBED4 /* OTAcceleratorSession.m */; };
+		D7D890890B92F95DA6B4533A68165055 /* OTAcceleratorPackUtil-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4138B57EC8EE0439EA3BD742A6FC7 /* OTAcceleratorPackUtil-dummy.m */; };
+		DC93B51B07BAE51F144496DC47AB7748 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF929E6B95B257D75D65623AE4995A3C /* SVIndefiniteAnimatedView.m */; };
+		EA2E4D0DB8038DCA2A2BD4F48AAA9E3F /* OTAcceleratorPackUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 75FF0AF1C91527908620583AA7859C45 /* OTAcceleratorPackUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F74B44707E986CB9BDEF11DBE2C10454 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0B5C34B0704CE42DB8ACE437DB6B71 /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0EF05B01E56B87009F238CAEB9920A4D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E7F75CBD241D2DB3A73FD19B3F3781B;
+			remoteInfo = SVProgressHUD;
+		};
+		5BDD80B04916563B5F205B2163D9AA9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDD17FE2C2326B8D034D52B32AC8E208;
+			remoteInfo = OTAcceleratorPackUtil;
+		};
+		D70131905C1EB4BBA333B830FD8A8D0D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F8A1ADCD58A10A6CE027A92AA014B90;
+			remoteInfo = LHToolbar;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		022AF7B6635855F70551E32DE769C55B /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		063AB9FA33F5EFC5285E2A7C772EC1E8 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		0ECBBB8A0C68431B99BA21132871B41B /* Pods-ScreenShareKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ScreenShareKit-dummy.m"; sourceTree = "<group>"; };
+		1C34C0DB74E213C34D89B300110F3B6D /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
+		1F9B1C54059A6B197A7367C9CBBB9867 /* libLHToolbar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLHToolbar.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		21778F7B3B5C008EAC9D5BED3394262C /* Pods-ScreenShareSample-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ScreenShareSample-resources.sh"; sourceTree = "<group>"; };
+		233D8CB1BD20CF34E20FAAA48AF9E3FE /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		24FAA061149DA640C4F310B29C4C4BAA /* OTAcceleratorPackUtil-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OTAcceleratorPackUtil-prefix.pch"; sourceTree = "<group>"; };
+		2809A70450957069C580E67C7D3CBF1A /* Pods-ScreenShareKit-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ScreenShareKit-acknowledgements.plist"; sourceTree = "<group>"; };
+		2AC4138B57EC8EE0439EA3BD742A6FC7 /* OTAcceleratorPackUtil-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OTAcceleratorPackUtil-dummy.m"; sourceTree = "<group>"; };
+		3591FF823BF7E5A69B1A7FD24ACBBDA3 /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
+		3CEEE930E31F3F4D5D181D69CF36BFB9 /* Pods-ScreenShareKit-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ScreenShareKit-resources.sh"; sourceTree = "<group>"; };
+		48D84F2AE543FDDC22D975724C8261B3 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
+		4B54EBE871750C716F74F498B04A09A9 /* Pods-ScreenShareKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScreenShareKit.release.xcconfig"; sourceTree = "<group>"; };
+		52AE6313A56FF1F1CCC6E616E2C1212B /* LHToolbarContainerViewItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LHToolbarContainerViewItem.h; path = LHToolbar/LHToolbarContainerViewItem.h; sourceTree = "<group>"; };
+		54986E6A4ABA7B9A9591D42C5815130C /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		57EE13E2D44E10109970DE65123CB59D /* libPods-ScreenShareSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScreenShareSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		58D44BE62F67E8208D1ACC65D3B312FA /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		61B9C1D6905F7836145F1318D90A03E2 /* libPods-ScreenShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScreenShareKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		667D0C0A6300358651C306FD3BE2EBF5 /* Pods-ScreenShareSample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ScreenShareSample-acknowledgements.markdown"; sourceTree = "<group>"; };
+		67884DC04171213C27E37E2747A168B3 /* LHToolbar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LHToolbar.m; path = LHToolbar/LHToolbar.m; sourceTree = "<group>"; };
+		6AC167B0EBB4626D777109535DC7500E /* OTAcceleratorSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OTAcceleratorSession.h; path = iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.h; sourceTree = "<group>"; };
+		6EB6860667F87B35E5AF3BEA9B8471B3 /* Pods-ScreenShareKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScreenShareKit.debug.xcconfig"; sourceTree = "<group>"; };
+		74A6B2086E98BFFB290BF7D8271E0A6A /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
+		75FF0AF1C91527908620583AA7859C45 /* OTAcceleratorPackUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OTAcceleratorPackUtil.h; path = iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorPackUtil.h; sourceTree = "<group>"; };
+		8276C6D39BE79CAFACD1F076AF87A1BF /* Pods-ScreenShareSample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ScreenShareSample-acknowledgements.plist"; sourceTree = "<group>"; };
+		8318769AC5B8B0AE5CD1135E8D311BCE /* Pods-ScreenShareKit-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ScreenShareKit-frameworks.sh"; sourceTree = "<group>"; };
+		8FFA99F4C6E1582218E8770104BF63CC /* OTAcceleratorPackUtil.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OTAcceleratorPackUtil.xcconfig; sourceTree = "<group>"; };
+		90AAE8973B935FD4979EEDFB8B1E12AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		912A95CFAC910E358FD6551DFBCF8B37 /* Pods-ScreenShareKit-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ScreenShareKit-acknowledgements.markdown"; sourceTree = "<group>"; };
+		932A92D771D62EC1F1D836A60E49E20D /* LHToolbar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LHToolbar-prefix.pch"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9668B9E60DF2D89BEA8CE9D2B4004313 /* LHToolbar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LHToolbar-dummy.m"; sourceTree = "<group>"; };
+		97203505759807B8DF6722D2519AEC70 /* LHToolbarContainerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LHToolbarContainerView.m; path = LHToolbar/LHToolbarContainerView.m; sourceTree = "<group>"; };
+		AA9CCB9DCBE5FE55B9C12F1211A71CD1 /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADE4FD74380A0978458F80B57952B4A2 /* Pods-ScreenShareSample-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ScreenShareSample-dummy.m"; sourceTree = "<group>"; };
+		AEBE7AF904953B4E4218D8C4BC3BBED4 /* OTAcceleratorSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OTAcceleratorSession.m; path = iOS/OTAcceleratorPackUtil/Classes/OTAcceleratorSession.m; sourceTree = "<group>"; };
+		B334579E7D2DD28F92CA575EC4B963D2 /* LHToolbarContainerViewItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LHToolbarContainerViewItem.m; path = LHToolbar/LHToolbarContainerViewItem.m; sourceTree = "<group>"; };
+		B6EBBDE87BDEA1380AF9A0CCD8ED97A8 /* UIView+AutoLayoutHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+AutoLayoutHelper.m"; path = "LHToolbar/Categories/UIView+AutoLayoutHelper.m"; sourceTree = "<group>"; };
+		BADBB0670D4426B7DF39B0FFC2FC9C43 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		C79B933827D6756BCA3F9192BB8CDB17 /* Pods-ScreenShareSample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ScreenShareSample-frameworks.sh"; sourceTree = "<group>"; };
+		C7AA3256224EA75BD3C520DE61EC0B81 /* Pods-ScreenShareSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScreenShareSample.release.xcconfig"; sourceTree = "<group>"; };
+		D2BF29EBA338363477174909F8497F76 /* UIView+AutoLayoutHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+AutoLayoutHelper.h"; path = "LHToolbar/Categories/UIView+AutoLayoutHelper.h"; sourceTree = "<group>"; };
+		E22D3248A5B333084F5B3C3A0A7D20BE /* libOTAcceleratorPackUtil.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOTAcceleratorPackUtil.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5AB5BB40D5D4E010CCCDF9357DF15A1 /* LHToolbarContainerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LHToolbarContainerView.h; path = LHToolbar/LHToolbarContainerView.h; sourceTree = "<group>"; };
+		EB0B5C34B0704CE42DB8ACE437DB6B71 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		EBCADD88C5621CD3035FD17DBCDCFEA1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = LHToolbar/Info.plist; sourceTree = "<group>"; };
+		EBF13BFD4809BB51B52781A1637EF6FE /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		ECD6B9C0EBB21AFB981E7895386C6518 /* LHToolbar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LHToolbar.h; path = LHToolbar/LHToolbar.h; sourceTree = "<group>"; };
+		F646F143DD6BA417076DDEA84657E718 /* Pods-ScreenShareSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScreenShareSample.debug.xcconfig"; sourceTree = "<group>"; };
+		F7E59D9F9BD6D0A8F79D9DEB481355D4 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
+		FBB55072A053D5459FF03293594E3881 /* LHToolbar.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LHToolbar.xcconfig; sourceTree = "<group>"; };
+		FF929E6B95B257D75D65623AE4995A3C /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5B1CC899CC5274F0293F55058184AB9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CFDED84765052F925522E35230FBFE4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70777DBF1C21A2333B05C1455AA64FDA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36FFE522F39CCD22A81DA9395695BEF0 /* Foundation.framework in Frameworks */,
+				F74B44707E986CB9BDEF11DBE2C10454 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		910ED51EF08D6EF502F0C775BF35B93B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				161C7843E2A2786C1A8EAF2CD7DAA0F1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A097ADA5F74EADFE2A339B0EF2021C96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4220C43DB8F4BA1174BD09569F240FD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D10BC1E7255D7769E84B9B4A835F990A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14296D75EFACA14472E8B42CB153A9F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0BC71072613B34C1A1F73E76B464FF8E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1C34C0DB74E213C34D89B300110F3B6D /* OpenTok.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		242D72AA8B7EAAA3C656B84BE96E0ED3 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				233D8CB1BD20CF34E20FAAA48AF9E3FE /* SVIndefiniteAnimatedView.h */,
+				FF929E6B95B257D75D65623AE4995A3C /* SVIndefiniteAnimatedView.m */,
+				54986E6A4ABA7B9A9591D42C5815130C /* SVProgressAnimatedView.h */,
+				063AB9FA33F5EFC5285E2A7C772EC1E8 /* SVProgressAnimatedView.m */,
+				F7E59D9F9BD6D0A8F79D9DEB481355D4 /* SVProgressHUD.h */,
+				48D84F2AE543FDDC22D975724C8261B3 /* SVProgressHUD.m */,
+				BADBB0670D4426B7DF39B0FFC2FC9C43 /* SVRadialGradientLayer.h */,
+				EBF13BFD4809BB51B52781A1637EF6FE /* SVRadialGradientLayer.m */,
+				4340F94CC3AF885D6E5F4FB65D4CFB3B /* Resources */,
+				DBA670CFC4062A6B9D72513B7BAFD77F /* Support Files */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89F803C7E2D77E11F2120CB28FE0B795 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4340F94CC3AF885D6E5F4FB65D4CFB3B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				022AF7B6635855F70551E32DE769C55B /* SVProgressHUD.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		4BF301555B331272454D3E9154ED7445 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA995E1B905B15DE1577C74950D726C2 /* Pods-ScreenShareKit */,
+				EDFC058CC6ABFFD463F5F5D3B20CE46C /* Pods-ScreenShareSample */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		4FF15C15913B2D0567212B999AC5AF9B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				83E0E21A9B3926E01544B647FC8FDF2F /* LHToolbar */,
+				CDC6F9F3543D5FC8FBCEFEBBF07E4841 /* OpenTok */,
+				A75CB7FAC023DD3402803D6D55DC404E /* OTAcceleratorPackUtil */,
+				242D72AA8B7EAAA3C656B84BE96E0ED3 /* SVProgressHUD */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				4FF15C15913B2D0567212B999AC5AF9B /* Pods */,
+				7F8874C784F277ADA990517A9992A717 /* Products */,
+				4BF301555B331272454D3E9154ED7445 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		7F8874C784F277ADA990517A9992A717 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F9B1C54059A6B197A7367C9CBBB9867 /* libLHToolbar.a */,
+				E22D3248A5B333084F5B3C3A0A7D20BE /* libOTAcceleratorPackUtil.a */,
+				61B9C1D6905F7836145F1318D90A03E2 /* libPods-ScreenShareKit.a */,
+				57EE13E2D44E10109970DE65123CB59D /* libPods-ScreenShareSample.a */,
+				AA9CCB9DCBE5FE55B9C12F1211A71CD1 /* libSVProgressHUD.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		83E0E21A9B3926E01544B647FC8FDF2F /* LHToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				EBCADD88C5621CD3035FD17DBCDCFEA1 /* Info.plist */,
+				ECD6B9C0EBB21AFB981E7895386C6518 /* LHToolbar.h */,
+				67884DC04171213C27E37E2747A168B3 /* LHToolbar.m */,
+				E5AB5BB40D5D4E010CCCDF9357DF15A1 /* LHToolbarContainerView.h */,
+				97203505759807B8DF6722D2519AEC70 /* LHToolbarContainerView.m */,
+				52AE6313A56FF1F1CCC6E616E2C1212B /* LHToolbarContainerViewItem.h */,
+				B334579E7D2DD28F92CA575EC4B963D2 /* LHToolbarContainerViewItem.m */,
+				D2BF29EBA338363477174909F8497F76 /* UIView+AutoLayoutHelper.h */,
+				B6EBBDE87BDEA1380AF9A0CCD8ED97A8 /* UIView+AutoLayoutHelper.m */,
+				AB20B1D90F9EE9A240AB5281F1B410FA /* Support Files */,
+			);
+			path = LHToolbar;
+			sourceTree = "<group>";
+		};
+		89F803C7E2D77E11F2120CB28FE0B795 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				90AAE8973B935FD4979EEDFB8B1E12AC /* Foundation.framework */,
+				EB0B5C34B0704CE42DB8ACE437DB6B71 /* QuartzCore.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		A75CB7FAC023DD3402803D6D55DC404E /* OTAcceleratorPackUtil */ = {
+			isa = PBXGroup;
+			children = (
+				75FF0AF1C91527908620583AA7859C45 /* OTAcceleratorPackUtil.h */,
+				6AC167B0EBB4626D777109535DC7500E /* OTAcceleratorSession.h */,
+				AEBE7AF904953B4E4218D8C4BC3BBED4 /* OTAcceleratorSession.m */,
+				B2E4E40501EFBDF63C0AE6E68FE6FD83 /* Support Files */,
+			);
+			path = OTAcceleratorPackUtil;
+			sourceTree = "<group>";
+		};
+		AB20B1D90F9EE9A240AB5281F1B410FA /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FBB55072A053D5459FF03293594E3881 /* LHToolbar.xcconfig */,
+				9668B9E60DF2D89BEA8CE9D2B4004313 /* LHToolbar-dummy.m */,
+				932A92D771D62EC1F1D836A60E49E20D /* LHToolbar-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/LHToolbar";
+			sourceTree = "<group>";
+		};
+		B2E4E40501EFBDF63C0AE6E68FE6FD83 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8FFA99F4C6E1582218E8770104BF63CC /* OTAcceleratorPackUtil.xcconfig */,
+				2AC4138B57EC8EE0439EA3BD742A6FC7 /* OTAcceleratorPackUtil-dummy.m */,
+				24FAA061149DA640C4F310B29C4C4BAA /* OTAcceleratorPackUtil-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/OTAcceleratorPackUtil";
+			sourceTree = "<group>";
+		};
+		CDC6F9F3543D5FC8FBCEFEBBF07E4841 /* OpenTok */ = {
+			isa = PBXGroup;
+			children = (
+				0BC71072613B34C1A1F73E76B464FF8E /* Frameworks */,
+			);
+			path = OpenTok;
+			sourceTree = "<group>";
+		};
+		DBA670CFC4062A6B9D72513B7BAFD77F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3591FF823BF7E5A69B1A7FD24ACBBDA3 /* SVProgressHUD.xcconfig */,
+				58D44BE62F67E8208D1ACC65D3B312FA /* SVProgressHUD-dummy.m */,
+				74A6B2086E98BFFB290BF7D8271E0A6A /* SVProgressHUD-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SVProgressHUD";
+			sourceTree = "<group>";
+		};
+		EA995E1B905B15DE1577C74950D726C2 /* Pods-ScreenShareKit */ = {
+			isa = PBXGroup;
+			children = (
+				912A95CFAC910E358FD6551DFBCF8B37 /* Pods-ScreenShareKit-acknowledgements.markdown */,
+				2809A70450957069C580E67C7D3CBF1A /* Pods-ScreenShareKit-acknowledgements.plist */,
+				0ECBBB8A0C68431B99BA21132871B41B /* Pods-ScreenShareKit-dummy.m */,
+				8318769AC5B8B0AE5CD1135E8D311BCE /* Pods-ScreenShareKit-frameworks.sh */,
+				3CEEE930E31F3F4D5D181D69CF36BFB9 /* Pods-ScreenShareKit-resources.sh */,
+				6EB6860667F87B35E5AF3BEA9B8471B3 /* Pods-ScreenShareKit.debug.xcconfig */,
+				4B54EBE871750C716F74F498B04A09A9 /* Pods-ScreenShareKit.release.xcconfig */,
+			);
+			name = "Pods-ScreenShareKit";
+			path = "Target Support Files/Pods-ScreenShareKit";
+			sourceTree = "<group>";
+		};
+		EDFC058CC6ABFFD463F5F5D3B20CE46C /* Pods-ScreenShareSample */ = {
+			isa = PBXGroup;
+			children = (
+				667D0C0A6300358651C306FD3BE2EBF5 /* Pods-ScreenShareSample-acknowledgements.markdown */,
+				8276C6D39BE79CAFACD1F076AF87A1BF /* Pods-ScreenShareSample-acknowledgements.plist */,
+				ADE4FD74380A0978458F80B57952B4A2 /* Pods-ScreenShareSample-dummy.m */,
+				C79B933827D6756BCA3F9192BB8CDB17 /* Pods-ScreenShareSample-frameworks.sh */,
+				21778F7B3B5C008EAC9D5BED3394262C /* Pods-ScreenShareSample-resources.sh */,
+				F646F143DD6BA417076DDEA84657E718 /* Pods-ScreenShareSample.debug.xcconfig */,
+				C7AA3256224EA75BD3C520DE61EC0B81 /* Pods-ScreenShareSample.release.xcconfig */,
+			);
+			name = "Pods-ScreenShareSample";
+			path = "Target Support Files/Pods-ScreenShareSample";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0425ED1670CBD8BBD8DE50B2A612FB60 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA2E4D0DB8038DCA2A2BD4F48AAA9E3F /* OTAcceleratorPackUtil.h in Headers */,
+				3786215B6B92DED90020CD9A14585E61 /* OTAcceleratorSession.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FE202DEC05660D0311563E104C2BAFB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15EB28A61BDEB95BFDD19B1B96290F23 /* LHToolbar.h in Headers */,
+				12CF5FCFB94150D60D6665170C530EF7 /* LHToolbarContainerView.h in Headers */,
+				83AE9DCC19321391F283A613EF5FE6D0 /* LHToolbarContainerViewItem.h in Headers */,
+				987E3E4C1B02824E75988BFFD42E2503 /* UIView+AutoLayoutHelper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2E74CD6977F9399F06C2380FEF5B6A1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BD6FCDD8D8CF9A01299EFFF53214938 /* SVIndefiniteAnimatedView.h in Headers */,
+				0B383B347B142E4F682A54D3B47CCF90 /* SVProgressAnimatedView.h in Headers */,
+				024FC9790579B47AE10B38B58BB1B314 /* SVProgressHUD.h in Headers */,
+				185F4817ED52DB1D050A967F4F78B568 /* SVRadialGradientLayer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1E7F75CBD241D2DB3A73FD19B3F3781B /* SVProgressHUD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2CA19BB2C1A830DB24F1DCBB1B85729 /* Build configuration list for PBXNativeTarget "SVProgressHUD" */;
+			buildPhases = (
+				4D14E3915B17A480C4E14BA9C15005B1 /* Sources */,
+				70777DBF1C21A2333B05C1455AA64FDA /* Frameworks */,
+				A2E74CD6977F9399F06C2380FEF5B6A1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SVProgressHUD;
+			productName = SVProgressHUD;
+			productReference = AA9CCB9DCBE5FE55B9C12F1211A71CD1 /* libSVProgressHUD.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7172AC086586E4E6BF354F43E5CB3A7D /* Pods-ScreenShareSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9DBE0E60009527A785AE1041E85B21B5 /* Build configuration list for PBXNativeTarget "Pods-ScreenShareSample" */;
+			buildPhases = (
+				E498572E34D33CBCC09259D0C92562DF /* Sources */,
+				5B1CC899CC5274F0293F55058184AB9A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91FC5355724FBB874BDF1927F8C238F3 /* PBXTargetDependency */,
+			);
+			name = "Pods-ScreenShareSample";
+			productName = "Pods-ScreenShareSample";
+			productReference = 57EE13E2D44E10109970DE65123CB59D /* libPods-ScreenShareSample.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		9F8A1ADCD58A10A6CE027A92AA014B90 /* LHToolbar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85B01F92AA2A9E518A4B75152BADDBBF /* Build configuration list for PBXNativeTarget "LHToolbar" */;
+			buildPhases = (
+				6DEA3F592C37176166C3E6A4FDEAD5AD /* Sources */,
+				A097ADA5F74EADFE2A339B0EF2021C96 /* Frameworks */,
+				1FE202DEC05660D0311563E104C2BAFB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LHToolbar;
+			productName = LHToolbar;
+			productReference = 1F9B1C54059A6B197A7367C9CBBB9867 /* libLHToolbar.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		BDD17FE2C2326B8D034D52B32AC8E208 /* OTAcceleratorPackUtil */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 369E93436B5DAD1AEE6AC7505889D421 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtil" */;
+			buildPhases = (
+				4AEDB3FF5C2D1D7618BE337DFC4A4808 /* Sources */,
+				D10BC1E7255D7769E84B9B4A835F990A /* Frameworks */,
+				0425ED1670CBD8BBD8DE50B2A612FB60 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OTAcceleratorPackUtil;
+			productName = OTAcceleratorPackUtil;
+			productReference = E22D3248A5B333084F5B3C3A0A7D20BE /* libOTAcceleratorPackUtil.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		CE61933222CEC22A154C601B98F8CE8D /* Pods-ScreenShareKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED72A45655E4BC6B29044AD537B5E98E /* Build configuration list for PBXNativeTarget "Pods-ScreenShareKit" */;
+			buildPhases = (
+				3074F2FE7D963A6591B1BEC5A7ADAD6D /* Sources */,
+				910ED51EF08D6EF502F0C775BF35B93B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B526F2A54EA6112E76617037FCEE0A7D /* PBXTargetDependency */,
+				BB572A2FF6000E7F7B5AB544C2BC00FF /* PBXTargetDependency */,
+			);
+			name = "Pods-ScreenShareKit";
+			productName = "Pods-ScreenShareKit";
+			productReference = 61B9C1D6905F7836145F1318D90A03E2 /* libPods-ScreenShareKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 7F8874C784F277ADA990517A9992A717 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9F8A1ADCD58A10A6CE027A92AA014B90 /* LHToolbar */,
+				BDD17FE2C2326B8D034D52B32AC8E208 /* OTAcceleratorPackUtil */,
+				CE61933222CEC22A154C601B98F8CE8D /* Pods-ScreenShareKit */,
+				7172AC086586E4E6BF354F43E5CB3A7D /* Pods-ScreenShareSample */,
+				1E7F75CBD241D2DB3A73FD19B3F3781B /* SVProgressHUD */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3074F2FE7D963A6591B1BEC5A7ADAD6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9204B72B9B21E6B9B09F2FC2F6230CC3 /* Pods-ScreenShareKit-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4AEDB3FF5C2D1D7618BE337DFC4A4808 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7D890890B92F95DA6B4533A68165055 /* OTAcceleratorPackUtil-dummy.m in Sources */,
+				D5384FD6DB7BB3B5ABDECF9262B50535 /* OTAcceleratorSession.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D14E3915B17A480C4E14BA9C15005B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC93B51B07BAE51F144496DC47AB7748 /* SVIndefiniteAnimatedView.m in Sources */,
+				2712BF53A00E474928196D1795E4F2E2 /* SVProgressAnimatedView.m in Sources */,
+				9122A6DABD7A698A4AC1FDC28D3FE712 /* SVProgressHUD-dummy.m in Sources */,
+				0D9336B79ABA2278C1383641A0A3EC59 /* SVProgressHUD.m in Sources */,
+				88671B7181FA47227E9DF3B6A27F3BAA /* SVRadialGradientLayer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DEA3F592C37176166C3E6A4FDEAD5AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8047E033C354B7D4D104B8EDC0EADCF6 /* Info.plist in Sources */,
+				8241C0762CB08EFA1FFE4B38F316607B /* LHToolbar-dummy.m in Sources */,
+				B4BD26AC48A38A2F87A33D47FF46D79B /* LHToolbar.m in Sources */,
+				A0F4090182A23657F377D0CCBAD0DF3F /* LHToolbarContainerView.m in Sources */,
+				9AF02C4A308BC293D307ED1E84B87245 /* LHToolbarContainerViewItem.m in Sources */,
+				423C1173E5E8137335961AF9FE2BD64E /* UIView+AutoLayoutHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E498572E34D33CBCC09259D0C92562DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				462BD1E15F7DDAA6E0797F4613D0CFA2 /* Pods-ScreenShareSample-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		91FC5355724FBB874BDF1927F8C238F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVProgressHUD;
+			target = 1E7F75CBD241D2DB3A73FD19B3F3781B /* SVProgressHUD */;
+			targetProxy = 0EF05B01E56B87009F238CAEB9920A4D /* PBXContainerItemProxy */;
+		};
+		B526F2A54EA6112E76617037FCEE0A7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LHToolbar;
+			target = 9F8A1ADCD58A10A6CE027A92AA014B90 /* LHToolbar */;
+			targetProxy = D70131905C1EB4BBA333B830FD8A8D0D /* PBXContainerItemProxy */;
+		};
+		BB572A2FF6000E7F7B5AB544C2BC00FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OTAcceleratorPackUtil;
+			target = BDD17FE2C2326B8D034D52B32AC8E208 /* OTAcceleratorPackUtil */;
+			targetProxy = 5BDD80B04916563B5F205B2163D9AA9C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		32CC41439A3DE6AC94B15BB4C0024154 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3591FF823BF7E5A69B1A7FD24ACBBDA3 /* SVProgressHUD.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		34565A636474BDCE149E30CA05F69682 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBB55072A053D5459FF03293594E3881 /* LHToolbar.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/LHToolbar/LHToolbar-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		47BEF9D903506B003EA5C2B249729489 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		536BECFAF51EB40EC8C237761B48EE0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B54EBE871750C716F74F498B04A09A9 /* Pods-ScreenShareKit.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		68710A86F704E477329F0581A7D90454 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EB6860667F87B35E5AF3BEA9B8471B3 /* Pods-ScreenShareKit.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		95C5185248EEB663AFDC07769350798C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7AA3256224EA75BD3C520DE61EC0B81 /* Pods-ScreenShareSample.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		9DB943AB9464DB00067507D7080A99AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8FFA99F4C6E1582218E8770104BF63CC /* OTAcceleratorPackUtil.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/OTAcceleratorPackUtil/OTAcceleratorPackUtil-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A6E233AC265AEFDF396A2AF96F688D95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3591FF823BF7E5A69B1A7FD24ACBBDA3 /* SVProgressHUD.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AAF678CED40D3499169D10F63CA0719E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C812A85C6FEE8D8FBB5F79A180AB0735 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8FFA99F4C6E1582218E8770104BF63CC /* OTAcceleratorPackUtil.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/OTAcceleratorPackUtil/OTAcceleratorPackUtil-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CBB717999FE20ECF58185A7953B45AA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F646F143DD6BA417076DDEA84657E718 /* Pods-ScreenShareSample.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F1AB86A3ABB9FA681F8F1A63579913EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBB55072A053D5459FF03293594E3881 /* LHToolbar.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/LHToolbar/LHToolbar-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47BEF9D903506B003EA5C2B249729489 /* Debug */,
+				AAF678CED40D3499169D10F63CA0719E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		369E93436B5DAD1AEE6AC7505889D421 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtil" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DB943AB9464DB00067507D7080A99AB /* Debug */,
+				C812A85C6FEE8D8FBB5F79A180AB0735 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85B01F92AA2A9E518A4B75152BADDBBF /* Build configuration list for PBXNativeTarget "LHToolbar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1AB86A3ABB9FA681F8F1A63579913EC /* Debug */,
+				34565A636474BDCE149E30CA05F69682 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9DBE0E60009527A785AE1041E85B21B5 /* Build configuration list for PBXNativeTarget "Pods-ScreenShareSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBB717999FE20ECF58185A7953B45AA6 /* Debug */,
+				95C5185248EEB663AFDC07769350798C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED72A45655E4BC6B29044AD537B5E98E /* Build configuration list for PBXNativeTarget "Pods-ScreenShareKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68710A86F704E477329F0581A7D90454 /* Debug */,
+				536BECFAF51EB40EC8C237761B48EE0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2CA19BB2C1A830DB24F1DCBB1B85729 /* Build configuration list for PBXNativeTarget "SVProgressHUD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A6E233AC265AEFDF396A2AF96F688D95 /* Debug */,
+				32CC41439A3DE6AC94B15BB4C0024154 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
