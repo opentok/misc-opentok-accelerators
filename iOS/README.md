@@ -16,7 +16,7 @@ This guide has the following sections:
 
 ## Prerequisites
 
-To be prepared to develop your screensharing with annoations app:
+To be prepared to develop your screensharing with annotations app:
 
 1. Install Xcode version 5 or later.
 2. Download the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common).
@@ -98,22 +98,35 @@ The following classes, interfaces, and protocols represent the software design f
 | Class        | Description  |
 | ------------- | ------------- |
 | `MainViewController`   | In conjunction with **Main.storyboard**, this class uses the OpenTok API to initiate the client connection to the OpenTok session, and implements the sample UI and screensharing with annotations callbacks.   |
+| `ScreenSharer`   | Provides support for OpenTok event signaling that notifies the main controller of all session, publisher, and subscriber events, as well as a `connectWithView()` method that passes the portion of the screen to be shared between the publisher and subscriber. |
 | `ScreenShareView`   | Provides the initializers and methods for the client screensharing views. |
+| `ScreenShareToolbarView`   | Provides the initializers and methods for the annotation toolbar view. |
 | `ScreenShareTextField`   | Provides the initializers and methods for the client screensharing text field annotation views. |
 | `ScreenShareColorPickerView`   | Provides the initializers and methods for the client screensharing color picker annotation views. |
+| `Annotatable`   | Protocol to which all annotation elements must conform. This is a required protocol when developing custom annotations.|
+
 
 
 ### Screenshare view
 
-The `ScreenShareView` class is the backbone of the screensharing features for the app. It serves as a controller for the screensharing UI widget, and initializes such functionality as stroke color and scrolling features:
+The `ScreenShareView` class is the backbone of the screensharing features for the app. It serves as a controller for the screensharing UI widget, and initializes such functionality as text annotations, screen capture button, erase button that removes the last annotation that was added, color selector for drawing stroke and text annotations, and scrolling features. Its `addContentView()` method allows the user to share content such as images and files:
 
 ```objc
 @interface ScreenShareView : UIView
 
-+ (instancetype)viewWithStrokeColor:(UIColor *)color;
++ (instancetype)view;
 
-@property (nonatomic) UIColor *strokeColor;
-@property (nonatomic) BOOL scrollEnabled;
+- (void)addContentView:(UIView *)view;
+
+@property (nonatomic, getter = isAnnotating) BOOL annotating;
+
+- (void)addTextAnnotation:(AnnotationTextView *)annotationTextView;
+
+- (void)selectColor:(UIColor *)selectedColor;
+
+- (UIImage *)captureScreen;
+
+- (void)erase;
 
 @end
 ```
@@ -155,10 +168,9 @@ These properties of the `ViewController` class manage the views as the publisher
 | Property        | Description  |
 | ------------- | ------------- |
 | `viewDidLoad` | UI view for the screenshare view  |
-| `PLACEHOLDER` | PLACEHOLDER  |
 
 
-
+It is recommended that you use a toolbar height of 44 points, and a width identical to the screen width. Refer to the `ScreenShareToolbarView` class for more information.
 
 
 
