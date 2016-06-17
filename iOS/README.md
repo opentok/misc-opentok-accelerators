@@ -170,7 +170,7 @@ These properties of the `ViewController` class manage the views as the publisher
 | `viewDidLoad` | UI view for the screenshare view  |
 
 
-It is recommended that you use a toolbar height of 44 points, and a width identical to the screen width. Refer to the `ScreenShareToolbarView` class for more information.
+**NOTE**: It is recommended that you use a toolbar height of 44 points, and a width identical to the screen width. Refer to the `ScreenShareToolbarView` class for more information.
 
 
 
