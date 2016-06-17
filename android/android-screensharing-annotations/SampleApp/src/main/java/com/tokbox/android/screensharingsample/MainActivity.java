@@ -3,16 +3,25 @@ package com.tokbox.android.screensharingsample;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +32,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -50,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private final int permsRequestCode = 200;
 
     //OpenTok calls
@@ -87,11 +97,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private TableLayout menu4;
 
     private AnnotationsToolbar mAnnotationsToolbar;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    private boolean screenshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,9 +153,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.show();
 
         activityReference = this;
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
     @Override
@@ -237,6 +241,16 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mComm != null && mScreenSharingFragment!= null  && screenshot) {
+            onScreenSharing();
+            screenshot = false;
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mComm.destroy();
@@ -249,7 +263,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             case 200:
                 boolean video = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 boolean audio = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                boolean externalStorage = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                boolean readExternalStorage = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                boolean writeExternalStorage = grantResults[3] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
     }
@@ -571,7 +586,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
             filename = sdf.format(date);
             try {
-                String path = Environment.getExternalStorageDirectory().toString();
+                String path = Environment.getExternalStorageDirectory().toString() + "/PICTURES/Screenshots/";
                 OutputStream fOut = null;
                 File file = new File(path, filename + ".jpg");
                 fOut = new FileOutputStream(file);
@@ -583,9 +598,26 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 MediaStore.Images.Media.insertImage(getContentResolver()
                         , file.getAbsolutePath(), file.getName(), file.getName());
 
+
+                openScreenshot(file);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
+
+    private void openScreenshot(File imageFile) {
+        Uri uri = Uri.fromFile(imageFile);
+        Intent intentSend = new Intent();
+        intentSend.setAction(Intent.ACTION_SEND);
+        intentSend.setType("image/*");
+
+        intentSend.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+        intentSend.putExtra(android.content.Intent.EXTRA_TEXT, "");
+        intentSend.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intentSend, "Share Screenshot"));
+        screenshot = true;
+    }
+
 }

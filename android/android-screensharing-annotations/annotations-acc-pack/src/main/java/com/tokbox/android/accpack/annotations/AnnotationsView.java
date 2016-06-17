@@ -416,11 +416,16 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             mCurrentPath.lineTo(mX, mY);
         }
     }
+
+    public void restart(){
+        clearAll();
+    }
     private void clearAll(){
         while(mAnnotationsManager.getAnnotatableList().size() > 0){
             clearCanvas();
         }
     }
+
     private void clearCanvas() {
         if (mAnnotationsManager.getAnnotatableList().size() > 0) {
             int lastItem = mAnnotationsManager.getAnnotatableList().size() - 1;
