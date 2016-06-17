@@ -1,6 +1,5 @@
 /* global AcceleratorPack CommunicationAccPack */
-
-var app = (function () {
+(function () {
 
   // Modules
   var _accPack;
@@ -10,6 +9,7 @@ var app = (function () {
   var _session;
 
   // Application State
+  var _initialized = false;
   var _connected = false;
   var _callActive = false;
   var _remoteParticipant = false;
@@ -110,15 +110,6 @@ var app = (function () {
 
   };
 
-  var _connectCall = function () {
-
-    if (!!_callActive) {
-      _endCall();
-    } else {
-      _startCall();
-    }
-
-  };
 
   // Toggle local or remote audio/video
   var _toggleMediaProperties = function (type) {
@@ -130,6 +121,7 @@ var app = (function () {
     $(['#', type].join('')).toggleClass('disabled');
 
   };
+
 
   var _addEventListeners = function () {
 
@@ -156,9 +148,6 @@ var app = (function () {
 
     });
 
-    // Start or end call
-    $('#callActive').on('click', _connectCall);
-
     // Click events for enabling/disabling audio/video
     var controls = [
       'enableLocalAudio',
@@ -173,7 +162,7 @@ var app = (function () {
     });
   };
 
-  var init = function () {
+  var _init = function () {
     // Get session
     var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'textChat']);
 
@@ -197,11 +186,25 @@ var app = (function () {
 
         _communication = new CommunicationAccPack(commOptions);
         _addEventListeners();
+        _initialized = true;
+        _startCall();
       }
     });
   };
 
-  return init;
-}());
+  var _connectCall = function () {
 
-app();
+    if (!_initialized) {
+      _init();
+    } else {
+      !_callActive ? _startCall() : _endCall();
+    }
+
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Start or end call
+    $('#callActive').on('click', _connectCall);
+  });
+
+}());
