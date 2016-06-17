@@ -3,25 +3,18 @@ package com.tokbox.android.screensharingsample;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,15 +25,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.tokbox.android.accpack.annotations.AnnotationsToolbar;
 import com.tokbox.android.accpack.annotations.AnnotationsView;
 import com.tokbox.android.accpack.screensharing.ScreenSharingFragment;
@@ -90,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //Dialog
     ProgressDialog mProgressDialog;
 
-    private Activity activityReference;
     private TableLayout menu1;
     private RelativeLayout menu2;
     private WebView menu3;
@@ -151,8 +138,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.setTitle("Please wait");
         mProgressDialog.setMessage("Connecting...");
         mProgressDialog.show();
-
-        activityReference = this;
 
     }
 
@@ -438,41 +423,47 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 onDisableLocalVideo(false);
             }
         }
+        mActionBarContainer.setBackgroundColor(getResources().getColor(R.color.bckg_bar));
     }
 
     @Override
     public void onRemoteViewReady(View remoteView) {
         //update preview when a new participant joined to the communication
-
-        // check if it is screensharing
-        if (mComm.isScreensharing() && mComm.isRemote()) {
-            mRemoteViewContainer.removeAllViews();
-            mPreviewViewContainer.removeAllViews();
-            onPreviewReady(mComm.getRemoteVideoView());
-            //show remote view
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                    this.getResources().getDisplayMetrics().widthPixels, this.getResources()
-                    .getDisplayMetrics().heightPixels);
-            mRemoteViewContainer.addView(mComm.getRemoteScreenView(), layoutParams);
-        }
-        else {
-
-            if (mComm.isStarted()) {
-                onPreviewReady(mComm.getPreviewView()); //main preview view
-            }
-            if (!mComm.isRemote()) {
-                //clear views
-                onAudioOnly(false);
-                mRemoteViewContainer.removeView(remoteView);
-                mRemoteViewContainer.setClickable(false);
+        if ( remoteView != null ) {
+            // check if it is screensharing
+            if (mComm.isScreensharing() && mComm.isRemote()) {
+                mRemoteViewContainer.removeAllViews();
+                mPreviewViewContainer.removeAllViews();
+                onPreviewReady(mComm.getRemoteVideoView());
+                if ( mComm.getRemoteScreenView() != null ) {
+                    //show remote view
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                            this.getResources().getDisplayMetrics().widthPixels, this.getResources()
+                            .getDisplayMetrics().heightPixels);
+                    mRemoteViewContainer.addView(mComm.getRemoteScreenView(), layoutParams);
+                }
             } else {
-                //show remote view
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                        this.getResources().getDisplayMetrics().widthPixels, this.getResources()
-                        .getDisplayMetrics().heightPixels);
-                mRemoteViewContainer.removeView(remoteView);
-                mRemoteViewContainer.addView(mComm.getRemoteVideoView(), layoutParams);
-                mRemoteViewContainer.setClickable(true);
+
+                if (mComm.isStarted()) {
+                    onPreviewReady(mComm.getPreviewView()); //main preview view
+                }
+                if (!mComm.isRemote()) {
+                    //clear views
+                    onAudioOnly(false);
+                    mRemoteViewContainer.removeView(remoteView);
+                    mRemoteViewContainer.setClickable(false);
+                } else {
+                    if (mComm.getRemoteVideoView() != null) {
+                        //show remote view
+                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                                this.getResources().getDisplayMetrics().widthPixels, this.getResources()
+                                .getDisplayMetrics().heightPixels);
+                        mRemoteViewContainer.removeView(remoteView);
+
+                        mRemoteViewContainer.addView(mComm.getRemoteVideoView(), layoutParams);
+                        mRemoteViewContainer.setClickable(true);
+                    }
+                }
             }
         }
     }
@@ -520,6 +511,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         menu2.setVisibility(View.GONE);
         menu3.setVisibility(View.GONE);
         menu4.setVisibility(View.GONE);
+
+        mActionBarContainer.setBackground(null);
     }
 
     private void showAVCall(boolean show) {

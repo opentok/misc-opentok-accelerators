@@ -31,7 +31,6 @@ public class AnnotationsToolbar extends LinearLayout {
     private LinearLayout mColorToolbar;
     private HorizontalScrollView mColorScrollView;
 
-
     private ActionsListener mActionsListener;
 
     public  interface ActionsListener {
@@ -124,9 +123,13 @@ public class AnnotationsToolbar extends LinearLayout {
 
         final int mCount = mColorToolbar.getChildCount();
 
+        int [] colors = {R.color.picker_color_blue,  R.color.picker_color_purple, R.color.picker_color_red, R.color.picker_color_orange,
+                R.color.picker_color_yellow, R.color.picker_color_green,  R.color.picker_color_black, R.color.picker_color_gray, R.color.picker_color_white};
+
         // Loop through all of the children.
         for (int i = 0; i < mCount; ++i) {
             mColorToolbar.getChildAt(i).setOnClickListener(colorClickListener);
+            ((ImageButton)mColorToolbar.getChildAt(i)).setColorFilter(getResources().getColor(colors [i]));
         }
 
         //Init actions

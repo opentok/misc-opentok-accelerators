@@ -1,4 +1,3 @@
-[submodule "iOS/OneToOneScreenShareSample/OneToOneScreenShareSample/OneToOne/one-to-one-sample-apps-origin"]
-	path = iOS/OneToOneScreenShareSample/OneToOneScreenShareSample/OneToOne/one-to-one-sample-apps-origin
-	url = https://github.com/opentok/one-to-one-sample-apps.git
-	branch = develop
+[submodule "iOS/ScreenShareSample/ScreenShareSample/one-to-one-sample-apps"]
+	path = iOS/ScreenShareSample/ScreenShareSample/one-to-one-sample-apps
+	url = https://github.com/opentok/one-to-one-sample-apps

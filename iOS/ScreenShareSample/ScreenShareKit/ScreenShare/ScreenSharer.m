@@ -8,7 +8,7 @@
 
 @property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTAcceleratorSession *session;
-@property (nonatomic) OTPublisher *publisher;
+@property (nonatomic) OTPublisherKit *publisher;
 @property (nonatomic) TBScreenCapture *screenCapture;
 
 @property (strong, nonatomic) ScreenShareBlock handler;
@@ -57,7 +57,7 @@
     if (self.publisher) {
         
         OTError *error = nil;
-        [self.publisher.view removeFromSuperview];
+//        [self.publisher.view removeFromSuperview];
         [self.session unpublish:self.publisher error:&error];
         if (error) {
             NSLog(@"%@", error.localizedDescription);
@@ -89,15 +89,18 @@
 }
 
 - (void) sessionDidConnect:(OTSession *)session {
+    NSLog(@"sessionDidConnect: %@", session.sessionId);
     if (!self.publisher) {
         NSString *deviceName = [UIDevice currentDevice].name;
-        self.publisher = [[OTPublisher alloc] initWithDelegate:self
-                                                          name:deviceName
-                                                    audioTrack:YES
-                                                    videoTrack:YES];
-        [self.publisher setVideoType:OTPublisherKitVideoTypeScreen];
+        self.publisher = [[OTPublisherKit alloc] initWithDelegate:self
+                                                             name:@"screensharefromiostempworkaround"
+                                                       audioTrack:YES
+                                                       videoTrack:YES];
         self.publisher.audioFallbackEnabled = NO;
-        [self.publisher setVideoCapture:self.screenCapture];
+        if (self.screenCapture) {
+            [self.publisher setVideoType:OTPublisherKitVideoTypeScreen];
+            [self.publisher setVideoCapture:self.screenCapture];
+        }
     }
     
     OTError *error;
@@ -123,7 +126,7 @@
 }
 
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
-    
+    NSLog(@"streamCreated: %@", stream.name);
     OTError *error;
     self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
     [self.session subscribe:self.subscriber error:&error];
@@ -159,6 +162,7 @@
 
 #pragma mark - OTSubscriberKitDelegate
 -(void) subscriberDidConnectToStream:(OTSubscriberKit*)subscriber {
+    NSLog(@"ScreenSharer subscriberDidConnectToStream");
     [self notifiyAllWithSignal:ScreenShareSignalSubscriberConnect
                          error:nil];
 }
@@ -288,9 +292,9 @@
     return _subscriber.view;
 }
 
-- (UIView *)publisherView {
-    return _publisher.view;
-}
+//- (UIView *)publisherView {
+//    return _publisher.view;
+//}
 
 - (void)setSubscribeToAudio:(BOOL)subscribeToAudio {
     _subscriber.subscribeToAudio = subscribeToAudio;
