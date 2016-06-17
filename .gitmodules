@@ -1,0 +1,3 @@
+[submodule "iOS/ScreenShareSample/ScreenShareSample/one-to-one-sample-apps"]
+	path = iOS/ScreenShareSample/ScreenShareSample/one-to-one-sample-apps
+	url = https://github.com/opentok/one-to-one-sample-apps
