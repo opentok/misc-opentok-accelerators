@@ -83,7 +83,7 @@
     }
     else {
         alert = [UIAlertController alertControllerWithTitle:@"Success" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [self.captureView doneSavingImage];
+        [self.captureView enableSaveImageButton:NO];
     }
     [self presentViewController:alert animated:YES completion:^(){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -94,7 +94,7 @@
 
 - (IBAction)cancelButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^(){
-        [self.captureView resetSaveImageButton];
+        [self.captureView enableSaveImageButton:YES];
     }];
 }
 

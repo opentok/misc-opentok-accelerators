@@ -210,6 +210,7 @@
 }
 
 - (void)startScreenShare {
+    [self.oneToOneCommunicator disconnect];
     [SVProgressHUD show];
     [self.screenSharer connectWithView:self.mainView.shareView handler:^(ScreenShareSignal signal, NSError *error) {
         

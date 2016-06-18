@@ -60,14 +60,15 @@
     }
 }
 
-- (void)resetSaveImageButton {
-    [self.saveButton setEnabled:YES];
-    [self.saveButton setAlpha:1.0];
-}
-
-- (void)doneSavingImage {
-    [self.saveButton setEnabled:NO];
-    [self.saveButton setAlpha:0.6];
+- (void)enableSaveImageButton:(BOOL)enable {
+    if (enable) {
+        [self.saveButton setEnabled:YES];
+        [self.saveButton setAlpha:1.0];
+    }
+    else {
+        [self.saveButton setEnabled:NO];
+        [self.saveButton setAlpha:0.6];
+    }
 }
 
 @end

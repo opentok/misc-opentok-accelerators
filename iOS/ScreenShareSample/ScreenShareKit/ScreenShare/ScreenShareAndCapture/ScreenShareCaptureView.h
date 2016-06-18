@@ -18,6 +18,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 - (void)updateWithShareModel:(CaptureModel *)shareModel;
-- (void)resetSaveImageButton;
-- (void)doneSavingImage;
+- (void)enableSaveImageButton:(BOOL)enable;
 @end
