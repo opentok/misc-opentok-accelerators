@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A022F5F11CF584F0008E8C70"
-               BuildableName = "BuildFatFramework"
-               BlueprintName = "BuildFatFramework"
+               BlueprintIdentifier = "A09D4F4A1D17174A007B349E"
+               BuildableName = "ScreenShareKit.framework"
+               BlueprintName = "ScreenShareKit copy"
                ReferencedContainer = "container:ScreenShareSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A022F5F11CF584F0008E8C70"
-            BuildableName = "BuildFatFramework"
-            BlueprintName = "BuildFatFramework"
+            BlueprintIdentifier = "A09D4F4A1D17174A007B349E"
+            BuildableName = "ScreenShareKit.framework"
+            BlueprintName = "ScreenShareKit copy"
             ReferencedContainer = "container:ScreenShareSample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A022F5F11CF584F0008E8C70"
-            BuildableName = "BuildFatFramework"
-            BlueprintName = "BuildFatFramework"
+            BlueprintIdentifier = "A09D4F4A1D17174A007B349E"
+            BuildableName = "ScreenShareKit.framework"
+            BlueprintName = "ScreenShareKit copy"
             ReferencedContainer = "container:ScreenShareSample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

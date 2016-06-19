@@ -4,10 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>BuildFatFramework.xcscheme</key>
+		<key>Build.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>7</integer>
 		</dict>
 		<key>Distribution.xcscheme_^#shared#^_</key>
 		<dict>
@@ -17,27 +17,17 @@
 		<key>ScreenShareKit copy.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
-		</dict>
-		<key>ScreenShareKit.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>8</integer>
 		</dict>
 		<key>ScreenShareKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>ScreenShareKitBundle.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>4</integer>
 		</dict>
 		<key>ScreenShareKitBundle.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>6</integer>
 		</dict>
 		<key>ScreenShareSample.xcscheme</key>
 		<dict>
@@ -68,6 +58,21 @@
 			<true/>
 		</dict>
 		<key>A09A4ABF1CD02A990024C349</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A09D4F451D171705007B349E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A09D4F4A1D17174A007B349E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A09D4F7D1D171865007B349E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
