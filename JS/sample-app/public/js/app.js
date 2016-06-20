@@ -106,6 +106,26 @@
 
   };
 
+  /**
+   * Toggle local or remote audio/video
+   * @param {String} type Which of the properties in _callProps
+   * @param {Boolean} [reset] Set to true?
+   */
+  var _toggleMediaProperties = function (type, reset) {
+    _callProps[type] = reset ? true : !_callProps[type];
+    _communication[type](_callProps[type]);
+    $(['#', type].join(''))[reset ? 'removeClass' : 'toggleClass']('disabled');
+  };
+
+  /**
+   * Reset all call props to true (enabled)
+   */
+  var _resetCallProps = function () {
+    Object.keys(_callProps).forEach(function (type) {
+      _toggleMediaProperties(type, true);
+    });
+  };
+
   var _startCall = function () {
 
     // Start call
@@ -128,6 +148,7 @@
   var _endCall = function () {
 
     // End call
+    _resetCallProps();
     _communication.end();
     _callActive = false;
 
@@ -140,18 +161,6 @@
     if (_callActive || _remoteParticipant) {
       _swapVideoPositions('end');
     }
-
-  };
-
-
-  // Toggle local or remote audio/video
-  var _toggleMediaProperties = function (type) {
-
-    _callProps[type] = !_callProps[type];
-
-    _communication[type](_callProps[type]);
-
-    $(['#', type].join('')).toggleClass('disabled');
 
   };
 
