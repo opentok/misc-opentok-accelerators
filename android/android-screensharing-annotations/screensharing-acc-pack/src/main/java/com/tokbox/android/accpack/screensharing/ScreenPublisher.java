@@ -24,4 +24,10 @@ public class ScreenPublisher extends Publisher implements Serializable {
     public ScreenPublisher(Context context, String name, BaseVideoCapturer capturer) {
         super(context, name, capturer);
     }
+
+    public ScreenPublisher(Context context, String name, boolean audioTrack, boolean videoTrack, BaseVideoCapturer capturer) {
+        super(context, name, audioTrack, videoTrack);
+        this.setCapturer(capturer);
+    }
 }
+

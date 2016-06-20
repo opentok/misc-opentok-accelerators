@@ -86,6 +86,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     private boolean isStarted = false;
     private boolean isAnnotationsEnabled = false;
+    private boolean isAudioEnabled = false;
 
     private ViewGroup mScreen;
     private RelativeLayout mLayout;
@@ -192,9 +193,13 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         return isStarted;
     }
 
-    public void setAnnotationsEnabled(boolean annotationsEnabled, AnnotationsToolbar toolbar) {
+    public void enableAnnotations(boolean annotationsEnabled, AnnotationsToolbar toolbar) {
         isAnnotationsEnabled = annotationsEnabled;
         mAnnotationsToolbar = toolbar;
+    }
+
+    public void enableAudioScreensharing(boolean enabled) {
+        isAudioEnabled = enabled;
     }
 
     @Override
@@ -314,7 +319,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
         //create ScreenCapturer
         ScreenSharingCapturer capturer = new ScreenSharingCapturer(getContext(), mScreen, mImageReader);
-        mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", capturer);
+        mScreenPublisher = new ScreenPublisher(getContext(), "screenPublisher", isAudioEnabled, true, capturer);
         mScreenPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
         mScreenPublisher.setPublisherListener(this);
 
