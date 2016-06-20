@@ -38,6 +38,9 @@ To get up and running quickly with your app, go through the following steps in t
 
 To learn more about the best practices used to design this app, see [Exploring the code](#exploring-the-code).
 
+**NOTE**: Currently only the publisher can add annotations to the shared screen.
+
+
 ### Importing the Xcode project
 
 1. Clone the OpenTok Screensharing with Annotations Accelerator Pack repository.
@@ -130,6 +133,8 @@ The `ScreenShareView` class is the backbone of the screensharing features for th
 
 @end
 ```
+
+
 
 
 #### Initialization methods

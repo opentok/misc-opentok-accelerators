@@ -6,6 +6,8 @@ This document describes how to use the OpenTok Screensharing with Annotations Ac
 
 You can configure and run this sample app within just a few minutes!
 
+**Note**: OpenTok Screensharing with Annotations requires Android Lollipop or later.
+
 
 This guide has the following sections:
 
@@ -17,7 +19,7 @@ This guide has the following sections:
 
 To be prepared to develop your screensharing with annotations app:
 
-1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html). **Note**: the Screensharing with Annotations component requires Android Lollipop.
+1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html). 
 2. Download the TokBox Common Accelerator Session Pack provided by TokBox.
 3. Download the **Screensharing with Annotations Accelerator Pack AAR** file provided by TokBox.
 4. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
@@ -35,6 +37,8 @@ To get up and running quickly with your app, go through the following steps in t
 4. [Configuring the app](#configuring-the-app)
 
 To learn more about the best practices used to design this app, see [Exploring the code](#exploring-the-code).
+
+**NOTE**: Currently only the publisher can add annotations to the shared screen.
 
 ### Importing the Android Studio project
 
@@ -135,9 +139,10 @@ The following classes represent the software design for this sample app, focusin
 | ------------- | ------------- |
 | `MainActivity`    | Implements the sample app UI and screensharing with annotations callbacks. |
 | `OpenTokConfig`   | Stores the information required to configure the session and connect to the cloud.   |
-| `ScreenSharingFragment`   | Provides the initializers and methods for the client screensharing views. **Note**: this class requires Android Lollipop. |
-| `ScreenSharingCapturer`   | . |
-| `ChatMessage`   | A data model describing information used in individual screensharing with annotations messages. |
+| `ScreenSharingFragment`   | Provides the initializers and methods for the client screensharing views. |
+| `ScreenSharingCapturer`   | Provides TokBox custom support for sharing content displayed in the screensharing area, overriding the mobile device OS default to share content captured by the camera. |
+| `ScreenSharingBar`   | Initializes the screensharing toolbar and its UI controls. |
+| `AnnotationsToolbar`   | Provides the initializers and methods for the annotation toolbar view, and initializes such functionality as text annotations, screen capture button, erase button that removes the last annotation that was added, color selector for drawing stroke and text annotations, and scrolling features. You can customize this toolbar. |
 
 
 ###  Screensharing Accelerator Pack
@@ -147,7 +152,12 @@ The `ScreenSharingFragment` class is the backbone of the screensharing features 
 This class, which inherits from the [`android.support.v4.app.Fragment`](http://developer.android.com/intl/es/reference/android/support/v4/app/Fragment.html) class, sets up the screensharing with annotations UI views and events, sets up session listeners, and defines a listener interface that is implemented in this example by the `MainActivity` class.
 
 ```java
-public class ScreenSharingFragment extends Fragment implements AccPackSession.SessionListener {
+public class ScreenSharingFragment 
+        extends    Fragment 
+        implements AccPackSession.SessionListener,
+                   PublisherKit.PublisherListener, 
+                   AccPackSession.SignalListener, 
+                   ScreenSharingBar.ScreenSharingBarListener {
 
     . . .
 
@@ -162,6 +172,7 @@ public interface ScreenSharingListener {
     void onScreenSharingStarted();
     void onScreenSharingStopped();
     void onScreenSharingError(String error);
+    void onAnnotationsViewReady(AnnotationsView view);
     void onClosed();
 
 }
@@ -177,25 +188,64 @@ The following `ScreenSharingFragment` methods are used to initialize the app and
 | Start screen capture.   | `start()`  |
 | Stop screen capture.  | `stop()`  |
 | Set the listener object to monitor state changes.   | `setListener()` |
+| Sets whether annotations are enabled on the specified toolbar.  | `setAnnotationsEnabled()`  |
 
 
-For example, the following private method instantiates a `ScreenSharingFragment` object:
+#### Setting the Annotation Toolbar
+
+To set up your annotation toolbar, instantiate a `ScreenSharingFragment` object and call the `setAnnotationsEnabled(boolean annotationsEnabled, AnnotationsToolbar toolbar)` method, setting the `annotationsEnabled` parameter to `true`.
+
+For example, the following private method instantiates a `ScreenSharingFragment` object and enables the annotation toolbar:
 
 ```java
     private void initScreenSharingFragment(){
+
         mScreenSharingFragment = ScreenSharingFragment.newInstance(
-           mComm.getSession(), 
-           OpenTokConfig.API_KEY
+          mComm.getSession(), 
+          OpenTokConfig.API_KEY
         );
 
-        getSupportFragmentManager().beginTransaction().add(
-           R.id.screensharing_fragment_container, 
-           mScreenSharingFragment
-        ).commit();
+        mScreenSharingFragment.setAnnotationsEnabled(true, mAnnotationsToolbar);
+
+        mScreenSharingFragment.setListener(this);
+
+        getSupportFragmentManager().beginTransaction()
+                .add(
+                      R.id.screensharing_fragment_container, 
+                      mScreenSharingFragment
+                ).commit();
     }
 ```
 
 
+#### Capturing and Saving a Screenshot 
+
+The annotation toolbar provides a camera icon that the user can click to capture a screenshot of the shared screen containing previously rendered annotations. 
+
+To take a screenshot of the screensharing area, implement the `AnnotationsView.AnnotationsListener` interface and override the `onScreencaptureReady()` listener. 
+
+For example, the `MainActivity` class implements the interface and provides the following implementation of the listener, passing the bitmap to a private method that compresses and saves the image to an external storage location:
+
+
+```java
+public class MainActivity extends AppCompatActivity implements 
+    OneToOneCommunication.Listener, 
+    PreviewControlFragment.PreviewControlCallbacks,
+    RemoteControlFragment.RemoteControlCallbacks, 
+    PreviewCameraFragment.PreviewCameraCallbacks, 
+    ScreenSharingFragment.ScreenSharingListener, 
+    AnnotationsView.AnnotationsListener {
+
+    . . .
+
+    @Override
+    public void onScreencaptureReady(Bitmap bmp) {
+        saveScreencapture(bmp);
+    }
+
+
+}
+```
 
 
 
