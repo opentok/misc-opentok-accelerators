@@ -68,6 +68,8 @@
       $('#feedControls').removeClass('viewing-shared-screen');
 
     }
+
+    _viewingSharedScreen = viewing;
   };
 
   // Swap positions of the small and large video elements when participant joins or leaves call
@@ -199,7 +201,6 @@
 
     _accPack.registerEventListener('startViewingSharedScreen', function () {
       _viewSharedScreen(true);
-      _viewingSharedScreen = true;
     });
 
     _accPack.registerEventListener('endViewingSharedScreen', function () {
