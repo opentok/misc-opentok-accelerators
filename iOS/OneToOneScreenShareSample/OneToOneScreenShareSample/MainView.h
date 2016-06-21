@@ -6,10 +6,8 @@
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <ScreenShareKit/ScreenShareKit.h>
-
 #import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
+#import <ScreenShareKit/ScreenShareKit.h>
 
 @interface MainView : UIView
 
@@ -21,34 +19,29 @@
 - (void)removePublisherView;
 - (void)addPlaceHolderToPublisherView;
 
-- (void)callHolderConnected;
-- (void)callHolderDisconnected;
-- (void)publisherMicMuted;
-- (void)publisherMicUnmuted;
-- (void)publisherVideoConnected;
-- (void)publisherVideoDisconnected;
+- (void)connectCallHolder:(BOOL)connected;
+- (void)mutePubliserhMic:(BOOL)muted;
+- (void)connectPubliserVideo:(BOOL)connected;
 
 // subscriber view
 - (void)addSubscribeView:(UIView *)subscriberView;
 - (void)removeSubscriberView;
 - (void)addPlaceHolderToSubscriberView;
 
-- (void)subscriberMicMuted;
-- (void)subscriberMicUnmuted;
-- (void)subscriberVideoConnected;
-- (void)subscriberVideoDisconnected;
-- (void)showSubscriberControls;
-- (void)hideSubscriberControls;
+- (void)muteSubscriberMic:(BOOL)muted;
+- (void)connectSubsciberVideo:(BOOL)connected;
+- (void)showSubscriberControls:(BOOL)shown;
 
 - (void)addScreenShareViewWithContentView:(UIView *)view;
 - (void)removeScreenShareView;
 
-// other controls
-- (void)removePlaceHolderImage;
-- (void)buttonsStatusSetter: (BOOL)status;
-
+// annotation bar
 - (void)toggleAnnotationToolBar;
 - (void)removeAnnotationToolBar;
 
-- (void)resetControlButtons;
+// other controls
+- (void)removePlaceHolderImage;
+- (void)buttonsStatusSetter: (BOOL)status;
+- (void)resetAudioVideoControlButtons;
+
 @end

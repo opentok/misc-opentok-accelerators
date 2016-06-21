@@ -82,12 +82,14 @@
  * toggles the call start/end handles the color of the buttons
  */
 - (IBAction)publisherCallButtonPressed:(UIButton *)sender {
+    
+    [SVProgressHUD show];
+    
     if (!self.oneToOneCommunicator.isCallEnabled && !self.screenSharer.isScreenSharing) {
-        [self.mainView callHolderDisconnected];
-        [SVProgressHUD show];
         [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
             
             [SVProgressHUD dismiss];
+            [self.mainView connectCallHolder:self.oneToOneCommunicator.isCallEnabled];
             if (!error) {
                 [self handleCommunicationSignal:signal];
             }
@@ -95,15 +97,16 @@
         [self.mainView buttonsStatusSetter:YES];
     }
     else {
-        [self.mainView callHolderConnected];
+        [SVProgressHUD dismiss];
         [self.screenSharer disconnect];
         [self.oneToOneCommunicator disconnect];
+        [self.mainView connectCallHolder:self.oneToOneCommunicator.isCallEnabled];
         
         [self.mainView removePublisherView];
         [self.mainView removePlaceHolderImage];
         [self.mainView removeAnnotationToolBar];
         [self.mainView buttonsStatusSetter:NO];
-        [self.mainView resetControlButtons];
+        [self.mainView resetAudioVideoControlButtons];
     }
 }
 
@@ -174,12 +177,7 @@
  */
 - (IBAction)publisherAudioButtonPressed:(UIButton *)sender {
     
-    if(self.oneToOneCommunicator.publishAudio) {
-        [self.mainView publisherMicMuted];
-    }
-    else {
-        [self.mainView publisherMicUnmuted];
-    }
+    [self.mainView mutePubliserhMic:self.oneToOneCommunicator.publishAudio];
     self.oneToOneCommunicator.publishAudio = !self.oneToOneCommunicator.publishAudio;
 }
 
@@ -293,15 +291,14 @@
 - (IBAction)publisherVideoButtonPressed:(UIButton *)sender {
     
     if (self.oneToOneCommunicator.publishVideo) {
-        [self.mainView publisherVideoDisconnected];
         [self.mainView removePublisherView];
         [self.mainView addPlaceHolderToPublisherView];
     }
     else {
-        [self.mainView publisherVideoConnected];
         [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
     }
     
+    [self.mainView connectPubliserVideo:self.oneToOneCommunicator.publishVideo];
     self.oneToOneCommunicator.publishVideo = !self.oneToOneCommunicator.publishVideo;
 }
 
@@ -322,12 +319,7 @@
  */
 - (IBAction)subscriberVideoButtonPressed:(UIButton *)sender {
     
-    if (self.oneToOneCommunicator.subscribeToVideo) {
-        [self.mainView subscriberVideoDisconnected];
-    }
-    else {
-        [self.mainView subscriberVideoConnected];
-    }
+    [self.mainView connectSubsciberVideo:self.oneToOneCommunicator.subscribeToVideo];
     self.oneToOneCommunicator.subscribeToVideo = !self.oneToOneCommunicator.subscribeToVideo;
 }
 
@@ -336,12 +328,7 @@
  */
 - (IBAction)subscriberAudioButtonPressed:(UIButton *)sender {
     
-    if (self.oneToOneCommunicator.subscribeToAudio) {
-        [self.mainView subscriberMicMuted];
-    }
-    else {
-        [self.mainView subscriberMicUnmuted];
-    }
+    [self.mainView muteSubscriberMic:self.oneToOneCommunicator.subscribeToAudio];
     self.oneToOneCommunicator.subscribeToAudio = !self.oneToOneCommunicator.subscribeToAudio;
 }
 
@@ -350,8 +337,8 @@
  * subscriber actions within 7 seconds
  */
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self.mainView showSubscriberControls];
-    [self.mainView performSelector:@selector(hideSubscriberControls)
+    [self.mainView showSubscriberControls:YES];
+    [self.mainView performSelector:@selector(showSubscriberControls:)
                         withObject:nil
                         afterDelay:7.0];
 }
