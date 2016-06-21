@@ -198,7 +198,6 @@
 - (void)addScreenShareViewWithContentView:(UIView *)view {
     self.toolbarView.screenShareView.frame = self.shareView.bounds;
     [self.toolbarView.screenShareView addContentView:view];
-    [self.toolbarView.screenShareView eraseAll];
     [self.shareView setHidden:NO];
     [self.shareView addSubview:self.toolbarView.screenShareView];
     [self.publisherView setHidden:YES];
@@ -215,6 +214,7 @@
 - (void)toggleAnnotationToolBar {
     
     if (!self.toolbarView || !self.toolbarView.superview) {
+        [self.toolbarView.screenShareView eraseAll];
         [self.shareView addSubview:self.toolbarView];
     }
     else {
