@@ -89,9 +89,12 @@
         [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
             
             [SVProgressHUD dismiss];
-            [self.mainView connectCallHolder:self.oneToOneCommunicator.isCallEnabled];
             if (!error) {
+                [self.mainView connectCallHolder:YES];
                 [self handleCommunicationSignal:signal];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }
         }];
         [self.mainView buttonsStatusSetter:YES];
@@ -100,7 +103,7 @@
         [SVProgressHUD dismiss];
         [self.screenSharer disconnect];
         [self.oneToOneCommunicator disconnect];
-        [self.mainView connectCallHolder:self.oneToOneCommunicator.isCallEnabled];
+        [self.mainView connectCallHolder:NO];
         
         [self.mainView removePublisherView];
         [self.mainView removePlaceHolderImage];
@@ -214,7 +217,12 @@
     [self.screenSharer connectWithView:self.mainView.shareView handler:^(ScreenShareSignal signal, NSError *error) {
         
         [SVProgressHUD dismiss];
-        [self handleScreenShareSignal:signal];
+        if (!error) {
+            [self handleScreenShareSignal:signal];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        }
     }];
 }
 
@@ -226,6 +234,9 @@
         [SVProgressHUD dismiss];
         if (!error) {
             [self handleCommunicationSignal:signal];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }
     }];
 }
