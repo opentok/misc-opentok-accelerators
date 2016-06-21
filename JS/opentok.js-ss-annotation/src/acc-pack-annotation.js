@@ -342,16 +342,19 @@
 
   /**
    * Stop annotation and clean up components
+   * @param {Boolean} publisher Are we the publisher?
    */
-  var end = function () {
+  var end = function (publisher) {
     _removeToolbar();
     _elements.canvas = null;
-    if (!!_elements.externalWindow) {
-      _elements.externalWindow.close();
-      _elements.externalWindow = null;
-      _elements.resizeSubject = null;
+    if (!!publisher) {
+      if (!!_elements.externalWindow) {
+        _elements.externalWindow.close();
+        _elements.externalWindow = null;
+        _elements.resizeSubject = null;
+      }
+      _triggerEvent('endAnnotation');
     }
-    _triggerEvent('endAnnotation');
   };
 
   /**
