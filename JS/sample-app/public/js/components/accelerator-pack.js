@@ -17,7 +17,7 @@
       showControls: false,
       style: {
         buttonDisplayMode: 'off'
-      }
+      },
     },
     localScreenProperties: {
       insertMode: 'append',
@@ -27,7 +27,8 @@
       showControls: false,
       style: {
         buttonDisplayMode: 'off'
-      }
+      },
+      name: 'web'
     }
   };
 
@@ -186,7 +187,6 @@
    * @returns {Promise} < Resolve: [Object] External annotation window >
    */
   var endAnnotationView = function () {
-    console.log('who called end view?', endAnnotationView.caller);
     _annotation.end();
     var mainContainer = document.getElementById('main');
     mainContainer.classList.remove('aspect-ratio');
