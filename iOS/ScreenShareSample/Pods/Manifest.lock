@@ -3,19 +3,16 @@ PODS:
   - OpenTok (2.8.2)
   - OTAcceleratorPackUtil (1.0.3):
     - OpenTok
-  - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
   - LHToolbar (= 1.2.1-beta)
   - OTAcceleratorPackUtil
-  - SVProgressHUD
 
 SPEC CHECKSUMS:
   LHToolbar: d60779f497111af8dd7e0df919a62eb018ac52a2
   OpenTok: 4ad00c721a630e32f99476d147030ea8b0da3ce5
   OTAcceleratorPackUtil: d0df33fb7e1eb24983e4dbe835edb58cc7606660
-  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: ab8ddbd4387bfa8bf5b0d3f44b98b0735a3277de
+PODFILE CHECKSUM: 8c9f47da1cf2a54cc31fb332a483372956c969c4
 
 COCOAPODS: 1.0.0

@@ -52,7 +52,7 @@ typedef void (^ScreenShareBlock)(ScreenShareSignal signal, NSError *error);
 @property (nonatomic) BOOL subscribeToVideo;
 
 // PUBLISHER
-//@property (readonly, nonatomic) UIView *publisherView;
+@property (readonly, nonatomic) UIView *publisherView;
 @property (nonatomic) BOOL publishAudio;
 @property (nonatomic) BOOL publishVideo;
 

@@ -82,6 +82,13 @@
     }
 }
 
+- (void)removeAllAnnotatables {
+    
+    for (NSUInteger i = 0; i < self.annotationnManager.count; i++) {
+        [self undoAnnotatable];
+    }
+}
+
 - (void)drawRect:(CGRect)rect {
     [self.annotationnManager.annotatable enumerateObjectsUsingBlock:^(id<Annotatable> annotatable, NSUInteger idx, BOOL *stop) {
         

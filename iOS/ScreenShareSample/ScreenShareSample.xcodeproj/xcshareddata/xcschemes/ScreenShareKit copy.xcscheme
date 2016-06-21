@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A0B81DA61D13BC6100D519C5"
+               BlueprintIdentifier = "A09D4F4A1D17174A007B349E"
                BuildableName = "ScreenShareKit.framework"
                BlueprintName = "ScreenShareKit copy"
                ReferencedContainer = "container:ScreenShareSample.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0B81DA61D13BC6100D519C5"
+            BlueprintIdentifier = "A09D4F4A1D17174A007B349E"
             BuildableName = "ScreenShareKit.framework"
             BlueprintName = "ScreenShareKit copy"
             ReferencedContainer = "container:ScreenShareSample.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0B81DA61D13BC6100D519C5"
+            BlueprintIdentifier = "A09D4F4A1D17174A007B349E"
             BuildableName = "ScreenShareKit.framework"
             BlueprintName = "ScreenShareKit copy"
             ReferencedContainer = "container:ScreenShareSample.xcodeproj">

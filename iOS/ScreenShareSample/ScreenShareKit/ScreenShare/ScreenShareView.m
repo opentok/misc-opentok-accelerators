@@ -102,16 +102,6 @@
     }
 }
 
-- (void)erase {
-    [self.annotationView undoAnnotatable];
-}
-
-- (void)captureAndShare {
-    ScreenShareCaptureViewController *captureViewController = [[ScreenShareCaptureViewController alloc] initWithSharedImage:[self captureScreen]];
-    UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
-    [topViewController presentViewController:captureViewController animated:YES completion:nil];
-}
-
 - (UIImage *)captureScreen {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size,
                                            NO, [UIScreen mainScreen].scale);
@@ -120,6 +110,14 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+
+- (void)erase {
+    [self.annotationView undoAnnotatable];
+}
+
+- (void)eraseAll {
+    [self.annotationView removeAllAnnotatables];
 }
 
 #pragma mark - UIScrollViewDelegate
