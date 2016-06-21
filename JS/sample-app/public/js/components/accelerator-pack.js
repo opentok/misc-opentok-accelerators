@@ -157,8 +157,7 @@
    * @returns {Promise} < Resolve: [Object] External annotation window >
    */
   var endExternalAnnotation = function () {
-    console.log('who called end external?', endExternalAnnotation.caller);
-    return _annotation.end();
+    return _annotation.end(true);
   };
 
   /**
