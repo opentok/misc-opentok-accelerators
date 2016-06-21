@@ -8,4 +8,5 @@
     <dimen name="text_size">16sp</dimen>
     <dimen name="info_text">14sp</dimen>
     <dimen name="alert_height">55dp</dimen>
+    <dimen name="edit_text_width">220px</dimen>
 </resources>

@@ -2,12 +2,19 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var importCss = require('gulp-import-css');
 var uglify = require('gulp-uglify');
-inlineCss = require('gulp-inline-css');
+var zip = require('gulp-zip');
+
 
 gulp.task('js', function () {
   return gulp.src('src/*')
     .pipe(concat('text-chat-acc-pack.js'))
     .pipe(uglify())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('js-dev', function () {
+  return gulp.src('src/*')
+    .pipe(concat('text-chat-acc-pack.js'))
     .pipe(gulp.dest('dist'));
 });
 
@@ -18,4 +25,14 @@ gulp.task('css', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('dist', ['js', 'css']);
+gulp.task('zip', function() {
+  return gulp.src(
+        [
+         "dist/theme.css",
+         "dist/text-chat-acc-pack.js"
+        ])
+        .pipe(zip('opentok-js-text-chat-acc-pack-1.0.0.zip'))
+        .pipe(gulp.dest('dist'));
+})
+
+gulp.task('dist', ['js', 'css', 'zip']);

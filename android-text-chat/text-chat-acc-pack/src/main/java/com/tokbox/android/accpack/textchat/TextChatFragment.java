@@ -1,10 +1,15 @@
 package com.tokbox.android.accpack.textchat;
 
+import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,7 +20,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.opentok.android.Connection;
@@ -27,7 +31,6 @@ import com.tokbox.android.accpack.textchat.config.OpenTokConfig;
 import com.tokbox.android.accpack.textchat.logging.OTKAnalytics;
 import com.tokbox.android.accpack.textchat.logging.OTKAnalyticsData;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,8 +59,8 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     private ViewGroup mSendMessageView;
     private EditText mMsgEditText;
     private TextView mTitleBar;
-    private ImageButton mMinimizeBtn;
     private ImageButton mCloseBtn;
+    private TextView mMsgCharsView;
 
     private int maxTextLength = MAX_DEFAULT_LENGTH;
     private TextChatListener mListener;
@@ -68,7 +71,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     private List<ChatMessage> messagesList = new ArrayList<ChatMessage>();
     private MessagesAdapter mMessageAdapter;
 
-    private boolean isMinimized = false;
     private boolean isRestarted = false;
     private boolean customActionBar = false;
     private boolean customSenderArea = false;
@@ -100,7 +102,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         void onNewReceivedMessage(ChatMessage message);
 
         /**
-         * Invoked when there is a text chat error occurs.
+         * Invoked when a text chat error occurs.
          *
          * @param error The error message.
          */
@@ -113,18 +115,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         void onClosed();
 
         /**
-         * Invoked when the minimize button is clicked.
-         *
-         */
-        void onMinimized();
-
-        /**
-         * Invoked when the maximize button is clicked.
-         *
-         */
-        void onMaximized();
-
-        /**
          * Invoked when the text chat is restarted.
          *
          */
@@ -132,14 +122,30 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /*
-    * Constructor.
-    * @param session The OpenTok session instance.
-    * @param apiKey  The API Key.
+    * Constructor by default
     */
     public TextChatFragment(){
 
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Retain this fragment across configuration changes.
+        setRetainInstance(true);
+    }
+
+    /*
+    * Constructor
+    * @param session The OpenTok session instance.
+    * @param apiKey  The API Key.
+    */
     public static TextChatFragment newInstance(AccPackSession session, String apiKey) {
+        if ( session == null ){
+            throw new IllegalArgumentException("Session argument cannot be null");
+        }
+
         TextChatFragment fragment = new TextChatFragment();
 
         fragment.senderId = UUID.randomUUID().toString(); //by default
@@ -162,10 +168,12 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
         mMsgEditText = (EditText) rootView.findViewById(R.id.edit_msg);
         mTitleBar = (TextView) rootView.findViewById(R.id.titlebar);
-        mMinimizeBtn = (ImageButton) rootView.findViewById(R.id.minimize);
         mCloseBtn = (ImageButton) rootView.findViewById(R.id.close);
         mActionBarView = (ViewGroup) rootView.findViewById(R.id.action_bar);
         mSendMessageView = (ViewGroup) rootView.findViewById(R.id.send_msg);
+        mMsgCharsView = (TextView) rootView.findViewById(R.id.characteres_msg);
+        mMsgCharsView.setText(String.valueOf(maxTextLength));
+        mMsgEditText.addTextChangedListener(mTextEditorWatcher);
 
         mContentView = (LinearLayout) rootView.findViewById(R.id.content_layout);
 
@@ -186,28 +194,31 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             }
         });
 
-        mMessageAdapter = new MessagesAdapter(messagesList);
-        mRecyclerView.setAdapter(mMessageAdapter);
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        mMinimizeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(LOG_TAG, "Minimize onClick");
-                if (isMinimized) {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_MAXIMIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-                    minimize(false);
-                } else {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_MINIMIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-                    minimize(true);
-                }
-            }
-        });
+        mMsgEditText.setMaxWidth(displaymetrics.widthPixels - (int)getResources().getDimension(R.dimen.edit_text_width));
+
+        try {
+            mMessageAdapter = new MessagesAdapter(messagesList);
+            mRecyclerView.setAdapter(mMessageAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         mCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Close onClick");
                 addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
+                try  {
+                    InputMethodManager inputMgr = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMgr.hideSoftInputFromWindow(mMsgEditText.getWindowToken(), 0);
+                } catch (Exception e) {
+                    throw e;
+                }
+
                 onClose();
             }
         });
@@ -215,24 +226,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         updateTitle(defaultTitle());
 
         return rootView;
-    }
-
-    /**
-     * Minimize the text chat view.
-     *
-     */
-    public void minimize(){
-        addLogEvent(OpenTokConfig.LOG_ACTION_MINIMIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        minimize(true);
-    }
-
-    /**
-     * Maximize the text chat view.
-     *
-     */
-    public void maximize(){
-        addLogEvent(OpenTokConfig.LOG_ACTION_MAXIMIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        minimize(false);
     }
 
     /**
@@ -267,6 +260,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         }
         else {
             maxTextLength = length;
+            mMsgCharsView.setText(String.valueOf(maxTextLength));
             addLogEvent(OpenTokConfig.LOG_ACTION_SET_MAX_LENGTH, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
     }
@@ -341,7 +335,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         addLogEvent(OpenTokConfig.LOG_ACTION_RESTART, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         try {
             isRestarted = true;
-            minimize(false);
             messagesList = new ArrayList<ChatMessage>();
             mMessageAdapter = new MessagesAdapter(messagesList);
             mRecyclerView.setAdapter(mMessageAdapter);
@@ -354,7 +347,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     //Private methods
     //Add a message to the message list.
-    private void addMessage(final ChatMessage msg) {
+    private void addMessage(final ChatMessage msg) throws Exception {
         Log.i(LOG_TAG, "New message " + msg.getText() + " is ready to be added.");
 
         if (msg != null) {
@@ -396,7 +389,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             if (msgStr.length() > maxTextLength) {
                 onError("Your chat message is over size limit");
             } else {
-
                 JSONObject messageObj = new JSONObject();
                 JSONObject sender = new JSONObject();
 
@@ -460,51 +452,42 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         mTitleBar.setText(title);
     }
 
-    //Minimize or maximize text chat view
-    private void minimize(boolean minimized) {
-        if (!minimized) {
-            try {
-                //maximize text-chat
-                mMinimizeBtn.setBackgroundResource(R.drawable.minimize);
-                mContentView.setVisibility(View.VISIBLE);
-                mMsgEditText.setVisibility(View.VISIBLE);
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mActionBarView.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
-                mActionBarView.setLayoutParams(params);
-
-                isMinimized = false;
-                onMaximize();
-            } catch (Exception e) {
-                addLogEvent(OpenTokConfig.LOG_ACTION_MAXIMIZE, OpenTokConfig.LOG_VARIATION_ERROR);
-            }
-        } else {
-            //minimize text-chat
-            try {
-                mMinimizeBtn.setBackgroundResource(R.drawable.maximize);
-
-                mContentView.setVisibility(View.GONE);
-                mMsgEditText.setVisibility(View.GONE);
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mActionBarView.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-                mActionBarView.setLayoutParams(params);
-                isMinimized = true;
-                onMinimize();
-            }catch (Exception e){
-                addLogEvent(OpenTokConfig.LOG_ACTION_MINIMIZE, OpenTokConfig.LOG_VARIATION_ERROR);
-            }
-        }
-    }
-
     //add log events
     private void addLogEvent(String action, String variation){
         if ( mAnalytics!= null ) {
             mAnalytics.logEvent(action, variation);
         }
     }
+
+    // Count down the characters left.
+    private TextWatcher mTextEditorWatcher = new TextWatcher() {
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int chars_left = maxTextLength - s.length();
+
+            mMsgCharsView.setText(String.valueOf((maxTextLength - s.length())));
+            if (chars_left < 4) {
+                mMsgCharsView.setTextColor(Color.RED);
+
+                if (chars_left < 0) {
+                    String maxStr = mMsgEditText.getText().toString().substring(0, mMsgEditText.getText().length() - 1);
+                    mMsgEditText.setText(maxStr);
+                    mMsgEditText.setSelection(mMsgEditText.getText().length());
+                }
+            }
+            else {
+                mMsgCharsView.setTextColor(getResources().getColor(R.color.info));
+            }
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     //TEXTCHAT LISTENER events
     protected void onError(String error) {
@@ -520,27 +503,8 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             mListener.onClosed();
         }
         isRestarted = true;
-        try {
-            minimize(false);
-        } catch (Exception e){
-            addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_ERROR);
-        }
+
         addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_SUCCESS);
-    }
-
-    protected void onMinimize(){
-        if (this.mListener != null && !isRestarted) {
-            mListener.onMinimized();
-        }
-        isRestarted = false;
-        addLogEvent(OpenTokConfig.LOG_ACTION_MINIMIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
-    }
-
-    protected void onMaximize(){
-        if (this.mListener != null && !isRestarted) {
-            mListener.onMaximized();
-        }
-        addLogEvent(OpenTokConfig.LOG_ACTION_MAXIMIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     protected void onNewSentMessage(ChatMessage message){
@@ -589,7 +553,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             if (text == null || text.isEmpty()){
                 onError("Message format is wrong. Text is empty or null");
                 if(connection.getConnectionId().equals(mSession.getConnection().getConnectionId()) ) {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_SEND_MESSAGE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+                    addLogEvent(OpenTokConfig.LOG_ACTION_SEND_MESSAGE, OpenTokConfig.LOG_VARIATION_ERROR);
                 }
                 else {
                     addLogEvent(OpenTokConfig.LOG_ACTION_RECEIVE_MESSAGE, OpenTokConfig.LOG_VARIATION_ERROR);
@@ -597,27 +561,38 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             }
             else {
                 if (connection.getConnectionId().equals(mSession.getConnection().getConnectionId())){
-                    msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE)
-                            .senderAlias(senderAlias)
-                            .text(text)
-                            .build();
-                    msg.setTimestamp(Long.valueOf(date).longValue());
-                    mMsgEditText.setEnabled(true);
-                    mMsgEditText.setFocusable(true);
-                    mMsgEditText.setText("");
-                    addMessage(msg);
-                    onNewSentMessage(msg);
+                    try {
+                        msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.SENT_MESSAGE)
+                                .senderAlias(senderAlias)
+                                .text(text)
+                                .build();
+                        msg.setTimestamp(Long.valueOf(date).longValue());
+                        mMsgEditText.setEnabled(true);
+                        mMsgEditText.setFocusable(true);
+                        mMsgEditText.setText("");
+                        mMsgCharsView.setTextColor(getResources().getColor(R.color.info));
+                        addMessage(msg);
+                        onNewSentMessage(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 else {
                     Log.i(LOG_TAG, "A new message has been received "+data);
                     addLogEvent(OpenTokConfig.LOG_ACTION_RECEIVE_MESSAGE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-                    msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)
-                                .senderAlias(senderAlias)
-                                .text(text)
-                                .build();
-                    msg.setTimestamp(Long.valueOf(date).longValue());
-                    addMessage(msg);
-                    onNewReceivedMessage(msg);
+                    try {
+                        msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)
+                                    .senderAlias(senderAlias)
+                                    .text(text)
+                                    .build();
+                        msg.setTimestamp(Long.valueOf(date).longValue());
+                        addMessage(msg);
+                        onNewReceivedMessage(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         }
@@ -667,5 +642,16 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         else {
             addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR);
         }
+    }
+
+    /**
+     * Converts dp to real pixels, according to the screen density.
+     *
+     * @param dp A number of density-independent pixels.
+     * @return The equivalent number of real pixels.
+     */
+    private int dpToPx(int dp) {
+        double screenDensity = this.getResources().getDisplayMetrics().density;
+        return (int) (screenDensity * (double) dp);
     }
 }

@@ -18,7 +18,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     private List<ChatMessage> messagesList = new ArrayList<ChatMessage>();
     private View messageView;
 
-    public MessagesAdapter(List<ChatMessage> messagesList) {
+    public MessagesAdapter(List<ChatMessage> messagesList) throws Exception{
+        if (messagesList == null) {
+            throw new Exception("MessageList cannot be null");
+        }
         this.messagesList = messagesList;
     }
 
@@ -54,13 +57,23 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     @Override
     public int getItemViewType(int position) {
 
-        ChatMessage item = messagesList.get(position);
+        if ( messagesList != null ) {
+            ChatMessage item = messagesList.get(position);
 
-        if(item.getMessageStatus() == ChatMessage.MessageStatus.SENT_MESSAGE) {
-            return R.layout.sent_row;
-        }else {
-            return R.layout.received_row;
+            if(item.getMessageStatus() == ChatMessage.MessageStatus.SENT_MESSAGE) {
+                return R.layout.sent_row;
+            }else {
+                return R.layout.received_row;
+            }
         }
+        else {
+            try {
+                throw new Exception ("MessageList cannot be null");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
 
     class MessageViewHolder extends RecyclerView.ViewHolder {

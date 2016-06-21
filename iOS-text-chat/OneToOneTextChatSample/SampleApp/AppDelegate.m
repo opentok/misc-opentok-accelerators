@@ -9,10 +9,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.
-    
-    [TextChatView setOpenTokApiKey: @""
-                         sessionId: @""
-                             token: @""];
+    [TextChatView setOpenTokApiKey:@"<# Replace #>"
+                         sessionId:@"<# Replace #>"
+                             token:@"<# Replace #>"];
+
     return YES;
 }
 

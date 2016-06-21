@@ -4,13 +4,11 @@ public class OpenTokConfig {
 
     // For internal use only. Please do not modify or remove this code.
     public static final String LOGGING_BASE_URL = "https://hlg.tokbox.com/prod/logging/ClientEvent";
-    public static final String LOG_CLIENT_VERSION = "1.0";
+    public static final String LOG_CLIENT_VERSION = "android-vsol-1.0.0";
     public static final String LOG_SOURCE = "text_chat_acc_pack";
     public static final String LOG_ACTION_INITIALIZE = "initialize";
     public static final String LOG_ACTION_SEND_MESSAGE = "send_message";
     public static final String LOG_ACTION_RECEIVE_MESSAGE = "receive_message";
-    public static final String LOG_ACTION_MINIMIZE = "minimize";
-    public static final String LOG_ACTION_MAXIMIZE = "maximize";
     public static final String LOG_ACTION_CLOSE = "close";
     public static final String LOG_ACTION_SET_MAX_LENGTH = "set_max_length";
     public static final String LOG_ACTION_SET_SENDER_ALIAS = "set_sender_alias";

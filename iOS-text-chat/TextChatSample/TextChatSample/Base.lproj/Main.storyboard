@@ -41,24 +41,17 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rq-Gk-g8S">
                                 <rect key="frame" x="254" y="361" width="93" height="30"/>
                                 <state key="normal" title="ConnectToAV"/>
-                                <connections>
-                                    <action selector="connectToAVButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i7N-nb-1pQ"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfi-XK-9US">
                                 <rect key="frame" x="254" y="154" width="93" height="30"/>
                                 <state key="normal" title="ConnectToTC"/>
                                 <connections>
-                                    <action selector="connectToAVButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ovk-7o-84e"/>
                                     <action selector="connectToTextChatButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TD8-7Q-iaD"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFy-O3-XgP">
                                 <rect key="frame" x="244" y="399" width="112" height="30"/>
                                 <state key="normal" title="DisconnectToAV"/>
-                                <connections>
-                                    <action selector="disconnectToAVButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iaf-PG-qMN"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQR-nt-S6F">
                                 <rect key="frame" x="258" y="40" width="84" height="30"/>
@@ -85,7 +78,6 @@
                                 <rect key="frame" x="244" y="192" width="112" height="30"/>
                                 <state key="normal" title="DisconnectToTC"/>
                                 <connections>
-                                    <action selector="disconnectToAVButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LM8-9h-Fxx"/>
                                     <action selector="disconnectToTextChatButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7I3-7c-PNo"/>
                                 </connections>
                             </button>

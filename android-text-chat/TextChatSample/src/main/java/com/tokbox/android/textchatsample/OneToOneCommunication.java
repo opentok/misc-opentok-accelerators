@@ -152,21 +152,23 @@ public class OneToOneCommunication implements
      * End the communication.
      */
     public void end() {
-        if ( mSession != null ){
+        if ( mSession != null ) {
             //add END_COMM attempt log event
             addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
 
-        }
-        if ( mPublisher != null ) {
-            mSession.unpublish(mPublisher);
+            if (mPublisher != null) {
+                mSession.unpublish(mPublisher);
+
+            }
+            if (mSubscriber != null) {
+                mSession.unsubscribe(mSubscriber);
+                isRemote = false;
+            }
+            restartViews();
             mPublisher = null;
-        }
-        if ( mSubscriber != null ) {
-            mSession.unsubscribe(mSubscriber);
             mSubscriber = null;
+            isStarted = false;
         }
-        isStarted = false;
-        restartViews();
     }
 
     /**
@@ -331,7 +333,7 @@ public class OneToOneCommunication implements
         if ( mStreams.size() > 0 ) {
             mStreams.remove(stream);
             isRemote = false;
-            onRemoteViewReady(null);
+            onRemoteViewReady(mSubscriber.getView());
             if ( mSubscriber != null && mSubscriber.getStream().equals(stream) ) {
                 mSubscriber = null;
                 if ( !mStreams.isEmpty() ) {
@@ -370,6 +372,10 @@ public class OneToOneCommunication implements
         isInitialized = false;
         isStarted = false;
         mPublisher = null;
+        mLocalAudio = true;
+        mLocalVideo = true;
+        mRemoteAudio = true;
+        mRemoteVideo = true;
         mStreams.clear();
         mSession = null;
     }
@@ -399,6 +405,12 @@ public class OneToOneCommunication implements
         if ( OpenTokConfig.SUBSCRIBE_TO_SELF && mSubscriber != null ) {
             unsubscribeFromStream(stream);
         }
+        //restart media status
+        mLocalAudio = true;
+        mLocalVideo = true;
+        mRemoteAudio = true;
+        mRemoteVideo = true;
+
         //add END_COMM success log event
         addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
@@ -530,8 +542,12 @@ public class OneToOneCommunication implements
     }
 
     private void restartViews() {
-        onRemoteViewReady(null);
-        onPreviewReady(null);
+        if ( mSubscriber != null ) {
+            onRemoteViewReady(mSubscriber.getView());
+        }
+        if ( mPublisher != null ){
+            onPreviewReady(null);
+        }
     }
 
     protected void onInitialized() {

@@ -1,0 +1,18 @@
+PODS:
+  - Kiwi (2.4.0)
+  - OpenTok (2.8.2)
+  - OTAcceleratorPackUtil (1.0.3):
+    - OpenTok
+
+DEPENDENCIES:
+  - Kiwi
+  - OTAcceleratorPackUtil
+
+SPEC CHECKSUMS:
+  Kiwi: f49c9d54b28917df5928fe44968a39ed198cb8a8
+  OpenTok: 4ad00c721a630e32f99476d147030ea8b0da3ce5
+  OTAcceleratorPackUtil: d0df33fb7e1eb24983e4dbe835edb58cc7606660
+
+PODFILE CHECKSUM: 62afa7fd32dbe43de74db33d80e54f43a1c727a8
+
+COCOAPODS: 1.0.0

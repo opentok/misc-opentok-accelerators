@@ -1,0 +1,15 @@
+PODS:
+  - OpenTok (2.8.2)
+  - OTAcceleratorPackUtil (1.0.4):
+    - OpenTok
+
+DEPENDENCIES:
+  - OTAcceleratorPackUtil
+
+SPEC CHECKSUMS:
+  OpenTok: 4ad00c721a630e32f99476d147030ea8b0da3ce5
+  OTAcceleratorPackUtil: 78c3f48ca24df109ff743ea91d9d47206f64046a
+
+PODFILE CHECKSUM: a5692fcee9339f27509624c8cfceae753e894c23
+
+COCOAPODS: 1.0.0
