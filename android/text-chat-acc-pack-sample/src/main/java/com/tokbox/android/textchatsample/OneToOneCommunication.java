@@ -22,8 +22,7 @@ import java.util.ArrayList;
 public class OneToOneCommunication implements
         AccPackSession.SessionListener, Publisher.PublisherListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
 
-    private static final String LOGTAG = MainActivity.class.getName();
-    ;
+    private static final String LOGTAG = OneToOneCommunication.class.getName();
     private Context mContext;
 
     private AccPackSession mSession;
@@ -333,8 +332,8 @@ public class OneToOneCommunication implements
         if ( mStreams.size() > 0 ) {
             mStreams.remove(stream);
             isRemote = false;
-            onRemoteViewReady(mSubscriber.getView());
             if ( mSubscriber != null && mSubscriber.getStream().equals(stream) ) {
+                onRemoteViewReady(mSubscriber.getView());
                 mSubscriber = null;
                 if ( !mStreams.isEmpty() ) {
                     subscribeToStream(mStreams.get(0));
