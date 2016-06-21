@@ -8,16 +8,16 @@ var port = 8080;
 /*
  * Config
  */
-app.use(express.static([__dirname, '/public'].join('')));
+app.use(express.static(__dirname + '/public'));
 
 /*
  * Routes
  */
-app.get('/', function (req, res) {
-  res.render('index.html');
+app.get('/', function(req, res) {
+    res.render('index.html');
 });
 
-app.get('*', function (req, res) {
+app.get('*', function(req, res){
   res.redirect('/');
 });
 
@@ -25,4 +25,4 @@ app.get('*', function (req, res) {
  * Listen
  */
 app.listen(process.env.PORT || port);
-console.log(['app listening on port', port].join(''));
+console.log('app listening on port' + port);
