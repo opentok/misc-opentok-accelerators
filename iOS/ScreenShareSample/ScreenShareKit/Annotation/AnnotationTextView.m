@@ -15,6 +15,10 @@
 @property (nonatomic) UIPinchGestureRecognizer *activePinchRecognizer;
 @property (nonatomic) UIRotationGestureRecognizer *activeRotationRecognizer;
 @property (nonatomic) CAShapeLayer *dotborder;
+
+
+@property (nonatomic) UIButton *rotateButton;
+@property (nonatomic) UIButton *pinchButton;
 @end
 
 @implementation AnnotationTextView

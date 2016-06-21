@@ -38,10 +38,13 @@
 // annotation bar
 - (void)toggleAnnotationToolBar;
 - (void)removeAnnotationToolBar;
+- (void)cleanCanvas;
 
 // other controls
 - (void)removePlaceHolderImage;
-- (void)buttonsStatusSetter: (BOOL)status;
-- (void)resetAudioVideoControlButtons;
+
+- (void)updateControlButtonsForCall;
+- (void)updateControlButtonsForScreenShare;
+- (void)updateControlButtonsForEndingCall;
 
 @end

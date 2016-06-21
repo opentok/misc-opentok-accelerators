@@ -198,7 +198,6 @@
 - (void)addScreenShareViewWithContentView:(UIView *)view {
     self.toolbarView.screenShareView.frame = self.shareView.bounds;
     [self.toolbarView.screenShareView addContentView:view];
-    [self.toolbarView.screenShareView eraseAll];
     [self.shareView setHidden:NO];
     [self.shareView addSubview:self.toolbarView.screenShareView];
     [self.publisherView setHidden:YES];
@@ -226,26 +225,45 @@
     [self.toolbarView removeFromSuperview];
 }
 
+- (void)cleanCanvas {
+    [self.toolbarView.screenShareView eraseAll];
+}
+
 #pragma mark - other controls
 - (void)removePlaceHolderImage {
     [self.publisherPlaceHolderImageView removeFromSuperview];
     [self.subscriberPlaceHolderImageView removeFromSuperview];
 }
 
-- (void) buttonsStatusSetter: (BOOL)status; {
-    [self.subscriberAudioButton setEnabled: status];
-    [self.subscriberVideoButton setEnabled: status];
-    [self.videoHolder setEnabled: status];
-    [self.micHolder setEnabled: status];
-    [self.screenShareHolder setEnabled: status];
-    [self.annotationHolder setEnabled:status];
+- (void)updateControlButtonsForCall {
+    [self.subscriberVideoButton setEnabled:YES];
+    [self.subscriberAudioButton setEnabled:YES];
+    [self.publisherCameraButton setEnabled:YES];
+    [self.videoHolder setEnabled:YES];
+    [self.micHolder setEnabled:YES];
+    [self.screenShareHolder setEnabled:YES];
+    [self.annotationHolder setEnabled:NO];
 }
 
-- (void)resetAudioVideoControlButtons {
-    [self muteSubscriberMic:NO];
-    [self connectSubsciberVideo:NO];
-    [self mutePubliserhMic:NO];
-    [self connectPubliserVideo:NO];
+- (void)updateControlButtonsForScreenShare {
+    [self.subscriberVideoButton setEnabled:NO];
+    [self.subscriberAudioButton setEnabled:YES];
+    [self.publisherCameraButton setEnabled:NO];
+    [self.videoHolder setEnabled:NO];
+    [self.micHolder setEnabled:YES];
+    [self.screenShareHolder setEnabled:YES];
+    [self.annotationHolder setEnabled:YES];
+}
+
+
+- (void)updateControlButtonsForEndingCall {
+    [self.subscriberVideoButton setEnabled:NO];
+    [self.subscriberAudioButton setEnabled:NO];
+    [self.publisherCameraButton setEnabled:NO];
+    [self.videoHolder setEnabled:NO];
+    [self.micHolder setEnabled:NO];
+    [self.screenShareHolder setEnabled:NO];
+    [self.annotationHolder setEnabled:NO];
 }
 
 #pragma mark - private method
