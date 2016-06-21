@@ -86,7 +86,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     private boolean isStarted = false;
     private boolean isAnnotationsEnabled = false;
-    private boolean isAudioEnabled = false;
+    private boolean isAudioEnabled = true;
 
     private ViewGroup mScreen;
     private RelativeLayout mLayout;

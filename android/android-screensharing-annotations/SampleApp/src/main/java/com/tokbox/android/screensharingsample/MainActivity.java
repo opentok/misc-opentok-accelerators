@@ -313,11 +313,13 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             Log.i(LOG_TAG, "Screensharing stop");
             mScreenSharingFragment.stop();
             showAVCall(true);
+            mComm.start(); //restart the av call
         }
 
         if (mScreenSharingFragment != null) {
             if (!mScreenSharingFragment.isStarted()) {
                 showAVCall(false);
+                mComm.end(); //stop the av call
                 mScreenSharingFragment.start();
             }
         }
@@ -491,7 +493,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private void initScreenSharingFragment() {
         mScreenSharingFragment = ScreenSharingFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
         mScreenSharingFragment.enableAnnotations(true, mAnnotationsToolbar);
-        //mScreenSharingFragment.enableAudioScreensharing(true);
         mScreenSharingFragment.setListener(this);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.screensharing_fragment_container, mScreenSharingFragment).commit();
