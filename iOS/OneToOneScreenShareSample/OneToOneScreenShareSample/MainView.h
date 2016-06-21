@@ -49,4 +49,6 @@
 
 - (void)toggleAnnotationToolBar;
 - (void)removeAnnotationToolBar;
+
+- (void)resetControlButtons;
 @end

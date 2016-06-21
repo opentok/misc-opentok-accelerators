@@ -25,4 +25,6 @@
 
 - (void)erase;
 
+- (void)eraseAll;
+
 @end

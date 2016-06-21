@@ -51,5 +51,8 @@
     [self pop];
 }
 
-@end
+- (NSUInteger)count {
+    return self.mutableAnnotatable.count;
+}
 
+@end

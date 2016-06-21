@@ -193,6 +193,7 @@
 - (void)addScreenShareViewWithContentView:(UIView *)view {
     self.toolbarView.screenShareView.frame = self.shareView.bounds;
     [self.toolbarView.screenShareView addContentView:view];
+    [self.toolbarView.screenShareView eraseAll];
     [self.shareView setHidden:NO];
     [self.shareView addSubview:self.toolbarView.screenShareView];
     [self.publisherView setHidden:YES];
@@ -233,6 +234,13 @@
 
 - (void)removeAnnotationToolBar {
     [self.toolbarView removeFromSuperview];
+}
+
+- (void)resetControlButtons {
+    [self subscriberMicUnmuted];
+    [self subscriberVideoConnected];
+    [self publisherMicUnmuted];
+    [self publisherVideoConnected];
 }
 
 #pragma mark - private method

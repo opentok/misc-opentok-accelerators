@@ -103,6 +103,7 @@
         [self.mainView removePlaceHolderImage];
         [self.mainView removeAnnotationToolBar];
         [self.mainView buttonsStatusSetter:NO];
+        [self.mainView resetControlButtons];
     }
 }
 

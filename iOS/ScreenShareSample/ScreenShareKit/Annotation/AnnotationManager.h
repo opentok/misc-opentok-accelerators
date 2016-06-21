@@ -13,6 +13,8 @@
 
 @property (readonly, nonatomic) NSArray<id<Annotatable>> *annotatable;
 
+@property (readonly, nonatomic) NSUInteger count;
+
 - (instancetype)init;
 
 - (void)addAnnotatable:(id<Annotatable>)annotatable;

@@ -19,4 +19,6 @@
 
 - (void)undoAnnotatable;
 
+- (void)removeAllAnnotatables;
+
 @end
