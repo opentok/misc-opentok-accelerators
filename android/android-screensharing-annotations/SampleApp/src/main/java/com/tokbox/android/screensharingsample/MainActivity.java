@@ -1,7 +1,6 @@
 package com.tokbox.android.screensharingsample;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -308,7 +307,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     @Override
     public void onScreenSharing() {
-
         if (mScreenSharingFragment.isStarted()) {
             Log.i(LOG_TAG, "Screensharing stop");
             mScreenSharingFragment.stop();
@@ -523,7 +521,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             mPreviewViewContainer.setVisibility(View.VISIBLE);
             mRemoteViewContainer.setVisibility(View.VISIBLE);
             mCameraFragmentContainer.setVisibility(View.VISIBLE);
-
             menu1.setVisibility(View.GONE);
             menu2.setVisibility(View.GONE);
             menu3.setVisibility(View.GONE);
@@ -560,6 +557,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onScreenSharingError(String error) {
         Log.i(LOG_TAG, "onScreenSharingError " + error);
+        mComm.start();
+        showAVCall(true);
     }
 
     @Override

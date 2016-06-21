@@ -3,8 +3,6 @@ package com.tokbox.android.accpack.screensharing;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.hardware.display.DisplayManager;
@@ -24,14 +22,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.opentok.android.BaseVideoRenderer;
 import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
-import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
@@ -80,16 +74,13 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     private View mScreensharingLeftView;
     private View mScreensharingRightView;
     private View mScreensharingBottomView;
-    private ImageButton mCloseBtn;
     private ScreenSharingBar screensharingBar;
-
 
     private boolean isStarted = false;
     private boolean isAnnotationsEnabled = false;
     private boolean isAudioEnabled = true;
 
     private ViewGroup mScreen;
-    private RelativeLayout mLayout;
 
     private AnnotationsVideoRenderer mRenderer;
     private View rootView;
@@ -193,6 +184,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         return isStarted;
     }
 
+
     public void enableAnnotations(boolean annotationsEnabled, AnnotationsToolbar toolbar) {
         isAnnotationsEnabled = annotationsEnabled;
         mAnnotationsToolbar = toolbar;
@@ -275,11 +267,13 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
         if (requestCode == REQUEST_MEDIA_PROJECTION) {
             if (resultCode != Activity.RESULT_OK) {
-                Log.i(LOG_TAG, "User cancelled");
+                Log.i(LOG_TAG, "User cancelled screensharing permission");
+                onScreenSharingError(ERROR + ": User cancelled screensharing permission");
                 return;
             }
             Activity activity = getActivity();
             if (activity == null) {
+                onScreenSharingError(ERROR + ": Activity is null");
                 return;
             }
             Log.i(LOG_TAG, "Starting screen capture");
@@ -325,7 +319,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
         mRenderer = new AnnotationsVideoRenderer(getContext());
         mScreenPublisher.setRenderer(mRenderer);
-
 
         mSession.publish(mScreenPublisher);
 
@@ -421,8 +414,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     @Override
     public void onError(Session session, OpentokError opentokError) {
+        stop();
         onScreenSharingError(ERROR + ": "+ opentokError.toString());
-
     }
 
     @Override
