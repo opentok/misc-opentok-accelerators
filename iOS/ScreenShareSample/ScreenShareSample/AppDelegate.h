@@ -1,9 +1,9 @@
 //
 //  AppDelegate.h
-//  OneToOneScreenShareSample
+//  ScreenShareSample
 //
-//  Created by Xi Huang on 5/23/16.
-//  Copyright © 2016 Tokbox, Inc. All rights reserved.
+//  Created by Xi Huang on 4/26/16.
+//  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
