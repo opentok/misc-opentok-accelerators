@@ -26,10 +26,6 @@
     apiKey: '',
     sessionId: '',
     token: '',
-    user: {
-      id: 1,
-      name: 'User1'
-    },
     screensharing: {
       extensionID: 'knmknlapoidpamfmadaalafimbjegekh',
       extensionPathFF: 'ff-extension/wms-screensharing.xpi',
