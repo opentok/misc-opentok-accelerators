@@ -9,10 +9,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.
-    
-    [TextChatView setOpenTokApiKey: @"100"
-                         sessionId: @"2_MX4xMDB-flR1ZSBOb3YgMTkgMTE6MDk6NTggUFNUIDIwMTN-MC4zNzQxNzIxNX4"
-                             token: @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9NDU2MjFlMjllOTY1YzUxNGRjM2E5YzEwYmM2ZDJmYWRmNmI5NThhZTpzZXNzaW9uX2lkPTJfTVg0eE1EQi1mbFIxWlNCT2IzWWdNVGtnTVRFNk1EazZOVGdnVUZOVUlESXdNVE4tTUM0ek56UXhOekl4Tlg0JmNyZWF0ZV90aW1lPTE0NjYwMjU3MDYmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ2NjAyNTcwNi45OTQ1MTA3NjMxMDc0OCZleHBpcmVfdGltZT0xNDY4NjE3NzA2"];
+    [TextChatView setOpenTokApiKey:@"<# Replace #>"
+                         sessionId:@"<# Replace #>"
+                             token:@"<# Replace #>"];
+
     return YES;
 }
 

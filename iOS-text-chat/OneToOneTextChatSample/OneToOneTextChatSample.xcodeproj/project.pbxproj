@@ -15,7 +15,6 @@
 		6405A5C61C696BE600441745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C51C696BE600441745 /* Assets.xcassets */; };
 		6405A5C91C696BE600441745 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C71C696BE600441745 /* LaunchScreen.storyboard */; };
 		A02411061D0898C70001670C /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A02411051D0898C70001670C /* OneToOneCommunicator.m */; };
-		A04931CE1D0F5F2D007C7BA9 /* TextChatOTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A04931CD1D0F5F2D007C7BA9 /* TextChatOTKAnalytics.m */; };
 		A04931D01D0F5FA6007C7BA9 /* TextChatKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A04931CF1D0F5FA6007C7BA9 /* TextChatKitBundle.bundle */; };
 		A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */; };
 		A0B1F1831CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F17A1CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m */; };
@@ -25,6 +24,7 @@
 		A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */; };
 		A0DF6E041CB8D88C00A0A5F8 /* TextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */; };
 		A0DF6E051CB8D88C00A0A5F8 /* TextChatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A0F39FD81D19176100DCD741 /* OneToOneAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F39FD71D19176100DCD741 /* OneToOneAnalytics.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,8 +57,6 @@
 		6D2ABA4FD54D4CD1743964E0 /* libPods-OneToOneTextChatSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneToOneTextChatSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02411041D0898C70001670C /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
 		A02411051D0898C70001670C /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
-		A04931CC1D0F5F2D007C7BA9 /* TextChatOTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextChatOTKAnalytics.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/TextChatOTKAnalytics.h"; sourceTree = "<group>"; };
-		A04931CD1D0F5F2D007C7BA9 /* TextChatOTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextChatOTKAnalytics.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/TextChatOTKAnalytics.m"; sourceTree = "<group>"; };
 		A04931CF1D0F5FA6007C7BA9 /* TextChatKitBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TextChatKitBundle.bundle; sourceTree = "<group>"; };
 		A0ADEF8A1C9FB2DE00D1A471 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
@@ -73,6 +71,8 @@
 		A0B1F1811CC5423A00E0FB00 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TextChatKit.framework; sourceTree = "<group>"; };
+		A0F39FD61D19176100DCD741 /* OneToOneAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneAnalytics.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OneToOneAnalytics.h"; sourceTree = "<group>"; };
+		A0F39FD71D19176100DCD741 /* OneToOneAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneAnalytics.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OneToOneAnalytics.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +113,8 @@
 			children = (
 				A02411041D0898C70001670C /* OneToOneCommunicator.h */,
 				A02411051D0898C70001670C /* OneToOneCommunicator.m */,
-				A04931CC1D0F5F2D007C7BA9 /* TextChatOTKAnalytics.h */,
-				A04931CD1D0F5F2D007C7BA9 /* TextChatOTKAnalytics.m */,
+				A0F39FD61D19176100DCD741 /* OneToOneAnalytics.h */,
+				A0F39FD71D19176100DCD741 /* OneToOneAnalytics.m */,
 				A0B1F1781CC5423A00E0FB00 /* SVProgressHUD */,
 				6405A5B91C696BE600441745 /* AppDelegate.h */,
 				6405A5BA1C696BE600441745 /* AppDelegate.m */,
@@ -316,12 +316,12 @@
 			files = (
 				A02411061D0898C70001670C /* OneToOneCommunicator.m in Sources */,
 				A0B1F1831CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m in Sources */,
-				A04931CE1D0F5F2D007C7BA9 /* TextChatOTKAnalytics.m in Sources */,
 				6405A5BE1C696BE600441745 /* MainViewController.m in Sources */,
 				6405A5BB1C696BE600441745 /* AppDelegate.m in Sources */,
 				A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */,
 				A0B1F1861CC5423A00E0FB00 /* SVProgressHUD.m in Sources */,
 				6405A5B81C696BE600441745 /* main.m in Sources */,
+				A0F39FD81D19176100DCD741 /* OneToOneAnalytics.m in Sources */,
 				A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */,
 				A0B1F1841CC5423A00E0FB00 /* SVProgressAnimatedView.m in Sources */,
 			);
