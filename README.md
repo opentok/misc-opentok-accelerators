@@ -13,9 +13,9 @@ You can create mobile apps for Android and iOS, or embed the interactive session
 
 To get started with your development, visit the following sites:
 
-- [OpenTok Text Chat Accelerator Pack for Android](./android-text-chat)
-- [OpenTok Text Chat Accelerator Pack for iOS](./iOS-text-chat)
-- [OpenTok Text Chat Accelerator Pack for JavaScript](./js-text-chat)
+- [OpenTok Text Chat Accelerator Pack for Android](./android)
+- [OpenTok Text Chat Accelerator Pack for iOS](./ios)
+- [OpenTok Text Chat Accelerator Pack for JavaScript](./js)
 
 _**NOTE:** The Text Chat Sample App requires a **Session ID**, **Token**, and **API Key**. In the samples, you can get these values at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/). For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
 
