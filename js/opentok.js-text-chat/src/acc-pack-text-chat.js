@@ -390,7 +390,7 @@
      * Create arbitary values for sender id and alias if not recieved
      * in options hash.
      */
-    _sender = _.defaults(_this.options.textChat.sender, {
+    _sender = _.defaults(options.sender || {}, {
       id: generateUserId(),
       alias: ['User', uniqueString()].join(' ')
     });
