@@ -1,3 +1,0 @@
-- Common classes for the different acc-packs.
-- AccPackSession is a class derived from OpenTok Session class. So, it needs the Opentok SDK to work.
-- AccPackSession overrides the different listeners of the Session class to allow multiples of them.
