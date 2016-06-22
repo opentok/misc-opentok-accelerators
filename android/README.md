@@ -18,21 +18,19 @@ This guide has the following sections:
 To be prepared to develop your text chat app:
 
 1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
-2. Download the TokBox Common Accelerator Session Pack provided by TokBox.
-3. Download the **Text Chat Accelerator Pack AAR** file provided by TokBox.
-4. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
-5. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
+2. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
+3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
+
 
 ## Quick start
 
 To get up and running quickly with your app, go through the following steps in the tutorial provided below:
 
 1. [Importing the Android Studio Project](#importing-the-android-studio-project)
-2. [Adding the TokBox Common Accelerator Session Pack](#addaccpackcommon)
-3. [Adding the OpenTok Text Chat Accelerator Pack library](#addlibrary)
-4. [Configuring the app](#configuring-the-app)
+2. [Adding the OpenTok Text Chat Accelerator Pack library](#addlibrary)
+3. [Configuring the app](#configuring-the-app)
 
 To learn more about the best practices used to design this app, see [Exploring the code](#exploring-the-code).
 
@@ -43,25 +41,31 @@ To learn more about the best practices used to design this app, see [Exploring t
 3. In the **Quick Start** panel, click **Open an existing Android Studio Project**.
 4. Navigate to the **android** folder, select the **TextChatSample** folder, and click **Choose**.
 
-<h3 id=addaccpackcommon>Adding the TokBox Common Accelerator Session Pack</h3>
+<h3 id=addlibrary> Adding the OpenTok Text Chat Accelerator Pack library</h3>
 
-You can add the TokBox Common Accelerator Session Pack either by using the repository or using Maven.
+There are 3 options for installing the OpenTok Text Chat Accelerator Pack library:
+
+  - [Using the repository](using-the-repository)
+  - [Using Maven](#using-maven)
+  - [Downloading and Installing the AAR File](#downloading-and-installing-the-aar-file)
+
+**NOTE**: The OpenTok Text Chat Sample App includes the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common). 
 
 #### Using the repository
 
-1. Clone the [TokBox Common Accelerator Session Pack repo](https://github.com/opentok/acc-pack-common).
+1. Clone the [OpenTok Text Chat Accelerator Pack repo](https://github.com/opentok/textchat-acc-pack).
 2. From the OpenTok Text Chat Sample app project, right-click the app name and select **New > Module > Import Gradle Project**.
-3. Navigate to the directory in which you cloned **TokBox Common Accelerator Session Pack**, select **android-acc-pack**, and click **Finish**.
+3. Navigate to the directory in which you cloned **OpenTok Text Chat Accelerator Pack**, select **text-chat-acc-pack-kit**, and click **Finish**.
 4. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
 ```
-compile project(':opentok-android-accelerator-pack-1.0')
+compile project(':text-chat-acc-pack-kit')
 ```
 
 #### Using Maven
 
 <ol>
 
-<li>Modify the **build.gradle** for your solution and add the following code snippet to the section labeled 'repositories’:
+<li>Modify the <b>build.gradle</b> for your solution and add the following code snippet to the section labeled 'repositories’:
 
 <code>
 maven { url  "http://tokbox.bintray.com/maven" }
@@ -69,11 +73,11 @@ maven { url  "http://tokbox.bintray.com/maven" }
 
 </li>
 
-<li>Modify the **build.gradle** for your activity and add the following code snippet to the section labeled 'dependencies’: 
+<li>Modify the <b>build.gradle</b> for your activity and add the following code snippet to the section labeled 'dependencies’: 
 
 
 <code>
-compile 'com.opentok.android:opentok-android-accelerator-pack:1.0'
+compile 'com.opentok.android:opentok-text-chat-acc-pack:1.0'
 </code>
 
 </li>
@@ -81,10 +85,12 @@ compile 'com.opentok.android:opentok-android-accelerator-pack:1.0'
 </ol>
 
 
-<h3 id=addlibrary> Adding the OpenTok Text Chat Accelerator Pack library</h3>
-1.  Right-click the app name and select **Open Module Settings** and click **+**.
-2.  Select **Import .JAR/.AAR Package** and click  **Next**.
-3.  Browse to the **Text Chat Accelerator Pack library AAR** and click **Finish**.
+#### Downloading and Installing the AAR File
+
+1.  Download the [Text Chat Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/android/0044/opentok-text-chat-acc-pack-1.0.0.zip) containing the AAR file and documentation, and extract the **opentok-text-chat-acc-pack-1.0.0.aar** file.
+2.  Right-click the app name and select **Open Module Settings** and click **+**.
+3.  Select **Import .JAR/.AAR Package** and click  **Next**.
+4.  Browse to the **Text Chat Accelerator Pack library AAR** and click **Finish**.
 
 
 
