@@ -349,6 +349,7 @@ public class OneToOneCommunication implements
             mScreenSubscriber.setVideoListener(this);
             mScreenSubscriber.setSubscriberListener(this);
             mSession.subscribe(mScreenSubscriber);
+
             isScreensharing = true;
         }
         else {
@@ -390,8 +391,16 @@ public class OneToOneCommunication implements
     }
 
     private void attachSubscriberView(Subscriber subscriber) {
-        subscriber.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
-                BaseVideoRenderer.STYLE_VIDEO_FILL);
+
+        if ( subscriber.getStream().getStreamVideoType() == Stream.StreamVideoType.StreamVideoTypeScreen ) {
+            subscriber.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
+                    BaseVideoRenderer.STYLE_VIDEO_FIT);
+        }
+        else {
+            subscriber.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
+                    BaseVideoRenderer.STYLE_VIDEO_FILL);
+
+        }
         isRemote = true;
         onRemoteViewReady(subscriber.getView());
     }
