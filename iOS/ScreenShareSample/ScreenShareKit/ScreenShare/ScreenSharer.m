@@ -141,13 +141,11 @@
 - (void) session:(OTSession *)session streamDestroyed:(OTStream *)stream {
     
     if (self.subscriber.stream && [self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
-        NSError *error = nil;
-        [self.session unsubscribe:self.subscriber error:&error];
         [self.subscriber.view removeFromSuperview];
         self.subscriber = nil;
         
         [self notifiyAllWithSignal:ScreenShareSignalSessionStreamDestroyed
-                             error:error];
+                             error:nil];
     }
 }
 

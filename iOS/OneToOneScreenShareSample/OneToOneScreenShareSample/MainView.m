@@ -245,6 +245,10 @@
     [self.micHolder setEnabled:YES];
     [self.screenShareHolder setEnabled:YES];
     [self.annotationHolder setEnabled:NO];
+    [self.micHolder setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
+    [self.videoHolder setImage:[UIImage imageNamed:@"videoIcon"] forState:UIControlStateNormal];
+    [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
+    [self.subscriberVideoButton setImage:[UIImage imageNamed:@"videoIcon"] forState: UIControlStateNormal];
 }
 
 - (void)updateControlButtonsForScreenShare {
@@ -255,6 +259,10 @@
     [self.micHolder setEnabled:YES];
     [self.screenShareHolder setEnabled:YES];
     [self.annotationHolder setEnabled:YES];
+    [self.micHolder setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
+    [self.videoHolder setImage:[UIImage imageNamed:@"videoIcon"] forState:UIControlStateNormal];
+    [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
+    [self.subscriberVideoButton setImage:[UIImage imageNamed:@"videoIcon"] forState: UIControlStateNormal];
 }
 
 
@@ -266,6 +274,10 @@
     [self.micHolder setEnabled:NO];
     [self.screenShareHolder setEnabled:NO];
     [self.annotationHolder setEnabled:NO];
+    [self.micHolder setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
+    [self.videoHolder setImage:[UIImage imageNamed:@"videoIcon"] forState:UIControlStateNormal];
+    [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
+    [self.subscriberVideoButton setImage:[UIImage imageNamed:@"videoIcon"] forState: UIControlStateNormal];
 }
 
 - (void)showScreenShareNotificationBar:(BOOL)shown {
