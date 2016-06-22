@@ -19,7 +19,7 @@ To be prepared to develop your text chat app:
 
 1. Install Xcode version 5 or later.
 2. Download the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common).
-3. Download the **Text Chat Accelerator Pack framework** provided by TokBox.
+3. There are 3 options for installing the Text Chat Accelerator Pack framework:<br/><ul><li>Run the **[build.sh script](./build.sh)**.</li><li>Download the **[Text Chat Accelerator Pack framework](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/iOS/0049/TextChatKit.zip)** file provided by TokBox.</li><li>You can use CocoaPods: In a terminal prompt, navigate into your project directory and type `pod install`. Then reopen your project using the new *.xcworkspace file.</li></ul>
 4. Review the [OpenTok iOS SDK Requirements](https://tokbox.com/developer/sdks/ios/).
 5. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
