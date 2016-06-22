@@ -430,6 +430,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     public void onRemoteViewReady(View remoteView) {
         //update preview when a new participant joined to the communication
         if ( remoteView != null ) {
+            mRemoteViewContainer.removeAllViews();
+
             // check if it is screensharing
             if (mComm.isScreensharing() && mComm.isRemote()) {
                 mRemoteViewContainer.removeAllViews();
@@ -443,14 +445,14 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                     mRemoteViewContainer.addView(mComm.getRemoteScreenView(), layoutParams);
                 }
             } else {
-
                 if (mComm.isStarted()) {
                     onPreviewReady(mComm.getPreviewView()); //main preview view
                 }
                 if (!mComm.isRemote()) {
                     //clear views
                     onAudioOnly(false);
-                    mRemoteViewContainer.removeView(remoteView);
+                    mRemoteViewContainer.removeAllViews();
+                   // mRemoteViewContainer.removeView(remoteView);
                     mRemoteViewContainer.setClickable(false);
                 } else {
                     if (mComm.getRemoteVideoView() != null) {
