@@ -91,7 +91,10 @@
 - (void)addTextAnnotation:(AnnotationTextView *)annotationTextView {
     
     [self.scrollView setZoomScale:1.0 animated:NO];   // this will need to reset in case that added text view is out of bound
-    annotationTextView.frame = CGRectMake(self.scrollView.contentOffset.x, annotationTextView.frame.origin.y, CGRectGetWidth(annotationTextView.bounds), CGRectGetHeight(annotationTextView.bounds));
+    annotationTextView.frame = CGRectMake(self.scrollView.contentOffset.x + LeadingPaddingOfAnnotationTextView,
+                                          self.scrollView.contentOffset.y + annotationTextView.frame.origin.y,
+                                          CGRectGetWidth(annotationTextView.bounds),
+                                          CGRectGetHeight(annotationTextView.bounds));
     [self.annotationView addAnnotatable:annotationTextView];
     [self.annotationView setCurrentAnnotatable:annotationTextView];
 }

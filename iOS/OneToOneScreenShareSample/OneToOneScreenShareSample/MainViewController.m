@@ -373,7 +373,7 @@
 
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
     self.customSharedContent = [[UIImageView alloc] initWithImage:chosenImage];
     [picker dismissViewControllerAnimated:YES completion:^(){
         [self startScreenShare];
