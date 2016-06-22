@@ -28,6 +28,8 @@
 
 @property (nonatomic) ScreenShareToolbarView *toolbarView;
 @property (strong, nonatomic) IBOutlet UIView *actionButtonView;
+
+@property (weak, nonatomic) IBOutlet UIView *screenshareNotificationBar;
 @end
 
 @implementation MainView
@@ -264,6 +266,10 @@
     [self.micHolder setEnabled:NO];
     [self.screenShareHolder setEnabled:NO];
     [self.annotationHolder setEnabled:NO];
+}
+
+- (void)showScreenShareNotificationBar:(BOOL)shown {
+    [self.screenshareNotificationBar setHidden:!shown];
 }
 
 #pragma mark - private method

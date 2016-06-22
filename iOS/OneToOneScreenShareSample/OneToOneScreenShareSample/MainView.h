@@ -47,4 +47,6 @@
 - (void)updateControlButtonsForScreenShare;
 - (void)updateControlButtonsForEndingCall;
 
+- (void)showScreenShareNotificationBar:(BOOL)shown;
+
 @end

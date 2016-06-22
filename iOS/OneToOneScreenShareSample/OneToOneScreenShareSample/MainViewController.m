@@ -254,6 +254,7 @@
             [self.mainView addScreenShareViewWithContentView:self.customSharedContent];
             [self.mainView toggleAnnotationToolBar];
             [self.mainView updateControlButtonsForScreenShare];
+            [self.mainView showScreenShareNotificationBar:YES];
             break;
         }
         case ScreenShareSignalSessionDidDisconnect: {
@@ -261,6 +262,7 @@
             [self.mainView removeAnnotationToolBar];
             [self.customSharedContent removeFromSuperview];
             [self.mainView cleanCanvas];
+            [self.mainView showScreenShareNotificationBar:NO];
             break;
         }
         case ScreenShareSignalSessionDidFail:{

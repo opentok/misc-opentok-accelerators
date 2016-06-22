@@ -19,6 +19,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HLE-tU-Ulr">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are sharing your screen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v49-Uu-EZu">
+                                        <rect key="frame" x="216" y="2" width="168.5" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.43529411764705883" green="0.80784313725490198" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="AEN-4g-cC3"/>
+                                    <constraint firstItem="v49-Uu-EZu" firstAttribute="centerX" secondItem="HLE-tU-Ulr" secondAttribute="centerX" id="QAj-oF-Uu9"/>
+                                    <constraint firstItem="v49-Uu-EZu" firstAttribute="centerY" secondItem="HLE-tU-Ulr" secondAttribute="centerY" id="rHX-oP-yaU"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6vG-FU-K8j">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </view>
@@ -162,22 +179,25 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="eE0-oO-5Jh" secondAttribute="bottom" constant="8" id="8uY-tO-2Ls"/>
                             <constraint firstItem="ztm-yF-Cb8" firstAttribute="top" secondItem="6Y4-Qa-Kly" secondAttribute="bottom" constant="20" id="B2c-GQ-Omz"/>
                             <constraint firstItem="ztm-yF-Cb8" firstAttribute="leading" secondItem="7sn-ld-RRG" secondAttribute="leading" constant="20" id="Dt4-bh-ART"/>
+                            <constraint firstAttribute="trailing" secondItem="HLE-tU-Ulr" secondAttribute="trailing" id="EWF-6K-gLM"/>
                             <constraint firstItem="6vG-FU-K8j" firstAttribute="top" secondItem="7sn-ld-RRG" secondAttribute="top" id="G84-Qz-bAK"/>
                             <constraint firstItem="eE0-oO-5Jh" firstAttribute="centerX" secondItem="7sn-ld-RRG" secondAttribute="centerX" id="GbA-nT-EDs"/>
                             <constraint firstItem="6Y4-Qa-Kly" firstAttribute="leading" secondItem="7sn-ld-RRG" secondAttribute="leading" constant="20" id="LyG-6f-kfh"/>
                             <constraint firstItem="7zy-fh-jlS" firstAttribute="leading" secondItem="7sn-ld-RRG" secondAttribute="leading" id="RK7-uK-7GM"/>
+                            <constraint firstItem="HLE-tU-Ulr" firstAttribute="leading" secondItem="7sn-ld-RRG" secondAttribute="leading" id="Vee-Sw-2Qo"/>
                             <constraint firstItem="eE0-oO-5Jh" firstAttribute="height" secondItem="6vG-FU-K8j" secondAttribute="height" multiplier="0.12" id="Wt2-be-2VF"/>
                             <constraint firstAttribute="trailing" secondItem="1Bm-tC-LWC" secondAttribute="trailing" constant="20" id="Xic-8g-BxY"/>
                             <constraint firstAttribute="trailing" secondItem="6vG-FU-K8j" secondAttribute="trailing" id="YRr-0K-2xz"/>
                             <constraint firstItem="eE0-oO-5Jh" firstAttribute="top" secondItem="7zy-fh-jlS" secondAttribute="top" constant="8" id="ZYZ-7A-aq7"/>
-                            <constraint firstItem="Xls-ky-LLT" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="aqT-ss-29F"/>
                             <constraint firstAttribute="trailing" secondItem="aZt-Qo-ZC4" secondAttribute="trailing" constant="20" id="eXW-Sr-KU3"/>
                             <constraint firstAttribute="bottom" secondItem="6vG-FU-K8j" secondAttribute="bottom" id="gTj-Lm-RYf"/>
+                            <constraint firstItem="Xls-ky-LLT" firstAttribute="top" secondItem="HLE-tU-Ulr" secondAttribute="bottom" id="jDe-tJ-3VW"/>
                             <constraint firstItem="eE0-oO-5Jh" firstAttribute="top" secondItem="1Bm-tC-LWC" secondAttribute="bottom" constant="20" id="knQ-7d-4Oz"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7zy-fh-jlS" secondAttribute="bottom" id="msh-Pe-pUV"/>
                             <constraint firstItem="6vG-FU-K8j" firstAttribute="leading" secondItem="7sn-ld-RRG" secondAttribute="leading" id="oED-UA-mFf"/>
                             <constraint firstAttribute="trailing" secondItem="Xls-ky-LLT" secondAttribute="trailing" id="pP1-Fm-68f"/>
                             <constraint firstItem="Xls-ky-LLT" firstAttribute="leading" secondItem="7sn-ld-RRG" secondAttribute="leading" id="qUH-ij-uXF"/>
+                            <constraint firstItem="HLE-tU-Ulr" firstAttribute="top" secondItem="7sn-ld-RRG" secondAttribute="top" id="vds-HT-HC9"/>
                             <constraint firstAttribute="trailing" secondItem="7zy-fh-jlS" secondAttribute="trailing" id="vrM-UW-Ndd"/>
                             <constraint firstItem="6Y4-Qa-Kly" firstAttribute="top" secondItem="7sn-ld-RRG" secondAttribute="top" constant="60" id="wTx-0y-iln"/>
                         </constraints>
@@ -189,6 +209,7 @@
                             <outlet property="publisherCameraButton" destination="aZt-Qo-ZC4" id="3S2-dv-afL"/>
                             <outlet property="publisherView" destination="1Bm-tC-LWC" id="aO7-cL-J18"/>
                             <outlet property="screenShareHolder" destination="hba-ab-38p" id="Kzf-MD-5zA"/>
+                            <outlet property="screenshareNotificationBar" destination="HLE-tU-Ulr" id="9j8-v3-ArI"/>
                             <outlet property="shareView" destination="Xls-ky-LLT" id="Rt6-dp-mdv"/>
                             <outlet property="subscriberAudioButton" destination="6Y4-Qa-Kly" id="4Z4-dj-f5t"/>
                             <outlet property="subscriberVideoButton" destination="ztm-yF-Cb8" id="5ur-D8-WcY"/>
@@ -199,7 +220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="565" y="327"/>
+            <point key="canvasLocation" x="566" y="340"/>
         </scene>
     </scenes>
     <resources>
