@@ -85,7 +85,7 @@ compile 'com.opentok.android:opentok-text-chat-acc-pack:1.0'
 </ol>
 
 
-  __**NOTE**: Since dependencies are transitive with Maven, it is not necessary to explicitly reference the TokBox Common Accelerator Session Pack in this case.__
+  _**NOTE**: Since dependencies are transitive with Maven, it is not necessary to explicitly reference the TokBox Common Accelerator Session Pack with this option._
 
 
 #### Downloading and Installing the AAR File
