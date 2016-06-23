@@ -1,1 +1,0 @@
-../../../../OpenTok/OpenTok.framework/Headers/OTConnection.h

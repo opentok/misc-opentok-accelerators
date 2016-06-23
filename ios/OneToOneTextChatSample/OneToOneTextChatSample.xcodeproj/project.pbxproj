@@ -24,7 +24,7 @@
 		A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */; };
 		A0DF6E041CB8D88C00A0A5F8 /* TextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */; };
 		A0DF6E051CB8D88C00A0A5F8 /* TextChatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A0F39FD81D19176100DCD741 /* OneToOneAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F39FD71D19176100DCD741 /* OneToOneAnalytics.m */; };
+		A0F39FD81D19176100DCD741 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F39FD71D19176100DCD741 /* OTKAnalytics.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,8 +71,8 @@
 		A0B1F1811CC5423A00E0FB00 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		A0DF6E021CB8D88700A0A5F8 /* TextChatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TextChatKit.framework; sourceTree = "<group>"; };
-		A0F39FD61D19176100DCD741 /* OneToOneAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneAnalytics.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OneToOneAnalytics.h"; sourceTree = "<group>"; };
-		A0F39FD71D19176100DCD741 /* OneToOneAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneAnalytics.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OneToOneAnalytics.m"; sourceTree = "<group>"; };
+		A0F39FD61D19176100DCD741 /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.h"; sourceTree = "<group>"; };
+		A0F39FD71D19176100DCD741 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +113,8 @@
 			children = (
 				A02411041D0898C70001670C /* OneToOneCommunicator.h */,
 				A02411051D0898C70001670C /* OneToOneCommunicator.m */,
-				A0F39FD61D19176100DCD741 /* OneToOneAnalytics.h */,
-				A0F39FD71D19176100DCD741 /* OneToOneAnalytics.m */,
+				A0F39FD61D19176100DCD741 /* OTKAnalytics.h */,
+				A0F39FD71D19176100DCD741 /* OTKAnalytics.m */,
 				A0B1F1781CC5423A00E0FB00 /* SVProgressHUD */,
 				6405A5B91C696BE600441745 /* AppDelegate.h */,
 				6405A5BA1C696BE600441745 /* AppDelegate.m */,
@@ -321,7 +321,7 @@
 				A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */,
 				A0B1F1861CC5423A00E0FB00 /* SVProgressHUD.m in Sources */,
 				6405A5B81C696BE600441745 /* main.m in Sources */,
-				A0F39FD81D19176100DCD741 /* OneToOneAnalytics.m in Sources */,
+				A0F39FD81D19176100DCD741 /* OTKAnalytics.m in Sources */,
 				A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */,
 				A0B1F1841CC5423A00E0FB00 /* SVProgressAnimatedView.m in Sources */,
 			);
