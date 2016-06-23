@@ -1,8 +1,8 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Acc Pack for iOS<br/>Version 1.0
+# OpenTok Text Chat Accelerator Pack for iOS<br/>Version 1.0
 
-This document describes how to use the OpenTok Text Chat Accelerator Pack for iOS. Through the exploration of the OpenTok Text Chat Sample App, you will learn best practices for exchanging text messages on an iOS mobile device.
+This document describes how to use the OpenTok Text Chat Accelerator Pack for iOS. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages on an iOS mobile device.
 
 You can configure and run this sample app within just a few minutes!
 
@@ -91,7 +91,7 @@ _At this point you can try running the app! You can either use a simulator or an
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps) by adding logic using the classes in the `TextChatKit` framework.
+This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/) by adding logic using the classes in the `TextChatKit` framework.
 
 For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
 
@@ -103,7 +103,7 @@ _**NOTE:** The sample app contains logic used for logging. This is used to submi
 
 ### App design
 
-The following classes, interfaces, and protocols represent the software design for this sample app, focusing primarily on the text chat features. For details about the one-to-one communication aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps).
+The following classes, interfaces, and protocols represent the software design for this sample app, focusing primarily on the text chat features. For details about the one-to-one communication aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/iOS).
 
 | Class        | Description  |
 | ------------- | ------------- |

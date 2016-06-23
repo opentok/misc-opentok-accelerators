@@ -1,8 +1,8 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Acc Pack for JavaScript<br/>Version 1.0
+# OpenTok Text Chat Accelerator Pack for JavaScript<br/>Version 1.0
 
-This document describes how to use the OpenTok Text Chat Accelerator Pack for JavaScript. Through the exploration of the OpenTok Text Chat Sample App, you will learn best practices for exchanging text messages in a web-based application. 
+This document describes how to use the OpenTok Text Chat Accelerator Pack for JavaScript. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages in a web-based application. 
 
 You can configure and run this sample app within just a few minutes!
 
@@ -56,7 +56,7 @@ The web page that loads the sample app for JavaScript must be served over HTTP/H
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](../../one-to-one-sample-app) by adding logic using the `TextChatAccPack` class defined in `opentok-text-chat.js`.
+This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/) by adding logic using the `TextChatAccPack` class defined in `opentok-text-chat.js`.
 
 For detail about the APIs used to develop this sample, see the [OpenTok.js Reference](https://tokbox.com/developer/sdks/js/reference/).
 
@@ -67,7 +67,7 @@ _**NOTE:** The sample app contains logic used for logging. This is used to submi
 
 ### Web page design
 
-While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must host the sample app yourself. This allows you to customize the app as desired. The sample app has the following design, focusing primarily on the text chat features. For details about the one-to-one communication audio-video aspects of the design, see the [OpenTok One-to-One Communication Sample App](../../one-to-one-sample-app).
+While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must host the sample app yourself. This allows you to customize the app as desired. The sample app has the following design, focusing primarily on the text chat features. For details about the one-to-one communication audio-video aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/js).
 
 * **[accelerator-pack.js](./sample-app/public/js/components/accelerator-pack.js)**: The TokBox Common Accelerator Session Pack is a common layer that permits all accelerators to share the same OpenTok session, API Key and other related information, and is required whenever you use any of the OpenTok accelerators. This layer handles communication between the client and the components.
 
