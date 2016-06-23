@@ -32,7 +32,7 @@ _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample
 There are 3 options for installing the Text Chat Accelerator Pack framework:
 
   - Run the [build.sh script](./build.sh).
-  - Download the [Text Chat Accelerator Pack framework](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/iOS/0049/TextChatKit.zip) file provided by TokBox.
+  - Download the [Text Chat Accelerator Pack framework](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/iOS/TextChatKit.zip) file provided by TokBox.
   - Install using CocoaPods: In a terminal prompt, navigate into your project directory and type `pod install`. Then reopen your project using the new *.xcworkspace file.
 
 
