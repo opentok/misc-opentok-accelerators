@@ -7,6 +7,7 @@
 //
 
 #import "AnnotationTextView.h"
+#import "Constants.h"
 
 @interface AnnotationTextView() <UITextViewDelegate>
 @property (nonatomic) CGPoint referenceCenter;
@@ -15,6 +16,9 @@
 @property (nonatomic) UIPinchGestureRecognizer *activePinchRecognizer;
 @property (nonatomic) UIRotationGestureRecognizer *activeRotationRecognizer;
 @property (nonatomic) CAShapeLayer *dotborder;
+
+@property (nonatomic) UIButton *rotateButton;
+@property (nonatomic) UIButton *pinchButton;
 @end
 
 @implementation AnnotationTextView
@@ -29,7 +33,7 @@
     
     if (self = [super init]) {
         CGRect screenBounds = [UIScreen mainScreen].bounds;
-        self.frame = CGRectMake(0, 100, CGRectGetWidth(screenBounds), 0);
+        self.frame = CGRectMake(LeadingPaddingOfAnnotationTextView, 100, CGRectGetWidth(screenBounds) - LeadingPaddingOfAnnotationTextView * 2, 0);
         [self setTextAlignment:NSTextAlignmentCenter];
         [self setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
         
@@ -74,6 +78,28 @@
         [self.layer addSublayer:_dotborder];
         _dotborder.path = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
         _dotborder.frame = self.bounds;
+        
+//        _rotateButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+//        [_rotateButton setTitle:@"Rotate" forState:UIControlStateNormal];
+//        [_rotateButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [_rotateButton setBackgroundColor:[UIColor blueColor]];
+//        _rotateButton.center = CGPointMake(CGRectGetWidth(self.bounds), 0);
+//        _rotateButton.layer.cornerRadius = 15.0f;
+//        _rotateButton.layer.borderColor = [UIColor whiteColor].CGColor;
+//        _rotateButton.layer.borderWidth = 2.0f;
+//        [self addSubview:_rotateButton];
+//        
+//        _pinchButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+//        [_pinchButton setTitle:@"Pinch" forState:UIControlStateNormal];
+//        [_pinchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [_pinchButton setBackgroundColor:[UIColor blueColor]];
+//        _pinchButton.center = CGPointMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+//        _pinchButton.layer.cornerRadius = 15.0f;
+//        _pinchButton.layer.borderColor = [UIColor whiteColor].CGColor;
+//        _pinchButton.layer.borderWidth = 2.0f;
+//        [self addSubview:_pinchButton];
+        
+        self.clipsToBounds = NO;
     }
     return self;
 }
@@ -151,7 +177,7 @@
 }
 
 - (void)resizeTextView:(UITextView *)textView {
-    CGFloat fixedWidth = CGRectGetWidth([UIScreen mainScreen].bounds);
+    CGFloat fixedWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - LeadingPaddingOfAnnotationTextView * 2;
     CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
     CGRect newFrame = textView.frame;
     newFrame.size = CGSizeMake(fixedWidth, newSize.height);
@@ -159,6 +185,7 @@
     
     self.dotborder.path = [UIBezierPath bezierPathWithRect:textView.bounds].CGPath;
     self.dotborder.frame = textView.bounds;
+    self.pinchButton.center = CGPointMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
 }
 
 #pragma mark - UITextViewDelegate

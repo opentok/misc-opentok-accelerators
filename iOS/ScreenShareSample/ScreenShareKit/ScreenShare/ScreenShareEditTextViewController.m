@@ -33,8 +33,8 @@
     
     if (self = [super initWithNibName:@"ScreenShareEditTextViewController"
                                bundle:[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"ScreenShareKitBundle" withExtension:@"bundle"]]]) {
-        
-        _fontSizeArray = @[@24, @26, @28, @30, @32, @34, @36, @38, @40, @42, @44, @46, @48];
+
+        _fontSizeArray = @[@24, @30, @36, @42, @48, @54, @60, @66, @72];
         
         self.providesPresentationContextTransitionStyle = YES;
         self.definesPresentationContext = YES;

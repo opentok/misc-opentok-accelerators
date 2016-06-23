@@ -17,4 +17,5 @@
                     fontSize:(CGFloat)fontSize;
 
 - (void)commit;
+
 @end

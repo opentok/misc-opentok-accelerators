@@ -88,28 +88,25 @@
     if (!self.oneToOneCommunicator.isCallEnabled && !self.screenSharer.isScreenSharing) {
         [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
             
-            [SVProgressHUD dismiss];
             if (!error) {
-                [self.mainView connectCallHolder:YES];
+                [SVProgressHUD dismiss];
                 [self handleCommunicationSignal:signal];
             }
             else {
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }
         }];
-        [self.mainView buttonsStatusSetter:YES];
     }
     else {
         [SVProgressHUD dismiss];
         [self.screenSharer disconnect];
         [self.oneToOneCommunicator disconnect];
         [self.mainView connectCallHolder:NO];
+        [self.mainView updateControlButtonsForEndingCall];
         
         [self.mainView removePublisherView];
         [self.mainView removePlaceHolderImage];
         [self.mainView removeAnnotationToolBar];
-        [self.mainView buttonsStatusSetter:NO];
-        [self.mainView resetAudioVideoControlButtons];
     }
 }
 
@@ -118,6 +115,8 @@
     
     switch (signal) {
         case OneToOneCommunicationSignalSessionDidConnect: {
+            [self.mainView connectCallHolder:YES];
+            [self.mainView updateControlButtonsForCall];
             [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
             break;
         }
@@ -180,8 +179,14 @@
  */
 - (IBAction)publisherAudioButtonPressed:(UIButton *)sender {
     
-    [self.mainView mutePubliserhMic:self.oneToOneCommunicator.publishAudio];
-    self.oneToOneCommunicator.publishAudio = !self.oneToOneCommunicator.publishAudio;
+    if (self.oneToOneCommunicator.isCallEnabled) {
+        [self.mainView mutePubliserhMic:self.oneToOneCommunicator.publishAudio];
+        self.oneToOneCommunicator.publishAudio = !self.oneToOneCommunicator.publishAudio;
+    }
+    else if (self.screenSharer.isScreenSharing) {
+        [self.mainView mutePubliserhMic:self.screenSharer.publishAudio];
+        self.screenSharer.publishAudio = !self.screenSharer.publishAudio;
+    }
 }
 
 - (IBAction)annotationButtonPressed:(UIButton *)sender {
@@ -246,14 +251,18 @@
     
     switch (signal) {
         case ScreenShareSignalSessionDidConnect: {
-            [self.oneToOneCommunicator disconnect];
             [self.mainView addScreenShareViewWithContentView:self.customSharedContent];
             [self.mainView toggleAnnotationToolBar];
+            [self.mainView updateControlButtonsForScreenShare];
+            [self.mainView showScreenShareNotificationBar:YES];
             break;
         }
         case ScreenShareSignalSessionDidDisconnect: {
             [self.mainView removeScreenShareView];
             [self.mainView removeAnnotationToolBar];
+            [self.customSharedContent removeFromSuperview];
+            [self.mainView cleanCanvas];
+            [self.mainView showScreenShareNotificationBar:NO];
             break;
         }
         case ScreenShareSignalSessionDidFail:{
@@ -364,7 +373,7 @@
 
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
     self.customSharedContent = [[UIImageView alloc] initWithImage:chosenImage];
     [picker dismissViewControllerAnimated:YES completion:^(){
         [self startScreenShare];

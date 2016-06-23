@@ -28,6 +28,8 @@
 
 @property (nonatomic) ScreenShareToolbarView *toolbarView;
 @property (strong, nonatomic) IBOutlet UIView *actionButtonView;
+
+@property (weak, nonatomic) IBOutlet UIView *screenshareNotificationBar;
 @end
 
 @implementation MainView
@@ -226,26 +228,61 @@
     [self.toolbarView removeFromSuperview];
 }
 
+- (void)cleanCanvas {
+    [self.toolbarView.screenShareView eraseAll];
+}
+
 #pragma mark - other controls
 - (void)removePlaceHolderImage {
     [self.publisherPlaceHolderImageView removeFromSuperview];
     [self.subscriberPlaceHolderImageView removeFromSuperview];
 }
 
-- (void) buttonsStatusSetter: (BOOL)status; {
-    [self.subscriberAudioButton setEnabled: status];
-    [self.subscriberVideoButton setEnabled: status];
-    [self.videoHolder setEnabled: status];
-    [self.micHolder setEnabled: status];
-    [self.screenShareHolder setEnabled: status];
-    [self.annotationHolder setEnabled:status];
+- (void)updateControlButtonsForCall {
+    [self.subscriberVideoButton setEnabled:YES];
+    [self.subscriberAudioButton setEnabled:YES];
+    [self.publisherCameraButton setEnabled:YES];
+    [self.videoHolder setEnabled:YES];
+    [self.micHolder setEnabled:YES];
+    [self.screenShareHolder setEnabled:YES];
+    [self.annotationHolder setEnabled:NO];
+    [self.micHolder setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
+    [self.videoHolder setImage:[UIImage imageNamed:@"videoIcon"] forState:UIControlStateNormal];
+    [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
+    [self.subscriberVideoButton setImage:[UIImage imageNamed:@"videoIcon"] forState: UIControlStateNormal];
 }
 
-- (void)resetAudioVideoControlButtons {
-    [self muteSubscriberMic:NO];
-    [self connectSubsciberVideo:NO];
-    [self mutePubliserhMic:NO];
-    [self connectPubliserVideo:NO];
+- (void)updateControlButtonsForScreenShare {
+    [self.subscriberVideoButton setEnabled:NO];
+    [self.subscriberAudioButton setEnabled:YES];
+    [self.publisherCameraButton setEnabled:NO];
+    [self.videoHolder setEnabled:NO];
+    [self.micHolder setEnabled:YES];
+    [self.screenShareHolder setEnabled:YES];
+    [self.annotationHolder setEnabled:YES];
+    [self.micHolder setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
+    [self.videoHolder setImage:[UIImage imageNamed:@"videoIcon"] forState:UIControlStateNormal];
+    [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
+    [self.subscriberVideoButton setImage:[UIImage imageNamed:@"videoIcon"] forState: UIControlStateNormal];
+}
+
+
+- (void)updateControlButtonsForEndingCall {
+    [self.subscriberVideoButton setEnabled:NO];
+    [self.subscriberAudioButton setEnabled:NO];
+    [self.publisherCameraButton setEnabled:NO];
+    [self.videoHolder setEnabled:NO];
+    [self.micHolder setEnabled:NO];
+    [self.screenShareHolder setEnabled:NO];
+    [self.annotationHolder setEnabled:NO];
+    [self.micHolder setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
+    [self.videoHolder setImage:[UIImage imageNamed:@"videoIcon"] forState:UIControlStateNormal];
+    [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
+    [self.subscriberVideoButton setImage:[UIImage imageNamed:@"videoIcon"] forState: UIControlStateNormal];
+}
+
+- (void)showScreenShareNotificationBar:(BOOL)shown {
+    [self.screenshareNotificationBar setHidden:!shown];
 }
 
 #pragma mark - private method
