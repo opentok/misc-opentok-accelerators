@@ -6,11 +6,13 @@ android {
 
     defaultConfig {
         applicationId "com.tokbox.android.textchatsample"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,6 +23,11 @@ android {
     packagingOptions {
         exclude 'META-INF/ASL2.0'
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -28,4 +35,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
 }
