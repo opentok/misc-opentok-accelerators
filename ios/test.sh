@@ -1,6 +1,6 @@
 set -e
 
-cd TextChatSample/
+cd TextChatAccPackKit/
 
-xcodebuild -workspace "TextChatSample.xcworkspace" -scheme "TextChatKitBundle" -sdk "iphonesimulator9.3"
-xcodebuild clean test -workspace "TextChatSample.xcworkspace" -scheme "TextChatSampleTests" -sdk "iphonesimulator9.3" -destination "OS=9.0,name=iPhone 6 Plus" -configuration Debug
+xcodebuild -workspace "TextChatAccPackKit.xcworkspace" -scheme "TextChatKitBundle" -sdk "iphonesimulator9.3"
+xcodebuild clean test -workspace "TextChatAccPackKit.xcworkspace" -scheme "TextChatKitTests" -sdk "iphonesimulator9.3" -destination "OS=9.0,name=iPhone 6 Plus" -configuration Debug

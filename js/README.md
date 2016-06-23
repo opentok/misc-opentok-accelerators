@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Sample App for JavaScript<br/>Version 1.0
+# OpenTok Text Chat Acc Pack for JavaScript<br/>Version 1.0
 
 This document describes how to use the OpenTok Text Chat Accelerator Pack for JavaScript. Through the exploration of the OpenTok Text Chat Sample App, you will learn best practices for exchanging text messages in a web-based application. 
 
@@ -19,8 +19,7 @@ To be prepared to develop your text chat app:
 
 1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
 2. Either run the [build-sample.sh script](./build-sample.sh), or download the [opentok-text-chat.js](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/4/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.
-3. Download the TokBox Common Accelerator Session Pack provided by TokBox.
-4. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
+3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
 
@@ -72,7 +71,9 @@ While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must
 
 * **[accelerator-pack.js](./sample-app/public/js/components/accelerator-pack.js)**: The TokBox Common Accelerator Session Pack is a common layer that permits all accelerators to share the same OpenTok session, API Key and other related information, and is required whenever you use any of the OpenTok accelerators. This layer handles communication between the client and the components.
 
-* **text-chat-acc-pack.js**:  _(Available only in the Text Chat Accelerator Pack)._ Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
+* **acc-pack-text-chat.js**:  _(Available only in the Text Chat Accelerator Pack)._ Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
+
+* **acc-pack-communication.js**: Manages the client audio/video communication.
 
 * **[app.js](./sample-app/public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements. 
 
