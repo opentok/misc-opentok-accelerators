@@ -60,7 +60,42 @@ android {
     }
 }
 
+if (project.hasProperty("MAVEN_USERNAME") && project.hasProperty("MAVEN_PASSWORD")) {
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: "https://api.bintray.com/maven/tokbox/maven/${ARTIFACT_ID}/;publish=1") {
+                    authentication(userName: MAVEN_USERNAME ? MAVEN_USERNAME : "", password: MAVEN_PASSWORD ? MAVEN_PASSWORD : "")
+                }
+                def (revision, buildTime) = getRevisionAndTime()
+                pom.version = "${version}"
+                pom.groupId = 'com.opentok.android'
+                pom.artifactId = "${ARTIFACT_ID}"
+            }
+        }
+    }
+}
 
+def checkMaven = task("checkUploadArchivesDeps") {
+    doFirst {
+        if (!project.hasProperty("MAVEN_USERNAME")) {
+            throw new GradleException("MAVEN_USERNAME Property not defined")
+        }
+        if (!project.hasProperty("MAVEN_PASSWORD")) {
+            throw new GradleException("MAVEN_PASSWORD Property not defined")
+        }
+    }
+}
+
+uploadArchives.dependsOn checkMaven
+
+def getRevisionAndTime() {
+    def date = new Date()
+    def hash = 'git rev-parse --verify HEAD'.execute().text.trim()
+    TimeZone.setDefault(TimeZone.getTimeZone('PST'))
+    def formattedDate = date.format('yyyyMMddHHmmss')
+    return ["${hash}".toString(), formattedDate.toString()]
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
