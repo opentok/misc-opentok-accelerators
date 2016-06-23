@@ -49,7 +49,7 @@ There are 3 options for installing the OpenTok Text Chat Accelerator Pack librar
   - [Using Maven](#using-maven)
   - [Downloading and Installing the AAR File](#downloading-and-installing-the-aar-file)
 
-**NOTE**: The OpenTok Text Chat Sample App includes the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common). 
+**NOTE**: The OpenTok Text Chat Sample App includes the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common).
 
 #### Using the repository
 
@@ -83,6 +83,9 @@ compile 'com.opentok.android:opentok-text-chat-acc-pack:1.0'
 </li>
 
 </ol>
+
+
+  _**NOTE**: Since dependencies are transitive with Maven, it is not necessary to explicitly reference the TokBox Common Accelerator Session Pack with this option._
 
 
 #### Downloading and Installing the AAR File
