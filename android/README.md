@@ -1,8 +1,8 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Acc Pack for Android<br/>Version 1.0
+# OpenTok Text Chat Accelerator Pack for Android<br/>Version 1.0
 
-This document describes how to use the OpenTok Text Chat Accelerator Pack for Android. Through the exploration of the OneToOneTextChatSample, you will learn best practices for exchanging text messages on an Android mobile device.  
+This document describes how to use the OpenTok Text Chat Accelerator Pack for Android. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages on an Android mobile device.  
 
 You can configure and run this sample app within just a few minutes!
 
@@ -36,7 +36,7 @@ To learn more about the best practices used to design this app, see [Exploring t
 
 ### Importing the Android Studio project
 
-1. Clone [OpenTok Text Chat Accelerator Pack repo](https://github.com/opentok/textchat-acc-pack).
+1. Clone the [OpenTok Text Chat Accelerator Pack repo](https://github.com/opentok/textchat-acc-pack).
 2. Start Android Studio. 
 3. In the **Quick Start** panel, click **Open an existing Android Studio Project**.
 4. Navigate to the **android** folder, select the **OneToOneTextChatSample** folder, and click **Choose**.
@@ -124,7 +124,7 @@ _At this point you can try running the app! You can either use a simulator or an
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/android) by adding logic using the `com.tokbox.android.textchat` classes.
+This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/) by adding logic using the `com.tokbox.android.textchat` classes.
 
 For detail about the APIs used to develop this sample, see the [OpenTok Android SDK Reference](https://tokbox.com/developer/sdks/android/reference/) and [Android API Reference](http://developer.android.com/reference/packages.html).
 
