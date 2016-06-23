@@ -23,6 +23,7 @@ public class OneToOneCommunication implements
         AccPackSession.SessionListener, Publisher.PublisherListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
 
     private static final String LOGTAG = OneToOneCommunication.class.getName();
+    ;
     private Context mContext;
 
     private AccPackSession mSession;
