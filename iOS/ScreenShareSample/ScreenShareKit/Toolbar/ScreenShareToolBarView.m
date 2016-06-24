@@ -173,7 +173,7 @@
         editTextViewController.delegate = self;
         UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
         [topViewController presentViewController:editTextViewController animated:YES completion:nil];
-        [self disableButtons:@[self.annotateButton, self.colorButton, self.screenshotButton, self.eraseButton]];
+        [self disableButtons:@[self.annotateButton, self.colorButton, self.textButton, self.screenshotButton, self.eraseButton]];
     }
     else if (sender == self.colorButton) {
         [self showColorPickerView];
