@@ -76,7 +76,7 @@ static CGFloat StatusBarHeight = 20.0;
     self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.textChatComponent.maximumTextMessageLength];
     
     // work on instantiation and port it to sample app, done
-    NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"TextChatKitBundle" withExtension:@"bundle"]];
+    NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"OTTextChatKitBundle" withExtension:@"bundle"]];
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatSentTableViewCell"
                                                bundle:textChatViewBundle]
          forCellReuseIdentifier:@"SentChatMessage"];
@@ -176,7 +176,7 @@ static CGFloat StatusBarHeight = 20.0;
 #pragma mark - Public methods
 + (instancetype)textChatView {
     
-    NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"TextChatKitBundle" withExtension:@"bundle"]];
+    NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"OTTextChatKitBundle" withExtension:@"bundle"]];
     return (OTTextChatView *)[[textChatViewBundle loadNibNamed:@"OTTextChatView"
                                                       owner:nil
                                                     options:nil] lastObject];
