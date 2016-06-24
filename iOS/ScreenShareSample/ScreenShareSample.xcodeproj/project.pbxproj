@@ -58,6 +58,10 @@
 		A02411011D08075B0001670C /* ScreenShareEditTextViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A02410F91D08075B0001670C /* ScreenShareEditTextViewController.h */; };
 		A02411021D08075B0001670C /* ScreenShareEditTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A02410FA1D08075B0001670C /* ScreenShareEditTextViewController.m */; };
 		A0253B041CD72713006829E6 /* mvc.png in Resources */ = {isa = PBXBuildFile; fileRef = A0253B031CD72713006829E6 /* mvc.png */; };
+		A02FE5651D1C9EBB0092D046 /* AnnotationOverContentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A02FE5631D1C9EBB0092D046 /* AnnotationOverContentViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A02FE5661D1C9EBB0092D046 /* AnnotationOverContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A02FE5641D1C9EBB0092D046 /* AnnotationOverContentViewController.m */; };
+		A02FE5671D1CA2E20092D046 /* AnnotationOverContentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A02FE5631D1C9EBB0092D046 /* AnnotationOverContentViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A02FE5681D1CA8B70092D046 /* AnnotationOverContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A02FE5641D1C9EBB0092D046 /* AnnotationOverContentViewController.m */; };
 		A044C3B61CED1D65000F7489 /* AnnotationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A044C3AE1CED1D65000F7489 /* AnnotationManager.h */; };
 		A044C3B71CED1D65000F7489 /* AnnotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A044C3AF1CED1D65000F7489 /* AnnotationManager.m */; };
 		A044C3B81CED1D65000F7489 /* AnnotationPath.h in Headers */ = {isa = PBXBuildFile; fileRef = A044C3B01CED1D65000F7489 /* AnnotationPath.h */; };
@@ -178,6 +182,8 @@
 		A02410F91D08075B0001670C /* ScreenShareEditTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShareEditTextViewController.h; sourceTree = "<group>"; };
 		A02410FA1D08075B0001670C /* ScreenShareEditTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShareEditTextViewController.m; sourceTree = "<group>"; };
 		A0253B031CD72713006829E6 /* mvc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mvc.png; sourceTree = "<group>"; };
+		A02FE5631D1C9EBB0092D046 /* AnnotationOverContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationOverContentViewController.h; sourceTree = "<group>"; };
+		A02FE5641D1C9EBB0092D046 /* AnnotationOverContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationOverContentViewController.m; sourceTree = "<group>"; };
 		A044C3AE1CED1D65000F7489 /* AnnotationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationManager.h; sourceTree = "<group>"; };
 		A044C3AF1CED1D65000F7489 /* AnnotationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationManager.m; sourceTree = "<group>"; };
 		A044C3B01CED1D65000F7489 /* AnnotationPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationPath.h; sourceTree = "<group>"; };
@@ -270,6 +276,8 @@
 				3F2E19761CF8EDD600465198 /* ScreenSharer.m */,
 				A012A17B1CEE7AFB00935C9E /* ScreenShareView.h */,
 				A012A17C1CEE7AFB00935C9E /* ScreenShareView.m */,
+				A02FE5631D1C9EBB0092D046 /* AnnotationOverContentViewController.h */,
+				A02FE5641D1C9EBB0092D046 /* AnnotationOverContentViewController.m */,
 				A0166D311CF4CD7100DED33F /* ScreenShareColorPickerView.h */,
 				A0166D321CF4CD7100DED33F /* ScreenShareColorPickerView.m */,
 			);
@@ -434,14 +442,12 @@
 				3F2E19771CF8EDD600465198 /* ScreenSharer.h in Headers */,
 				A02410F11D08074B0001670C /* AnnotationTextView.h in Headers */,
 				A044C3C51CED285A000F7489 /* Annotatable.h in Headers */,
+				A02FE5651D1C9EBB0092D046 /* AnnotationOverContentViewController.h in Headers */,
 				A0166D2B1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.h in Headers */,
 				A0166D451CF505A400DED33F /* ScreenShareToolbarButton.h in Headers */,
 				A0166D2A1CF4BBA700DED33F /* ScreenShareToolbarView_UserInterfaces.h in Headers */,
 				A02410FC1D08075B0001670C /* ScreenShareCaptureView.h in Headers */,
 				A02411011D08075B0001670C /* ScreenShareEditTextViewController.h in Headers */,
-				A044C3C01CED266E000F7489 /* AnnotationPoint.h in Headers */,
-				A044C3B81CED1D65000F7489 /* AnnotationPath.h in Headers */,
-				A060AF961CF4346700589311 /* AnnotationView.h in Headers */,
 				A0166D331CF4CD7100DED33F /* ScreenShareColorPickerView.h in Headers */,
 				A0900B001CEFCBA000B12800 /* UIViewController+Helper.h in Headers */,
 				A0166D411CF4ED2400DED33F /* UIButton+AutoLayoutHelper.h in Headers */,
@@ -449,6 +455,9 @@
 				A063BCD41D0F4AE100AB02A3 /* TBScreenCapture.h in Headers */,
 				A02410FE1D08075B0001670C /* ScreenShareCaptureViewController.h in Headers */,
 				A044C3B61CED1D65000F7489 /* AnnotationManager.h in Headers */,
+				A044C3B81CED1D65000F7489 /* AnnotationPath.h in Headers */,
+				A044C3C01CED266E000F7489 /* AnnotationPoint.h in Headers */,
+				A060AF961CF4346700589311 /* AnnotationView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,21 +471,22 @@
 				A09D4F641D17174A007B349E /* ScreenSharer.h in Headers */,
 				A09D4F651D17174A007B349E /* AnnotationTextView.h in Headers */,
 				A09D4F661D17174A007B349E /* Annotatable.h in Headers */,
+				A02FE5671D1CA2E20092D046 /* AnnotationOverContentViewController.h in Headers */,
 				A09D4F671D17174A007B349E /* ScreenShareToolbarView+Animation.h in Headers */,
 				A09D4F681D17174A007B349E /* ScreenShareToolbarButton.h in Headers */,
 				A09D4F691D17174A007B349E /* ScreenShareToolbarView_UserInterfaces.h in Headers */,
 				A09D4F6A1D17174A007B349E /* ScreenShareCaptureView.h in Headers */,
 				A09D4F6B1D17174A007B349E /* ScreenShareEditTextViewController.h in Headers */,
-				A09D4F6C1D17174A007B349E /* AnnotationPoint.h in Headers */,
-				A09D4F6D1D17174A007B349E /* AnnotationPath.h in Headers */,
-				A09D4F6E1D17174A007B349E /* AnnotationView.h in Headers */,
 				A09D4F6F1D17174A007B349E /* ScreenShareColorPickerView.h in Headers */,
+				A09D4F741D17174A007B349E /* ScreenShareCaptureViewController.h in Headers */,
 				A09D4F701D17174A007B349E /* UIViewController+Helper.h in Headers */,
 				A09D4F711D17174A007B349E /* UIButton+AutoLayoutHelper.h in Headers */,
 				A09D4F721D17174A007B349E /* AnnotationPoint_Private.h in Headers */,
 				A09D4F731D17174A007B349E /* TBScreenCapture.h in Headers */,
-				A09D4F741D17174A007B349E /* ScreenShareCaptureViewController.h in Headers */,
 				A09D4F751D17174A007B349E /* AnnotationManager.h in Headers */,
+				A09D4F6C1D17174A007B349E /* AnnotationPoint.h in Headers */,
+				A09D4F6D1D17174A007B349E /* AnnotationPath.h in Headers */,
+				A09D4F6E1D17174A007B349E /* AnnotationView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,6 +777,7 @@
 				A044C3B91CED1D65000F7489 /* AnnotationPath.m in Sources */,
 				A02410FD1D08075B0001670C /* ScreenShareCaptureView.m in Sources */,
 				A0166D2C1CF4BBA700DED33F /* ScreenShareToolbarView+Animation.m in Sources */,
+				A02FE5661D1C9EBB0092D046 /* AnnotationOverContentViewController.m in Sources */,
 				A02410F21D08074B0001670C /* AnnotationTextView.m in Sources */,
 				A02411021D08075B0001670C /* ScreenShareEditTextViewController.m in Sources */,
 				3F2E19781CF8EDD600465198 /* ScreenSharer.m in Sources */,
@@ -791,6 +802,7 @@
 				A09D4F4D1D17174A007B349E /* AnnotationPath.m in Sources */,
 				A09D4F4E1D17174A007B349E /* ScreenShareCaptureView.m in Sources */,
 				A09D4F4F1D17174A007B349E /* ScreenShareToolbarView+Animation.m in Sources */,
+				A02FE5681D1CA8B70092D046 /* AnnotationOverContentViewController.m in Sources */,
 				A09D4F501D17174A007B349E /* AnnotationTextView.m in Sources */,
 				A09D4F511D17174A007B349E /* ScreenShareEditTextViewController.m in Sources */,
 				A09D4F521D17174A007B349E /* ScreenSharer.m in Sources */,

@@ -10,4 +10,4 @@
 #import <ScreenShareKit/ScreenShareView.h>
 #import <ScreenShareKit/ScreenShareToolbarView.h>
 #import <ScreenShareKit/Annotatable.h>
-#import <ScreenShareKit/AnnotationTextView.h>
+#import <ScreenShareKit/AnnotationOverContentViewController.h>
