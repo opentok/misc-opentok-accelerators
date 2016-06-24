@@ -216,6 +216,7 @@
 - (void)toggleAnnotationToolBar {
     
     if (!self.toolbarView || !self.toolbarView.superview) {
+        [self.toolbarView.screenShareView eraseAll];
         [self.shareView addSubview:self.toolbarView];
     }
     else {
