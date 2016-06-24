@@ -106,10 +106,11 @@
 }
 
 - (UIImage *)captureScreen {
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size,
-                                           NO, [UIScreen mainScreen].scale);
-    [self drawViewHierarchyInRect:self.bounds
-               afterScreenUpdates:YES];
+    if (![UIApplication sharedApplication]) return nil;
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIGraphicsBeginImageContextWithOptions(rootViewController.view.bounds.size, NO, [UIScreen mainScreen].scale);
+    [rootViewController.view drawViewHierarchyInRect:rootViewController.view.bounds
+                                  afterScreenUpdates:YES];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;

@@ -1,0 +1,3 @@
+[submodule "iOS/OneToOneScreenShareSample/OneToOneScreenShareSample/one-to-one-sample-apps"]
+	path = iOS/OneToOneScreenShareSample/OneToOneScreenShareSample/one-to-one-sample-apps
+	url = https://github.com/Lucashuang0802/one-to-one-sample-apps.git
