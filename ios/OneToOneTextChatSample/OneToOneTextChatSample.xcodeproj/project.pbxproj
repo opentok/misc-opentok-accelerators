@@ -22,7 +22,7 @@
 		A0B1F1851CC5423A00E0FB00 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0B1F17E1CC5423A00E0FB00 /* SVProgressHUD.bundle */; };
 		A0B1F1861CC5423A00E0FB00 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F1801CC5423A00E0FB00 /* SVProgressHUD.m */; };
 		A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */; };
-		A0F39FD81D19176100DCD741 /* OTKAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F39FD71D19176100DCD741 /* OTKAnalytics.m */; };
+		A0F39FD81D19176100DCD741 /* OTKTextChatAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F39FD71D19176100DCD741 /* OTKTextChatAnalytics.m */; };
 		B648B8D5F6BB8B8F3367611F /* libPods-OneToOneTextChatSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB98A9793130E2436B69C370 /* libPods-OneToOneTextChatSample.a */; };
 /* End PBXBuildFile section */
 
@@ -68,8 +68,8 @@
 		A0B1F1801CC5423A00E0FB00 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		A0B1F1811CC5423A00E0FB00 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
-		A0F39FD61D19176100DCD741 /* OTKAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKAnalytics.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.h"; sourceTree = "<group>"; };
-		A0F39FD71D19176100DCD741 /* OTKAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKAnalytics.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKAnalytics.m"; sourceTree = "<group>"; };
+		A0F39FD61D19176100DCD741 /* OTKTextChatAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKTextChatAnalytics.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKTextChatAnalytics.h"; sourceTree = "<group>"; };
+		A0F39FD71D19176100DCD741 /* OTKTextChatAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKTextChatAnalytics.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKTextChatAnalytics.m"; sourceTree = "<group>"; };
 		CB98A9793130E2436B69C370 /* libPods-OneToOneTextChatSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneToOneTextChatSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -119,8 +119,8 @@
 			children = (
 				A02411041D0898C70001670C /* OneToOneCommunicator.h */,
 				A02411051D0898C70001670C /* OneToOneCommunicator.m */,
-				A0F39FD61D19176100DCD741 /* OTKAnalytics.h */,
-				A0F39FD71D19176100DCD741 /* OTKAnalytics.m */,
+				A0F39FD61D19176100DCD741 /* OTKTextChatAnalytics.h */,
+				A0F39FD71D19176100DCD741 /* OTKTextChatAnalytics.m */,
 				A0B1F1781CC5423A00E0FB00 /* SVProgressHUD */,
 				6405A5B91C696BE600441745 /* AppDelegate.h */,
 				6405A5BA1C696BE600441745 /* AppDelegate.m */,
@@ -319,7 +319,7 @@
 				A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */,
 				A0B1F1861CC5423A00E0FB00 /* SVProgressHUD.m in Sources */,
 				6405A5B81C696BE600441745 /* main.m in Sources */,
-				A0F39FD81D19176100DCD741 /* OTKAnalytics.m in Sources */,
+				A0F39FD81D19176100DCD741 /* OTKTextChatAnalytics.m in Sources */,
 				A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */,
 				A0B1F1841CC5423A00E0FB00 /* SVProgressAnimatedView.m in Sources */,
 			);
