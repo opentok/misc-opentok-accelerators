@@ -945,8 +945,12 @@
     OT.checkScreenSharingCapability(function (response) {
       console.log('checkScreenSharingCapability', response);
       if (!response.supported || !response.extensionRegistered) {
-        alert('This browser does not support screen sharing! Please use Chrome, Firefox or IE!');
-        deferred.reject('browser support not available');
+        if (OT.$.browser() === 'Firefox' && response.extensionInstalled) {
+          deferred.resolve();
+        } else {
+          alert('This browser does not support screen sharing! Please use Chrome, Firefox or IE!');
+          deferred.reject('browser support not available');
+        }
       } else if (!response.extensionInstalled) {
         $('#dialog-form-chrome').toggle();
         deferred.reject('screensharing extension not installed');
