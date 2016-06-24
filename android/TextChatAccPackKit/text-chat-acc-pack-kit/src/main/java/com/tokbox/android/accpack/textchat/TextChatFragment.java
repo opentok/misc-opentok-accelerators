@@ -1,5 +1,6 @@
 package com.tokbox.android.accpack.textchat;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,8 +29,8 @@ import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.tokbox.android.accpack.AccPackSession;
 import com.tokbox.android.accpack.textchat.config.OpenTokConfig;
-import com.tokbox.android.accpack.textchat.logging.OTKAnalytics;
-import com.tokbox.android.accpack.textchat.logging.OTKAnalyticsData;
+import com.tokbox.android.logging.OTKAnalytics;
+import com.tokbox.android.logging.OTKAnalyticsData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -600,8 +601,24 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     @Override
     public void onConnected(Session session) {
-        mAnalyticsData = new OTKAnalyticsData.Builder(session.getSessionId(), mApiKey, session.getConnection().getConnectionId(), OpenTokConfig.LOG_CLIENT_VERSION, OpenTokConfig.LOG_SOURCE).build();
+        String source = getContext().getPackageName();
+
+        SharedPreferences prefs = getContext().getSharedPreferences("opentok", Context.MODE_PRIVATE);
+        String guidVSol = prefs.getString("guidVSol", null);
+        if (null == guidVSol) {
+            guidVSol = UUID.randomUUID().toString();
+            prefs.edit().putString("guidVSol", guidVSol).commit();
+        }
+
+        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.LOG_CLIENT_VERSION, source, OpenTokConfig.LOG_COMPONENTID, guidVSol).build();
         mAnalytics = new OTKAnalytics(mAnalyticsData);
+
+        mAnalyticsData.setSessionId(session.getSessionId());
+        mAnalyticsData.setConnectionId(session.getConnection().getConnectionId());
+        mAnalyticsData.setPartnerId(mApiKey);
+
+        mAnalytics. setData(mAnalyticsData);
+
         addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
 

@@ -23,9 +23,9 @@
 /* Begin PBXBuildFile section */
 		A067B26E1CEB99440099F876 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B26D1CEB99440099F876 /* main.m */; };
 		A067B2711CEB99440099F876 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B2701CEB99440099F876 /* AppDelegate.m */; };
-		A067B2A21CEBA7DF0099F876 /* TextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B29E1CEBA7DF0099F876 /* TextChatUICustomizator.m */; };
-		A067B2A31CEBA7DF0099F876 /* TextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B2A01CEBA7DF0099F876 /* TextChatView.m */; };
-		A07B97631D1BA3F9002397EE /* TextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A07B97621D1BA3F9002397EE /* TextMessage.m */; };
+		A067B2A21CEBA7DF0099F876 /* OTTextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B29E1CEBA7DF0099F876 /* OTTextChatUICustomizator.m */; };
+		A067B2A31CEBA7DF0099F876 /* OTTextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B2A01CEBA7DF0099F876 /* OTTextChatView.m */; };
+		A07B97631D1BA3F9002397EE /* OTTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A07B97621D1BA3F9002397EE /* OTTextMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,12 +35,12 @@
 		A067B2701CEB99440099F876 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A067B27D1CEB99450099F876 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A067B29C1CEBA7DF0099F876 /* TextChatKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatKit.h; sourceTree = "<group>"; };
-		A067B29D1CEBA7DF0099F876 /* TextChatUICustomizator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatUICustomizator.h; sourceTree = "<group>"; };
-		A067B29E1CEBA7DF0099F876 /* TextChatUICustomizator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatUICustomizator.m; sourceTree = "<group>"; };
-		A067B29F1CEBA7DF0099F876 /* TextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatView.h; sourceTree = "<group>"; };
-		A067B2A01CEBA7DF0099F876 /* TextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextChatView.m; sourceTree = "<group>"; };
-		A07B97611D1BA3F9002397EE /* TextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessage.h; sourceTree = "<group>"; };
-		A07B97621D1BA3F9002397EE /* TextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMessage.m; sourceTree = "<group>"; };
+		A067B29D1CEBA7DF0099F876 /* OTTextChatUICustomizator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatUICustomizator.h; sourceTree = "<group>"; };
+		A067B29E1CEBA7DF0099F876 /* OTTextChatUICustomizator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatUICustomizator.m; sourceTree = "<group>"; };
+		A067B29F1CEBA7DF0099F876 /* OTTextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatView.h; sourceTree = "<group>"; };
+		A067B2A01CEBA7DF0099F876 /* OTTextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatView.m; sourceTree = "<group>"; };
+		A07B97611D1BA3F9002397EE /* OTTextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextMessage.h; sourceTree = "<group>"; };
+		A07B97621D1BA3F9002397EE /* OTTextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,12 +76,12 @@
 				A067B26F1CEB99440099F876 /* AppDelegate.h */,
 				A067B2701CEB99440099F876 /* AppDelegate.m */,
 				A067B29C1CEBA7DF0099F876 /* TextChatKit.h */,
-				A067B29D1CEBA7DF0099F876 /* TextChatUICustomizator.h */,
-				A067B29E1CEBA7DF0099F876 /* TextChatUICustomizator.m */,
-				A067B29F1CEBA7DF0099F876 /* TextChatView.h */,
-				A067B2A01CEBA7DF0099F876 /* TextChatView.m */,
-				A07B97611D1BA3F9002397EE /* TextMessage.h */,
-				A07B97621D1BA3F9002397EE /* TextMessage.m */,
+				A067B29D1CEBA7DF0099F876 /* OTTextChatUICustomizator.h */,
+				A067B29E1CEBA7DF0099F876 /* OTTextChatUICustomizator.m */,
+				A067B29F1CEBA7DF0099F876 /* OTTextChatView.h */,
+				A067B2A01CEBA7DF0099F876 /* OTTextChatView.m */,
+				A07B97611D1BA3F9002397EE /* OTTextMessage.h */,
+				A07B97621D1BA3F9002397EE /* OTTextMessage.m */,
 				A067B27D1CEB99450099F876 /* Info.plist */,
 				A067B26C1CEB99440099F876 /* Supporting Files */,
 			);
@@ -174,7 +174,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp \"${PROJECT_DIR}/../../TextChatAccPackKit/TextChatKit/TextChatKit.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../../TextChatAccPackKit/TextChatKit/TextChatUICustomizator/TextChatUICustomizator.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../../TextChatAccPackKit/TextChatKit/TextChatUICustomizator/TextChatUICustomizator.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../../TextChatAccPackKit/TextChatKit/TextChatView/TextChatView.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../../TextChatAccPackKit/TextChatKit/TextChatView/TextChatView.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../../TextChatAccPackKit/TextChatKit/TextMessage/TextMessage.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../../TextChatAccPackKit/TextChatKit/TextMessage/TextMessage.m\" \"${PROJECT_DIR}/Documentation\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChatKit.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextMessage.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChatView.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/TextChatUICustomizator.h\"\n\n#appledoc Xcode script\n# Start constants\ncompany=\"Tokbox\";\ncompanyID=\"com.Tokbox\";\ncompanyURL=\"https://tokbox.com/\";\noutputPath=\"${PROJECT_DIR}/../../OneToOneTextChatSample/docs\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--output \"${outputPath}\" \\\n--keep-intermediate-files \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}/Documentation/TextChatKit.h\" \\\n\"${PROJECT_DIR}/Documentation/TextMessage.h\" \\\n\"${PROJECT_DIR}/Documentation/TextChatView.h\" \\\n\"${PROJECT_DIR}/Documentation/TextChatUICustomizator.h\" \\";
+			shellScript = "cp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatKit.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatUICustomizator/OTTextChatUICustomizator.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatUICustomizator/OTTextChatUICustomizator.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatView/OTTextChatView.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatView/OTTextChatView.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextMessage/OTTextMessage.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OT3TextMessage/OTTextMessage.m\" \"${PROJECT_DIR}/Documentation\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OTTextChatKit.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OTTextMessage.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OTTextChatView.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OTTextChatUICustomizator.h\"\n\n#appledoc Xcode script\n# Start constants\ncompany=\"Tokbox\";\ncompanyID=\"com.Tokbox\";\ncompanyURL=\"https://tokbox.com/\";\noutputPath=\"${PROJECT_DIR}/../../OneToOneTextChatSample/docs\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--output \"${outputPath}\" \\\n--keep-intermediate-files \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}/Documentation/OTTextChatKit.h\" \\\n\"${PROJECT_DIR}/Documentation/OTTextMessage.h\" \\\n\"${PROJECT_DIR}/Documentation/OTTextChatView.h\" \\\n\"${PROJECT_DIR}/Documentation/OTTextChatUICustomizator.h\" \\";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -184,10 +184,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A067B2711CEB99440099F876 /* AppDelegate.m in Sources */,
-				A07B97631D1BA3F9002397EE /* TextMessage.m in Sources */,
-				A067B2A31CEBA7DF0099F876 /* TextChatView.m in Sources */,
+				A07B97631D1BA3F9002397EE /* OTTextMessage.m in Sources */,
+				A067B2A31CEBA7DF0099F876 /* OTTextChatView.m in Sources */,
 				A067B26E1CEB99440099F876 /* main.m in Sources */,
-				A067B2A21CEBA7DF0099F876 /* TextChatUICustomizator.m in Sources */,
+				A067B2A21CEBA7DF0099F876 /* OTTextChatUICustomizator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +281,6 @@
 		A067B2811CEB99450099F876 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Documentation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.Documentation;
@@ -292,7 +291,6 @@
 		A067B2821CEB99450099F876 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Documentation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.Documentation;

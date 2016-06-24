@@ -1,6 +1,7 @@
 package com.tokbox.android.textchatsample;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 
@@ -13,11 +14,14 @@ import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
 import com.tokbox.android.accpack.AccPackSession;
+import com.tokbox.android.logging.OTKAnalytics;
+import com.tokbox.android.logging.OTKAnalyticsData;
 import com.tokbox.android.textchatsample.config.OpenTokConfig;
 import com.tokbox.android.accpack.textchat.logging.OTKAnalyticsData;
 import com.tokbox.android.accpack.textchat.logging.OTKAnalytics;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class OneToOneCommunication implements
         AccPackSession.SessionListener, Publisher.PublisherListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
@@ -431,8 +435,23 @@ public class OneToOneCommunication implements
         isInitialized = true;
 
         //Init the analytics logging
-        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.SESSION_ID, OpenTokConfig.API_KEY, mSession.getConnection().getConnectionId(), OpenTokConfig.LOG_CLIENT_VERSION, OpenTokConfig.LOG_SOURCE).build();
+        String source = mContext.getPackageName();
+
+        SharedPreferences prefs = mContext.getSharedPreferences("opentok", Context.MODE_PRIVATE);
+        String guidVSol = prefs.getString("guidVSol", null);
+        if (null == guidVSol) {
+            guidVSol = UUID.randomUUID().toString();
+            prefs.edit().putString("guidVSol", guidVSol).commit();
+        }
+
+        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.LOG_CLIENT_VERSION, source, OpenTokConfig.LOG_COMPONENTID, guidVSol).build();
         mAnalytics = new OTKAnalytics(mAnalyticsData);
+
+        mAnalyticsData.setSessionId(OpenTokConfig.SESSION_ID);
+        mAnalyticsData.setConnectionId(session.getConnection().getConnectionId());
+        mAnalyticsData.setPartnerId(OpenTokConfig.API_KEY);
+
+        mAnalytics. setData(mAnalyticsData);
 
         //add INITIALIZE attempt log event
         addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);

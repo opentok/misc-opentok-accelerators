@@ -1,9 +1,9 @@
 platform :ios, '8.0'
 
-target 'TextChatKit' do 
+target 'OTTextChatKit' do 
   pod 'OTAcceleratorPackUtil'
 end
 
-target 'TextChatKitTests' do 
+target 'OTTextChatKitTests' do 
   pod 'Kiwi'
 end

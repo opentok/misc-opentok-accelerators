@@ -1,4 +1,4 @@
 set -e
 
 cd TextChatAccPackKit/
-xcodebuild -workspace "TextChatAccPackKit.xcworkspace" -scheme "Build"
+xcodebuild -workspace "OTTextChatAccPackKit.xcworkspace" -scheme "Build"

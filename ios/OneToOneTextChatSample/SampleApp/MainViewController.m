@@ -1,12 +1,12 @@
 #import "MainView.h"
 #import "MainViewController.h"
-#import <TextChatKit/TextChatKit.h>
+#import <OTTextChatKit/OTTextChatKit.h>
 #import "SVProgressHUD.h"
 #import "OneToOneCommunicator.h"
 
 @interface MainViewController ()
 @property (nonatomic) MainView *mainView;
-@property (nonatomic) TextChatView *textChatView;
+@property (nonatomic) OTTextChatView *textChatView;
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
 @end
 
@@ -18,7 +18,7 @@
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
     //self.textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
-    self.textChatView = [TextChatView textChatView];
+    self.textChatView = [OTTextChatView textChatView];
 
     // optional config for set the max amount of character permited per message
     [self.textChatView setMaximumTextMessageLength:200];
