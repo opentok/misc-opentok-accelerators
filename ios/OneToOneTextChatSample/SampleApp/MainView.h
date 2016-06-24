@@ -23,8 +23,10 @@
 // other controls
 - (void)setTextChatHolderUserInteractionEnabled:(BOOL)enabled;
 - (void)removePlaceHolderImage;
-- (void) buttonsStatusSetter: (BOOL)status;
+- (void)updateControlButtonsForCall:(BOOL)status;
+- (void)showReverseCameraButton;
 - (void) resetUIInterface;
+
 
 @property (weak, nonatomic) IBOutlet UIView *actionButtonsHolder;
 @end
