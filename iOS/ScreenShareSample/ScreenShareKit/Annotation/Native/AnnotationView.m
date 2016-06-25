@@ -7,7 +7,7 @@
 //
 
 #import "AnnotationView.h"
-#import "AnnotationManager.h"
+#import "AnnotationDataManager.h"
 
 #import "AnnotationPoint.h"
 #import "AnnotationPoint_Private.h"
@@ -15,7 +15,7 @@
 @interface AnnotationView()
 @property (nonatomic) AnnotationTextView *currentEditingTextView;
 @property (nonatomic) AnnotationPath *currentDrawPath;
-@property (nonatomic) AnnotationManager *annotationnManager;
+@property (nonatomic) AnnotationDataManager *annotationDataManager;
 @end
 
 @implementation AnnotationView
@@ -24,7 +24,7 @@
     
     if (self = [super initWithFrame:frame]) {
         // init
-        _annotationnManager = [[AnnotationManager alloc] init];
+        _annotationDataManager = [[AnnotationDataManager alloc] init];
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
@@ -57,26 +57,26 @@
     if ([annotatable isMemberOfClass:[AnnotationPath class]]) {
         AnnotationPath *path = (AnnotationPath *)annotatable;
         [path drawWholePath];
-        [self.annotationnManager addAnnotatable:path];
+        [self.annotationDataManager addAnnotatable:path];
         [self setNeedsDisplay];
     }
     else if ([annotatable isMemberOfClass:[AnnotationTextView class]]) {
         
         AnnotationTextView *textfield = (AnnotationTextView *)annotatable;
         [self addSubview:textfield];
-        [self.annotationnManager addAnnotatable:textfield];
+        [self.annotationDataManager addAnnotatable:textfield];
     }
 }
 
 - (void)undoAnnotatable {
     
-    id<Annotatable> annotatable = [self.annotationnManager peakOfAnnotatable];
+    id<Annotatable> annotatable = [self.annotationDataManager peakOfAnnotatable];
     if ([annotatable isMemberOfClass:[AnnotationPath class]]) {
-        [self.annotationnManager undo];
+        [self.annotationDataManager undo];
         [self setNeedsDisplay];
     }
     else if ([annotatable isMemberOfClass:[AnnotationTextView class]]) {
-        [self.annotationnManager undo];
+        [self.annotationDataManager undo];
         AnnotationTextView *textfield = (AnnotationTextView *)annotatable;
         [textfield removeFromSuperview];
     }
@@ -84,13 +84,13 @@
 
 - (void)removeAllAnnotatables {
     
-    for (NSUInteger i = 0; i < self.annotationnManager.count; i++) {
+    for (NSUInteger i = 0; i < self.annotationDataManager.annotatable.count; i++) {
         [self undoAnnotatable];
     }
 }
 
 - (void)drawRect:(CGRect)rect {
-    [self.annotationnManager.annotatable enumerateObjectsUsingBlock:^(id<Annotatable> annotatable, NSUInteger idx, BOOL *stop) {
+    [self.annotationDataManager.annotatable enumerateObjectsUsingBlock:^(id<Annotatable> annotatable, NSUInteger idx, BOOL *stop) {
         
         if ([annotatable isMemberOfClass:[AnnotationPath class]]) {
             AnnotationPath *path = (AnnotationPath *)annotatable;
@@ -104,7 +104,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     if (_currentDrawPath) {
-        [self.annotationnManager addAnnotatable:_currentDrawPath];
+        [self.annotationDataManager addAnnotatable:_currentDrawPath];
         UITouch *touch = [touches anyObject];
         AnnotationPoint *touchPoint = [[AnnotationPoint alloc] initWithTouchPoint:touch];
         [_currentDrawPath drawAtPoint:touchPoint];

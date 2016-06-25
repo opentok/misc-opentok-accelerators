@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AnnotationOverContentViewController : UIViewController
+@interface OTFullScreenAnnotationViewController : UIViewController
+
+- (instancetype)init;
 
 @end

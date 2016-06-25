@@ -6,38 +6,40 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "ScreenShareToolbarView.h"
-#import "ScreenShareToolbarView_UserInterfaces.h"
+#import "OTAnnotationToolbarView.h"
+#import "OTAnnotationToolbarView_UserInterfaces.h"
 #import "ScreenShareToolbarView+Animation.h"
-#import "ScreenShareColorPickerView.h"
-#import "ScreenShareToolbarButton.h"
+#import "AnnotationColorPickerView.h"
+#import "AnnotationToolbarButton.h"
 
 #import <LHToolbar/LHToolbar.h>
 
-#import "ScreenShareCaptureViewController.h"
-#import "ScreenShareEditTextViewController.h"
+#import "AnnotationScreenCaptureViewController.h"
+#import "AnnotationEditTextViewController.h"
 #import "UIViewController+Helper.h"
 #import "Constants.h"
 
-@interface ScreenShareToolbarView() <ScreenShareColorPickerViewProtocol, ScreenShareEditTextViewProtocol>
+#import "OTAnnotationToolbarView_Private.h"
+
+@interface OTAnnotationToolbarView() <AnnotationColorPickerViewProtocol, ScreenShareEditTextViewProtocol>
 @property (nonatomic) LHToolbar *toolbar;
-@property (nonatomic) ScreenShareView *screenShareView;
+@property (weak, nonatomic) OTAnnotationScrollView *annotationScrollView;
 
 @property (nonatomic) UIButton *doneButton;
-@property (nonatomic) ScreenShareToolbarButton *annotateButton;
-@property (nonatomic) ScreenShareColorPickerViewButton *colorButton;
-@property (nonatomic) ScreenShareToolbarButton *textButton;
-@property (nonatomic) ScreenShareToolbarButton *screenshotButton;
-@property (nonatomic) ScreenShareToolbarButton *eraseButton;
+@property (nonatomic) AnnotationToolbarButton *annotateButton;
+@property (nonatomic) AnnotationColorPickerViewButton *colorButton;
+@property (nonatomic) AnnotationToolbarButton *textButton;
+@property (nonatomic) AnnotationToolbarButton *screenshotButton;
+@property (nonatomic) AnnotationToolbarButton *eraseButton;
 
-@property (nonatomic) ScreenShareCaptureViewController *captureViewController;
+@property (nonatomic) AnnotationScreenCaptureViewController *captureViewController;
 @end
 
-@implementation ScreenShareToolbarView
+@implementation OTAnnotationToolbarView
 
-- (ScreenShareColorPickerView *)colorPickerView {
+- (AnnotationColorPickerView *)colorPickerView {
     if (!_colorPickerView) {
-        _colorPickerView = [[ScreenShareColorPickerView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, CGRectGetWidth([UIScreen mainScreen].bounds), HeightOfColorPicker)];
+        _colorPickerView = [[AnnotationColorPickerView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, CGRectGetWidth([UIScreen mainScreen].bounds), HeightOfColorPicker)];
         _colorPickerView.delegate = self;
     }
     return _colorPickerView;
@@ -65,34 +67,33 @@
     return _doneButton;
 }
 
-- (ScreenShareCaptureViewController *)captureViewController {
+- (AnnotationScreenCaptureViewController *)captureViewController {
     if (!_captureViewController) {
-        _captureViewController = [[ScreenShareCaptureViewController alloc] initWithSharedImage:nil];
+        _captureViewController = [[AnnotationScreenCaptureViewController alloc] initWithSharedImage:nil];
     }
     return _captureViewController;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame
+         annotationScrollView:(OTAnnotationScrollView *)annotationScrollView {
+    
+    if (!annotationScrollView) return nil;
+    
     if (self = [super initWithFrame:frame]) {
         _toolbar = [[LHToolbar alloc] initWithNumberOfItems:5];
         _toolbar.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
+        [self configureToolbarButtons];
         [self addSubview:_toolbar];
         self.backgroundColor = [UIColor lightGrayColor];
-        [self configureToolbarButtons];
-        _screenShareView = [ScreenShareView view];
-        [_screenShareView selectColor:self.colorPickerView.selectedColor];
         
-        [self addObserver:self
-               forKeyPath:@"screenShareView.annotating"
-                  options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                  context:NULL];
+        _annotationScrollView = annotationScrollView;
     }
     return self;
 }
 
 + (instancetype)toolbar {
     CGRect mainBounds = [UIScreen mainScreen].bounds;
-    return [[ScreenShareToolbarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainBounds), DefaultToolbarHeight)];
+    return [[OTAnnotationToolbarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainBounds), DefaultToolbarHeight)];
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -104,72 +105,57 @@
 
     NSBundle *frameworkBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"ScreenShareKitBundle" withExtension:@"bundle"]];
     
-    _annotateButton = [[ScreenShareToolbarButton alloc] init];
+    _annotateButton = [[AnnotationToolbarButton alloc] init];
     [_annotateButton setImage:[UIImage imageNamed:@"annotate" inBundle:frameworkBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [_annotateButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _colorButton = [[ScreenShareColorPickerViewButton alloc] init];
+    _colorButton = [[AnnotationColorPickerViewButton alloc] init];
     [_colorButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    _textButton = [[ScreenShareToolbarButton alloc] init];
+    _textButton = [[AnnotationToolbarButton alloc] init];
     [_textButton setImage:[UIImage imageNamed:@"text" inBundle:frameworkBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [_textButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _screenshotButton = [[ScreenShareToolbarButton alloc] init];
+    _screenshotButton = [[AnnotationToolbarButton alloc] init];
     [_screenshotButton setImage:[UIImage imageNamed:@"screenshot" inBundle:frameworkBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     _screenshotButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_screenshotButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _eraseButton = [[ScreenShareToolbarButton alloc] init];
+    _eraseButton = [[AnnotationToolbarButton alloc] init];
     [_eraseButton setImage:[UIImage imageNamed:@"erase" inBundle:frameworkBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [_eraseButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.toolbar setContentView:_annotateButton atIndex:0];
-    [self.toolbar setContentView:_colorButton atIndex:1];
-    [self.toolbar setContentView:_textButton atIndex:2];
-    [self.toolbar setContentView:_screenshotButton atIndex:3];
-    [self.toolbar setContentView:_eraseButton atIndex:4];
+    [_toolbar setContentView:_annotateButton atIndex:0];
+    [_toolbar setContentView:_colorButton atIndex:1];
+    [_toolbar setContentView:_textButton atIndex:2];
+    [_toolbar setContentView:_screenshotButton atIndex:3];
+    [_toolbar setContentView:_eraseButton atIndex:4];
     
-    [self.toolbar reloadToolbar];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    
-    if ([keyPath isEqual:@"screenShareView.annotating"] && [change[@"new"] boolValue] != [change[@"old"] boolValue]) {
-        if ([change[@"new"] boolValue]) {
-            [self.toolbar insertContentView:self.doneButton atIndex:0];
-        }
-        else {
-            [self.toolbar removeContentViewAtIndex:0];
-        }
-    }
-}
-
-- (void)dealloc {
-    [self removeObserver:self forKeyPath:@"screenShareView.annotating"];
+    [_toolbar reloadToolbar];
 }
 
 - (void)toolbarButtonPressed:(UIButton *)sender {
     
     if (sender == self.doneButton) {
-        self.screenShareView.annotating = NO;
+        self.annotationScrollView.annotating = NO;
         [self dismissColorPickerView];
+        [self.toolbar removeContentViewAtIndex:0];
         [self moveSelectionShadowViewTo:nil];
         [self resetToolbarButtons];
     }
     else if (sender == self.annotateButton) {
+        self.annotationScrollView.annotating = YES;
         [self dismissColorPickerView];
-        self.screenShareView.annotating = YES;
-        [self.screenShareView selectColor:self.colorPickerView.selectedColor];
+        [self.toolbar insertContentView:self.doneButton atIndex:0];
+        [self.annotationScrollView startDrawing];
+        [self.annotationScrollView setAnnotationColor:self.colorPickerView.selectedColor];
         [self disableButtons:@[self.textButton, self.eraseButton]];
     }
     else if (sender == self.textButton) {
+        self.annotationScrollView.annotating = YES;
         [self dismissColorPickerView];
-        self.screenShareView.annotating = YES;
-        ScreenShareEditTextViewController *editTextViewController = [ScreenShareEditTextViewController defaultWithTextColor:self.colorButton.backgroundColor];
+        [self.toolbar insertContentView:self.doneButton atIndex:0];
+        AnnotationEditTextViewController *editTextViewController = [AnnotationEditTextViewController defaultWithTextColor:self.colorButton.backgroundColor];
         editTextViewController.delegate = self;
         UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
         [topViewController presentViewController:editTextViewController animated:YES completion:nil];
@@ -179,10 +165,10 @@
         [self showColorPickerView];
     }
     else if (sender == self.eraseButton) {
-        [self.screenShareView erase];
+        [self.annotationScrollView erase];
     }
     else if (sender == self.screenshotButton) {
-        self.captureViewController.sharedImage = [self.screenShareView captureScreen];
+        self.captureViewController.sharedImage = [self.annotationScrollView captureScreen];
         UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
         [topViewController presentViewController:self.captureViewController animated:YES completion:nil];
     }
@@ -211,13 +197,13 @@
 }
 
 #pragma mark - ScreenShareEditTextViewProtocol
-- (void)screenShareEditTextViewController:(ScreenShareEditTextViewController *)editTextViewController
+- (void)screenShareEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
                          didFinishEditing:(AnnotationTextView *)annotationTextView {
     
     if (annotationTextView) {
         [annotationTextView setEditable:NO];
-        [self.screenShareView addContentView:annotationTextView];
-        [self.screenShareView addTextAnnotation:annotationTextView];
+        [self.annotationScrollView addContentView:annotationTextView];
+        [self.annotationScrollView addTextAnnotation:annotationTextView];
     }
     else {
         [self toolbarButtonPressed:self.doneButton];
@@ -225,12 +211,12 @@
 }
 
 #pragma mark - ScreenShareColorPickerViewProtocol
-- (void)colorPickerView:(ScreenShareColorPickerView *)colorPickerView
-   didSelectColorButton:(ScreenShareColorPickerViewButton *)button
+- (void)colorPickerView:(AnnotationColorPickerView *)colorPickerView
+   didSelectColorButton:(AnnotationColorPickerViewButton *)button
           selectedColor:(UIColor *)selectedColor {
     
     [self.colorButton setBackgroundColor:selectedColor];
-    [self.screenShareView selectColor:selectedColor];
+    [self.annotationScrollView setAnnotationColor:selectedColor];
 }
 
 @end

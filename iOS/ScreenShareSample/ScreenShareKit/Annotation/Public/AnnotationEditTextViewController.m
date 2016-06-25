@@ -6,10 +6,10 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "ScreenShareEditTextViewController.h"
+#import "AnnotationEditTextViewController.h"
 #import "AnnotationTextView.h"
 
-@interface ScreenShareEditTextViewController() <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface AnnotationEditTextViewController() <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (nonatomic) AnnotationTextView *annotationTextView;
 
 @property (nonatomic) NSArray<NSNumber *> * fontSizeArray;
@@ -20,18 +20,18 @@
 @property (nonatomic) UIPickerView *changeFontPickerView;
 @end
 
-@implementation ScreenShareEditTextViewController
+@implementation AnnotationEditTextViewController
 
 + (instancetype)defaultWithTextColor:(UIColor *)textColor {
     
-    return [[ScreenShareEditTextViewController alloc] initWithText:nil textColor:textColor fontSize:24.0f];
+    return [[AnnotationEditTextViewController alloc] initWithText:nil textColor:textColor fontSize:24.0f];
 }
 
 - (instancetype)initWithText:(NSString *)text
                    textColor:(UIColor *)textColor
                     fontSize:(CGFloat)fontSize {
     
-    if (self = [super initWithNibName:@"ScreenShareEditTextViewController"
+    if (self = [super initWithNibName:NSStringFromClass([self class])
                                bundle:[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"ScreenShareKitBundle" withExtension:@"bundle"]]]) {
 
         _fontSizeArray = @[@24, @30, @36, @42, @48, @54, @60, @66, @72];
@@ -76,8 +76,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.annotationTextView becomeFirstResponder];
-    __weak ScreenShareEditTextViewController *weakSelf = self;
+    
+    __weak AnnotationEditTextViewController *weakSelf = self;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillChangeFrameNotification
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
@@ -98,6 +100,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self.annotationTextView resignFirstResponder];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

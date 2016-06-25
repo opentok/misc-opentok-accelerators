@@ -7,10 +7,10 @@
 //
 
 #import "ScreenShareToolbarView+Animation.h"
-#import "ScreenShareToolbarView_UserInterfaces.h"
+#import "OTAnnotationToolbarView_UserInterfaces.h"
 #import "Constants.h"
 
-@implementation ScreenShareToolbarView (Animation)
+@implementation OTAnnotationToolbarView (Animation)
 
 - (void)moveSelectionShadowViewTo:(UIButton *)sender {
     

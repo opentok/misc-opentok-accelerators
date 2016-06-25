@@ -6,11 +6,11 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "ScreenShareColorPickerView.h"
+#import "AnnotationColorPickerView.h"
 #import "UIButton+AutoLayoutHelper.h"
 
 #pragma mark - ScreenShareColorPickerViewButton
-@implementation ScreenShareColorPickerViewButton
+@implementation AnnotationColorPickerViewButton
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -52,13 +52,13 @@
 #import "Constants.h"
 
 #pragma mark - ScreenShareColorPickerView
-@interface ScreenShareColorPickerView()
-@property (nonatomic) ScreenShareColorPickerViewButton *selectedButton;
+@interface AnnotationColorPickerView()
+@property (nonatomic) AnnotationColorPickerViewButton *selectedButton;
 @property (nonatomic) NSDictionary *colorDict;
 @property (nonatomic) LHToolbar *colorToolbar;
 @end
 
-@implementation ScreenShareColorPickerView
+@implementation AnnotationColorPickerView
 
 - (UIColor *)selectedColor {
     if (!self.selectedButton) return nil;
@@ -93,7 +93,7 @@
 - (void)configureColorPickerButtons {
 
     // first button
-    ScreenShareColorPickerViewButton *button = [[ScreenShareColorPickerViewButton alloc] init];
+    AnnotationColorPickerViewButton *button = [[AnnotationColorPickerViewButton alloc] init];
     [button setBackgroundColor:self.colorDict[@(1)]];
     [button addTarget:self action:@selector(colorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.colorToolbar setContentView:button atIndex:0];
@@ -102,7 +102,7 @@
     
     for (NSUInteger i = 2; i < 10; i++) {
         
-        ScreenShareColorPickerViewButton *button = [[ScreenShareColorPickerViewButton alloc] init];
+        AnnotationColorPickerViewButton *button = [[AnnotationColorPickerViewButton alloc] init];
         [button setBackgroundColor:self.colorDict[@(i)]];
         [button addTarget:self action:@selector(colorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.colorToolbar setContentView:button atIndex:i - 1];
@@ -110,13 +110,15 @@
     [self.colorToolbar reloadToolbar];
 }
 
-- (void)colorButtonPressed:(ScreenShareColorPickerViewButton *)sender {
+- (void)colorButtonPressed:(AnnotationColorPickerViewButton *)sender {
     [self.selectedButton setSelected:NO];
     self.selectedButton = sender;
     [self.selectedButton setSelected:YES];
     
     if (self.delegate) {
-        [self.delegate colorPickerView:self didSelectColorButton:self.selectedButton selectedColor:self.selectedColor];
+        [self.delegate colorPickerView:self
+                  didSelectColorButton:self.selectedButton
+                         selectedColor:self.selectedColor];
     }
 }
 

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ScreenShareToolbarButton : UIButton
+@interface AnnotationToolbarButton : UIButton
 
 @end

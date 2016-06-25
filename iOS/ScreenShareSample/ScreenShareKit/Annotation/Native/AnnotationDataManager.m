@@ -6,13 +6,13 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "AnnotationManager.h"
+#import "AnnotationDataManager.h"
 
-@interface AnnotationManager()
+@interface AnnotationDataManager()
 @property (nonatomic) NSMutableArray<id<Annotatable>> *mutableAnnotatable;
 @end
 
-@implementation AnnotationManager
+@implementation AnnotationDataManager
 
 - (NSArray <AnnotationPath *> *)annotatable {
     return [_mutableAnnotatable copy];
@@ -49,10 +49,6 @@
 
 - (void)undo {
     [self pop];
-}
-
-- (NSUInteger)count {
-    return self.mutableAnnotatable.count;
 }
 
 @end

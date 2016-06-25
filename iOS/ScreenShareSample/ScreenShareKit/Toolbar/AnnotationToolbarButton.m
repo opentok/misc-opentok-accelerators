@@ -6,10 +6,10 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "ScreenShareToolbarButton.h"
+#import "AnnotationToolbarButton.h"
 #import "UIButton+AutoLayoutHelper.h"
 
-@implementation ScreenShareToolbarButton
+@implementation AnnotationToolbarButton
 
 - (instancetype)init {
     if (self = [super init]) {

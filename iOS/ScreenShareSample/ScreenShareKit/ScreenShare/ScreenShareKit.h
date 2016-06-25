@@ -7,7 +7,8 @@
 //
 
 #import <ScreenShareKit/ScreenSharer.h>
-#import <ScreenShareKit/ScreenShareView.h>
-#import <ScreenShareKit/ScreenShareToolbarView.h>
+#import <ScreenShareKit/OTAnnotationScrollView.h>
+#import <ScreenShareKit/OTAnnotationToolbarView.h>
 #import <ScreenShareKit/Annotatable.h>
-#import <ScreenShareKit/AnnotationOverContentViewController.h>
+#import <ScreenShareKit/AnnotationTextView.h>
+#import <ScreenShareKit/OTFullScreenAnnotationViewController.h>

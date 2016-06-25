@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "AnnotationTextView.h"
 
-@class ScreenShareEditTextViewController;
+@class AnnotationEditTextViewController;
 @protocol ScreenShareEditTextViewProtocol <NSObject>
-- (void)screenShareEditTextViewController:(ScreenShareEditTextViewController *)editTextViewController
+- (void)screenShareEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
                          didFinishEditing:(AnnotationTextView *)annotationTextView;
 @end
 
 
-@interface ScreenShareEditTextViewController : UIViewController
+@interface AnnotationEditTextViewController : UIViewController
 
 @property (weak, nonatomic) id<ScreenShareEditTextViewProtocol> delegate;
 

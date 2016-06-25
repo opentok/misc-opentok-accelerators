@@ -8,7 +8,7 @@
 
 #import <ScreenShareKit/ScreenShareKit.h>
 
-@interface ScreenShareToolbarView (Animation)
+@interface OTAnnotationToolbarView (Animation)
 
 - (void)moveSelectionShadowViewTo:(UIButton *)sender;
 - (void)showColorPickerView;

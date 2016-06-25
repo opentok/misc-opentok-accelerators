@@ -9,11 +9,9 @@
 #import <ScreenShareKit/AnnotationPath.h>
 #import <ScreenShareKit/AnnotationTextView.h>
 
-@interface AnnotationManager : NSObject
+@interface AnnotationDataManager : NSObject
 
 @property (readonly, nonatomic) NSArray<id<Annotatable>> *annotatable;
-
-@property (readonly, nonatomic) NSUInteger count;
 
 - (instancetype)init;
 

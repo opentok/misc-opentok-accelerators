@@ -7,10 +7,10 @@
 //
 
 #import <ScreenShareKit/ScreenShareKit.h>
-#import "ScreenShareColorPickerView.h"
+#import "AnnotationColorPickerView.h"
 
-@interface ScreenShareToolbarView ()
+@interface OTAnnotationToolbarView ()
 
 @property (nonatomic) UIView *selectionShadowView;
-@property (nonatomic) ScreenShareColorPickerView *colorPickerView;
+@property (nonatomic) AnnotationColorPickerView *colorPickerView;
 @end
