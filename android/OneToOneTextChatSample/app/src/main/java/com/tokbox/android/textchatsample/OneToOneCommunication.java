@@ -17,8 +17,6 @@ import com.tokbox.android.accpack.AccPackSession;
 import com.tokbox.android.logging.OTKAnalytics;
 import com.tokbox.android.logging.OTKAnalyticsData;
 import com.tokbox.android.textchatsample.config.OpenTokConfig;
-import com.tokbox.android.accpack.textchat.logging.OTKAnalyticsData;
-import com.tokbox.android.accpack.textchat.logging.OTKAnalytics;
 
 import java.util.ArrayList;
 import java.util.UUID;
