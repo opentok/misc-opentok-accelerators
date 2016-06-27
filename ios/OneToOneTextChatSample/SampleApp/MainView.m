@@ -1,21 +1,22 @@
 #import "MainView.h"
 
 @interface MainView()
-@property (strong, nonatomic) IBOutlet UIView *publisherView;
-@property (strong, nonatomic) IBOutlet UIView *subscriberView;
-@property (strong, nonatomic) IBOutlet UIView *textChatContainer;
+@property (weak, nonatomic) IBOutlet UIView *publisherView;
+@property (weak, nonatomic) IBOutlet UIView *subscriberView;
 
 // 3 action buttons at the bottom of the view
-@property (strong, nonatomic) IBOutlet UIButton *videoHolder;
-@property (strong, nonatomic) IBOutlet UIButton *callHolder;
-@property (strong, nonatomic) IBOutlet UIButton *micHolder;
-@property (strong, nonatomic) IBOutlet UIButton *textChatHolder;
+@property (weak, nonatomic) IBOutlet UIButton *publisherVideoButton;
+@property (weak, nonatomic) IBOutlet UIButton *callButton;
+@property (weak, nonatomic) IBOutlet UIButton *publisherAudioButton;
+@property (weak, nonatomic) IBOutlet UIButton *textChatButton;
 
-@property (strong, nonatomic) IBOutlet UIButton *subscriberVideoButton;
-@property (strong, nonatomic) IBOutlet UIButton *subscriberAudioButton;
+@property (weak, nonatomic) IBOutlet UIButton *reverseCameraButton;
 
-@property (strong, nonatomic) UIImageView *subscriberPlaceHolderImageView;
-@property (strong, nonatomic) UIImageView *publisherPlaceHolderImageView;
+@property (weak, nonatomic) IBOutlet UIButton *subscriberVideoButton;
+@property (weak, nonatomic) IBOutlet UIButton *subscriberAudioButton;
+
+@property (nonatomic) UIImageView *subscriberPlaceHolderImageView;
+@property (nonatomic) UIImageView *publisherPlaceHolderImageView;
 
 @end
 
@@ -24,7 +25,7 @@
 
 - (UIImageView *)publisherPlaceHolderImageView {
     if (!_publisherPlaceHolderImageView) {
-        _publisherPlaceHolderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"page1"]];
+        _publisherPlaceHolderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar"]];
         _publisherPlaceHolderImageView.backgroundColor = [UIColor clearColor];
         _publisherPlaceHolderImageView.contentMode = UIViewContentModeScaleAspectFit;
         _publisherPlaceHolderImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -34,7 +35,7 @@
 
 - (UIImageView *)subscriberPlaceHolderImageView {
     if (!_subscriberPlaceHolderImageView) {
-        _subscriberPlaceHolderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"page1"]];
+        _subscriberPlaceHolderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar"]];
         _subscriberPlaceHolderImageView.backgroundColor = [UIColor clearColor];
         _subscriberPlaceHolderImageView.contentMode = UIViewContentModeScaleAspectFit;
         _subscriberPlaceHolderImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -52,12 +53,11 @@
     self.publisherView.layer.backgroundColor = [UIColor grayColor].CGColor;
     self.publisherView.layer.cornerRadius = 3;
     
-    [self drawBorderOn:self.micHolder withWhiteBorder:YES widthColorBorder: nil];
-    [self drawBorderOn:self.callHolder withWhiteBorder:NO widthColorBorder: nil];
-    [self drawBorderOn:self.videoHolder withWhiteBorder:YES widthColorBorder: nil];
-    [self drawBorderOn:self.textChatHolder withWhiteBorder:YES widthColorBorder: nil];
+    [self drawBorderOn:self.publisherAudioButton withWhiteBorder:YES widthColorBorder: nil];
+    [self drawBorderOn:self.callButton withWhiteBorder:NO widthColorBorder: nil];
+    [self drawBorderOn:self.publisherVideoButton withWhiteBorder:YES widthColorBorder: nil];
+    [self drawBorderOn:self.textChatButton withWhiteBorder:YES widthColorBorder: nil];
     [self showSubscriberControls:NO];
-    
     [self setTextChatHolderUserInteractionEnabled:NO];
 }
 
@@ -97,38 +97,31 @@
 
 - (void)connectCallHolder:(BOOL)connected {
     if (connected) {
-        [self.callHolder setImage:[UIImage imageNamed:@"hangUp"] forState:UIControlStateNormal];
-        self.callHolder.layer.backgroundColor = [UIColor colorWithRed:(205/255.0) green:(32/255.0) blue:(40/255.0) alpha:1.0].CGColor;
+        [self.callButton setImage:[UIImage imageNamed:@"hangUp"] forState:UIControlStateNormal];
+        self.callButton.layer.backgroundColor = [UIColor colorWithRed:(205/255.0) green:(32/255.0) blue:(40/255.0) alpha:1.0].CGColor;
     }
     else {
-        [self.callHolder setImage:[UIImage imageNamed:@"startCall"] forState:UIControlStateNormal];
-        self.callHolder.layer.backgroundColor = [UIColor colorWithRed:(106/255.0) green:(173/255.0) blue:(191/255.0) alpha:1.0].CGColor;
+        [self.callButton setImage:[UIImage imageNamed:@"startCall"] forState:UIControlStateNormal];
+        self.callButton.layer.backgroundColor = [UIColor colorWithRed:(106/255.0) green:(173/255.0) blue:(191/255.0) alpha:1.0].CGColor;
     }
 }
+
 - (void)mutePubliserhMic:(BOOL)muted {
     if (muted) {
-        [self.micHolder setImage:[UIImage imageNamed:@"mutedMicLineCopy"] forState: UIControlStateNormal];
+        [self.publisherAudioButton setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
     }
     else {
-        [self.micHolder setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
+        [self.publisherAudioButton setImage:[UIImage imageNamed:@"mutedMic"] forState: UIControlStateNormal];
     }
 }
 
 - (void)connectPubliserVideo:(BOOL)connected {
     if (connected) {
-        [self.videoHolder setImage:[UIImage imageNamed:@"noVideoIcon"] forState: UIControlStateNormal];
+        [self.publisherVideoButton setImage:[UIImage imageNamed:@"video"] forState: UIControlStateNormal];
     }
     else {
-        [self.videoHolder setImage:[UIImage imageNamed:@"videoIcon"] forState:UIControlStateNormal];
+        [self.publisherVideoButton setImage:[UIImage imageNamed:@"noVideo"] forState:UIControlStateNormal];
     }
-}
-
-- (void) addBorderToTextChatIcon {
-    [self drawBorderOn: self.textChatHolder withWhiteBorder:NO widthColorBorder: [UIColor colorWithRed:(205/255.0) green:(32/255.0) blue:(40/255.0) alpha:1.0]];
-}
-
-- (void) removeBorderFromTextChatIcon {
-    [self drawBorderOn: self.textChatHolder withWhiteBorder: YES widthColorBorder: nil];
 }
 
 #pragma mark - subscriber view
@@ -151,19 +144,19 @@
 
 - (void)muteSubscriberMic:(BOOL)muted {
     if (muted) {
-        [self.subscriberAudioButton setImage:[UIImage imageNamed:@"noSoundCopy"] forState: UIControlStateNormal];
+        [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
     }
     else {
-        [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
+        [self.subscriberAudioButton setImage:[UIImage imageNamed:@"noAudio"] forState: UIControlStateNormal];
     }
 }
 
 - (void)connectSubsciberVideo:(BOOL)connected {
     if (connected) {
-        [self.subscriberVideoButton setImage:[UIImage imageNamed:@"noVideoIcon"] forState: UIControlStateNormal];
+        [self.subscriberVideoButton setImage:[UIImage imageNamed:@"video"] forState: UIControlStateNormal];
     }
     else {
-        [self.subscriberVideoButton setImage:[UIImage imageNamed:@"videoIcon"] forState: UIControlStateNormal];
+        [self.subscriberVideoButton setImage:[UIImage imageNamed:@"noVideo"] forState: UIControlStateNormal];
     }
 }
 
@@ -181,8 +174,7 @@
 #pragma mark - other controls
 
 - (void)setTextChatHolderUserInteractionEnabled:(BOOL)enabled {
-    
-    [self.textChatHolder setUserInteractionEnabled:enabled];
+    [self.textChatButton setUserInteractionEnabled:enabled];
 }
 
 - (void)removePlaceHolderImage {
@@ -190,21 +182,24 @@
     [self.subscriberPlaceHolderImageView removeFromSuperview];
 }
 
-- (void) buttonsStatusSetter: (BOOL)status; {
+- (void) updateControlButtonsForCall:(BOOL)status; {
     [self.subscriberAudioButton setEnabled: status];
     [self.subscriberVideoButton setEnabled: status];
-    [self.videoHolder setEnabled: status];
-    [self.micHolder setEnabled: status];
-    [self.textChatHolder setEnabled:status];
+    [self.publisherVideoButton setEnabled: status];
+    [self.publisherAudioButton setEnabled: status];
+    [self.textChatButton setEnabled:status];
 }
 
--(void) resetUIInterface {
-    [self buttonsStatusSetter: NO];
-    [self connectCallHolder:NO];
-    [self muteSubscriberMic:NO];
-    [self mutePubliserhMic:NO];
-    [self connectSubsciberVideo:NO];
-    [self connectPubliserVideo:NO];
+- (void)showReverseCameraButton; {
+    self.reverseCameraButton.hidden = NO;
+}
+
+- (void) resetUIInterface {
+    [self connectCallHolder:YES];
+    [self muteSubscriberMic:YES];
+    [self mutePubliserhMic:YES];
+    [self connectSubsciberVideo:YES];
+    [self connectPubliserVideo:YES];
 }
 
 #pragma mark - private method

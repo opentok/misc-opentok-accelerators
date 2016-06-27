@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -53,7 +53,7 @@
                                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lI4-Iv-Bhv" userLabel="publisherVideoButton">
                                                 <rect key="frame" x="8" y="8" width="50" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" image="videoIcon"/>
+                                                <state key="normal" image="video"/>
                                                 <connections>
                                                     <action selector="publisherVideoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2mt-7G-8tP"/>
                                                 </connections>
@@ -95,12 +95,12 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TaE-Jx-zZR" secondAttribute="height" multiplier="1:1" id="5UO-AX-cjB"/>
                                 </constraints>
-                                <state key="normal" image="videoIcon"/>
+                                <state key="normal" image="video"/>
                                 <connections>
                                     <action selector="subscriberVideoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XWM-IL-u0J"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xR7-mn-zpN" userLabel="publisherCameraButton">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xR7-mn-zpN" userLabel="publisherCameraButton">
                                 <rect key="frame" x="550" y="60" width="30" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="xR7-mn-zpN" secondAttribute="height" multiplier="55:39" id="E2O-Tz-PqK"/>
@@ -147,14 +147,15 @@
                         </constraints>
                         <connections>
                             <outlet property="actionButtonsHolder" destination="QaT-qb-Mgd" id="yzf-5K-3Tg"/>
-                            <outlet property="callHolder" destination="8fW-9l-wlb" id="XCG-GA-mhl"/>
-                            <outlet property="micHolder" destination="Bwb-uu-g2a" id="YZ2-L1-YIh"/>
+                            <outlet property="callButton" destination="8fW-9l-wlb" id="f5F-9j-qLE"/>
+                            <outlet property="publisherAudioButton" destination="Bwb-uu-g2a" id="fig-cH-mCJ"/>
+                            <outlet property="publisherVideoButton" destination="lI4-Iv-Bhv" id="tmm-36-f1z"/>
                             <outlet property="publisherView" destination="EoV-Kh-ae4" id="WWF-wf-5KH"/>
+                            <outlet property="reverseCameraButton" destination="xR7-mn-zpN" id="VBW-dD-8BZ"/>
                             <outlet property="subscriberAudioButton" destination="SKX-dv-Vnc" id="oVI-Jt-h1h"/>
                             <outlet property="subscriberVideoButton" destination="TaE-Jx-zZR" id="hHd-ZY-atr"/>
                             <outlet property="subscriberView" destination="zJt-pm-lIX" id="mYB-hs-kpy"/>
-                            <outlet property="textChatHolder" destination="gwV-4N-OEy" id="SC4-sJ-dx4"/>
-                            <outlet property="videoHolder" destination="lI4-Iv-Bhv" id="qzE-ay-Yau"/>
+                            <outlet property="textChatButton" destination="gwV-4N-OEy" id="JwK-D0-40Q"/>
                         </connections>
                     </view>
                 </viewController>
@@ -169,6 +170,6 @@
         <image name="mic" width="21" height="26"/>
         <image name="reverse cameras" width="55" height="39"/>
         <image name="startCall" width="16" height="30"/>
-        <image name="videoIcon" width="24" height="14"/>
+        <image name="video" width="24" height="14"/>
     </resources>
 </document>
