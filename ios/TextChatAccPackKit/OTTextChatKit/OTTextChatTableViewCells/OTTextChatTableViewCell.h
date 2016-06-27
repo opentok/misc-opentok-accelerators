@@ -14,11 +14,11 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *message;
 
-@property (weak, nonatomic) IBOutlet UILabel *time;
-@property (weak, nonatomic) IBOutlet UILabel *UserLetterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userLetterLabel;
 @property (weak, nonatomic) IBOutlet UIView *userFirstLetter;
-@property (weak, nonatomic) IBOutlet UIView *cornerUp;
-@property (weak, nonatomic) IBOutlet UIView *cornerUpLeft;
+@property (weak, nonatomic) IBOutlet UIView *cornerUpRightView;
+@property (weak, nonatomic) IBOutlet UIView *cornerUpLeftView;
 
 - (void)updateCellFromTextChat:(OTTextMessage *)textChat
                   customizator:(OTTextChatUICustomizator *)customizator;
