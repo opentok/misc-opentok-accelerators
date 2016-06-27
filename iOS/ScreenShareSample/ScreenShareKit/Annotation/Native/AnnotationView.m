@@ -84,9 +84,8 @@
 
 - (void)removeAllAnnotatables {
     
-    for (NSUInteger i = 0; i < self.annotationDataManager.annotatable.count; i++) {
-        [self undoAnnotatable];
-    }
+    [self.annotationDataManager undoAll];
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {

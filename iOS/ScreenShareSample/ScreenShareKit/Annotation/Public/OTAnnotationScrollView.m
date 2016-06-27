@@ -30,14 +30,17 @@
 
 @implementation OTAnnotationScrollView
 
-
-
 - (void)setAnnotating:(BOOL)annotating {
     _annotating = annotating;
-    self.scrollView.scrollEnabled = !_annotating;
+    
+    if (self.scrollView.contentSize.width > CGRectGetWidth(self.frame) || self.scrollView.contentSize.height > CGRectGetHeight(self.frame)) {
+        self.scrollView.scrollEnabled = !_annotating;
+    }
+    
     if (self.zoomEnabled) {
         self.scrollView.pinchGestureRecognizer.enabled = !annotating;
     }
+    
     if (!_annotating) {
         [self.annotationView setCurrentAnnotatable:nil];
     }
@@ -45,8 +48,6 @@
 
 - (void)setZoomEnabled:(BOOL)zoomEnabled {
     _zoomEnabled = zoomEnabled;
-    _scrollView.pinchGestureRecognizer.enabled = _zoomEnabled;
-    
     
     if (_zoomEnabled) {
         _scrollView.maximumZoomScale = 3.0f;
@@ -58,7 +59,6 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    
     self.scrollView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 }
 
@@ -75,6 +75,7 @@
     if (self = [super initWithFrame:frame]) {
         
         // scroll view
+        _zoomEnabled = YES;
         _scrollView = [[UIScrollView alloc] init];
         [_scrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
         _scrollView.maximumZoomScale = 3.0f;
@@ -133,7 +134,7 @@
                                                                          toItem:nil
                                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                                      multiplier:1.0
-                                                                       constant:CGRectGetWidth([UIScreen mainScreen].bounds)];
+                                                                       constant:CGRectGetWidth(frame)];
         _annotationScrollViewWidth.active = YES;
         _annotationScrollViewHeigth = [NSLayoutConstraint constraintWithItem:_scrollContentView
                                                                       attribute:NSLayoutAttributeHeight
@@ -141,7 +142,7 @@
                                                                          toItem:nil
                                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                                      multiplier:1.0
-                                                                       constant:CGRectGetHeight([UIScreen mainScreen].bounds)];
+                                                                       constant:CGRectGetHeight(frame)];
         _annotationScrollViewHeigth.active = YES;
         
         // annotation view
@@ -199,13 +200,9 @@
 //}
 
 - (void)addContentView:(UIView *)view {
-    
-    
-    CGFloat width = CGRectGetWidth(view.bounds) > CGRectGetWidth([UIScreen mainScreen].bounds) ? CGRectGetWidth(view.bounds) : CGRectGetWidth([UIScreen mainScreen].bounds);
-    width = width > self.scrollView.contentSize.width ? width : self.scrollView.contentSize.width;
-    
-    CGFloat height = CGRectGetHeight(view.bounds) > CGRectGetHeight([UIScreen mainScreen].bounds) ? CGRectGetHeight(view.bounds) : CGRectGetHeight([UIScreen mainScreen].bounds);
-    height = height > self.scrollView.contentSize.height ? height : self.scrollView.contentSize.height;
+
+    CGFloat width = CGRectGetWidth(view.bounds) > self.annotationScrollViewWidth.constant ? CGRectGetWidth(view.bounds) : self.annotationScrollViewWidth.constant;
+    CGFloat height = CGRectGetHeight(view.bounds) > self.annotationScrollViewHeigth.constant ? CGRectGetHeight(view.bounds) : self.annotationScrollViewHeigth.constant;
     
     [self.scrollView setContentSize:CGSizeMake(width, height)];
     [self.scrollContentView insertSubview:view belowSubview:self.annotationView];

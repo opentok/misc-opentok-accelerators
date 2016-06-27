@@ -25,4 +25,6 @@
 
 - (void)undo;
 
+- (void)undoAll;
+
 @end

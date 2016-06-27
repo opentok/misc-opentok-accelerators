@@ -9,7 +9,9 @@
 #import "AnnotationEditTextViewController.h"
 #import "AnnotationTextView.h"
 
-@interface AnnotationEditTextViewController() <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface AnnotationEditTextViewController() <UIPickerViewDataSource, UIPickerViewDelegate> {
+    BOOL shouldStatusShowAfterDismissal;
+}
 @property (nonatomic) AnnotationTextView *annotationTextView;
 
 @property (nonatomic) NSArray<NSNumber *> * fontSizeArray;
@@ -76,6 +78,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    shouldStatusShowAfterDismissal = ![UIApplication sharedApplication].isStatusBarHidden;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.annotationTextView becomeFirstResponder];
     
@@ -100,14 +103,16 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    if (shouldStatusShowAfterDismissal) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    }
     [self.annotationTextView resignFirstResponder];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IBAction)removeButtonPressed:(id)sender {
     if (self.delegate) {
-        [self.delegate screenShareEditTextViewController:self didFinishEditing:nil];
+        [self.delegate annotationEditTextViewController:self didFinishEditing:nil];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -128,7 +133,7 @@
 
 - (IBAction)doneButtonPressed:(id)sender {
     if (self.delegate) {
-        [self.delegate screenShareEditTextViewController:self didFinishEditing:self.annotationTextView];
+        [self.delegate annotationEditTextViewController:self didFinishEditing:self.annotationTextView];
     }
     [self.annotationTextView setUserInteractionEnabled:YES];
     [self dismissViewControllerAnimated:YES completion:nil];

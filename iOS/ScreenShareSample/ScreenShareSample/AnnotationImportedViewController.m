@@ -15,8 +15,8 @@
 
 @implementation AnnotationImportedViewController
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     // screen share view
     UIImage *image = [UIImage imageNamed:@"mvc"];
@@ -24,16 +24,15 @@
     imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     
     self.screenShareView = [[OTAnnotationScrollView alloc] initWithFrame:CGRectMake(0,
-                                                                                    64.0f,
+                                                                                    0,
                                                                                     CGRectGetWidth([UIScreen mainScreen].bounds),
-                                                                                    CGRectGetHeight([UIScreen mainScreen].bounds) - 44 - 64)];
+                                                                                    CGRectGetHeight([UIScreen mainScreen].bounds) - 44)];
     [self.screenShareView addContentView:imageView];
     
     [self.screenShareView initializeToolbarView];
     CGFloat height = self.screenShareView.toolbarView.bounds.size.height;
     self.screenShareView.toolbarView.frame = CGRectMake(0, CGRectGetHeight([UIScreen mainScreen].bounds) - height, self.screenShareView.toolbarView.bounds.size.width, height);
     
-//    self.screenShareView.frame = ;
     [self.view addSubview:self.screenShareView];
     [self.view addSubview:self.screenShareView.toolbarView];
 }

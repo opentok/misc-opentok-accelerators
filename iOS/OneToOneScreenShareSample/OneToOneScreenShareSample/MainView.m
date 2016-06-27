@@ -26,7 +26,7 @@
 @property (strong, nonatomic) UIImageView *subscriberPlaceHolderImageView;
 @property (strong, nonatomic) UIImageView *publisherPlaceHolderImageView;
 
-@property (nonatomic) ScreenShareToolbarView *toolbarView;
+@property (nonatomic) OTAnnotationScrollView *annotationView;
 @property (strong, nonatomic) IBOutlet UIView *actionButtonView;
 
 @property (weak, nonatomic) IBOutlet UIView *screenshareNotificationBar;
@@ -34,15 +34,13 @@
 
 @implementation MainView
 
-- (ScreenShareToolbarView *)toolbarView {
-    if (!_toolbarView) {
-        _toolbarView = [ScreenShareToolbarView toolbar];
-        _toolbarView.backgroundColor = [UIColor darkGrayColor];
-        
-        CGFloat height = _toolbarView.bounds.size.height;
-        _toolbarView.frame = CGRectMake(0, CGRectGetHeight(self.shareView.bounds) - height, _toolbarView.bounds.size.width, height);
+- (OTAnnotationScrollView *)annotationView {
+    if (!_annotationView) {
+        _annotationView = [[OTAnnotationScrollView alloc] init];
+        _annotationView.backgroundColor = [UIColor darkGrayColor];
+        [_annotationView initializeToolbarView];
     }
-    return _toolbarView;
+    return _annotationView;
 }
 
 
@@ -198,26 +196,31 @@
 }
 
 - (void)addScreenShareViewWithContentView:(UIView *)view {
-    self.toolbarView.screenShareView.frame = self.shareView.bounds;
-    [self.toolbarView.screenShareView addContentView:view];
+    self.annotationView.frame = self.shareView.bounds;
+    [self.annotationView addContentView:view];
     [self.shareView setHidden:NO];
-    [self.shareView addSubview:self.toolbarView.screenShareView];
+    [self.shareView addSubview:self.annotationView];
     [self.publisherView setHidden:YES];
     [self bringSubviewToFront:self.actionButtonView];
 }
 
 - (void)removeScreenShareView {
     [self.shareView setHidden:YES];
-    [self.toolbarView.screenShareView removeFromSuperview];
+    [self.annotationView removeFromSuperview];
     [self.publisherView setHidden:NO];
 }
 
 #pragma mark - annotation bar
 - (void)toggleAnnotationToolBar {
     
-    if (!self.toolbarView || !self.toolbarView.superview) {
-        [self.toolbarView.screenShareView eraseAll];
-        [self.shareView addSubview:self.toolbarView];
+    if (!self.annotationView.toolbarView || !self.annotationView.toolbarView.superview) {
+        
+        CGFloat toolbarViewHeight = self.annotationView.toolbarView.bounds.size.height;
+        self.annotationView.toolbarView.frame = CGRectMake(0,
+                                                           CGRectGetHeight(self.annotationView.bounds) - toolbarViewHeight,
+                                                           self.annotationView.toolbarView.bounds.size.width,
+                                                           toolbarViewHeight);
+        [self.shareView addSubview:self.annotationView.toolbarView];
     }
     else {
         [self removeAnnotationToolBar];
@@ -225,11 +228,11 @@
 }
 
 - (void)removeAnnotationToolBar {
-    [self.toolbarView removeFromSuperview];
+    [self.annotationView.toolbarView removeFromSuperview];
 }
 
 - (void)cleanCanvas {
-    [self.toolbarView.screenShareView eraseAll];
+    [self.annotationView eraseAll];
 }
 
 #pragma mark - other controls

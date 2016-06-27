@@ -119,6 +119,20 @@
 		A09EA3701D20AD2200EFBD5D /* UIButton+AutoLayoutHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA2F51D20861600EFBD5D /* UIButton+AutoLayoutHelper.h */; };
 		A09EA3711D20AD2200EFBD5D /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA2F71D20861600EFBD5D /* UIViewController+Helper.h */; };
 		A09EA3721D20AD2200EFBD5D /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = A0A7D02E1CEA34C300252AEE /* Constants.h */; };
+		A09EA3731D20B52B00EFBD5D /* AnnotationScreenCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3581D20A34E00EFBD5D /* AnnotationScreenCaptureView.m */; };
+		A09EA3741D20B52D00EFBD5D /* AnnotationScreenCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA35A1D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.m */; };
+		A09EA3751D20B53100EFBD5D /* OTAnnotationScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA30E1D20A14B00EFBD5D /* OTAnnotationScrollView.m */; };
+		A09EA3761D20B53400EFBD5D /* OTFullScreenAnnotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3101D20A14B00EFBD5D /* OTFullScreenAnnotationViewController.m */; };
+		A09EA3771D20B53700EFBD5D /* AnnotationColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3291D20A1DD00EFBD5D /* AnnotationColorPickerView.m */; };
+		A09EA3781D20B53900EFBD5D /* AnnotationEditTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3141D20A14B00EFBD5D /* AnnotationEditTextViewController.m */; };
+		A09EA3791D20B54400EFBD5D /* AnnotationDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3371D20A33900EFBD5D /* AnnotationDataManager.m */; };
+		A09EA37A1D20B55C00EFBD5D /* AnnotationPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3391D20A33900EFBD5D /* AnnotationPath.m */; };
+		A09EA37B1D20B55C00EFBD5D /* AnnotationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA33B1D20A33900EFBD5D /* AnnotationPoint.m */; };
+		A09EA37C1D20B55C00EFBD5D /* AnnotationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA33E1D20A33900EFBD5D /* AnnotationTextView.m */; };
+		A09EA37D1D20B55C00EFBD5D /* AnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3401D20A33900EFBD5D /* AnnotationView.m */; };
+		A09EA37E1D20B55C00EFBD5D /* ScreenShareToolbarView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA2F41D20861600EFBD5D /* ScreenShareToolbarView+Animation.m */; };
+		A09EA37F1D20B55C00EFBD5D /* UIButton+AutoLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA2F61D20861600EFBD5D /* UIButton+AutoLayoutHelper.m */; };
+		A09EA3801D20B55C00EFBD5D /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA2F81D20861600EFBD5D /* UIViewController+Helper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -813,10 +827,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A09EA37A1D20B55C00EFBD5D /* AnnotationPath.m in Sources */,
+				A09EA37B1D20B55C00EFBD5D /* AnnotationPoint.m in Sources */,
+				A09EA37C1D20B55C00EFBD5D /* AnnotationTextView.m in Sources */,
+				A09EA37D1D20B55C00EFBD5D /* AnnotationView.m in Sources */,
+				A09EA37E1D20B55C00EFBD5D /* ScreenShareToolbarView+Animation.m in Sources */,
+				A09EA37F1D20B55C00EFBD5D /* UIButton+AutoLayoutHelper.m in Sources */,
+				A09EA3801D20B55C00EFBD5D /* UIViewController+Helper.m in Sources */,
+				A09EA3781D20B53900EFBD5D /* AnnotationEditTextViewController.m in Sources */,
+				A09EA3771D20B53700EFBD5D /* AnnotationColorPickerView.m in Sources */,
+				A09EA3751D20B53100EFBD5D /* OTAnnotationScrollView.m in Sources */,
+				A09EA3761D20B53400EFBD5D /* OTFullScreenAnnotationViewController.m in Sources */,
 				A09D4F521D17174A007B349E /* ScreenSharer.m in Sources */,
 				A09D4F551D17174A007B349E /* OTAnnotationToolbarView.m in Sources */,
 				A09D4F571D17174A007B349E /* AnnotationToolbarButton.m in Sources */,
 				A09D4F581D17174A007B349E /* TBScreenCapture.m in Sources */,
+				A09EA3791D20B54400EFBD5D /* AnnotationDataManager.m in Sources */,
+				A09EA3741D20B52D00EFBD5D /* AnnotationScreenCaptureViewController.m in Sources */,
+				A09EA3731D20B52B00EFBD5D /* AnnotationScreenCaptureView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

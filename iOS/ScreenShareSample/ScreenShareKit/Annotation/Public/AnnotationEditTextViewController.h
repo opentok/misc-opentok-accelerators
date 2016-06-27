@@ -10,15 +10,15 @@
 #import "AnnotationTextView.h"
 
 @class AnnotationEditTextViewController;
-@protocol ScreenShareEditTextViewProtocol <NSObject>
-- (void)screenShareEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
-                         didFinishEditing:(AnnotationTextView *)annotationTextView;
+@protocol AnnotationEditTextViewProtocol <NSObject>
+- (void)annotationEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
+                        didFinishEditing:(AnnotationTextView *)annotationTextView;
 @end
 
 
 @interface AnnotationEditTextViewController : UIViewController
 
-@property (weak, nonatomic) id<ScreenShareEditTextViewProtocol> delegate;
+@property (weak, nonatomic) id<AnnotationEditTextViewProtocol> delegate;
 
 + (instancetype)defaultWithTextColor:(UIColor *)textColor;
 

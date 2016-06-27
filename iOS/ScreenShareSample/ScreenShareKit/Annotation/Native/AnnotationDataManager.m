@@ -28,27 +28,34 @@
 - (void)addAnnotatable:(id<Annotatable>)annotatable {
     if (!annotatable || ![annotatable conformsToProtocol:@protocol(Annotatable)]) return;
     [self.mutableAnnotatable addObject:annotatable];
+    [self annotatable];
 }
 
 - (id<Annotatable>)pop {
-    if (self.mutableAnnotatable.count == 0) return nil;
+    if (self.annotatable.count == 0) return nil;
     id<Annotatable> lastObject = [self.mutableAnnotatable lastObject];
     [self.mutableAnnotatable removeLastObject];
+    [self annotatable];
     return lastObject;
 }
 
 - (id<Annotatable>)peakOfAnnotatable {
-    if (self.mutableAnnotatable.count == 0) return nil;
-    return [self.mutableAnnotatable lastObject];
+    if (self.annotatable.count == 0) return nil;
+    return [self.annotatable lastObject];
 }
 
 - (BOOL)containsAnnotatable:(id<Annotatable>)annotatable {
     if (!annotatable || ![annotatable conformsToProtocol:@protocol(Annotatable)]) return NO;
-    return [self.mutableAnnotatable containsObject:annotatable];
+    return [self.annotatable containsObject:annotatable];
 }
 
 - (void)undo {
     [self pop];
+}
+
+- (void)undoAll {
+    [self.mutableAnnotatable removeAllObjects];
+    [self annotatable];
 }
 
 @end

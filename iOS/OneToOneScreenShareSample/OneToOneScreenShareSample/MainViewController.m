@@ -46,7 +46,7 @@
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
             
-                                                               _customSharedContent = nil;
+                                                               weakSelf.customSharedContent = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.mainView.bounds), CGRectGetHeight(self.mainView.bounds))];
                                                                [weakSelf startScreenShare];
                                                            }];
         

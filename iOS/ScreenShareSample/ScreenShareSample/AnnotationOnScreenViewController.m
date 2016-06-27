@@ -51,6 +51,7 @@
 }
 
 - (void)stopAnnotation {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

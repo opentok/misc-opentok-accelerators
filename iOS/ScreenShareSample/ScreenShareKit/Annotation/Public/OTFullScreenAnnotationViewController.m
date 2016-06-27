@@ -20,44 +20,31 @@
     
     if (self = [super init]) {
         
-        UIView *clearView = [[UIView alloc] initWithFrame:self.view.bounds];
-        self.annotationView = [[OTAnnotationScrollView alloc] init];
-        self.annotationView.zoomEnabled = NO;
-        [self.annotationView addContentView:clearView];
+        _annotationView= [[OTAnnotationScrollView alloc] init];
+        _annotationView.zoomEnabled = NO;
+        _annotationView.scrollView.scrollEnabled = NO;
+        _annotationView.scrollView.pinchGestureRecognizer.enabled = NO;
         
-        [self.annotationView initializeToolbarView];
-        CGFloat height = self.annotationView.toolbarView.bounds.size.height;
-        self.annotationView.toolbarView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - height, self.annotationView.toolbarView.bounds.size.width, height);
         
-        self.annotationView.frame = CGRectMake(0,
-                                               0,
-                                               CGRectGetWidth([UIScreen mainScreen].bounds),
-                                               CGRectGetHeight([UIScreen mainScreen].bounds) - height);
-        [self.view addSubview:self.annotationView];
-        [self.view addSubview:self.annotationView.toolbarView];
+        [_annotationView initializeToolbarView];
+        CGFloat height = _annotationView.toolbarView.bounds.size.height;
+        _annotationView.toolbarView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - height, _annotationView.toolbarView.bounds.size.width, height);
+        
+        _annotationView.frame = CGRectMake(0,
+                                           0,
+                                           CGRectGetWidth([UIScreen mainScreen].bounds),
+                                           CGRectGetHeight([UIScreen mainScreen].bounds) - height);
+        [self.view addSubview:_annotationView];
+        [self.view addSubview:_annotationView.toolbarView];
+        
+        UIView *clearView = [[UIView alloc] initWithFrame:_annotationView.bounds];
+        [_annotationView addContentView:clearView];
         
         self.providesPresentationContextTransitionStyle = YES;
         self.definesPresentationContext = YES;
         self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        
-        self.annotationView.scrollView.scrollEnabled = NO;
-        self.annotationView.scrollView.pinchGestureRecognizer.enabled = NO;
     }
     return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 
 @end

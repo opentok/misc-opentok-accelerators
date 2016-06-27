@@ -21,7 +21,7 @@
 
 #import "OTAnnotationToolbarView_Private.h"
 
-@interface OTAnnotationToolbarView() <AnnotationColorPickerViewProtocol, ScreenShareEditTextViewProtocol>
+@interface OTAnnotationToolbarView() <AnnotationColorPickerViewProtocol, AnnotationEditTextViewProtocol>
 @property (nonatomic) LHToolbar *toolbar;
 @property (weak, nonatomic) OTAnnotationScrollView *annotationScrollView;
 
@@ -101,6 +101,13 @@
     super.frame = CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth(mainBounds), DefaultToolbarHeight);
 }
 
+- (void)didMoveToSuperview {
+    if (!self.superview) {
+        self.annotationScrollView.annotating = NO;
+        [self.colorPickerView removeFromSuperview];
+    }
+}
+
 - (void)configureToolbarButtons {
 
     NSBundle *frameworkBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"ScreenShareKitBundle" withExtension:@"bundle"]];
@@ -149,7 +156,7 @@
         [self.toolbar insertContentView:self.doneButton atIndex:0];
         [self.annotationScrollView startDrawing];
         [self.annotationScrollView setAnnotationColor:self.colorPickerView.selectedColor];
-        [self disableButtons:@[self.textButton, self.eraseButton]];
+        [self disableButtons:@[self.annotateButton ,self.textButton, self.eraseButton]];
     }
     else if (sender == self.textButton) {
         self.annotationScrollView.annotating = YES;
@@ -197,8 +204,8 @@
 }
 
 #pragma mark - ScreenShareEditTextViewProtocol
-- (void)screenShareEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
-                         didFinishEditing:(AnnotationTextView *)annotationTextView {
+- (void)annotationEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
+                        didFinishEditing:(AnnotationTextView *)annotationTextView {
     
     if (annotationTextView) {
         [annotationTextView setEditable:NO];
