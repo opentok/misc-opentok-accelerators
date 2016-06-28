@@ -18,7 +18,7 @@ This guide has the following sections:
 To be prepared to develop your text chat app:
 
 1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
-2. Either run the [build-sample.sh script](./build-sample.sh), or download the [opentok-text-chat.js](hhttps://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.
+2. Either run the [build-sample.sh script](./build-sample.sh), or download the [opentok-text-chat.js](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.
 3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
