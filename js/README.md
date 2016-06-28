@@ -113,7 +113,7 @@ The following `options` fields are used in the `TextChatAccPack` constructor:<br
   ```
 
 
-  #### Sending and receiving messages
+#### Sending and receiving messages
 
   The `TextChat` component defines `showTextChat()` and `hideTextChat()` methods to show or hide text chat view.
 
@@ -126,9 +126,9 @@ The following `options` fields are used in the `TextChatAccPack` constructor:<br
 
   ```
 
-  #### Events
+#### Events
 
-   The `TextChat` component emits a `messageReceived` event when a new message is received.
+  The `TextChat` component emits a `messageReceived` event when a new message is received.
 
   The `TextChat` component emits a `messageSent` event when a new message is sent.
 
