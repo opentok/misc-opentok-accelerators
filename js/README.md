@@ -94,10 +94,10 @@ This class sets up the text chat UI views and events, and provides functions for
 
 | Feature        | Field  |
 | ------------- | ------------- |
-| Set the chat container.   | `container`  |
-| Sets the position of the element that displays the information for the character count within the UI.   | `charCountElement`  |
-| Set the maximum chat text length.   | `limitCharacterMessage`  |
-| Set the sender alias and the sender ID of the outgoing messages.  | `senderAlias`, `senderId`  |
+| Set the chat container. | `container`  |
+| Sets the position of the element that displays the information for the character count within the UI. | `charCountElement`  |
+| Set the maximum chat text length. | `limitCharacterMessage`  |
+| Set the sender alias and the sender ID of the outgoing messages. | `senderAlias`, `senderId`  |
 
 
   In this initialization code, the `TextChatAccPack` object is initialized.
