@@ -103,13 +103,16 @@ The following `options` fields are used in the `TextChatAccPack` constructor:<br
   In this initialization code, the `TextChatAccPack` object is initialized.
 
   ```javascript
-  _textChat = new TextChatAccPack(
-    {
-      charCountElement: options.textChat.charCountElement,
-      acceleratorPack: self,
-      sender: options.textChat.user,
-      limitCharacterMessage: options.textChat.limitCharacterMessage
-    });
+     var textChatOptions = {
+       accPack: _this,
+       session: _session,
+       sender: _this.options.textChat.sender,
+       limitCharacterMessage: _this.options.textChat.limitCharacterMessage,
+       controlsContainer: _this.options.textChat.controlsContainer,
+       textChatContainer: _this.options.textChat.textChatContainer
+     };
+
+     _components.textChat = new TextChatAccPack(textChatOptions);
   ```
 
 
