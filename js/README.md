@@ -90,15 +90,7 @@ This class sets up the text chat UI views and events, and provides functions for
 
 #### Initialization
 
-The following `options` fields are used in the `TextChatAccPack` constructor:
-
-<table>
-  <tr><th>Feature</th><th>Field</th></tr>
-  <tr><td>Set the chat container.</td><td>`container`</td></tr>
-  <tr><td>Sets the position of the element that displays the information for the character count within the UI.</td><td>`charCountElement`</td></tr>
-  <tr><td>Set the maximum chat text length.</td><td>`limitCharacterMessage`</td></tr>
-  <tr><td>Set the sender alias and the sender ID of the outgoing messages.</td><td>`senderAlias`, `senderId`</td></tr>
-<table>
+The following `options` fields are used in the `TextChatAccPack` constructor:<br/>
 
 | Feature        | Field  |
 | ------------- | ------------- |
