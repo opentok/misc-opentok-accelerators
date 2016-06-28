@@ -10,21 +10,16 @@
 
 #import "OTTextMessageManager.h"
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
+#import <OTKAnalytics/OTKAnalytics.h>
 
 static NSUInteger DefaultTextMessageLength = 120;
 static NSUInteger MaximumTextMessageLength = 8196;
 
-
-NSString* const KLogSource = @"text_chat_acc_pack";
+NSString* const kLogComponentIdentifier = @"textChatAccPack";
 NSString* const KLogClientVersion = @"ios-vsol-1.0.0";
-NSString* const KLogActionInitialize = @"initialize";
-NSString* const KLogActionSendMessage = @"send_message";
-NSString* const KLogActionReceiveMessage = @"receive_message";
-NSString* const KLogActionMaxLength = @"set_max_length";
-NSString* const KLogActionSenderAlias = @"set_sender_alias";
-NSString* const KLogActionMinimize = @"minimize";
-NSString* const KLogActionMaximize = @"maximize";
-NSString* const KLogActionClose = @"close";
+NSString* const KLogActionInitialize = @"Init";
+NSString* const KLogActionSendMessage = @"SendMessage";
+NSString* const KLogActionReceiveMessage = @"ReceiveMessage";
 NSString* const KLogVariationAttempt = @"Attempt";
 NSString* const KLogVariationSuccess = @"Success";
 NSString* const KLogVariationFailure = @"Failure";
@@ -80,7 +75,7 @@ static NSString* const kTextChatType = @"text-chat";
 - (void)sendMessage:(NSString *)message {
     NSError *error;
     
-    [OTKAnalytics logEventAction:KLogActionSendMessage variation:KLogVariationAttempt completion:nil];
+    [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationAttempt completion:nil];
     if (!message || !message.length) {
         error = [NSError errorWithDomain:NSCocoaErrorDomain
                                     code:-1
@@ -89,7 +84,7 @@ static NSString* const kTextChatType = @"text-chat";
             [self.delegate didAddTextChat:nil error:error];
         }
         
-        [OTKAnalytics logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
+        [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
         return;
     }
     
@@ -117,7 +112,7 @@ static NSString* const kTextChatType = @"text-chat";
             if (self.delegate) {
                 [self.delegate didAddTextChat:nil error:error];
             }
-            [OTKAnalytics logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
+            [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
             return;
         }
         
@@ -148,7 +143,7 @@ static NSString* const kTextChatType = @"text-chat";
         error = [NSError errorWithDomain:NSCocoaErrorDomain
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"OTSession did not connect"}];
-        [OTKAnalytics logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
+        [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
         
         if (self.delegate) {
             [self.delegate didAddTextChat:nil error:error];
@@ -169,11 +164,9 @@ static NSString* const kTextChatType = @"text-chat";
     NSLog(@"TextChatComponent sessionDidConnect");
     
     //Init otkanalytics. Internal use
-    NSString *apiKey = _session.apiKey;
-    NSString *sessionId = _session.sessionId;
-    NSInteger partner = [apiKey integerValue];
-    [OTKAnalytics analyticsWithApiKey:@(partner) sessionId:sessionId connectionId:self.session.connection.connectionId clientVersion:KLogClientVersion source:KLogSource];
-    [OTKAnalytics logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
+    [OTKLogger setSessionId:session.sessionId connectionId:session.connection.connectionId partnerId:@([self.session.apiKey integerValue])];
+    
+    [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
     
     self.senderId = session.connection.connectionId;
     
@@ -181,7 +174,7 @@ static NSString* const kTextChatType = @"text-chat";
         [self.delegate didConnectWithError:nil];
     }
     
-    [OTKAnalytics logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
+    [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
 }
 
 - (void)sessionDidDisconnect:(OTSession*)session {
@@ -222,7 +215,7 @@ receivedSignalType:(NSString*)type
      withString:(NSString*)string {
     
     if (![connection.connectionId isEqualToString:self.session.connection.connectionId]) {
-        [OTKAnalytics logEventAction:KLogActionReceiveMessage variation:KLogVariationAttempt completion:nil];
+        [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationAttempt completion:nil];
         
         OTTextMessage *textChat = [[OTTextMessage alloc] initWithJSONString:string];
         
@@ -252,13 +245,13 @@ receivedSignalType:(NSString*)type
             [self.mutableMessages addObject:textChat];
             if (self.delegate) {
                 [self.delegate didReceiveTextChat:textChat];
-                [OTKAnalytics logEventAction:KLogActionReceiveMessage variation:KLogVariationSuccess completion:nil];
+                [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationSuccess completion:nil];
             }
         }
     }
     else {
         //sent message
-        [OTKAnalytics logEventAction:KLogActionSendMessage variation:KLogVariationSuccess completion:nil];
+        [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationSuccess completion:nil];
     }
 }
 

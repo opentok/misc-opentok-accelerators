@@ -19,9 +19,9 @@
 
 + (instancetype)getAcceleratorPackSession;
 
-+ (void)registerWithAccePack:(id)delegate;
++ (NSError *)registerWithAccePack:(id)delegate;
 
-+ (void)deregisterWithAccePack:(id)delegate;
++ (NSError *)deregisterWithAccePack:(id)delegate;
 
 + (BOOL)containsAccePack:(id)delegate;
 

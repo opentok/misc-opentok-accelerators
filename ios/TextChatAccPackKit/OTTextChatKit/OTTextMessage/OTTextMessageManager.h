@@ -9,7 +9,6 @@
 #import "OTTextMessage.h"
 #import "OTTextMessage_Private.h"
 #import "OTTextChatView.h"
-#import "OTKAnalytics.h"
 
 @protocol TextMessageManagerDelegate <NSObject>
 - (void)didConnectWithError:(NSError *)error;
@@ -19,16 +18,11 @@
 @end
 
 //analytics
-extern NSString* const KLogSource;
+extern NSString* const kLogComponentIdentifier;
 extern NSString* const KLogClientVersion;
 extern NSString* const KLogActionInitialize;
 extern NSString* const KLogActionSendMessage;
 extern NSString* const KLogActionReceiveMessage;
-extern NSString* const KLogActionMaxLength;
-extern NSString* const KLogActionSenderAlias;
-extern NSString* const KLogActionMinimize;
-extern NSString* const KLogActionMaximize;
-extern NSString* const KLogActionClose;
 extern NSString* const KLogVariationAttempt;
 extern NSString* const KLogVariationSuccess;
 extern NSString* const KLogVariationFailure;
@@ -40,7 +34,6 @@ extern NSString* const KLogVariationFailure;
 @property (readonly, nonatomic) NSString *alias;
 @property (readonly, nonatomic) NSString *receiverAlias;
 @property (readonly, nonatomic) NSUInteger maximumTextMessageLength;
-@property (readonly, nonatomic) OTKAnalytics *analytics;
 
 - (void)connect;
 
