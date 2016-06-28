@@ -204,6 +204,7 @@
 }
 
 #pragma mark - ScreenShareEditTextViewProtocol
+
 - (void)annotationEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
                         didFinishEditing:(OTAnnotationTextView *)annotationTextView {
     
@@ -218,6 +219,7 @@
 }
 
 #pragma mark - ScreenShareColorPickerViewProtocol
+
 - (void)colorPickerView:(AnnotationColorPickerView *)colorPickerView
    didSelectColorButton:(AnnotationColorPickerViewButton *)button
           selectedColor:(UIColor *)selectedColor {

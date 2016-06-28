@@ -76,11 +76,11 @@
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
     self.screenSharer = [ScreenSharer screenSharer];
+#if !(TARGET_OS_SIMULATOR)
+    [self.mainView showReverseCameraButton];
+#endif
 }
 
-/**
- * toggles the call start/end handles the color of the buttons
- */
 - (IBAction)publisherCallButtonPressed:(UIButton *)sender {
     
     [SVProgressHUD show];
@@ -129,9 +129,6 @@
             [SVProgressHUD dismiss];
             break;
         }
-        case OneToOneCommunicationSignalSessionStreamCreated:{
-            break;
-        }
         case OneToOneCommunicationSignalSessionStreamDestroyed:{
             [self.mainView removeSubscriberView];
             break;
@@ -174,18 +171,15 @@
     }
 }
 
-/**
- * toggles the audio comming from the publisher
- */
 - (IBAction)publisherAudioButtonPressed:(UIButton *)sender {
     
     if (self.oneToOneCommunicator.isCallEnabled) {
-        [self.mainView mutePubliserhMic:self.oneToOneCommunicator.publishAudio];
         self.oneToOneCommunicator.publishAudio = !self.oneToOneCommunicator.publishAudio;
+        [self.mainView mutePubliserhMic:self.oneToOneCommunicator.publishAudio];
     }
     else if (self.screenSharer.isScreenSharing) {
-        [self.mainView mutePubliserhMic:self.screenSharer.publishAudio];
         self.screenSharer.publishAudio = !self.screenSharer.publishAudio;
+        [self.mainView mutePubliserhMic:self.screenSharer.publishAudio];
     }
 }
 
@@ -193,9 +187,6 @@
     [self.mainView toggleAnnotationToolBar];
 }
 
-/**
- *  toggles the screen share of the current content of the screen
- */
 - (IBAction)ScreenShareButtonPressed:(UIButton *)sender {
     
     if (!self.screenSharer.isScreenSharing) {
@@ -248,7 +239,6 @@
 
 - (void)handleScreenShareSignal:(ScreenShareSignal)signal {
     
-    
     switch (signal) {
         case ScreenShareSignalSessionDidConnect: {
             [self.mainView addScreenShareViewWithContentView:self.customSharedContent];
@@ -269,62 +259,35 @@
             [SVProgressHUD dismiss];
             break;
         }
-        case ScreenShareSignalSessionStreamCreated:{
-            break;
-        }
-        case ScreenShareSignalSessionStreamDestroyed:{
-            break;
-        }
         case ScreenShareSignalPublisherDidFail:{
             [SVProgressHUD showErrorWithStatus:@"Problem when publishing"];
-            break;
-        }
-        case ScreenShareSignalSubscriberConnect:{
             break;
         }
         case ScreenShareSignalSubscriberDidFail:{
             [SVProgressHUD showErrorWithStatus:@"Problem when subscribing"];
             break;
         }
-        case ScreenShareSignalSubscriberVideoDisabled:{
-            break;
-        }
-        case ScreenShareSignalSubscriberVideoEnabled:{
-            break;
-        }
         case ScreenShareSignalSubscriberVideoDisableWarning:{
             [SVProgressHUD showErrorWithStatus:@"Network connection is unstable."];
             break;
         }
-        case ScreenShareSignalSubscriberVideoDisableWarningLifted:{
-            break;
-        }
-            
         default:
             break;
     }
 }
 
-/**
- * toggles the video comming from the publisher
- */
 - (IBAction)publisherVideoButtonPressed:(UIButton *)sender {
-    
+    self.oneToOneCommunicator.publishVideo = !self.oneToOneCommunicator.publishVideo;
     if (self.oneToOneCommunicator.publishVideo) {
+        [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
+    }
+    else {
         [self.mainView removePublisherView];
         [self.mainView addPlaceHolderToPublisherView];
     }
-    else {
-        [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
-    }
-    
     [self.mainView connectPubliserVideo:self.oneToOneCommunicator.publishVideo];
-    self.oneToOneCommunicator.publishVideo = !self.oneToOneCommunicator.publishVideo;
 }
 
-/**
- * toggle the camera position (front camera) <=> (back camera)
- */
 - (IBAction)publisherCameraButtonPressed:(UIButton *)sender {
     if (self.oneToOneCommunicator.cameraPosition == AVCaptureDevicePositionBack) {
         self.oneToOneCommunicator.cameraPosition = AVCaptureDevicePositionFront;
@@ -334,22 +297,14 @@
     }
 }
 
-/**
- * toggles the video comming from the subscriber
- */
 - (IBAction)subscriberVideoButtonPressed:(UIButton *)sender {
-    
-    [self.mainView connectSubsciberVideo:self.oneToOneCommunicator.subscribeToVideo];
     self.oneToOneCommunicator.subscribeToVideo = !self.oneToOneCommunicator.subscribeToVideo;
+    [self.mainView connectSubsciberVideo:self.oneToOneCommunicator.subscribeToVideo];
 }
 
-/**
- * toggles the audio comming from the susbscriber
- */
 - (IBAction)subscriberAudioButtonPressed:(UIButton *)sender {
-    
-    [self.mainView muteSubscriberMic:self.oneToOneCommunicator.subscribeToAudio];
     self.oneToOneCommunicator.subscribeToAudio = !self.oneToOneCommunicator.subscribeToAudio;
+    [self.mainView muteSubscriberMic:self.oneToOneCommunicator.subscribeToAudio];
 }
 
 /**
@@ -357,7 +312,9 @@
  * subscriber actions within 7 seconds
  */
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self.mainView showSubscriberControls:YES];
+    if (self.oneToOneCommunicator.subscriberView){
+        [self.mainView showSubscriberControls:YES];
+    }
     [self.mainView performSelector:@selector(showSubscriberControls:)
                         withObject:nil
                         afterDelay:7.0];

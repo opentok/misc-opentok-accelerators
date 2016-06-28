@@ -31,7 +31,6 @@
 }
 
 - (void)didMoveToSuperview {
-    
     if (!self.superview) return;
     [self addCenterConstraints];
 }

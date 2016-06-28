@@ -150,6 +150,7 @@
 }
 
 #pragma mark - OTPublisherDelegate
+
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
     NSLog(@"publisher did failed with error: (%@)", error);
     [self notifiyAllWithSignal:ScreenShareSignalPublisherDidFail
@@ -187,100 +188,6 @@
     [self notifiyAllWithSignal:ScreenShareSignalSubscriberDidFail
                          error:error];
 }
-
-#pragma mark - other components
-
-//- (void) bringToFrontView: (NSArray *)views withSuperView: (UIView *)superView {
-//    for (UIView *current in views) {
-//        [superView bringSubviewToFront:current];
-//    }
-//}
-
-//- (void)justFrame:(BOOL)shoudlAdd andWhere:(UIView *)viewToAdd; {
-//    CGRect viewSize = CGRectMake(0, 0, viewToAdd.frame.size.width, 40);
-//    [viewToAdd setFrame:CGRectMake(0, 0, viewToAdd.frame.size.width, viewToAdd.frame.size.height)];
-//    UIColor *backgroundShare = [UIColor colorWithRed:102/255.0 green:173/255.0 blue:191/255.0 alpha:1];
-//    
-//    if (shoudlAdd){
-//        self.topScreen = [[UIView alloc] initWithFrame: viewSize];
-//        self.topScreen.backgroundColor = backgroundShare;
-//        
-//        UILabel *sharingScreenLabel = [[UILabel alloc] init];
-//        sharingScreenLabel.text = @"You are sharing your screen";
-//        sharingScreenLabel.font = [UIFont fontWithName:@"AvantGarde-Book" size:12.0];
-//        sharingScreenLabel.frame = viewSize;
-//        sharingScreenLabel.textAlignment = NSTextAlignmentCenter;
-//        sharingScreenLabel.textColor = [UIColor whiteColor];
-//        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 8, 20, 18)];
-//        icon.image = [UIImage imageNamed:@"screenshare"];
-//        
-//        UIImageView *close = [[UIImageView alloc] initWithFrame:CGRectMake((viewToAdd.frame.size.width - 30), 14, 13, 13)];
-//        close.image = [UIImage imageNamed:@"smallClose"];
-//        [self.topScreen addSubview:icon];
-//        
-//        [self.topScreen addSubview:close];
-//        [self.topScreen addSubview:sharingScreenLabel];
-//        self.topScreen.translatesAutoresizingMaskIntoConstraints = NO;
-//        [viewToAdd addSubview:self.topScreen];
-//        
-//        viewToAdd.layer.borderWidth = 5;
-//        viewToAdd.layer.borderColor = backgroundShare.CGColor;
-//        
-//        viewToAdd.translatesAutoresizingMaskIntoConstraints = NO;
-//        [self addAttachedLayoutConstantsToSuperview: viewToAdd];
-//    } else {
-//        viewToAdd.layer.borderWidth = 0;
-//        [self.topScreen removeFromSuperview];
-//        
-//    }
-//}
-
-
-//- (void)superPositionElements: (UIView *)superViewScreenShare andElementsSendToFromt: (NSArray *)elements; {
-//    [self bringToFrontView:elements withSuperView:superViewScreenShare];
-//}
-//
-//#pragma mark - private method
-//-(void)addAttachedLayoutConstantsToSuperview:(UIView *)view {
-//    
-//    if (!view.superview) {
-//        return;
-//    }
-//    
-//    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:view
-//                                                           attribute:NSLayoutAttributeTop
-//                                                           relatedBy:NSLayoutRelationEqual
-//                                                              toItem:view.superview
-//                                                           attribute:NSLayoutAttributeTop
-//                                                          multiplier:1.0
-//                                                            constant:0.0];
-//    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:view
-//                                                               attribute:NSLayoutAttributeLeading
-//                                                               relatedBy:NSLayoutRelationEqual
-//                                                                  toItem:view.superview
-//                                                               attribute:NSLayoutAttributeLeading
-//                                                              multiplier:1.0
-//                                                                constant:0.0];
-//    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:view
-//                                                                attribute:NSLayoutAttributeTrailing
-//                                                                relatedBy:NSLayoutRelationEqual
-//                                                                   toItem:view.superview
-//                                                                attribute:NSLayoutAttributeTrailing
-//                                                               multiplier:1.0
-//                                                                 constant:0.0];
-//    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:view
-//                                                              attribute:NSLayoutAttributeBottom
-//                                                              relatedBy:NSLayoutRelationEqual
-//                                                                 toItem:view.superview
-//                                                              attribute:NSLayoutAttributeBottom
-//                                                             multiplier:1.0
-//                                                               constant:0.0];
-//    [NSLayoutConstraint activateConstraints:@[top, leading, trailing, bottom]];
-//}
-//
-//- (id) getSessionStreams; {
-//    return self.session.streams;
-//}
 
 #pragma mark - Setters and Getters
 - (UIView *)subscriberView {

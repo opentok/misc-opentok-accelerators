@@ -160,4 +160,5 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     [self.annotationTextView setFont:[UIFont systemFontOfSize:[self.fontSizeArray[row] floatValue]]];
 }
+
 @end
