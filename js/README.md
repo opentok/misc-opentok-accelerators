@@ -90,7 +90,8 @@ This class sets up the text chat UI views and events, and provides functions for
 
 #### Initialization
 
-  The following `options` fields are used in the `TextChatAccPack` constructor:
+The following `options` fields are used in the `TextChatAccPack` constructor:
+
 
 | Feature        | Field  |
 | ------------- | ------------- |
