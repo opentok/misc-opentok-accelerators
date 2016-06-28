@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol Annotatable <NSObject>
+@protocol OTAnnotatable <NSObject>
 
 @optional
 - (void)commit;

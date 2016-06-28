@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ScreenShareKit/AnnotationTextView.h>
+#import <ScreenShareKit/OTAnnotationTextView.h>
 #import <ScreenShareKit/OTAnnotationToolbarView.h>
 
 @interface OTAnnotationScrollView : UIView
@@ -30,7 +30,7 @@
 
 @property (nonatomic) UIColor *annotationColor;
 
-- (void)addTextAnnotation:(AnnotationTextView *)annotationTextView;
+- (void)addTextAnnotation:(OTAnnotationTextView *)annotationTextView;
 
 - (UIImage *)captureScreen;
 

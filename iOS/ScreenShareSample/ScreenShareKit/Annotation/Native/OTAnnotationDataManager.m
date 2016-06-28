@@ -6,15 +6,15 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "AnnotationDataManager.h"
+#import "OTAnnotationDataManager.h"
 
-@interface AnnotationDataManager()
-@property (nonatomic) NSMutableArray<id<Annotatable>> *mutableAnnotatable;
+@interface OTAnnotationDataManager()
+@property (nonatomic) NSMutableArray<id<OTAnnotatable>> *mutableAnnotatable;
 @end
 
-@implementation AnnotationDataManager
+@implementation OTAnnotationDataManager
 
-- (NSArray <AnnotationPath *> *)annotatable {
+- (NSArray <OTAnnotationPath *> *)annotatable {
     return [_mutableAnnotatable copy];
 }
 
@@ -25,27 +25,27 @@
     return self;
 }
 
-- (void)addAnnotatable:(id<Annotatable>)annotatable {
-    if (!annotatable || ![annotatable conformsToProtocol:@protocol(Annotatable)]) return;
+- (void)addAnnotatable:(id<OTAnnotatable>)annotatable {
+    if (!annotatable || ![annotatable conformsToProtocol:@protocol(OTAnnotatable)]) return;
     [self.mutableAnnotatable addObject:annotatable];
     [self annotatable];
 }
 
-- (id<Annotatable>)pop {
+- (id<OTAnnotatable>)pop {
     if (self.annotatable.count == 0) return nil;
-    id<Annotatable> lastObject = [self.mutableAnnotatable lastObject];
+    id<OTAnnotatable> lastObject = [self.mutableAnnotatable lastObject];
     [self.mutableAnnotatable removeLastObject];
     [self annotatable];
     return lastObject;
 }
 
-- (id<Annotatable>)peakOfAnnotatable {
+- (id<OTAnnotatable>)peakOfAnnotatable {
     if (self.annotatable.count == 0) return nil;
     return [self.annotatable lastObject];
 }
 
-- (BOOL)containsAnnotatable:(id<Annotatable>)annotatable {
-    if (!annotatable || ![annotatable conformsToProtocol:@protocol(Annotatable)]) return NO;
+- (BOOL)containsAnnotatable:(id<OTAnnotatable>)annotatable {
+    if (!annotatable || ![annotatable conformsToProtocol:@protocol(OTAnnotatable)]) return NO;
     return [self.annotatable containsObject:annotatable];
 }
 

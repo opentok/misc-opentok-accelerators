@@ -6,15 +6,15 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "AnnotationPoint.h"
+#import "OTAnnotationPoint.h"
 
-@interface AnnotationPoint()
+@interface OTAnnotationPoint()
 @property (nonatomic) CGFloat x;
 @property (nonatomic) CGFloat y;
 @property (nonatomic) CGPoint point;
 @end
 
-@implementation AnnotationPoint
+@implementation OTAnnotationPoint
 
 - (instancetype)initWithX:(CGFloat)x andY:(CGFloat)y {
     if (self = [super init]) {

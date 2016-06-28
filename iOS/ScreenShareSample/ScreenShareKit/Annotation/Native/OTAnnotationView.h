@@ -6,16 +6,16 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <ScreenShareKit/AnnotationPath.h>
-#import <ScreenShareKit/Annotatable.h>
+#import <ScreenShareKit/OTAnnotationPath.h>
+#import <ScreenShareKit/OTAnnotatable.h>
 
-@interface AnnotationView : UIView
+@interface OTAnnotationView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-- (void)setCurrentAnnotatable:(id<Annotatable>)annotatable;
+- (void)setCurrentAnnotatable:(id<OTAnnotatable>)annotatable;
 
-- (void)addAnnotatable:(id<Annotatable>)annotatable;
+- (void)addAnnotatable:(id<OTAnnotatable>)annotatable;
 
 - (void)undoAnnotatable;
 

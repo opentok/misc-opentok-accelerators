@@ -6,10 +6,10 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "AnnotationTextView.h"
+#import "OTAnnotationTextView.h"
 #import "Constants.h"
 
-@interface AnnotationTextView() <UITextViewDelegate>
+@interface OTAnnotationTextView() <UITextViewDelegate>
 @property (nonatomic) CGPoint referenceCenter;
 @property (nonatomic) CGAffineTransform referenceRotateTransform;
 @property (nonatomic) CGAffineTransform currentRotateTransform;
@@ -21,10 +21,10 @@
 @property (nonatomic) UIButton *pinchButton;
 @end
 
-@implementation AnnotationTextView
+@implementation OTAnnotationTextView
 
 + (instancetype)defaultWithTextColor:(UIColor *)textColor {
-    return [[AnnotationTextView alloc] initWithText:nil textColor:textColor fontSize:0.0f];
+    return [[OTAnnotationTextView alloc] initWithText:nil textColor:textColor fontSize:0.0f];
 }
 
 - (instancetype)initWithText:(NSString *)text

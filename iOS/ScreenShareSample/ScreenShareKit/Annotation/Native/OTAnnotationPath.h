@@ -6,22 +6,22 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <ScreenShareKit/Annotatable.h>
-#import <ScreenShareKit/AnnotationPoint.h>
+#import <ScreenShareKit/OTAnnotatable.h>
+#import <ScreenShareKit/OTAnnotationPoint.h>
 
-@interface AnnotationPath : UIBezierPath <Annotatable>
+@interface OTAnnotationPath : UIBezierPath <OTAnnotatable>
 
 @property (readonly, nonatomic) UIColor *strokeColor;
 
 @property (readonly, nonatomic) CGPoint startPoint;
 @property (readonly, nonatomic) CGPoint endPoint;
-@property (readonly, nonatomic) NSArray<AnnotationPoint *> *points;
+@property (readonly, nonatomic) NSArray<OTAnnotationPoint *> *points;
 
 + (instancetype)pathWithStrokeColor:(UIColor *)strokeColor;
-- (void)drawAtPoint:(AnnotationPoint *)touchPoint;
-- (void)drawToPoint:(AnnotationPoint *)touchPoint;
+- (void)drawAtPoint:(OTAnnotationPoint *)touchPoint;
+- (void)drawToPoint:(OTAnnotationPoint *)touchPoint;
 
-+ (instancetype)pathWithPoints:(NSArray<AnnotationPoint *> *)points
++ (instancetype)pathWithPoints:(NSArray<OTAnnotationPoint *> *)points
                    strokeColor:(UIColor *)strokeColor;
 - (void)drawWholePath;
 @end

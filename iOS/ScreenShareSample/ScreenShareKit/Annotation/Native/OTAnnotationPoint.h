@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AnnotationPoint : NSObject
+@interface OTAnnotationPoint : NSObject
 @property (readonly, nonatomic) CGFloat x;
 @property (readonly, nonatomic) CGFloat y;
 - (instancetype)initWithX:(CGFloat)x

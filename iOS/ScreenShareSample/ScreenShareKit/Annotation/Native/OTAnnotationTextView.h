@@ -6,9 +6,9 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import <ScreenShareKit/Annotatable.h>
+#import <ScreenShareKit/OTAnnotatable.h>
 
-@interface AnnotationTextView: UITextView <Annotatable>
+@interface OTAnnotationTextView: UITextView <OTAnnotatable>
 
 + (instancetype)defaultWithTextColor:(UIColor *)textColor;
 

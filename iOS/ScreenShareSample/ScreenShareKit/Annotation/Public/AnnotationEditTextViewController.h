@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AnnotationTextView.h"
+#import "OTAnnotationTextView.h"
 
 @class AnnotationEditTextViewController;
 @protocol AnnotationEditTextViewProtocol <NSObject>
 - (void)annotationEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
-                        didFinishEditing:(AnnotationTextView *)annotationTextView;
+                        didFinishEditing:(OTAnnotationTextView *)annotationTextView;
 @end
 
 

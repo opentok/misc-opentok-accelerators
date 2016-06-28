@@ -7,12 +7,12 @@
 //
 
 #import "AnnotationEditTextViewController.h"
-#import "AnnotationTextView.h"
+#import "OTAnnotationTextView.h"
 
 @interface AnnotationEditTextViewController() <UIPickerViewDataSource, UIPickerViewDelegate> {
     BOOL shouldStatusShowAfterDismissal;
 }
-@property (nonatomic) AnnotationTextView *annotationTextView;
+@property (nonatomic) OTAnnotationTextView *annotationTextView;
 
 @property (nonatomic) NSArray<NSNumber *> * fontSizeArray;
 @property (weak, nonatomic) IBOutlet UIButton *changeFontButton;
@@ -48,7 +48,7 @@
         blurView.frame = CGRectMake(0, 0, CGRectGetWidth(mainBounds), CGRectGetHeight(mainBounds));
         [self.view insertSubview:blurView atIndex:0];
         
-        _annotationTextView  = [[AnnotationTextView alloc] initWithText:text textColor:textColor fontSize:fontSize];
+        _annotationTextView  = [[OTAnnotationTextView alloc] initWithText:text textColor:textColor fontSize:fontSize];
         [_annotationTextView setUserInteractionEnabled:NO];
         [self.view addSubview:_annotationTextView];
         

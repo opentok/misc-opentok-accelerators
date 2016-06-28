@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AnnotationView.h"
+#import "OTAnnotationView.h"
 
 @interface OTAnnotationScrollView ()
 
 @property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) UIView *scrollContentView;
-@property (nonatomic) AnnotationView *annotationView;
+@property (nonatomic) OTAnnotationView *annotationView;
 
 @end

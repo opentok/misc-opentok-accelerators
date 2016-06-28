@@ -205,7 +205,7 @@
 
 #pragma mark - ScreenShareEditTextViewProtocol
 - (void)annotationEditTextViewController:(AnnotationEditTextViewController *)editTextViewController
-                        didFinishEditing:(AnnotationTextView *)annotationTextView {
+                        didFinishEditing:(OTAnnotationTextView *)annotationTextView {
     
     if (annotationTextView) {
         [annotationTextView setEditable:NO];

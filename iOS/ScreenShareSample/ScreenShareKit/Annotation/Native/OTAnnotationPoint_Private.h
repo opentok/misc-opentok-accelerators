@@ -6,9 +6,9 @@
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "AnnotationPoint.h"
+#import "OTAnnotationPoint.h"
 
-@interface AnnotationPoint ()
+@interface OTAnnotationPoint ()
 - (instancetype)initWithTouchPoint:(UITouch *)touchPoint;
 - (CGPoint)CGPointValue;
 @end

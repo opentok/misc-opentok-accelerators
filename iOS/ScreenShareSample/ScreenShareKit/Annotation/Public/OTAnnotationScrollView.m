@@ -7,9 +7,9 @@
 //
 
 #import "OTAnnotationScrollView.h"
-#import "AnnotationPath.h"
-#import "AnnotationView.h"
-#import "AnnotationTextView.h"
+#import "OTAnnotationPath.h"
+#import "OTAnnotationView.h"
+#import "OTAnnotationTextView.h"
 
 #import "AnnotationEditTextViewController.h"
 #import "AnnotationScreenCaptureViewController.h"
@@ -63,7 +63,7 @@
 }
 
 - (void)setAnnotationColor:(UIColor *)annotationColor {
-    [self.annotationView setCurrentAnnotatable:[AnnotationPath pathWithStrokeColor:annotationColor]];
+    [self.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:annotationColor]];
 }
 
 - (instancetype)init {
@@ -146,7 +146,7 @@
         _annotationScrollViewHeigth.active = YES;
         
         // annotation view
-        _annotationView = [[AnnotationView alloc] init];
+        _annotationView = [[OTAnnotationView alloc] init];
         [_annotationView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [_scrollContentView addSubview:_annotationView];
         [NSLayoutConstraint constraintWithItem:_annotationView
@@ -182,7 +182,7 @@
 }
 
 - (void)addSubview:(UIView *)view {
-    if ([view conformsToProtocol:@protocol(Annotatable)] && !self.annotating) return;
+    if ([view conformsToProtocol:@protocol(OTAnnotatable)] && !self.annotating) return;
     [super addSubview:view];
 }
 
@@ -217,10 +217,10 @@
 }
 
 - (void)startDrawing {
-    [self.annotationView setCurrentAnnotatable:[AnnotationPath pathWithStrokeColor:self.annotationColor]];
+    [self.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:self.annotationColor]];
 }
 
-- (void)addTextAnnotation:(AnnotationTextView *)annotationTextView {
+- (void)addTextAnnotation:(OTAnnotationTextView *)annotationTextView {
     [self.scrollView setZoomScale:1.0 animated:NO];   // this will need to reset in case that added text view is out of bound
     annotationTextView.frame = CGRectMake(self.scrollView.contentOffset.x + LeadingPaddingOfAnnotationTextView,
                                           self.scrollView.contentOffset.y + annotationTextView.frame.origin.y,
