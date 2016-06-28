@@ -84,30 +84,11 @@
 		A09EA3271D20A14B00EFBD5D /* AnnotationEditTextViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3131D20A14B00EFBD5D /* AnnotationEditTextViewController.h */; };
 		A09EA3281D20A14B00EFBD5D /* AnnotationEditTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3141D20A14B00EFBD5D /* AnnotationEditTextViewController.m */; };
 		A09EA32A1D20A1DD00EFBD5D /* AnnotationColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3291D20A1DD00EFBD5D /* AnnotationColorPickerView.m */; };
-		A09EA3461D20A33900EFBD5D /* OTAnnotatable.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3351D20A33900EFBD5D /* OTAnnotatable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A09EA3471D20A33900EFBD5D /* OTAnnotationDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3361D20A33900EFBD5D /* OTAnnotationDataManager.h */; };
-		A09EA3481D20A33900EFBD5D /* OTAnnotationDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3371D20A33900EFBD5D /* OTAnnotationDataManager.m */; };
-		A09EA3491D20A33900EFBD5D /* OTAnnotationPath.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3381D20A33900EFBD5D /* OTAnnotationPath.h */; };
-		A09EA34A1D20A33900EFBD5D /* OTAnnotationPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3391D20A33900EFBD5D /* OTAnnotationPath.m */; };
-		A09EA34B1D20A33900EFBD5D /* OTAnnotationPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA33A1D20A33900EFBD5D /* OTAnnotationPoint.h */; };
-		A09EA34C1D20A33900EFBD5D /* OTAnnotationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA33B1D20A33900EFBD5D /* OTAnnotationPoint.m */; };
-		A09EA34D1D20A33900EFBD5D /* OTAnnotationPoint_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA33C1D20A33900EFBD5D /* OTAnnotationPoint_Private.h */; };
-		A09EA34E1D20A33900EFBD5D /* OTAnnotationTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA33D1D20A33900EFBD5D /* OTAnnotationTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A09EA34F1D20A33900EFBD5D /* OTAnnotationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA33E1D20A33900EFBD5D /* OTAnnotationTextView.m */; };
-		A09EA3501D20A33900EFBD5D /* OTAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA33F1D20A33900EFBD5D /* OTAnnotationView.h */; };
-		A09EA3511D20A33900EFBD5D /* OTAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3401D20A33900EFBD5D /* OTAnnotationView.m */; };
 		A09EA35B1D20A34E00EFBD5D /* AnnotationScreenCaptureView.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3571D20A34E00EFBD5D /* AnnotationScreenCaptureView.h */; };
 		A09EA35C1D20A34E00EFBD5D /* AnnotationScreenCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3581D20A34E00EFBD5D /* AnnotationScreenCaptureView.m */; };
 		A09EA35D1D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3591D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.h */; };
 		A09EA35E1D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA35A1D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.m */; };
 		A09EA3601D20A65C00EFBD5D /* OTAnnotationScrollView_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA35F1D20A65C00EFBD5D /* OTAnnotationScrollView_Private.h */; };
-		A09EA3611D20AD2200EFBD5D /* OTAnnotatable.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3351D20A33900EFBD5D /* OTAnnotatable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A09EA3621D20AD2200EFBD5D /* OTAnnotationDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3361D20A33900EFBD5D /* OTAnnotationDataManager.h */; };
-		A09EA3631D20AD2200EFBD5D /* OTAnnotationPath.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3381D20A33900EFBD5D /* OTAnnotationPath.h */; };
-		A09EA3641D20AD2200EFBD5D /* OTAnnotationPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA33A1D20A33900EFBD5D /* OTAnnotationPoint.h */; };
-		A09EA3651D20AD2200EFBD5D /* OTAnnotationPoint_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA33C1D20A33900EFBD5D /* OTAnnotationPoint_Private.h */; };
-		A09EA3661D20AD2200EFBD5D /* OTAnnotationTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA33D1D20A33900EFBD5D /* OTAnnotationTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A09EA3671D20AD2200EFBD5D /* OTAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA33F1D20A33900EFBD5D /* OTAnnotationView.h */; };
 		A09EA3681D20AD2200EFBD5D /* AnnotationScreenCaptureView.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3571D20A34E00EFBD5D /* AnnotationScreenCaptureView.h */; };
 		A09EA3691D20AD2200EFBD5D /* AnnotationScreenCaptureViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA3591D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.h */; };
 		A09EA36A1D20AD2200EFBD5D /* OTAnnotationScrollView_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A09EA35F1D20A65C00EFBD5D /* OTAnnotationScrollView_Private.h */; };
@@ -125,14 +106,31 @@
 		A09EA3761D20B53400EFBD5D /* OTFullScreenAnnotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3101D20A14B00EFBD5D /* OTFullScreenAnnotationViewController.m */; };
 		A09EA3771D20B53700EFBD5D /* AnnotationColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3291D20A1DD00EFBD5D /* AnnotationColorPickerView.m */; };
 		A09EA3781D20B53900EFBD5D /* AnnotationEditTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3141D20A14B00EFBD5D /* AnnotationEditTextViewController.m */; };
-		A09EA3791D20B54400EFBD5D /* OTAnnotationDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3371D20A33900EFBD5D /* OTAnnotationDataManager.m */; };
-		A09EA37A1D20B55C00EFBD5D /* OTAnnotationPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3391D20A33900EFBD5D /* OTAnnotationPath.m */; };
-		A09EA37B1D20B55C00EFBD5D /* OTAnnotationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA33B1D20A33900EFBD5D /* OTAnnotationPoint.m */; };
-		A09EA37C1D20B55C00EFBD5D /* OTAnnotationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA33E1D20A33900EFBD5D /* OTAnnotationTextView.m */; };
-		A09EA37D1D20B55C00EFBD5D /* OTAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA3401D20A33900EFBD5D /* OTAnnotationView.m */; };
 		A09EA37E1D20B55C00EFBD5D /* ScreenShareToolbarView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA2F41D20861600EFBD5D /* ScreenShareToolbarView+Animation.m */; };
 		A09EA37F1D20B55C00EFBD5D /* UIButton+AutoLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA2F61D20861600EFBD5D /* UIButton+AutoLayoutHelper.m */; };
 		A09EA3801D20B55C00EFBD5D /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A09EA2F81D20861600EFBD5D /* UIViewController+Helper.m */; };
+		A0DB70561D2310B300E14C86 /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB6FFD1D2310B300E14C86 /* AppDelegate.h */; };
+		A0DB70571D2310B300E14C86 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB6FFE1D2310B300E14C86 /* AppDelegate.m */; };
+		A0DB70581D2310B300E14C86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0DB6FFF1D2310B300E14C86 /* Assets.xcassets */; };
+		A0DB70591D2310B300E14C86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0DB70001D2310B300E14C86 /* LaunchScreen.storyboard */; };
+		A0DB705A1D2310B300E14C86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0DB70021D2310B300E14C86 /* Main.storyboard */; };
+		A0DB705B1D2310B300E14C86 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DB70041D2310B300E14C86 /* Info.plist */; };
+		A0DB705C1D2310B300E14C86 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB70051D2310B300E14C86 /* main.m */; };
+		A0DB705D1D2310B300E14C86 /* OTAnnotatable.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB70071D2310B300E14C86 /* OTAnnotatable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0DB705E1D2310B300E14C86 /* OTAnnotationDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB70081D2310B300E14C86 /* OTAnnotationDataManager.h */; };
+		A0DB705F1D2310B300E14C86 /* OTAnnotationDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB70091D2310B300E14C86 /* OTAnnotationDataManager.m */; };
+		A0DB70601D2310B300E14C86 /* OTAnnotationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB700A1D2310B300E14C86 /* OTAnnotationKit.h */; };
+		A0DB70611D2310B300E14C86 /* OTAnnotationPath.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB700B1D2310B300E14C86 /* OTAnnotationPath.h */; };
+		A0DB70621D2310B300E14C86 /* OTAnnotationPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB700C1D2310B300E14C86 /* OTAnnotationPath.m */; };
+		A0DB70631D2310B300E14C86 /* OTAnnotationPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB700D1D2310B300E14C86 /* OTAnnotationPoint.h */; };
+		A0DB70641D2310B300E14C86 /* OTAnnotationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB700E1D2310B300E14C86 /* OTAnnotationPoint.m */; };
+		A0DB70651D2310B300E14C86 /* OTAnnotationPoint_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB700F1D2310B300E14C86 /* OTAnnotationPoint_Private.h */; };
+		A0DB70661D2310B300E14C86 /* OTAnnotationTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB70101D2310B300E14C86 /* OTAnnotationTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0DB70671D2310B300E14C86 /* OTAnnotationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB70111D2310B300E14C86 /* OTAnnotationTextView.m */; };
+		A0DB70681D2310B300E14C86 /* OTAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB70121D2310B300E14C86 /* OTAnnotationView.h */; };
+		A0DB70691D2310B300E14C86 /* OTAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB70131D2310B300E14C86 /* OTAnnotationView.m */; };
+		A0DB706A1D2310B300E14C86 /* ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DB70141D2310B300E14C86 /* ViewController.h */; };
+		A0DB706B1D2310B300E14C86 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DB70151D2310B300E14C86 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +140,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = A09A4ABF1CD02A990024C349;
 			remoteInfo = ScreenShareKit;
+		};
+		A0DB70711D2310B300E14C86 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0DB70161D2310B300E14C86 /* AnnotationAccPackKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A0DB6E481D230BC900E14C86;
+			remoteInfo = AnnotationAccPackKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -210,24 +215,35 @@
 		A09EA3131D20A14B00EFBD5D /* AnnotationEditTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationEditTextViewController.h; sourceTree = "<group>"; };
 		A09EA3141D20A14B00EFBD5D /* AnnotationEditTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationEditTextViewController.m; sourceTree = "<group>"; };
 		A09EA3291D20A1DD00EFBD5D /* AnnotationColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationColorPickerView.m; sourceTree = "<group>"; };
-		A09EA3351D20A33900EFBD5D /* OTAnnotatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotatable.h; sourceTree = "<group>"; };
-		A09EA3361D20A33900EFBD5D /* OTAnnotationDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationDataManager.h; sourceTree = "<group>"; };
-		A09EA3371D20A33900EFBD5D /* OTAnnotationDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationDataManager.m; sourceTree = "<group>"; };
-		A09EA3381D20A33900EFBD5D /* OTAnnotationPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationPath.h; sourceTree = "<group>"; };
-		A09EA3391D20A33900EFBD5D /* OTAnnotationPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationPath.m; sourceTree = "<group>"; };
-		A09EA33A1D20A33900EFBD5D /* OTAnnotationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationPoint.h; sourceTree = "<group>"; };
-		A09EA33B1D20A33900EFBD5D /* OTAnnotationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationPoint.m; sourceTree = "<group>"; };
-		A09EA33C1D20A33900EFBD5D /* OTAnnotationPoint_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationPoint_Private.h; sourceTree = "<group>"; };
-		A09EA33D1D20A33900EFBD5D /* OTAnnotationTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationTextView.h; sourceTree = "<group>"; };
-		A09EA33E1D20A33900EFBD5D /* OTAnnotationTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationTextView.m; sourceTree = "<group>"; };
-		A09EA33F1D20A33900EFBD5D /* OTAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationView.h; sourceTree = "<group>"; };
-		A09EA3401D20A33900EFBD5D /* OTAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationView.m; sourceTree = "<group>"; };
 		A09EA3571D20A34E00EFBD5D /* AnnotationScreenCaptureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationScreenCaptureView.h; sourceTree = "<group>"; };
 		A09EA3581D20A34E00EFBD5D /* AnnotationScreenCaptureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationScreenCaptureView.m; sourceTree = "<group>"; };
 		A09EA3591D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationScreenCaptureViewController.h; sourceTree = "<group>"; };
 		A09EA35A1D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationScreenCaptureViewController.m; sourceTree = "<group>"; };
 		A09EA35F1D20A65C00EFBD5D /* OTAnnotationScrollView_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationScrollView_Private.h; sourceTree = "<group>"; };
 		A0A7D02E1CEA34C300252AEE /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		A0DB6FFD1D2310B300E14C86 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A0DB6FFE1D2310B300E14C86 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A0DB6FFF1D2310B300E14C86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A0DB70011D2310B300E14C86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A0DB70031D2310B300E14C86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A0DB70041D2310B300E14C86 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0DB70051D2310B300E14C86 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A0DB70071D2310B300E14C86 /* OTAnnotatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotatable.h; sourceTree = "<group>"; };
+		A0DB70081D2310B300E14C86 /* OTAnnotationDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationDataManager.h; sourceTree = "<group>"; };
+		A0DB70091D2310B300E14C86 /* OTAnnotationDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationDataManager.m; sourceTree = "<group>"; };
+		A0DB700A1D2310B300E14C86 /* OTAnnotationKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationKit.h; sourceTree = "<group>"; };
+		A0DB700B1D2310B300E14C86 /* OTAnnotationPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationPath.h; sourceTree = "<group>"; };
+		A0DB700C1D2310B300E14C86 /* OTAnnotationPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationPath.m; sourceTree = "<group>"; };
+		A0DB700D1D2310B300E14C86 /* OTAnnotationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationPoint.h; sourceTree = "<group>"; };
+		A0DB700E1D2310B300E14C86 /* OTAnnotationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationPoint.m; sourceTree = "<group>"; };
+		A0DB700F1D2310B300E14C86 /* OTAnnotationPoint_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationPoint_Private.h; sourceTree = "<group>"; };
+		A0DB70101D2310B300E14C86 /* OTAnnotationTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationTextView.h; sourceTree = "<group>"; };
+		A0DB70111D2310B300E14C86 /* OTAnnotationTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationTextView.m; sourceTree = "<group>"; };
+		A0DB70121D2310B300E14C86 /* OTAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationView.h; sourceTree = "<group>"; };
+		A0DB70131D2310B300E14C86 /* OTAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationView.m; sourceTree = "<group>"; };
+		A0DB70141D2310B300E14C86 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A0DB70151D2310B300E14C86 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A0DB70161D2310B300E14C86 /* AnnotationAccPackKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = AnnotationAccPackKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,7 +317,7 @@
 		A044C3AD1CED1D65000F7489 /* Annotation */ = {
 			isa = PBXGroup;
 			children = (
-				A09EA3341D20A33900EFBD5D /* Native */,
+				A0DB6F9B1D2310B300E14C86 /* annotation-acc-pack */,
 				A09EA30C1D20A14B00EFBD5D /* Public */,
 			);
 			path = Annotation;
@@ -412,25 +428,6 @@
 			path = Public;
 			sourceTree = "<group>";
 		};
-		A09EA3341D20A33900EFBD5D /* Native */ = {
-			isa = PBXGroup;
-			children = (
-				A09EA3351D20A33900EFBD5D /* OTAnnotatable.h */,
-				A09EA3361D20A33900EFBD5D /* OTAnnotationDataManager.h */,
-				A09EA3371D20A33900EFBD5D /* OTAnnotationDataManager.m */,
-				A09EA3381D20A33900EFBD5D /* OTAnnotationPath.h */,
-				A09EA3391D20A33900EFBD5D /* OTAnnotationPath.m */,
-				A09EA33A1D20A33900EFBD5D /* OTAnnotationPoint.h */,
-				A09EA33B1D20A33900EFBD5D /* OTAnnotationPoint.m */,
-				A09EA33C1D20A33900EFBD5D /* OTAnnotationPoint_Private.h */,
-				A09EA33D1D20A33900EFBD5D /* OTAnnotationTextView.h */,
-				A09EA33E1D20A33900EFBD5D /* OTAnnotationTextView.m */,
-				A09EA33F1D20A33900EFBD5D /* OTAnnotationView.h */,
-				A09EA3401D20A33900EFBD5D /* OTAnnotationView.m */,
-			);
-			path = Native;
-			sourceTree = "<group>";
-		};
 		A09EA3561D20A34E00EFBD5D /* OTScreenShareAndCapture */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +437,76 @@
 				A09EA35A1D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.m */,
 			);
 			path = OTScreenShareAndCapture;
+			sourceTree = "<group>";
+		};
+		A0DB6F9B1D2310B300E14C86 /* annotation-acc-pack */ = {
+			isa = PBXGroup;
+			children = (
+				A0DB6FFA1D2310B300E14C86 /* ios */,
+			);
+			path = "annotation-acc-pack";
+			sourceTree = "<group>";
+		};
+		A0DB6FFA1D2310B300E14C86 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				A0DB6FFB1D2310B300E14C86 /* AnnotationAccPackKit */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		A0DB6FFB1D2310B300E14C86 /* AnnotationAccPackKit */ = {
+			isa = PBXGroup;
+			children = (
+				A0DB6FFC1D2310B300E14C86 /* AnnotationAccPackKit */,
+				A0DB70161D2310B300E14C86 /* AnnotationAccPackKit.xcodeproj */,
+			);
+			path = AnnotationAccPackKit;
+			sourceTree = "<group>";
+		};
+		A0DB6FFC1D2310B300E14C86 /* AnnotationAccPackKit */ = {
+			isa = PBXGroup;
+			children = (
+				A0DB6FFD1D2310B300E14C86 /* AppDelegate.h */,
+				A0DB6FFE1D2310B300E14C86 /* AppDelegate.m */,
+				A0DB6FFF1D2310B300E14C86 /* Assets.xcassets */,
+				A0DB70001D2310B300E14C86 /* LaunchScreen.storyboard */,
+				A0DB70021D2310B300E14C86 /* Main.storyboard */,
+				A0DB70041D2310B300E14C86 /* Info.plist */,
+				A0DB70051D2310B300E14C86 /* main.m */,
+				A0DB70061D2310B300E14C86 /* OTAnnotationKit */,
+				A0DB70141D2310B300E14C86 /* ViewController.h */,
+				A0DB70151D2310B300E14C86 /* ViewController.m */,
+			);
+			path = AnnotationAccPackKit;
+			sourceTree = "<group>";
+		};
+		A0DB70061D2310B300E14C86 /* OTAnnotationKit */ = {
+			isa = PBXGroup;
+			children = (
+				A0DB70071D2310B300E14C86 /* OTAnnotatable.h */,
+				A0DB70081D2310B300E14C86 /* OTAnnotationDataManager.h */,
+				A0DB70091D2310B300E14C86 /* OTAnnotationDataManager.m */,
+				A0DB700A1D2310B300E14C86 /* OTAnnotationKit.h */,
+				A0DB700B1D2310B300E14C86 /* OTAnnotationPath.h */,
+				A0DB700C1D2310B300E14C86 /* OTAnnotationPath.m */,
+				A0DB700D1D2310B300E14C86 /* OTAnnotationPoint.h */,
+				A0DB700E1D2310B300E14C86 /* OTAnnotationPoint.m */,
+				A0DB700F1D2310B300E14C86 /* OTAnnotationPoint_Private.h */,
+				A0DB70101D2310B300E14C86 /* OTAnnotationTextView.h */,
+				A0DB70111D2310B300E14C86 /* OTAnnotationTextView.m */,
+				A0DB70121D2310B300E14C86 /* OTAnnotationView.h */,
+				A0DB70131D2310B300E14C86 /* OTAnnotationView.m */,
+			);
+			path = OTAnnotationKit;
+			sourceTree = "<group>";
+		};
+		A0DB70171D2310B300E14C86 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0DB70721D2310B300E14C86 /* AnnotationAccPackKit.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		F8D50F20395D3A2BD4C93CA8 /* Pods */ = {
@@ -458,28 +525,31 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DB705D1D2310B300E14C86 /* OTAnnotatable.h in Headers */,
 				A09EA35D1D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.h in Headers */,
+				A0DB70611D2310B300E14C86 /* OTAnnotationPath.h in Headers */,
 				A09EA2F01D1F86E500EFBD5D /* OTAnnotationToolbarView_UserInterfaces.h in Headers */,
+				A0DB70661D2310B300E14C86 /* OTAnnotationTextView.h in Headers */,
 				A09EA35B1D20A34E00EFBD5D /* AnnotationScreenCaptureView.h in Headers */,
 				A09EA3231D20A14B00EFBD5D /* OTFullScreenAnnotationViewController.h in Headers */,
-				A09EA3461D20A33900EFBD5D /* OTAnnotatable.h in Headers */,
-				A09EA34E1D20A33900EFBD5D /* OTAnnotationTextView.h in Headers */,
-				A09EA3501D20A33900EFBD5D /* OTAnnotationView.h in Headers */,
+				A0DB70601D2310B300E14C86 /* OTAnnotationKit.h in Headers */,
+				A0DB70681D2310B300E14C86 /* OTAnnotationView.h in Headers */,
 				A09EA3211D20A14B00EFBD5D /* OTAnnotationScrollView.h in Headers */,
+				A0DB705E1D2310B300E14C86 /* OTAnnotationDataManager.h in Headers */,
+				A0DB70561D2310B300E14C86 /* AppDelegate.h in Headers */,
 				A09EA2FD1D20861600EFBD5D /* UIViewController+Helper.h in Headers */,
-				A09EA34D1D20A33900EFBD5D /* OTAnnotationPoint_Private.h in Headers */,
+				A0DB70651D2310B300E14C86 /* OTAnnotationPoint_Private.h in Headers */,
 				A09EA2DE1D1E041700EFBD5D /* OTAnnotationToolbarView_Private.h in Headers */,
-				A09EA34B1D20A33900EFBD5D /* OTAnnotationPoint.h in Headers */,
 				A012A17F1CEE7AFB00935C9E /* ScreenShareKit.h in Headers */,
-				A09EA3491D20A33900EFBD5D /* OTAnnotationPath.h in Headers */,
+				A0DB70631D2310B300E14C86 /* OTAnnotationPoint.h in Headers */,
 				A0166D371CF4CD7600DED33F /* OTAnnotationToolbarView.h in Headers */,
 				3F2E19771CF8EDD600465198 /* ScreenSharer.h in Headers */,
 				A09EA3601D20A65C00EFBD5D /* OTAnnotationScrollView_Private.h in Headers */,
 				A09EA3251D20A14B00EFBD5D /* AnnotationColorPickerView.h in Headers */,
 				A09EA3271D20A14B00EFBD5D /* AnnotationEditTextViewController.h in Headers */,
 				A0166D451CF505A400DED33F /* AnnotationToolbarButton.h in Headers */,
+				A0DB706A1D2310B300E14C86 /* ViewController.h in Headers */,
 				A09EA2F91D20861600EFBD5D /* ScreenShareToolbarView+Animation.h in Headers */,
-				A09EA3471D20A33900EFBD5D /* OTAnnotationDataManager.h in Headers */,
 				A09EA2FB1D20861600EFBD5D /* UIButton+AutoLayoutHelper.h in Headers */,
 				A063BCD41D0F4AE100AB02A3 /* TBScreenCapture.h in Headers */,
 			);
@@ -491,16 +561,9 @@
 			files = (
 				A09EA2DF1D1E041E00EFBD5D /* OTAnnotationToolbarView_Private.h in Headers */,
 				A09EA36C1D20AD2200EFBD5D /* OTFullScreenAnnotationViewController.h in Headers */,
-				A09EA3661D20AD2200EFBD5D /* OTAnnotationTextView.h in Headers */,
-				A09EA3611D20AD2200EFBD5D /* OTAnnotatable.h in Headers */,
 				A09EA36B1D20AD2200EFBD5D /* OTAnnotationScrollView.h in Headers */,
 				A09D4F611D17174A007B349E /* ScreenShareKit.h in Headers */,
 				A09D4F621D17174A007B349E /* OTAnnotationToolbarView.h in Headers */,
-				A09EA3621D20AD2200EFBD5D /* OTAnnotationDataManager.h in Headers */,
-				A09EA3631D20AD2200EFBD5D /* OTAnnotationPath.h in Headers */,
-				A09EA3641D20AD2200EFBD5D /* OTAnnotationPoint.h in Headers */,
-				A09EA3651D20AD2200EFBD5D /* OTAnnotationPoint_Private.h in Headers */,
-				A09EA3671D20AD2200EFBD5D /* OTAnnotationView.h in Headers */,
 				A09EA3681D20AD2200EFBD5D /* AnnotationScreenCaptureView.h in Headers */,
 				A09EA3691D20AD2200EFBD5D /* AnnotationScreenCaptureViewController.h in Headers */,
 				A09EA36A1D20AD2200EFBD5D /* OTAnnotationScrollView_Private.h in Headers */,
@@ -639,6 +702,12 @@
 			mainGroup = A09A4A981CD02A800024C349;
 			productRefGroup = A09A4AA21CD02A800024C349 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A0DB70171D2310B300E14C86 /* Products */;
+					ProjectRef = A0DB70161D2310B300E14C86 /* AnnotationAccPackKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				A09A4AA01CD02A800024C349 /* ScreenShareSample */,
@@ -650,6 +719,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A0DB70721D2310B300E14C86 /* AnnotationAccPackKit.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = AnnotationAccPackKit.app;
+			remoteRef = A0DB70711D2310B300E14C86 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A071EAAC1D0E879200C0D418 /* Resources */ = {
@@ -678,6 +757,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DB705A1D2310B300E14C86 /* Main.storyboard in Resources */,
+				A0DB70591D2310B300E14C86 /* LaunchScreen.storyboard in Resources */,
+				A0DB70581D2310B300E14C86 /* Assets.xcassets in Resources */,
+				A0DB705B1D2310B300E14C86 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,21 +887,24 @@
 			files = (
 				A09EA3241D20A14B00EFBD5D /* OTFullScreenAnnotationViewController.m in Sources */,
 				A09EA35C1D20A34E00EFBD5D /* AnnotationScreenCaptureView.m in Sources */,
-				A09EA3511D20A33900EFBD5D /* OTAnnotationView.m in Sources */,
 				A09EA2FC1D20861600EFBD5D /* UIButton+AutoLayoutHelper.m in Sources */,
-				A09EA34F1D20A33900EFBD5D /* OTAnnotationTextView.m in Sources */,
 				A09EA2FE1D20861600EFBD5D /* UIViewController+Helper.m in Sources */,
 				3F2E19781CF8EDD600465198 /* ScreenSharer.m in Sources */,
 				A09EA35E1D20A34E00EFBD5D /* AnnotationScreenCaptureViewController.m in Sources */,
 				A0166D381CF4CD7600DED33F /* OTAnnotationToolbarView.m in Sources */,
 				A09EA32A1D20A1DD00EFBD5D /* AnnotationColorPickerView.m in Sources */,
-				A09EA3481D20A33900EFBD5D /* OTAnnotationDataManager.m in Sources */,
-				A09EA34A1D20A33900EFBD5D /* OTAnnotationPath.m in Sources */,
+				A0DB70641D2310B300E14C86 /* OTAnnotationPoint.m in Sources */,
 				A0166D461CF505A400DED33F /* AnnotationToolbarButton.m in Sources */,
-				A09EA34C1D20A33900EFBD5D /* OTAnnotationPoint.m in Sources */,
+				A0DB705C1D2310B300E14C86 /* main.m in Sources */,
+				A0DB705F1D2310B300E14C86 /* OTAnnotationDataManager.m in Sources */,
 				A063BCD51D0F4AE100AB02A3 /* TBScreenCapture.m in Sources */,
+				A0DB70671D2310B300E14C86 /* OTAnnotationTextView.m in Sources */,
 				A09EA3281D20A14B00EFBD5D /* AnnotationEditTextViewController.m in Sources */,
 				A09EA3221D20A14B00EFBD5D /* OTAnnotationScrollView.m in Sources */,
+				A0DB706B1D2310B300E14C86 /* ViewController.m in Sources */,
+				A0DB70691D2310B300E14C86 /* OTAnnotationView.m in Sources */,
+				A0DB70571D2310B300E14C86 /* AppDelegate.m in Sources */,
+				A0DB70621D2310B300E14C86 /* OTAnnotationPath.m in Sources */,
 				A09EA2FA1D20861600EFBD5D /* ScreenShareToolbarView+Animation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -827,10 +913,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A09EA37A1D20B55C00EFBD5D /* OTAnnotationPath.m in Sources */,
-				A09EA37B1D20B55C00EFBD5D /* OTAnnotationPoint.m in Sources */,
-				A09EA37C1D20B55C00EFBD5D /* OTAnnotationTextView.m in Sources */,
-				A09EA37D1D20B55C00EFBD5D /* OTAnnotationView.m in Sources */,
 				A09EA37E1D20B55C00EFBD5D /* ScreenShareToolbarView+Animation.m in Sources */,
 				A09EA37F1D20B55C00EFBD5D /* UIButton+AutoLayoutHelper.m in Sources */,
 				A09EA3801D20B55C00EFBD5D /* UIViewController+Helper.m in Sources */,
@@ -842,7 +924,6 @@
 				A09D4F551D17174A007B349E /* OTAnnotationToolbarView.m in Sources */,
 				A09D4F571D17174A007B349E /* AnnotationToolbarButton.m in Sources */,
 				A09D4F581D17174A007B349E /* TBScreenCapture.m in Sources */,
-				A09EA3791D20B54400EFBD5D /* OTAnnotationDataManager.m in Sources */,
 				A09EA3741D20B52D00EFBD5D /* AnnotationScreenCaptureViewController.m in Sources */,
 				A09EA3731D20B52B00EFBD5D /* AnnotationScreenCaptureView.m in Sources */,
 			);
@@ -873,6 +954,22 @@
 				A09A4AB31CD02A800024C349 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A0DB70001D2310B300E14C86 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0DB70011D2310B300E14C86 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A0DB70021D2310B300E14C86 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0DB70031D2310B300E14C86 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

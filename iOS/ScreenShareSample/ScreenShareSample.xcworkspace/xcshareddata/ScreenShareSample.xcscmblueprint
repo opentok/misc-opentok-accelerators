@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B30A9E5CBA8F40FA672E0D5FBF52C03A467C55DC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1D5D9936A33161FB79D944EC3A0448ECD07C7720" : 0,
+    "B30A9E5CBA8F40FA672E0D5FBF52C03A467C55DC" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F31B6117-9015-4578-8F3B-B2EDB991D7BF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1D5D9936A33161FB79D944EC3A0448ECD07C7720" : "screensharing-annotation-acc-pack\/iOS\/ScreenShareSample\/ScreenShareKit\/Annotation\/annotation-acc-pack\/",
+    "B30A9E5CBA8F40FA672E0D5FBF52C03A467C55DC" : "screensharing-annotation-acc-pack\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ScreenShareSample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS\/ScreenShareSample\/ScreenShareSample.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/annotation-acc-pack.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1D5D9936A33161FB79D944EC3A0448ECD07C7720"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opentok\/screensharing-annotation-acc-pack.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B30A9E5CBA8F40FA672E0D5FBF52C03A467C55DC"
+    }
+  ]
+}
