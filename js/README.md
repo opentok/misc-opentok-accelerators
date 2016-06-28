@@ -18,7 +18,7 @@ This guide has the following sections:
 To be prepared to develop your text chat app:
 
 1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
-2. Either run the [build-sample.sh script](./build-sample.sh), or download the [opentok-text-chat.js](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.
+2. Either run the [build-sample.sh script](./build-sample.sh), or download and extract the [text-chat-acc-pack.js](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.
 3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
@@ -90,14 +90,14 @@ This class sets up the text chat UI views and events, and provides functions for
 
 #### Initialization
 
-  The following `options` fields are used in the `TextChatAccPack` constructor:
+The following `options` fields are used in the `TextChatAccPack` constructor:<br/>
 
-  | Feature        | Field  |
-  | ------------- | ------------- |
-  | Set the chat container.   | `container`  |
-  | Sets the position of the element that displays the information for the character count within the UI.   | `charCountElement`  |
-  | Set the maximum chat text length.   | `limitCharacterMessage`  |
-  | Set the sender alias and the sender ID of the outgoing messages.  | `senderAlias`, `senderId`  |
+| Feature        | Field  |
+| ------------- | ------------- |
+| Set the chat container. | `container`  |
+| Sets the position of the element that displays the information for the character count within the UI. | `charCountElement`  |
+| Set the maximum chat text length. | `limitCharacterMessage`  |
+| Set the sender alias and the sender ID of the outgoing messages. | `senderAlias`, `senderId`  |
 
 
   In this initialization code, the `TextChatAccPack` object is initialized.
@@ -113,7 +113,7 @@ This class sets up the text chat UI views and events, and provides functions for
   ```
 
 
-  #### Sending and receiving messages
+#### Sending and receiving messages
 
   The `TextChat` component defines `showTextChat()` and `hideTextChat()` methods to show or hide text chat view.
 
@@ -126,9 +126,9 @@ This class sets up the text chat UI views and events, and provides functions for
 
   ```
 
-  #### Events
+#### Events
 
-   The `TextChat` component emits a `messageReceived` event when a new message is received.
+  The `TextChat` component emits a `messageReceived` event when a new message is received.
 
   The `TextChat` component emits a `messageSent` event when a new message is sent.
 
