@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "OTAcceleratorPackUtil"
-  s.version          = "1.1.0"
+  s.version          = "1.0.4"
   s.summary          = "Common Accelerator Session Pack Version 0.9."
 
 # This description is used to generate tags and improve search results.
@@ -22,7 +22,7 @@ s.description      = "The Common Accelerator Session Pack is required whenever y
 On the Android and iOS mobile platforms, when you try to set a listener (Android) or delegate (iOS), it is not normally possible to set multiple listeners or delegates for the same event. For example, on these mobile platforms you can only set one OpenTok signal listener. The Common Accelerator Session Pack, however, allows you to set up several listeners for the same event."
 
   s.homepage         = "https://github.com/opentok/acc-pack-common"
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.license          = { :type => 'MIT', :file => 'iOS/LICENSE' }
   s.author           = { "Lucas Huang" => "lucas@tokbox.com" }
   s.source           = { :git => "https://github.com/opentok/acc-pack-common.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/tokbox'
@@ -32,6 +32,5 @@ On the Android and iOS mobile platforms, when you try to set a listener (Android
 
   s.source_files = 'iOS/OTAcceleratorPackUtil/Classes/*'
   s.public_header_files = 'iOS/OTAcceleratorPackUtil/Classes/*.h'
-  s.dependency 'OTKAnalytics'
   s.dependency 'OpenTok'
 end
