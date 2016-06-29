@@ -1,12 +1,12 @@
 #import "MainView.h"
 #import "MainViewController.h"
-#import <TextChatKit/TextChatKit.h>
+#import <OTTextChatKit/OTTextChatKit.h>
 #import "SVProgressHUD.h"
 #import "OneToOneCommunicator.h"
 
 @interface MainViewController ()
 @property (nonatomic) MainView *mainView;
-@property (nonatomic) TextChatView *textChatView;
+@property (nonatomic) OTTextChatView *textChatView;
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
 @end
 
@@ -18,33 +18,35 @@
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
     //self.textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
-    self.textChatView = [TextChatView textChatView];
+    self.textChatView = [OTTextChatView textChatView];
 
     // optional config for set the max amount of character permited per message
     [self.textChatView setMaximumTextMessageLength:200];
     // optional to be able to set the Alias for show in the top bar and on the messages (Name of the sender)
     [self.textChatView setAlias:@"Tokboxer"];
+#if !(TARGET_OS_SIMULATOR)
+    [self.mainView showReverseCameraButton];
+#endif
 }
 
-/**
- * toggles the call start/end handles the color of the buttons
- */
 - (IBAction)publisherCallButtonPressed:(UIButton *)sender {
     
     [SVProgressHUD show];
     
     if (!self.oneToOneCommunicator.isCallEnabled) {
-        [self.mainView setTextChatHolderUserInteractionEnabled:YES];
-        [self.textChatView connect];
         [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
-
-            [SVProgressHUD dismiss];
-            [self.mainView connectCallHolder:self.oneToOneCommunicator.isCallEnabled];
             if (!error) {
+                [SVProgressHUD dismiss];
+                [self.mainView setTextChatHolderUserInteractionEnabled:YES];
+                [self.textChatView connect];
+                [self.mainView connectCallHolder:self.oneToOneCommunicator.isCallEnabled];
+                [self.mainView updateControlButtonsForCall:YES];
                 [self handleCommunicationSignal:signal];
             }
+            else {
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            }
         }];
-        [self.mainView buttonsStatusSetter:YES];
     }
     else {
 
@@ -57,12 +59,12 @@
         [self.mainView removePublisherView];
         [self.mainView removePlaceHolderImage];
         [self.mainView setTextChatHolderUserInteractionEnabled:NO];
+        [self.mainView updateControlButtonsForCall:NO];
         [self.mainView resetUIInterface];
     }
 }
 
 - (void)handleCommunicationSignal:(OneToOneCommunicationSignal)signal {
-
 
     switch (signal) {
         case OneToOneCommunicationSignalSessionDidConnect: {
@@ -123,35 +125,23 @@
     }
 }
 
-/**
- * toggles the audio comming from the publisher
- */
 - (IBAction)publisherAudioButtonPressed:(UIButton *)sender {
-
-    [self.mainView mutePubliserhMic:self.oneToOneCommunicator.publishAudio];
     self.oneToOneCommunicator.publishAudio = !self.oneToOneCommunicator.publishAudio;
+    [self.mainView mutePubliserhMic:self.oneToOneCommunicator.publishAudio];
 }
 
-/**
- * toggles the video comming from the publisher
- */
 - (IBAction)publisherVideoButtonPressed:(UIButton *)sender {
-
+    self.oneToOneCommunicator.publishVideo = !self.oneToOneCommunicator.publishVideo;
     if (self.oneToOneCommunicator.publishVideo) {
+        [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
+    }
+    else {
         [self.mainView removePublisherView];
         [self.mainView addPlaceHolderToPublisherView];
     }
-    else {
-        [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
-    }
-
     [self.mainView connectPubliserVideo:self.oneToOneCommunicator.publishVideo];
-    self.oneToOneCommunicator.publishVideo = !self.oneToOneCommunicator.publishVideo;
 }
 
-/**
- * toggle the camera position (front camera) <=> (back camera)
- */
 - (IBAction)publisherCameraButtonPressed:(UIButton *)sender {
     if (self.oneToOneCommunicator.cameraPosition == AVCaptureDevicePositionBack) {
         self.oneToOneCommunicator.cameraPosition = AVCaptureDevicePositionFront;
@@ -161,23 +151,16 @@
     }
 }
 
-/**
- * toggles the video comming from the subscriber
- */
 - (IBAction)subscriberVideoButtonPressed:(UIButton *)sender {
-
-    [self.mainView connectSubsciberVideo:self.oneToOneCommunicator.subscribeToVideo];
     self.oneToOneCommunicator.subscribeToVideo = !self.oneToOneCommunicator.subscribeToVideo;
+    [self.mainView connectSubsciberVideo:self.oneToOneCommunicator.subscribeToVideo];
 }
 
-/**
- * toggles the audio comming from the susbscriber
- */
 - (IBAction)subscriberAudioButtonPressed:(UIButton *)sender {
-
-    [self.mainView muteSubscriberMic:self.oneToOneCommunicator.subscribeToAudio];
     self.oneToOneCommunicator.subscribeToAudio = !self.oneToOneCommunicator.subscribeToAudio;
+    [self.mainView muteSubscriberMic:self.oneToOneCommunicator.subscribeToAudio];
 }
+
 /**
  * action to handle the textchat to be attached into the main view, also add the listeners for show the keyboard
  * and set the title for the top bar in the text chat component
@@ -197,7 +180,9 @@
  * subscriber actions within 7 seconds
 */
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self.mainView showSubscriberControls:YES];
+    if (self.oneToOneCommunicator.subscriberView){
+        [self.mainView showSubscriberControls:YES];
+    }
     [self.mainView performSelector:@selector(showSubscriberControls:)
                         withObject:nil
                         afterDelay:7.0];

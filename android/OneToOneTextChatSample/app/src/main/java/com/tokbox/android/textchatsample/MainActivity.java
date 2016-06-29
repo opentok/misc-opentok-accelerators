@@ -2,6 +2,8 @@ package com.tokbox.android.textchatsample;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -17,12 +19,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tokbox.android.accpack.OneToOneCommunication;
 import com.tokbox.android.accpack.textchat.ChatMessage;
 import com.tokbox.android.accpack.textchat.TextChatFragment;
+import com.tokbox.android.logging.OTKAnalytics;
+import com.tokbox.android.logging.OTKAnalyticsData;
 import com.tokbox.android.textchatsample.config.OpenTokConfig;
 import com.tokbox.android.textchatsample.ui.PreviewCameraFragment;
 import com.tokbox.android.textchatsample.ui.PreviewControlFragment;
 import com.tokbox.android.textchatsample.ui.RemoteControlFragment;
+
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements OneToOneCommunication.Listener, PreviewControlFragment.PreviewControlCallbacks,
         RemoteControlFragment.RemoteControlCallbacks, PreviewCameraFragment.PreviewCameraCallbacks, TextChatFragment.TextChatListener{
@@ -59,11 +66,32 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     //Dialog
     ProgressDialog mProgressDialog;
 
+    private OTKAnalyticsData mAnalyticsData;
+    private OTKAnalytics mAnalytics;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(LOG_TAG, "onCreate");
 
         super.onCreate(savedInstanceState);
+
+        //Init the analytics logging for internal use
+        String source = this.getPackageName();
+
+        SharedPreferences prefs = this.getSharedPreferences("opentok", Context.MODE_PRIVATE);
+        String guidVSol = prefs.getString("guidVSol", null);
+        if (null == guidVSol) {
+            guidVSol = UUID.randomUUID().toString();
+            prefs.edit().putString("guidVSol", guidVSol).commit();
+        }
+
+        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.LOG_CLIENT_VERSION, source, OpenTokConfig.LOG_COMPONENTID, guidVSol).build();
+        mAnalytics = new OTKAnalytics(mAnalyticsData);
+
+        //add INITIALIZE attempt log event
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
         setContentView(R.layout.activity_main);
 
         mPreviewViewContainer = (RelativeLayout) findViewById(R.id.publisherview);
@@ -81,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
 
         //init 1to1 communication object
-        mComm = new OneToOneCommunication(MainActivity.this);
+        mComm = new OneToOneCommunication(MainActivity.this, OpenTokConfig.SESSION_ID, OpenTokConfig.TOKEN, OpenTokConfig.API_KEY);
         //set listener to receive the communication events, and add UI to these events
         mComm.setListener(this);
         mComm.init();
@@ -101,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.setTitle("Please wait");
         mProgressDialog.setMessage("Connecting...");
         mProgressDialog.show();
+
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+
     }
 
     @Override
@@ -171,9 +202,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onCall() {
         if (mComm != null && mComm.isStarted()) {
+            addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             mComm.end();
             cleanViewsAndControls();
+            addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
         } else {
+            addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             mComm.start();
             if (mPreviewFragment != null) {
                 mPreviewFragment.setEnabled(true);
@@ -185,12 +219,16 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onTextChat() {
         if (mTextChatContainer.getVisibility() == View.VISIBLE){
+            addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE_TEXTCHAT, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             mTextChatContainer.setVisibility(View.GONE);
             showAVCall(true);
+            addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE_TEXTCHAT, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
         else {
+            addLogEvent(OpenTokConfig.LOG_ACTION_OPEN_TEXTCHAT, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             showAVCall(false);
             mTextChatContainer.setVisibility(View.VISIBLE);
+            addLogEvent(OpenTokConfig.LOG_ACTION_OPEN_TEXTCHAT, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
     }
 
@@ -228,6 +266,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             mTextChatFragment.setSenderAlias("Tokboxer");
             mTextChatFragment.setListener(this);
         }
+
+        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     //OneToOneCommunication callbacks
@@ -431,5 +471,11 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private int dpToPx(int dp) {
         double screenDensity = this.getResources().getDisplayMetrics().density;
         return (int) (screenDensity * (double) dp);
+    }
+
+    private void addLogEvent(String action, String variation){
+        if ( mAnalytics!= null ) {
+            mAnalytics.logEvent(action, variation);
+        }
     }
 }

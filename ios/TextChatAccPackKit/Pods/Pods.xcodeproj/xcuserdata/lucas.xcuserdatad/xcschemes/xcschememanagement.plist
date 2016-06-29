@@ -8,41 +8,49 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>OTAcceleratorPackUtil.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
-		<key>Pods-TextChatKit.xcscheme</key>
+		<key>Pods-OTTextChatKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
-		<key>Pods-TextChatKitTests.xcscheme</key>
+		<key>Pods-OTTextChatKitTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>2E6E9DF5AF5D605087177FD219C13D4C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4CB3F7F46945EE16A19F86EAB6FC5CAF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8B476923160085D005F260C15CDCF39C</key>
+		<key>7A3BCB166F60BE4035ABC1E1C3423A34</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>BDD17FE2C2326B8D034D52B32AC8E208</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EFB8120C615288C75BB05C56B8424604</key>
 		<dict>
 			<key>primary</key>
 			<true/>
