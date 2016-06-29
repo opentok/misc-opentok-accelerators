@@ -122,10 +122,15 @@ You may also set the `SUBSCRIBE_TO_SELF` constant. Its default value, `false`, m
 public static final boolean SUBSCRIBE_TO_SELF = false;
 ```
 
-You can enable or disable the subscribeToSelf feature using:
+You can enable or disable the `SUBSCRIBE_TO_SELF` feature by invoking the `OneToOneCommunication.setSubscribeToSelf()` method:
 
 ```java
- OneToOneCommunication comm = new OneToOneCommunication(MainActivity.this, OpenTokConfig.SESSION_ID, OpenTokConfig.TOKEN, OpenTokConfig.API_KEY);
+OneToOneCommunication comm = new OneToOneCommunication(
+  MainActivity.this, 
+  OpenTokConfig.SESSION_ID, 
+  OpenTokConfig.TOKEN, 
+  OpenTokConfig.API_KEY
+);
 
 comm.setSubscribeToSelf(OpenTokConfig.SUBSCRIBE_TO_SELF);
 
