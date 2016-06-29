@@ -12,9 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-/**
- * Created by mserrano on 25/05/16.
- */
 public class ScreenSharingBar extends RelativeLayout{
 
     private TextView mTextView;
@@ -22,6 +19,11 @@ public class ScreenSharingBar extends RelativeLayout{
     private ImageButton mScreenSharingInfo;
     private ScreenSharingBarListener mListener;
 
+    /*
+     * Constructor.
+     * @param context Application context
+     * @param listener ScreenSharingBarListener
+     */
     public ScreenSharingBar(Context context, ScreenSharingBarListener listener) {
         super(context);
 
@@ -60,7 +62,16 @@ public class ScreenSharingBar extends RelativeLayout{
         this.addView(mTextView, params);
     }
 
+    /**
+     * Monitors state changes in the Screensharing Bar.
+     *
+     */
     public static interface ScreenSharingBarListener {
+
+        /**
+         * Invoked when Close button is clicked.
+         *
+         */
         public void onClose();
     }
 
