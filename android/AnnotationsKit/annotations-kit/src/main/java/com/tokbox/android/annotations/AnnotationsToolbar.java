@@ -33,13 +33,110 @@ public class AnnotationsToolbar extends LinearLayout {
 
     private ActionsListener mActionsListener;
 
+    /**
+     * Monitors state changes in the AnnotationsToolbar.
+     *
+     **/
     public  interface ActionsListener {
+
+        /**
+         * Invoked when a new AnnotationsToolbar's item is clicked
+         *
+         * @param v View: item
+         * @param selected Whether the item has been selected (<code>true</code>) or not (
+         *                 <code>false</code>).
+         */
         void onItemSelected(View v, boolean selected);
         void onColorSelected(int color);
     }
 
+    /**
+     * Set AnnotationsToolbar listener
+     * @param listener: ActionsListener
+     **/
     public void setActionListener(ActionsListener listener) {
         this.mActionsListener = listener;
+    }
+
+
+    /**
+     * Constructor
+     * @param context Application context
+     **/
+    public AnnotationsToolbar(Context context) {
+        super(context);
+        mContext = context;
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+
+        init();
+    }
+
+    /*
+     * Constructor
+     * @param context Application context
+     * @param attrs A collection of attributes
+     **/
+    public AnnotationsToolbar(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mContext = context;
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+
+        init();
+    }
+
+    private void init() {
+        rootView = inflate(mContext, R.layout.annotations_toolbar, this);
+        mMainToolbar = (LinearLayout) rootView.findViewById(R.id.main_toolbar);
+
+        mColorToolbar = (LinearLayout) rootView.findViewById(R.id.color_toolbar);
+        mColorScrollView = (HorizontalScrollView) rootView.findViewById(R.id.color_view);
+        mFreeHandBtn = (ImageButton) mMainToolbar.findViewById(R.id.draw_freehand);
+        mPickerColorBtn = (ImageButton) mMainToolbar.findViewById(R.id.picker_color);
+        mTypeBtn = (ImageButton) mMainToolbar.findViewById(R.id.type_tool);
+        mScreenshotBtn = (ImageButton) mMainToolbar.findViewById(R.id.screenshot);
+        mEraseBtn = (ImageButton) mMainToolbar.findViewById(R.id.erase);
+        mDoneBtn = (TextView) mMainToolbar.findViewById(R.id.done);
+
+        final int mCount = mColorToolbar.getChildCount();
+
+        int [] colors = {R.color.picker_color_blue,  R.color.picker_color_purple, R.color.picker_color_red, R.color.picker_color_orange,
+                R.color.picker_color_yellow, R.color.picker_color_green,  R.color.picker_color_black, R.color.picker_color_gray, R.color.picker_color_white};
+
+        // Loop through all of the children.
+        for (int i = 0; i < mCount; ++i) {
+            mColorToolbar.getChildAt(i).setOnClickListener(colorClickListener);
+            ((ImageButton)mColorToolbar.getChildAt(i)).setColorFilter(getResources().getColor(colors [i]));
+        }
+
+        //Init actions
+        mFreeHandBtn.setOnClickListener(mActionsClickListener);
+        mTypeBtn.setOnClickListener(mActionsClickListener);
+        mEraseBtn.setOnClickListener(mActionsClickListener);
+        mScreenshotBtn.setOnClickListener(mActionsClickListener);
+        mPickerColorBtn.setOnClickListener(mActionsClickListener);
+        mDoneBtn.setOnClickListener(mActionsClickListener);
+
+        mDoneBtn.setSelected(false);
+    }
+
+    /*
+     * Restart toolbar actions
+     **/
+    public void restart(){
+        int mCount = mMainToolbar.getChildCount();
+        for (int i = 0; i < mCount; ++i) {
+            mMainToolbar.getChildAt(i).setSelected(false);
+        }
+
+        mCount = mColorToolbar.getChildCount();
+        for (int i = 0; i < mCount; ++i) {
+            mColorToolbar.getChildAt(i).setSelected(false);
+        }
+
     }
 
 
@@ -88,73 +185,8 @@ public class AnnotationsToolbar extends LinearLayout {
             }
         }
     };
-    public AnnotationsToolbar(Context context) {
-        super(context);
-        mContext = context;
 
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
 
-        init();
-    }
-
-    public AnnotationsToolbar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mContext = context;
-
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-
-        init();
-    }
-
-    public void init() {
-        rootView = inflate(mContext, R.layout.annotations_toolbar, this);
-        mMainToolbar = (LinearLayout) rootView.findViewById(R.id.main_toolbar);
-
-        mColorToolbar = (LinearLayout) rootView.findViewById(R.id.color_toolbar);
-        mColorScrollView = (HorizontalScrollView) rootView.findViewById(R.id.color_view);
-        mFreeHandBtn = (ImageButton) mMainToolbar.findViewById(R.id.draw_freehand);
-        mPickerColorBtn = (ImageButton) mMainToolbar.findViewById(R.id.picker_color);
-        mTypeBtn = (ImageButton) mMainToolbar.findViewById(R.id.type_tool);
-        mScreenshotBtn = (ImageButton) mMainToolbar.findViewById(R.id.screenshot);
-        mEraseBtn = (ImageButton) mMainToolbar.findViewById(R.id.erase);
-        mDoneBtn = (TextView) mMainToolbar.findViewById(R.id.done);
-
-        final int mCount = mColorToolbar.getChildCount();
-
-        int [] colors = {R.color.picker_color_blue,  R.color.picker_color_purple, R.color.picker_color_red, R.color.picker_color_orange,
-                R.color.picker_color_yellow, R.color.picker_color_green,  R.color.picker_color_black, R.color.picker_color_gray, R.color.picker_color_white};
-
-        // Loop through all of the children.
-        for (int i = 0; i < mCount; ++i) {
-            mColorToolbar.getChildAt(i).setOnClickListener(colorClickListener);
-            ((ImageButton)mColorToolbar.getChildAt(i)).setColorFilter(getResources().getColor(colors [i]));
-        }
-
-        //Init actions
-        mFreeHandBtn.setOnClickListener(mActionsClickListener);
-        mTypeBtn.setOnClickListener(mActionsClickListener);
-        mEraseBtn.setOnClickListener(mActionsClickListener);
-        mScreenshotBtn.setOnClickListener(mActionsClickListener);
-        mPickerColorBtn.setOnClickListener(mActionsClickListener);
-        mDoneBtn.setOnClickListener(mActionsClickListener);
-
-        mDoneBtn.setSelected(false);
-    }
-
-    public void restart(){
-        int mCount = mMainToolbar.getChildCount();
-        for (int i = 0; i < mCount; ++i) {
-            mMainToolbar.getChildAt(i).setSelected(false);
-        }
-
-        mCount = mColorToolbar.getChildCount();
-        for (int i = 0; i < mCount; ++i) {
-            mColorToolbar.getChildAt(i).setSelected(false);
-        }
-
-    }
     private OnClickListener mActionsClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
