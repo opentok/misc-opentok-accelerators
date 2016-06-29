@@ -72,16 +72,31 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     private OTKAnalyticsData mAnalyticsData;
     private OTKAnalytics mAnalytics;
 
-    
-    public void setAnnotationsListener(AnnotationsListener listener) {
-        this.mListener = listener;
-    }
-
+    /**
+     * Monitors state changes in the Annotations component.
+     *
+     **/
     public  interface AnnotationsListener {
+
+        /**
+         * Invoked when a new screencapture is ready
+         *
+         * @param bmp Bitmap of the screencapture.
+         */
         void onScreencaptureReady(Bitmap bmp);
+
+        /**
+         * Invoked when an error happens
+         *
+         * @param error The error message.
+         */
         void onError(String error);
     }
 
+    /**
+     * Annotations actions
+     *
+     **/
     public enum Mode {
         Pen("annotation-pen"),
         Clear("annotation-clear"),
@@ -101,6 +116,12 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         }
     }
 
+    /*
+     * Constructor
+     * @param context Application context
+     * @param session The OpenTok Accelerator Pack session instance.
+     * @param partnerId  The partner id - apiKey.
+     **/
     public AnnotationsView(Context context, AccPackSession session, String partnerId) {
         super(context);
         this.mSession = session;
@@ -108,18 +129,39 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         init();
     }
 
+    /*
+     * Constructor
+     * @param context Application context
+     * @param attrs A collection of attributes
+     */
     public AnnotationsView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
+    /*
+     * Attach the Annotations Toolbar to the view
+     * @param toolbar AnnotationsToolbar
+     */
     public void attachToolbar(AnnotationsToolbar toolbar) {
         mToolbar = toolbar;
         mToolbar.setActionListener(this);
     }
 
+    /*
+     * Set an AnnotationsVideoRenderer
+     * @param videoRenderer AnnotationsVideoRenderer
+     **/
     public void setVideoRenderer(AnnotationsVideoRenderer videoRenderer) {
         this.videoRenderer = videoRenderer;
+    }
+
+    /*
+     * Set AnnotationsListener
+     * @param listener AnnotationsListener
+     **/
+    public void setAnnotationsListener(AnnotationsListener listener) {
+        this.mListener = listener;
     }
 
     @Override
