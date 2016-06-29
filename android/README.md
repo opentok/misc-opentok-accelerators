@@ -4,11 +4,8 @@
 
 ## Installation
 
-There are 3 options for installing the OpenTok Android Accelerator Pack:
+There are 2 options for installing the OpenTok Android Accelerator Pack:
 
-  - [Using the repository](using-the-repository)
-  - [Using Maven](#using-maven)
- 
 
 #### Using the repository
 
@@ -16,11 +13,13 @@ There are 3 options for installing the OpenTok Android Accelerator Pack:
 2. From your app project, right-click the app name and select **New > Module > Import Gradle Project**.
 3. Navigate to the directory in which you cloned **OpenTok Accelerator Pack**, select **android-accelerator-pack**, and click **Finish**.
 4. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
+
 ```
 compile project(':android-accelerator-pack')
+
 ```
 
- #### Using Maven
+#### Using Maven
 
 <ol>
 
