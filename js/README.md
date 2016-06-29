@@ -67,20 +67,33 @@ _**NOTE:** The sample app contains logic used for logging. This is used to submi
 
 ### Web page design
 
-While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must host the sample app yourself. This allows you to customize the app as desired. The sample app has the following design, focusing primarily on the text chat features. For details about the one-to-one communication audio-video aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/js) and [OpenTok Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common/).
+While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must host the sample app yourself. This allows you to customize the app as desired. The sample app has the following design, focusing primarily on the text chat features. For details about the one-to-one communication audio-video aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/js).
 
 * **[accelerator-pack.js](./sample-app/public/js/components/accelerator-pack.js)**: The TokBox Common Accelerator Session Pack is a common layer that permits all accelerators to share the same OpenTok session, API Key and other related information, and is required whenever you use any of the OpenTok accelerators. This layer handles communication between the client and the components.
 
-* **acc-pack-text-chat.js**:  _(Available only in the Text Chat Accelerator Pack)._ Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
+* **acc-pack-text-chat.js**:  _(Available in the Text Chat Accelerator Pack ./opentok.js-text-chat/src/)._ Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
 
-* **acc-pack-communication.js**: Manages the client audio/video communication.
+* **acc-pack-communication.js**: _(Available in the Text Chat Accelerator Pack ./opentok.js-text-chat/src/)._ Manages the client audio/video communication.
+
+* **text-chat-acc-pack.js**: _(./sample-app/public/js/components/)._ Minified js file which contains **acc-pack-communication.js** , **acc-pack-text-chat.js** . It is the result of the `build-sample.sh` run.
 
 * **[app.js](./sample-app/public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements. 
 
-* **[CSS files](./sample-app/public/css)**: Defines the client UI style. 
+* **[CSS files]**: _(Available in the Text Chat Accerlerator Pack ./opentok.js-text-chat/css/ )._: Defines the client UI style. 
 
-* **[index.html](./sample-app/public/index.html)**: This web page provides you with a quick start if you don't already have a web page making calls against OpenTok.js (via accelerator-pack.js) and opentok-text-chat.js. Its `<head>` element loads the OpenTok.js library, Text Chat library, and other dependencies, and its `<body>` element implements the UI container for the controls on your own page.
+* **[index.html](./sample-app/public/index.html)**: This web page provides you with a quick start if you don't already have a web page making calls against OpenTok.js (via accelerator-pack.js) and text-chat-acc-pack.js. Its `<head>` element loads the OpenTok.js library, Text Chat library, and other dependencies, and its `<body>` element implements the UI container for the controls on your own page. It contains the tag script to load the otkanalytics.js file.
 
+```javascript
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/theme.css">
+
+    <!--JS-->
+    <script src="https://assets.tokbox.com/otkanalytics.js" type="text/javascript" defer></script>
+    <script src="js/components/text-chat-acc-pack.js" type="text/javascript" defer></script>
+    <script src="js/components/accelerator-pack.js" type="text/javascript" defer></script>
+   
+```
 
 ### Text Chat Accelerator Pack
 
@@ -94,29 +107,41 @@ The following `options` fields are used in the `TextChatAccPack` constructor:<br
 
 | Feature        | Field  |
 | ------------- | ------------- |
-| Set the chat container. | `container`  |
-| Sets the position of the element that displays the information for the character count within the UI. | `charCountElement`  |
+| Set the chat container. | `textChatContainer`  |
+| Sets the position of the element that displays the information for the character count within the UI. | `controlsContainer`  |
 | Set the maximum chat text length. | `limitCharacterMessage`  |
-| Set the sender alias and the sender ID of the outgoing messages. | `senderAlias`, `senderId`  |
+| Set the sender alias and the sender ID of the outgoing messages. | `sender`  |
+| Set the session. | `session`  |
 
 
   In this initialization code, the `TextChatAccPack` object is initialized.
 
   ```javascript
-     var textChatOptions = {
+      var _options = {
+        textChat: {
+          sender: {
+            alias: 'user1',
+          },
+          limitCharacterMessage: 160,
+          controlsContainer: '#feedControls',
+          textChatContainer: '#chatContainer'
+        } 
+      };
+      
+      var textChatOptions = {
        accPack: _this,
        session: _session,
-       sender: _this.options.textChat.sender,
-       limitCharacterMessage: _this.options.textChat.limitCharacterMessage,
-       controlsContainer: _this.options.textChat.controlsContainer,
-       textChatContainer: _this.options.textChat.textChatContainer
+       sender: _options.textChat.sender,
+       limitCharacterMessage: _options.textChat.limitCharacterMessage,
+       controlsContainer: _options.textChat.controlsContainer,
+       textChatContainer: _options.textChat.textChatContainer
      };
 
      _components.textChat = new TextChatAccPack(textChatOptions);
   ```
 
 
-#### Sending and receiving messages
+#### TextChatAccPack Methods
 
   The `TextChat` component defines `showTextChat()` and `hideTextChat()` methods to show or hide text chat view.
 
