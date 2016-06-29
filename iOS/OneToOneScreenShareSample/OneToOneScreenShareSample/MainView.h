@@ -32,8 +32,10 @@
 - (void)connectSubsciberVideo:(BOOL)connected;
 - (void)showSubscriberControls:(BOOL)shown;
 
+// screenshare view
 - (void)addScreenShareViewWithContentView:(UIView *)view;
 - (void)removeScreenShareView;
+- (void)showScreenShareNotificationBar:(BOOL)shown;
 
 // annotation bar
 - (void)toggleAnnotationToolBar;
@@ -42,11 +44,9 @@
 
 // other controls
 - (void)removePlaceHolderImage;
-
 - (void)updateControlButtonsForCall;
 - (void)updateControlButtonsForScreenShare;
 - (void)updateControlButtonsForEndingCall;
-
-- (void)showScreenShareNotificationBar:(BOOL)shown;
+- (void)showReverseCameraButton;
 
 @end
