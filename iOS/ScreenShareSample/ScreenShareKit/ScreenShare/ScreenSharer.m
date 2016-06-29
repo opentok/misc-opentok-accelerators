@@ -124,15 +124,9 @@
 
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
     
-    if ([stream.name isEqualToString:@"web"]) {
-        NSError *error = [NSError errorWithDomain:@"ScreenSharerErrorDomain" code:1000 userInfo:@{NSLocalizedDescriptionKey: @"Screen-Sharing from web is not allowed at this time, ^v^."}];
-        [self notifiyAllWithSignal:ScreenShareSignalSessionStreamCreated
-                             error:error];
-        return;
-    }
-    
     OTError *error;
     self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
+    self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
     [self.session subscribe:self.subscriber error:&error];
     [self notifiyAllWithSignal:ScreenShareSignalSessionStreamCreated
                          error:error];
