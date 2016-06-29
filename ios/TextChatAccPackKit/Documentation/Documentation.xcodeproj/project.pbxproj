@@ -1,0 +1,348 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		A067B2881CEB99AF0099F876 /* AppleDoc */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A067B2891CEB99AF0099F876 /* Build configuration list for PBXAggregateTarget "AppleDoc" */;
+			buildPhases = (
+				A067B28C1CEB99B30099F876 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = AppleDoc;
+			productName = AppleDoc;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		A067B26E1CEB99440099F876 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B26D1CEB99440099F876 /* main.m */; };
+		A067B2711CEB99440099F876 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B2701CEB99440099F876 /* AppDelegate.m */; };
+		A067B2A21CEBA7DF0099F876 /* OTTextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B29E1CEBA7DF0099F876 /* OTTextChatUICustomizator.m */; };
+		A067B2A31CEBA7DF0099F876 /* OTTextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A067B2A01CEBA7DF0099F876 /* OTTextChatView.m */; };
+		A07B97631D1BA3F9002397EE /* OTTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A07B97621D1BA3F9002397EE /* OTTextMessage.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A067B2691CEB99440099F876 /* Documentation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Documentation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A067B26D1CEB99440099F876 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A067B26F1CEB99440099F876 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A067B2701CEB99440099F876 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A067B27D1CEB99450099F876 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A067B29C1CEBA7DF0099F876 /* TextChatKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextChatKit.h; sourceTree = "<group>"; };
+		A067B29D1CEBA7DF0099F876 /* OTTextChatUICustomizator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatUICustomizator.h; sourceTree = "<group>"; };
+		A067B29E1CEBA7DF0099F876 /* OTTextChatUICustomizator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatUICustomizator.m; sourceTree = "<group>"; };
+		A067B29F1CEBA7DF0099F876 /* OTTextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatView.h; sourceTree = "<group>"; };
+		A067B2A01CEBA7DF0099F876 /* OTTextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatView.m; sourceTree = "<group>"; };
+		A07B97611D1BA3F9002397EE /* OTTextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextMessage.h; sourceTree = "<group>"; };
+		A07B97621D1BA3F9002397EE /* OTTextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextMessage.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A067B2661CEB99440099F876 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A067B2601CEB99440099F876 = {
+			isa = PBXGroup;
+			children = (
+				A067B26B1CEB99440099F876 /* Documentation */,
+				A067B26A1CEB99440099F876 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A067B26A1CEB99440099F876 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A067B2691CEB99440099F876 /* Documentation.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A067B26B1CEB99440099F876 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				A067B26F1CEB99440099F876 /* AppDelegate.h */,
+				A067B2701CEB99440099F876 /* AppDelegate.m */,
+				A067B29C1CEBA7DF0099F876 /* TextChatKit.h */,
+				A067B29D1CEBA7DF0099F876 /* OTTextChatUICustomizator.h */,
+				A067B29E1CEBA7DF0099F876 /* OTTextChatUICustomizator.m */,
+				A067B29F1CEBA7DF0099F876 /* OTTextChatView.h */,
+				A067B2A01CEBA7DF0099F876 /* OTTextChatView.m */,
+				A07B97611D1BA3F9002397EE /* OTTextMessage.h */,
+				A07B97621D1BA3F9002397EE /* OTTextMessage.m */,
+				A067B27D1CEB99450099F876 /* Info.plist */,
+				A067B26C1CEB99440099F876 /* Supporting Files */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
+		A067B26C1CEB99440099F876 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A067B26D1CEB99440099F876 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A067B2681CEB99440099F876 /* Documentation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A067B2801CEB99450099F876 /* Build configuration list for PBXNativeTarget "Documentation" */;
+			buildPhases = (
+				A067B2651CEB99440099F876 /* Sources */,
+				A067B2661CEB99440099F876 /* Frameworks */,
+				A067B2671CEB99440099F876 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+			productReference = A067B2691CEB99440099F876 /* Documentation.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A067B2611CEB99440099F876 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Tokbox, Inc.";
+				TargetAttributes = {
+					A067B2681CEB99440099F876 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					A067B2881CEB99AF0099F876 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = A067B2641CEB99440099F876 /* Build configuration list for PBXProject "Documentation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A067B2601CEB99440099F876;
+			productRefGroup = A067B26A1CEB99440099F876 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A067B2681CEB99440099F876 /* Documentation */,
+				A067B2881CEB99AF0099F876 /* AppleDoc */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A067B2671CEB99440099F876 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A067B28C1CEB99B30099F876 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatKit.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatUICustomizator/OTTextChatUICustomizator.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatUICustomizator/OTTextChatUICustomizator.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatView/OTTextChatView.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextChatView/OTTextChatView.m\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OTTextMessage/OTTextMessage.h\" \"${PROJECT_DIR}/Documentation\"\ncp \"${PROJECT_DIR}/../OTTextChatKit/OT3TextMessage/OTTextMessage.m\" \"${PROJECT_DIR}/Documentation\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OTTextChatKit.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OTTextMessage.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OTTextChatView.h\"\nchmod 775 \"${PROJECT_DIR}/Documentation/OTTextChatUICustomizator.h\"\n\n#appledoc Xcode script\n# Start constants\ncompany=\"Tokbox\";\ncompanyID=\"com.Tokbox\";\ncompanyURL=\"https://tokbox.com/\";\noutputPath=\"${PROJECT_DIR}/../../OneToOneTextChatSample/docs\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--output \"${outputPath}\" \\\n--keep-intermediate-files \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}/Documentation/OTTextChatKit.h\" \\\n\"${PROJECT_DIR}/Documentation/OTTextMessage.h\" \\\n\"${PROJECT_DIR}/Documentation/OTTextChatView.h\" \\\n\"${PROJECT_DIR}/Documentation/OTTextChatUICustomizator.h\" \\";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A067B2651CEB99440099F876 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A067B2711CEB99440099F876 /* AppDelegate.m in Sources */,
+				A07B97631D1BA3F9002397EE /* OTTextMessage.m in Sources */,
+				A067B2A31CEBA7DF0099F876 /* OTTextChatView.m in Sources */,
+				A067B26E1CEB99440099F876 /* main.m in Sources */,
+				A067B2A21CEBA7DF0099F876 /* OTTextChatUICustomizator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A067B27E1CEB99450099F876 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A067B27F1CEB99450099F876 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A067B2811CEB99450099F876 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Documentation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.Documentation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A067B2821CEB99450099F876 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Documentation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.Documentation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A067B28A1CEB99AF0099F876 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A067B28B1CEB99AF0099F876 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A067B2641CEB99440099F876 /* Build configuration list for PBXProject "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A067B27E1CEB99450099F876 /* Debug */,
+				A067B27F1CEB99450099F876 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A067B2801CEB99450099F876 /* Build configuration list for PBXNativeTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A067B2811CEB99450099F876 /* Debug */,
+				A067B2821CEB99450099F876 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A067B2891CEB99AF0099F876 /* Build configuration list for PBXAggregateTarget "AppleDoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A067B28A1CEB99AF0099F876 /* Debug */,
+				A067B28B1CEB99AF0099F876 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A067B2611CEB99440099F876 /* Project object */;
+}

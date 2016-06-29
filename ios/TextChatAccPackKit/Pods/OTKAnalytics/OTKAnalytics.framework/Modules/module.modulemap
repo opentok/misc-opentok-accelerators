@@ -1,0 +1,6 @@
+framework module OTKAnalytics {
+  umbrella header "OTKAnalytics.h"
+
+  export *
+  module * { export * }
+}

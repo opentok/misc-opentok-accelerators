@@ -1,1 +1,0 @@
-//Text-chat on iOS
