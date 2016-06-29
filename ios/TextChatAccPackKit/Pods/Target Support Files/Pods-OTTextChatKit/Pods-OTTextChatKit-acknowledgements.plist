@@ -43,14 +43,6 @@ THE SOFTWARE.
 			<key>FooterText</key>
 			<string>https://tokbox.com/support/tos</string>
 			<key>Title</key>
-			<string>OTKAnalytics</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
-			<string>https://tokbox.com/support/tos</string>
-			<key>Title</key>
 			<string>OpenTok</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
