@@ -1,8 +1,7 @@
 package com.tokbox.android.annotations;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -29,7 +28,11 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tokbox.android.accpack.AccPackSession;
+import com.tokbox.android.annotations.config.OpenTokConfig;
 import com.tokbox.android.annotations.utils.*;
+import com.tokbox.android.logging.OTKAnalytics;
+import com.tokbox.android.logging.OTKAnalyticsData;
 
 import java.util.UUID;
 
@@ -63,6 +66,13 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     private boolean defaultLayout = false;
 
+    private AccPackSession mSession;
+    private String mPartnerId;
+
+    private OTKAnalyticsData mAnalyticsData;
+    private OTKAnalytics mAnalytics;
+
+    
     public void setAnnotationsListener(AnnotationsListener listener) {
         this.mListener = listener;
     }
@@ -91,8 +101,10 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         }
     }
 
-    public AnnotationsView(Context context) {
+    public AnnotationsView(Context context, AccPackSession session, String partnerId) {
         super(context);
+        this.mSession = session;
+        this.mPartnerId = partnerId;
         init();
     }
 
@@ -186,10 +198,37 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         return (screenHeight - contentTop - actionBarHeight);
     }
     private void init(){
+        String source = getContext().getPackageName();
+
+        SharedPreferences prefs = getContext().getSharedPreferences("opentok", Context.MODE_PRIVATE);
+        String guidVSol = prefs.getString("guidVSol", null);
+        if (null == guidVSol) {
+            guidVSol = UUID.randomUUID().toString();
+            prefs.edit().putString("guidVSol", guidVSol).commit();
+        }
+
+        //init analytics
+        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.LOG_CLIENT_VERSION, source, OpenTokConfig.LOG_COMPONENTID, guidVSol).build();
+        mAnalytics = new OTKAnalytics(mAnalyticsData);
+        if ( mSession != null ) {
+            mAnalyticsData.setSessionId(mSession.getSessionId());
+            mAnalyticsData.setConnectionId(mSession.getConnection().getConnectionId());
+        }
+        if ( mPartnerId != null ) {
+            mAnalyticsData.setPartnerId(mPartnerId);
+        }
+        mAnalytics. setData(mAnalyticsData);
+
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
         setWillNotDraw(false);
         mAnnotationsManager = new AnnotationsManager();
         mCurrentColor = getResources().getColor(R.color.picker_color_orange);
         this.setVisibility(View.GONE);
+
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+
+
     }
 
 
@@ -245,6 +284,8 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                     }
                     break;
                 }
+
+                addLogEvent(OpenTokConfig.LOG_ACTION_FREEHAND, OpenTokConfig.LOG_VARIATION_SUCCESS);
             } else {
                 if (mode == Mode.Text) {
                     final String myString;
@@ -318,6 +359,8 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                             return false;
                         }
                     });
+
+                    addLogEvent(OpenTokConfig.LOG_ACTION_TEXT, OpenTokConfig.LOG_VARIATION_SUCCESS);
                 }
             }
         }
@@ -418,6 +461,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     }
 
     public void restart(){
+
         clearAll();
     }
     private void clearAll(){
@@ -430,7 +474,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         if (mAnnotationsManager.getAnnotatableList().size() > 0) {
             int lastItem = mAnnotationsManager.getAnnotatableList().size() - 1;
             UUID lastId = mAnnotationsManager.getAnnotatableList().get(lastItem).getId();
-
 
             for (int i = (mAnnotationsManager.getAnnotatableList().size() - 1); i >= 0; i--) {
                 Annotatable annotatable = mAnnotationsManager.getAnnotatableList().get(i);
@@ -469,7 +512,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         if (mode != null && mode == Mode.Pen) {
             mCurrentPath = new AnnotationsPath();
         }
-      }
+    }
 
     private void addAnnotatable() {
         Log.i(LOG_TAG, "Add Annotatable");
@@ -488,46 +531,58 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     @Override
     public void onItemSelected(View v, boolean selected) {
 
-            if (v.getId() == R.id.done) {
-                clearAll();
-                this.setVisibility(GONE);
-                 mode = Mode.Done;
-            }
-            if (v.getId() == R.id.erase) {
-                mode = Mode.Clear;
-                clearCanvas();
-            }
-            if (v.getId() == R.id.screenshot) {
-                //screenshot capture
-                mode = Mode.Capture;
-                if (videoRenderer != null) {
-                    Bitmap bmp = videoRenderer.captureScreenshot();
-                    if (mListener != null) {
-                        mListener.onScreencaptureReady(bmp);
-                    }
-                }
-            }
-            if (selected){
-                this.setVisibility(VISIBLE);
+        if (v.getId() == R.id.done) {
+            addLogEvent(OpenTokConfig.LOG_ACTION_DONE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+            clearAll();
+            this.setVisibility(GONE);
+            mode = Mode.Done;
 
-                if (v.getId() == R.id.picker_color ){
-                    mode = Mode.Color;
-                    this.mToolbar.bringToFront();
+            addLogEvent(OpenTokConfig.LOG_ACTION_DONE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+        }
+        if (v.getId() == R.id.erase) {
+            addLogEvent(OpenTokConfig.LOG_ACTION_ERASE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+            mode = Mode.Clear;
+            clearCanvas();
+
+            addLogEvent(OpenTokConfig.LOG_ACTION_ERASE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+        }
+        if (v.getId() == R.id.screenshot) {
+            //screenshot capture
+            addLogEvent(OpenTokConfig.LOG_ACTION_SCREENCAPTURE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+            mode = Mode.Capture;
+            if (videoRenderer != null) {
+                Bitmap bmp = videoRenderer.captureScreenshot();
+                if (mListener != null) {
+                    mListener.onScreencaptureReady(bmp);
                 }
-                else {
-                    if (v.getId() == R.id.type_tool) {
-                        //type text
-                        mode = Mode.Text;
-                    }
-                    if (v.getId() == R.id.draw_freehand) {
-                        //freehand lines
-                        mode = Mode.Pen;
-                    }
-                }
+
+                addLogEvent(OpenTokConfig.LOG_ACTION_SCREENCAPTURE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+            }
+        }
+        if (selected){
+            this.setVisibility(VISIBLE);
+
+            if (v.getId() == R.id.picker_color ){
+                addLogEvent(OpenTokConfig.LOG_ACTION_PICKER_COLOR, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+                mode = Mode.Color;
+                this.mToolbar.bringToFront();
             }
             else {
-                mode = null;
+                if (v.getId() == R.id.type_tool) {
+                    addLogEvent(OpenTokConfig.LOG_ACTION_TEXT, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+                    //type text
+                    mode = Mode.Text;
+                }
+                if (v.getId() == R.id.draw_freehand) {
+                    addLogEvent(OpenTokConfig.LOG_ACTION_FREEHAND, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+                    //freehand lines
+                    mode = Mode.Pen;
+                }
             }
+        }
+        else {
+            mode = null;
+        }
 
         if (!loaded){
             resize();
@@ -538,6 +593,13 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     @Override
     public void onColorSelected(int color) {
         this.mCurrentColor = color;
+        addLogEvent(OpenTokConfig.LOG_ACTION_PICKER_COLOR, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
+    //add log events
+    private void addLogEvent(String action, String variation){
+        if ( mAnalytics!= null ) {
+            mAnalytics.logEvent(action, variation);
+        }
+    }
 }
