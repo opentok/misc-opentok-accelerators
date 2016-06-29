@@ -2,8 +2,7 @@
 //  TextChatMessage.m
 //  TextChatSampleApp
 //
-//  Created by Xi Huang on 4/1/16.
-//  Copyright © 2016 TokBox. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "OTTextMessage.h"

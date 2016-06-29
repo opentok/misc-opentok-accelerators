@@ -2,8 +2,7 @@
 //  TextChatComponentTableViewCell.h
 //  TextChatComponent
 //
-//  Created by Esteban Cordero on 2/23/16.
-//  Copyright © 2016 AgilityFeat. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import <OTTextChatKit/OTTextChatUICustomizator.h>

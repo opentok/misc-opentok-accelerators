@@ -2,8 +2,7 @@
 //  TextChatComponentChatView.m
 //  TextChatComponent
 //
-//  Created by Esteban Cordero on 2/23/16.
-//  Copyright © 2016 AgilityFeat. All rights reserved.
+//  Copyright © 2016 Tokbox. All rights reserved.
 //
 
 #import "OTTextMessage.h"

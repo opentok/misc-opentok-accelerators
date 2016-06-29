@@ -2,8 +2,7 @@
 //  TextChatUICustomizator.m
 //  TextChatSample
 //
-//  Created by Esteban Cordero on 4/13/16.
-//  Copyright © 2016 Esteban Cordero. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "OTTextChatUICustomizator.h"
