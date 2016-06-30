@@ -8,23 +8,16 @@
 
 Pod::Spec.new do |s|
   s.name             = "OTTextChatKit"
-  s.version          = "1.0.0"
-  s.summary          = "An alternative way to create a tool bar for iOS applications."
+  s.version          = "1.0.2"
+  s.summary          = "The OpenTok Text Chat Accelerator Pack provides functionality you can add to your OpenTok applications that enables users to exchange text messages between mobile or browser-based devices."
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.description      = "This document describes how to use the OpenTok Text Chat Accelerator Pack for iOS. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages on an iOS mobile device."
 
-  s.description      = "LHToolbar is an alternative way to create a toolbar in iOS applications. Tool bars are widely used in iOS applications, however, UIToolbar class lacks of updates and flexibility, uncustomizable to some extent. It motivated me to create a container like toolbar so developers have more control and flexibility on layout and UIs. LHToolbar concentrates in providing fully functioning toolbar container, manipulation of container items and many more in the future."
-
-  s.homepage         = "https://github.com/Lucashuang0802/LHToolbar"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://tokbox.com/"
   s.license          = 'MIT'
   s.author           = { "Lucas Huang" => "lucas@tokbox.com" }
   s.source           = { :git => "https://github.com/opentok/textchat-acc-pack.git", :tag => s.version.to_s }
-  s.social_media_url = 'http://www.focushuang.com/'
+  s.social_media_url = 'https://twitter.com/tokbox/'
 
   s.ios.deployment_target = '8.0'
 
