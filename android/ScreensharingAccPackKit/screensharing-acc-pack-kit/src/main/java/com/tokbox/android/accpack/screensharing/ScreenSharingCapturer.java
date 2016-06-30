@@ -67,7 +67,11 @@ public class ScreenSharingCapturer extends BaseVideoCapturer{
     };
 
 
-
+    /* Constructor
+     * @param context Application context
+     * @param view Screensharing content view
+     * @param imageReader to access to the image data rendered in the screensharing
+     */
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public ScreenSharingCapturer(Context context, View view, ImageReader imageReader) {
         this.mContext = context;

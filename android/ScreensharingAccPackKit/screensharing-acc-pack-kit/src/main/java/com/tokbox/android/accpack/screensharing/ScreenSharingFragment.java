@@ -156,8 +156,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     }
 
     /*
-  * Constructor.
-  */
+     * Constructor.
+     */
     public ScreenSharingFragment(){
 
     }
@@ -206,10 +206,17 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         }
     }
 
+    /*
+     * Set ScreenSharing Listener
+     * @param mListener ScreenSharingListener
+     */
     public void setListener(ScreenSharingListener mListener) {
         this.mListener = mListener;
     }
 
+    /*
+    * Start sharing the screen
+    */
     public void start(){
         init();
         if (isConnected) {
@@ -222,6 +229,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         }
     }
 
+    /*
+    * Stop sharing the screen
+    */
     public void stop(){
         addLogEvent(OpenTokConfig.LOG_ACTION_STOP, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         stopScreenCapture();
@@ -230,11 +240,22 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         }
     }
 
+
+    /*
+    * Check the screensharing status
+    * @return (<code>true</code>) or (<code>false</code>) if screensharing is not started
+    */
     public boolean isStarted() {
         return isStarted;
     }
 
 
+    /*
+    * Enable or disable the annotations in the screensharing.
+    * @param annotationsEnabled Whether the annotations is enabled (<code>true</code>) or not (
+    *                 <code>false</code>)
+    * @param toolbar AnnotationsToolbar used by the Annotations
+    */
     public void enableAnnotations(boolean annotationsEnabled, AnnotationsToolbar toolbar) {
         isAnnotationsEnabled = annotationsEnabled;
         mAnnotationsToolbar = toolbar;
@@ -251,6 +272,11 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         }
     }
 
+    /*
+    * Enable or disable the audio in the screensharing
+    * @param enabled Whether the audio is enabled (<code>true</code>) or not (
+    *                 <code>false</code>)
+    */
     public void enableAudioScreensharing(boolean enabled) {
         isAudioEnabled = enabled;
 
