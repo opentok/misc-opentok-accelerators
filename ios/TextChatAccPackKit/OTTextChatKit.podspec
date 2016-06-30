@@ -23,22 +23,20 @@ Pod::Spec.new do |s|
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Lucas Huang" => "lucas@tokbox.com" }
-  s.source           = { :git => "https://github.com/Lucashuang0802/LHToolbar.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/opentok/textchat-acc-pack.git", :tag => s.version.to_s }
   s.social_media_url = 'http://www.focushuang.com/'
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'OTTextChatKit/**/*'
+  s.source_files = 'ios/TextChatAccPackKit/OTTextChatKit/**/*'
   
   s.resource_bundles = {
-    'OTTextChatKitBundle' => ['OTTextChatKitBundle/**/*']
+    'OTTextChatKitBundle' => ['ios/TextChatAccPackKit/OTTextChatKitBundle/**/*']
   }
 
-  s.public_header_files = {
-    'OTTextChatKit/OTTextChatKit.h'
-    'OTTextChatKit/OTTextChatUICustomizator/OTTextChatUICustomizator.h'
-    'OTTextChatKit/OTTextChatView/OTTextChatView.h'
-    'OTTextChatKit/OTTextMessage/OTTextMessage.h'
-  }
+  s.public_header_files = 'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatKit.h', 
+    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatUICustomizator/OTTextChatUICustomizator.h',
+    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatView.h', 
+    'ios/TextChatAccPackKit/OTTextChatKit/OTTextMessage/OTTextMessage.h'
   s.dependency 'OTAcceleratorPackUtil'
 end

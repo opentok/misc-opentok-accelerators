@@ -2,7 +2,7 @@
 #import "MainViewController.h"
 #import <OTTextChatKit/OTTextChatKit.h>
 #import "SVProgressHUD.h"
-#import "OneToOneCommunicator.h"
+#import <OTAcceleratorPackUtil/OneToOneCommunicator.h>
 
 @interface MainViewController ()
 @property (nonatomic) MainView *mainView;
