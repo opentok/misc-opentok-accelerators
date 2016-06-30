@@ -4,7 +4,7 @@ OpenTok iOS SDK
 The OpenTok iOS SDK lets you use OpenTok-powered video sessions in apps
 you build for iPad, iPhone, and iPod touch devices.
 
-Apps written with the OpenTok iOS SDK 2.8.2 can interoperate with OpenTok apps
+Apps written with the OpenTok iOS SDK 2.8.3 can interoperate with OpenTok apps
 written with the following OpenTok SDKs:
 
 * [OpenTok.js 2.6+](http://tokbox.com/developer/sdks/js/)

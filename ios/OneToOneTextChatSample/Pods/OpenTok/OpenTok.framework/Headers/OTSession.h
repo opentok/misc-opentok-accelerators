@@ -32,10 +32,10 @@ typedef NS_ENUM(int32_t, OTSessionConnectionStatus) {
 /**
  * The first step in using the OpenTok iOS SDK is to initialize
  * an OTSession object with your API key and a valid
- * [session ID]( http://tokbox.com/opentok/tutorials/create-session )
+ * [session ID](http://tokbox.com/opentok/tutorials/create-session)
  * Use the OTSession object to connect to OpenTok using your developer
- * [API key]( https://tokbox.com/account ) and a valid
- * [token]( http://tokbox.com/opentok/tutorials/create-token ).
+ * [API key](https://tokbox.com/account) and a valid
+ * [token](http://tokbox.com/opentok/tutorials/create-token).
  */
 @interface OTSession : NSObject
 
@@ -66,7 +66,7 @@ typedef NS_ENUM(int32_t, OTSessionConnectionStatus) {
 @property(readonly) OTSessionConnectionStatus sessionConnectionStatus;
 
 /**
- * The [Session ID]( http://tokbox.com/opentok/tutorials/create-session )
+ * The [session ID](http://tokbox.com/opentok/tutorials/create-session)
  * of this instance. This is an immutable value.
  */
 @property(readonly) NSString* sessionId;
@@ -104,8 +104,8 @@ typedef NS_ENUM(int32_t, OTSessionConnectionStatus) {
 
 /**
  * Initialize this session with your OpenTok API key , a
- * [session ID]( http://tokbox.com/opentok/tutorials/create-session ),
- * and delegate before connecting to OpenTok. Send the 
+ * [session ID](http://tokbox.com/opentok/tutorials/create-session),
+ * and delegate before connecting to OpenTok. Send the
  * <[OTSession connectWithToken:error:]> message
  * to connect to the session.
  *
@@ -317,7 +317,7 @@ __attribute__((deprecated("use unsubscribe:error: instead")));
 *
 * See <[OTSession signalWithType:string:connection:retryAfterReconnect:error:]>,
 * <[OTSessionDelegate session:receivedSignalType:fromConnection:withString:]>,
-* and <[OTSessionDelegate sessionDidBeginReconnecting:>].
+* and <[OTSessionDelegate sessionDidBeginReconnecting:]>.
 *
 * @param string The data to send. The limit to the size of data is 8KB.
 *
@@ -389,10 +389,10 @@ __attribute__((deprecated("use unsubscribe:error: instead")));
 
 /**
  * Sent if the session fails to connect, some time after your application
- * invokes [OTSession connectWithToken:].
+ * invokes [OTSession connectWithToken:error:].
  *
  * @param session The <OTSession> instance that sent this message.
- * @param error An <OTError> object describing the issue. The 
+ * @param error An <OTError> object describing the issue. The
  * `OTSessionErrorCode` enum
  * (defined in the OTError.h file) defines values for the `code` property of
  * this object.
@@ -406,8 +406,8 @@ __attribute__((deprecated("use unsubscribe:error: instead")));
  *
  * Note that if your application publishes to this session, your own session
  * delegate will not receive the [OTSessionDelegate session:streamCreated:]
- * message for its own published stream. For that event, see the delegate 
- * callback [OTPublisherKit publisher:streamCreated:].
+ * message for its own published stream. For that event, see the delegate
+ * callback [OTPublisherKitDelegate publisher:streamCreated:].
  *
  * @param session The OTSession instance that sent this message.
  * @param stream The stream associated with this event.
@@ -480,7 +480,7 @@ receivedSignalType:(NSString*)type
  * that the session is being recorded.
  *
  * For more information see the OpenTok
- * [Archiving Overview]( http://www.tokbox.com/opentok/tutorials/archiving ).
+ * [Archiving Overview](http://www.tokbox.com/opentok/tutorials/archiving).
  *
  * @param session The <OTSession> instance that sent this message.
  * @param archiveId The unique ID of the archive.
@@ -499,7 +499,7 @@ archiveStartedWithId:(NSString*)archiveId
  * indicates that the session is being recorded.
  *
  * For more information, see the OpenTok
- * [Archiving Overview]( http://www.tokbox.com/opentok/tutorials/archiving ).
+ * [Archiving Overview](http://www.tokbox.com/opentok/tutorials/archiving).
  *
  * @param session The <OTSession> instance that sent this message.
  * @param archiveId The unique ID of the archive.

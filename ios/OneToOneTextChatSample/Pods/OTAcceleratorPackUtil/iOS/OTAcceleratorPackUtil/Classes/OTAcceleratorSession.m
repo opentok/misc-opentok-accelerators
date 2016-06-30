@@ -65,7 +65,7 @@ static NSString * InternalToken = @"";
     NSAssert(InternalToken.length != 0, @"OpenTok: Token can not be empty, please add it to OneToOneCommunicator");
 }
 
-+ (void)registerWithAccePack:(id)delegate {
++ (NSError *)registerWithAccePack:(id)delegate {
     
     OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
     
@@ -79,25 +79,26 @@ static NSString * InternalToken = @"";
     // notify sessionDidConnect when session has connected
     if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnected) {
         [delegate sessionDidConnect:sharedSession];
-        return;
+        return nil;
     }
     
     if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnecting ||
-        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusReconnecting) return;
+        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusReconnecting) return nil;
     
     OTError *error;
     [sharedSession connectWithToken:InternalToken error:&error];
     if (error) {
         NSLog(@"AcceleratorSesssion Error: %@", error.localizedDescription);
     }
+    return error;
 }
 
-+ (void)deregisterWithAccePack:(id)delegate {
++ (NSError *)deregisterWithAccePack:(id)delegate {
     
     OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
     
     // notify sessionDidDisconnect to delegates who has de-registered
-    if ([sharedSession.delegates containsObject:delegate]) {
+    if ([delegate conformsToProtocol:@protocol(OTSessionDelegate)] && [sharedSession.delegates containsObject:delegate]) {
         [sharedSession.delegates removeObject:delegate];
         [sharedSession.inactiveDelegate addObject:delegate];
     }
@@ -105,14 +106,16 @@ static NSString * InternalToken = @"";
     if (sharedSession.delegates.count == 0) {
         
         if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusNotConnected ||
-            sharedSession.sessionConnectionStatus == OTSessionConnectionStatusDisconnecting) return;
+            sharedSession.sessionConnectionStatus == OTSessionConnectionStatusDisconnecting) return nil;
         
         OTError *error;
         [sharedSession disconnect:&error];
         if (error) {
             NSLog(@"AcceleratorSesssion Error: %@", error.localizedDescription);
         }
+        return error;
     }
+    return nil;
 }
 
 + (BOOL)containsAccePack:(id)delegate {

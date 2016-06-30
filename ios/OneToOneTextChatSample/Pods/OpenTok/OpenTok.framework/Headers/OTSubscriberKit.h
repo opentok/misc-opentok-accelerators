@@ -289,10 +289,11 @@ id<OTSubscriberKitNetworkStatsDelegate> networkStatsDelegate;
                          reason:(OTSubscriberVideoEventReason)reason;
 
 /**
- * This message is sent when the subscriber starts (or resumes) receiving video.
+ * This message is sent when the subscriber's video stream starts (when there
+ * previously was no video) or resumes (after video was disabled).
  * Check the reason parameter for the reason why the video started (or resumed).
  *
- * @param subscriber The <OTSubscriber> that will no longer receive video.
+* @param subscriber The <OTSubscriber> that will receive video.
  * @param reason The reason that the video track was enabled. See
  * <OTSubscriberVideoEventReason>.
  */
