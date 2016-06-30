@@ -46,7 +46,9 @@
         self.layer.borderColor = [UIColor clearColor].CGColor;
     }
 }
+
 @end
+
 
 #import <LHToolbar/LHToolbar.h>
 #import "Constants.h"

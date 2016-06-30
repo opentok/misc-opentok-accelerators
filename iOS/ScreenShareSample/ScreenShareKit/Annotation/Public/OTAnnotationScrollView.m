@@ -186,19 +186,6 @@
     [super addSubview:view];
 }
 
-//- (void)testAnnotating {
-//    AnnotationPoint *p1 = [[AnnotationPoint alloc] initWithX:119 andY:16];
-//    AnnotationPoint *p2 = [[AnnotationPoint alloc] initWithX:122 andY:16];
-//    AnnotationPoint *p3 = [[AnnotationPoint alloc] initWithX:126 andY:18];
-//    AnnotationPoint *p4 = [[AnnotationPoint alloc] initWithX:134 andY:21];
-//    AnnotationPoint *p5 = [[AnnotationPoint alloc] initWithX:144 andY:28];
-//    AnnotationPath *path = [AnnotationPath pathWithPoints:@[p1, p2, p3, p4, p5] strokeColor:nil];
-//    [self.annotationView addAnnotatable:path];
-//
-//    AnnotationTextField *textField = [AnnotationTextField textField];
-//    [self.annotationView addAnnotatable:textField];
-//}
-
 - (void)addContentView:(UIView *)view {
 
     CGFloat width = CGRectGetWidth(view.bounds) > self.annotationScrollViewWidth.constant ? CGRectGetWidth(view.bounds) : self.annotationScrollViewWidth.constant;
@@ -256,4 +243,5 @@
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return self.scrollContentView;
 }
+
 @end
