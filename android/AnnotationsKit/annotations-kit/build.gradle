@@ -36,7 +36,6 @@ android {
             destinationDir = file("build/outputs/docs/")
             title = 'OpenTok Android Annotations'
             exclude "**/config/**"
-            exclude "**/logging/**"
         }
 
         def zipBundle = task("zipBundle${variant.name.capitalize()}", type: Zip) {
@@ -98,5 +97,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.opentok.android:accelerator-pack:1.0.0'
+    compile 'com.opentok.android:accelerator-pack:+'
 }
