@@ -1,6 +1,3 @@
 [submodule "iOS/OneToOneScreenShareSample/OneToOneScreenShareSample/one-to-one-sample-apps"]
 	path = iOS/OneToOneScreenShareSample/OneToOneScreenShareSample/one-to-one-sample-apps
 	url = https://github.com/opentok/one-to-one-sample-apps.git
-[submodule "iOS/ScreenShareSample/ScreenShareKit/Annotation/annotation-acc-pack"]
-	path = iOS/ScreenShareSample/ScreenShareKit/Annotation/annotation-acc-pack
-	url = https://github.com/opentok/annotation-acc-pack.git
