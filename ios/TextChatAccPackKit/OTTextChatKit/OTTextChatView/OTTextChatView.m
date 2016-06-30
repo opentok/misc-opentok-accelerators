@@ -11,7 +11,7 @@
 #import "OTTextMessageManager.h"
 
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
-#import "OTKLogger.h"
+#import <OTKAnalytics/OTKLogger.h>
 
 #import "GCDHelper.h"
 #import "UIViewController+Helper.h"

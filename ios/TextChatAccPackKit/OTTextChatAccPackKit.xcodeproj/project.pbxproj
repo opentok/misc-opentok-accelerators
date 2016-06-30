@@ -32,7 +32,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		1FCFD576FBB756448E461530 /* libPods-OTTextChatKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D059593246B09BCC21604CC /* libPods-OTTextChatKitTests.a */; };
+		4EA25B5978C10E75CC60AD0B /* libPods-OTTextChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 294AD1012ECF76C83C0C18FB /* libPods-OTTextChatKit.a */; };
+		87121DAA122E3099F6217037 /* libPods-OTTextChatKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 815B3E19D790D8B0BD9105AB /* libPods-OTTextChatKitTests.a */; };
 		A059B98F1D1DE771008F1F14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0905E361D1D946300004217 /* Assets.xcassets */; };
 		A059B9901D1DE771008F1F14 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0905E7B1D1D956500004217 /* Info.plist */; };
 		A059B9911D1DE771008F1F14 /* OTTextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E381D1D946300004217 /* OTTextChatView.xib */; };
@@ -64,36 +65,31 @@
 		A0AC66481D1D9DC900F7AAC5 /* OTTextMessage_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */; };
 		A0AC664A1D1D9DC900F7AAC5 /* OTTextMessageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */; };
 		A0AC664C1D1D9DC900F7AAC5 /* OTTextMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */; };
+		A0CFDF6D1D25041A00D8449B /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65AC1D1D9DC900F7AAC5 /* UIViewController+Helper.m */; };
+		A0CFDF6E1D25041A00D8449B /* OTTextMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */; };
+		A0CFDF6F1D25041A00D8449B /* OTTextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatView.m */; };
+		A0CFDF701D25041A00D8449B /* GCDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65AA1D1D9DC900F7AAC5 /* GCDHelper.m */; };
+		A0CFDF711D25041A00D8449B /* OTTextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EA1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m */; };
+		A0CFDF721D25041A00D8449B /* OTTextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65E71D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m */; };
+		A0CFDF731D25041A00D8449B /* OTTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F21D1D9DC900F7AAC5 /* OTTextMessage.m */; };
+		A0CFDF751D25041A00D8449B /* libPods-OTTextChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 294AD1012ECF76C83C0C18FB /* libPods-OTTextChatKit.a */; };
+		A0CFDF771D25041A00D8449B /* OTTextChatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E41D1D9DC900F7AAC5 /* OTTextChatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0CFDF781D25041A00D8449B /* OTTextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0CFDF791D25041A00D8449B /* OTTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F11D1D9DC900F7AAC5 /* OTTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0CFDF7A1D25041A00D8449B /* OTTextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E91D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0CFDF7B1D25041A00D8449B /* OTTextChatView_UserInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EF1D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h */; };
+		A0CFDF7C1D25041A00D8449B /* OTTextChatTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E61D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h */; };
+		A0CFDF7D1D25041A00D8449B /* OTTextChatUICustomizator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EB1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h */; };
+		A0CFDF7E1D25041A00D8449B /* OTTextMessageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */; };
+		A0CFDF7F1D25041A00D8449B /* GCDHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65A91D1D9DC900F7AAC5 /* GCDHelper.h */; };
+		A0CFDF801D25041A00D8449B /* OTTextMessage_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */; };
+		A0CFDF811D25041A00D8449B /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65AB1D1D9DC900F7AAC5 /* UIViewController+Helper.h */; };
 		A0D9E63C1D2480DA00C6F73E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0905DDC1D1D946300004217 /* AppDelegate.m */; };
 		A0D9E63D1D2480DA00C6F73E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0905DE31D1D946300004217 /* main.m */; };
 		A0D9E63E1D2480DA00C6F73E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0905DE51D1D946300004217 /* ViewController.m */; };
 		A0D9E63F1D2480E400C6F73E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0905DDD1D1D946300004217 /* Assets.xcassets */; };
 		A0D9E6401D2480E400C6F73E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0905DDE1D1D946300004217 /* LaunchScreen.storyboard */; };
 		A0D9E6411D2480E400C6F73E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0905DE01D1D946300004217 /* Main.storyboard */; };
-		A0FD45CA1D248C6800CC8E93 /* OTKLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = A0FD45C81D248C6800CC8E93 /* OTKLogger.h */; };
-		A0FD45CB1D248C6800CC8E93 /* OTKLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FD45C91D248C6800CC8E93 /* OTKLogger.m */; };
-		A0FD45F31D24932A00CC8E93 /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65AC1D1D9DC900F7AAC5 /* UIViewController+Helper.m */; };
-		A0FD45F41D24932A00CC8E93 /* OTTextMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */; };
-		A0FD45F51D24932A00CC8E93 /* OTTextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatView.m */; };
-		A0FD45F61D24932A00CC8E93 /* GCDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65AA1D1D9DC900F7AAC5 /* GCDHelper.m */; };
-		A0FD45F71D24932A00CC8E93 /* OTKLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FD45C91D248C6800CC8E93 /* OTKLogger.m */; };
-		A0FD45F81D24932A00CC8E93 /* OTTextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EA1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m */; };
-		A0FD45F91D24932A00CC8E93 /* OTTextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65E71D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m */; };
-		A0FD45FA1D24932A00CC8E93 /* OTTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F21D1D9DC900F7AAC5 /* OTTextMessage.m */; };
-		A0FD45FC1D24932A00CC8E93 /* libPods-OTTextChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1FED8BEA5E0DA7AD18EBA5 /* libPods-OTTextChatKit.a */; };
-		A0FD45FE1D24932A00CC8E93 /* OTTextChatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E41D1D9DC900F7AAC5 /* OTTextChatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0FD45FF1D24932A00CC8E93 /* OTTextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0FD46001D24932A00CC8E93 /* OTTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F11D1D9DC900F7AAC5 /* OTTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0FD46011D24932A00CC8E93 /* OTKLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = A0FD45C81D248C6800CC8E93 /* OTKLogger.h */; };
-		A0FD46021D24932A00CC8E93 /* OTTextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E91D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0FD46031D24932A00CC8E93 /* OTTextChatView_UserInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EF1D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h */; };
-		A0FD46041D24932A00CC8E93 /* OTTextChatTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E61D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h */; };
-		A0FD46051D24932A00CC8E93 /* OTTextChatUICustomizator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EB1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h */; };
-		A0FD46061D24932A00CC8E93 /* OTTextMessageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */; };
-		A0FD46071D24932A00CC8E93 /* GCDHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65A91D1D9DC900F7AAC5 /* GCDHelper.h */; };
-		A0FD46081D24932A00CC8E93 /* OTTextMessage_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */; };
-		A0FD46091D24932A00CC8E93 /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65AB1D1D9DC900F7AAC5 /* UIViewController+Helper.h */; };
-		D855E598C670BEE63133B96E /* libPods-OTTextChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1FED8BEA5E0DA7AD18EBA5 /* libPods-OTTextChatKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,10 +124,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		185C682F421740ED226E45F0 /* Pods-OTTextChatKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OTTextChatKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests.release.xcconfig"; sourceTree = "<group>"; };
-		4A62214C142619FF5D2C7F59 /* Pods-OTTextChatKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OTTextChatKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OTTextChatKit/Pods-OTTextChatKit.debug.xcconfig"; sourceTree = "<group>"; };
-		5D059593246B09BCC21604CC /* libPods-OTTextChatKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OTTextChatKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		701C380546D4A747E13E0990 /* Pods-OTTextChatKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OTTextChatKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-OTTextChatKit/Pods-OTTextChatKit.release.xcconfig"; sourceTree = "<group>"; };
+		1AD8FD75F160EC8DE4228429 /* Pods-OTTextChatKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OTTextChatKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-OTTextChatKit/Pods-OTTextChatKit.release.xcconfig"; sourceTree = "<group>"; };
+		22FA490C80B0EAE5F3CDDCB2 /* Pods-OTTextChatKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OTTextChatKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OTTextChatKit/Pods-OTTextChatKit.debug.xcconfig"; sourceTree = "<group>"; };
+		294AD1012ECF76C83C0C18FB /* libPods-OTTextChatKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OTTextChatKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		815B3E19D790D8B0BD9105AB /* libPods-OTTextChatKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OTTextChatKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A00169FD506247168B47F7C /* Pods-OTTextChatKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OTTextChatKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		A061B9711D1D98FA0020DDD8 /* OTTextChatAccPackKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTTextChatAccPackKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A061B98D1D1D990D0020DDD8 /* OTTextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTTextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A061B99E1D1D99270020DDD8 /* OTTextChatKitBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTTextChatKitBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,12 +172,9 @@
 		A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextMessage_Private.h; sourceTree = "<group>"; };
 		A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextMessageManager.h; sourceTree = "<group>"; };
 		A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextMessageManager.m; sourceTree = "<group>"; };
-		A0FD45C81D248C6800CC8E93 /* OTKLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKLogger.h; path = "opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKLogger.h"; sourceTree = "<group>"; };
-		A0FD45C91D248C6800CC8E93 /* OTKLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKLogger.m; path = "opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKLogger.m"; sourceTree = "<group>"; };
-		A0FD460E1D24932A00CC8E93 /* OTTextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTTextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0FD460F1D24932A00CC8E93 /* OTTextChatKit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OTTextChatKit copy-Info.plist"; path = "/Users/lucas/textchat-acc-pack/ios/TextChatAccPackKit/OTTextChatKit copy-Info.plist"; sourceTree = "<absolute>"; };
-		DCE1B297983DFCED8C595EEB /* Pods-OTTextChatKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OTTextChatKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests.debug.xcconfig"; sourceTree = "<group>"; };
-		FC1FED8BEA5E0DA7AD18EBA5 /* libPods-OTTextChatKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OTTextChatKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0CFDF861D25041A00D8449B /* OTTextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTTextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0CFDF871D25041B00D8449B /* OTTextChatKit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OTTextChatKit copy-Info.plist"; path = "/Users/lucas/textchat-acc-pack/ios/TextChatAccPackKit/OTTextChatKit copy-Info.plist"; sourceTree = "<absolute>"; };
+		F8B5974CB4B5B3C4C363D4DD /* Pods-OTTextChatKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OTTextChatKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D855E598C670BEE63133B96E /* libPods-OTTextChatKit.a in Frameworks */,
+				4EA25B5978C10E75CC60AD0B /* libPods-OTTextChatKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,30 +206,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				A061B9AD1D1D99680020DDD8 /* OTTextChatKit.framework in Frameworks */,
-				1FCFD576FBB756448E461530 /* libPods-OTTextChatKitTests.a in Frameworks */,
+				87121DAA122E3099F6217037 /* libPods-OTTextChatKitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0FD45FB1D24932A00CC8E93 /* Frameworks */ = {
+		A0CFDF741D25041A00D8449B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0FD45FC1D24932A00CC8E93 /* libPods-OTTextChatKit.a in Frameworks */,
+				A0CFDF751D25041A00D8449B /* libPods-OTTextChatKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		826D4F1233CF61038CD06621 /* Pods */ = {
+		746EE19F9D21DE79714183C9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4A62214C142619FF5D2C7F59 /* Pods-OTTextChatKit.debug.xcconfig */,
-				701C380546D4A747E13E0990 /* Pods-OTTextChatKit.release.xcconfig */,
-				DCE1B297983DFCED8C595EEB /* Pods-OTTextChatKitTests.debug.xcconfig */,
-				185C682F421740ED226E45F0 /* Pods-OTTextChatKitTests.release.xcconfig */,
+				22FA490C80B0EAE5F3CDDCB2 /* Pods-OTTextChatKit.debug.xcconfig */,
+				1AD8FD75F160EC8DE4228429 /* Pods-OTTextChatKit.release.xcconfig */,
+				F8B5974CB4B5B3C4C363D4DD /* Pods-OTTextChatKitTests.debug.xcconfig */,
+				9A00169FD506247168B47F7C /* Pods-OTTextChatKitTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8AABAF09223220A253F37471 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				294AD1012ECF76C83C0C18FB /* libPods-OTTextChatKit.a */,
+				815B3E19D790D8B0BD9105AB /* libPods-OTTextChatKitTests.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A07B96861D1B6273002397EE = {
@@ -246,9 +249,9 @@
 				A0905E351D1D946300004217 /* OTTextChatKitBundle */,
 				A0905E3E1D1D946300004217 /* OTTextChatKitTests */,
 				A07B96901D1B6273002397EE /* Products */,
-				826D4F1233CF61038CD06621 /* Pods */,
-				F9F2EDCA8F9D4B74463595BB /* Frameworks */,
-				A0FD460F1D24932A00CC8E93 /* OTTextChatKit copy-Info.plist */,
+				746EE19F9D21DE79714183C9 /* Pods */,
+				8AABAF09223220A253F37471 /* Frameworks */,
+				A0CFDF871D25041B00D8449B /* OTTextChatKit copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -259,7 +262,7 @@
 				A061B98D1D1D990D0020DDD8 /* OTTextChatKit.framework */,
 				A061B99E1D1D99270020DDD8 /* OTTextChatKitBundle.bundle */,
 				A061B9A81D1D99680020DDD8 /* OTTextChatKitTests.xctest */,
-				A0FD460E1D24932A00CC8E93 /* OTTextChatKit.framework */,
+				A0CFDF861D25041A00D8449B /* OTTextChatKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,8 +311,6 @@
 		A0AC65A71D1D9DC900F7AAC5 /* OTTextChatKit */ = {
 			isa = PBXGroup;
 			children = (
-				A0FD45C81D248C6800CC8E93 /* OTKLogger.h */,
-				A0FD45C91D248C6800CC8E93 /* OTKLogger.m */,
 				A0AC65AD1D1D9DC900F7AAC5 /* Info.plist */,
 				A0AC65E41D1D9DC900F7AAC5 /* OTTextChatKit.h */,
 				A0AC65E51D1D9DC900F7AAC5 /* OTTextChatTableViewCells */,
@@ -373,15 +374,6 @@
 			path = OTTextMessage;
 			sourceTree = "<group>";
 		};
-		F9F2EDCA8F9D4B74463595BB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				FC1FED8BEA5E0DA7AD18EBA5 /* libPods-OTTextChatKit.a */,
-				5D059593246B09BCC21604CC /* libPods-OTTextChatKitTests.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -392,7 +384,6 @@
 				A0AC66321D1D9DC900F7AAC5 /* OTTextChatKit.h in Headers */,
 				A0AC663E1D1D9DC900F7AAC5 /* OTTextChatView.h in Headers */,
 				A0AC66441D1D9DC900F7AAC5 /* OTTextMessage.h in Headers */,
-				A0FD45CA1D248C6800CC8E93 /* OTKLogger.h in Headers */,
 				A0AC66381D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h in Headers */,
 				A0AC66421D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h in Headers */,
 				A0AC66341D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h in Headers */,
@@ -404,22 +395,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0FD45FD1D24932A00CC8E93 /* Headers */ = {
+		A0CFDF761D25041A00D8449B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0FD45FE1D24932A00CC8E93 /* OTTextChatKit.h in Headers */,
-				A0FD45FF1D24932A00CC8E93 /* OTTextChatView.h in Headers */,
-				A0FD46001D24932A00CC8E93 /* OTTextMessage.h in Headers */,
-				A0FD46011D24932A00CC8E93 /* OTKLogger.h in Headers */,
-				A0FD46021D24932A00CC8E93 /* OTTextChatUICustomizator.h in Headers */,
-				A0FD46031D24932A00CC8E93 /* OTTextChatView_UserInterface.h in Headers */,
-				A0FD46041D24932A00CC8E93 /* OTTextChatTableViewCell.h in Headers */,
-				A0FD46051D24932A00CC8E93 /* OTTextChatUICustomizator_Private.h in Headers */,
-				A0FD46061D24932A00CC8E93 /* OTTextMessageManager.h in Headers */,
-				A0FD46071D24932A00CC8E93 /* GCDHelper.h in Headers */,
-				A0FD46081D24932A00CC8E93 /* OTTextMessage_Private.h in Headers */,
-				A0FD46091D24932A00CC8E93 /* UIViewController+Helper.h in Headers */,
+				A0CFDF771D25041A00D8449B /* OTTextChatKit.h in Headers */,
+				A0CFDF781D25041A00D8449B /* OTTextChatView.h in Headers */,
+				A0CFDF791D25041A00D8449B /* OTTextMessage.h in Headers */,
+				A0CFDF7A1D25041A00D8449B /* OTTextChatUICustomizator.h in Headers */,
+				A0CFDF7B1D25041A00D8449B /* OTTextChatView_UserInterface.h in Headers */,
+				A0CFDF7C1D25041A00D8449B /* OTTextChatTableViewCell.h in Headers */,
+				A0CFDF7D1D25041A00D8449B /* OTTextChatUICustomizator_Private.h in Headers */,
+				A0CFDF7E1D25041A00D8449B /* OTTextMessageManager.h in Headers */,
+				A0CFDF7F1D25041A00D8449B /* GCDHelper.h in Headers */,
+				A0CFDF801D25041A00D8449B /* OTTextMessage_Private.h in Headers */,
+				A0CFDF811D25041A00D8449B /* UIViewController+Helper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,11 +439,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A061B9961D1D990D0020DDD8 /* Build configuration list for PBXNativeTarget "OTTextChatKit" */;
 			buildPhases = (
-				2A4C13BDDB3EE22654607548 /* [CP] Check Pods Manifest.lock */,
+				9BFDF9A6D48183E41D33EB13 /* [CP] Check Pods Manifest.lock */,
 				A061B9881D1D990D0020DDD8 /* Sources */,
 				A061B9891D1D990D0020DDD8 /* Frameworks */,
 				A061B98A1D1D990D0020DDD8 /* Headers */,
-				CF7A6337B1D231629664FF4A /* [CP] Copy Pods Resources */,
+				ED35B6D4219C93CE1A8BEB0F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -485,12 +475,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A061B9B01D1D99680020DDD8 /* Build configuration list for PBXNativeTarget "OTTextChatKitTests" */;
 			buildPhases = (
-				4BC2D520053A4EA4E4725A8B /* [CP] Check Pods Manifest.lock */,
+				3C40FC7D9E90419AF285AE92 /* [CP] Check Pods Manifest.lock */,
 				A061B9A41D1D99680020DDD8 /* Sources */,
 				A061B9A51D1D99680020DDD8 /* Frameworks */,
 				A061B9A61D1D99680020DDD8 /* Resources */,
-				8DC216145F9CE78B535055BD /* [CP] Embed Pods Frameworks */,
-				D9622F554D8E3823FD5CC88C /* [CP] Copy Pods Resources */,
+				7E6B10C131A65F0DC5226BB9 /* [CP] Embed Pods Frameworks */,
+				2FE1EDC5C8695317EDB9D0BE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -502,15 +492,15 @@
 			productReference = A061B9A81D1D99680020DDD8 /* OTTextChatKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A0FD45F01D24932A00CC8E93 /* OTTextChatKit copy */ = {
+		A0CFDF6A1D25041A00D8449B /* OTTextChatKit copy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0FD460B1D24932A00CC8E93 /* Build configuration list for PBXNativeTarget "OTTextChatKit copy" */;
+			buildConfigurationList = A0CFDF831D25041A00D8449B /* Build configuration list for PBXNativeTarget "OTTextChatKit copy" */;
 			buildPhases = (
-				A0FD45F11D24932A00CC8E93 /* [CP] Check Pods Manifest.lock */,
-				A0FD45F21D24932A00CC8E93 /* Sources */,
-				A0FD45FB1D24932A00CC8E93 /* Frameworks */,
-				A0FD45FD1D24932A00CC8E93 /* Headers */,
-				A0FD460A1D24932A00CC8E93 /* [CP] Copy Pods Resources */,
+				A0CFDF6B1D25041A00D8449B /* [CP] Check Pods Manifest.lock */,
+				A0CFDF6C1D25041A00D8449B /* Sources */,
+				A0CFDF741D25041A00D8449B /* Frameworks */,
+				A0CFDF761D25041A00D8449B /* Headers */,
+				A0CFDF821D25041A00D8449B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -518,7 +508,7 @@
 			);
 			name = "OTTextChatKit copy";
 			productName = OTTextChatKit;
-			productReference = A0FD460E1D24932A00CC8E93 /* OTTextChatKit.framework */;
+			productReference = A0CFDF861D25041A00D8449B /* OTTextChatKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -570,7 +560,7 @@
 				A061B9A71D1D99680020DDD8 /* OTTextChatKitTests */,
 				A07B971A1D1BA01C002397EE /* Distribution */,
 				A07B971E1D1BA023002397EE /* Build */,
-				A0FD45F01D24932A00CC8E93 /* OTTextChatKit copy */,
+				A0CFDF6A1D25041A00D8449B /* OTTextChatKit copy */,
 			);
 		};
 /* End PBXProject section */
@@ -611,7 +601,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2A4C13BDDB3EE22654607548 /* [CP] Check Pods Manifest.lock */ = {
+		2FE1EDC5C8695317EDB9D0BE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C40FC7D9E90419AF285AE92 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -626,22 +631,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		4BC2D520053A4EA4E4725A8B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		8DC216145F9CE78B535055BD /* [CP] Embed Pods Frameworks */ = {
+		7E6B10C131A65F0DC5226BB9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -654,6 +644,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BFDF9A6D48183E41D33EB13 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A07B97481D1BA24D002397EE /* ShellScript */ = {
@@ -682,7 +687,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nWORKSPACE_NAME=\"OTTextChatAccPackKit.xcworkspace\"\nFRAMEWORK_NAME=\"OTTextChatKit\"\nSCHEME_NAME=\"OTTextChatKit copy\"\nBUNDLE_NAME=\"OTTextChatKitBundle\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\n\n# 5\n# Remove .framework file if exists on OneToOneTextChatSample folder from previous run.\nif [ -d \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework to OneToOneTextChatSample folder .\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"../OneToOneTextChatSample/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Build the resource bundle for the static library\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${BUNDLE_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${BUNDLE_NAME}\" -configuration Debug -sdk \"iphonesimulator\"\n\n# 10\n# Remove .bundle file if exists on OneToOneTextChatSample folder from previous run\nif [ -d \"../OneToOneTextChatSample/${BUNDLE_NAME}.bundle\" ]; then\nrm -rf \"../OneToOneTextChatSample/${BUNDLE_NAME}.bundle\"\nfi\n\n# 11\n# Copy the resource bundle to OneToOneTextChatSample folder\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${BUNDLE_NAME}.bundle\" \"../OneToOneTextChatSample/${BUNDLE_NAME}.bundle\"\n\n# 12\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi";
 		};
-		A0FD45F11D24932A00CC8E93 /* [CP] Check Pods Manifest.lock */ = {
+		A0CFDF6B1D25041A00D8449B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -697,7 +702,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A0FD460A1D24932A00CC8E93 /* [CP] Copy Pods Resources */ = {
+		A0CFDF821D25041A00D8449B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -712,7 +717,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OTTextChatKit/Pods-OTTextChatKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CF7A6337B1D231629664FF4A /* [CP] Copy Pods Resources */ = {
+		ED35B6D4219C93CE1A8BEB0F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -725,21 +730,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OTTextChatKit/Pods-OTTextChatKit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D9622F554D8E3823FD5CC88C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -763,7 +753,6 @@
 				A0AC664C1D1D9DC900F7AAC5 /* OTTextMessageManager.m in Sources */,
 				A0AC66401D1D9DC900F7AAC5 /* OTTextChatView.m in Sources */,
 				A0AC65F81D1D9DC900F7AAC5 /* GCDHelper.m in Sources */,
-				A0FD45CB1D248C6800CC8E93 /* OTKLogger.m in Sources */,
 				A0AC663A1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m in Sources */,
 				A0AC66361D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m in Sources */,
 				A0AC66461D1D9DC900F7AAC5 /* OTTextMessage.m in Sources */,
@@ -786,18 +775,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0FD45F21D24932A00CC8E93 /* Sources */ = {
+		A0CFDF6C1D25041A00D8449B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0FD45F31D24932A00CC8E93 /* UIViewController+Helper.m in Sources */,
-				A0FD45F41D24932A00CC8E93 /* OTTextMessageManager.m in Sources */,
-				A0FD45F51D24932A00CC8E93 /* OTTextChatView.m in Sources */,
-				A0FD45F61D24932A00CC8E93 /* GCDHelper.m in Sources */,
-				A0FD45F71D24932A00CC8E93 /* OTKLogger.m in Sources */,
-				A0FD45F81D24932A00CC8E93 /* OTTextChatUICustomizator.m in Sources */,
-				A0FD45F91D24932A00CC8E93 /* OTTextChatTableViewCell.m in Sources */,
-				A0FD45FA1D24932A00CC8E93 /* OTTextMessage.m in Sources */,
+				A0CFDF6D1D25041A00D8449B /* UIViewController+Helper.m in Sources */,
+				A0CFDF6E1D25041A00D8449B /* OTTextMessageManager.m in Sources */,
+				A0CFDF6F1D25041A00D8449B /* OTTextChatView.m in Sources */,
+				A0CFDF701D25041A00D8449B /* GCDHelper.m in Sources */,
+				A0CFDF711D25041A00D8449B /* OTTextChatUICustomizator.m in Sources */,
+				A0CFDF721D25041A00D8449B /* OTTextChatTableViewCell.m in Sources */,
+				A0CFDF731D25041A00D8449B /* OTTextMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,7 +850,7 @@
 		};
 		A061B9971D1D990D0020DDD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A62214C142619FF5D2C7F59 /* Pods-OTTextChatKit.debug.xcconfig */;
+			baseConfigurationReference = 22FA490C80B0EAE5F3CDDCB2 /* Pods-OTTextChatKit.debug.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -883,7 +871,7 @@
 		};
 		A061B9981D1D990D0020DDD8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 701C380546D4A747E13E0990 /* Pods-OTTextChatKit.release.xcconfig */;
+			baseConfigurationReference = 1AD8FD75F160EC8DE4228429 /* Pods-OTTextChatKit.release.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -938,7 +926,7 @@
 		};
 		A061B9B11D1D99680020DDD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCE1B297983DFCED8C595EEB /* Pods-OTTextChatKitTests.debug.xcconfig */;
+			baseConfigurationReference = F8B5974CB4B5B3C4C363D4DD /* Pods-OTTextChatKitTests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = OTTextChatKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -949,7 +937,7 @@
 		};
 		A061B9B21D1D99680020DDD8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 185C682F421740ED226E45F0 /* Pods-OTTextChatKitTests.release.xcconfig */;
+			baseConfigurationReference = 9A00169FD506247168B47F7C /* Pods-OTTextChatKitTests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = OTTextChatKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1070,9 +1058,9 @@
 			};
 			name = Release;
 		};
-		A0FD460C1D24932A00CC8E93 /* Debug */ = {
+		A0CFDF841D25041A00D8449B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A62214C142619FF5D2C7F59 /* Pods-OTTextChatKit.debug.xcconfig */;
+			baseConfigurationReference = 22FA490C80B0EAE5F3CDDCB2 /* Pods-OTTextChatKit.debug.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1092,9 +1080,9 @@
 			};
 			name = Debug;
 		};
-		A0FD460D1D24932A00CC8E93 /* Release */ = {
+		A0CFDF851D25041A00D8449B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 701C380546D4A747E13E0990 /* Pods-OTTextChatKit.release.xcconfig */;
+			baseConfigurationReference = 1AD8FD75F160EC8DE4228429 /* Pods-OTTextChatKit.release.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1180,11 +1168,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0FD460B1D24932A00CC8E93 /* Build configuration list for PBXNativeTarget "OTTextChatKit copy" */ = {
+		A0CFDF831D25041A00D8449B /* Build configuration list for PBXNativeTarget "OTTextChatKit copy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A0FD460C1D24932A00CC8E93 /* Debug */,
-				A0FD460D1D24932A00CC8E93 /* Release */,
+				A0CFDF841D25041A00D8449B /* Debug */,
+				A0CFDF851D25041A00D8449B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

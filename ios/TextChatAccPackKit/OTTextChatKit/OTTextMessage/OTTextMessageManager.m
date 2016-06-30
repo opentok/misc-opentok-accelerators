@@ -9,7 +9,7 @@
 
 #import "OTTextMessageManager.h"
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
-#import "OTKLogger.h"
+#import <OTKAnalytics/OTKLogger.h>
 
 static NSUInteger DefaultTextMessageLength = 120;
 static NSUInteger MaximumTextMessageLength = 8196;
