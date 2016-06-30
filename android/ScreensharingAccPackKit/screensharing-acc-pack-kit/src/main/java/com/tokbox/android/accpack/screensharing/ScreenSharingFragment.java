@@ -141,9 +141,9 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
 
         /**
-         * Invoked when a the annotations view has been added to the screensharing view
+         * Invoked when the annotations view has been added to the screensharing view.
          *
-         * @param view AnnotationsView.
+         * @param view The annotations view.
          */
         void onAnnotationsViewReady(AnnotationsView view);
 
@@ -207,15 +207,15 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     }
 
     /*
-     * Set ScreenSharing Listener
-     * @param mListener ScreenSharingListener
+     * Set the screen sharing listener.
+     * @param mListener The screen sharing listener.
      */
     public void setListener(ScreenSharingListener mListener) {
         this.mListener = mListener;
     }
 
     /*
-    * Start sharing the screen
+    * Start sharing the screen.
     */
     public void start(){
         init();
@@ -230,7 +230,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     }
 
     /*
-    * Stop sharing the screen
+    * Stop sharing the screen.
     */
     public void stop(){
         addLogEvent(OpenTokConfig.LOG_ACTION_STOP, OpenTokConfig.LOG_VARIATION_ATTEMPT);
@@ -242,8 +242,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
 
     /*
-    * Check the screensharing status
-    * @return (<code>true</code>) or (<code>false</code>) if screensharing is not started
+    * Check whether screensharing has started.
+    * @return <code>true</code> if screensharing started; <code>false</code> otherwise.
     */
     public boolean isStarted() {
         return isStarted;
@@ -252,9 +252,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     /*
     * Enable or disable the annotations in the screensharing.
-    * @param annotationsEnabled Whether the annotations is enabled (<code>true</code>) or not (
-    *                 <code>false</code>)
-    * @param toolbar AnnotationsToolbar used by the Annotations
+    * @param annotationsEnabled <code>true</code> if annotations are enabled; <code>false</code> otherwise.
+    * @param toolbar The annotations toolbar.
     */
     public void enableAnnotations(boolean annotationsEnabled, AnnotationsToolbar toolbar) {
         isAnnotationsEnabled = annotationsEnabled;
@@ -273,9 +272,8 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
     }
 
     /*
-    * Enable or disable the audio in the screensharing
-    * @param enabled Whether the audio is enabled (<code>true</code>) or not (
-    *                 <code>false</code>)
+    * Enable or disable the audio in the screensharing.
+    * @param enabled <code>true</code> if  the audio is enabled; <code>false</code> otherwise.
     */
     public void enableAudioScreensharing(boolean enabled) {
         isAudioEnabled = enabled;
