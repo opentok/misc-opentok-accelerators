@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "OTAcceleratorPackUtil"
-  s.version          = "1.1.0"
+  s.version          = "1.0.6"
   s.summary          = "Common Accelerator Session Pack Version 0.9."
 
 # This description is used to generate tags and improve search results.
@@ -27,7 +27,7 @@ On the Android and iOS mobile platforms, when you try to set a listener (Android
   s.source           = { :git => "https://github.com/opentok/acc-pack-common.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/tokbox'
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'iOS/OTAcceleratorPackUtil/Classes/*'
