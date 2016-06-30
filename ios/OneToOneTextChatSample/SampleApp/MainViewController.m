@@ -162,8 +162,8 @@
 }
 
 /**
- * action to handle the textchat to be attached into the main view, also add the listeners for show the keyboard
- * and set the title for the top bar in the text chat component
+ * Action to handle the textchat to be attached to the main view. Also adds the listeners for displaying the keyboard
+ * and setting the title for the top bar in the text chat component.
  */
 - (IBAction)textChatButtonPressed:(UIButton *)sender {
     
@@ -176,8 +176,8 @@
 }
 
 /**
- * handles the event when the user does a touch to show and then hide the buttons for
- * subscriber actions within 7 seconds
+ * Handles the event, within 7 seconds, when the user performs a touch action to show and then hide the buttons for
+ * subscriber actions.
 */
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if (self.oneToOneCommunicator.subscriberView){
