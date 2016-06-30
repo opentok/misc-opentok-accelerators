@@ -49,17 +49,13 @@ In **AppDelegate.h**, replace the following empty strings with the required deta
    ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-	// Override point for customization after application launch.    
-    [OneToOneCommunicator setOpenTokApiKey:@""
-                                 sessionId:@""
-                                     token:@""
-                            selfSubscribed:NO];
+    // Override point for customization after application launch.    
+    [OTTextChatView setOpenTokApiKey:@""
+                           sessionId:@""
+                               token:@""];
   	return YES;
 }
    ```
-
-
-You may also set the `selfSubscribed` constant. Its default value, `NO`, means that the app subscribes automatically to the other client’s stream. This is required to establish communication between two streams using the same Session ID.
 
 _At this point you can try running the app! You can either use a simulator or an actual mobile device._
 
