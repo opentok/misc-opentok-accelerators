@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A0CFDFA71D2509E200D8449B"
-               BuildableName = "OTTextChatKit copy.framework"
+               BuildableName = "OTTextChatKit.framework"
                BlueprintName = "OTTextChatKit copy"
                ReferencedContainer = "container:OTTextChatAccPackKit.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0CFDFA71D2509E200D8449B"
-            BuildableName = "OTTextChatKit copy.framework"
+            BuildableName = "OTTextChatKit.framework"
             BlueprintName = "OTTextChatKit copy"
             ReferencedContainer = "container:OTTextChatAccPackKit.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0CFDFA71D2509E200D8449B"
-            BuildableName = "OTTextChatKit copy.framework"
+            BuildableName = "OTTextChatKit.framework"
             BlueprintName = "OTTextChatKit copy"
             ReferencedContainer = "container:OTTextChatAccPackKit.xcodeproj">
          </BuildableReference>
