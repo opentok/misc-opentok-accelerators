@@ -2,8 +2,7 @@
 //  UIViewController+Helper.m
 //  TextChatSampleApp
 //
-//  Created by Xi Huang on 4/5/16.
-//  Copyright © 2016 Lucas Huang. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "UIViewController+Helper.h"

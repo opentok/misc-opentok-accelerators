@@ -1,8 +1,10 @@
 PODS:
   - Kiwi (2.4.0)
   - OpenTok (2.8.3)
-  - OTAcceleratorPackUtil (1.0.4):
+  - OTAcceleratorPackUtil (1.1.0):
     - OpenTok
+    - OTKAnalytics
+  - OTKAnalytics (1.0.1)
 
 DEPENDENCIES:
   - Kiwi
@@ -11,8 +13,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Kiwi: f49c9d54b28917df5928fe44968a39ed198cb8a8
   OpenTok: ad14a09847ba5d6485820f5946484b749de944d7
-  OTAcceleratorPackUtil: 78c3f48ca24df109ff743ea91d9d47206f64046a
+  OTAcceleratorPackUtil: 90f61f36d6cb6c5eeb6c38500f8a94121c6dd545
+  OTKAnalytics: 5c2ee8ef9ad220b2dfea7e2247c4d599ea2b7eb4
 
 PODFILE CHECKSUM: 28a40fad00bc3dc2cb023ce1e92d487303bab901
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

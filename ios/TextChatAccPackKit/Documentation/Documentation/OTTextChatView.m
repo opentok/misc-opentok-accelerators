@@ -2,8 +2,7 @@
 //  TextChatComponentChatView.m
 //  TextChatComponent
 //
-//  Created by Esteban Cordero on 2/23/16.
-//  Copyright © 2016 AgilityFeat. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "OTTextMessage.h"
@@ -12,6 +11,7 @@
 #import "OTTextMessageManager.h"
 
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
+#import <OTKAnalytics/OTKLogger.h>
 
 #import "GCDHelper.h"
 #import "UIViewController+Helper.h"
@@ -176,6 +176,11 @@ static CGFloat StatusBarHeight = 20.0;
 #pragma mark - Public methods
 + (instancetype)textChatView {
     
+    [OTKLogger analyticsWithClientVersion:KLogClientVersion
+                                   source:[[NSBundle mainBundle] bundleIdentifier]
+                              componentId:kLogComponentIdentifier
+                                     guid:[[NSUUID UUID] UUIDString]];
+    
     NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"OTTextChatKitBundle" withExtension:@"bundle"]];
     return (OTTextChatView *)[[textChatViewBundle loadNibNamed:@"OTTextChatView"
                                                       owner:nil
@@ -216,7 +221,6 @@ static CGFloat StatusBarHeight = 20.0;
     if (self.isShown) {
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self removeFromSuperview];
-        [OTKAnalytics logEventAction:KLogActionClose variation:KLogVariationSuccess completion:nil];
     }
 }
 
@@ -252,7 +256,6 @@ static CGFloat StatusBarHeight = 20.0;
 
 #pragma mark - IBActions
 - (IBAction)closeButton:(UIButton *)sender {
-    [OTKAnalytics logEventAction:KLogActionClose variation:KLogVariationAttempt completion:nil];
     [self dismiss];
 }
 

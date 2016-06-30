@@ -1,3 +1,0 @@
-[submodule "ios/OneToOneTextChatSample/SampleApp/one-to-one-sample-apps"]
-	path = ios/OneToOneTextChatSample/SampleApp/one-to-one-sample-apps
-	url = https://github.com/opentok/one-to-one-sample-apps.git

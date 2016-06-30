@@ -13,16 +13,9 @@
 		6405A5C11C696BE600441745 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5BF1C696BE600441745 /* Main.storyboard */; };
 		6405A5C61C696BE600441745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C51C696BE600441745 /* Assets.xcassets */; };
 		6405A5C91C696BE600441745 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6405A5C71C696BE600441745 /* LaunchScreen.storyboard */; };
-		A02411061D0898C70001670C /* OneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A02411051D0898C70001670C /* OneToOneCommunicator.m */; };
 		A0939FAB1D1DA3F000120AD1 /* OTTextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0939FA91D1DA3F000120AD1 /* OTTextChatKit.framework */; };
 		A0939FAC1D1DA3F000120AD1 /* OTTextChatKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0939FAA1D1DA3F000120AD1 /* OTTextChatKitBundle.bundle */; };
 		A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */; };
-		A0B1F1831CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F17A1CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m */; };
-		A0B1F1841CC5423A00E0FB00 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F17C1CC5423A00E0FB00 /* SVProgressAnimatedView.m */; };
-		A0B1F1851CC5423A00E0FB00 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0B1F17E1CC5423A00E0FB00 /* SVProgressHUD.bundle */; };
-		A0B1F1861CC5423A00E0FB00 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F1801CC5423A00E0FB00 /* SVProgressHUD.m */; };
-		A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */; };
-		A0F39FD81D19176100DCD741 /* OTKTextChatAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F39FD71D19176100DCD741 /* OTKTextChatAnalytics.m */; };
 		B648B8D5F6BB8B8F3367611F /* libPods-OneToOneTextChatSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB98A9793130E2436B69C370 /* libPods-OneToOneTextChatSample.a */; };
 /* End PBXBuildFile section */
 
@@ -52,24 +45,10 @@
 		6405A5C51C696BE600441745 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6405A5C81C696BE600441745 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6405A5CA1C696BE600441745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A02411041D0898C70001670C /* OneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneToOneCommunicator.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.h"; sourceTree = "<group>"; };
-		A02411051D0898C70001670C /* OneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneToOneCommunicator.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/OneToOneCommunicator.m"; sourceTree = "<group>"; };
 		A0939FA91D1DA3F000120AD1 /* OTTextChatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OTTextChatKit.framework; sourceTree = "<group>"; };
 		A0939FAA1D1DA3F000120AD1 /* OTTextChatKitBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OTTextChatKitBundle.bundle; sourceTree = "<group>"; };
 		A0ADEF8A1C9FB2DE00D1A471 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		A0ADEF8B1C9FB2DE00D1A471 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
-		A0B1F1791CC5423A00E0FB00 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		A0B1F17A1CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		A0B1F17B1CC5423A00E0FB00 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
-		A0B1F17C1CC5423A00E0FB00 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
-		A0B1F17D1CC5423A00E0FB00 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
-		A0B1F17E1CC5423A00E0FB00 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
-		A0B1F17F1CC5423A00E0FB00 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		A0B1F1801CC5423A00E0FB00 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		A0B1F1811CC5423A00E0FB00 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
-		A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
-		A0F39FD61D19176100DCD741 /* OTKTextChatAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OTKTextChatAnalytics.h; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKTextChatAnalytics.h"; sourceTree = "<group>"; };
-		A0F39FD71D19176100DCD741 /* OTKTextChatAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OTKTextChatAnalytics.m; path = "one-to-one-sample-apps/one-to-one-sample-app/iOS/SampleApp/opentok-solutions-logging/iOS/SolutionsLogging/SolutionsLogging/OTKTextChatAnalytics.m"; sourceTree = "<group>"; };
 		CB98A9793130E2436B69C370 /* libPods-OneToOneTextChatSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneToOneTextChatSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -117,11 +96,6 @@
 		6405A5B51C696BE600441745 /* SampleApp */ = {
 			isa = PBXGroup;
 			children = (
-				A02411041D0898C70001670C /* OneToOneCommunicator.h */,
-				A02411051D0898C70001670C /* OneToOneCommunicator.m */,
-				A0F39FD61D19176100DCD741 /* OTKTextChatAnalytics.h */,
-				A0F39FD71D19176100DCD741 /* OTKTextChatAnalytics.m */,
-				A0B1F1781CC5423A00E0FB00 /* SVProgressHUD */,
 				6405A5B91C696BE600441745 /* AppDelegate.h */,
 				6405A5BA1C696BE600441745 /* AppDelegate.m */,
 				64B917111CAAD9E200674F7E /* Controllers */,
@@ -161,23 +135,6 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		A0B1F1781CC5423A00E0FB00 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				A0B1F1791CC5423A00E0FB00 /* SVIndefiniteAnimatedView.h */,
-				A0B1F17A1CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m */,
-				A0B1F17B1CC5423A00E0FB00 /* SVProgressAnimatedView.h */,
-				A0B1F17C1CC5423A00E0FB00 /* SVProgressAnimatedView.m */,
-				A0B1F17D1CC5423A00E0FB00 /* SVProgressHUD-Prefix.pch */,
-				A0B1F17E1CC5423A00E0FB00 /* SVProgressHUD.bundle */,
-				A0B1F17F1CC5423A00E0FB00 /* SVProgressHUD.h */,
-				A0B1F1801CC5423A00E0FB00 /* SVProgressHUD.m */,
-				A0B1F1811CC5423A00E0FB00 /* SVRadialGradientLayer.h */,
-				A0B1F1821CC5423A00E0FB00 /* SVRadialGradientLayer.m */,
-			);
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
 		EF90C1FE2114C80C94793CBB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,13 +151,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6405A5CD1C696BE600441745 /* Build configuration list for PBXNativeTarget "OneToOneTextChatSample" */;
 			buildPhases = (
-				B217B3F93E98D9752201F318 /* 📦 Check Pods Manifest.lock */,
+				B217B3F93E98D9752201F318 /* [CP] Check Pods Manifest.lock */,
 				6405A5AF1C696BE600441745 /* Sources */,
 				6405A5B01C696BE600441745 /* Frameworks */,
 				6405A5B11C696BE600441745 /* Resources */,
 				A0DF6E061CB8D88C00A0A5F8 /* Embed Frameworks */,
-				41FDEE57934838D1C0D8F27D /* 📦 Embed Pods Frameworks */,
-				0329010850A1C3E71D7318E0 /* 📦 Copy Pods Resources */,
+				41FDEE57934838D1C0D8F27D /* [CP] Embed Pods Frameworks */,
+				0329010850A1C3E71D7318E0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -252,21 +209,20 @@
 				6405A5C91C696BE600441745 /* LaunchScreen.storyboard in Resources */,
 				6405A5C61C696BE600441745 /* Assets.xcassets in Resources */,
 				6405A5C11C696BE600441745 /* Main.storyboard in Resources */,
-				A0B1F1851CC5423A00E0FB00 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0329010850A1C3E71D7318E0 /* 📦 Copy Pods Resources */ = {
+		0329010850A1C3E71D7318E0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,14 +230,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OneToOneTextChatSample/Pods-OneToOneTextChatSample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		41FDEE57934838D1C0D8F27D /* 📦 Embed Pods Frameworks */ = {
+		41FDEE57934838D1C0D8F27D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,14 +245,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OneToOneTextChatSample/Pods-OneToOneTextChatSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B217B3F93E98D9752201F318 /* 📦 Check Pods Manifest.lock */ = {
+		B217B3F93E98D9752201F318 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,16 +267,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A02411061D0898C70001670C /* OneToOneCommunicator.m in Sources */,
-				A0B1F1831CC5423A00E0FB00 /* SVIndefiniteAnimatedView.m in Sources */,
 				6405A5BE1C696BE600441745 /* MainViewController.m in Sources */,
 				6405A5BB1C696BE600441745 /* AppDelegate.m in Sources */,
-				A0B1F1871CC5423A00E0FB00 /* SVRadialGradientLayer.m in Sources */,
-				A0B1F1861CC5423A00E0FB00 /* SVProgressHUD.m in Sources */,
 				6405A5B81C696BE600441745 /* main.m in Sources */,
-				A0F39FD81D19176100DCD741 /* OTKTextChatAnalytics.m in Sources */,
 				A0ADEF8C1C9FB2DE00D1A471 /* MainView.m in Sources */,
-				A0B1F1841CC5423A00E0FB00 /* SVProgressAnimatedView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

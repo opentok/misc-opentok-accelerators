@@ -2,8 +2,7 @@
 //  TextChatComponentChatView.h
 //  TextChatComponent
 //
-//  Created by Xi Huang on 2/23/16.
-//  Copyright © 2016 Tokbox. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import <OTTextChatKit/OTTextChatUICustomizator.h>

@@ -2,8 +2,7 @@
 //  TextChat_Private.h
 //  TextChatSample
 //
-//  Created by Xi Huang on 5/6/16.
-//  Copyright © 2016 Esteban Cordero. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "OTTextMessage.h"
