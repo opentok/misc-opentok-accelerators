@@ -1,10 +1,9 @@
+target 'OTAcceleratorPackUtil_Example', :exclusive => true do
+  pod 'OTAcceleratorPackUtil', :path => '../'
+end
 
-target 'OTAcceleratorPackUtil_Example' do
+target 'OTAcceleratorPackUtil_Tests', :exclusive => true do
   pod 'OTAcceleratorPackUtil', :path => '../'
 
-  target 'OTAcceleratorPackUtil_Tests' do
-    inherit! :search_paths
-
-    pod 'Kiwi'
-  end
+  pod 'Kiwi'
 end
