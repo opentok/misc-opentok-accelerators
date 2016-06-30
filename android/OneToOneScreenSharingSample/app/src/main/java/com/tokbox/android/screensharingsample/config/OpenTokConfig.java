@@ -19,8 +19,8 @@ public class OpenTokConfig {
     public static final String LOG_CLIENT_VERSION = "android-vsol-0.9";
     public static final String LOG_COMPONENTID = "oneToOneSSSampleApp";
     public static final String LOG_ACTION_INITIALIZE = "Init";
-    public static final String LOG_ACTION_START_COMM = "StartComm";
-    public static final String LOG_ACTION_END_COMM = "EndComm";
+    public static final String LOG_ACTION_START_COMM = "Start";
+    public static final String LOG_ACTION_END_COMM = "End";
     public static final String LOG_ACTION_CLOSE = "CloseSS";
     public static final String LOG_ACTION_OPEN = "OpenSS";
 

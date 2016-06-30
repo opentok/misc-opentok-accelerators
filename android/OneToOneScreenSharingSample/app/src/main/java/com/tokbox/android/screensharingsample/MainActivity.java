@@ -28,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tokbox.android.accpack.OneToOneCommunication;
 import com.tokbox.android.annotations.AnnotationsToolbar;
 import com.tokbox.android.annotations.AnnotationsView;
 import com.tokbox.android.accpack.screensharing.ScreenSharingFragment;
@@ -85,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private AnnotationsToolbar mAnnotationsToolbar;
     private boolean screenshot;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(LOG_TAG, "onCreate");
@@ -117,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
 
         //init 1to1 communication object
-        mComm = new OneToOneCommunication(MainActivity.this);
+        mComm = new OneToOneCommunication(MainActivity.this, OpenTokConfig.SESSION_ID, OpenTokConfig.TOKEN, OpenTokConfig.API_KEY);
+        mComm.setSubscribeToSelf(OpenTokConfig.SUBSCRIBE_TO_SELF);
         //set listener to receive the communication events, and add UI to these events
         mComm.setListener(this);
         mComm.init();
