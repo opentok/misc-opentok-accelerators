@@ -27,41 +27,18 @@ _You do not need the OpenTok iOS SDK to use this sample._
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
 
-### Installing the Text Chat Accelerator Pack
-
-There are 3 options for installing the Text Chat Accelerator Pack framework:
-
-  - Run the [build.sh script](./build.sh).
-  - Download the [Text Chat Accelerator Pack framework](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/iOS/TextChatKit.zip) file provided by TokBox.
-  - Install using CocoaPods: In a terminal prompt, navigate into your project directory and type `pod install`. Then reopen your project using the new *.xcworkspace file.
-
-
 
 
 ## Quick start
 
 To get up and running quickly with your app, go through the following steps in the tutorial provided below:
 
-1. [Importing the Xcode Project](#importing-the-xcode-project)
-2. [Adding the required frameworks](#adding-the-required-frameworks)
-3. [Configuring the app](#configuring-the-app)
+### Using CocoaPods
 
-To learn more about the best practices used to design this app, see [Exploring the code](#exploring-the-code).
+1. In a terminal prompt, navigate into your project directory and type `pod install`.
+2. Reopen your project using the new *.xcworkspace file.
 
-### Importing the Xcode project
-
-1. Clone the OpenTok Text Chat Sample App repository.
-2. Start Xcode. 
-3. Click **File > Open**.
-4. Navigate to the **iOS** folder, select **OneToOneTextChatSample.xcodeproj**, and click **Open**.
-
-
-### Adding the required frameworks
-
-1. Copy the **TextChatKit.framework** into your project folder. 
-2. From the **Project Navigator** view, select each and ensure **Target Membership** is checked in the **File Inspector**.
-3. From the **Project Navigator** view, click **General**. Ensure that **TextChatKit.framework** has been added to **Embedded Binaries**.
-
+For more information about CocoaPods, including installation instructions, visit [CocoaPods Getting Started](https://guides.cocoapods.org/using/getting-started.html#getting-started).
 
 
 ### Configuring the app
