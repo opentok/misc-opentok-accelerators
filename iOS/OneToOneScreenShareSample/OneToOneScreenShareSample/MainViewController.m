@@ -308,8 +308,8 @@
 }
 
 /**
- * handles the event when the user does a touch to show and then hide the buttons for
- * subscriber actions within 7 seconds
+ * Handles the event, within 7 seconds, when the user does a touch to show and then hide the buttons for
+ * subscriber actions.
  */
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if (self.oneToOneCommunicator.subscriberView){
