@@ -150,7 +150,7 @@ public class OneToOneCommunication implements
         this.mSubscribeToSelf = subscribeToSelf;
     }
 
-    private void init() {
+    public void init() {
         if (mSession == null) {
             mSession = new AccPackSession(mContext,
                     mApiKey, mSessionId);
