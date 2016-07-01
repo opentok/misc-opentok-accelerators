@@ -36,7 +36,7 @@ then
 	fetchAnnotationsDep
 	
 	gulp dist
-
+        gulp zip
 	cd dist 
     cp -v screenshare-annotation-acc-pack.js $PUBLIC/js/components/screenshare-annotation-acc-pack.js
     cp -v theme.css $PUBLIC/css/theme.css
