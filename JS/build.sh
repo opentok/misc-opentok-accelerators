@@ -44,6 +44,7 @@ then
 	
 	if [[ -f "../screenshare.html" ]]
 	then
+		mkdir $PUBLIC/templates
 		cp -v ../screenshare.html $PUBLIC/templates/screenshare.html
 	fi
 else 
