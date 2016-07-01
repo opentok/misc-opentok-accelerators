@@ -7,21 +7,31 @@
 //
 
 #import "ViewController.h"
+#import <OTTextChatKit/OTTextChatKit.h>
 
 @interface ViewController ()
-
+@property (nonatomic) OTTextChatView *textChatView;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    //self.textChatView = [TextChatView textChatViewWithBottomView:self.bottomView];
+    self.textChatView = [OTTextChatView textChatView];
+    // starting the accellpack connection with the session
+    [self.textChatView connect];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+- (IBAction)startTextChat:(UIButton *)sender {
+    if (!self.textChatView.isShown) {
+        [self.textChatView show];
+    } else {
+        [self.textChatView dismiss];
+    }
+    // OPTIONAL COLOR CHANGING
+    // [TextChatUICustomizator setTableViewCellSendBackgroundColor:[UIColor orangeColor]];
+    // [TextChatUICustomizator setTableViewCellReceiveBackgroundColor:[UIColor yellowColor]];
 
+}
 @end

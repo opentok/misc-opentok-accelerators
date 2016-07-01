@@ -89,16 +89,16 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     public interface TextChatListener {
 
         /**
-         * Invoked when a new message has been sent.
+         * Invoked when a new text chat message has been sent.
          *
-         * @param message The ChatMessage that was sent.
+         * @param message The text chat message that was sent.
          */
         void onNewSentMessage(ChatMessage message);
 
         /**
-         * Invoked when a new message has been received.
+         * Invoked when a new text chat message has been received.
          *
-         * @param message The ChatMessage that was received.
+         * @param message The text chat message that was received.
          */
         void onNewReceivedMessage(ChatMessage message);
 
@@ -123,7 +123,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /*
-    * Constructor by default
+    * Default constructor.
     */
     public TextChatFragment(){
 
@@ -138,7 +138,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /*
-    * Constructor
+    * Constructor.
     * @param session The OpenTok session instance.
     * @param apiKey  The API Key.
     */
@@ -287,6 +287,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     /**
      * Get the action bar to be customized.
+     * @return The action bar.
      */
     public ViewGroup getActionBar() { return mActionBarView; }
 
@@ -308,6 +309,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     /**
      * Get the send message area view to be customized.
+     * @return The send message view.
      */
     public ViewGroup getSendMessageView() {
         return mSendMessageView;
