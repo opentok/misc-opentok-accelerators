@@ -1,6 +1,5 @@
 //
-//  ScreenShareColorPickerView.h
-//  ScreenShareSample
+//  OTAnnotationColorPickerView.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //

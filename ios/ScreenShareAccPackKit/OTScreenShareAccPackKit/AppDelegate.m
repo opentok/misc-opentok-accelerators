@@ -1,9 +1,7 @@
 //
 //  AppDelegate.m
-//  ScreenShareSample
 //
-//  Created by Xi Huang on 4/26/16.
-//  Copyright © 2016 Lucas Huang. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -17,9 +15,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [OTScreenSharer setOpenTokApiKey:@"45589022"
-                         sessionId:@"1_MX40NTU4OTAyMn5-MTQ2NDc5NzE5ODUzOH5HazV0QnpCdE9zbVB3cEtuR0hnZGpYUnV-fg"
-                             token:@"T1==cGFydG5lcl9pZD00NTU4OTAyMiZzaWc9YmI5NTQ3OTA4MmQ3ODg1Nzg5NDNhNmEwNzkzNzRjNGI3ODNjYjhhNTpzZXNzaW9uX2lkPTFfTVg0ME5UVTRPVEF5TW41LU1UUTJORGM1TnpFNU9EVXpPSDVIYXpWMFFucENkRTl6YlZCM2NFdHVSMGhuWkdwWVVuVi1mZyZjcmVhdGVfdGltZT0xNDY0Nzk3MjExJm5vbmNlPTAuNTMxODE2OTY2MzY2MDIyOCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNDY3Mzg5MjEw"];
+    [OTScreenSharer setOpenTokApiKey:@"<#Replace#>"
+                           sessionId:@"<#Replace#>"
+                               token:@"<#Replace#>"];
     return YES;
 }
 

@@ -1,5 +1,5 @@
 //
-//  ScreenShareTextView.h
+//  OTAnnotationTextView.h
 //  
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
