@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F298C6B1D25BF9900D2F48A /* OTTextChatKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A061B99E1D1D99270020DDD8 /* OTTextChatKitBundle.bundle */; };
 		A059B98F1D1DE771008F1F14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0905E361D1D946300004217 /* Assets.xcassets */; };
 		A059B9901D1DE771008F1F14 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0905E7B1D1D956500004217 /* Info.plist */; };
 		A059B9911D1DE771008F1F14 /* OTTextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E381D1D946300004217 /* OTTextChatView.xib */; };
@@ -333,11 +334,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A061B9961D1D990D0020DDD8 /* Build configuration list for PBXNativeTarget "OTTextChatKit" */;
 			buildPhases = (
-				5A9C2F177F388788F2066EAF /* [CP] Check Pods Manifest.lock */,
 				A061B9881D1D990D0020DDD8 /* Sources */,
 				A061B9891D1D990D0020DDD8 /* Frameworks */,
 				A061B98A1D1D990D0020DDD8 /* Headers */,
-				D8382974D1CF7FB337653668 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -369,12 +368,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A061B9B01D1D99680020DDD8 /* Build configuration list for PBXNativeTarget "OTTextChatKitTests" */;
 			buildPhases = (
-				52966490F0BDEA7ADF67162F /* [CP] Check Pods Manifest.lock */,
 				A061B9A41D1D99680020DDD8 /* Sources */,
 				A061B9A51D1D99680020DDD8 /* Frameworks */,
 				A061B9A61D1D99680020DDD8 /* Resources */,
-				B8B286791B81415ECE1773F6 /* [CP] Embed Pods Frameworks */,
-				7CBE73D80DC0F2991FF1455C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -436,6 +432,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F298C6B1D25BF9900D2F48A /* OTTextChatKitBundle.bundle in Resources */,
 				A0D9E63F1D2480E400C6F73E /* Assets.xcassets in Resources */,
 				A0D9E6401D2480E400C6F73E /* LaunchScreen.storyboard in Resources */,
 				A0D9E6411D2480E400C6F73E /* Main.storyboard in Resources */,
@@ -465,84 +462,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		52966490F0BDEA7ADF67162F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		5A9C2F177F388788F2066EAF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7CBE73D80DC0F2991FF1455C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8B286791B81415ECE1773F6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OTTextChatKitTests/Pods-OTTextChatKitTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D8382974D1CF7FB337653668 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OTTextChatKit/Pods-OTTextChatKit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A061B96D1D1D98FA0020DDD8 /* Sources */ = {
@@ -624,6 +543,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = OTTextChatAccPackKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -636,6 +556,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = OTTextChatAccPackKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
