@@ -15,7 +15,7 @@
 @interface MainViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic) MainView *mainView;
 @property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
-@property (nonatomic) ScreenSharer *screenSharer;
+@property (nonatomic) OTScreenSharer *screenSharer;
 
 @property (nonatomic) UIView *customSharedContent;
 @property (nonatomic) UIImagePickerController *imagePickerViewContoller;
@@ -75,7 +75,7 @@
     
     self.mainView = (MainView *)self.view;
     self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
-    self.screenSharer = [ScreenSharer screenSharer];
+    self.screenSharer = [OTScreenSharer screenSharer];
 #if !(TARGET_OS_SIMULATOR)
     [self.mainView showReverseCameraButton];
 #endif
