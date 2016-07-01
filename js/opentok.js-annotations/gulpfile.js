@@ -15,7 +15,7 @@ gulp.task('js', function () {
 
 
 gulp.task('css', function () {
-  return gulp.src('css/theme.css')
+  return gulp.src('css/annotation.css')
     .pipe(importCss())
     .pipe(gulp.dest('dist'));
 });
@@ -32,7 +32,7 @@ gulp.task('images', function () {
 gulp.task('zip', function() {
   return gulp.src(
         [
-         "dist/theme.css",
+         "dist/annotation.css",
          "dist/images/**",
          "dist/opentok-annotations.js"
         ], { base: 'dist/' })
