@@ -2,6 +2,10 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var importCss = require('gulp-import-css');
 var uglify = require('gulp-uglify');
+var zip = require('gulp-zip');
+var unzip = require('gulp-unzip');
+var concatCss = require('gulp-concat-css');
+
 
 gulp.task('default', ['js', 'css']);
 gulp.task('dev', ['js-dev', 'css']);
@@ -19,11 +23,36 @@ gulp.task('js-dev', function () {
     .pipe(gulp.dest('dist'));
 });
 
-
 gulp.task('css', function () {
-  return gulp.src('css/theme.css')
-    .pipe(importCss())
-    .pipe(gulp.dest('dist'));
+  return gulp.src('css/*.css')
+    .pipe(concatCss("theme.css"))
+    .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('dist', ['js', 'css']);
+gulp.task('images', function () {
+  return gulp.src(
+    [
+      'images/**'
+    ], { base: 'images/' })
+ .pipe(gulp.dest('dist/images'));
+});
+
+gulp.task('unzip', function(){
+  gulp.src("./annotations.zip")
+    .pipe(unzip())
+    .pipe(gulp.dest('./annotations'))
+});
+
+gulp.task('zip', function() {
+  return gulp.src(
+        [
+         "dist/theme.css",
+         "dist/annotation.css",
+         "dist/images/**",
+         "dist/screenshare-annotation-acc-pack.js"
+        ], { base: 'dist/' })
+        .pipe(zip('opentok-js-screenshare-annotation-1.0.0.zip'))
+        .pipe(gulp.dest('dist'));
+})
+
+gulp.task('dist', ['js', 'css', 'images', 'zip']);
