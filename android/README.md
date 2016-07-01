@@ -19,26 +19,23 @@ This guide has the following sections:
 
 To be prepared to develop your screensharing with annotations app:
 
-1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html). 
-2. Download the TokBox Common Accelerator Session Pack provided by TokBox.
-3. Download the **Screensharing with Annotations Accelerator Pack AAR** file provided by TokBox.
-4. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
-5. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
+1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
+2. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
+3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
+
 
 ## Quick start
 
 To get up and running quickly with your app, go through the following steps in the tutorial provided below:
 
 1. [Importing the Android Studio Project](#importing-the-android-studio-project)
-2. [Adding the TokBox Common Accelerator Session Pack](#addaccpackcommon)
-3. [Adding the OpenTok Screensharing Accelerator Pack library](#addlibrary)
-4. [Configuring the app](#configuring-the-app)
+2. [Adding the OpenTok Screensharing with Annotations Accelerator Pack library](#addlibrary)
+3. [Configuring the app](#configuring-the-app)
 
 To learn more about the best practices used to design this app, see [Exploring the code](#exploring-the-code).
 
-**NOTE**: Currently only the publisher can add annotations to the shared screen.
 
 ### Importing the Android Studio project
 
@@ -47,24 +44,34 @@ To learn more about the best practices used to design this app, see [Exploring t
 3. In the **Quick Start** panel, click **Open an existing Android Studio Project**.
 4. Navigate to the **android** folder, select the **SampleApp** folder, and click **Choose**.
 
-<h3 id=addaccpackcommon>Adding the TokBox Common Accelerator Session Pack</h3>
 
-You can add the TokBox Common Accelerator Session Pack either by using the repository or using Maven.
+<h3 id=addlibrary> Adding the OpenTok Screensharing with Annotations Accelerator Pack library</h3>
+
+There are 3 options for installing the OpenTok Screensharing with Annotations Accelerator Pack library:
+
+  - [Using the repository](using-the-repository)
+  - [Using Maven](#using-maven)
+  - [Downloading and Installing the AAR File](#downloading-and-installing-the-aar-file)
+
+**NOTE**: 
+  - The OpenTok Screensharing Sample App includes the [TokBox Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common).
+  - The OpenTok Screensharing with Annotations Acc Pack includes the [OpenTok Annotations Kit] (https://github.com/opentok/annotation-acc-pack).
 
 #### Using the repository
 
-1. Right-click the app name and select **New > Module > Import Gradle Project**.
-2. Navigate to the directory in which you cloned **TokBox Common Accelerator Session Pack**, select **android-acc-pack**, and click **Finish**.
-3. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
+1. Clone the [OpenTok Screensharing with Annotations Accelerator Pack repo](https://github.com/opentok/screensharing-annotation-acc-pack).
+2. From the OpenTok Screensharing with Annotations Sample app project, right-click the app name and select **New > Module > Import Gradle Project**.
+3. Navigate to the directory in which you cloned **OpenTok Screensharing with Annotations Accelerator Pack**, select **screensharing-acc-pack-kit**, and click **Finish**.
+4. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
 ```
-compile project(':opentok-android-accelerator-pack-1.0')
+compile project(':screensharing-acc-pack-kit')
 ```
 
 #### Using Maven
 
 <ol>
 
-<li>Modify the **build.gradle** for your solution and add the following code snippet to the section labeled `repositories`:
+<li>Modify the <b>build.gradle</b> for your solution and add the following code snippet to the section labeled 'repositories’:
 
 <code>
 maven { url  "http://tokbox.bintray.com/maven" }
@@ -72,22 +79,26 @@ maven { url  "http://tokbox.bintray.com/maven" }
 
 </li>
 
-<li>Modify the **build.gradle** for your activity and add the following code snippet to the section labeled `dependencies`: 
+<li>Modify the <b>build.gradle</b> for your activity and add the following code snippet to the section labeled 'dependencies’: 
 
 
-<code>compile 'com.opentok.android:opentok-android-accelerator-pack:1.0'</code>
-<br/>
-<code>compile project(':screensharing-acc-pack')</code>
+<code>
+compile 'com.opentok.android:opentok-screensharing-annotations:1.0.0'
+</code>
 
 </li>
 
 </ol>
 
+  _**NOTE**: Since dependencies are transitive with Maven, it is not necessary to explicitly reference the TokBox Common Accelerator Session Pack and the Annotations Kit with this option._
 
-<h3 id=addlibrary> Adding the OpenTok Screensharing Accelerator Pack library</h3>
-1.  Right-click the app name and select **Open Module Settings** and click **+**.
-2.  Select **Import .JAR/.AAR Package** and click  **Next**.
-3.  Browse to the **Screensharing with Annotations Accelerator Pack library AAR** and click **Finish**.
+
+#### Downloading and Installing the AAR File
+
+1.  Download the [Screensharing with Annotations Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/screensharing-annotations-acc-pack/android/opentok-screensharing-annotations-1.0.0.zip) containing the AAR file and documentation, and extract the **opentok-screensharing-annotations-1.0.0.aar** file.
+2.  Right-click the app name and select **Open Module Settings** and click **+**.
+3.  Select **Import .JAR/.AAR Package** and click  **Next**.
+4.  Browse to the **Screensharing with Annotations Accelerator Pack library AAR** and click **Finish**.
 
 
 
@@ -116,8 +127,20 @@ You may also set the `SUBSCRIBE_TO_SELF` constant. Its default value, `false`, m
 public static final boolean SUBSCRIBE_TO_SELF = false;
 ```
 
-_At this point you can try running the app! You can either use a simulator or an actual mobile device._
+You can enable or disable the `SUBSCRIBE_TO_SELF` feature by invoking the `OneToOneCommunication.setSubscribeToSelf()` method:
 
+```java
+OneToOneCommunication comm = new OneToOneCommunication(
+  MainActivity.this, 
+  OpenTokConfig.SESSION_ID, 
+  OpenTokConfig.TOKEN, 
+  OpenTokConfig.API_KEY
+);
+
+comm.setSubscribeToSelf(OpenTokConfig.SUBSCRIBE_TO_SELF);
+
+```
+_At this point you can try running the app! You can either use a simulator or an actual mobile device._
 
 ## Exploring the code
 
@@ -142,7 +165,14 @@ The following classes represent the software design for this sample app, focusin
 | `ScreenSharingFragment`   | Provides the initializers and methods for the client screensharing views. |
 | `ScreenSharingCapturer`   | Provides TokBox custom support for sharing content displayed in the screensharing area, overriding the mobile device OS default to share content captured by the camera. |
 | `ScreenSharingBar`   | Initializes the screensharing toolbar and its UI controls. |
+
+
+From [AnnotationsKit](https://github.com/opentok/annotation-acc-pack).
+
+| Class        | Description  |
+| ------------- | ------------- |
 | `AnnotationsToolbar`   | Provides the initializers and methods for the annotation toolbar view, and initializes such functionality as text annotations, screen capture button, erase button that removes the last annotation that was added, color selector for drawing stroke and text annotations, and scrolling features. You can customize this toolbar. |
+| `AnnotationsView`   | Provides the rectangular area on the screen which is responsible for drawing annotations and event handling |
 
 
 ###  Screensharing Accelerator Pack
