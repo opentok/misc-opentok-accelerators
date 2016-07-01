@@ -10,7 +10,6 @@ You can configure and run this sample app within just a few minutes!
 This guide has the following sections:
 
 - [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-- Download the accelerator pack: Download and use the OpenTok Screensharing with Annotations Accelerator Pack provided to you by TokBox for use in your own development.
 - [Quick start](#quick-start): A step-by-step tutorial to help you quickly import and run the sample app.
 - [Exploring the code](#exploring-the-code): This describes the sample app code design, which uses recommended best practices to create a working implementation that uses the Screensharing with Annotations Accelerator. 
 
@@ -65,7 +64,7 @@ This section describes how the sample app code design uses recommended best prac
 For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
 
   - [App design](#app-design)
-  - [Screenshare view](#screenshare-view)
+  - [Screensharing and annotation features](#screensharing-and-annotation-features)
   - [User interface](#user-interface)
 
 _**NOTE:** The sample app contains logic used for logging. This is used to submit anonymous usage data for internal TokBox purposes only. We request that you do not modify or remove any logging code in your use of this sample application._
@@ -77,26 +76,38 @@ The following classes, interfaces, and protocols represent the software design f
 | Class        | Description  |
 | ------------- | ------------- |
 | `MainViewController`   | In conjunction with **Main.storyboard**, this class uses the OpenTok API to initiate the client connection to the OpenTok session, and implements the sample UI and screensharing with annotations callbacks.   |
-| `OTScreenSharer`   | Provides the initializers and methods for the client screensharing views. |
+| `OTScreenSharer`   | This component enables the publisher to share either the entire screen or a specified portion of the screen. |
 | `OTAnnotationScrollView` | Provides the initializers and methods for the client annotating views. |
-| `OTAnnotationToolbarView`   | <# PLACE HOLDER #> |
-| `OTFullScreenAnnotationViewController`   | <# PLACE HOLDER #> |
+| `OTAnnotationToolbarView`   | A convenient annotation toolbar that is optionally available for your development. As an alternative, you can create your own toolbar using `OTAnnotationScrollView`. |
+| `OTFullScreenAnnotationViewController`   | Combines both the scroll and annotation toolbar views. |
 
 
-### Screenshare view
+### Screensharing and annotation features
 
-The `OTScreenSharer` class is the backbone of the screensharing features for the app. It serves as a controller for the screensharing UI widget, and initializes such functionality as stroke color and scrolling features:
+The `OTScreenSharer` and `OTAnnotationScrollView` classes are the backbone of the screensharing and annotation features for the app. It serves as a controller for the screensharing UI widget, and initializes such functionality as stroke color and scrolling features:
 
 ```objc
-@interface ScreenShareView : UIView
+@interface OTScreenSharer : NSObject
 
-+ (instancetype)viewWithStrokeColor:(UIColor *)color;
+@property (readonly, nonatomic) BOOL isScreenSharing;
 
-@property (nonatomic) UIColor *strokeColor;
-@property (nonatomic) BOOL scrollEnabled;
++ (instancetype)screenSharer;
++ (void) setOpenTokApiKey:(NSString *)apiKey
+               sessionId:(NSString *)sessionId
+                   token:(NSString *)token;
 
+- (void)connectWithView:(UIView *)view;
+- (void)connectWithView:(UIView *)view
+                handler:(ScreenShareBlock)handler;
+- (void)disconnect;
+```
+
+```objc
+@interface AnnotationImportedViewController ()
+@property (nonatomic) OTAnnotationScrollView *screenShareView;
 @end
 ```
+
 
 
 #### Initialization methods
@@ -127,7 +138,7 @@ For example, the following method in `ViewController` instantiates and initializ
 
 ### User interface
 
-As described in [App design](#app-design), the `ScreenShareView` class sets up and manages the UI views and rendering for the client sharing views, and the `ScreenShareTextField` and `ScreenShareColorPickerView` classes set up the views for the text field and color picker annotation features.
+As described in [App design](#app-design), the `OTAnnotationScrollView` class sets up and manages the annotation features. The class also supports scrolling for content that occupies space larger than the available screen size. Also, the `OTAnnotationToolbarView` is an optional prepackaged annotation toolbar implementation that you can use or adopt as a model for your own custom development.
 
 
 These properties of the `ViewController` class manage the views as the publisher and subscriber participate in the session.
