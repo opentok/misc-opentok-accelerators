@@ -59,13 +59,12 @@ _At this point you can try running the app! You can either use a simulator or an
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the screensharing with annotations features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/) and [OpenTok Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common/) by adding logic using the classes in the `ScreenShareKit` framework.
+This section describes how the sample app code design uses recommended best practices to deploy the screensharing with annotations features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/) and [OpenTok Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common/) by adding logic using the classes in the `OTScreenShareKit` framework.
 
 For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
 
   - [App design](#app-design)
   - [Screensharing and annotation features](#screensharing-and-annotation-features)
-  - [User interface](#user-interface)
 
 _**NOTE:** The sample app contains logic used for logging. This is used to submit anonymous usage data for internal TokBox purposes only. We request that you do not modify or remove any logging code in your use of this sample application._
 
@@ -84,7 +83,7 @@ The following classes, interfaces, and protocols represent the software design f
 
 ### Screensharing and annotation features
 
-The `OTScreenSharer` and `OTAnnotationScrollView` classes are the backbone of the screensharing and annotation features for the app. It serves as a controller for the screensharing UI widget, and initializes such functionality as stroke color and scrolling features:
+The `OTScreenSharer` and `OTAnnotationScrollView` classes are the backbone of the screensharing and annotation features for the app.
 
 ```objc
 @interface OTScreenSharer : NSObject
@@ -103,8 +102,26 @@ The `OTScreenSharer` and `OTAnnotationScrollView` classes are the backbone of th
 ```
 
 ```objc
-@interface AnnotationImportedViewController ()
-@property (nonatomic) OTAnnotationScrollView *screenShareView;
+@interface OTAnnotationScrollView : UIView
+
+@property (nonatomic, getter = isAnnotating) BOOL annotating;
+@property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
+
+- (instancetype)init;
+- (instancetype)initWithFrame:(CGRect)frame;
+- (void)addContentView:(UIView *)view;  // this will enable scrolling if image is larger than actual device screen
+
+@property (readonly, nonatomic) OTAnnotationToolbarView *toolbarView;
+- (void)initializeToolbarView;
+
+#pragma mark - annotation
+- (void)startDrawing;
+@property (nonatomic) UIColor *annotationColor;
+- (void)addTextAnnotation:(OTAnnotationTextView *)annotationTextView;
+- (UIImage *)captureScreen;
+- (void)erase;
+- (void)eraseAll;
+
 @end
 ```
 
@@ -112,49 +129,36 @@ The `OTScreenSharer` and `OTAnnotationScrollView` classes are the backbone of th
 
 #### Initialization methods
 
-The following `ScreenShareView` methods are used to initialize the screensharing with annotations features so the client can share their screen.
+The following `OTScreenSharer` and `OTAnnotationScrollView` methods are used to initialize the screensharing with annotations features so the client can annotate their sharing screen.
 
 | Feature        | Methods  |
 | ------------- | ------------- |
-| Initialize the stroke color for the screensharing view. | `viewWithStrokeColor()` |
+| Initialize the annotation view  | `initWithFrame:` |
+| Initialize the connection for screen sharing | `connectWithView:handler:` |
 
-
-For example, the following method in `ViewController` instantiates and initializes a `ScreenShareView` object, setting its image subview.
 
 ```objc
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // ScreenShareView example
     UIImage *image = [UIImage imageNamed:@"mvc"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     
-    [self.shareView addSubview:imageView];
+    self.screenShareView = [[OTAnnotationScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds))];
+    [self.screenShareView addContentView:imageView];
+    [self.view addSubview:self.screenShareView];
+}
+
+- (void)shareTheWholeScreen {
+	[self.screenSharer connectWithView:[UIApplication sharedApplication].keyWindow.rootViewController.view handler:^(ScreenShareSignal signal, NSError *error) {
+                
+        if (!error) {
+            // begin sharing screen
+        }
+        else {
+            // error with screen sharing
+        }
+    }];
 }
 ```
-
-
-
-### User interface
-
-As described in [App design](#app-design), the `OTAnnotationScrollView` class sets up and manages the annotation features. The class also supports scrolling for content that occupies space larger than the available screen size. Also, the `OTAnnotationToolbarView` is an optional prepackaged annotation toolbar implementation that you can use or adopt as a model for your own custom development.
-
-
-These properties of the `ViewController` class manage the views as the publisher and subscriber participate in the session.
-
-| Property        | Description  |
-| ------------- | ------------- |
-| `viewDidLoad` | UI view for the screenshare view  |
-| `PLACEHOLDER` | PLACEHOLDER  |
-
-
-
-
-
-
-
-
-
-
-
