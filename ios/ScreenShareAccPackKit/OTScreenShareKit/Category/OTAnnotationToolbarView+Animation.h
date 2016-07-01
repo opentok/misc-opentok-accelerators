@@ -1,6 +1,5 @@
 //
-//  ScreenShareToolbarView+Animation.h
-//  OTScreenShareKit
+//  OTAnnotationToolbarView+Animation.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //

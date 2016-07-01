@@ -1,9 +1,7 @@
 //
-//  ViewController.m
-//  ScreenShareSample
+//  AnnotationImportedViewController.m
 //
-//  Created by Xi Huang on 4/26/16.
-//  Copyright © 2016 Lucas Huang. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "AnnotationImportedViewController.h"

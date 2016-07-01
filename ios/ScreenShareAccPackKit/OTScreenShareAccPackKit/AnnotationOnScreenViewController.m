@@ -1,9 +1,7 @@
 //
 //  AnnotationOnScreenViewController.m
-//  ScreenShareSample
 //
-//  Created by Xi Huang on 6/24/16.
-//  Copyright © 2016 Lucas Huang. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "AnnotationOnScreenViewController.h"

@@ -1,5 +1,5 @@
 //
-//  ScreenSharePath.h
+//  OTAnnotationPath.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //

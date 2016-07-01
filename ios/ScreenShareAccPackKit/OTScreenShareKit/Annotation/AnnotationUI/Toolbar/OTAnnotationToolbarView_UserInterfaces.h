@@ -1,6 +1,5 @@
 //
-//  ScreenShareToolbarView_UserInterfaces.h
-//  ScreenShareSample
+//  OTAnnotationToolbarView_UserInterfaces.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //

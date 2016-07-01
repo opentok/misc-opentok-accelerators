@@ -1,8 +1,6 @@
 //
 //  OTScreenShareKitTests.m
-//  OTScreenShareKitTests
 //
-//  Created by Xi Huang on 6/30/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
