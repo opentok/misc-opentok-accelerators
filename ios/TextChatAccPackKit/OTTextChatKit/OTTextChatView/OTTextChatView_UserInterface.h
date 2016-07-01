@@ -1,6 +1,5 @@
 //
-//  TextChatView_UserInterface.h
-//  TextChatSample
+//  OTTextChatView_UserInterface.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
