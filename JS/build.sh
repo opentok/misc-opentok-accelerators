@@ -36,7 +36,7 @@ then
 	fetchAnnotationsDep
 	
 	gulp dist
-
+        gulp zip
 	cd dist 
     cp -v screenshare-annotation-acc-pack.js $PUBLIC/js/components/screenshare-annotation-acc-pack.js
     cp -v theme.css $PUBLIC/css/theme.css
@@ -44,6 +44,7 @@ then
 	
 	if [[ -f "../screenshare.html" ]]
 	then
+		mkdir $PUBLIC/templates
 		cp -v ../screenshare.html $PUBLIC/templates/screenshare.html
 	fi
 else 
