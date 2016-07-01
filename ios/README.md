@@ -72,7 +72,6 @@ For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK 
 
   - [App design](#app-design)
   - [Text Chat view](#text-chat-view)
-  - [User interface](#user-interface)
 
 _**NOTE:** The sample app contains logic used for logging. This is used to submit anonymous usage data for internal TokBox purposes only. We request that you do not modify or remove any logging code in your use of this sample application._
 
@@ -176,28 +175,6 @@ The method implementations use the [OpenTok signaling API](https://tokbox.com/de
 - (void)didDisConnectWithError:(NSError *)error;
 @end
 ```
-
-
-
-### User interface
-
-As described in [App design](#app-design), the `TextChatView` class sets up and manages the UI views and rendering for the local and remote controls.
-
-
-These properties of the `ViewController` class manage the views as the publisher and subscriber participate in the session.
-
-| Property        | Description  |
-| ------------- | ------------- |
-| `textChatView` | UI view for the text chat widget  |
-| `mainView` | Main UI view  |
-
-
-
-
-
-
-
-
 
 
 
