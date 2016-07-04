@@ -1,8 +1,6 @@
 //
 //  MainView.m
-//  OneToOneScreenShareSample
 //
-//  Created by Esteban Cordero on 5/23/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
