@@ -53,7 +53,7 @@ In **AppDelegate.h**, replace the following empty strings with the required deta
     [OTTextChatView setOpenTokApiKey:@""
                            sessionId:@""
                                token:@""];
-  	return YES;
+    return YES;
 }
    ```
 
@@ -68,7 +68,6 @@ For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK 
 
   - [App design](#app-design)
   - [Text Chat view](#text-chat-view)
-  - [User interface](#user-interface)
 
 _**NOTE:** The sample app contains logic used for logging. This is used to submit anonymous usage data for internal TokBox purposes only. We request that you do not modify or remove any logging code in your use of this sample application._
 
@@ -88,26 +87,27 @@ The following classes, interfaces, and protocols represent the software design f
 The `TextChatView` class is the backbone of the text chat features for the app. It serves as a controller for the text chat UI widget, and defines delegates for exchanging messages that are implemented in this example by the `MainViewController` class:
 
 ```objc
-@interface TextChatView : UIView
-​
+@interface OTTextChatView : UIView
+
 + (void)setOpenTokApiKey:(NSString *)apiKey
                sessionId:(NSString *)sessionId
                    token:(NSString *)token;
-​
+
 @property (weak, nonatomic) id<TextChatViewDelegate> delegate;
-@property (readonly, nonatomic) BOOL isShown;
-​
+
+@property (readonly, nonatomic, getter=isShown) BOOL show;
+
+@property (readonly, nonatomic) OTTextChatUICustomizator *customizator;
+
 + (instancetype)textChatView;
 
 + (instancetype)textChatViewWithBottomView:(UIView *)bottomView;
-​
+
 - (void)connect;
 
-- (void)disconnect;
-​
-- (void)minimize;
+- (void)connectWithHandler:(TextChatViewEventBlock)handler;
 
-- (void)maximize;
+- (void)disconnect;
 
 - (void)show;
 
@@ -115,7 +115,8 @@ The `TextChatView` class is the backbone of the text chat features for the app. 
 
 - (void)setAlias:(NSString *)alias;
 
-- voidsetMaximumTextMessageLength:(NSUInteger)length;
+- (void)setMaximumTextMessageLength:(NSUInteger)length;
+
 @end
 ```
 
@@ -136,12 +137,9 @@ For example, the following method in `MainViewController` instantiates and initi
 ```objc
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.mainView = (MainView *)self.view;
-    self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
-    self.textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
-    self.textChatView.delegate = self;
-    [self.textChatView setMaximumTextMessageLength:200]
+
+    self.textChatView = [OTTextChatView textChatView];
+    [self.textChatView setMaximumTextMessageLength:200];
     [self.textChatView setAlias:@“Tokboxer”];
 }
 ```
@@ -172,28 +170,6 @@ The method implementations use the [OpenTok signaling API](https://tokbox.com/de
 - (void)didDisConnectWithError:(NSError *)error;
 @end
 ```
-
-
-
-### User interface
-
-As described in [App design](#app-design), the `TextChatView` class sets up and manages the UI views and rendering for the local and remote controls.
-
-
-These properties of the `ViewController` class manage the views as the publisher and subscriber participate in the session.
-
-| Property        | Description  |
-| ------------- | ------------- |
-| `textChatView` | UI view for the text chat widget  |
-| `mainView` | Main UI view  |
-
-
-
-
-
-
-
-
 
 
 

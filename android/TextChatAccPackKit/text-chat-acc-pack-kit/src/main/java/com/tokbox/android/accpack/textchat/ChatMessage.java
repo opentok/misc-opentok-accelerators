@@ -7,6 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
+/**
+ * The chat message class contains methods for the message status, sender ID and alias, the chat text, and the chat message timestamp. 
+ */
 public class ChatMessage {
 
     private static final String LOG_TAG = "text-chat-message";
