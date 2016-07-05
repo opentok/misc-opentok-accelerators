@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.source_files = 'ios/ScreenShareAccPackKit/OTScreenShareKit/**/*'
 
   s.public_header_files = 'ios/ScreenShareAccPackKit/OTScreenShareKit/ScreenShare/OTScreenShareKit.h', 
-    'ios/ScreenShareAccPackKit/OTScreenShareKit/ScreenShare/OTScreenSharer.h', 
+    'ios/ScreenShareAccPackKit/OTScreenShareKit/ScreenShare/OTScreenSharer.h'
 
   s.dependency 'OTAcceleratorPackUtil'
   s.dependency 'OTAnnotationKit'
