@@ -1,0 +1,10 @@
+platform :ios, '8.0'
+
+target 'OTAnnotationKit' do
+  pod 'OTAcceleratorPackUtil'
+  pod 'LHToolbar', '1.2.1-beta'
+end
+
+target 'OTAnnotationKitTests' do
+  pod 'Kiwi'
+end
