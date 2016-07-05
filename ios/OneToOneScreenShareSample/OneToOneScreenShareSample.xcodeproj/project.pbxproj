@@ -14,7 +14,6 @@
 		A060AF6F1CF36B0700589311 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A060AF6D1CF36B0700589311 /* Main.storyboard */; };
 		A060AF711CF36B0700589311 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A060AF701CF36B0700589311 /* Assets.xcassets */; };
 		A060AF741CF36B0700589311 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A060AF721CF36B0700589311 /* LaunchScreen.storyboard */; };
-		A5C171D516A2B06BD721E197 /* libPods-OneToOneScreenShareSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D4B0D6244A14116F3588369 /* libPods-OneToOneScreenShareSample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,11 +30,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2D4B0D6244A14116F3588369 /* libPods-OneToOneScreenShareSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneToOneScreenShareSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F65DAB71CF377D30012111D /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		3F65DAB81CF377D30012111D /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
-		4D8D78BB8D962DEBF8081992 /* Pods-OneToOneScreenShareSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneToOneScreenShareSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OneToOneScreenShareSample/Pods-OneToOneScreenShareSample.debug.xcconfig"; sourceTree = "<group>"; };
-		757CA95EECD103B4257631E8 /* Pods-OneToOneScreenShareSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneToOneScreenShareSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-OneToOneScreenShareSample/Pods-OneToOneScreenShareSample.release.xcconfig"; sourceTree = "<group>"; };
 		A060AF611CF36B0700589311 /* OneToOneScreenShareSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneToOneScreenShareSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A060AF651CF36B0700589311 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A060AF671CF36B0700589311 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -53,29 +49,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5C171D516A2B06BD721E197 /* libPods-OneToOneScreenShareSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		94D4C10082E2B6119844A388 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4D8D78BB8D962DEBF8081992 /* Pods-OneToOneScreenShareSample.debug.xcconfig */,
-				757CA95EECD103B4257631E8 /* Pods-OneToOneScreenShareSample.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		A060AF581CF36B0700589311 = {
 			isa = PBXGroup;
 			children = (
 				A060AF631CF36B0700589311 /* OneToOneScreenShareSample */,
 				A060AF621CF36B0700589311 /* Products */,
-				94D4C10082E2B6119844A388 /* Pods */,
-				CC05F0782734B10F49A10F67 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,14 +97,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CC05F0782734B10F49A10F67 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2D4B0D6244A14116F3588369 /* libPods-OneToOneScreenShareSample.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -128,13 +104,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A060AF781CF36B0700589311 /* Build configuration list for PBXNativeTarget "OneToOneScreenShareSample" */;
 			buildPhases = (
-				4FC0DCDC8972A809FAE167A4 /* [CP] Check Pods Manifest.lock */,
 				A060AF5D1CF36B0700589311 /* Sources */,
 				A060AF5E1CF36B0700589311 /* Frameworks */,
 				A060AF5F1CF36B0700589311 /* Resources */,
 				3F6125CD1CF7BC3D00F67CD9 /* Embed Frameworks */,
-				B7C07FACC8A9AD3A7F523E5D /* [CP] Embed Pods Frameworks */,
-				7BD433A7AC2A8F4A095945D4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,54 +163,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4FC0DCDC8972A809FAE167A4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7BD433A7AC2A8F4A095945D4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OneToOneScreenShareSample/Pods-OneToOneScreenShareSample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B7C07FACC8A9AD3A7F523E5D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OneToOneScreenShareSample/Pods-OneToOneScreenShareSample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A060AF5D1CF36B0700589311 /* Sources */ = {
@@ -359,7 +284,6 @@
 		};
 		A060AF791CF36B0700589311 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D8D78BB8D962DEBF8081992 /* Pods-OneToOneScreenShareSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -372,14 +296,13 @@
 				INFOPLIST_FILE = OneToOneScreenShareSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.OneToOneScreenShareSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OneToOneScreenShareSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		A060AF7A1CF36B0700589311 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 757CA95EECD103B4257631E8 /* Pods-OneToOneScreenShareSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -392,7 +315,7 @@
 				INFOPLIST_FILE = OneToOneScreenShareSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lucashuang.OneToOneScreenShareSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OneToOneScreenShareSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
