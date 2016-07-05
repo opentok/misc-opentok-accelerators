@@ -5,6 +5,8 @@
 //
 
 #import "MainView.h"
+#import <OTScreenShareKit/OTScreenShareKit.h>
+#import <OTAnnotationKit/OTAnnotationKit.h>
 
 @interface MainView()
 @property (weak, nonatomic) IBOutlet UIView *publisherView;

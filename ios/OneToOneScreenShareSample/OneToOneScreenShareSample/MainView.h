@@ -5,7 +5,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <OTScreenShareKit/OTScreenShareKit.h>
 
 @interface MainView : UIView
 
