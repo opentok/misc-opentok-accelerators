@@ -23,9 +23,9 @@
 
   // Options hash
   var _options = {
-    apiKey: '',
-    sessionId: '',
-    token: '',
+    apiKey: '45589022',
+    sessionId: '1_MX40NTU4OTAyMn5-MTQ2NDc5NzE5ODUzOH5HazV0QnpCdE9zbVB3cEtuR0hnZGpYUnV-fg',
+    token: 'T1==cGFydG5lcl9pZD00NTU4OTAyMiZzZGtfdmVyc2lvbj10YnBocC12MC45MS4yMDExLTA3LTA1JnNpZz1kYWNiMzc0NzU4NzE3NGIyYjdjODg3ZmM5MDM2OTc0YTY5ZjgwNDU5OnNlc3Npb25faWQ9MV9NWDQwTlRVNE9UQXlNbjUtTVRRMk5EYzVOekU1T0RVek9INUhhelYwUW5wQ2RFOXpiVkIzY0V0dVIwaG5aR3BZVW5WLWZnJmNyZWF0ZV90aW1lPTE0Njc3MzEwNjkmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ2NzczMTA2OS42NTc5OTA3NTg2MjImZXhwaXJlX3RpbWU9MTQ3MDMyMzA2OQ==',
     screensharing: {
       extensionID: 'knmknlapoidpamfmadaalafimbjegekh',
       extensionPathFF: 'ff-extension/wms-screensharing.xpi',
