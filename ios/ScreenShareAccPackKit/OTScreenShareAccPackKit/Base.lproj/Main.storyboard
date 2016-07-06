@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gKs-qR-lbw">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--ScreenShare-->
+        <scene sceneID="wlL-Be-k5K">
+            <objects>
+                <tableViewController id="osf-c9-zbI" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jlv-90-kp5">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="enI-Ph-CyP">
+                                <cells/>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="osf-c9-zbI" id="7Wt-nf-iif"/>
+                            <outlet property="delegate" destination="osf-c9-zbI" id="XZB-I3-1es"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="ScreenShare" id="XXp-2E-SoD"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qIe-7i-gox" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-359" y="348"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0bU-8Z-c6p">
+            <objects>
+                <navigationController id="gKs-qR-lbw" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DdU-iO-Vj2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="osf-c9-zbI" kind="relationship" relationship="rootViewController" id="nXF-yv-qyN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HWa-xa-EYu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-996" y="348"/>
+        </scene>
+    </scenes>
+</document>

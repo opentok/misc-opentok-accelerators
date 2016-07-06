@@ -10,7 +10,6 @@
 //--------------------------------------
 //  OPENTOK ANNOTATION CANVAS/VIEW
 //--------------------------------------
-
 window.OTSolution = window.OTSolution || {};
 
 OTSolution.Annotations = function(options) {
