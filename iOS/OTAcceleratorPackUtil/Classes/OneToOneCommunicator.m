@@ -75,7 +75,17 @@ static NSString* const KLogVariationFailure = @"Failure";
                     variation:KLogVariationAttempt
                    completion:nil];
     
-    [OTAcceleratorSession registerWithAccePack:self];
+    NSError *connectError = [OTAcceleratorSession registerWithAccePack:self];
+    if (!connectError) {
+        [OTKLogger logEventAction:KLogActionStartCommunication
+                        variation:KLogVariationSuccess
+                       completion:nil];
+    }
+    else {
+        [OTKLogger logEventAction:KLogActionStartCommunication
+                        variation:KLogVariationFailure
+                       completion:nil];
+    }
     
     // need to explcitly publish and subscribe if the communicator joins/rejoins a connected session
     if (self.session.sessionConnectionStatus == OTSessionConnectionStatusConnected &&
@@ -105,8 +115,6 @@ static NSString* const KLogVariationFailure = @"Failure";
 
     self.handler = handler;
     [self connect];
-    
-    [OTAcceleratorSession registerWithAccePack:self];
 }
 
 - (void)disconnect {
@@ -175,16 +183,10 @@ static NSString* const KLogVariationFailure = @"Failure";
     if (error) {
         [self notifiyAllWithSignal:OneToOneCommunicationSignalSessionDidConnect
                              error:error];
-        [OTKLogger logEventAction:KLogActionStartCommunication
-                        variation:KLogVariationFailure
-                       completion:nil];
     }
     else {
         [self notifiyAllWithSignal:OneToOneCommunicationSignalSessionDidConnect
                              error:nil];
-        [OTKLogger logEventAction:KLogActionStartCommunication
-                        variation:KLogVariationSuccess
-                       completion:nil];
     }
 }
 
@@ -198,10 +200,6 @@ static NSString* const KLogVariationFailure = @"Failure";
     
     [self notifiyAllWithSignal:OneToOneCommunicationSignalSessionDidDisconnect
                          error:nil];
-    
-    [OTKLogger logEventAction:KLogActionEndCommunication
-                    variation:KLogVariationSuccess
-                   completion:nil];
 }
 
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
@@ -230,10 +228,6 @@ static NSString* const KLogVariationFailure = @"Failure";
     NSLog(@"session did failed with error: (%@)", error);
     [self notifiyAllWithSignal:OneToOneCommunicationSignalSessionDidFail
                          error:error];
-    
-    [OTKLogger logEventAction:KLogActionStartCommunication
-                    variation:KLogVariationFailure
-                   completion:nil];
 }
 
 #pragma mark - OTPublisherDelegate
