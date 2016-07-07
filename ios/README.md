@@ -49,17 +49,13 @@ In **AppDelegate.h**, replace the following empty strings with the required deta
    ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-	// Override point for customization after application launch.    
-    [OneToOneCommunicator setOpenTokApiKey:@""
-                                 sessionId:@""
-                                     token:@""
-                            selfSubscribed:NO];
-  	return YES;
+    // Override point for customization after application launch.    
+    [OTTextChatView setOpenTokApiKey:@""
+                           sessionId:@""
+                               token:@""];
+    return YES;
 }
    ```
-
-
-You may also set the `selfSubscribed` constant. Its default value, `NO`, means that the app subscribes automatically to the other client’s stream. This is required to establish communication between two streams using the same Session ID.
 
 _At this point you can try running the app! You can either use a simulator or an actual mobile device._
 
@@ -91,26 +87,27 @@ The following classes, interfaces, and protocols represent the software design f
 The `TextChatView` class is the backbone of the text chat features for the app. It serves as a controller for the text chat UI widget, and defines delegates for exchanging messages that are implemented in this example by the `MainViewController` class:
 
 ```objc
-@interface TextChatView : UIView
-​
+@interface OTTextChatView : UIView
+
 + (void)setOpenTokApiKey:(NSString *)apiKey
                sessionId:(NSString *)sessionId
                    token:(NSString *)token;
-​
+
 @property (weak, nonatomic) id<TextChatViewDelegate> delegate;
-@property (readonly, nonatomic) BOOL isShown;
-​
+
+@property (readonly, nonatomic, getter=isShown) BOOL show;
+
+@property (readonly, nonatomic) OTTextChatUICustomizator *customizator;
+
 + (instancetype)textChatView;
 
 + (instancetype)textChatViewWithBottomView:(UIView *)bottomView;
-​
+
 - (void)connect;
 
-- (void)disconnect;
-​
-- (void)minimize;
+- (void)connectWithHandler:(TextChatViewEventBlock)handler;
 
-- (void)maximize;
+- (void)disconnect;
 
 - (void)show;
 
@@ -118,7 +115,8 @@ The `TextChatView` class is the backbone of the text chat features for the app. 
 
 - (void)setAlias:(NSString *)alias;
 
-- voidsetMaximumTextMessageLength:(NSUInteger)length;
+- (void)setMaximumTextMessageLength:(NSUInteger)length;
+
 @end
 ```
 
@@ -139,12 +137,9 @@ For example, the following method in `MainViewController` instantiates and initi
 ```objc
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.mainView = (MainView *)self.view;
-    self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
-    self.textChatView = [TextChatView textChatViewWithBottomView:self.mainView.actionButtonsHolder];
-    self.textChatView.delegate = self;
-    [self.textChatView setMaximumTextMessageLength:200]
+
+    self.textChatView = [OTTextChatView textChatView];
+    [self.textChatView setMaximumTextMessageLength:200];
     [self.textChatView setAlias:@“Tokboxer”];
 }
 ```

@@ -1,10 +1,8 @@
 //
-//  TextChatMessage.h
-//  TextChatSampleApp
+//  OTTextMessage.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
-
 #import <Foundation/Foundation.h>
 
 /**
@@ -12,19 +10,19 @@
  */
 @interface OTTextMessage : NSObject
 /**
- *  alias of the sender/receiver
+ *  The alias of the sender or receiver.
  */
 @property (nonatomic, readonly) NSString *alias;
 /**
- *  unique identifier for the sender of the message
+ *  A unique identifier for the sender of the message.
  */
 @property (nonatomic, readonly) NSString *senderId;
 /**
- *  Content of the text message
+ *  The content of the text message.
  */
 @property (nonatomic, readonly) NSString *text;
 /**
- *  Date and time when the message was sent (UNIXTIMESTAMP format)
+ *  The date and time when the message was sent (UNIXTIMESTAMP format).
  */
 @property (nonatomic, readonly) NSDate *dateTime;
 @end

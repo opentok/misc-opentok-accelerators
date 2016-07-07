@@ -1,8 +1,6 @@
 //
 //  ViewController.m
-//  OTTextChatAccPackKit
 //
-//  Created by Xi Huang on 6/24/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
@@ -19,6 +17,10 @@
     [super viewDidLoad];
     //self.textChatView = [TextChatView textChatViewWithBottomView:self.bottomView];
     self.textChatView = [OTTextChatView textChatView];
+    
+    [self.textChatView setMaximumTextMessageLength:200];
+    [self.textChatView setAlias:@"Tokboxer"];
+    
     // starting the accellpack connection with the session
     [self.textChatView connect];
 }
