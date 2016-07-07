@@ -12,6 +12,10 @@
 #import "OTAnnotationPoint.h"
 #import "OTAnnotationPoint_Private.h"
 
+#import <OTKAnalytics/OTKLogger.h>
+
+#import "Constants.h"
+
 @interface OTAnnotationView()
 @property (nonatomic) OTAnnotationTextView *currentEditingTextView;
 @property (nonatomic) OTAnnotationPath *currentDrawPath;
@@ -107,6 +111,7 @@
         UITouch *touch = [touches anyObject];
         OTAnnotationPoint *touchPoint = [[OTAnnotationPoint alloc] initWithTouchPoint:touch];
         [_currentDrawPath drawAtPoint:touchPoint];
+        [OTKLogger logEventAction:KLogActionStartDrawing variation:KLogVariationSuccess completion:nil];
     }
 }
 
@@ -123,6 +128,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_currentDrawPath) {
         _currentDrawPath = [OTAnnotationPath pathWithStrokeColor:_currentDrawPath.strokeColor];
+        [OTKLogger logEventAction:KLogActionEndDrawing variation:KLogVariationSuccess completion:nil];
     }
 }
 

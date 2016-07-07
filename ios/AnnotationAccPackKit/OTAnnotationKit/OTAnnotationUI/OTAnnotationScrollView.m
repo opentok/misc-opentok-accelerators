@@ -16,6 +16,7 @@
 #import "OTAnnotationToolbarView_Private.h"
 
 #import "UIViewController+Helper.h"
+#import <OTKAnalytics/OTKLogger.h>
 
 #import "Constants.h"
 
@@ -62,6 +63,7 @@
 
 - (void)setAnnotationColor:(UIColor *)annotationColor {
     [self.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:annotationColor]];
+    [OTKLogger logEventAction:KLogActionPickerColor variation:KLogVariationSuccess completion:nil];
 }
 
 - (instancetype)init {
@@ -71,6 +73,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
+        [OTKLogger analyticsWithClientVersion:KLogClientVersion
+                                       source:[[NSBundle mainBundle] bundleIdentifier]
+                                  componentId:kLogComponentIdentifier
+                                         guid:[[NSUUID UUID] UUIDString]];
+        
+        [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
         
         // scroll view
         _zoomEnabled = YES;
@@ -199,6 +207,7 @@
 - (void)initializeToolbarView {
     CGRect mainBounds = [UIScreen mainScreen].bounds;
     self.toolbarView = [[OTAnnotationToolbarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainBounds), DefaultToolbarHeight) annotationScrollView:self];
+    [OTKLogger logEventAction:KLogActionUseToolbar variation:KLogVariationSuccess completion:nil];
 }
 
 - (void)startDrawing {
@@ -216,7 +225,7 @@
 }
 
 - (UIImage *)captureScreen {
-    
+    [OTKLogger logEventAction:KLogActionScreenCapture variation:KLogVariationSuccess completion:nil];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     UIGraphicsBeginImageContext(screenRect.size);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -230,10 +239,12 @@
 
 - (void)erase {
     [self.annotationView undoAnnotatable];
+    [OTKLogger logEventAction:KLogActionErase variation:KLogVariationSuccess completion:nil];
 }
 
 - (void)eraseAll {
     [self.annotationView removeAllAnnotatables];
+    [OTKLogger logEventAction:KLogActionErase variation:KLogVariationSuccess completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -83,7 +83,6 @@
         [self configureToolbarButtons];
         [self addSubview:_toolbar];
         self.backgroundColor = [UIColor lightGrayColor];
-        
         _annotationScrollView = annotationScrollView;
     }
     return self;
