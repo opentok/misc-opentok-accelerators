@@ -109,5 +109,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.android.support:design:23.+'
     compile 'com.opentok.android:accelerator-pack:+'
-    compile 'com.opentok.android:opentok-solutions-logging:1.0.0'
+    compile 'com.opentok.android:opentok-solutions-logging:+'
 }
