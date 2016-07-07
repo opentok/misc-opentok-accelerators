@@ -15,7 +15,7 @@
 - (void)didReceiveTextChat:(OTTextMessage *)textChat;
 @end
 
-//analytics
+// Analytics constants 
 extern NSString* const kLogComponentIdentifier;
 extern NSString* const KLogClientVersion;
 extern NSString* const KLogActionInitialize;
