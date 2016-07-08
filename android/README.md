@@ -166,9 +166,9 @@ public class MainActivity
 
 
 You can create handlers for the following types of annotations:
-  - Freehand Annotation: Handwritten annotation 
-  - Text Annotation: Text label annotations.
-  - Color Picker: Select a color for the annotation.
-  - Erase: Delete the most recent annotation.
-  - Screen Capture: Take a screenshot of the annotations.
-  - Done: Clear all annotations.
+  - _Freehand Annotation_: Handwritten annotation 
+  - _Text Annotation_: Text label annotations.
+  - _Color Picker_: Select a color for the annotation.
+  - _Erase_: Delete the most recent annotation.
+  - _Screen Capture_: Take a screenshot of the annotations.
+  - Done_: Clear all annotations.
