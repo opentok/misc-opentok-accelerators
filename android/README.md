@@ -171,4 +171,4 @@ You can create handlers for the following types of annotations:
   - _Color Picker_: Select a color for the annotation.
   - _Erase_: Delete the most recent annotation.
   - _Screen Capture_: Take a screenshot of the annotations.
-  - Done_: Clear all annotations.
+  - _Done_: Clear all annotations.
