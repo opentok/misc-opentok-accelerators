@@ -4,8 +4,7 @@
 
 This document describes how to use the OpenTok Annotations Accelerator Pack for Android. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations on an Android mobile device.
 
-**Note**: The OpenTok Annotations Accelerator Pack is not a standalone Accelerator Pack such as [screensharing-annotation-acc-pack
-](https://github.com/opentok/screensharing-annotation-acc-pack). Rather, it is used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
+**Note**: The OpenTok Annotations Accelerator Pack is not a standalone Accelerator Pack such as [screensharing-annotation-acc-pack](https://github.com/opentok/screensharing-annotation-acc-pack). Rather, it is used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
 
 This guide has the following sections:
 
@@ -27,7 +26,7 @@ To be prepared to develop with the Annotations Accelerator Pack for Android:
 
 There are 3 options for installing the OpenTok Annotations Accelerator Pack library:
 
-  - [Using the repository](using-the-repository)
+  - [Using the repository](#using-the-repository)
   - [Using Maven](#using-maven)
   - [Downloading and Installing the AAR File](#downloading-and-installing-the-aar-file)
 
@@ -35,14 +34,13 @@ There are 3 options for installing the OpenTok Annotations Accelerator Pack libr
 ### Using the repository
 
 1. Clone the [OpenTok Annotations Accelerator Pack repo](https://github.com/opentok/annotation-acc-pack).
-2. Start Android Studio. 
-3. In the **Quick Start** panel, click **Open an existing Android Studio Project**.
-4. Navigate to the **android** folder, select the **AnnotationsKit** folder, and click **Choose**.
-5. From the project view, right-click the app name and select **New > Module > Import Gradle Project**.
-6. Navigate to the directory in which you cloned **OpenTok Annotations Accelerator Pack**, select **annotations-kit**, and click **Finish**.
-7. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
+2. Start Android Studio and create a project. 
+3. Navigate to the **android** folder, select the **AnnotationsKit** folder, and click **Choose**.
+4. From the project view, right-click the app name and select **New > Module > Import Gradle Project**.
+5. Navigate to the directory in which you cloned **OpenTok Annotations Accelerator Pack**, select **annotations-kit**, and click **Finish**.
+6. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
 ```
-compile project(‘:annotations-kit')
+   compile project(‘:annotations-kit')
 ```
 
 ### Using Maven
@@ -74,11 +72,15 @@ compile 'com.opentok.android:opentok-annotations:1.0.0'
 
 1.  Download the [OpenTok Annotations Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/annotations/android/opentok-annotations-1.0.0.zip) containing the AAR file and documentation, and extract the **opentok-annotations-1.0.0.aar** file.
 2.  Right-click the app name and select **Open Module Settings** and click **+**.
-3.  Select **Import .JAR/.AAR Package** and click  **Next**.
+3.  Select **Import .JAR/.AAR Package** and click **Next**.
 4.  Browse to the **Annotations Accelerator Pack library AAR** and click **Finish**.
 
 
+## Exploring the code
 
+This section describes how the sample app code design uses recommended best practices to deploy the screensharing with annotations features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/) and [OpenTok Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common/) by adding logic using the `com.tokbox.android.accpack.screensharing` classes.
+
+For detail about the APIs used to develop this sample, see the [OpenTok Android SDK Reference](https://tokbox.com/developer/sdks/android/reference/) and [Android API Reference](http://developer.android.com/reference/packages.html).
 
 3. Main classes:
 
