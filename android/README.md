@@ -102,7 +102,7 @@ The following classes represent the software design for the OpenTok Annotations 
 
 <ol>
 
-<li>Add the `AnnotationsToolbar` to your layout:
+<li><p>Add the `AnnotationsToolbar` to your layout:</p>
 
 ```
 <com.tokbox.android.annotations.AnnotationsToolbar
