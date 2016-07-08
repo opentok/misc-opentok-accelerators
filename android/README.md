@@ -49,7 +49,7 @@ To learn more about the best practices used to design this app, see [Exploring t
 
 There are 3 options for installing the OpenTok Screensharing with Annotations Accelerator Pack library:
 
-  - [Using the repository](using-the-repository)
+  - [Using the repository](#using-the-repository)
   - [Using Maven](#using-maven)
   - [Downloading and Installing the AAR File](#downloading-and-installing-the-aar-file)
 
