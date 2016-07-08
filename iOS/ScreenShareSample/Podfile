@@ -1,6 +1,0 @@
-platform :ios, '8.0'
-
-target 'ScreenShareKit' do
-  pod 'OTAcceleratorPackUtil'
-  pod 'LHToolbar', '1.2.1-beta'
-end
