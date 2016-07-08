@@ -114,54 +114,64 @@ The following classes represent the software design for the OpenTok Annotations 
 </li>
 
 
-<li>Add a custom annotation renderer
-Create a new instance of the AnnotationsVideoRenderer class or creates a new custom video renderer.
+<li>Add a custom annotation renderer:
 
-AnnotationsVideoRenderer renderer = new AnnotationsVideoRenderer(this);
+If you would like to create a new instance of the `AnnotationsVideoRenderer` class or a new custom video renderer, start with this line of code:
 
-Set the AnnotationsVideoRenderer to the publisher/subscriber. Eg: in the Screensharing case, we are going to set the AnnotationsVideoRenderer to the publisher screen, just to allow to get a screenshot of this screen.
+```java
+AnnotationsVideoRenderer mRenderer = new AnnotationsVideoRenderer(this);
+```
 
+
+The following code illustrates how to set the `AnnotationsVideoRenderer` to the publisher or subscriber. For example, if the publisher is screensharing, set the `AnnotationsVideoRenderer` to the publisher screen. This could be used to get a screenshot of the screen:
+
+```java
 mRenderer = new AnnotationsVideoRenderer(getContext());
 mScreenPublisher.setRenderer(mRenderer);
+```
+</li>
 
 
-4.3 Attaching an Annotations canvas to a publisher/subscriber view:
+<li>Attach an annotations canvas to a publisher or subscriber view:
 
-	- Init the annotationsView: public AnnotationsView(Context context, AccPackSession session, String partnerId)
+The following code initializes the `AnnotationsView`, attaches the `AnnotationsToolbar` to the `AnnotationsView`, sets the `VideoRenderer`, and adds the `AnnotationsView` to the publisher or subscriber view:
 
-	- Attach the AnnotationsToolbar to the AnnotationView:  public void attachToolbar(AnnotationsToolbar toolbar);
-   
-	- Set VideoRenderer: public void setVideoRenderer(AnnotationsVideoRenderer videoRenderer);
 
-	- Add the AnnotationsView to the publisher/subscriber view:
-	
-Eg:
-
+```java
 if ( mAnnotationsView == null ){
     mAnnotationsView = new AnnotationsView(getContext(), mSession, mApiKey)
     mAnnotationsView.attachToolbar(mAnnotationsToolbar);
     mAnnotationsView.setVideoRenderer(mRenderer); //to use screen capture
     mScreenView.addView(mAnnotationsView);
 }
+```
+</li>
 
-4.4 Implements AnnotationsListener:
-Events:
-- public void onScreencaptureReady(Bitmap bmp): Fired when a new screencapture is ready
-- void onError(String error): Fired when there is an error adding an annotations.
-Eg:
-public class MainActivity extends AppCompatActivity implements AnnotationsView.AnnotationsListener {
+
+<li>Implement an `AnnotationsListener`:
+
+In the following example, the `onScreencaptureReady()` event is fired when a new screen capture is ready. 
+
+```java
+public class MainActivity 
+    extends AppCompatActivity 
+    implements AnnotationsView.AnnotationsListener {
 
 	@Override
 	public void onScreencaptureReady(Bitmap bmp) {
     		saveScreencapture(bmp);
 	}
-	
 }
-4.5 Actions in the Annotations:
-- Freehand Annotation: Handwritten annotation 
-- Text Annotation: text label annotations
-- Picker color: select a color for the annotation.
-- Erase: Remove the last annotation.
-- Screencapture: Screenshot of the annotations.
-- Done: To unfrozen the screen. Clear all the annotations.
+```
+</li>
 
+
+<li>You can create handlers for the following types of annotations:
+  - Freehand Annotation: Handwritten annotation 
+  - Text Annotation: Text label annotations.
+  - Color Picker: Select a color for the annotation.
+  - Erase: Delete the most recent annotation.
+  - Screen Capture: Take a screenshot of the annotations.
+  - Done: Clear all annotations.
+</li>
+</ol>
