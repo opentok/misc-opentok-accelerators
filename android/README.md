@@ -100,9 +100,10 @@ The following classes represent the software design for the OpenTok Annotations 
 
 ### Using the AnnotationsKit
 
-<ol>
 
-<li><p>Add the `AnnotationsToolbar` to your layout:</p>
+#### Add the annotation toolbar
+
+Add the `AnnotationsToolbar` to your layout:</p>
 
 ```
 <com.tokbox.android.annotations.AnnotationsToolbar
@@ -111,10 +112,9 @@ The following classes represent the software design for the OpenTok Annotations 
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"/>
 ```
-</li>
 
 
-<li>Add a custom annotation renderer:
+#### Add a custom annotation renderer
 
 If you would like to create a new instance of the `AnnotationsVideoRenderer` class or a new custom video renderer, start with this line of code:
 
@@ -129,10 +129,10 @@ The following code illustrates how to set the `AnnotationsVideoRenderer` to the 
 mRenderer = new AnnotationsVideoRenderer(getContext());
 mScreenPublisher.setRenderer(mRenderer);
 ```
-</li>
 
+#### Attach the annotation canvas to a view
 
-<li>Attach an annotations canvas to a publisher or subscriber view:
+You can attach an annotation canvas to a publisher or subscriber view:
 
 The following code initializes the `AnnotationsView`, attaches the `AnnotationsToolbar` to the `AnnotationsView`, sets the `VideoRenderer`, and adds the `AnnotationsView` to the publisher or subscriber view:
 
@@ -145,10 +145,10 @@ if ( mAnnotationsView == null ){
     mScreenView.addView(mAnnotationsView);
 }
 ```
-</li>
 
+#### Implement an annotations listener class
 
-<li>Implement an `AnnotationsListener`:
+To listen for annotation events, implement an `AnnotationsListener`:
 
 In the following example, the `onScreencaptureReady()` event is fired when a new screen capture is ready. 
 
@@ -163,15 +163,12 @@ public class MainActivity
 	}
 }
 ```
-</li>
 
 
-<li>You can create handlers for the following types of annotations:
+You can create handlers for the following types of annotations:
   - Freehand Annotation: Handwritten annotation 
   - Text Annotation: Text label annotations.
   - Color Picker: Select a color for the annotation.
   - Erase: Delete the most recent annotation.
   - Screen Capture: Take a screenshot of the annotations.
   - Done: Clear all annotations.
-</li>
-</ol>
