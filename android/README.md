@@ -98,18 +98,23 @@ The following classes represent the software design for the OpenTok Annotations 
 | `AnnotationsVideoRenderer`   | Extends the [BaseVideoRenderer](https://tokbox.com/developer/sdks/android/reference/com/opentok/android/BaseVideoRenderer.html) class in the OpenTok Android SDK, and includes screenshot functionality. |
 
 
-4. Using the AnnotationsKit:
+### Using the AnnotationsKit
 
-4.1 Add the annotationToolbar in your layout. EG:
+<ol>
+
+<li>Add the `AnnotationsToolbar` to your layout:
+
+```
 <com.tokbox.android.annotations.AnnotationsToolbar
     android:id="@+id/annotations_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"/>
+```
+</li>
 
 
-
-4.2 Adding a custom annotation renderer
+<li>Add a custom annotation renderer
 Create a new instance of the AnnotationsVideoRenderer class or creates a new custom video renderer.
 
 AnnotationsVideoRenderer renderer = new AnnotationsVideoRenderer(this);
