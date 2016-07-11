@@ -1,0 +1,25 @@
+{
+  "name": "opentok-annotation",
+  "description": "OpenTok annotation accelerator pack",
+  "main": "dist/acc-pack-annotations.js",
+  "authors": [
+    "adrice727@gmail.com"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "opentok",
+    "annotation",
+    "annotations",
+    "opentok-acc-pack",
+    "screen-sharing"
+  ],
+  "homepage": "https://github.com/opentok/annotation-acc-pack/tree/master/js",
+  "moduleType": ["node", "globals"],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
