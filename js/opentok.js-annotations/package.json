@@ -11,7 +11,10 @@
   },
   "keywords": [
     "opentok",
-    "annotations"
+    "annotation",
+    "annotations",
+    "opentok-acc-pack",
+    "screen-sharing"
   ],
   "author": "Salvador de la Puente <salva@unoyunodiez.com>",
   "license": "MIT",
