@@ -131,6 +131,12 @@ static NSString * const KLogVariationFailure = @"Failure";
     }
 }
 
+- (void)updateView:(UIView *)view {
+    if (self.isScreenSharing) {
+        self.screenCapture.view = view;
+    }
+}
+
 - (void)notifiyAllWithSignal:(ScreenShareSignal)signal error:(NSError *)error {
     
     if (self.handler) {

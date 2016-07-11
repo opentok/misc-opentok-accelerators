@@ -73,6 +73,11 @@ typedef void (^ScreenShareBlock)(ScreenShareSignal signal, NSError *error);
 - (void)disconnect;
 
 /**
+ *  Change the sharing UIView, it does nothing if sharing is not started.
+ */
+- (void)updateView:(UIView *)view;
+
+/**
  *  The object that acts as the delegate of the screen sharer.
  *
  *  The delegate must adopt the ScreenShareDelegate protocol. The delegate is not retained.

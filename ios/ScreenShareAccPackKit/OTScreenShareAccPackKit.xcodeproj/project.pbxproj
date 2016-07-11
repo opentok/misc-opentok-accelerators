@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A058350C1D2F4BAD00E484FB /* ShareWholeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */; };
+		A058350F1D2F4E4700E484FB /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350E1D2F4E4700E484FB /* ColorViewController.m */; };
 		A09A4AC71CD02A990024C349 /* OTScreenShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* OTScreenShareKit.framework */; };
 		A09A4AC81CD02A990024C349 /* OTScreenShareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* OTScreenShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A0CFE14B1D25BF8200D8449B /* OTScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0CFE0BB1D25BF8200D8449B /* OTScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,6 +58,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A058350A1D2F4BAD00E484FB /* ShareWholeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareWholeScreenViewController.h; sourceTree = "<group>"; };
+		A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareWholeScreenViewController.m; sourceTree = "<group>"; };
+		A058350D1D2F4E4700E484FB /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
+		A058350E1D2F4E4700E484FB /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
 		A09A4AA11CD02A800024C349 /* OTScreenShareAccPackKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTScreenShareAccPackKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A09A4AC01CD02A990024C349 /* OTScreenShareKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTScreenShareKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0CFE0B41D25BF8200D8449B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -152,6 +158,10 @@
 				A0CFE1681D25BFB800D8449B /* AppDelegate.m */,
 				A0CFE1691D25BFB800D8449B /* Assets.xcassets */,
 				A0CFE16A1D25BFB800D8449B /* LaunchScreen.storyboard */,
+				A058350A1D2F4BAD00E484FB /* ShareWholeScreenViewController.h */,
+				A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */,
+				A058350D1D2F4E4700E484FB /* ColorViewController.h */,
+				A058350E1D2F4E4700E484FB /* ColorViewController.m */,
 				A0CFE16C1D25BFB800D8449B /* Main.storyboard */,
 				A0CFE16E1D25BFB800D8449B /* Info.plist */,
 				A0CFE16F1D25BFB800D8449B /* main.m */,
@@ -317,6 +327,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0CFE1781D25BFB800D8449B /* main.m in Sources */,
+				A058350F1D2F4E4700E484FB /* ColorViewController.m in Sources */,
+				A058350C1D2F4BAD00E484FB /* ShareWholeScreenViewController.m in Sources */,
 				A0CFE1731D25BFB800D8449B /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

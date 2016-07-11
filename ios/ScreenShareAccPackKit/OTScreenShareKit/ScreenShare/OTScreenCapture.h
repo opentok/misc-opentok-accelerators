@@ -15,7 +15,7 @@
  */
 @interface OTScreenCapture : NSObject <OTVideoCapture>
 
-@property(readonly) UIView* view;
+@property UIView* view;
 
 /**
  * Initializes a video capturer that will grab rendered stills of the view.
