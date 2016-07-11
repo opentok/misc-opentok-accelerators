@@ -27,8 +27,7 @@
       showControls: false,
       style: {
         buttonDisplayMode: 'off'
-      },
-      name: 'web'
+      }
     }
   };
 
