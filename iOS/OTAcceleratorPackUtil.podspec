@@ -19,5 +19,5 @@ On the Android and iOS mobile platforms, when you try to set a listener (Android
   s.source_files = 'iOS/OTAcceleratorPackUtil/Classes/*'
   s.public_header_files = 'iOS/OTAcceleratorPackUtil/Classes/*.h'
   s.dependency 'OTKAnalytics'
-  s.dependency 'OpenTok'
+  s.dependency 'OpenTok', '~> 2.8.3'
 end
