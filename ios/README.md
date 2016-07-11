@@ -15,7 +15,7 @@ This guide has the following sections:
 
 ## Prerequisites
 
-To be prepared to develop your screensharing with annoations app:
+To be prepared to develop your screensharing with annotations app:
 
 1. Install Xcode version 5 or later.
 2. Review the [OpenTok iOS SDK Requirements](https://tokbox.com/developer/sdks/ios/).
