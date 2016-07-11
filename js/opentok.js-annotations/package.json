@@ -16,7 +16,7 @@
     "opentok-acc-pack",
     "screen-sharing"
   ],
-  "author": "Salvador de la Puente <salva@unoyunodiez.com>",
+  "author": "adrice727@gmail.com",
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.3.0",
