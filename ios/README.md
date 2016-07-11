@@ -27,7 +27,7 @@ To be prepared to develop with the Annotations Accelerator Pack for Android:
 
 To get up and running quickly with your development, go through the following steps using CocoaPods:
 
-1  Add the following line to your pod file: ` pod ‘OTAnnotationKit’  `
+1.  Add the following line to your pod file: ` pod ‘OTAnnotationKit’  `
 2. In a terminal prompt, navigate into your project directory and type `pod install`.
 3. Reopen your project using the new *.xcworkspace file.
 
