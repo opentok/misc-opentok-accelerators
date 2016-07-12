@@ -17,9 +17,13 @@ gulp.task('js', function () {
 });
 
 gulp.task('js-dev', function () {
-  return gulp.src('src/*')
-    .pipe(concat('text-chat-acc-pack.js'))
-    .pipe(gulp.dest('dist'));
+  return gulp.src([
+    'src/opentok-solutions-logging.js',
+    'src/opentok-one-to-one-communication.js',
+    'src/opentok-text-chat.js'
+  ])
+  .pipe(concat('text-chat-acc-pack.js'))
+  .pipe(gulp.dest('dist'));
 });
 
 
