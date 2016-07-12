@@ -15,6 +15,6 @@ To get started with your development, visit the following sites:
 
 - [OpenTok Annotations Accelerator Pack for Android](./android)
 - [OpenTok Annotations Accelerator Pack for iOS](./ios)
-- [OpenTok Annotations Accelerator Pack for JavaScript](./JS)
+- [OpenTok Annotations Accelerator Pack for JavaScript](./js)
 
 _**NOTE:** The app you develop requires a **Session ID**, **Token**, and **API Key**. During your development and testing you can get these values at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/). For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
