@@ -1,7 +1,7 @@
 {
   "name": "opentok-annotation",
   "version": "1.0.2",
-  "description": "An annotation component for OpenTok",
+  "description": "OpenTok annotation accelerator pack",
   "main": "dist/opentok-annotation.js",
   "directories": {
     "test": "test"
@@ -14,7 +14,8 @@
     "annotation",
     "annotations",
     "opentok-acc-pack",
-    "screen-sharing"
+    "screen-sharing",
+    "audio/video"
   ],
   "author": "adrice727@gmail.com",
   "license": "MIT",
