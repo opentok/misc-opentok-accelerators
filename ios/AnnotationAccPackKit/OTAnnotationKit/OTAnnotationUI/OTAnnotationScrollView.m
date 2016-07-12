@@ -205,6 +205,10 @@
     [self.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:self.annotationColor]];
 }
 
+- (void)drawWithAnnotatable:(id<OTAnnotatable>)annotatable {
+    [self.annotationView addAnnotatable:annotatable];
+}
+
 - (void)addTextAnnotation:(OTAnnotationTextView *)annotationTextView {
     [self.scrollView setZoomScale:1.0 animated:NO];   // this will need to reset in case that added text view is out of bound
     annotationTextView.frame = CGRectMake(self.scrollView.contentOffset.x + LeadingPaddingOfAnnotationTextView,

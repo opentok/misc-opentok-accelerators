@@ -26,6 +26,8 @@
 #pragma mark - annotation
 - (void)startDrawing;
 
+- (void)drawWithAnnotatable:(id<OTAnnotatable>)annotatable;
+
 @property (nonatomic) UIColor *annotationColor;
 
 - (void)addTextAnnotation:(OTAnnotationTextView *)annotationTextView;
