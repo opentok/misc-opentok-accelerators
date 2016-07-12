@@ -1,5 +1,8 @@
 node_modules
 .idea/
+dist
+src/opentok-one-to-one-communication.js
+src/opentok-solutions-logging.js
 
 # OSX files
 .DS_Store
