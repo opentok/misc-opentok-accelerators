@@ -88,7 +88,7 @@ The following classes represent the software design for the OpenTok Annotations 
 
 | Class        | Description  |
 | ------------- | ------------- |
-| `AnnotationsToolbar`   | Provides the initializers and methods for the annotation toolbar view, and initializes such functionality as text annotations, screen capture button, erase button that removes the last annotation that was added, color selector for drawing stroke and text annotations, and scrolling features. You can customize this toolbar. |
+| `AnnotationsToolbar`   | Provides the initializers and methods for the annotation toolbar view, and initializes such functionality as text annotations, screen capture button, erase button that removes the last annotation that was added, color selector for drawing stroke and text annotations, and controls scrolling (scrolling is frozen while annotations are being added, and re-enabled after clicking **Done**). You can customize this toolbar. |
 | `AnnotationsView`   | Provides the rectangular area on the screen which is responsible for drawing annotations and event handling. |
 | `AnnotationsListener`   | Monitors state changes in the Annotations component. For example, a new event would occur when a screen capture is ready or there is an error. |
 | `AnnotationsPath`   | Extends the [Android Path class](https://developer.android.com/reference/android/graphics/Path.html), and defines the various geometric paths to be drawn in the `AnnotationView` canvas. |
