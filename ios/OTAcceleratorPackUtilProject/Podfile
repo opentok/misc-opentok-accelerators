@@ -1,0 +1,9 @@
+
+target 'OTAcceleratorPackUtilProject' do
+  pod 'OpenTok', '~> 2.8.3'
+end
+
+target 'OTAcceleratorPackUtil' do 
+  pod 'OpenTok', '~> 2.8.3'
+  pod 'OTKAnalytics'
+end

@@ -1,9 +1,0 @@
-target 'OTAcceleratorPackUtil_Example', :exclusive => true do
-  pod 'OTAcceleratorPackUtil', :path => '../'
-end
-
-target 'OTAcceleratorPackUtil_Tests', :exclusive => true do
-  pod 'OTAcceleratorPackUtil', :path => '../'
-
-  pod 'Kiwi'
-end
