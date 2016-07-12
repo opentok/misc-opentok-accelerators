@@ -23,6 +23,9 @@ To be prepared to develop with the Annotations Accelerator Pack for Android:
 3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 
+_**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using the [OpenTok Server SDK](https://tokbox.com/developer/sdks/server/)._
+
+
 ## Quick start
 
 To get up and running quickly with your development, go through the following steps using CocoaPods:
