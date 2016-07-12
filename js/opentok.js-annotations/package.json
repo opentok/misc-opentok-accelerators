@@ -1,8 +1,8 @@
 {
   "name": "opentok-annotation",
-  "version": "1.0.0",
-  "description": "An annotations component for OpenTok",
-  "main": "dist/acc-pack-annotations.js",
+  "version": "1.0.2",
+  "description": "An annotation component for OpenTok",
+  "main": "dist/opentok-annotation.js",
   "directories": {
     "test": "test"
   },

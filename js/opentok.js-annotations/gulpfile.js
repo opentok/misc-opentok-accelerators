@@ -10,7 +10,7 @@ gulp.task('default', ['js', 'css']);
 
 gulp.task('js', function () {
   return gulp.src(['src/annotation-widget.js', 'src/annotation-acc-pack.js'])
-    .pipe(concat('acc-pack-annotation.js'))
+    .pipe(concat('opentok-annotation.js'))
     .pipe(uglify())
     .pipe(gulp.dest(dist));
 });
@@ -36,7 +36,7 @@ gulp.task('zip', function () {
     [
       'dist/annotation.css',
       'dist/images/**',
-      'dist/acc-pack-annotation.js',
+      'dist/opentok-annotation.js',
     ], { base: 'dist/' })
   .pipe(zip('opentok-js-annotation-1.0.0.zip'))
   .pipe(gulp.dest(dist));
