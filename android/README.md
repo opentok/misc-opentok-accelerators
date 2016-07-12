@@ -4,7 +4,7 @@
 
 This document describes how to use the OpenTok Annotations Accelerator Pack for Android. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations on an Android mobile device.
 
-**Note**: The OpenTok Annotations Accelerator Pack is not a standalone Accelerator Pack such as [screensharing-annotation-acc-pack](https://github.com/opentok/screensharing-annotation-acc-pack). Rather, it is used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
+**Note**: The OpenTok Annotations Accelerator Pack does not include a standalone sample app such as [screensharing-annotation-acc-pack](https://github.com/opentok/screensharing-annotation-acc-pack), though you can easily build your own apps with it. It is also used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
 
 This guide has the following sections:
 
