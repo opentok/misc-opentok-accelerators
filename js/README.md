@@ -18,8 +18,9 @@ This guide has the following sections:
 To be prepared to develop your text chat app:
 
 1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
-2. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.</li><li>Download and extract the text chat and one-to-one communication components from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.</li></ol>
-3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
+2. Your project must include [Underscore](http://underscorejs.org/).
+3. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.</li><li>Download and extract the text chat and one-to-one communication components from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.</li></ol>
+4. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
 
@@ -75,7 +76,7 @@ While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must
 
 * **acc-pack-communication.js**: _(Available in the Text Chat Accelerator Pack)._ Manages the client audio/video communication.
 
-* **text-chat-acc-pack.js**: _(Available in the Text Chat Accelerator Pack)._ Minified JS file which contains **acc-pack-communication.js** , **acc-pack-text-chat.js** . It is the result of the `build-sample.sh` run.
+* **text-chat-acc-pack.js**: _(Available in the Text Chat Accelerator Pack)._ Minified JS file which contains **acc-pack-communication.js** , **acc-pack-text-chat.js**. These files appear on your system after running `build-sample.sh`.
 
 * **[app.js](./sample-app/public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements. 
 
@@ -114,7 +115,15 @@ The following `options` fields are used in the `TextChatAccPack` constructor:<br
 | Set the session. | `session`  |
 
 
-  In this initialization code, the `TextChatAccPack` object is initialized.
+If you install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat), you can instantiate the `TextChatAccPack` instance with this approach:
+
+  ```javascript
+  const textChat = require('opentok-text-chat');
+  const textChatAccPack = new textChat(options);
+  ```
+
+
+Otherwise, this initialization code demonstrates how the `TextChatAccPack` object is initialized:
 
   ```javascript
       var _options = {
