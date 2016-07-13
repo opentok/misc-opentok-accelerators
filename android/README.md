@@ -4,7 +4,7 @@
 
 This document describes how to use the OpenTok Annotations Accelerator Pack for Android. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations on an Android mobile device.
 
-**Note**: The OpenTok Annotations Accelerator Pack is not a standalone Accelerator Pack such as [screensharing-annotation-acc-pack](https://github.com/opentok/screensharing-annotation-acc-pack). Rather, it is used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
+**Note**: The OpenTok Annotations Accelerator Pack does not include a standalone sample app such as [screensharing-annotation-acc-pack](https://github.com/opentok/screensharing-annotation-acc-pack), though you can easily build your own apps with it. It is also used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
 
 This guide has the following sections:
 
@@ -20,6 +20,8 @@ To be prepared to develop with the Annotations Accelerator Pack for Android:
 1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
 2. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
 3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
+
+_**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using the [OpenTok Server SDK](https://tokbox.com/developer/sdks/server/)._
 
 
 ## Quick start
@@ -88,7 +90,7 @@ The following classes represent the software design for the OpenTok Annotations 
 
 | Class        | Description  |
 | ------------- | ------------- |
-| `AnnotationsToolbar`   | Provides the initializers and methods for the annotation toolbar view, and initializes such functionality as text annotations, screen capture button, erase button that removes the last annotation that was added, color selector for drawing stroke and text annotations, and scrolling features. You can customize this toolbar. |
+| `AnnotationsToolbar`   | Provides the initializers and methods for the annotation toolbar view, and initializes such functionality as text annotations, screen capture button, erase button that removes the last annotation that was added, color selector for drawing stroke and text annotations, and controls scrolling. You can customize this toolbar. |
 | `AnnotationsView`   | Provides the rectangular area on the screen which is responsible for drawing annotations and event handling. |
 | `AnnotationsListener`   | Monitors state changes in the Annotations component. For example, a new event would occur when a screen capture is ready or there is an error. |
 | `AnnotationsPath`   | Extends the [Android Path class](https://developer.android.com/reference/android/graphics/Path.html), and defines the various geometric paths to be drawn in the `AnnotationView` canvas. |
@@ -96,6 +98,8 @@ The following classes represent the software design for the OpenTok Annotations 
 | `Annotatable`   | Each `AnnotationText` or `AnnotationPath` is defined as an annotatable object. |
 | `AnnotationsManager`   | Manages the set of the annotations in the annotations view. |
 | `AnnotationsVideoRenderer`   | Extends the [BaseVideoRenderer](https://tokbox.com/developer/sdks/android/reference/com/opentok/android/BaseVideoRenderer.html) class in the OpenTok Android SDK, and includes screenshot functionality. |
+
+**NOTE:** Scrolling is frozen while the user adds annotations. Scrolling is re-enabled after the user clicks **Done**, and the annotations are removed at that point. 
 
 
 ### Using the AnnotationsKit
