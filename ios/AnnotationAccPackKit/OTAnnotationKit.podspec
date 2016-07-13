@@ -30,6 +30,5 @@ Pod::Spec.new do |s|
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationUI/OTFullScreenAnnotationViewController.h',
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationUI/Toolbar/OTAnnotationToolbarView.h'
 
-  s.dependency 'OTAcceleratorPackUtil'
   s.dependency 'LHToolbar', '1.2.1-beta'
 end
