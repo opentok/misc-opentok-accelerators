@@ -6,13 +6,13 @@
 
 #import "MainView.h"
 #import "MainViewController.h"
-#import "OneToOneCommunicator.h"
+#import "OTOneToOneCommunicator.h"
 
 #import <SVProgressHUD/SVProgressHUD.h>
 
 @interface MainViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic) MainView *mainView;
-@property (nonatomic) OneToOneCommunicator *oneToOneCommunicator;
+@property (nonatomic) OTOneToOneCommunicator *oneToOneCommunicator;
 @property (nonatomic) OTScreenSharer *screenSharer;
 
 @property (nonatomic) UIView *customSharedContent;
@@ -72,7 +72,7 @@
     [super viewDidLoad];
     
     self.mainView = (MainView *)self.view;
-    self.oneToOneCommunicator = [OneToOneCommunicator oneToOneCommunicator];
+    self.oneToOneCommunicator = [OTOneToOneCommunicator communicator];
     self.screenSharer = [OTScreenSharer screenSharer];
 #if !(TARGET_OS_SIMULATOR)
     [self.mainView showReverseCameraButton];
@@ -84,7 +84,7 @@
     [SVProgressHUD show];
     
     if (!self.oneToOneCommunicator.isCallEnabled && !self.screenSharer.isScreenSharing) {
-        [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
+        [self.oneToOneCommunicator connectWithHandler:^(OTOneToOneCommunicationSignal signal, NSError *error) {
             
             if (!error) {
                 [SVProgressHUD dismiss];
@@ -108,57 +108,57 @@
     }
 }
 
-- (void)handleCommunicationSignal:(OneToOneCommunicationSignal)signal {
+- (void)handleCommunicationSignal:(OTOneToOneCommunicationSignal)signal {
     
     
     switch (signal) {
-        case OneToOneCommunicationSignalSessionDidConnect: {
+        case OTSessionDidConnect: {
             [self.mainView connectCallHolder:YES];
             [self.mainView updateControlButtonsForCall];
             [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
             break;
         }
-        case OneToOneCommunicationSignalSessionDidDisconnect:{
+        case OTSessionDidDisconnect:{
             [self.mainView removePublisherView];
             [self.mainView removeSubscriberView];
             break;
         }
-        case OneToOneCommunicationSignalSessionDidFail:{
+        case OTSessionDidFail:{
             [SVProgressHUD dismiss];
             break;
         }
-        case OneToOneCommunicationSignalSessionStreamDestroyed:{
+        case OTSessionStreamDestroyed:{
             [self.mainView removeSubscriberView];
             break;
         }
-        case OneToOneCommunicationSignalPublisherDidFail:{
+        case OTPublisherDidFail:{
             [SVProgressHUD showErrorWithStatus:@"Problem when publishing"];
             break;
         }
-        case OneToOneCommunicationSignalSubscriberConnect:{
+        case OTSubscriberConnect:{
             [self.mainView addSubscribeView:self.oneToOneCommunicator.subscriberView];
             break;
         }
-        case OneToOneCommunicationSignalSubscriberDidFail:{
+        case OTSubscriberDidFail:{
             [SVProgressHUD showErrorWithStatus:@"Problem when subscribing"];
             break;
         }
-        case OneToOneCommunicationSignalSubscriberVideoDisabled:{
+        case OTSubscriberVideoDisabled:{
             [self.mainView addPlaceHolderToSubscriberView];
             break;
         }
-        case OneToOneCommunicationSignalSubscriberVideoEnabled:{
+        case OTSubscriberVideoEnabled:{
             [SVProgressHUD dismiss];
             [self.mainView addSubscribeView:self.oneToOneCommunicator.subscriberView];
             break;
         }
-        case OneToOneCommunicationSignalSubscriberVideoDisableWarning:{
+        case OTSubscriberVideoDisableWarning:{
             [self.mainView addPlaceHolderToSubscriberView];
             self.oneToOneCommunicator.subscribeToVideo = NO;
             [SVProgressHUD showErrorWithStatus:@"Network connection is unstable."];
             break;
         }
-        case OneToOneCommunicationSignalSubscriberVideoDisableWarningLifted:{
+        case OTSubscriberVideoDisableWarningLifted:{
             [SVProgressHUD dismiss];
             [self.mainView addSubscribeView:self.oneToOneCommunicator.subscriberView];
             break;
@@ -223,7 +223,7 @@
 - (void)stopScreenShareAndRecover {
     [self.screenSharer disconnect];
     [SVProgressHUD show];
-    [self.oneToOneCommunicator connectWithHandler:^(OneToOneCommunicationSignal signal, NSError *error) {
+    [self.oneToOneCommunicator connectWithHandler:^(OTOneToOneCommunicationSignal signal, NSError *error) {
         
         [SVProgressHUD dismiss];
         if (!error) {
