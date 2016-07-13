@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [[ -d opentok.js-annotations ]]
+if [[ -d opentok.js-screen-sharing ]]
 then
-	cd opentok.js-annotations
+	cd opentok.js-screen-sharing
 	gulp dist
 	cd dist
 
