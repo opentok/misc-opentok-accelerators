@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0127B081D35B62400CDA3F5 /* OTRemoteAnnotator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127B061D35B62400CDA3F5 /* OTRemoteAnnotator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0127B091D35B62400CDA3F5 /* OTRemoteAnnotator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127B071D35B62400CDA3F5 /* OTRemoteAnnotator.m */; };
+		A0127B0C1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127B0B1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m */; };
+		A0127B0E1D35B8DB00CDA3F5 /* OTRemoteAnnotator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127B0D1D35B8DB00CDA3F5 /* OTRemoteAnnotator_Private.h */; };
+		A0127B111D35BB1A00CDA3F5 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127B0F1D35BB1A00CDA3F5 /* JSON.h */; };
+		A0127B121D35BB1A00CDA3F5 /* JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127B101D35BB1A00CDA3F5 /* JSON.m */; };
 		A058350C1D2F4BAD00E484FB /* ShareWholeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */; };
 		A058350F1D2F4E4700E484FB /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350E1D2F4E4700E484FB /* ColorViewController.m */; };
 		A09A4AC71CD02A990024C349 /* OTScreenShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* OTScreenShareKit.framework */; };
@@ -58,6 +64,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A0127B061D35B62400CDA3F5 /* OTRemoteAnnotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTRemoteAnnotator.h; sourceTree = "<group>"; };
+		A0127B071D35B62400CDA3F5 /* OTRemoteAnnotator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTRemoteAnnotator.m; sourceTree = "<group>"; };
+		A0127B0A1D35B65A00CDA3F5 /* RemoteAnnotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAnnotationViewController.h; sourceTree = "<group>"; };
+		A0127B0B1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteAnnotationViewController.m; sourceTree = "<group>"; };
+		A0127B0D1D35B8DB00CDA3F5 /* OTRemoteAnnotator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTRemoteAnnotator_Private.h; sourceTree = "<group>"; };
+		A0127B0F1D35BB1A00CDA3F5 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		A0127B101D35BB1A00CDA3F5 /* JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSON.m; sourceTree = "<group>"; };
 		A058350A1D2F4BAD00E484FB /* ShareWholeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareWholeScreenViewController.h; sourceTree = "<group>"; };
 		A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareWholeScreenViewController.m; sourceTree = "<group>"; };
 		A058350D1D2F4E4700E484FB /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
@@ -142,11 +155,16 @@
 		A0CFE0B51D25BF8200D8449B /* ScreenShare */ = {
 			isa = PBXGroup;
 			children = (
+				A0127B0D1D35B8DB00CDA3F5 /* OTRemoteAnnotator_Private.h */,
+				A0127B061D35B62400CDA3F5 /* OTRemoteAnnotator.h */,
+				A0127B071D35B62400CDA3F5 /* OTRemoteAnnotator.m */,
 				A0CFE0BB1D25BF8200D8449B /* OTScreenShareKit.h */,
 				A0CFE0BC1D25BF8200D8449B /* OTScreenSharer.h */,
 				A0CFE0BD1D25BF8200D8449B /* OTScreenSharer.m */,
 				A0CFE0BE1D25BF8200D8449B /* OTScreenCapture.h */,
 				A0CFE0BF1D25BF8200D8449B /* OTScreenCapture.m */,
+				A0127B0F1D35BB1A00CDA3F5 /* JSON.h */,
+				A0127B101D35BB1A00CDA3F5 /* JSON.m */,
 			);
 			path = ScreenShare;
 			sourceTree = "<group>";
@@ -162,6 +180,8 @@
 				A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */,
 				A058350D1D2F4E4700E484FB /* ColorViewController.h */,
 				A058350E1D2F4E4700E484FB /* ColorViewController.m */,
+				A0127B0A1D35B65A00CDA3F5 /* RemoteAnnotationViewController.h */,
+				A0127B0B1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m */,
 				A0CFE16C1D25BFB800D8449B /* Main.storyboard */,
 				A0CFE16E1D25BFB800D8449B /* Info.plist */,
 				A0CFE16F1D25BFB800D8449B /* main.m */,
@@ -187,8 +207,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0127B111D35BB1A00CDA3F5 /* JSON.h in Headers */,
 				A0CFE14B1D25BF8200D8449B /* OTScreenShareKit.h in Headers */,
 				A0CFE14C1D25BF8200D8449B /* OTScreenSharer.h in Headers */,
+				A0127B081D35B62400CDA3F5 /* OTRemoteAnnotator.h in Headers */,
+				A0127B0E1D35B8DB00CDA3F5 /* OTRemoteAnnotator_Private.h in Headers */,
 				A0CFE14E1D25BF8200D8449B /* OTScreenCapture.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0127B0C1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m in Sources */,
 				A0CFE1781D25BFB800D8449B /* main.m in Sources */,
 				A058350F1D2F4E4700E484FB /* ColorViewController.m in Sources */,
 				A058350C1D2F4BAD00E484FB /* ShareWholeScreenViewController.m in Sources */,
@@ -338,7 +362,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0CFE14F1D25BF8200D8449B /* OTScreenCapture.m in Sources */,
+				A0127B091D35B62400CDA3F5 /* OTRemoteAnnotator.m in Sources */,
 				A0CFE14D1D25BF8200D8449B /* OTScreenSharer.m in Sources */,
+				A0127B121D35BB1A00CDA3F5 /* JSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,6 +5,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OTScreenShareKit/OTRemoteAnnotator.h>
 
 typedef NS_ENUM(NSUInteger, ScreenShareSignal) {
     ScreenShareSignalSessionDidConnect = 0,
@@ -94,4 +95,7 @@ typedef void (^ScreenShareBlock)(ScreenShareSignal signal, NSError *error);
 @property (nonatomic, getter=isPublishAudio) BOOL publishAudio;
 @property (nonatomic, getter=isPublishVideo) BOOL publishVideo;
 
+#pragma mark - Remote control
+@property (nonatomic) OTRemoteAnnotator *remoteAnnotator;
+- (void)initializeRemoteAnnotator;
 @end
