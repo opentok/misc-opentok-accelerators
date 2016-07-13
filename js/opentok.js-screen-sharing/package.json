@@ -18,6 +18,10 @@
   ],
   "author": "adrice727@gmail.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opentok/screen-sharing-acc-pack/tree/master/js"
+  },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-amd-optimizer": "^0.3.4",
