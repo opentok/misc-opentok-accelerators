@@ -1,8 +1,6 @@
 //
 //  AppDelegate.m
-//  Documentation
 //
-//  Created by Xi Huang on 5/17/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 

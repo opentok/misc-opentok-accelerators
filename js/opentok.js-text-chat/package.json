@@ -15,7 +15,7 @@
     "text",
     "webrtc"
   ],
-  "author": "Salvador de la Puente <salva@unoyunodiez.com>",
+  "author": "Aaron Rice <adrice727@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.3.0",
@@ -47,6 +47,10 @@
     "rimraf": "^2.4.3",
     "sinon": "^1.17.0",
     "yuidocjs": "^0.9.0",
-    "jasmine":"latest"
+    "jasmine": "latest"
+  },
+  "dependencies": {
+    "opentok-one-to-one-communication": "^1.0.6",
+    "opentok-solutions-logging": "^1.0.1"
   }
 }
