@@ -12,6 +12,7 @@
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 #import <OTKAnalytics/OTKLogger.h>
 
+#import "OTTextChatKitBundle.h"
 #import "GCDHelper.h"
 #import "UIViewController+Helper.h"
 
@@ -75,7 +76,7 @@ static CGFloat StatusBarHeight = 20.0;
     self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.textChatComponent.maximumTextMessageLength];
     
     // work on instantiation and port it to sample app, done
-    NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"OTTextChatKitBundle" withExtension:@"bundle"]];
+    NSBundle *textChatViewBundle = [OTTextChatKitBundle textChatKitBundle];
     [self.tableView registerNib:[UINib nibWithNibName:@"TextChatSentTableViewCell"
                                                bundle:textChatViewBundle]
          forCellReuseIdentifier:@"SentChatMessage"];
@@ -180,7 +181,7 @@ static CGFloat StatusBarHeight = 20.0;
                               componentId:kLogComponentIdentifier
                                      guid:[[NSUUID UUID] UUIDString]];
     
-    NSBundle *textChatViewBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"OTTextChatKitBundle" withExtension:@"bundle"]];
+    NSBundle *textChatViewBundle = [OTTextChatKitBundle textChatKitBundle];
     return (OTTextChatView *)[[textChatViewBundle loadNibNamed:@"OTTextChatView"
                                                       owner:nil
                                                     options:nil] lastObject];
