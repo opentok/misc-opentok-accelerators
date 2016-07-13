@@ -18,8 +18,9 @@ This guide has the following sections:
 To be prepared to develop your text chat app:
 
 1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
-2. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build-sample.sh script](./build-sample.sh).</li><li>Download and extract the [text-chat-acc-pack.js](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.</li></ol>
-3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
+2. Your project must include [Underscore](http://underscorejs.org/).
+3. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.</li><li>Download and extract the text chat and one-to-one communication components from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.</li></ol>
+4. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
 
@@ -71,15 +72,15 @@ While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must
 
 * **[accelerator-pack.js](./sample-app/public/js/components/accelerator-pack.js)**: The TokBox Common Accelerator Session Pack is a common layer that permits all accelerators to share the same OpenTok session, API Key and other related information, and is required whenever you use any of the OpenTok accelerators. This layer handles communication between the client and the components.
 
-* **acc-pack-text-chat.js**:  _(Available in the Text Chat Accelerator Pack ./opentok.js-text-chat/src/)._ Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
+* **acc-pack-text-chat.js**:  _(Available in the Text Chat Accelerator Pack)._ Manages the client text chat UI views and events, builds and validates individual text chat messages, and makes the chat UI available for placement.
 
-* **acc-pack-communication.js**: _(Available in the Text Chat Accelerator Pack ./opentok.js-text-chat/src/)._ Manages the client audio/video communication.
+* **acc-pack-communication.js**: _(Available in the Text Chat Accelerator Pack)._ Manages the client audio/video communication.
 
-* **text-chat-acc-pack.js**: _(./sample-app/public/js/components/)._ Minified js file which contains **acc-pack-communication.js** , **acc-pack-text-chat.js** . It is the result of the `build-sample.sh` run.
+* **text-chat-acc-pack.js**: _(Available in the Text Chat Accelerator Pack)._ Minified JS file which contains **acc-pack-communication.js** , **acc-pack-text-chat.js**. These files appear on your system after running `build-sample.sh`.
 
 * **[app.js](./sample-app/public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements. 
 
-* **[CSS files]**: _(Available in the Text Chat Accerlerator Pack ./opentok.js-text-chat/css/ )._: Defines the client UI style. 
+* **[CSS files](./opentok.js-text-chat/css/)**: Defines the client UI style. 
 
 * **[index.html](./sample-app/public/index.html)**: This web page provides you with a quick start if you don't already have a web page making calls against OpenTok.js (via accelerator-pack.js) and text-chat-acc-pack.js. Its `<head>` element loads the OpenTok.js library, Text Chat library, and other dependencies, and its `<body>` element implements the UI container for the controls on your own page. It contains the tag script to load the otkanalytics.js file.
 
@@ -114,7 +115,15 @@ The following `options` fields are used in the `TextChatAccPack` constructor:<br
 | Set the session. | `session`  |
 
 
-  In this initialization code, the `TextChatAccPack` object is initialized.
+If you install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat), you can instantiate the `TextChatAccPack` instance with this approach:
+
+  ```javascript
+  const textChat = require('opentok-text-chat');
+  const textChatAccPack = new textChat(options);
+  ```
+
+
+Otherwise, this initialization code demonstrates how the `TextChatAccPack` object is initialized:
 
   ```javascript
       var _options = {
@@ -143,26 +152,34 @@ The following `options` fields are used in the `TextChatAccPack` constructor:<br
 
 #### TextChatAccPack Methods
 
-  The `TextChat` component defines `showTextChat()` and `hideTextChat()` methods to show or hide text chat view.
+The `TextChat` component defines the following methods:
 
-  The `TextChat` component defines `isDisplayed()` method to know if the text chat accelerator pack is displayed or not.
+| Method        | Description  |
+| ------------- | ------------- |
+| `showTextChat()` | Show the text chat view.  |
+| `hideTextChat()` | Hide the text chat view.  |
+| `isDisplayed()` | Determines if the text chat accelerator pack is displayed.  |
+| `isEnabled()` | Determines if the text chat accelerator pack is enabled.  |
 
-  The `TextChat` component defines `isEnabled()` method to know if the text chat accelerator pack is enabled or not.
   
+For example, this line determines whether the text chat accelerator pack is displayed:
+
   ```javascript
   var displayed = _textChat.isDisplayed();
-
   ```
 
 #### Events
 
-  The `TextChat` component emits a `messageReceived` event when a new message is received.
+The `TextChat` component emits the following events:
 
-  The `TextChat` component emits a `messageSent` event when a new message is sent.
+| Method        | Description  |
+| ------------- | ------------- |
+| `messageReceived ` | A new message has been received.  |
+| `messageSent ` | A new message has been sent.  |
+| `errorSendingMessage ` | An error occurred when sending a message.  |
 
-  The `TextChat` component emits an `errorSendingMessage` event when there is an error sending a message.
-  
-  These events can be subscribed to in the following manner:
+
+The following code shows how to subscribe to these events:
 
   ```javascript
       _accPack.registerEventListener('messageReceived', function() {
