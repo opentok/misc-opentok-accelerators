@@ -5,9 +5,8 @@ then
 	cd opentok.js-annotations
 	gulp dist
 	cd dist
-	gulp zip 
 
-else 
+else
 	echo "Please run this script from 'JS'."
 	exit 1
 fi

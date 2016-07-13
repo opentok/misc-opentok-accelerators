@@ -57,6 +57,26 @@
                                             <segue destination="sn5-nb-njR" kind="show" id="Zy3-Ud-8Sf"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="255-bu-ztg" style="IBUITableViewCellStyleDefault" id="cjm-8Y-MU3">
+                                        <rect key="frame" x="0.0" y="152" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cjm-8Y-MU3" id="1bU-1A-iJT">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Annotation by manually inputting data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="255-bu-ztg">
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="yI3-fP-JXQ" kind="show" id="4of-Zi-R9v"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -86,6 +106,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HWa-xa-EYu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-996" y="348"/>
+        </scene>
+        <!--Annotation Manual View Controller-->
+        <scene sceneID="sE0-E8-tbK">
+            <objects>
+                <viewController id="yI3-fP-JXQ" customClass="AnnotationManualViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8c3-xR-fGb"/>
+                        <viewControllerLayoutGuide type="bottom" id="g0G-Yc-un2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GzY-Pu-Tjj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mH1-Lx-BP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="275" y="-393"/>
         </scene>
         <!--Annotation Imported View Controller-->
         <scene sceneID="tne-QT-ifu">

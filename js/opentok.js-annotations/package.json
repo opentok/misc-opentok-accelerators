@@ -1,8 +1,8 @@
 {
-  "name": "opentok-annotations",
-  "version": "0.1.0",
-  "description": "An annotations component for OpenTok",
-  "main": "dist/acc-pack-annotations.js",
+  "name": "opentok-annotation",
+  "version": "1.0.3",
+  "description": "OpenTok annotation accelerator pack",
+  "main": "dist/opentok-annotation.js",
   "directories": {
     "test": "test"
   },
@@ -11,9 +11,13 @@
   },
   "keywords": [
     "opentok",
-    "annotations"
+    "annotation",
+    "annotations",
+    "opentok-acc-pack",
+    "screen-sharing",
+    "audio/video"
   ],
-  "author": "Salvador de la Puente <salva@unoyunodiez.com>",
+  "author": "adrice727@gmail.com",
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.3.0",
