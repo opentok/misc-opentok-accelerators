@@ -9,7 +9,7 @@ This package provides an easy way to get started in implementing interoperable s
 ###Installation:
 
 ```bash
-$ npm install --save opentok-annotation
+$ npm install --save opentok-screen-sharing
 ```
 
 If using browserify or webpack:
