@@ -2,7 +2,7 @@
 
 # OpenTok Annotations Accelerator Pack for JavaScript<br/>Version 1.0
 
-This document describes how to use the OpenTok Annotations Accelerator Pack for Android. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations in a web-based application.
+This document describes how to use the OpenTok Annotations Accelerator Pack for JavaScript. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations in a web-based application.
 
 **Note**: The OpenTok Annotations Accelerator Pack does not include a standalone sample app such as [screensharing-annotation-acc-pack](https://github.com/opentok/screensharing-annotation-acc-pack), though you can easily build your own apps with it. It is also used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
 
@@ -10,7 +10,6 @@ This document describes how to use the OpenTok Annotations Accelerator Pack for 
 This guide has the following sections:
 
 - [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-* [Quick start](#quick-start): A step-by-step tutorial to help you quickly import and use the OpenTok Annotations Accelerator Pack for JavaScript.
 - [Deploy](#deploy): Deploy your own application that hosts the OpenTok Annotations Accelerator.
 - [Explore the code](#explore-the-code): This describes the Accelerator Pack code design, which uses recommended best practices to implement the annotation and frame grab capabilities available in the OpenTok client SDK.
 
