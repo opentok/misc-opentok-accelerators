@@ -152,26 +152,34 @@ Otherwise, this initialization code demonstrates how the `TextChatAccPack` objec
 
 #### TextChatAccPack Methods
 
-  The `TextChat` component defines `showTextChat()` and `hideTextChat()` methods to show or hide text chat view.
+The `TextChat` component defines the following methods:
 
-  The `TextChat` component defines `isDisplayed()` method to know if the text chat accelerator pack is displayed or not.
+| Method        | Description  |
+| ------------- | ------------- |
+| `showTextChat()` | Show the text chat view.  |
+| `hideTextChat()` | Hide the text chat view.  |
+| `isDisplayed()` | Determines if the text chat accelerator pack is displayed.  |
+| `isEnabled()` | Determines if the text chat accelerator pack is enabled.  |
 
-  The `TextChat` component defines `isEnabled()` method to know if the text chat accelerator pack is enabled or not.
   
+For example, this line determines whether the text chat accelerator pack is displayed:
+
   ```javascript
   var displayed = _textChat.isDisplayed();
-
   ```
 
 #### Events
 
-  The `TextChat` component emits a `messageReceived` event when a new message is received.
+The `TextChat` component emits the following events:
 
-  The `TextChat` component emits a `messageSent` event when a new message is sent.
+| Method        | Description  |
+| ------------- | ------------- |
+| `messageReceived ` | A new message has been received.  |
+| `messageSent ` | A new message has been sent.  |
+| `errorSendingMessage ` | An error occurred when sending a message.  |
 
-  The `TextChat` component emits an `errorSendingMessage` event when there is an error sending a message.
-  
-  These events can be subscribed to in the following manner:
+
+The following code shows how to subscribe to these events:
 
   ```javascript
       _accPack.registerEventListener('messageReceived', function() {
