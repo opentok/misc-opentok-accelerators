@@ -6,10 +6,10 @@
 
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 #import <OTKAnalytics/OTKLogger.h>
-#import "OTScreenCapture.h"
 #import "OTScreenSharer.h"
 #import "JSON.h"
 
+#import "OTScreenSharer_Private.h"
 #import "OTRemoteAnnotator_Private.h"
 
 static NSString * const kLogComponentIdentifier = @"screensharingAccPack";
@@ -31,9 +31,7 @@ static NSString * const KLogVariationFailure = @"Failure";
 @property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTAcceleratorSession *session;
 @property (nonatomic) OTPublisher *publisher;
-@property (nonatomic) OTScreenCapture *screenCapture;
-
-@property (strong, nonatomic) ScreenShareBlock handler;
+@property (nonatomic) ScreenShareBlock handler;
 
 @end
 
@@ -307,6 +305,7 @@ static NSString * const KLogVariationFailure = @"Failure";
     if (self.isScreenSharing) {
         self.remoteAnnotator = [[OTRemoteAnnotator alloc] init];
         self.remoteAnnotator.annotationView = [[OTAnnotationView alloc] initWithFrame:self.screenCapture.view.bounds];
+        self.remoteAnnotator.screenSharer = self;
     }
 }
 
@@ -315,12 +314,11 @@ static NSString * const KLogVariationFailure = @"Failure";
 receivedSignalType:(NSString*)type
  fromConnection:(OTConnection*)connection
      withString:(NSString*)string {
-
     
-    if (self.remoteAnnotator.isRemoteAnnotationEnabled) {
-        NSArray *jsonArray = [JSON parseJSON:string];
-        NSLog(@"%@", jsonArray);
-    }
+//    if (self.remoteAnnotator.isRemoteAnnotationEnabled) {
+//        id json = [JSON parseJSON:string];
+//        NSLog(@"%@", json);
+//    }
     
 //    OTAnnotationPoint *p1 = [[OTAnnotationPoint alloc] initWithX:119 andY:16];
 //    OTAnnotationPoint *p2 = [[OTAnnotationPoint alloc] initWithX:122 andY:16];
@@ -336,7 +334,7 @@ receivedSignalType:(NSString*)type
 //    OTAnnotationPoint *p8 = [[OTAnnotationPoint alloc] initWithX:160 andY:24];
 //    OTAnnotationPoint *p9 = [[OTAnnotationPoint alloc] initWithX:160 andY:26];
 //    OTAnnotationPoint *p10 = [[OTAnnotationPoint alloc] initWithX:160 andY:30];
-//    OTAnnotationPath *path1 = [OTAnnotationPath pathWithPoints:@[p6, p7, p8, p9, p10] strokeColor:[UIColor redColor]];
+//    OTAnnotationPath *path1 = [OTAnnotationPath pathWithPoints:@[p6, p7, p8, p9, p10] strokeColor:[UIColor yellowColor]];
 //    [self.remoteAnnotator.annotationView addAnnotatable:path1];
     
 }

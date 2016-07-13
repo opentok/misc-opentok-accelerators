@@ -18,8 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIView *redView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIView *redView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds) - 64)];
     redView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:redView];
     
     self.screenSharer = [OTScreenSharer screenSharer];
     [self.screenSharer connectWithView:redView handler:^(ScreenShareSignal signal, NSError *error) {

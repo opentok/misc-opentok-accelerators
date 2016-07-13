@@ -8,11 +8,12 @@
 
 @implementation JSON
 
-+ (NSDictionary *)parseJSON:(NSString*)string {
++ (id)parseJSON:(NSString*)string {
     NSError *error;
-    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+    id json = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
     if (error) return nil;
-    return dictionary;
+    if (![json isKindOfClass:[NSDictionary class]] && ![json isKindOfClass:[NSArray class]]) return nil;
+    return json;
 }
 
 + (NSString *)stringify:(NSDictionary*)json {
