@@ -16,11 +16,13 @@ This guide has the following sections:
 
 ## Prerequisites
 
-To be prepared to develop a web-based application that uses the OpenTok Screensharing with Annotations Accelerator for JavaScript:
+To be prepared to develop a web-based application that uses the OpenTok Annotations Accelerator for JavaScript:
 
 1. Review the basic requirements for [OpenTok](https://tokbox.com/developer/requirements/) and [OpenTok.js](https://tokbox.com/developer/sdks/js/#browsers).
-2. Your web page must load [OpenTok.js](https://tokbox.com/developer/sdks/js/) first, and then load [opentok-annotations.js](./sample-app/public/js/components/opentok-annotation.js).  
-3. Your app will need a **Session ID**, **Token**, and **API key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com). 
+2. Your project must include [Underscore](http://underscorejs.org/).
+3. There are several ways to install the OpenTok Annotations Accelerator Pack: <ol><li>Install with [npm](https://www.npmjs.com/package/opentok-annotation).</li><li>Run the [build.sh script](./build.sh).</li><li>Download and extract the **annotation-acc-pack.js** file from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/annotations/JS/opentok-js-annotations-1.0.0.zip) file provided by TokBox.</li></ol>
+4. Your web page must load [OpenTok.js](https://tokbox.com/developer/sdks/js/) first, and then load [opentok-annotations.js](./sample-app/public/js/components/opentok-annotation.js).  
+5. Your app will need a **Session ID**, **Token**, and **API key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com). 
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using the [OpenTok Server SDK](https://tokbox.com/developer/sdks/server/)._
 
@@ -56,10 +58,21 @@ While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must
 
 * **[CSS files](./sample-app/public/css)**: Defines the client UI style.
 
+* **[Images](./opentok.js-ss-annotation/images)**: This contains the default icons used in the annotation toolbar.
+
 
 ### Initializing the session
 
-The `AnnotationAccPack` constructor, located in `acc-pack-annotation.js`, sets the `accPack` property to register, trigger, and start events via the common layer API used for all accelerator packs:
+The `AnnotationAccPack` constructor, located in `acc-pack-annotation.js`, sets the `accPack` property to register, trigger, and start events via the common layer API used for all accelerator packs.
+
+If you install the Annotation Accelerator Pack with [npm](https://www.npmjs.com/package/opentok-annotation), you can instantiate the `AnnotationAccPack` instance with this approach:
+
+```javascript
+const annotation = require(‘opentok-annotation’);
+const annotationAccPack = new annotation(options);
+```
+
+Otherwise, this initialization code demonstrates how the `AnnotationAccPack` object is initialized:
 
 ```javascript
   // Trigger event via common layer API
@@ -74,7 +87,7 @@ The `AnnotationAccPack` constructor, located in `acc-pack-annotation.js`, sets t
   var AnnotationAccPack = function (options) {
     _this = this;
     _this.options = _.omit(options, 'accPack');
-    _accPack = _.property('accPack')(options);
+    _accPack = _.property('accPack')(options); // Supports events in the common layer.
     _registerEvents();
     _setupUI();
   };
