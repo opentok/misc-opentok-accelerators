@@ -1,6 +1,6 @@
 {
   "name": "opentok-text-chat",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "OpenTok text chat accelerator pack",
   "main": "dist/opentok-text-chat.js",
   "directories": {
@@ -36,6 +36,7 @@
     "gulp-if": "^2.0.0",
     "gulp-import-css": "^0.1.2",
     "gulp-inline-css": "^3.1.0",
+    "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",
     "gulp-webserver": "^0.9.1",
     "gulp-yuidoc": "^0.1.2",
@@ -50,12 +51,10 @@
     "karma-sinon": "^1.0.4",
     "merge-stream": "^1.0.0",
     "mocha": "^2.3.3",
+    "opentok-one-to-one-communication": "^1.0.6",
+    "opentok-solutions-logging": "^1.0.1",
     "rimraf": "^2.4.3",
     "sinon": "^1.17.0",
     "yuidocjs": "^0.9.0"
-  },
-  "dependencies": {
-    "opentok-one-to-one-communication": "^1.0.6",
-    "opentok-solutions-logging": "^1.0.1"
   }
 }
