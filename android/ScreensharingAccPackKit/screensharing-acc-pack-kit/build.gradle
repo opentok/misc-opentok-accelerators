@@ -11,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         project.archivesBaseName = "opentok-screensharing-annotations"
-        project.version = "1.0.0"
+        project.version = "1.0.1"
     }
     buildTypes {
         release {
@@ -97,5 +97,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
-    compile 'com.opentok.android:opentok-annotations:1.0.0'
+    compile 'com.opentok.android:opentok-annotations:+'
 }
