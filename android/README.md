@@ -218,7 +218,7 @@ The following `ScreenSharingFragment` methods are used to initialize the app and
 | Start screen capture.   | `start()`  |
 | Stop screen capture.  | `stop()`  |
 | Set the listener object to monitor state changes.   | `setListener()` |
-| Sets whether annotations are enabled on the specified toolbar.  | `setAnnotationsEnabled()`  |
+| Sets whether annotations are enabled on the specified toolbar.  | `enableAnnotations()`  |
 
 
 #### Setting the Annotation Toolbar
@@ -235,7 +235,7 @@ For example, the following private method instantiates a `ScreenSharingFragment`
           OpenTokConfig.API_KEY
         );
 
-        mScreenSharingFragment.setAnnotationsEnabled(true, mAnnotationsToolbar);
+        mScreenSharingFragment.enableAnnotations(true, mAnnotationsToolbar);
 
         mScreenSharingFragment.setListener(this);
 
@@ -290,7 +290,7 @@ This class works with the following `MainActivity` methods, which manage the vie
 | Manage the UI containers. | `onCreate()`  |
 | Reload the UI views whenever the device [configuration](http://developer.android.com/reference/android/content/res/Configuration.html), such as screen size or orientation, changes. | `onConfigurationChanged()`  |
 | Opens and closes the screensharing with annotations view. | `onScreenSharing()` |
-| Manage the customizable views for the action bar, screensharing, and annotation callbacks.   | `onScreenSharingStarted()`, `onScreenSharingStopped()`, `onScreenSharingError()`,  `onClosed()`, `onLineDrawn()`|
+| Manage the customizable views for the action bar, screensharing, and annotation callbacks.   | `onScreenSharingStarted()`, `onScreenSharingStopped()`, `onScreenSharingError()`,  `onClosed()`|
 
 
 

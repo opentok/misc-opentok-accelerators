@@ -77,8 +77,8 @@ The following classes, interfaces, and protocols represent the software design f
 | `MainViewController`   | In conjunction with **Main.storyboard**, this class uses the OpenTok API to initiate the client connection to the OpenTok session, and implements the sample UI and screensharing with annotations callbacks.   |
 | `OTScreenSharer`   | This component enables the publisher to share either the entire screen or a specified portion of the screen. |
 | `OTAnnotationScrollView` | Provides the initializers and methods for the client annotating views. |
-| `OTAnnotationToolbarView`   | A convenient annotation toolbar that is optionally available for your development. As an alternative, you can create your own toolbar using `OTAnnotationScrollView`. |
-| `OTFullScreenAnnotationViewController`   | Combines both the scroll and annotation toolbar views. |
+| `OTAnnotationToolbarView`   | A convenient annotation toolbar that is optionally available for your development. As an alternative, you can create your own toolbar using `OTAnnotationScrollView`. See the [OpenTok Annotations Accelerator Pack](https://github.com/opentok/annotation-acc-pack) for more information. |
+| `OTFullScreenAnnotationViewController`   | Combines both the scroll and annotation toolbar views. See the [OpenTok Annotations Accelerator Pack](https://github.com/opentok/annotation-acc-pack) for more information. |
 
 
 ### Screensharing and annotation features
