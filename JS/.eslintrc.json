@@ -15,6 +15,7 @@
         "vars-on-top": 0,
         "padded-blocks": 0,
         "no-var": 0,
+        "strict": 0,
         "comma-dangle": 0,
         "func-names": 0,
         "prefer-arrow-callback": 0,
