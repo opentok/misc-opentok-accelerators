@@ -1,1 +1,2100 @@
-window.OTSolution=window.OTSolution||{},OTSolution.Annotations=function(t){function e(t,e,i){for(var o=e.split(" "),n=0,s=o.length;n<s;n++)t.addEventListener(o[n],i,!0)}function i(t,e){0===s.width&&(s.width=n.parent.getBoundingClientRect().width),0===s.height&&(s.height=n.parent.getBoundingClientRect().height);var i,o=e?t.canvas.width:n.parent.clientWidth,a=e?t.canvas.height:n.parent.clientHeight,l=e?t.canvas.offsetLeft:s.offsetLeft,c=e?t.canvas.offsetTop:s.offsetTop,d=s.width/o,h=s.height/a,g=t.offsetX||t.pageX-l||t.changedTouches&&t.changedTouches[0].pageX-l,m=t.offsetY||t.pageY-c||t.changedTouches&&t.changedTouches[0].pageY-c,p=g*d,v=m*h,y=e?t.selectedItem:n.selectedItem;if(y)if("OT_pen"===y.id)switch(t.type){case"mousedown":case"touchstart":f.dragging=!0,f.lastX=p,f.lastY=v,n.isStartPoint=!0;break;case"mousemove":case"touchmove":f.dragging&&(i={id:n.videoFeed.stream.connection.connectionId,fromId:n.session.connection.connectionId,fromX:f.lastX,fromY:f.lastY,toX:p,toY:v,color:e?t.userColor:n.userColor,lineWidth:n.lineWidth,videoWidth:n.videoFeed.videoElement().clientWidth,videoHeight:n.videoFeed.videoElement().clientHeight,canvasWidth:s.width,canvasHeight:s.height,mirrored:r,startPoint:n.isStartPoint,endPoint:!1,selectedItem:y},W(i,!0),f.lastX=p,f.lastY=v,!e&&P(i),n.isStartPoint=!1);break;case"mouseup":case"touchend":case"mouseout":f.dragging=!1,OTSolution.Annotations.Analytics.logEvent({widgetVersion:n.widgetVersion,guid:OTSolution.Annotations.Analytics.get_uuid(),source:window.location.href,logVersion:"1",clientSystemTime:(new Date).getTime(),action:"an_draw",variation:"an_pen",sessionId:n.session.sessionId,partnerId:n.videoFeed.session.apiKey,connectionId:n.session.connection.connectionId,selectedItem:y})}else if("OT_text"===y.id)i={id:n.videoFeed.stream.connection.connectionId,fromId:n.session.connection.connectionId,fromX:p,fromY:v+t.inputHeight,color:t.userColor,font:t.font,text:t.text,videoWidth:n.videoFeed.videoElement().clientWidth,videoHeight:n.videoFeed.videoElement().clientHeight,canvasWidth:s.width,canvasHeight:s.height,mirrored:r,selectedItem:y},W(i),!e&&P(i);else if(y&&y.points)switch(f.mX=p,f.mY=v,t.type){case"mousedown":case"touchstart":f.isDrawing=!0,f.dragging=!0,f.startX=p,f.startY=v;break;case"mousemove":case"touchmove":f.dragging&&(i={color:e?t.userColor:n.userColor,lineWidth:e?t.lineWidth:n.lineWidth,selectedItem:y},W(i,!0));break;case"mouseup":case"touchend":f.isDrawing=!1,OTSolution.Annotations.Analytics.logEvent({widgetVersion:n.widgetVersion,guid:OTSolution.Annotations.Analytics.get_uuid(),source:window.location.href,logVersion:"1",clientSystemTime:(new Date).getTime(),action:"an_draw",variation:"an_shape",sessionId:n.session.sessionId,partnerId:n.videoFeed.session.apiKey,connectionId:n.session.connection.connectionId});var b=y.points;if(2===b.length)i={id:n.videoFeed.stream.connection.connectionId,fromId:n.session.connection.connectionId,fromX:f.startX,fromY:f.startY,toX:f.mX,toY:f.mY,color:e?t.userColor:n.userColor,lineWidth:e?t.lineWidth:n.lineWidth,videoWidth:n.videoFeed.videoElement().clientWidth,videoHeight:n.videoFeed.videoElement().clientHeight,canvasWidth:s.width,canvasHeight:s.height,mirrored:r,smoothed:!1,startPoint:!0,endPoint:!0,selectedItem:y},u.push(i),!e&&P(i);else{for(var I=A(b),w=0;w<b.length;w++){var x=!1,T=!1,_=f.startX+I.x*b[w][0],O=f.startY+I.y*b[w][1];0===w?(f.lastX=_,f.lastY=O,x=!0):w===b.length-1&&(T=!0),i={id:n.videoFeed.stream.connection.connectionId,fromId:n.session.connection.connectionId,fromX:f.lastX,fromY:f.lastY,toX:_,toY:O,color:e?t.userColor:n.userColor,lineWidth:e?t.lineWidth:n.lineWidth,videoWidth:n.videoFeed.videoElement().clientWidth,videoHeight:n.videoFeed.videoElement().clientHeight,canvasWidth:s.width,canvasHeight:s.height,mirrored:r,smoothed:y.enableSmoothing,startPoint:x,endPoint:T},u.push(i),!e&&P(i),f.lastX=_,f.lastY=O}W(null)}f.dragging=!1}}t=t||{},this.widgetVersion="js-1.0.0-beta",this.parent=t.container,this.videoFeed=t.feed;var o=t.externalWindow?t.externalWindow.document:window.document,n=this;if(this.parent){var s=document.createElement("canvas");s.setAttribute("id","opentok_canvas"),s.style.position="absolute",this.parent.appendChild(s),s.setAttribute("width",this.parent.clientWidth+"px"),s.style.width=window.getComputedStyle(this.parent).width,s.setAttribute("height",this.parent.clientHeight+"px"),s.style.height=window.getComputedStyle(this.parent).height}var a,r,l,c,n=this,d=[],h=[],u=[],g=[],m=[],f={dragging:!1};r=(" "+n.videoFeed.element.className+" ").indexOf(" OT_mirrored ")>-1,l=(" "+n.videoFeed.element.className+" ").indexOf(" OT_fit-mode-cover ")>-1,this.canvas=function(){return s},this.link=function(t){this.session=t},this.changeColor=function(t){n.userColor=t,n.lineWidth||(n.lineWidth=2)},this.changeLineWidth=function(t){this.lineWidth=t},this.selectItem=function(t){n.overlay&&(n.overlay.style.display="none",n.overlay=null),"OT_capture"===t.id?(n.selectedItem=t,n.overlay?n.overlay.style="inline":(n.overlay=document.createElement("div"),n.overlay.style.position="absolute",n.overlay.style.width=n.parent.clientWidth+"px",n.overlay.style.height=n.parent.clientHeight+"px",n.overlay.style.background='rgba(0,0,0,0.4) url("../images/annotation/camera.png") no-repeat center',n.overlay.style.backgroundSize="50px 50px",n.overlay.style.cursor="pointer",n.overlay.style.opacity=0,n.parent.appendChild(n.overlay),n.parent.onmouseover=function(){n.overlay.style.opacity=1},n.parent.onmouseout=function(){n.overlay.style.opacity=0},n.overlay.onclick=function(){n.captureScreenshot()})):t.id.indexOf("OT_line_width")!==-1?t.size&&n.changeLineWidth(t.size):n.selectedItem=t},this.colors=function(t){this.colors=t,this.changeColor(t[0])},this.clear=function(){X(!1,n.session.connection.connectionId),n.session&&n.session.signal({type:"otAnnotation_clear"})},this.captureScreenshot=function(){OTSolution.Annotations.Analytics.logEvent({widgetVersion:n.widgetVersion,guid:OTSolution.Annotations.Analytics.get_uuid(),source:window.location.href,logVersion:"1",clientSystemTime:(new Date).getTime(),action:"an_capture",variation:"",sessionId:n.session.sessionId,partnerId:n.videoFeed.session.apiKey,connectionId:n.session.connection.connectionId});var t=document.createElement("canvas");t.width=s.width,t.height=s.height;var e=n.videoFeed.videoWidth(),i=n.videoFeed.videoHeight(),o=1,a=0,c=0;l?(e<i?(o=s.width/e,e=s.width,i*=o):(o=s.height/i,i=s.height,e*=o),a=(e-s.width)/2,c=(i-s.height)/2):e>i?(o=s.width/e,e=s.width,i*=o):(o=s.height/i,i=s.height,e*=o);var h=new Image;h.onload=function(){var o=t.getContext("2d");r&&(o.translate(e,0),o.scale(-1,1)),o.drawImage(h,a,c,e,i),r&&(o.translate(e,0),o.scale(-1,1)),o.drawImage(s,0,0),d.forEach(function(e){e.call(n,t.toDataURL())}),t=null},h.src="data:image/png;base64,"+n.videoFeed.getImgData()},this.onScreenCapture=function(t){d.push(t)},this.onResize=function(){u=[],E(g,!0),m.forEach(function(t){i(t,!0)})},e(s,"mousedown mousemove mouseup mouseout touchstart touchmove touchend",function(t){var e=n.selectedItem&&"OT_text"===n.selectedItem.id,o="mousemove"===t.type&&!f.dragging;e||o||(t.preventDefault(),t.selectedItem=n.selectedItem,t.selectedItem&&(t.canvas={width:s.width,height:s.height,offsetLeft:s.offsetLeft,offsetTop:s.offsetTop},t.userColor=n.userColor,t.lineWidth=n.lineWidth,m.push(t)),i(t))});var p,v="textAnnotation",y=!1,b=function(t){t.preventDefault(),n.selectedItem&&"OT_text"!==n.selectedItem.id||y||(y=!0,t.selectedItem=n.selectedItem,_(t))},I=function(t){13===t.which&&T(),27===t.which&&(o.getElementById(v).remove(),p=null),y=!1},w=function(){o.addEventListener("keydown",I)},x=function(){o.removeEventListener("keydown",I)},T=function(){var t=o.getElementById(v);t.clientHeight;return t.value?(t.remove(),x(),p.text=t.value,p.font="16px Arial",p.userColor=n.userColor,p.canvas={width:s.width,height:s.height,offsetLeft:s.offsetLeft,offsetTop:s.offsetTop},m.push(p),void i(p)):void(p=null)},_=function(t){var e=o.createElement("input");e.setAttribute("type","text"),e.style.position="absolute",e.style.top=t.clientY+"px",e.style.left=t.clientX+"px",e.style.background="rgba(255,255,255, .5)",e.style.width="100px",e.style.maxWidth="200px",e.style.border="1px dashed red",e.style.fontSize="16px",e.style.color=n.userColor,e.style.fontFamily="Arial",e.style.zIndex="1001",e.setAttribute("data-canvas-origin",JSON.stringify({x:t.offsetX,y:t.offsetY})),e.id=v,o.body.appendChild(e),e.focus(),p=t,p.inputHeight=e.clientHeight,w()};e(s,"click",b);var W=function(t,e){a||(a=s.getContext("2d"),a.lineCap="round",a.lineJoin="round",a.fillStyle="solid"),a.clearRect(0,0,s.width,s.height),u.forEach(function(t){a.strokeStyle=t.color,a.lineWidth=t.lineWidth,t.smoothed=!!t.smoothed,t.startPoint=!!t.startPoint;var e=!1,i=!!t.selectedItem&&"Text"===t.selectedItem.title&&t.text;i?(a.font=t.font,a.fillStyle=t.color,a.fillText(t.text,t.fromX,t.fromY)):t.smoothed?(t.startPoint?n.isStartPoint=!0:n.isStartPoint&&(e=!0,n.isStartPoint=!1),t.startPoint?(a.closePath(),a.beginPath()):e?a.moveTo((t.fromX+t.toX)/2,(t.fromY+t.toY)/2):(a.quadraticCurveTo(t.fromX,t.fromY,(t.fromX+t.toX)/2,(t.fromY+t.toY)/2),a.stroke())):(a.beginPath(),a.moveTo(t.fromX,t.fromY),a.lineTo(t.toX,t.toY),a.stroke(),a.closePath())});var i=e?t.selectedItem:n.selectedItem;!i||"Pen"!==i.title&&"Text"!==i.title?f.isDrawing&&(t&&(a.strokeStyle=t.color,a.lineWidth=t.lineWidth),i&&i.points&&O(a,n.selectedItem.points)):t&&("Pen"===i.title&&(a.strokeStyle=t.color,a.lineWidth=t.lineWidth,a.beginPath(),a.moveTo(t.fromX,t.fromY),a.lineTo(t.toX,t.toY),a.stroke(),a.closePath()),"Text"===i.title&&(a.font=t.font,a.fillStyle=t.color,a.fillText(t.text,t.fromX,t.fromY)),u.push(t))},O=function(t,e){var i=A(e);if(t.beginPath(),2===e.length)t.moveTo(f.startX,f.startY),t.lineTo(f.mX,f.mY);else for(var o=0;o<e.length;o++){var s=f.startX+i.x*e[o][0],a=f.startY+i.y*e[o][1];n.selectedItem.enableSmoothing?0===o||(1===o?(t.moveTo((s+f.lastX)/2,(a+f.lastY)/2),f.lastX=(s+f.lastX)/2,f.lastX=(a+f.lastY)/2):(t.quadraticCurveTo(f.lastX,f.lastY,(s+f.lastX)/2,(a+f.lastY)/2),f.lastX=(s+f.lastX)/2,f.lastY=(a+f.lastY)/2)):0===o?t.moveTo(s,a):t.lineTo(s,a),f.lastX=s,f.lastY=a}t.stroke(),t.closePath()},A=function(t){for(var e=Number.MAX_VALUE,i=Number.MAX_VALUE,o=0,n=0,s=0;s<t.length;s++)t[s][0]<e?e=t[s][0]:t[s][0]>o&&(o=t[s][0]),t[s][1]<i?i=t[s][1]:t[s][1]>n&&(n=t[s][1]);var a=Math.abs(o-e),r=Math.abs(n-i),l=(f.mX-f.startX)/a,c=(f.mY-f.startY)/r;return{x:l,y:c}},k=function(t,e,i){var o={width:t.canvasWidth,height:t.canvasHeight},a={width:t.videoWidth,height:t.videoHeight},l={width:n.videoFeed.videoElement().clientWidth,height:n.videoFeed.videoElement().clientHeight},c=1,d=s.width/s.height;l.width/l.height,o.width/o.height,a.width/a.height;c=d<0?s.width/o.width:s.height/o.height;var h=s.width/2,m=s.height/2,f=o.width/2,p=o.height/2;t.fromX=h-c*(f-t.fromX),t.fromY=m-c*(p-t.fromY),t.toX=h-c*(f-t.toX),t.toY=m-c*(p-t.toY),t.mirrored=!!t.mirrored,t.mirrored&&(t.fromX=s.width-t.fromX,t.toX=s.width-t.toX),r&&(t.fromX=s.width-t.fromX,t.toX=s.width-t.toX);var v=JSON.parse(JSON.stringify(t));v.canvasWidth=s.width,v.canvasHeight=s.height,v.videoWidth=l.width,v.videoHeight=l.height,e?g[i]=v:g.push(v),u.push(t),W(null)},E=function(t,e){t.forEach(function(t,i){t.id===n.videoFeed.stream.connection.connectionId&&k(t,e,i)})},X=function(t,e){u=u.filter(function(t){return console.log(t.fromId),t.fromId!==e}),t?g=[]:(n.session&&n.session.signal({type:"otAnnotation_clear"}),m=[]),W()};n.videoFeed.session&&n.videoFeed.session.on({"signal:otAnnotation_pen":function(t){t.from.connectionId!==n.session.connection.connectionId&&E(JSON.parse(t.data))},"signal:otAnnotation_text":function(t){t.from.connectionId!==n.session.connection.connectionId&&E(JSON.parse(t.data))},"signal:otAnnotation_history":function(t){c&&c!==t.from.connectionId||(c=t.from.connectionId,E(JSON.parse(t.data)))},"signal:otAnnotation_clear":function(t){t.from.connectionId!==n.session.connection.connectionId&&X(!0,t.from.connectionId)},connectionCreated:function(t){u.length>0&&t.connection.connectionId!==n.session.connection.connectionId&&S("otWhiteboard_history",u,t.connection)}});var C,S=function(t,e,i){for(var o=e.slice(),s=function(t){t&&TB.error(t)};o.length;){var a=o.splice(0,Math.min(o.length,32)),r={type:t,data:JSON.stringify(a)};i&&(r.to=i),n.session.signal(r,s)}},P=function(t){n.session&&(h.push(t),C||(C=setTimeout(function(){S("otAnnotation_pen",h),h=[],C=null},100)))}},OTSolution.Annotations.Toolbar=function(t){var e=this,i=this;t||(t={}),this.session=t.session,this.parent=t.container,this.externalWindow=t.externalWindow,this.backgroundColor=t.backgroundColor||"rgba(0, 0, 0, 0.7)",this.buttonWidth=t.buttonWidth||"40px",this.buttonHeight=t.buttonHeight||"40px",this.iconWidth=t.iconWidth||"30px",this.iconHeight=t.iconHeight||"30px",this.items=t.items||[{id:"OT_pen",title:"Pen",icon:"../images/annotation/freehand.png",selectedIcon:"../images/annotation/freehand_selected.png"},{id:"OT_line",title:"Line",icon:"../images/annotation/line.png",selectedIcon:"../images/annotation/line_selected.png",points:[[0,0],[0,1]]},{id:"OT_shapes",title:"Shapes",icon:"../images/annotation/shapes.png",items:[{id:"OT_arrow",title:"Arrow",icon:"../images/annotation/arrow.png",points:[[0,1],[3,1],[3,0],[5,2],[3,4],[3,3],[0,3],[0,1]]},{id:"OT_rect",title:"Rectangle",icon:"../images/annotation/rectangle.png",points:[[0,0],[1,0],[1,1],[0,1],[0,0]]},{id:"OT_oval",title:"Oval",icon:"../images/annotation/oval.png",enableSmoothing:!0,points:[[0,.5],[.5+.5*Math.cos(5*Math.PI/4),.5+.5*Math.sin(5*Math.PI/4)],[.5,0],[.5+.5*Math.cos(7*Math.PI/4),.5+.5*Math.sin(7*Math.PI/4)],[1,.5],[.5+.5*Math.cos(Math.PI/4),.5+.5*Math.sin(Math.PI/4)],[.5,1],[.5+.5*Math.cos(3*Math.PI/4),.5+.5*Math.sin(3*Math.PI/4)],[0,.5],[.5+.5*Math.cos(5*Math.PI/4),.5+.5*Math.sin(5*Math.PI/4)]]}]},{id:"OT_text",title:"Text",icon:"../images/annotation/text.png",selectedIcon:"../images/annotation/text.png"},{id:"OT_colors",title:"Colors",icon:"",items:{}},{id:"OT_line_width",title:"Line Width",icon:"../images/annotation/line_width.png",items:{}},{id:"OT_clear",title:"Clear",icon:"../images/annotation/clear.png"},{id:"OT_capture",title:"Capture",icon:"../images/annotation/camera.png",selectedIcon:"../images/annotation/camera_selected.png"}],this.colors=t.colors||["#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e","#16a085","#27ae60","#2980b9","#8e44ad","#2c3e50","#f1c40f","#e67e22","#e74c3c","#ecf0f1","#95a5a6","#f39c12","#d35400","#c0392b","#bdc3c7","#7f8c8d"],this.cbs=[];var o,n=[],s=function(t,e,o){var n=this,s=i.externalWindow?i.externalWindow.document:document;this.getElm=function(t){return"string"==typeof t?s.querySelector(t):t},this.render=function(){var t=this,e="";t.colors.forEach(function(i){e+=t.options.template.replace(/\{color\}/g,i)}),t.elm.innerHTML=e},this.close=function(){this.elm.style.display="none"},this.open=function(){this.elm.style.display=this.options.style.display},this.colorChosen=function(t){this.cbs.push(t)},this.set=function(t,e){var i=this;i.color=t,e!==!1&&i.cbs.forEach(function(e){e.call(i,t)})},o=o||{},o.openEvent=o.openEvent||"click",o.style=Object(o.style),o.style.display=o.style.display||"block",o.template=o.template||'<div class="color-choice" data-col="{color}" style="background-color: {color}"></div>',n.elm=n.getElm(t),n.cbs=[],n.colors=e,n.options=o,n.render(),n.elm.addEventListener("click",function(t){var e=t.target.getAttribute("data-col");e&&(n.set(e),n.close())}),o.autoclose!==!1&&n.close()};this.createPanel=function(t){if(i.parent){var r=t?t.document:document;o=r.createElement("div"),o.setAttribute("id","OT_toolbar"),o.setAttribute("class","OT_panel"),o.style.width="100%",o.style.height="100%",o.style.backgroundColor=this.backgroundColor,this.parent.appendChild(o),this.parent.style.position="relative",this.parent.zIndex=1e3;for(var l=[],c=r.createElement("div"),d=0,h=this.items.length;d<h;d++){var u=this.items[d],g=r.createElement("input");if(g.setAttribute("type","button"),g.setAttribute("id",u.id),g.style.position="relative",g.style.top="50%",g.style.transform="translateY(-50%)","OT_colors"===u.id){g.style.webkitTransform="translateY(-85%)";var m=r.createElement("div");m.setAttribute("class","color-picker"),m.style.backgroundColor=this.backgroundColor,this.parent.appendChild(m);var f=new s(".color-picker",this.colors,{externalWindow:i.externalWindow});f.colorChosen(function(t){var e=r.getElementById("OT_colors");e.style.backgroundColor=t,n.forEach(function(e){e.changeColor(t)})});for(var p=r.querySelectorAll(".color-choice"),v=0;v<p.length;v++)p[v].style.display="inline-block",p[v].style.width="30px",p[v].style.height="30px",p[v].style.margin="5px",p[v].style.cursor="pointer",p[v].style.borderRadius="100%",p[v].style.opacity=.7,p[v].onmouseover=function(){this.style.opacity=1},p[v].onmouseout=function(){this.style.opacity=.7};g.setAttribute("class","OT_color"),g.style.marginLeft="10px",g.style.marginRight="10px",g.style.borderRadius="50%",g.style.backgroundColor=this.colors[0],g.style.width=this.iconWidth,g.style.height=this.iconHeight,g.style.paddingTop=this.buttonHeight.replace("px","")-this.iconHeight.replace("px","")+"px"}else g.style.background='url("'+u.icon+'") no-repeat',g.style.backgroundSize=this.iconWidth+" "+this.iconHeight,g.style.backgroundPosition="center",g.style.width=this.buttonWidth,g.style.height=this.buttonHeight;"Line Width"!==u.title||Array.isArray(u.items)||(u.items=[{id:"OT_line_width_2",title:"Line Width 2",size:2},{id:"OT_line_width_4",title:"Line Width 4",size:4},{id:"OT_line_width_6",title:"Line Width 6",size:6},{id:"OT_line_width_8",title:"Line Width 8",size:8},{id:"OT_line_width_10",title:"Line Width 10",size:10},{id:"OT_line_width_12",title:"Line Width 12",size:12},{id:"OT_line_width_14",title:"Line Width 14",size:14}]),u.items&&g.setAttribute("data-type","group"),g.setAttribute("data-col",u.title),g.style.border="none",g.style.cursor="pointer",l.push(g.outerHTML)}o.innerHTML=l.join(""),o.onclick=function(t){var i="group"===t.target.getAttribute("data-type"),o=t.target.getAttribute("data-col"),s=t.target.getAttribute("id");i?e.items.forEach(function(t){if(t.title===o){if(e.selectedGroup=t,t.items&&(c.setAttribute("class","OT_subpanel"),c.style.backgroundColor=e.backgroundColor,c.style.width="100%",c.style.height="100%",c.style.paddingLeft="15px",c.style.display="none",e.parent.appendChild(c),Array.isArray(t.items))){var i=[];"OT_line_width"===t.id?t.items.forEach(function(t){var o=r.createElement("div");o.setAttribute("data-col",t.title),o.setAttribute("id",t.id),o.style.position="relative",o.style.top="50%",o.style.transform="translateY(-50%)",o.style["float"]="left",o.style.width=e.buttonWidth,o.style.height=e.buttonHeight,o.style.border="none",o.style.cursor="pointer";var n=r.createElement("div");n.style.backgroundColor="#FFFFFF",n.style.width="80%",n.style.height=t.size+"px",n.style.position="relative",n.style.left="50%",n.style.top="50%",n.style.transform="translateX(-50%) translateY(-50%)",n.style.pointerEvents="none",o.appendChild(n),i.push(o.outerHTML)}):t.items.forEach(function(t){var o=r.createElement("input");o.setAttribute("type","button"),o.setAttribute("data-col",t.title),o.setAttribute("id",t.id),o.style.background='url("'+t.icon+'") no-repeat',o.style.position="relative",o.style.top="50%",o.style.transform="translateY(-50%)",o.style.backgroundSize=e.iconWidth+" "+e.iconHeight,o.style.backgroundPosition="center",o.style.width=e.buttonWidth,o.style.height=e.buttonHeight,o.style.border="none",o.style.cursor="pointer",i.push(o.outerHTML)}),c.innerHTML=i.join("")}"OT_shapes"===s||"OT_line_width"===s?(c&&(c.style.display="block"),f.close()):"OT_colors"===s&&(c&&(c.style.display="none"),f.open())}}):(e.items.forEach(function(t){if("Clear"!==t.title&&t.title===o){if(e.selectedItem){var i=r.getElementById(e.selectedItem.id);i&&(i.style.background='url("'+e.selectedItem.icon+'") no-repeat',i.style.backgroundSize=e.iconWidth+" "+e.iconHeight,i.style.backgroundPosition="center")}if(t.selectedIcon){var s=r.getElementById(t.id);s&&(s.style.background='url("'+t.selectedIcon+'") no-repeat',s.style.backgroundSize=e.iconWidth+" "+e.iconHeight,s.style.backgroundPosition="center")}return e.selectedItem=t,a(t),n.forEach(function(t){t.selectItem(e.selectedItem)}),!1}}),c.style.display="none"),e.cbs.forEach(function(t){t.call(e,s)})},c.onclick=function(t){var i="group"===t.target.getAttribute("data-type"),o=(t.target.getAttribute("data-col"),t.target.getAttribute("id"));c.style.display="none",i||e.selectedGroup.items.forEach(function(t){if("OT_clear"!==t.id&&t.id===o){if(e.selectedItem){var i=document.getElementById(e.selectedItem.id);i&&(i.style.background='url("'+e.selectedItem.icon+'") no-repeat',i.style.backgroundSize=e.iconWidth+" "+e.iconHeight,i.style.backgroundPosition="center")}if(t.selectedIcon){var s=document.getElementById(t.id);i&&(s.style.background='url("'+t.selectedIcon+'") no-repeat',s.style.backgroundSize=e.iconWidth+" "+e.iconHeight,s.style.backgroundPosition="center")}return e.selectedItem=t,a(t),n.forEach(function(t){t.selectItem(e.selectedItem)}),!1}}),e.cbs.forEach(function(t){t.call(e,o)})},r.getElementById("OT_clear").onclick=function(){n.forEach(function(t){t.clear()})}}},!this.externalWindow&&this.createPanel();var a=function(t){t.points||("OT_line"===t.id?e.selectedItem.points=[[0,0],[0,1]]:"OT_arrow"===t.id?e.selectedItem.points=[[0,1],[3,1],[3,0],[5,2],[3,4],[3,3],[0,3],[0,1]]:"OT_rect"===t.id?e.selectedItem.points=[[0,0],[1,0],[1,1],[0,1],[0,0]]:"OT_oval"===t.id&&(e.selectedItem.enableSmoothing=!0,e.selectedItem.points=[[0,.5],[.5+.5*Math.cos(5*Math.PI/4),.5+.5*Math.sin(5*Math.PI/4)],[.5,0],[.5+.5*Math.cos(7*Math.PI/4),.5+.5*Math.sin(7*Math.PI/4)],[1,.5],[.5+.5*Math.cos(Math.PI/4),.5+.5*Math.sin(Math.PI/4)],[.5,1],[.5+.5*Math.cos(3*Math.PI/4),.5+.5*Math.sin(3*Math.PI/4)],[0,.5],[.5+.5*Math.cos(5*Math.PI/4),.5+.5*Math.sin(5*Math.PI/4)]]))};this.itemClicked=function(t){this.cbs.push(t)},this.addCanvas=function(t){var e=this;t.link(e.session),t.colors(e.colors),n.push(t)},this.removeCanvas=function(t){n.forEach(function(e){var i=e.canvas();e.videoFeed.stream.connection.connectionId===t&&i.parentNode&&i.parentNode.removeChild(i)}),n=n.filter(function(e){return e.videoFeed.stream.connection.connectionId!==t})},this.remove=function(){try{o.parentNode.removeChild(o)}catch(t){console.log(t)}n.forEach(function(t){var e=t.canvas();e.parentNode&&e.parentNode.removeChild(e)}),n=[]}},OTSolution.Annotations.Analytics=function(){},OTSolution.Annotations.Analytics.logEvent=function(t){var e=t.payload||"";"object"==typeof e&&(e=JSON.stringify(e)),t.payload=e;var i=JSON.stringify(t),o=new XMLHttpRequest;o.open("POST","https://hlg.tokbox.com/prod/logging/ClientEvent",!0),o.setRequestHeader("Content-type","application/json"),o.send(i)},OTSolution.Annotations.Analytics.get_uuid=function(){return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(t){var e=16*Math.random()|0,i="x"==t?e:3&e|8;return i.toString(16)})};
+/*!
+ *  Annotation Plugin for OpenTok
+ *
+ *  @Author: Trevor Boyer
+ *  @Copyright (c) 2015 TokBox, Inc
+ **/
+
+/* eslint-disable */
+
+//--------------------------------------
+//  OPENTOK ANNOTATION CANVAS/VIEW
+//--------------------------------------
+window.OTSolution = window.OTSolution || {};
+
+OTSolution.Annotations = function(options) {
+
+  options = options || {};
+  this.widgetVersion = 'js-1.0.0-beta';
+
+  this.parent = options.container;
+  this.videoFeed = options.feed;
+  var context = options.externalWindow ? options.externalWindow.document : window.document;
+
+  var self = this;
+
+  if (this.parent) {
+    var canvas = document.createElement('canvas');
+    canvas.setAttribute('id', 'opentok_canvas'); // session.connection.id?
+    canvas.style.position = 'absolute';
+    this.parent.appendChild(canvas);
+    canvas.setAttribute('width', this.parent.clientWidth + 'px');
+    canvas.style.width = window.getComputedStyle(this.parent).width;
+    canvas.setAttribute('height', this.parent.clientHeight + 'px');
+    canvas.style.height = window.getComputedStyle(this.parent).height;
+  }
+
+  var self = this,
+    ctx,
+    cbs = [],
+    mirrored,
+    scaledToFill,
+    batchUpdates = [],
+    drawHistory = [],
+    drawHistoryReceivedFrom,
+    updateHistory = [],
+    eventHistory = [],
+    isStartPoint = false,
+    client = {
+      dragging: false
+    };
+
+
+
+  // INFO Mirrored feeds contain the OT_mirrored class
+  mirrored = (' ' + self.videoFeed.element.className + ' ').indexOf(' ' + 'OT_mirrored' + ' ') > -1;
+  scaledToFill = (' ' + self.videoFeed.element.className + ' ').indexOf(' ' + 'OT_fit-mode-cover' + ' ') > -1;
+
+  this.canvas = function() {
+    return canvas;
+  };
+
+  /**
+   * Links an OpenTok session to the annotation canvas. Typically, this is automatically linked
+   * when using {@link Toolbar#addCanvas}.
+   * @param session The OpenTok session.
+   */
+  this.link = function(session) {
+    this.session = session;
+  };
+
+  /**
+   * Changes the active annotation color for the canvas.
+   * @param color The hex string representation of the color (#rrggbb).
+   */
+  this.changeColor = function(color) {
+    self.userColor = color;
+    if (!self.lineWidth) {
+      self.lineWidth = 2; // TODO Default to first option in list of line widths
+    }
+  };
+
+  /**
+   * Changes the line/stroke width of the active annotation for the canvas.
+   * @param size The size in pixels.
+   */
+  this.changeLineWidth = function(size) {
+    this.lineWidth = size;
+  };
+
+  /**
+   * Sets the selected menu item from the toolbar. This is typically handled
+   * automatically by the toolbar, but can be used to programmatically select an item.
+   * @param item The menu item to set as selected.
+   */
+  this.selectItem = function(item) {
+    if (self.overlay) {
+      self.overlay.style.display = 'none';
+      self.overlay = null;
+    }
+
+    if (item.id === 'OT_capture') {
+      self.selectedItem = item;
+
+      if (!self.overlay) {
+        self.overlay = document.createElement('div');
+        self.overlay.style.position = 'absolute';
+        self.overlay.style.width = self.parent.clientWidth + 'px';
+        self.overlay.style.height = self.parent.clientHeight + 'px';
+        self.overlay.style.background = 'rgba(0,0,0,0.4) url("../images/annotation/camera.png") no-repeat center';
+        self.overlay.style.backgroundSize = '50px 50px';
+        self.overlay.style.cursor = 'pointer';
+        self.overlay.style.opacity = 0;
+
+        self.parent.appendChild(self.overlay);
+
+        self.parent.onmouseover = function() {
+          self.overlay.style.opacity = 1;
+        };
+
+        self.parent.onmouseout = function() {
+          self.overlay.style.opacity = 0;
+        };
+
+        self.overlay.onclick = function() {
+          self.captureScreenshot();
+        };
+      } else {
+        self.overlay.style = 'inline';
+      }
+    } else if (item.id.indexOf('OT_line_width') !== -1) {
+      if (item.size) {
+        self.changeLineWidth(item.size);
+      }
+    } else {
+      self.selectedItem = item;
+    }
+  };
+
+  /**
+   * Sets the color palette for the color picker
+   * @param colors The array of hex color strings (#rrggbb).
+   */
+  this.colors = function(colors) {
+    this.colors = colors;
+    this.changeColor(colors[0]);
+  };
+
+  /**
+   * Clears the canvas for the active user. Only annotations added by the active OpenTok user will
+   * be removed, leaving the history of all other annotations.
+   */
+  this.clear = function() {
+    clearCanvas(false, self.session.connection.connectionId);
+    if (self.session) {
+      self.session.signal({
+        type: 'otAnnotation_clear'
+      });
+    }
+  };
+
+  // TODO Allow the user to choose the image type? (jpg, png) Also allow size?
+  /**
+   * Captures a screenshot of the annotations displayed on top of the active video feed.
+   */
+  this.captureScreenshot = function() {
+
+    OTSolution.Annotations.Analytics.logEvent({
+      widgetVersion: self.widgetVersion,
+      guid: OTSolution.Annotations.Analytics.get_uuid(),
+      source: window.location.href,
+      logVersion: '1',
+      clientSystemTime: new Date().getTime(),
+      action: 'an_capture',
+      variation: '',
+      sessionId: self.session.sessionId,
+      partnerId: self.videoFeed.session.apiKey,
+      connectionId: self.session.connection.connectionId
+    });
+
+    var canvasCopy = document.createElement('canvas');
+    canvasCopy.width = canvas.width;
+    canvasCopy.height = canvas.height;
+
+    var width = self.videoFeed.videoWidth();
+    var height = self.videoFeed.videoHeight();
+
+    var scale = 1;
+
+    var offsetX = 0;
+    var offsetY = 0;
+
+    if (scaledToFill) {
+      if (width < height) {
+        scale = canvas.width / width;
+        width = canvas.width;
+        height = height * scale;
+      } else {
+        scale = canvas.height / height;
+        height = canvas.height;
+        width = width * scale;
+      }
+
+      // If stretched to fill, we need an offset to center the image
+      offsetX = (width - canvas.width) / 2;
+      offsetY = (height - canvas.height) / 2;
+    } else {
+      if (width > height) {
+        scale = canvas.width / width;
+        width = canvas.width;
+        height = height * scale;
+      } else {
+        scale = canvas.height / height;
+        height = canvas.height;
+        width = width * scale;
+      }
+    }
+
+    // Combine the video and annotation images
+    var image = new Image();
+    image.onload = function() {
+      var ctxCopy = canvasCopy.getContext('2d');
+      if (mirrored) {
+        ctxCopy.translate(width, 0);
+        ctxCopy.scale(-1, 1);
+      }
+      ctxCopy.drawImage(image, offsetX, offsetY, width, height);
+
+      // We want to make sure we draw the annotations the same way, so we need to flip back
+      if (mirrored) {
+        ctxCopy.translate(width, 0);
+        ctxCopy.scale(-1, 1);
+      }
+      ctxCopy.drawImage(canvas, 0, 0);
+
+      cbs.forEach(function(cb) {
+        cb.call(self, canvasCopy.toDataURL());
+      });
+
+      // Clear and destroy the canvas copy
+      canvasCopy = null;
+    };
+    image.src = 'data:image/png;base64,' + self.videoFeed.getImgData();
+
+  };
+
+  this.onScreenCapture = function(cb) {
+    cbs.push(cb);
+  };
+
+  this.onResize = function() {
+    drawHistory = [];
+
+    drawUpdates(updateHistory, true);
+
+    eventHistory.forEach(function(history) {
+      updateCanvas(history, true);
+    });
+  };
+
+  /** Canvas Handling **/
+
+  function addEventListeners(el, s, fn) {
+    var evts = s.split(' ');
+    for (var i = 0, iLen = evts.length; i < iLen; i++) {
+      el.addEventListener(evts[i], fn, true);
+    }
+  }
+
+  function updateCanvas(event, resizeEvent) {
+
+    // Ensure that our canvas has been properly sized
+    if (canvas.width === 0) {
+      canvas.width = self.parent.getBoundingClientRect().width;
+    }
+
+    if (canvas.height === 0) {
+      canvas.height = self.parent.getBoundingClientRect().height;
+    }
+
+    var baseWidth = !!resizeEvent ? event.canvas.width : self.parent.clientWidth;
+    var baseHeight = !!resizeEvent ? event.canvas.height : self.parent.clientHeight;
+    var offsetLeft = !!resizeEvent ? event.canvas.offsetLeft : canvas.offsetLeft;
+    var offsetTop = !!resizeEvent ? event.canvas.offsetTop : canvas.offsetTop;
+
+    var scaleX = canvas.width / baseWidth;
+    var scaleY = canvas.height / baseHeight;
+
+    var offsetX = event.offsetX || event.pageX - offsetLeft ||
+      (event.changedTouches && event.changedTouches[0].pageX - offsetLeft);
+    var offsetY = event.offsetY || event.pageY - offsetTop ||
+      (event.changedTouches && event.changedTouches[0].pageY - offsetTop);
+    var x = offsetX * scaleX;
+    var y = offsetY * scaleY;
+
+    var update;
+    var selectedItem = resizeEvent ? event.selectedItem : self.selectedItem;
+
+    if (selectedItem) {
+      if (selectedItem.id === 'OT_pen') {
+
+        switch (event.type) {
+          case 'mousedown':
+          case 'touchstart':
+            client.dragging = true;
+            client.lastX = x;
+            client.lastY = y;
+            self.isStartPoint = true;
+            break;
+          case 'mousemove':
+          case 'touchmove':
+            if (client.dragging) {
+              update = {
+                id: self.videoFeed.stream.connection.connectionId,
+                fromId: self.session.connection.connectionId,
+                fromX: client.lastX,
+                fromY: client.lastY,
+                toX: x,
+                toY: y,
+                color: resizeEvent ? event.userColor : self.userColor,
+                lineWidth: self.lineWidth,
+                videoWidth: self.videoFeed.videoElement().clientWidth,
+                videoHeight: self.videoFeed.videoElement().clientHeight,
+                canvasWidth: canvas.width,
+                canvasHeight: canvas.height,
+                mirrored: mirrored,
+                startPoint: self.isStartPoint, // Each segment is treated as a new set of points
+                endPoint: false,
+                selectedItem: selectedItem
+              };
+              draw(update, true);
+              client.lastX = x;
+              client.lastY = y;
+              !resizeEvent && sendUpdate(update);
+              self.isStartPoint = false;
+            }
+            break;
+          case 'mouseup':
+          case 'touchend':
+          case 'mouseout':
+            client.dragging = false;
+
+            OTSolution.Annotations.Analytics.logEvent({
+              widgetVersion: self.widgetVersion,
+              guid: OTSolution.Annotations.Analytics.get_uuid(),
+              source: window.location.href,
+              logVersion: '1',
+              clientSystemTime: new Date().getTime(),
+              action: 'an_draw',
+              variation: 'an_pen',
+              sessionId: self.session.sessionId,
+              partnerId: self.videoFeed.session.apiKey,
+              connectionId: self.session.connection.connectionId,
+              selectedItem: selectedItem
+            });
+        }
+      } else if (selectedItem.id === 'OT_text') {
+
+        update = {
+          id: self.videoFeed.stream.connection.connectionId,
+          fromId: self.session.connection.connectionId,
+          fromX: x,
+          fromY: y + event.inputHeight, // Account for the height of the text input
+          color: event.userColor,
+          font: event.font,
+          text: event.text,
+          videoWidth: self.videoFeed.videoElement().clientWidth,
+          videoHeight: self.videoFeed.videoElement().clientHeight,
+          canvasWidth: canvas.width,
+          canvasHeight: canvas.height,
+          mirrored: mirrored,
+          selectedItem: selectedItem
+        };
+
+        draw(update);
+        !resizeEvent && sendUpdate(update);
+      } else {
+        // We have a shape or custom object
+        if (selectedItem && selectedItem.points) {
+          client.mX = x;
+          client.mY = y;
+
+          switch (event.type) {
+            case 'mousedown':
+            case 'touchstart':
+              client.isDrawing = true;
+              client.dragging = true;
+              client.startX = x;
+              client.startY = y;
+              break;
+            case 'mousemove':
+            case 'touchmove':
+              if (client.dragging) {
+                update = {
+                  color: resizeEvent ? event.userColor : self.userColor,
+                  lineWidth: resizeEvent ? event.lineWidth : self.lineWidth,
+                  selectedItem: selectedItem
+                    // INFO The points for scaling will get added when drawing is complete
+                };
+
+                draw(update, true);
+              }
+              break;
+            case 'mouseup':
+            case 'touchend':
+              client.isDrawing = false;
+
+              OTSolution.Annotations.Analytics.logEvent({
+                widgetVersion: self.widgetVersion,
+                guid: OTSolution.Annotations.Analytics.get_uuid(),
+                source: window.location.href,
+                logVersion: '1',
+                clientSystemTime: new Date().getTime(),
+                action: 'an_draw',
+                variation: 'an_shape',
+                sessionId: self.session.sessionId,
+                partnerId: self.videoFeed.session.apiKey,
+                connectionId: self.session.connection.connectionId
+              });
+
+              var points = selectedItem.points;
+
+              if (points.length === 2) {
+                update = {
+                  id: self.videoFeed.stream.connection.connectionId,
+                  fromId: self.session.connection.connectionId,
+                  fromX: client.startX,
+                  fromY: client.startY,
+                  toX: client.mX,
+                  toY: client.mY,
+                  color: resizeEvent ? event.userColor : self.userColor,
+                  lineWidth: resizeEvent ? event.lineWidth : self.lineWidth,
+                  videoWidth: self.videoFeed.videoElement().clientWidth,
+                  videoHeight: self.videoFeed.videoElement().clientHeight,
+                  canvasWidth: canvas.width,
+                  canvasHeight: canvas.height,
+                  mirrored: mirrored,
+                  smoothed: false,
+                  startPoint: true,
+                  endPoint: true,
+                  selectedItem: selectedItem
+                };
+
+                drawHistory.push(update);
+
+                !resizeEvent && sendUpdate(update);
+              } else {
+                var scale = scaleForPoints(points);
+
+                for (var i = 0; i < points.length; i++) {
+                  var firstPoint = false;
+                  var endPoint = false;
+
+                  // Scale the points according to the difference between the start and end points
+                  var pointX = client.startX + (scale.x * points[i][0]);
+                  var pointY = client.startY + (scale.y * points[i][1]);
+
+                  if (i === 0) {
+                    client.lastX = pointX;
+                    client.lastY = pointY;
+                    firstPoint = true;
+                  } else if (i === points.length - 1) {
+                    endPoint = true;
+                  }
+
+                  update = {
+                    id: self.videoFeed.stream.connection.connectionId,
+                    fromId: self.session.connection.connectionId,
+                    fromX: client.lastX,
+                    fromY: client.lastY,
+                    toX: pointX,
+                    toY: pointY,
+                    color: resizeEvent ? event.userColor : self.userColor,
+                    lineWidth: resizeEvent ? event.lineWidth : self.lineWidth,
+                    videoWidth: self.videoFeed.videoElement().clientWidth,
+                    videoHeight: self.videoFeed.videoElement().clientHeight,
+                    canvasWidth: canvas.width,
+                    canvasHeight: canvas.height,
+                    mirrored: mirrored,
+                    smoothed: selectedItem.enableSmoothing,
+                    startPoint: firstPoint,
+                    endPoint: endPoint
+                  };
+
+                  drawHistory.push(update);
+
+                  !resizeEvent && sendUpdate(update);
+
+                  client.lastX = pointX;
+                  client.lastY = pointY;
+                }
+
+                draw(null);
+              }
+
+              client.dragging = false;
+          }
+        }
+      }
+    }
+  }
+
+  addEventListeners(canvas, 'mousedown mousemove mouseup mouseout touchstart touchmove touchend', function(event) {
+
+    // Handle text annotation separately and ignore mouse movements if we're not dragging.
+    var istextEvent = self.selectedItem && self.selectedItem.id === 'OT_text';
+    var notDragging = event.type === 'mousemove' && !client.dragging;
+
+    if (istextEvent || notDragging) {
+      return;
+    }
+
+    event.preventDefault();
+
+    // Save raw events to reprocess on canvas resize
+    event.selectedItem = self.selectedItem;
+
+    if (event.selectedItem) {
+      event.canvas = {
+        width: canvas.width,
+        height: canvas.height,
+        offsetLeft: canvas.offsetLeft,
+        offsetTop: canvas.offsetTop
+      };
+
+      event.userColor = self.userColor;
+      event.lineWidth = self.lineWidth;
+      eventHistory.push(event);
+    }
+
+    updateCanvas(event);
+
+  });
+
+  /**
+   * We need intermediate event handling for text annotation since the user is adding
+   * text to an input element before it is actually added to the canvas.  The original
+   * click event is assigned to textEvent, which is then updated before being passed
+   * to updateCanvas.
+   */
+
+  /** Listen for a click on the canvas.  When it occurs, append a text input
+   * that the user can edit and listen for keydown on the enter key. When enter is
+   * pressed, processTextEvent is called, the input element is removed, and the text
+   * is appended to the canvas.
+   */
+  var textEvent;
+  var textInputId = 'textAnnotation';
+  var ignoreClicks = false;
+  var handleClick = function(event) {
+
+    event.preventDefault();
+
+    if (self.selectedItem && self.selectedItem.id !== 'OT_text' || ignoreClicks) {
+      return;
+    }
+
+    ignoreClicks = true;
+
+    // Save raw events to reprocess on canvas resize
+    event.selectedItem = self.selectedItem;
+
+    createTextInput(event);
+
+  };
+
+
+  // Listen for keydown on 'Enter' once the text input is appended
+  var handleKeyDown = function(event) {
+
+    // Enter
+    if (event.which === 13) {
+      processTextEvent();
+    }
+    // Escape
+    if (event.which === 27) {
+      context.getElementById(textInputId).remove();
+      textEvent = null;
+    }
+
+    ignoreClicks = false;
+
+  };
+
+  var addKeyDownListener = function() {
+    context.addEventListener('keydown', handleKeyDown);
+  };
+
+  var removeKeyDownListener = function() {
+    context.removeEventListener('keydown', handleKeyDown);
+  };
+
+  /**
+   * Get the value of the text input and use it to create an "event".
+   */
+  var processTextEvent = function() {
+
+    var textInput = context.getElementById(textInputId);
+    var inputheight = textInput.clientHeight;
+
+    if (!textInput.value) {
+      textEvent = null;
+      return;
+    }
+
+    textInput.remove();
+    removeKeyDownListener();
+
+    textEvent.text = textInput.value;
+    textEvent.font = '16px Arial';
+    textEvent.userColor = self.userColor;
+
+    textEvent.canvas = {
+      width: canvas.width,
+      height: canvas.height,
+      offsetLeft: canvas.offsetLeft,
+      offsetTop: canvas.offsetTop
+    }
+    eventHistory.push(textEvent);
+    updateCanvas(textEvent);
+  };
+
+
+  var createTextInput = function(event) {
+
+    var textInput = context.createElement('input');
+
+    textInput.setAttribute('type', 'text');
+    textInput.style.position = 'absolute';
+    textInput.style.top = event.clientY + 'px';
+    textInput.style.left = event.clientX + 'px';
+    textInput.style.background = 'rgba(255,255,255, .5)';
+    textInput.style.width = '100px';
+    textInput.style.maxWidth = '200px';
+    textInput.style.border = '1px dashed red';
+    textInput.style.fontSize = '16px';
+    textInput.style.color = self.userColor;
+    textInput.style.fontFamily = 'Arial';
+    textInput.style.zIndex = '1001';
+    textInput.setAttribute('data-canvas-origin', JSON.stringify({
+      x: event.offsetX,
+      y: event.offsetY
+    }));
+    textInput.id = textInputId;
+
+    context.body.appendChild(textInput);
+    textInput.focus();
+
+    textEvent = event;
+    textEvent.inputHeight = textInput.clientHeight;
+    addKeyDownListener();
+
+  };
+
+  addEventListeners(canvas, 'click', handleClick);
+
+  /**
+   * End Handle text markup
+   */
+
+  var draw = function(update, resizeEvent) {
+
+    if (!ctx) {
+      ctx = canvas.getContext('2d');
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.fillStyle = 'solid';
+    }
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Repopulate the canvas with items from drawHistory
+    drawHistory.forEach(function(history) {
+
+      ctx.strokeStyle = history.color;
+      ctx.lineWidth = history.lineWidth;
+
+      // INFO iOS serializes bools as 0 or 1
+      history.smoothed = !!history.smoothed;
+      history.startPoint = !!history.startPoint;
+
+      var secondPoint = false;
+      var isText = !!history.selectedItem && history.selectedItem.title === 'Text' && history.text;
+
+      if (isText) {
+
+        ctx.font = history.font;
+        ctx.fillStyle = history.color;
+        ctx.fillText(history.text, history.fromX, history.fromY);
+
+      } else {
+
+        if (history.smoothed) {
+          if (history.startPoint) {
+            self.isStartPoint = true;
+          } else {
+            // If the start point flag was already set, we received the next point in the sequence
+            if (self.isStartPoint) {
+              secondPoint = true;
+              self.isStartPoint = false;
+            }
+          }
+
+          if (history.startPoint) {
+            // Close the last path and create a new one
+            ctx.closePath();
+            ctx.beginPath();
+          } else if (secondPoint) {
+            ctx.moveTo((history.fromX + history.toX) / 2, (history.fromY + history.toY) / 2);
+          } else {
+            // console.log('Points: (' + (history.fromX + history.toX) / 2 + ', ' + (history.fromY + history.toY) / 2 + ')');
+            // console.log('Control Points: (' + history.fromX + ', ' + history.fromY + ')');
+            ctx.quadraticCurveTo(history.fromX, history.fromY, (history.fromX + history.toX) / 2, (history.fromY + history.toY) / 2);
+            ctx.stroke();
+          }
+        } else {
+          ctx.beginPath();
+          ctx.moveTo(history.fromX, history.fromY);
+          ctx.lineTo(history.toX, history.toY);
+          ctx.stroke();
+          ctx.closePath();
+        }
+      }
+
+    });
+
+    var selectedItem = !!resizeEvent ? update.selectedItem : self.selectedItem;
+
+    if (selectedItem && (selectedItem.title === 'Pen' || selectedItem.title === 'Text')) {
+
+      if (update) {
+
+        if (selectedItem.title === 'Pen') {
+          ctx.strokeStyle = update.color;
+          ctx.lineWidth = update.lineWidth;
+          ctx.beginPath();
+          ctx.moveTo(update.fromX, update.fromY);
+          ctx.lineTo(update.toX, update.toY);
+          ctx.stroke();
+          ctx.closePath();
+        }
+
+        if (selectedItem.title === 'Text') {
+          ctx.font = update.font;
+          ctx.fillStyle = update.color;
+          ctx.fillText(update.text, update.fromX, update.fromY);
+        }
+
+        drawHistory.push(update);
+      }
+    } else {
+      if (client.isDrawing) {
+        if (update) {
+          ctx.strokeStyle = update.color;
+          ctx.lineWidth = update.lineWidth;
+        }
+        if (selectedItem && selectedItem.points) {
+          drawPoints(ctx, self.selectedItem.points);
+        }
+      }
+    }
+  };
+
+  var drawPoints = function(ctx, points) {
+    var scale = scaleForPoints(points);
+
+    ctx.beginPath();
+
+    if (points.length === 2) {
+      // We have a line
+      ctx.moveTo(client.startX, client.startY);
+      ctx.lineTo(client.mX, client.mY);
+    } else {
+      for (var i = 0; i < points.length; i++) {
+        // Scale the points according to the difference between the start and end points
+        var pointX = client.startX + (scale.x * points[i][0]);
+        var pointY = client.startY + (scale.y * points[i][1]);
+
+        if (self.selectedItem.enableSmoothing) {
+          if (i === 0) {
+            // Do nothing
+          } else if (i === 1) {
+            ctx.moveTo((pointX + client.lastX) / 2, (pointY + client.lastY) / 2);
+            client.lastX = (pointX + client.lastX) / 2;
+            client.lastX = (pointY + client.lastY) / 2;
+          } else {
+            ctx.quadraticCurveTo(client.lastX, client.lastY, (pointX + client.lastX) / 2, (pointY + client.lastY) / 2);
+            client.lastX = (pointX + client.lastX) / 2;
+            client.lastY = (pointY + client.lastY) / 2;
+          }
+        } else {
+          if (i === 0) {
+            ctx.moveTo(pointX, pointY);
+          } else {
+            ctx.lineTo(pointX, pointY);
+          }
+        }
+
+        client.lastX = pointX;
+        client.lastY = pointY;
+      }
+    }
+
+    ctx.stroke();
+    ctx.closePath();
+  };
+
+  var scaleForPoints = function(points) {
+    // mX and mY refer to the end point of the enclosing rectangle (touch up)
+    var minX = Number.MAX_VALUE;
+    var minY = Number.MAX_VALUE;
+    var maxX = 0;
+    var maxY = 0;
+    for (var i = 0; i < points.length; i++) {
+      if (points[i][0] < minX) {
+        minX = points[i][0];
+      } else if (points[i][0] > maxX) {
+        maxX = points[i][0];
+      }
+
+      if (points[i][1] < minY) {
+        minY = points[i][1];
+      } else if (points[i][1] > maxY) {
+        maxY = points[i][1];
+      }
+    }
+    var dx = Math.abs(maxX - minX);
+    var dy = Math.abs(maxY - minY);
+
+    var scaleX = (client.mX - client.startX) / dx;
+    var scaleY = (client.mY - client.startY) / dy;
+
+    return {
+      x: scaleX,
+      y: scaleY
+    };
+  };
+
+  var drawTextUpdate = function(update) {
+
+
+
+
+
+  };
+
+  var drawIncoming = function(update, resizeEvent, index) {
+
+    var iCanvas = {
+      width: update.canvasWidth,
+      height: update.canvasHeight
+    };
+
+    var iVideo = {
+      width: update.videoWidth,
+      height: update.videoHeight
+    };
+
+    var video = {
+      width: self.videoFeed.videoElement().clientWidth,
+      height: self.videoFeed.videoElement().clientHeight
+    };
+
+    var scale = 1;
+
+    var canvasRatio = canvas.width / canvas.height;
+    var videoRatio = video.width / video.height;
+    var iCanvasRatio = iCanvas.width / iCanvas.height;
+    var iVideoRatio = iVideo.width / iVideo.height;
+
+    /**
+     * This assumes that if the width is the greater value, video frames
+     * can be scaled so that they have equal widths, which can be used to
+     * find the offset in the y axis. Therefore, the offset on the x axis
+     * will be 0. If the height is the greater value, the offset on the y
+     * axis will be 0.
+     */
+    if (canvasRatio < 0) {
+      scale = canvas.width / iCanvas.width;
+    } else {
+      scale = canvas.height / iCanvas.height;
+    }
+
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+
+    var iCenterX = iCanvas.width / 2;
+    var iCenterY = iCanvas.height / 2;
+
+    update.fromX = centerX - (scale * (iCenterX - update.fromX));
+    update.fromY = centerY - (scale * (iCenterY - update.fromY));
+
+    update.toX = centerX - (scale * (iCenterX - update.toX));
+    update.toY = centerY - (scale * (iCenterY - update.toY));
+
+    // INFO iOS serializes bools as 0 or 1
+    update.mirrored = !!update.mirrored;
+
+    // Check if the incoming signal was mirrored
+    if (update.mirrored) {
+      update.fromX = canvas.width - update.fromX;
+      update.toX = canvas.width - update.toX;
+    }
+
+    // Check to see if the active video feed is also mirrored (double negative)
+    if (mirrored) {
+      // Revert (Double negative)
+      update.fromX = canvas.width - update.fromX;
+      update.toX = canvas.width - update.toX;
+    }
+
+
+    /** Keep history of updates for resize */
+    var updateForHistory = JSON.parse(JSON.stringify(update));
+    updateForHistory.canvasWidth = canvas.width;
+    updateForHistory.canvasHeight = canvas.height;
+    updateForHistory.videoWidth = video.width;
+    updateForHistory.videoHeight = video.height;
+
+    if (resizeEvent) {
+      updateHistory[index] = updateForHistory;
+    } else {
+      updateHistory.push(updateForHistory);
+    }
+    /** ********************************** */
+
+    drawHistory.push(update);
+
+    draw(null);
+  };
+
+  var drawUpdates = function(updates, resizeEvent) {
+
+    updates.forEach(function(update, index) {
+      if (update.id === self.videoFeed.stream.connection.connectionId) {
+        drawIncoming(update, resizeEvent, index);
+      }
+    });
+  };
+
+  var clearCanvas = function(incoming, cid) {
+    // console.log('cid: ' + cid);
+    // Remove all elements from history that were drawn by the sender
+    drawHistory = drawHistory.filter(function(history) {
+      console.log(history.fromId);
+      return history.fromId !== cid;
+    });
+
+    if (!incoming) {
+      if (self.session) {
+        self.session.signal({
+          type: 'otAnnotation_clear'
+        });
+      }
+      eventHistory = [];
+    } else {
+      updateHistory = [];
+    }
+
+    // Refresh the canvas
+    draw();
+  };
+
+  /** Signal Handling **/
+  if (self.videoFeed.session) {
+    self.videoFeed.session.on({
+      'signal:otAnnotation_pen': function(event) {
+        if (event.from.connectionId !== self.session.connection.connectionId) {
+          drawUpdates(JSON.parse(event.data));
+        }
+      },
+      'signal:otAnnotation_text': function(event) {
+        if (event.from.connectionId !== self.session.connection.connectionId) {
+          drawUpdates(JSON.parse(event.data));
+        }
+      },
+      'signal:otAnnotation_history': function(event) {
+        // We will receive these from everyone in the room, only listen to the first
+        // person. Also the data is chunked together so we need all of that person's
+        if (!drawHistoryReceivedFrom || drawHistoryReceivedFrom === event.from.connectionId) {
+          drawHistoryReceivedFrom = event.from.connectionId;
+          drawUpdates(JSON.parse(event.data));
+        }
+      },
+      'signal:otAnnotation_clear': function(event) {
+        if (event.from.connectionId !== self.session.connection.connectionId) {
+          // Only clear elements drawn by the sender's (from) Id
+          clearCanvas(true, event.from.connectionId);
+        }
+      },
+      connectionCreated: function(event) {
+        if (drawHistory.length > 0 && event.connection.connectionId !== self.session.connection.connectionId) {
+          batchSignal('otWhiteboard_history', drawHistory, event.connection);
+        }
+      }
+    });
+  }
+
+  var batchSignal = function(type, data, toConnection) {
+    // We send data in small chunks so that they fit in a signal
+    // Each packet is maximum ~250 chars, we can fit 8192/250 ~= 32 updates per signal
+    var dataCopy = data.slice();
+    var signalError = function(err) {
+      if (err) {
+        TB.error(err);
+      }
+    };
+    while (dataCopy.length) {
+      var dataChunk = dataCopy.splice(0, Math.min(dataCopy.length, 32));
+      var signal = {
+        type: type,
+        data: JSON.stringify(dataChunk)
+      };
+      if (toConnection) signal.to = toConnection;
+      self.session.signal(signal, signalError);
+    }
+  };
+
+  var updateTimeout;
+  var sendUpdate = function(update) {
+    if (self.session) {
+      batchUpdates.push(update);
+      if (!updateTimeout) {
+        updateTimeout = setTimeout(function() {
+          batchSignal('otAnnotation_pen', batchUpdates);
+          batchUpdates = [];
+          updateTimeout = null;
+        }, 100);
+      }
+    }
+  };
+};
+
+//--------------------------------------
+//  OPENTOK ANNOTATION TOOLBAR
+//--------------------------------------
+
+OTSolution.Annotations.Toolbar = function(options) {
+  var self = this;
+  var _toolbar = this;
+
+  options || (options = {});
+
+  this.session = options.session;
+  this.parent = options.container;
+  this.externalWindow = options.externalWindow;
+  // TODO Allow 'style' objects to be passed in for buttons, menu toolbar, etc?
+  this.backgroundColor = options.backgroundColor || 'rgba(0, 0, 0, 0.7)';
+  this.buttonWidth = options.buttonWidth || '40px';
+  this.buttonHeight = options.buttonHeight || '40px';
+  this.iconWidth = options.iconWidth || '30px';
+  this.iconHeight = options.iconHeight || '30px';
+  this.items = options.items || [{
+    id: 'OT_pen',
+    title: 'Pen',
+    icon: '../images/annotation/freehand.png',
+    selectedIcon: '../images/annotation/freehand_selected.png'
+  }, {
+    id: 'OT_line',
+    title: 'Line',
+    icon: '../images/annotation/line.png',
+    selectedIcon: '../images/annotation/line_selected.png',
+    points: [
+      [0, 0],
+      [0, 1]
+    ]
+  }, {
+    id: 'OT_shapes',
+    title: 'Shapes',
+    icon: '../images/annotation/shapes.png',
+    items: [{
+      id: 'OT_arrow',
+      title: 'Arrow',
+      icon: '../images/annotation/arrow.png',
+      points: [
+        [0, 1],
+        [3, 1],
+        [3, 0],
+        [5, 2],
+        [3, 4],
+        [3, 3],
+        [0, 3],
+        [0, 1] // Reconnect point
+      ]
+    }, {
+      id: 'OT_rect',
+      title: 'Rectangle',
+      icon: '../images/annotation/rectangle.png',
+      points: [
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [0, 1],
+        [0, 0] // Reconnect point
+      ]
+    }, {
+      id: 'OT_oval',
+      title: 'Oval',
+      icon: '../images/annotation/oval.png',
+      enableSmoothing: true,
+      points: [
+        [0, 0.5],
+        [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
+        [0.5, 0],
+        [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
+        [1, 0.5],
+        [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
+        [0.5, 1],
+        [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
+        [0, 0.5],
+        [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
+      ]
+    }]
+  }, {
+    id: 'OT_text',
+    title: 'Text',
+    icon: '../images/annotation/text.png',
+    selectedIcon: '../images/annotation/text.png'
+  }, {
+    id: 'OT_colors',
+    title: 'Colors',
+    icon: '',
+    items: { /* Built dynamically */ }
+  }, {
+    id: 'OT_line_width',
+    title: 'Line Width',
+    icon: '../images/annotation/line_width.png',
+    items: { /* Built dynamically */ }
+  }, {
+    id: 'OT_clear',
+    title: 'Clear',
+    icon: '../images/annotation/clear.png'
+  }, {
+    id: 'OT_capture',
+    title: 'Capture',
+    icon: '../images/annotation/camera.png',
+    selectedIcon: '../images/annotation/camera_selected.png'
+  }];
+  this.colors = options.colors || [
+    '#1abc9c',
+    '#2ecc71',
+    '#3498db',
+    '#9b59b6',
+    '#34495e',
+    '#16a085',
+    '#27ae60',
+    '#2980b9',
+    '#8e44ad',
+    '#2c3e50',
+    '#f1c40f',
+    '#e67e22',
+    '#e74c3c',
+    '#ecf0f1',
+    '#95a5a6',
+    '#f39c12',
+    '#d35400',
+    '#c0392b',
+    '#bdc3c7',
+    '#7f8c8d'
+  ];
+
+  this.cbs = [];
+  var canvases = [];
+
+  /**
+   * Creates a sub-menu with a color picker.
+   *
+   * @param {String|Element} parent The parent div container for the color picker sub-menu.
+   * @param {Array} colors The array of colors to add to the palette.
+   * @param {Object} options options An object containing the following fields:
+   *
+   *  - `openEvent` (String): The open event (default: `"click"`).
+   *  - `style` (Object): Some style options:
+   *    - `display` (String): The display value when the picker is opened (default: `"block"`).
+   *  - `template` (String): The color item template. The `{color}` snippet will be replaced
+   *    with the color value (default: `"<div data-col=\"{color}\" style=\"background-color: {color}\"></div>"`).
+   *  - `autoclose` (Boolean): If `false`, the color picker will not be hidden by default (default: `true`).
+   *
+   * @constructor
+   */
+  var ColorPicker = function(parent, colors, options) {
+    var self = this;
+    var context = _toolbar.externalWindow ? _toolbar.externalWindow.document : document;
+
+    this.getElm = function(el) {
+      if (typeof el === 'string') {
+        return context.querySelector(el);
+      }
+      return el;
+    };
+
+    this.render = function() {
+      var self = this,
+        html = '';
+
+      self.colors.forEach(function(c) {
+        html += self.options.template.replace(/\{color\}/g, c);
+      });
+
+      self.elm.innerHTML = html;
+    };
+
+    this.close = function() {
+      this.elm.style.display = 'none';
+    };
+
+    this.open = function() {
+      this.elm.style.display = this.options.style.display;
+    };
+
+    this.colorChosen = function(cb) {
+      this.cbs.push(cb);
+    };
+
+    this.set = function(c, p) {
+      var self = this;
+      self.color = c;
+      if (p === false) {
+        return;
+      }
+      self.cbs.forEach(function(cb) {
+        cb.call(self, c);
+      });
+    };
+
+    options = options || {};
+    options.openEvent = options.openEvent || 'click';
+    options.style = Object(options.style);
+    options.style.display = options.style.display || 'block';
+    options.template = options.template || '<div class=\"color-choice\" data-col=\"{color}\" style=\"background-color: {color}\"></div>';
+    self.elm = self.getElm(parent);
+    self.cbs = [];
+    self.colors = colors;
+    self.options = options;
+    self.render();
+
+    // Click on colors
+    self.elm.addEventListener('click', function(ev) {
+      var color = ev.target.getAttribute('data-col');
+      if (!color) {
+        return;
+      }
+      self.set(color);
+      self.close();
+    });
+
+    if (options.autoclose !== false) {
+      self.close();
+    }
+  };
+
+  var panel;
+  this.createPanel = function(externalWindow) {
+    if (_toolbar.parent) {
+      var context = externalWindow ? externalWindow.document : document;
+      panel = context.createElement('div');
+      panel.setAttribute('id', 'OT_toolbar');
+      panel.setAttribute('class', 'OT_panel');
+      panel.style.width = '100%';
+      panel.style.height = '100%';
+      panel.style.backgroundColor = this.backgroundColor;
+      // panel.style.paddingLeft = '15px';
+      this.parent.appendChild(panel);
+      this.parent.style.position = 'relative';
+      this.parent.zIndex = 1000;
+
+      var toolbarItems = [];
+      var subPanel = context.createElement('div');
+
+      for (var i = 0, total = this.items.length; i < total; i++) {
+        var item = this.items[i];
+
+        var button = context.createElement('input');
+        button.setAttribute('type', 'button');
+        button.setAttribute('id', item.id);
+
+        button.style.position = 'relative';
+        button.style.top = '50%';
+        button.style.transform = 'translateY(-50%)';
+
+        if (item.id === 'OT_colors') {
+          button.style.webkitTransform = 'translateY(-85%)';
+
+          var colorPicker = context.createElement('div');
+          colorPicker.setAttribute('class', 'color-picker');
+          colorPicker.style.backgroundColor = this.backgroundColor;
+          this.parent.appendChild(colorPicker);
+
+          var pk = new ColorPicker('.color-picker', this.colors, {
+            externalWindow: _toolbar.externalWindow
+          });
+
+          pk.colorChosen(function(color) {
+            var colorGroup = context.getElementById('OT_colors');
+            colorGroup.style.backgroundColor = color;
+
+            canvases.forEach(function(canvas) {
+              canvas.changeColor(color);
+            });
+          });
+
+          var colorChoices = context.querySelectorAll('.color-choice');
+
+          for (var j = 0; j < colorChoices.length; j++) {
+            colorChoices[j].style.display = 'inline-block';
+            colorChoices[j].style.width = '30px';
+            colorChoices[j].style.height = '30px';
+            colorChoices[j].style.margin = '5px';
+            colorChoices[j].style.cursor = 'pointer';
+            colorChoices[j].style.borderRadius = '100%';
+            colorChoices[j].style.opacity = 0.7;
+            colorChoices[j].onmouseover = function() {
+              this.style.opacity = 1;
+            };
+            colorChoices[j].onmouseout = function() {
+              this.style.opacity = 0.7;
+            };
+          }
+
+          button.setAttribute('class', 'OT_color');
+          button.style.marginLeft = '10px';
+          button.style.marginRight = '10px';
+          button.style.borderRadius = '50%';
+          button.style.backgroundColor = this.colors[0];
+          button.style.width = this.iconWidth;
+          button.style.height = this.iconHeight;
+          button.style.paddingTop = this.buttonHeight.replace('px', '') - this.iconHeight.replace('px', '') + 'px';
+        } else {
+          button.style.background = 'url("' + item.icon + '") no-repeat';
+          button.style.backgroundSize = this.iconWidth + ' ' + this.iconHeight;
+          button.style.backgroundPosition = 'center';
+          button.style.width = this.buttonWidth;
+          button.style.height = this.buttonHeight;
+        }
+
+        // If we have an object as item.items, it was never set by the user
+        if (item.title === 'Line Width' && !Array.isArray(item.items)) {
+          // Add defaults
+          item.items = [{
+            id: 'OT_line_width_2',
+            title: 'Line Width 2',
+            size: 2
+          }, {
+            id: 'OT_line_width_4',
+            title: 'Line Width 4',
+            size: 4
+          }, {
+            id: 'OT_line_width_6',
+            title: 'Line Width 6',
+            size: 6
+          }, {
+            id: 'OT_line_width_8',
+            title: 'Line Width 8',
+            size: 8
+          }, {
+            id: 'OT_line_width_10',
+            title: 'Line Width 10',
+            size: 10
+          }, {
+            id: 'OT_line_width_12',
+            title: 'Line Width 12',
+            size: 12
+          }, {
+            id: 'OT_line_width_14',
+            title: 'Line Width 14',
+            size: 14
+          }];
+        }
+
+        if (item.items) {
+          // Indicate that we have a group
+          button.setAttribute('data-type', 'group');
+        }
+
+        button.setAttribute('data-col', item.title);
+        button.style.border = 'none';
+        button.style.cursor = 'pointer';
+
+        toolbarItems.push(button.outerHTML);
+      }
+
+      panel.innerHTML = toolbarItems.join('');
+
+      panel.onclick = function(ev) {
+        var group = ev.target.getAttribute('data-type') === 'group';
+        var itemName = ev.target.getAttribute('data-col');
+        var id = ev.target.getAttribute('id');
+
+        // Close the submenu if we are clicking on an item and not a group button
+        if (!group) {
+          self.items.forEach(function(item) {
+            if (item.title !== 'Clear' && item.title === itemName) {
+              if (self.selectedItem) {
+                var lastBtn = context.getElementById(self.selectedItem.id);
+                if (lastBtn) {
+                  lastBtn.style.background = 'url("' + self.selectedItem.icon + '") no-repeat';
+                  lastBtn.style.backgroundSize = self.iconWidth + ' ' + self.iconHeight;
+                  lastBtn.style.backgroundPosition = 'center';
+                }
+              }
+
+              if (item.selectedIcon) {
+                var selBtn = context.getElementById(item.id);
+                if (selBtn) {
+                  selBtn.style.background = 'url("' + item.selectedIcon + '") no-repeat';
+                  selBtn.style.backgroundSize = self.iconWidth + ' ' + self.iconHeight;
+                  selBtn.style.backgroundPosition = 'center';
+                }
+              }
+
+              self.selectedItem = item;
+
+              attachDefaultAction(item);
+
+              canvases.forEach(function(canvas) {
+                canvas.selectItem(self.selectedItem);
+              });
+
+              return false;
+            }
+          });
+          subPanel.style.display = 'none';
+        } else {
+          self.items.forEach(function(item) {
+            if (item.title === itemName) {
+              self.selectedGroup = item;
+
+              if (item.items) {
+                subPanel.setAttribute('class', 'OT_subpanel');
+                subPanel.style.backgroundColor = self.backgroundColor;
+                subPanel.style.width = '100%';
+                subPanel.style.height = '100%';
+                subPanel.style.paddingLeft = '15px';
+                subPanel.style.display = 'none';
+                self.parent.appendChild(subPanel);
+
+                if (Array.isArray(item.items)) {
+                  var submenuItems = [];
+
+                  if (item.id === 'OT_line_width') {
+                    // We want to dynamically create icons for the list of possible line widths
+                    item.items.forEach(function(subItem) {
+                      // INFO Using a div here - not input to create an inner div representing the line width - better option?
+                      var itemButton = context.createElement('div');
+                      itemButton.setAttribute('data-col', subItem.title);
+                      itemButton.setAttribute('id', subItem.id);
+                      itemButton.style.position = 'relative';
+                      itemButton.style.top = '50%';
+                      itemButton.style.transform = 'translateY(-50%)';
+                      itemButton.style['float'] = 'left';
+                      itemButton.style.width = self.buttonWidth;
+                      itemButton.style.height = self.buttonHeight;
+                      itemButton.style.border = 'none';
+                      itemButton.style.cursor = 'pointer';
+
+                      var lineIcon = context.createElement('div');
+                      // TODO Allow devs to change this?
+                      lineIcon.style.backgroundColor = '#FFFFFF';
+                      lineIcon.style.width = '80%';
+                      lineIcon.style.height = subItem.size + 'px';
+                      lineIcon.style.position = 'relative';
+                      lineIcon.style.left = '50%';
+                      lineIcon.style.top = '50%';
+                      lineIcon.style.transform = 'translateX(-50%) translateY(-50%)';
+                      // Prevents div icon from catching events so they can be passed to the parent
+                      lineIcon.style.pointerEvents = 'none';
+
+                      itemButton.appendChild(lineIcon);
+
+                      submenuItems.push(itemButton.outerHTML);
+                    });
+                  } else {
+                    item.items.forEach(function(subItem) {
+                      var itemButton = context.createElement('input');
+                      itemButton.setAttribute('type', 'button');
+                      itemButton.setAttribute('data-col', subItem.title);
+                      itemButton.setAttribute('id', subItem.id);
+                      itemButton.style.background = 'url("' + subItem.icon + '") no-repeat';
+                      itemButton.style.position = 'relative';
+                      itemButton.style.top = '50%';
+                      itemButton.style.transform = 'translateY(-50%)';
+                      itemButton.style.backgroundSize = self.iconWidth + ' ' + self.iconHeight;
+                      itemButton.style.backgroundPosition = 'center';
+                      itemButton.style.width = self.buttonWidth;
+                      itemButton.style.height = self.buttonHeight;
+                      itemButton.style.border = 'none';
+                      itemButton.style.cursor = 'pointer';
+
+                      submenuItems.push(itemButton.outerHTML);
+                    });
+                  }
+
+                  subPanel.innerHTML = submenuItems.join('');
+                }
+              }
+
+              if (id === 'OT_shapes' || id === 'OT_line_width') {
+                if (subPanel) {
+                  subPanel.style.display = 'block';
+                }
+                pk.close();
+              } else if (id === 'OT_colors') {
+                if (subPanel) {
+                  subPanel.style.display = 'none';
+                }
+                pk.open();
+              }
+            }
+          });
+        }
+
+        self.cbs.forEach(function(cb) {
+          cb.call(self, id);
+        });
+      };
+
+      subPanel.onclick = function(ev) {
+        var group = ev.target.getAttribute('data-type') === 'group';
+        var itemName = ev.target.getAttribute('data-col');
+        var id = ev.target.getAttribute('id');
+        subPanel.style.display = 'none';
+
+        if (!group) {
+          self.selectedGroup.items.forEach(function(item) {
+            if (item.id !== 'OT_clear' && item.id === id) {
+              if (self.selectedItem) {
+                var lastBtn = document.getElementById(self.selectedItem.id);
+                if (lastBtn) {
+                  lastBtn.style.background = 'url("' + self.selectedItem.icon + '") no-repeat';
+                  lastBtn.style.backgroundSize = self.iconWidth + ' ' + self.iconHeight;
+                  lastBtn.style.backgroundPosition = 'center';
+                }
+              }
+
+              if (item.selectedIcon) {
+                var selBtn = document.getElementById(item.id);
+                if (lastBtn) {
+                  selBtn.style.background = 'url("' + item.selectedIcon + '") no-repeat';
+                  selBtn.style.backgroundSize = self.iconWidth + ' ' + self.iconHeight;
+                  selBtn.style.backgroundPosition = 'center';
+                }
+              }
+
+              self.selectedItem = item;
+
+              attachDefaultAction(item);
+
+              canvases.forEach(function(canvas) {
+                canvas.selectItem(self.selectedItem);
+              });
+
+              return false;
+            }
+          });
+        }
+
+        self.cbs.forEach(function(cb) {
+          cb.call(self, id);
+        });
+      };
+
+      context.getElementById('OT_clear').onclick = function() {
+        canvases.forEach(function(canvas) {
+          canvas.clear();
+        });
+      };
+    }
+  };
+
+  !this.externalWindow && this.createPanel();
+
+  var attachDefaultAction = function(item) {
+    if (!item.points) {
+      // Attach default actions
+      if (item.id === 'OT_line') {
+        self.selectedItem.points = [
+          [0, 0],
+          [0, 1]
+        ];
+      } else if (item.id === 'OT_arrow') {
+        self.selectedItem.points = [
+          [0, 1],
+          [3, 1],
+          [3, 0],
+          [5, 2],
+          [3, 4],
+          [3, 3],
+          [0, 3],
+          [0, 1] // Reconnect point
+        ];
+      } else if (item.id === 'OT_rect') {
+        self.selectedItem.points = [
+          [0, 0],
+          [1, 0],
+          [1, 1],
+          [0, 1],
+          [0, 0] // Reconnect point
+        ];
+      } else if (item.id === 'OT_oval') {
+        self.selectedItem.enableSmoothing = true;
+        self.selectedItem.points = [
+          [0, 0.5],
+          [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
+          [0.5, 0],
+          [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
+          [1, 0.5],
+          [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
+          [0.5, 1],
+          [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
+          [0, 0.5],
+          [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
+        ];
+      }
+    }
+  };
+
+  /**
+   * Callback function for toolbar menu item click events.
+   * @param cb The callback function used to handle the click event.
+   */
+  this.itemClicked = function(cb) {
+    this.cbs.push(cb);
+  };
+
+  /**
+   * Links an annotation canvas to the toolbar so that menu actions can be handled on it.
+   * @param canvas The annotation canvas to be linked to the toolbar.
+   */
+  this.addCanvas = function(canvas) {
+    var self = this;
+    canvas.link(self.session);
+    canvas.colors(self.colors);
+    canvases.push(canvas);
+  };
+
+  /**
+   * Removes the annotation canvas with the specified connectionId from its parent container and
+   * unlinks it from the toolbar.
+   * @param connectionId The stream's connection ID for the video feed whose canvas should be removed.
+   */
+  this.removeCanvas = function(connectionId) {
+    canvases.forEach(function(annotationView) {
+      var canvas = annotationView.canvas();
+      if (annotationView.videoFeed.stream.connection.connectionId === connectionId) {
+        if (canvas.parentNode) {
+          canvas.parentNode.removeChild(canvas);
+        }
+      }
+    });
+
+    canvases = canvases.filter(function(annotationView) {
+      return annotationView.videoFeed.stream.connection.connectionId !== connectionId;
+    });
+  };
+
+  /**
+   * Removes the toolbar and all associated annotation canvases from their parent containers.
+   */
+  this.remove = function() {
+
+    try {
+      panel.parentNode.removeChild(panel);
+    } catch (e) {
+      console.log(e);
+    }
+
+    canvases.forEach(function(annotationView) {
+      var canvas = annotationView.canvas();
+      if (canvas.parentNode) {
+        canvas.parentNode.removeChild(canvas);
+      }
+    });
+
+    canvases = [];
+  };
+};
+
+//--------------------------------------
+//  ANALYTICS
+//--------------------------------------
+
+OTSolution.Annotations.Analytics = function() {};
+
+OTSolution.Annotations.Analytics.logEvent = function(data) {
+  var payload = data.payload || '';
+
+  if (typeof(payload) === 'object') {
+    payload = JSON.stringify(payload);
+  }
+
+  data.payload = payload;
+
+  var url_encoded_data = JSON.stringify(data);
+
+  var http = new XMLHttpRequest();
+  http.open('POST', 'https://hlg.tokbox.com/prod/logging/ClientEvent', true);
+  http.setRequestHeader('Content-type', 'application/json');
+  http.send(url_encoded_data);
+};
+
+OTSolution.Annotations.Analytics.get_uuid = function() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0,
+      v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
+/* global OT OTSolution ScreenSharingAccPack define */
+(function () {
+
+  var _this;
+  var _accPack;
+  var _canvas;
+  var _elements = {};
+
+  // Trigger event via common layer API
+  var _triggerEvent = function (event, data) {
+    if (_accPack) {
+      _accPack.triggerEvent(event, data);
+    }
+  };
+
+  var _registerEvents = function () {
+    var events = [
+      'startAnnotation',
+      'linkAnnotation',
+      'resizeCanvas',
+      'annotationWindowClosed',
+      'endAnnotation'
+    ];
+
+    _accPack.registerEvents(events);
+  };
+
+  var _setupUI = function () {
+    var toolbar = ['<div id="toolbar"></div>'].join('\n');
+    $('body').append(toolbar);
+  };
+
+  // Toolbar items
+  var _defaultToolbarItems = [{
+    id: 'OT_pen',
+    title: 'Pen',
+    icon: '../images/annotation/freehand.png',
+    selectedIcon: '../images/annotation/freehand_selected.png'
+  }, {
+    id: 'OT_line',
+    title: 'Line',
+    icon: '../images/annotation/line.png',
+    selectedIcon: '../images/annotation/line_selected.png'
+  }, {
+    id: 'OT_text',
+    title: 'Text',
+    icon: '../images/annotation/text.png',
+    selectedIcon: '../images/annotation/text.png'
+  }, {
+    id: 'OT_shapes',
+    title: 'Shapes',
+    icon: '../images/annotation/shapes.png',
+    items: [{
+      id: 'OT_arrow',
+      title: 'Arrow',
+      icon: '../images/annotation/arrow.png'
+    }, {
+      id: 'OT_rect',
+      title: 'Rectangle',
+      icon: '../images/annotation/rectangle.png'
+    }, {
+      id: 'OT_oval',
+      title: 'Oval',
+      icon: '../images/annotation/oval.png'
+    }, {
+      id: 'OT_star',
+      title: 'Star',
+      icon: '../images/annotation/star.png',
+      points: [
+        /* eslint-disable max-len */
+        [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))],
+        [0.5 + 0.25 * Math.cos(126 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(126 * (Math.PI / 180))],
+        [0.5 + 0.5 * Math.cos(162 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(162 * (Math.PI / 180))],
+        [0.5 + 0.25 * Math.cos(198 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(198 * (Math.PI / 180))],
+        [0.5 + 0.5 * Math.cos(234 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(234 * (Math.PI / 180))],
+        [0.5 + 0.25 * Math.cos(270 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(270 * (Math.PI / 180))],
+        [0.5 + 0.5 * Math.cos(306 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(306 * (Math.PI / 180))],
+        [0.5 + 0.25 * Math.cos(342 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(342 * (Math.PI / 180))],
+        [0.5 + 0.5 * Math.cos(18 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(18 * (Math.PI / 180))],
+        [0.5 + 0.25 * Math.cos(54 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(54 * (Math.PI / 180))],
+        [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))]
+        /* eslint-enable max-len */
+      ]
+    }]
+  }, {
+    id: 'OT_colors',
+    title: 'Colors',
+    icon: '',
+    items: { /* Built dynamically */ }
+  }, {
+    id: 'OT_line_width',
+    title: 'Line Width',
+    icon: '../images/annotation/line_width.png',
+    items: { /* Built dynamically */ }
+  }, {
+    id: 'OT_clear',
+    title: 'Clear',
+    icon: '../images/annotation/clear.png'
+  }];
+
+  var _palette = [
+    '#1abc9c',
+    '#2ecc71',
+    '#3498db',
+    '#9b59b6',
+    '#8e44ad',
+    '#f1c40f',
+    '#e67e22',
+    '#e74c3c',
+    '#ded5d5'
+  ];
+
+  var _aspectRatio = (10 / 6);
+
+  /** Private methods */
+
+  var _refreshCanvas = _.throttle(function () {
+    _canvas.onResize();
+  }, 1000);
+
+  /** Resize the canvas to match the size of its container */
+  var _resizeCanvas = function () {
+
+    var width;
+    var height;
+
+    if (!!_elements.externalWindow) {
+
+      var windowDimensions = {
+        width: _elements.externalWindow.innerWidth,
+        height: _elements.externalWindow.innerHeight
+      };
+
+      var computedHeight = windowDimensions.width / _aspectRatio;
+
+      if (computedHeight <= windowDimensions.height) {
+        width = windowDimensions.width;
+        height = computedHeight;
+      } else {
+        height = windowDimensions.height;
+        width = height * _aspectRatio;
+      }
+
+    } else {
+      var el = _elements.absoluteParent || _elements.canvasContainer;
+      width = $(el).width();
+      height = $(el).height();
+    }
+
+    $(_elements.canvasContainer).css({
+      width: width,
+      height: height
+    });
+
+    $(_elements.canvas).css({
+      width: width,
+      height: height
+    });
+
+    $(_elements.canvas).attr({
+      width: width,
+      height: height
+    });
+
+    _refreshCanvas();
+    _triggerEvent('resizeCanvas');
+  };
+
+  var _listenForResize = function () {
+    $(_elements.resizeSubject).on('resize', _.throttle(function () {
+      _resizeCanvas();
+    }, 500));
+  };
+
+  var _createToolbar = function (session, options, externalWindow) {
+
+    var toolbarId = _.property('toolbarId')(options) || 'toolbar';
+    var items = _.property('toolbarItems')(options) || _defaultToolbarItems;
+    var colors = _.property('colors')(options) || _palette;
+
+    var container = function () {
+      var w = !!externalWindow ? externalWindow : window;
+      return w.document.getElementById(toolbarId);
+    };
+
+    /* eslint-disable no-native-reassign */
+    toolbar = new OTSolution.Annotations.Toolbar({
+      session: session,
+      container: container(),
+      colors: colors,
+      items: items,
+      externalWindow: externalWindow || null
+    });
+    /* eslint-enable no-native-reassign */
+
+  };
+
+  // Create external screen sharing window
+  var _createExternalWindow = function () {
+
+    var deferred = $.Deferred();
+
+    var width = screen.width * 0.80 | 0;
+    var height = width / (_aspectRatio);
+    var url = ['templates/screenshare.html?opentok-annotation'].join('');
+
+    var windowFeatures = [
+      'toolbar=no',
+      'location=no',
+      'directories=no',
+      'status=no',
+      'menubar=no',
+      'scrollbars=no',
+      'resizable=no',
+      'copyhistory=no',
+      ['width=', width].join(''),
+      ['height=', height].join(''),
+      ['left=', ((screen.width / 2) - (width / 2))].join(''),
+      ['top=', ((screen.height / 2) - (height / 2))].join('')
+    ].join(',');
+
+    var annotationWindow = window.open(url, '', windowFeatures);
+    window.onbeforeunload = function () {
+      annotationWindow.close();
+    };
+
+    // External window needs access to certain globals
+    annotationWindow.toolbar = toolbar;
+    annotationWindow.OT = OT;
+    annotationWindow.$ = $;
+
+    annotationWindow.triggerCloseEvent = function () {
+      _triggerEvent('annotationWindowClosed');
+    };
+
+    // TODO Find something better.
+    var windowReady = function () {
+      if (!!annotationWindow.createContainerElements) {
+        $(annotationWindow.document).ready(function () {
+          deferred.resolve(annotationWindow);
+        });
+      } else {
+        setTimeout(windowReady, 100);
+      }
+    };
+
+    windowReady();
+
+    return deferred.promise();
+  };
+
+  // Remove the toolbar and cancel event listeners
+  var _removeToolbar = function () {
+    $(_elements.resizeSubject).off('resize', _resizeCanvas);
+    toolbar.remove();
+  };
+
+  /**
+   * Creates an external window (if required) and links the annotation toolbar
+   * to the session
+   * @param {object} session
+   * @param {object} [options]
+   * @param {boolean} [options.screensharing] - Using an external window
+   * @param {string} [options.toolbarId] - If the container has an id other than 'toolbar'
+   * @param {array} [options.items] - Custom set of tools
+   * @param {array} [options.colors] - Custom color palette
+   * @returns {promise} < Resolve: undefined | {object} Reference to external annotation window >
+   */
+  var start = function (session, options) {
+
+    var deferred = $.Deferred();
+
+    if (_.property('screensharing')(options)) {
+      _createExternalWindow()
+        .then(function (externalWindow) {
+          _createToolbar(session, options, externalWindow);
+          toolbar.createPanel(externalWindow);
+          _triggerEvent('startAnnotation', externalWindow);
+          deferred.resolve(externalWindow);
+        });
+    } else {
+      _createToolbar(session, options);
+      _triggerEvent('startAnnotation');
+      deferred.resolve();
+    }
+
+    return deferred.promise();
+  };
+
+  /**
+   * @param {object} pubSub - Either the publisher(sharing) or subscriber(viewing)
+   * @ param {object} container - The parent container for the canvas element
+   * @ param {object} options
+   * @param {object} options.canvasContainer - The id of the parent for the annotation canvas
+   * @param {object} [options.externalWindow] - Reference to the annotation window if publishing
+   * @param {array} [options.absoluteParent] - Reference element for resize if other than container
+   */
+  var linkCanvas = function (pubSub, container, options) {
+
+    /**
+     * jQuery only allows listening for a resize event on the window or a
+     * jQuery resizable element, like #wmsFeedWrap.  windowRefernce is a
+     * reference to the popup window created for annotation.  If this doesn't
+     * exist, we are watching the canvas belonging to the party viewing the
+     * shared screen
+     */
+    _elements.resizeSubject = _.property('externalWindow')(options) || window;
+    _elements.externalWindow = _.property('externalWindow')(options) || null;
+    _elements.absoluteParent = _.property('absoluteParent')(options) || null;
+    _elements.canvasContainer = container;
+
+
+    // The canvas object
+    _canvas = new OTSolution.Annotations({
+      feed: pubSub,
+      container: container,
+      externalWindow: _elements.externalWindow
+    });
+
+    toolbar.addCanvas(_canvas);
+
+    _canvas.onScreenCapture(function (dataUrl) {
+      var win = window.open(dataUrl, '_blank');
+      win.focus();
+    });
+
+
+    var context = _elements.externalWindow ? _elements.externalWindow : window;
+    // The canvas DOM element
+    _elements.canvas = $(_.first(context.document.getElementsByTagName('canvas')));
+
+    _listenForResize();
+    _resizeCanvas();
+    _triggerEvent('linkAnnotation');
+
+  };
+
+
+  var resizeCanvas = function () {
+    _resizeCanvas();
+  };
+
+  /**
+   * Stop annotation and clean up components
+   * @param {Boolean} publisher Are we the publisher?
+   */
+  var end = function (publisher) {
+    _removeToolbar();
+    _elements.canvas = null;
+    if (!!publisher) {
+      if (!!_elements.externalWindow) {
+        _elements.externalWindow.close();
+        _elements.externalWindow = null;
+        _elements.resizeSubject = null;
+      }
+      _triggerEvent('endAnnotation');
+    }
+  };
+
+  /**
+   * @constructor
+   * Represents an annotation component, used for annotation over video or a shared screen
+   * @param {object} options
+   * @param {object} options.canvasContainer - The id of the parent for the annotation canvas
+   * @param {object} options.watchForResize - The DOM element to watch for resize
+   */
+  var AnnotationAccPack = function (options) {
+    _this = this;
+    _this.options = _.omit(options, 'accPack');
+    _accPack = _.property('accPack')(options);
+    _registerEvents();
+    _setupUI();
+  };
+
+  AnnotationAccPack.prototype = {
+    constructor: AnnotationAccPack,
+    start: start,
+    linkCanvas: linkCanvas,
+    resizeCanvas: resizeCanvas,
+    end: end
+  };
+
+  if (typeof exports === 'object') {
+    module.exports = AnnotationAccPack;
+  } else if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return AnnotationAccPack;
+    });
+  } else {
+    this.AnnotationAccPack = AnnotationAccPack;
+  }
+
+}.call(this));
