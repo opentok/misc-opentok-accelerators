@@ -1,6 +1,7 @@
 node_modules
 .idea/
-dist
+dist/*
+!dist/opentok-text-chat.js
 src/opentok-one-to-one-communication.js
 src/opentok-solutions-logging.js
 
