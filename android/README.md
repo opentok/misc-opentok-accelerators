@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Accelerator Pack for Android<br/>Version 1.0
+# OpenTok Text Chat Accelerator Pack for Android<br/>Version 1.0.1
 
 This document describes how to use the OpenTok Text Chat Accelerator Pack for Android. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages on an Android mobile device.  
 
@@ -56,7 +56,7 @@ There are 3 options for installing the OpenTok Text Chat Accelerator Pack librar
 1. Clone the [OpenTok Text Chat Accelerator Pack repo](https://github.com/opentok/textchat-acc-pack).
 2. From the OpenTok Text Chat Sample app project, right-click the app name and select **New > Module > Import Gradle Project**.
 3. Navigate to the directory in which you cloned **OpenTok Text Chat Accelerator Pack**, select **text-chat-acc-pack-kit**, and click **Finish**.
-4. Open the **build.gradle** file for the app and ensure the following lines have been added to the `dependencies` section:
+4. Open the **build.gradle** file for the app and ensure the following line has been added to the `dependencies` section:
 ```
 compile project(':text-chat-acc-pack-kit')
 ```
@@ -77,7 +77,7 @@ maven { url  "http://tokbox.bintray.com/maven" }
 
 
 <code>
-compile 'com.opentok.android:opentok-text-chat-acc-pack:1.0.0'
+compile 'com.opentok.android:opentok-text-chat-acc-pack:1.0.1'
 </code>
 
 </li>
@@ -90,7 +90,7 @@ compile 'com.opentok.android:opentok-text-chat-acc-pack:1.0.0'
 
 #### Downloading and Installing the AAR File
 
-1.  Download the [Text Chat Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/android/opentok-text-chat-acc-pack-1.0.0.zip) containing the AAR file and documentation, and extract the **opentok-text-chat-acc-pack-1.0.0.aar** file.
+1.  Download the [Text Chat Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/android/opentok-text-chat-acc-pack-1.0.1.zip) containing the AAR file and documentation, and extract the **opentok-text-chat-acc-pack-1.0.1.aar** file.
 2.  Right-click the app name and select **Open Module Settings** and click **+**.
 3.  Select **Import .JAR/.AAR Package** and click  **Next**.
 4.  Browse to the **Text Chat Accelerator Pack library AAR** and click **Finish**.
