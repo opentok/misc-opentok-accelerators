@@ -97,5 +97,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
-    compile 'com.opentok.android:opentok-annotations:+'
+    compile 'com.opentok.android:opentok-annotations:1.0.+'
 }
