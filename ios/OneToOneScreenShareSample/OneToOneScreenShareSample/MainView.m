@@ -214,10 +214,10 @@
         
         CGFloat toolbarViewHeight = self.annotationView.toolbarView.bounds.size.height;
         self.annotationView.toolbarView.frame = CGRectMake(0,
-                                                           CGRectGetHeight(self.annotationView.bounds) - toolbarViewHeight,
+                                                           CGRectGetHeight(self.annotationView.bounds) - toolbarViewHeight + 20,
                                                            self.annotationView.toolbarView.bounds.size.width,
                                                            toolbarViewHeight);
-        [self.shareView addSubview:self.annotationView.toolbarView];
+        [self addSubview:self.annotationView.toolbarView];
     }
     else {
         [self removeAnnotationToolBar];
