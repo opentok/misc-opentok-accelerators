@@ -95,7 +95,4 @@ typedef void (^ScreenShareBlock)(ScreenShareSignal signal, NSError *error);
 @property (nonatomic, getter=isPublishAudio) BOOL publishAudio;
 @property (nonatomic, getter=isPublishVideo) BOOL publishVideo;
 
-#pragma mark - Remote control
-@property (nonatomic) OTRemoteAnnotator *remoteAnnotator;
-- (void)initializeRemoteAnnotator;
 @end

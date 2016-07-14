@@ -8,6 +8,7 @@
 
 #import "RemoteAnnotationViewController.h"
 #import <OTScreenShareKit/OTScreenShareKit.h>
+#import "OTScreenSharer_OTRemoteControl.h"
 
 @interface RemoteAnnotationViewController ()
 @property (nonatomic) OTScreenSharer *screenSharer;

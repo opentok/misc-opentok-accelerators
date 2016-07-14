@@ -10,6 +10,7 @@
 #import "JSON.h"
 
 #import "OTScreenSharer_Private.h"
+#import "OTScreenSharer_OTRemoteControl.h"
 #import "OTRemoteAnnotator_Private.h"
 
 static NSString * const kLogComponentIdentifier = @"screensharingAccPack";

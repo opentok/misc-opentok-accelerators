@@ -58,6 +58,11 @@
         [self performSegueWithIdentifier:@"ColorViewControllerSegue" sender:nil];
     }]];
     
+    [alert addAction:[UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
