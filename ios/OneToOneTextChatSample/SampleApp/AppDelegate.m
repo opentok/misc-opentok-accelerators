@@ -1,3 +1,9 @@
+//
+// AppDelegate.m
+//
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
+//
+
 #import "AppDelegate.h"
 #import <OTTextChatKit/OTTextChatKit.h>
 
