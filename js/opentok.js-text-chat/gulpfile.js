@@ -3,10 +3,11 @@ var concat = require('gulp-concat');
 var importCss = require('gulp-import-css');
 var uglify = require('gulp-uglify');
 var zip = require('gulp-zip');
+var merge = require('merge-stream');
 
 
 gulp.task('js', function () {
-  return gulp.src([
+  var accPack = gulp.src([
     'src/opentok-solutions-logging.js',
     'src/opentok-one-to-one-communication.js',
     'src/opentok-text-chat.js'
@@ -14,6 +15,12 @@ gulp.task('js', function () {
   .pipe(concat('text-chat-acc-pack.js'))
   .pipe(uglify())
   .pipe(gulp.dest('dist'));
+
+  var npm = gulp.src('src/opentok-text-chat.js')
+  .pipe(uglify())
+  .pipe(gulp.dest('dist'));
+
+  return merge(accPack, npm);
 });
 
 gulp.task('js-dev', function () {

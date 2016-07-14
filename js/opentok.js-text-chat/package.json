@@ -2,7 +2,7 @@
   "name": "opentok-text-chat",
   "version": "0.1.0",
   "description": "A text chat component for OpenTok",
-  "main": "dist/opentok-textchat.js",
+  "main": "dist/opentok-text-chat.js",
   "directories": {
     "test": "test"
   },
@@ -36,6 +36,7 @@
     "gulp-webserver": "^0.9.1",
     "gulp-yuidoc": "^0.1.2",
     "gulp-zip": "^3.2.0",
+    "jasmine": "latest",
     "karma": "^0.13.10",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.2.0",
@@ -43,11 +44,11 @@
     "karma-mocha": "^0.2.0",
     "karma-requirejs": "^0.2.2",
     "karma-sinon": "^1.0.4",
+    "merge-stream": "^1.0.0",
     "mocha": "^2.3.3",
     "rimraf": "^2.4.3",
     "sinon": "^1.17.0",
-    "yuidocjs": "^0.9.0",
-    "jasmine": "latest"
+    "yuidocjs": "^0.9.0"
   },
   "dependencies": {
     "opentok-one-to-one-communication": "^1.0.6",
