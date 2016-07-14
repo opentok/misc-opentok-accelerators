@@ -7,8 +7,9 @@
 //
 
 #import "OTAnnotationTextView.h"
+#import <OTKAnalytics/OTKLogger.h>
 
-static const CGFloat LeadingPaddingOfAnnotationTextView = 20.0f;
+#import "Constants.h"
 
 @interface OTAnnotationTextView() <UITextViewDelegate>
 @property (nonatomic) CGPoint referenceCenter;
@@ -113,6 +114,7 @@ static const CGFloat LeadingPaddingOfAnnotationTextView = 20.0f;
 - (void)commit {
     self.dotborder.strokeColor = [UIColor clearColor].CGColor;
     [self setUserInteractionEnabled:NO];
+    [OTKLogger logEventAction:KLogActionText variation:KLogVariationSuccess completion:nil];
 }
 
 - (void)handlePanGesture:(UIGestureRecognizer *)recognizer {
