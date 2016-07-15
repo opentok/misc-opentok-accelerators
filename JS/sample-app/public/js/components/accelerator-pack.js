@@ -255,6 +255,7 @@
     if (!!AnnotationAccPack) {
 
       _annotation = new AnnotationAccPack(_.extend({}, _this.options, {
+        session: _session,
         accPack: _this
       }));
     }
