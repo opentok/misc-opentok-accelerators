@@ -5,7 +5,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <OTScreenShareKit/OTRemoteAnnotator.h>
 
 typedef NS_ENUM(NSUInteger, ScreenShareSignal) {
     ScreenShareSignalSessionDidConnect = 0,

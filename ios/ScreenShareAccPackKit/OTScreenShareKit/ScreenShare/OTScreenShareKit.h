@@ -5,4 +5,3 @@
 //
 
 #import <OTScreenShareKit/OTScreenSharer.h>
-#import <OTScreenShareKit/OTRemoteAnnotator.h>
