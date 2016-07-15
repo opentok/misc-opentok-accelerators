@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Annotations Accelerator Pack for iOS<br/>Version 1.0
+# OpenTok Annotations Accelerator Pack for iOS<br/>Version 1.0.0
 
 This document describes how to use the OpenTok Annotations Accelerator Pack for iOS. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations on an iOS mobile device.
 

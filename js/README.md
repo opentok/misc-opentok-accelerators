@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Annotations Accelerator Pack for JavaScript<br/>Version 1.0
+# OpenTok Annotations Accelerator Pack for JavaScript<br/>Version 1.0.0
 
 This document describes how to use the OpenTok Annotations Accelerator Pack for JavaScript. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations in a web-based application.
 
