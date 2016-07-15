@@ -1,6 +1,6 @@
 {
   "name": "opentok-annotation",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "OpenTok annotation accelerator pack",
   "main": "dist/opentok-annotation.js",
   "directories": {
