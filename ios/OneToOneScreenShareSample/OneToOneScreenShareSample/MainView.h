@@ -8,8 +8,8 @@
 
 @interface MainView : UIView
 
-@property (strong, nonatomic) IBOutlet UIView *shareView;
-@property (strong, nonatomic) IBOutlet UIButton *screenShareHolder;
+@property (nonatomic) IBOutlet UIView *shareView;
+@property (nonatomic) IBOutlet UIButton *screenShareHolder;
 
 // publisher view
 - (void)addPublisherView:(UIView *)publisherView;

@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0127B0C1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127B0B1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m */; };
+		A0127B111D35BB1A00CDA3F5 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127B0F1D35BB1A00CDA3F5 /* JSON.h */; };
+		A0127B121D35BB1A00CDA3F5 /* JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127B101D35BB1A00CDA3F5 /* JSON.m */; };
+		A058350C1D2F4BAD00E484FB /* ShareWholeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */; };
+		A058350F1D2F4E4700E484FB /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350E1D2F4E4700E484FB /* ColorViewController.m */; };
+		A0844FAA1D384DF700D0EB83 /* OTRemoteAnnotator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0844FA51D384DF700D0EB83 /* OTRemoteAnnotator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0844FAB1D384DF700D0EB83 /* OTRemoteAnnotator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0844FA61D384DF700D0EB83 /* OTRemoteAnnotator.m */; };
+		A0844FAC1D384DF700D0EB83 /* OTRemoteAnnotator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0844FA71D384DF700D0EB83 /* OTRemoteAnnotator_Private.h */; };
+		A0844FAD1D384DF700D0EB83 /* OTScreenSharer_OTRemoteControl.h in Headers */ = {isa = PBXBuildFile; fileRef = A0844FA81D384DF700D0EB83 /* OTScreenSharer_OTRemoteControl.h */; };
+		A0844FB01D38512400D0EB83 /* OTScreenSharer_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0844FAF1D38512400D0EB83 /* OTScreenSharer_Private.h */; };
 		A09A4AC71CD02A990024C349 /* OTScreenShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* OTScreenShareKit.framework */; };
 		A09A4AC81CD02A990024C349 /* OTScreenShareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A09A4AC01CD02A990024C349 /* OTScreenShareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A0CFE14B1D25BF8200D8449B /* OTScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0CFE0BB1D25BF8200D8449B /* OTScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,6 +66,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A0127B0A1D35B65A00CDA3F5 /* RemoteAnnotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteAnnotationViewController.h; sourceTree = "<group>"; };
+		A0127B0B1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteAnnotationViewController.m; sourceTree = "<group>"; };
+		A0127B0F1D35BB1A00CDA3F5 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		A0127B101D35BB1A00CDA3F5 /* JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSON.m; sourceTree = "<group>"; };
+		A058350A1D2F4BAD00E484FB /* ShareWholeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareWholeScreenViewController.h; sourceTree = "<group>"; };
+		A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareWholeScreenViewController.m; sourceTree = "<group>"; };
+		A058350D1D2F4E4700E484FB /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
+		A058350E1D2F4E4700E484FB /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
+		A0844FA51D384DF700D0EB83 /* OTRemoteAnnotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTRemoteAnnotator.h; sourceTree = "<group>"; };
+		A0844FA61D384DF700D0EB83 /* OTRemoteAnnotator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTRemoteAnnotator.m; sourceTree = "<group>"; };
+		A0844FA71D384DF700D0EB83 /* OTRemoteAnnotator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTRemoteAnnotator_Private.h; sourceTree = "<group>"; };
+		A0844FA81D384DF700D0EB83 /* OTScreenSharer_OTRemoteControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTScreenSharer_OTRemoteControl.h; sourceTree = "<group>"; };
+		A0844FAF1D38512400D0EB83 /* OTScreenSharer_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTScreenSharer_Private.h; sourceTree = "<group>"; };
 		A09A4AA11CD02A800024C349 /* OTScreenShareAccPackKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTScreenShareAccPackKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A09A4AC01CD02A990024C349 /* OTScreenShareKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTScreenShareKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0CFE0B41D25BF8200D8449B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +127,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A0844FA41D384DF700D0EB83 /* ScreenShare+Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				A0844FA51D384DF700D0EB83 /* OTRemoteAnnotator.h */,
+				A0844FA61D384DF700D0EB83 /* OTRemoteAnnotator.m */,
+				A0844FA71D384DF700D0EB83 /* OTRemoteAnnotator_Private.h */,
+				A0844FA81D384DF700D0EB83 /* OTScreenSharer_OTRemoteControl.h */,
+			);
+			path = "ScreenShare+Annotation";
+			sourceTree = "<group>";
+		};
 		A09A4A981CD02A800024C349 = {
 			isa = PBXGroup;
 			children = (
@@ -137,10 +171,14 @@
 			isa = PBXGroup;
 			children = (
 				A0CFE0BB1D25BF8200D8449B /* OTScreenShareKit.h */,
+				A0844FAF1D38512400D0EB83 /* OTScreenSharer_Private.h */,
 				A0CFE0BC1D25BF8200D8449B /* OTScreenSharer.h */,
 				A0CFE0BD1D25BF8200D8449B /* OTScreenSharer.m */,
 				A0CFE0BE1D25BF8200D8449B /* OTScreenCapture.h */,
 				A0CFE0BF1D25BF8200D8449B /* OTScreenCapture.m */,
+				A0127B0F1D35BB1A00CDA3F5 /* JSON.h */,
+				A0127B101D35BB1A00CDA3F5 /* JSON.m */,
+				A0844FA41D384DF700D0EB83 /* ScreenShare+Annotation */,
 			);
 			path = ScreenShare;
 			sourceTree = "<group>";
@@ -152,6 +190,12 @@
 				A0CFE1681D25BFB800D8449B /* AppDelegate.m */,
 				A0CFE1691D25BFB800D8449B /* Assets.xcassets */,
 				A0CFE16A1D25BFB800D8449B /* LaunchScreen.storyboard */,
+				A058350A1D2F4BAD00E484FB /* ShareWholeScreenViewController.h */,
+				A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */,
+				A058350D1D2F4E4700E484FB /* ColorViewController.h */,
+				A058350E1D2F4E4700E484FB /* ColorViewController.m */,
+				A0127B0A1D35B65A00CDA3F5 /* RemoteAnnotationViewController.h */,
+				A0127B0B1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m */,
 				A0CFE16C1D25BFB800D8449B /* Main.storyboard */,
 				A0CFE16E1D25BFB800D8449B /* Info.plist */,
 				A0CFE16F1D25BFB800D8449B /* main.m */,
@@ -177,7 +221,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0844FB01D38512400D0EB83 /* OTScreenSharer_Private.h in Headers */,
+				A0127B111D35BB1A00CDA3F5 /* JSON.h in Headers */,
+				A0844FAA1D384DF700D0EB83 /* OTRemoteAnnotator.h in Headers */,
+				A0844FAD1D384DF700D0EB83 /* OTScreenSharer_OTRemoteControl.h in Headers */,
 				A0CFE14B1D25BF8200D8449B /* OTScreenShareKit.h in Headers */,
+				A0844FAC1D384DF700D0EB83 /* OTRemoteAnnotator_Private.h in Headers */,
 				A0CFE14C1D25BF8200D8449B /* OTScreenSharer.h in Headers */,
 				A0CFE14E1D25BF8200D8449B /* OTScreenCapture.h in Headers */,
 			);
@@ -316,7 +365,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0127B0C1D35B65A00CDA3F5 /* RemoteAnnotationViewController.m in Sources */,
 				A0CFE1781D25BFB800D8449B /* main.m in Sources */,
+				A058350F1D2F4E4700E484FB /* ColorViewController.m in Sources */,
+				A058350C1D2F4BAD00E484FB /* ShareWholeScreenViewController.m in Sources */,
 				A0CFE1731D25BFB800D8449B /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,6 +379,8 @@
 			files = (
 				A0CFE14F1D25BF8200D8449B /* OTScreenCapture.m in Sources */,
 				A0CFE14D1D25BF8200D8449B /* OTScreenSharer.m in Sources */,
+				A0127B121D35BB1A00CDA3F5 /* JSON.m in Sources */,
+				A0844FAB1D384DF700D0EB83 /* OTRemoteAnnotator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

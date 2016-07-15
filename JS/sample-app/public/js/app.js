@@ -23,12 +23,12 @@
 
   // Options hash
   var _options = {
-    apiKey: '', // Replace with your OpenTok API key
-    sessionId: '', // Replace with a generated Session ID
-    token: '', // Replace with a generated token
+    apiKey: '',
+    sessionId: '',
+    token: '',
     screensharing: {
-      extensionID: '', // Add your Chrome extension ID
-      extensionPathFF: '', // Add the path to the Firefox extension
+      extensionID: 'knmknlapoidpamfmadaalafimbjegekh',
+      extensionPathFF: 'ff-extension/wms-screensharing.xpi',
       annotation: true
     }
   };
@@ -256,7 +256,15 @@
     }
   };
 
+  var setCredenials = function () {
+    var el = document.getElementById('credentials');
+    var credentials = JSON.parse(el.getAttribute('data'));
+    el.remove();
+    $.extend(_options, credentials);
+  };
+
   document.addEventListener('DOMContentLoaded', function () {
+    setCredenials();
     $('#callActive').on('click', _connectCall);
   });
 

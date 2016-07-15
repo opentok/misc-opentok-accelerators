@@ -15,9 +15,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [OTScreenSharer setOpenTokApiKey:@"<#Replace#>"
-                           sessionId:@"<#Replace#>"
-                               token:@"<#Replace#>"];
+    [OTScreenSharer setOpenTokApiKey:@"45621172"
+                           sessionId:@"1_MX40NTYyMTE3Mn5-MTQ2ODQwNzgxNjY4NX5CaFRLV2J5RDZUUXBZek1xTVVoZEtyQ25-fg"
+                               token:@"T1==cGFydG5lcl9pZD00NTYyMTE3MiZzZGtfdmVyc2lvbj10YnBocC12MC45MS4yMDExLTA3LTA1JnNpZz03MDJjMDgwMjU0ZmNlMmMzNGVhYjEwOWZjMGUzZGQ2OGZkNWI3ZTI5OnNlc3Npb25faWQ9MV9NWDQwTlRZeU1URTNNbjUtTVRRMk9EUXdOemd4TmpZNE5YNUNhRlJMVjJKNVJEWlVVWEJaZWsxeFRWVm9aRXR5UTI1LWZnJmNyZWF0ZV90aW1lPTE0Njg0MDgyMzkmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ2ODQwODIzOS40Nzg2MzY2NDI5NjI5JmV4cGlyZV90aW1lPTE0NzEwMDAyMzk="];
     return YES;
 }
 
