@@ -28,7 +28,7 @@
         
         if (signal == ScreenShareSignalSessionDidConnect) {
             [self.screenSharer initializeRemoteAnnotator];
-            self.screenSharer.remoteAnnotator.remoteAnnotationEnabled = YES;
+            self.screenSharer.remoteAnnotator.receiveEnabled = YES;
         }
     }];
 }

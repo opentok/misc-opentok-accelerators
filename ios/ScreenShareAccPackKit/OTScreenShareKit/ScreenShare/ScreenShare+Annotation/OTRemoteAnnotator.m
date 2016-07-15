@@ -10,10 +10,10 @@
 
 @implementation OTRemoteAnnotator
 
-- (void)setRemoteAnnotationEnabled:(BOOL)remoteAnnotationEnabled {
-    if (_remoteAnnotationEnabled == remoteAnnotationEnabled) return;
-    _remoteAnnotationEnabled = remoteAnnotationEnabled;
-    if (_remoteAnnotationEnabled) {
+- (void)setReceiveEnabled:(BOOL)receiveEnabled{
+    if (_receiveEnabled == receiveEnabled) return;
+    _receiveEnabled = receiveEnabled;
+    if (_receiveEnabled) {
         self.annotationView.frame = self.screenSharer.screenCapture.view.bounds;
         [self.screenSharer.screenCapture.view addSubview:self.annotationView];
     }

@@ -8,6 +8,8 @@
 
 @interface OTRemoteAnnotator : NSObject
 
-@property (nonatomic,getter=isRemoteAnnotationEnabled) BOOL remoteAnnotationEnabled;
+@property (nonatomic,getter=isReceiveEnabled) BOOL receiveEnabled;
+
+@property (nonatomic,getter=isSignalEnabled) BOOL signalEnabled;
 
 @end

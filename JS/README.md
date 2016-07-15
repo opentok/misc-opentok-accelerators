@@ -1,5 +1,5 @@
 ![logo](../tokbox-logo.png)
-# OpenTok Screensharing with Annotations Accelerator Pack for JavaScript<br/>Version 1.0
+# OpenTok Screensharing with Annotations Accelerator Pack for JavaScript<br/>Version 1.0.0
 
 This document describes how to develop a web-based application that uses the OpenTok Screensharing with Annotations Accelerator Pack for JavaScript.
 
@@ -16,7 +16,7 @@ This guide has the following sections:
 To be prepared to develop a web-based application that uses the OpenTok Screensharing with Annotations Accelerator for JavaScript:
 
 1. Review the basic requirements for [OpenTok](https://tokbox.com/developer/requirements/) and [OpenTok.js](https://tokbox.com/developer/sdks/js/#browsers).
-2. Your project must include [Underscore](http://underscorejs.org/).
+2. Your project must include [jQuery](https://jquery.com/) and [Underscore](http://underscorejs.org/).
 3. There are several ways to install the OpenTok Screensharing with Annotations Accelerator Pack: <ol><li>Install with [npm](https://www.npmjs.com/package/opentok-screen-sharing).</li><li>Run the [build.sh script](./build.sh).</li><li>Download and extract the **screenshare-annotation-acc-pack.js** file from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/screensharing-annotations-acc-pack/JS/opentok-js-screenshare-annotation-1.0.0.zip) file provided by TokBox.</li></ol>
 4. Your web page must load [OpenTok.js](https://tokbox.com/developer/sdks/js/) first, and then load [opentok-annotations.js](./sample-app/public/js/components/opentok-annotation.js) and [screenshare-annotation-acc-pack.js](./sample-app/public/js/components/screenshare-annotation-acc-pack.js).  
 5. Your app will need a **Session ID**, **Token**, and **API key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com). 
