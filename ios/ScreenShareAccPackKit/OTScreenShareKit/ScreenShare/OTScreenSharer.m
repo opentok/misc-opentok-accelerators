@@ -30,7 +30,7 @@ static NSString * const KLogVariationFailure = @"Failure";
 @property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTAcceleratorSession *session;
 @property (nonatomic) OTPublisher *publisher;
-@property (nonatomic) ScreenShareBlock handler;
+@property (nonatomic, strong) ScreenShareBlock handler;
 
 @end
 
