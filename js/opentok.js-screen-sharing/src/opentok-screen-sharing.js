@@ -1,6 +1,5 @@
-/* global chrome OT ScreenSharingAccPack define */
+/* global chrome OT ScreenSharingAccPack OTKAnalytics define */
 (function () {
-
 
   /** Private Variables*/
   var _this; // Reference to instance of ScreenSharingAccPack
@@ -54,6 +53,60 @@
 
   /** Private Methods */
 
+  /** Analytics */
+  var _otkanalytics;
+
+  // vars for the analytics logs. Internal use
+  var _logEventData = {
+    clientVersion: 'js-vsol-1.0.0',
+    componentId: 'screensharingAccPack',
+    name: 'guidScreensharingAccPack',
+    actionInitialize: 'Init',
+    actionStart: 'Start',
+    actionEnd: 'Stop',
+    enableAnnotations: 'EnableAnnotations',
+    disableAnnotations: 'DisableAnnotations',
+    enableAudioScreenSharing: 'EnableAudioScreenSharing',
+    disableAudioScreenSharing: 'DisableAudioScreenSharing',
+    variationAttempt: 'Attempt',
+    variationError: 'Failure',
+    variationSuccess: 'Success',
+  };
+
+  var _logAnalytics = function () {
+
+    if (!OTKAnalytics) { return; }
+    // init the analytics logs
+    var _source = window.location.href;
+
+    var otkanalyticsData = {
+      clientVersion: _logEventData.clientVersion,
+      source: _source,
+      componentId: _logEventData.componentId,
+      name: _logEventData.name
+    };
+
+    _otkanalytics = new OTKAnalytics(otkanalyticsData);
+
+    var sessionInfo = {
+      sessionId: _session.id,
+      connectionId: _session.connection.connectionId,
+      partnerId: _session.apiKey
+    };
+
+    _otkanalytics.addSessionInfo(sessionInfo);
+
+  };
+
+  var _log = function (action, variation) {
+    if (!_otkanalytics) { return; }
+    var data = {
+      action: action,
+      variation: variation
+    };
+    _otkanalytics.logEvent(data);
+  };
+
   var _setupUI = function (parent) {
     $('body').append(_screenDialogsExtensions);
     $(_this._screenSharingControls).append(_screenSharingControl);
@@ -102,6 +155,7 @@
     var outerDeferred = $.Deferred();
 
     if (!!_this.annotation) {
+      _log(_logEventData.enableAnnotations, _logEventData.variationAttempt);
 
       _accPack.setupExternalAnnotation()
         .then(function (annotationWindow) {
@@ -152,14 +206,16 @@
 
           customError.message = errorMessage;
           _triggerEvent('screenSharingError', customError);
+          _log(_logEventData.actionStart, _logEventData.variationError);
         }
       } else {
         if (_this.annotation) {
           _accPack.linkAnnotation(_this.publisher, annotationContainer, _this.annotationWindow);
+          _log(_logEventData.actionInitialize, _logEventData.variationSuccess);
         }
         _active = true;
         _triggerEvent('startScreenSharing');
-
+        _log(_logEventData.actionStart, _logEventData.variationSuccess);
       }
     });
 
@@ -206,22 +262,28 @@
   };
 
   var start = function () {
+
+    _log(_logEventData.actionStart, _logEventData.variationAttempt);
+
     extensionAvailable(_this.extensionID, _this.extensionPathFF)
       .then(_initPublisher)
       .then(_publish)
       .fail(function (error) {
         console.log('Error starting screensharing: ', error);
+        _log(_logEventData.actionStart, _logEventData.variationError);
       });
 
   };
 
   var end = function (callEnded) {
+    _log(_logEventData.actionEnd, _logEventData.variationAttempt);
     _stopPublishing();
     _active = false;
     if (callEnded) {
       _toggleScreenSharingButton(false);
     }
     _triggerEvent('endScreenSharing');
+    _log(_logEventData.actionEnd, _logEventData.variationSuccess);
   };
 
   /** Events */
@@ -359,6 +421,11 @@
     _setupUI(_this.screensharingParent);
     _registerEvents();
     _addScreenSharingListeners();
+
+    // init analytics logs
+    _logAnalytics();
+    _log(_logEventData.actionInitialize, _logEventData.variationAttempt);
+    _log(_logEventData.actionInitialize, _logEventData.variationSuccess);
   };
 
   ScreenSharingAccPack.prototype = {
