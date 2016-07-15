@@ -164,8 +164,9 @@ public class OneToOneCommunication implements
      * Start the communication.
      */
     public void start() {
+        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+
         if (mSession != null && isInitialized) {
-            addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
 
             if (mPublisher == null) {
                 mPublisher = new Publisher(mContext, "myPublisher");
@@ -179,15 +180,15 @@ public class OneToOneCommunication implements
             init();
 
         }
+        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     /**
      * End the communication.
      */
     public void end() {
+        addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         if ( mSession != null ) {
-
-            addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
 
             if (mPublisher != null) {
                 mSession.unpublish(mPublisher);
@@ -205,6 +206,7 @@ public class OneToOneCommunication implements
             isScreensharing = false;
             mSubscriber = null;
             isStarted = false;
+            addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
     }
 
@@ -212,6 +214,7 @@ public class OneToOneCommunication implements
      * Destroy the communication.
      */
     public void destroy() {
+
         if ( mPublisher != null ) {
             mSession.unpublish(mPublisher);
             mPublisher = null;
@@ -474,7 +477,6 @@ public class OneToOneCommunication implements
                 subscribeToStream(stream);
             }
         }
-        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     @Override
@@ -489,8 +491,6 @@ public class OneToOneCommunication implements
         mLocalVideo = true;
         mRemoteAudio = true;
         mRemoteVideo = true;
-
-        addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
 
@@ -532,6 +532,7 @@ public class OneToOneCommunication implements
         onInitialized();
 
         if ( startPublish ) {
+            addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
             start();
         }
     }
