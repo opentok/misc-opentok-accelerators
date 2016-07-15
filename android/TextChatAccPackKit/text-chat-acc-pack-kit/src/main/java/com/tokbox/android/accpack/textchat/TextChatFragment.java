@@ -131,10 +131,12 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         super.onCreate(savedInstanceState);
 
         // Retain this fragment across configuration changes.
         setRetainInstance(true);
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     /*
@@ -272,17 +274,13 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
      * @param senderAlias The alias for the sender.
      */
     public void setSenderAlias(String senderAlias) {
-        addLogEvent(OpenTokConfig.LOG_ACTION_SET_SENDER_ALIAS, OpenTokConfig.LOG_VARIATION_ATTEMPT);
 
         if ( senderAlias == null || senderAlias.isEmpty() ) {
             onError("The alias cannot be null or empty");
-            addLogEvent(OpenTokConfig.LOG_ACTION_SET_SENDER_ALIAS, OpenTokConfig.LOG_VARIATION_ERROR);
         }
         this.senderAlias = senderAlias;
         senders.put(senderId, senderAlias);
         updateTitle(defaultTitle());
-
-        addLogEvent(OpenTokConfig.LOG_ACTION_SET_SENDER_ALIAS, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     /**
@@ -296,15 +294,8 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
      * @param actionBar The customized action bar.
      */
     public void setActionBar(ViewGroup actionBar) {
-        addLogEvent(OpenTokConfig.LOG_ACTION_SET_ACTION_BAR, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-
-        try {
-            mActionBarView = actionBar;
-            customActionBar = true;
-        }catch (Exception e){
-            addLogEvent(OpenTokConfig.LOG_ACTION_SET_ACTION_BAR, OpenTokConfig.LOG_VARIATION_ERROR);
-        }
-        addLogEvent(OpenTokConfig.LOG_ACTION_SET_ACTION_BAR, OpenTokConfig.LOG_VARIATION_SUCCESS);
+        mActionBarView = actionBar;
+        customActionBar = true;
     }
 
     /**
@@ -320,32 +311,18 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
      * @param sendMessageView The customized send message area view.
      */
     public void setSendMessageView(ViewGroup sendMessageView) {
-        addLogEvent(OpenTokConfig.LOG_ACTION_SET_SEND_MESSAGE_AREA, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-
-        try {
-            mSendMessageView = sendMessageView;
-            customSenderArea = true;
-        }catch (Exception e){
-            addLogEvent(OpenTokConfig.LOG_ACTION_SET_SEND_MESSAGE_AREA, OpenTokConfig.LOG_VARIATION_ERROR);
-        }
-        addLogEvent(OpenTokConfig.LOG_ACTION_SET_SEND_MESSAGE_AREA, OpenTokConfig.LOG_VARIATION_SUCCESS);
+        mSendMessageView = sendMessageView;
+        customSenderArea = true;
     }
 
     /**
      * Restart the session, removing all messages and maximizing the view.
      */
     public void restart(){
-        addLogEvent(OpenTokConfig.LOG_ACTION_RESTART, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        try {
-            isRestarted = true;
-            messagesList = new ArrayList<ChatMessage>();
-            mMessageAdapter = new MessagesAdapter(messagesList);
-            mRecyclerView.setAdapter(mMessageAdapter);
-
-        }catch (Exception e) {
-            addLogEvent(OpenTokConfig.LOG_ACTION_RESTART, OpenTokConfig.LOG_VARIATION_ERROR);
-        }
-        addLogEvent(OpenTokConfig.LOG_ACTION_RESTART, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        isRestarted = true;
+        messagesList = new ArrayList<ChatMessage>();
+        mMessageAdapter = new MessagesAdapter(messagesList);
+        mRecyclerView.setAdapter(mMessageAdapter);
     }
 
     //Private methods
@@ -528,7 +505,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         if (this.mListener != null ) {
             mListener.onRestarted();
         }
-        addLogEvent(OpenTokConfig.LOG_ACTION_RESTART, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     //OPENTOK EVENTS
@@ -620,9 +596,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         mAnalyticsData.setPartnerId(mApiKey);
 
         mAnalytics. setData(mAnalyticsData);
-
-        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
 
         //TO IMPROVE: add pending log events --> recall methods
         if ( this.maxTextLength != MAX_DEFAULT_LENGTH ){

@@ -11,10 +11,6 @@ public class OpenTokConfig {
     public static final String LOG_ACTION_RECEIVE_MESSAGE = "ReceiveMessage";
     public static final String LOG_ACTION_CLOSE = "Close";
     public static final String LOG_ACTION_SET_MAX_LENGTH = "SetMaxLength";
-    public static final String LOG_ACTION_SET_SENDER_ALIAS = "SetSenderAlias";
-    public static final String LOG_ACTION_SET_ACTION_BAR = "SetActionBar";
-    public static final String LOG_ACTION_SET_SEND_MESSAGE_AREA = "SetSendMessageArea";
-    public static final String LOG_ACTION_RESTART = "Restart";
 
     public static final String LOG_VARIATION_ATTEMPT = "Attempt";
     public static final String LOG_VARIATION_ERROR = "Failure";
