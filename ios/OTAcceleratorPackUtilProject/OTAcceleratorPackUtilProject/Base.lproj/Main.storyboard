@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Table View Controller-->
@@ -27,7 +28,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -47,7 +48,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -81,8 +82,32 @@
                     <view key="view" contentMode="scaleToFill" id="5Hx-uE-hDb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sH4-Fz-b7k">
+                                <rect key="frame" x="0.0" y="64" width="600" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J1w-Eg-0sG">
+                                <rect key="frame" x="0.0" y="364" width="600" height="236"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="sH4-Fz-b7k" secondAttribute="trailing" id="0x9-vn-Hy3"/>
+                            <constraint firstItem="UFV-or-cUN" firstAttribute="top" secondItem="J1w-Eg-0sG" secondAttribute="bottom" id="2fO-ur-RgK"/>
+                            <constraint firstItem="J1w-Eg-0sG" firstAttribute="top" secondItem="sH4-Fz-b7k" secondAttribute="bottom" id="7AV-B2-53S"/>
+                            <constraint firstItem="sH4-Fz-b7k" firstAttribute="leading" secondItem="5Hx-uE-hDb" secondAttribute="leading" id="KTW-VD-Y9U"/>
+                            <constraint firstItem="sH4-Fz-b7k" firstAttribute="top" secondItem="b8o-qO-nKX" secondAttribute="bottom" id="OEj-lo-nv4"/>
+                            <constraint firstItem="sH4-Fz-b7k" firstAttribute="height" secondItem="5Hx-uE-hDb" secondAttribute="height" multiplier="0.5" id="PVc-Ti-p1J"/>
+                            <constraint firstAttribute="trailing" secondItem="J1w-Eg-0sG" secondAttribute="trailing" id="SjX-03-sGW"/>
+                            <constraint firstItem="J1w-Eg-0sG" firstAttribute="leading" secondItem="5Hx-uE-hDb" secondAttribute="leading" id="kUG-K7-hNQ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="publisherView" destination="J1w-Eg-0sG" id="d78-tw-Ufp"/>
+                        <outlet property="subscriberView" destination="sH4-Fz-b7k" id="DRO-0v-Feb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IaI-aO-NmC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
