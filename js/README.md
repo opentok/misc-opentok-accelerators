@@ -19,7 +19,7 @@ This guide has the following sections:
 To be prepared to develop a web-based application that uses the OpenTok Annotations Accelerator for JavaScript:
 
 1. Review the basic requirements for [OpenTok](https://tokbox.com/developer/requirements/) and [OpenTok.js](https://tokbox.com/developer/sdks/js/#browsers).
-2. Your project must include [Underscore](http://underscorejs.org/).
+2. Your project must include [jQuery](https://jquery.com/) and [Underscore](http://underscorejs.org/).
 3. There are several ways to install the OpenTok Annotations Accelerator Pack: <ol><li>Install with [npm](https://www.npmjs.com/package/opentok-annotation).</li><li>Run the [build.sh script](./build.sh).</li><li>Download and extract the **annotation-acc-pack.js** file from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/annotations/JS/opentok-js-annotations-1.0.0.zip) file provided by TokBox.</li></ol>
 4. Your web page must load [OpenTok.js](https://tokbox.com/developer/sdks/js/) first, and then load [opentok-annotations.js](./sample-app/public/js/components/opentok-annotation.js).  
 5. Your app will need a **Session ID**, **Token**, and **API key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com). 
