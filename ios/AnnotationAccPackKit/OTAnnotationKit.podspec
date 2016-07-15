@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "OTAnnotationKit"
   s.version          = "1.0.0"
-  s.summary          = "The OpenTok Annotations Accelerator Pack provides functionality you can add to your OpenTok applications that enables users to annotate their screens."
+  s.summary          = "OpenTok Annotations Accelerator Pack enables users to annotate their screens."
 
   s.description      = "This document describes how to use the OpenTok Annotations Accelerator Pack for iOS. Through the exploration of the OpenTok Annotations Sample App, you will learn best practices for annotating on an iOS mobile device."
 
