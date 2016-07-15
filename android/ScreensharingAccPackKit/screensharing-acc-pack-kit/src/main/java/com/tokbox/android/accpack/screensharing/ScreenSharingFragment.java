@@ -188,7 +188,6 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
         mAnalytics = new OTKAnalytics(mAnalyticsData);
 
         checkSessionInfo();
-
         addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
@@ -463,7 +462,7 @@ public class ScreenSharingFragment extends Fragment implements AccPackSession.Se
 
     protected void onScreenSharingStarted(){
         if ( mListener != null ){
-           mListener.onScreenSharingStarted();
+            mListener.onScreenSharingStarted();
             addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
     }
