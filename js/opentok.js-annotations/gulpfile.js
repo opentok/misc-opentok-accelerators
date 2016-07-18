@@ -42,15 +42,15 @@ gulp.task('images', function () {
     .pipe(gulp.dest('dist/images'));
 });
 
-// gulp.task('zip', function () {
-//   return gulp.src(
-//     [
-//       'dist/annotation.css',
-//       'dist/images/**',
-//       'dist/opentok-annotation.js',
-//     ], { base: 'dist/' })
-//     .pipe(zip('opentok-js-annotation-1.0.0.zip'))
-//     .pipe(gulp.dest(dist));
-// });
+gulp.task('zip', function () {
+   return gulp.src(
+     [
+       'dist/annotation.css',
+       'dist/images/**',
+       'dist/opentok-annotation.min.js',
+     ], { base: 'dist/' })
+     .pipe(zip('opentok-js-annotation-1.0.0.zip'))
+     .pipe(gulp.dest(dist));
+ });
 
-gulp.task('dist', ['js', 'css', 'images']);
+gulp.task('dist', ['js', 'css', 'images', 'zip']);

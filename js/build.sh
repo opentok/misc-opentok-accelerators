@@ -3,6 +3,8 @@
 if [[ -d opentok.js-annotations ]]
 then
 	cd opentok.js-annotations
+	npm i
+	npm update
 	gulp dist
 	cd dist
 
