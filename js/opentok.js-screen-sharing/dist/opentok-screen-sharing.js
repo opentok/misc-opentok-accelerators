@@ -1,1 +1,448 @@
-(function(){var e,n,r,o,i=['<div class="video-control circle share-screen" id="startScreenSharing"></div>'].join("\n"),t=['<div class="hidden" id="screenShareView">','<div class="wms-feed-main-video">','<div class="wms-feed-holder" id="videoHolderScreenShare"></div>','<div class="wms-feed-mask"></div>','<img src="/images/main/video-mask.png"/>',"</div>",'<div class="wms-feed-call-controls" id="feedControlsFromScreen">','<button class="wms-icon-screen active hidden" id="endScreenShareBtn"></button>',"</div>","</div>"].join("\n"),s=['<div id="dialog-form-chrome" class="wms-modal" style="display: none;">','<div class="wms-modal-body">','<div class="wms-modal-title with-icon">','<i class="wms-icon-share-large"></i>',"<span>Screen Share<br/>Extension Installation</span>","</div>","<p>You need a Chrome extension to share your screen. Install Screensharing Extension. Once you have installed, please, click the share screen button again.</p>",'<button id="btn-install-plugin-chrome" class="wms-btn-install">Accept</button>','<button id="btn-cancel-plugin-chrome" class="wms-cancel-btn-install"></button>',"</div>","</div>",'<div id="dialog-form-ff" class="wms-modal" style="display: none;">','<div class="wms-modal-body">','<div class="wms-modal-title with-icon">','<i class="wms-icon-share-large"></i>',"<span>Screen Share<br/>Extension Installation</span>","</div>","<p>You need a Firefox extension to share your screen. Install Screensharing Extension. Once you have installed, refresh your browser and click the share screen button again.</p>",'<a href="#" id="btn-install-plugin-ff" class="wms-btn-install" href="">Install extension</a>','<a href="#" id="btn-cancel-plugin-ff" class="wms-cancel-btn-install"></a>',"</div>","</div>"].join("\n"),a=function(n){$("body").append(s),$(e._screenSharingControls).append(i),$(n).append(t)},c=function(e){$("#startScreenSharing")[e?"show":"hide"]()},l=function(e,n){r&&r.triggerEvent(e,n)},d=function(){var n=function(n){var r=$.Deferred(),o=n||$("#videoHolderScreenShare");return e.publisher=OT.initPublisher(o,e.localScreenProperties,function(e){e?(l("screenSharingError",e),r.reject(_.extend(_.omit(e,"messsage"),{message:"Error starting the screen sharing"}))):r.resolve()}),r.promise()},o=$.Deferred();return e.annotation?r.setupExternalAnnotation().then(function(r){e.annotationWindow=r||null;var i=r.createContainerElements();n(i.publisher).then(function(){o.resolve(i.annotation)})}):n().then(function(){o.resolve()}),o.promise()},h=function(i){o.publish(e.publisher,function(o){if(o){var t=_.omit(o,"message");if(1500===o.code&&navigator.userAgent.indexOf("Firefox")!==-1)$("#dialog-form-ff").toggle();else{var s;s=1010===o.code?"Check your network connection":"Error sharing the screen",t.message=s,l("screenSharingError",t)}}else e.annotation&&r.linkAnnotation(e.publisher,i,e.annotationWindow),n=!0,l("startScreenSharing")})},f=function(){o.unpublish(e.publisher),e.publisher=null},g=function(){var e=$.Deferred();return"http:"===window.location.protocol&&(alert("Screensharing only works under 'https', please add 'https://' in front of your debugger url."),e.reject("https required")),OT.checkScreenSharingCapability(function(n){console.log("checkScreenSharingCapability",n),n.supported&&n.extensionRegistered?n.extensionInstalled?e.resolve():($("#dialog-form-chrome").toggle(),e.reject("screensharing extension not installed")):"Firefox"===OT.$.browser()&&n.extensionInstalled?e.resolve():(alert("This browser does not support screen sharing! Please use Chrome, Firefox or IE!"),e.reject("browser support not available"))}),e.promise()},u=function(){g(e.extensionID,e.extensionPathFF).then(d).then(h).fail(function(e){console.log("Error starting screensharing: ",e)})},p=function(e){f(),n=!1,e&&c(!1),l("endScreenSharing")},m=function(){if(r){var e=["startScreenSharing","endScreenSharing","screenSharingError"];r.registerEvents(e)}},v=function(){var o=_.throttle(function(){n?p():u()},750);$("#startScreenSharing").on("click",o),$("#btn-install-plugin-chrome").on("click",function(){chrome.webstore.install(["https://chrome.google.com/webstore/detail/",e.extensionID].join(""),function(e){console.log("success",e)},function(e){console.log("error",e)}),$("#dialog-form-chrome").toggle()}),$("#btn-cancel-plugin-chrome").on("click",function(){$("#dialog-form-chrome").toggle()}),$("#btn-install-plugin-ff").prop("href",e.extensionPathFF),$("#btn-install-plugin-ff").on("click",function(){$("#dialog-form-ff").toggle()}),$("#btn-cancel-plugin-ff").on("click",function(){$("#dialog-form-ff").toggle()}),r&&(r.registerEventListener("startCall",function(){c(!0)}),r.registerEventListener("endCall",function(){n?p(!0):c(!1)}),r.registerEventListener("annotationWindowClosed",function(){p()}))},b=function(e,n){if("Chrome"===OT.$.browser()){if(!e||!e.length)throw new Error("Error starting the screensharing. Chrome extensionID required");$("<link/>",{rel:"chrome-webstore-item",href:["https://chrome.google.com/webstore/detail/",e].join("")}).appendTo("head"),OT.registerScreenSharingExtension("chrome",e,2)}if(!("Firefox"!==OT.$.browser()||n&&n.length))throw new Error("Error starting the screensharing. Firefox screensharing extension required")},S=function(e){if(!_.property("session",e))throw new Error("Screen Share Acc Pack requires an OpenTok session");o=_.property("session")(e),r=_.property("accPack")(e),b(_.property("extensionID")(e),_.property("extensionPathFF")(e))},w=function(n){e=this,S(n);var r=["annotation","extensionURL","extensionID","extensionPathFF","screensharingParent","localScreenProperties"];_.extend(e,_.defaults(_.pick(n,r)),{screenSharingParent:"#videoContainer",_screenSharingControls:"#feedControls"}),a(e.screensharingParent),m(),v()};w.prototype={constructor:w,extensionAvailable:g,start:u,end:p},"object"==typeof exports?module.exports=w:"function"==typeof define&&define.amd?define(function(){return w}):this.ScreenSharingAccPack=w}).call(this);
+/* global chrome OT ScreenSharingAccPack OTKAnalytics define */
+(function () {
+
+  /** Private Variables*/
+  var _this; // Reference to instance of ScreenSharingAccPack
+  var _active; // Currently sharing screen?
+  var _accPack; // Common layer API
+  var _session; // OpenTok session
+
+  var _screenSharingControl = [
+    '<div class="video-control circle share-screen" id="startScreenSharing"></div>'
+  ].join('\n');
+
+  var _screenSharingView = [
+    '<div class="hidden" id="screenShareView">',
+    '<div class="wms-feed-main-video">',
+    '<div class="wms-feed-holder" id="videoHolderScreenShare"></div>',
+    '<div class="wms-feed-mask"></div>',
+    '<img src="/images/main/video-mask.png"/>',
+    '</div>',
+    '<div class="wms-feed-call-controls" id="feedControlsFromScreen">',
+    '<button class="wms-icon-screen active hidden" id="endScreenShareBtn"></button>',
+    '</div>',
+    '</div>'
+  ].join('\n');
+
+  var _screenDialogsExtensions = [
+    /* eslint-disable max-len */
+    '<div id="dialog-form-chrome" class="wms-modal" style="display: none;">',
+    '<div class="wms-modal-body">',
+    '<div class="wms-modal-title with-icon">',
+    '<i class="wms-icon-share-large"></i>',
+    '<span>Screen Share<br/>Extension Installation</span>',
+    '</div>',
+    '<p>You need a Chrome extension to share your screen. Install Screensharing Extension. Once you have installed, please, click the share screen button again.</p>',
+    '<button id="btn-install-plugin-chrome" class="wms-btn-install">Accept</button>',
+    '<button id="btn-cancel-plugin-chrome" class="wms-cancel-btn-install"></button>',
+    '</div>',
+    '</div>',
+    '<div id="dialog-form-ff" class="wms-modal" style="display: none;">',
+    '<div class="wms-modal-body">',
+    '<div class="wms-modal-title with-icon">',
+    '<i class="wms-icon-share-large"></i>',
+    '<span>Screen Share<br/>Extension Installation</span>',
+    '</div>',
+    '<p>You need a Firefox extension to share your screen. Install Screensharing Extension. Once you have installed, refresh your browser and click the share screen button again.</p>',
+    '<a href="#" id="btn-install-plugin-ff" class="wms-btn-install" href="">Install extension</a>',
+    '<a href="#" id="btn-cancel-plugin-ff" class="wms-cancel-btn-install"></a>',
+    '</div>',
+    '</div>'
+    /* eslint-enable max-len */
+  ].join('\n');
+
+  /** Private Methods */
+
+  /** Analytics */
+  var _otkanalytics;
+
+  // vars for the analytics logs. Internal use
+  var _logEventData = {
+    clientVersion: 'js-vsol-1.0.0',
+    componentId: 'screensharingAccPack',
+    name: 'guidScreensharingAccPack',
+    actionInitialize: 'Init',
+    actionStart: 'Start',
+    actionEnd: 'Stop',
+    enableAnnotations: 'EnableAnnotations',
+    disableAnnotations: 'DisableAnnotations',
+    enableAudioScreenSharing: 'EnableAudioScreenSharing',
+    disableAudioScreenSharing: 'DisableAudioScreenSharing',
+    variationAttempt: 'Attempt',
+    variationError: 'Failure',
+    variationSuccess: 'Success',
+  };
+
+  var _logAnalytics = function () {
+
+    if (!OTKAnalytics) { return; }
+    // init the analytics logs
+    var _source = window.location.href;
+
+    var otkanalyticsData = {
+      clientVersion: _logEventData.clientVersion,
+      source: _source,
+      componentId: _logEventData.componentId,
+      name: _logEventData.name
+    };
+
+    _otkanalytics = new OTKAnalytics(otkanalyticsData);
+
+    var sessionInfo = {
+      sessionId: _session.id,
+      connectionId: _session.connection.connectionId,
+      partnerId: _session.apiKey
+    };
+
+    _otkanalytics.addSessionInfo(sessionInfo);
+
+  };
+
+  var _log = function (action, variation) {
+    if (!_otkanalytics) { return; }
+    var data = {
+      action: action,
+      variation: variation
+    };
+    _otkanalytics.logEvent(data);
+  };
+
+  var _setupUI = function (parent) {
+    $('body').append(_screenDialogsExtensions);
+    $(_this._screenSharingControls).append(_screenSharingControl);
+    $(parent).append(_screenSharingView);
+  };
+
+  var _toggleScreenSharingButton = function (show) {
+    $('#startScreenSharing')[show ? 'show' : 'hide']();
+  };
+
+  // Trigger event via common layer API
+  var _triggerEvent = function (event, data) {
+    if (_accPack) {
+      _accPack.triggerEvent(event, data);
+    }
+  };
+
+  /**
+   * Create a publisher for the screen.  If we're using annotation, we first need
+   * to create the annotion window and get a reference to its annotation container
+   * element so that we can pass it to the initPublisher function.
+   * @returns {promise} < Resolve: [Object] Container element for annotation in external window >
+   */
+  var _initPublisher = function () {
+
+    var createPublisher = function (publisherDiv) {
+
+      var innerDeferred = $.Deferred();
+
+      var container = publisherDiv || $('#videoHolderScreenShare');
+
+      _this.publisher = OT.initPublisher(container, _this.localScreenProperties, function (error) {
+        if (error) {
+          _triggerEvent('screenSharingError', error);
+          innerDeferred.reject(_.extend(_.omit(error, 'messsage'), {
+            message: 'Error starting the screen sharing'
+          }));
+        } else {
+          innerDeferred.resolve();
+        }
+      });
+
+      return innerDeferred.promise();
+    };
+
+    var outerDeferred = $.Deferred();
+
+    if (!!_this.annotation) {
+      _log(_logEventData.enableAnnotations, _logEventData.variationAttempt);
+
+      _accPack.setupExternalAnnotation()
+        .then(function (annotationWindow) {
+          _this.annotationWindow = annotationWindow || null;
+          var annotationElements = annotationWindow.createContainerElements();
+          createPublisher(annotationElements.publisher)
+            .then(function () {
+              outerDeferred.resolve(annotationElements.annotation);
+            });
+
+        });
+    } else {
+
+      createPublisher()
+        .then(function () {
+          outerDeferred.resolve();
+        });
+
+    }
+
+    return outerDeferred.promise();
+  };
+
+
+  /**
+   * Start publishing the screen
+   * @param annotationContainer
+   */
+  var _publish = function (annotationContainer) {
+
+    _session.publish(_this.publisher, function (error) {
+      if (error) {
+
+        // Let's write our own error message
+        var customError = _.omit(error, 'message');
+
+        if (error.code === 1500 && navigator.userAgent.indexOf('Firefox') !== -1) {
+          $('#dialog-form-ff').toggle();
+        } else {
+
+          var errorMessage;
+
+          if (error.code === 1010) {
+            errorMessage = 'Check your network connection';
+          } else {
+            errorMessage = 'Error sharing the screen';
+          }
+
+          customError.message = errorMessage;
+          _triggerEvent('screenSharingError', customError);
+          _log(_logEventData.actionStart, _logEventData.variationError);
+        }
+      } else {
+        if (_this.annotation) {
+          _accPack.linkAnnotation(_this.publisher, annotationContainer, _this.annotationWindow);
+          _log(_logEventData.actionInitialize, _logEventData.variationSuccess);
+        }
+        _active = true;
+        _triggerEvent('startScreenSharing');
+        _log(_logEventData.actionStart, _logEventData.variationSuccess);
+      }
+    });
+
+  };
+
+  /**
+   * Stop publishing the screen
+   */
+  var _stopPublishing = function () {
+    _session.unpublish(_this.publisher);
+    _this.publisher = null;
+  };
+
+  /** Public Methods */
+
+  var extensionAvailable = function () {
+
+    var deferred = $.Deferred();
+
+    if (window.location.protocol === 'http:') {
+      alert("Screensharing only works under 'https', please add 'https://' in front of your debugger url.");
+      deferred.reject('https required');
+    }
+
+    OT.checkScreenSharingCapability(function (response) {
+      console.log('checkScreenSharingCapability', response);
+      if (!response.supported || !response.extensionRegistered) {
+        if (OT.$.browser() === 'Firefox' && response.extensionInstalled) {
+          deferred.resolve();
+        } else {
+          alert('This browser does not support screen sharing! Please use Chrome, Firefox or IE!');
+          deferred.reject('browser support not available');
+        }
+      } else if (!response.extensionInstalled) {
+        $('#dialog-form-chrome').toggle();
+        deferred.reject('screensharing extension not installed');
+      } else {
+        deferred.resolve();
+      }
+    });
+
+    return deferred.promise();
+
+  };
+
+  var start = function () {
+
+    _log(_logEventData.actionStart, _logEventData.variationAttempt);
+
+    extensionAvailable(_this.extensionID, _this.extensionPathFF)
+      .then(_initPublisher)
+      .then(_publish)
+      .fail(function (error) {
+        console.log('Error starting screensharing: ', error);
+        _log(_logEventData.actionStart, _logEventData.variationError);
+      });
+
+  };
+
+  var end = function (callEnded) {
+    _log(_logEventData.actionEnd, _logEventData.variationAttempt);
+    _stopPublishing();
+    _active = false;
+    if (callEnded) {
+      _toggleScreenSharingButton(false);
+    }
+    _triggerEvent('endScreenSharing');
+    _log(_logEventData.actionEnd, _logEventData.variationSuccess);
+  };
+
+  /** Events */
+
+  var _registerEvents = function () {
+
+    if (!_accPack) {
+      return;
+    }
+
+    var events = ['startScreenSharing', 'endScreenSharing', 'screenSharingError'];
+    _accPack.registerEvents(events);
+  };
+
+  var _addScreenSharingListeners = function () {
+
+    var startOrEnd = _.throttle(function () {
+      !!_active ? end() : start();
+    }, 750);
+
+    $('#startScreenSharing').on('click', startOrEnd);
+
+    /** Handlers for screensharing extension modal */
+    $('#btn-install-plugin-chrome').on('click', function () {
+      chrome.webstore.install(['https://chrome.google.com/webstore/detail/', _this.extensionID].join(''),
+        function (success) {
+          console.log('success', success);
+        },
+        function (error) {
+          console.log('error', error);
+        });
+      $('#dialog-form-chrome').toggle();
+    });
+
+    $('#btn-cancel-plugin-chrome').on('click', function () {
+      $('#dialog-form-chrome').toggle();
+    });
+
+    $('#btn-install-plugin-ff').prop('href', _this.extensionPathFF);
+
+    $('#btn-install-plugin-ff').on('click', function () {
+      $('#dialog-form-ff').toggle();
+    });
+
+    $('#btn-cancel-plugin-ff').on('click', function () {
+      $('#dialog-form-ff').toggle();
+    });
+
+    if (!!_accPack) {
+
+      _accPack.registerEventListener('startCall', function () {
+        _toggleScreenSharingButton(true);
+      });
+
+      _accPack.registerEventListener('endCall', function () {
+        if (_active) {
+          end(true);
+        } else {
+          _toggleScreenSharingButton(false);
+        }
+      });
+
+      _accPack.registerEventListener('annotationWindowClosed', function () {
+        end();
+      });
+    }
+
+  };
+
+  var _validateExtension = function (extensionID, extensionPathFF) {
+
+    if (OT.$.browser() === 'Chrome') {
+      if (!extensionID || !extensionID.length) {
+        throw new Error('Error starting the screensharing. Chrome extensionID required');
+      } else {
+        $('<link/>', {
+          rel: 'chrome-webstore-item',
+          href: ['https://chrome.google.com/webstore/detail/', extensionID].join('')
+        }).appendTo('head');
+
+        OT.registerScreenSharingExtension('chrome', extensionID, 2);
+      }
+    }
+
+    if (OT.$.browser() === 'Firefox' && (!extensionPathFF || !extensionPathFF.length)) {
+      throw new Error('Error starting the screensharing. Firefox screensharing extension required');
+    }
+  };
+
+  var _validateOptions = function (options) {
+
+    if (!_.property('session', options)) {
+      throw new Error('Screen Share Acc Pack requires an OpenTok session');
+    }
+
+    _session = _.property('session')(options);
+    _accPack = _.property('accPack')(options);
+
+    _validateExtension(_.property('extensionID')(options), _.property('extensionPathFF')(options));
+  };
+
+  /**
+   * @constructor
+   * Represents a screensharing component
+   * @param {object} options
+   * @param {string} options.session
+   * @param {object} [options.accPack]
+   * @param {string} [options.extensionID]
+   * @param {string} [options.extentionPathFF]
+   * @param {string} [options.screensharingParent]
+   */
+  var ScreenSharingAccPack = function (options) {
+
+    _this = this;
+
+    // Check for required options
+    _validateOptions(options);
+
+    // Extend our instance
+    var optionsProps = [
+      'annotation',
+      'extensionURL',
+      'extensionID',
+      'extensionPathFF',
+      'screensharingParent',
+      'localScreenProperties'
+    ];
+
+    _.extend(_this, _.defaults(_.pick(options, optionsProps)), {
+      screenSharingParent: '#videoContainer',
+      _screenSharingControls: '#feedControls'
+    });
+
+    // Do UIy things
+    _setupUI(_this.screensharingParent);
+    _registerEvents();
+    _addScreenSharingListeners();
+
+    // init analytics logs
+    _logAnalytics();
+    _log(_logEventData.actionInitialize, _logEventData.variationAttempt);
+    _log(_logEventData.actionInitialize, _logEventData.variationSuccess);
+  };
+
+  ScreenSharingAccPack.prototype = {
+    constructor: ScreenSharingAccPack,
+    extensionAvailable: extensionAvailable,
+    start: start,
+    end: end
+  };
+
+  if (typeof exports === 'object') {
+    module.exports = ScreenSharingAccPack;
+  } else if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return ScreenSharingAccPack;
+    });
+  } else {
+    this.ScreenSharingAccPack = ScreenSharingAccPack;
+  }
+
+}.call(this));

@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var importCss = require('gulp-import-css');
 var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var merge = require('merge-stream');
 // var zip = require('gulp-zip');
 
 var dist = 'dist';
@@ -9,10 +11,20 @@ var dist = 'dist';
 gulp.task('default', ['js', 'css']);
 
 gulp.task('js', function () {
-  return gulp.src('src/*.js')
+
+  var accPack = gulp.src('src/*.js')
     .pipe(concat('opentok-screen-sharing.js'))
-    .pipe(uglify())
     .pipe(gulp.dest(dist));
+
+  var min = gulp.src('dist/opentok-screen-sharing.js')
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min',
+    }))
+    .pipe(gulp.dest(dist));
+
+
+  return merge(accPack, min);
 });
 
 gulp.task('css', function () {

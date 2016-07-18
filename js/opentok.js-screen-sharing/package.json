@@ -1,6 +1,6 @@
 {
   "name": "opentok-screen-sharing",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "OpenTok screen sharing accelerator pack",
   "main": "dist/opentok-screen-sharing.js",
   "directories": {
@@ -31,7 +31,9 @@
     "gulp-if": "^2.0.0",
     "gulp-import-css": "^0.1.2",
     "gulp-inline-css": "^3.1.0",
+    "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",
-    "gulp-zip": "^3.2.0"
+    "gulp-zip": "^3.2.0",
+    "merge-stream": "^1.0.0"
   }
 }
