@@ -2,6 +2,7 @@ platform :ios, '8.0'
 
 target 'OTAnnotationKit' do
   pod 'LHToolbar', '1.2.1-beta'
+  pod 'OTKAnalytics', '1.0.0'
 end
 
 target 'OTAnnotationKitTests' do
