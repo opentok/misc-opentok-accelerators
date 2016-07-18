@@ -6,7 +6,6 @@ then
 	npm i
 	npm update
 	gulp dist
-	cd dist
 
 else
 	echo "Please run this script from 'JS'."
