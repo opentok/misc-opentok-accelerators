@@ -321,7 +321,11 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     public void restart(){
         isRestarted = true;
         messagesList = new ArrayList<ChatMessage>();
-        mMessageAdapter = new MessagesAdapter(messagesList);
+        try {
+            mMessageAdapter = new MessagesAdapter(messagesList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mRecyclerView.setAdapter(mMessageAdapter);
     }
 
