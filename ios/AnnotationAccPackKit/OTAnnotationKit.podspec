@@ -31,4 +31,5 @@ Pod::Spec.new do |s|
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationUI/Toolbar/OTAnnotationToolbarView.h'
 
   s.dependency 'LHToolbar', '1.2.1-beta'
+  s.dependency 'OTKAnalytics', '1.0.0'
 end
