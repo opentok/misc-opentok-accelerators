@@ -24,7 +24,6 @@
 		A0CFE1C31D25CEAB00D8449B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CFE16A1D25BFB800D8449B /* LaunchScreen.storyboard */; };
 		A0CFE1C41D25CEAB00D8449B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CFE16C1D25BFB800D8449B /* Main.storyboard */; };
 		A0CFE4731D26428500D8449B /* OTScreenSharerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE4571D25F29100D8449B /* OTScreenSharerTests.m */; };
-		A0CFE4741D26428700D8449B /* OTScreenShareKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE44C1D25F28400D8449B /* OTScreenShareKitTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +79,6 @@
 		A0CFE16E1D25BFB800D8449B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0CFE16F1D25BFB800D8449B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A0CFE1701D25BFB800D8449B /* mvc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mvc.png; sourceTree = "<group>"; };
-		A0CFE44C1D25F28400D8449B /* OTScreenShareKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OTScreenShareKitTests.m; sourceTree = "<group>"; };
 		A0CFE4571D25F29100D8449B /* OTScreenSharerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTScreenSharerTests.m; sourceTree = "<group>"; };
 		A0CFE4631D25F49D00D8449B /* OTScreenShareKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTScreenShareKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0CFE46D1D26422700D8449B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				A0CFE4571D25F29100D8449B /* OTScreenSharerTests.m */,
-				A0CFE44C1D25F28400D8449B /* OTScreenShareKitTests.m */,
 				A0CFE46D1D26422700D8449B /* Info.plist */,
 			);
 			path = OTScreenShareKitTests;
@@ -351,7 +348,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0CFE4731D26428500D8449B /* OTScreenSharerTests.m in Sources */,
-				A0CFE4741D26428700D8449B /* OTScreenShareKitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
