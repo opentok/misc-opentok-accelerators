@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A0127B111D35BB1A00CDA3F5 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127B0F1D35BB1A00CDA3F5 /* JSON.h */; };
-		A0127B121D35BB1A00CDA3F5 /* JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127B101D35BB1A00CDA3F5 /* JSON.m */; };
 		A058350C1D2F4BAD00E484FB /* ShareWholeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */; };
 		A058350F1D2F4E4700E484FB /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350E1D2F4E4700E484FB /* ColorViewController.m */; };
 		A0844FB01D38512400D0EB83 /* OTScreenSharer_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0844FAF1D38512400D0EB83 /* OTScreenSharer_Private.h */; };
@@ -61,8 +59,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A0127B0F1D35BB1A00CDA3F5 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		A0127B101D35BB1A00CDA3F5 /* JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSON.m; sourceTree = "<group>"; };
 		A058350A1D2F4BAD00E484FB /* ShareWholeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareWholeScreenViewController.h; sourceTree = "<group>"; };
 		A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareWholeScreenViewController.m; sourceTree = "<group>"; };
 		A058350D1D2F4E4700E484FB /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
@@ -154,8 +150,6 @@
 				A0CFE0BD1D25BF8200D8449B /* OTScreenSharer.m */,
 				A0CFE0BE1D25BF8200D8449B /* OTScreenCapture.h */,
 				A0CFE0BF1D25BF8200D8449B /* OTScreenCapture.m */,
-				A0127B0F1D35BB1A00CDA3F5 /* JSON.h */,
-				A0127B101D35BB1A00CDA3F5 /* JSON.m */,
 			);
 			path = ScreenShare;
 			sourceTree = "<group>";
@@ -197,7 +191,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0844FB01D38512400D0EB83 /* OTScreenSharer_Private.h in Headers */,
-				A0127B111D35BB1A00CDA3F5 /* JSON.h in Headers */,
 				A0CFE14B1D25BF8200D8449B /* OTScreenShareKit.h in Headers */,
 				A0CFE14C1D25BF8200D8449B /* OTScreenSharer.h in Headers */,
 				A0CFE14E1D25BF8200D8449B /* OTScreenCapture.h in Headers */,
@@ -350,7 +343,6 @@
 			files = (
 				A0CFE14F1D25BF8200D8449B /* OTScreenCapture.m in Sources */,
 				A0CFE14D1D25BF8200D8449B /* OTScreenSharer.m in Sources */,
-				A0127B121D35BB1A00CDA3F5 /* JSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

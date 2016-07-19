@@ -7,7 +7,6 @@
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 #import <OTKAnalytics/OTKLogger.h>
 #import "OTScreenSharer.h"
-#import "JSON.h"
 
 #import "OTScreenSharer_Private.h"
 

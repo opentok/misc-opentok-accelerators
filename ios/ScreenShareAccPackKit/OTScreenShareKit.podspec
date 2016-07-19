@@ -27,5 +27,4 @@ Pod::Spec.new do |s|
     'ios/ScreenShareAccPackKit/OTScreenShareKit/ScreenShare/OTScreenSharer.h'
 
   s.dependency 'OTAcceleratorPackUtil', '~> 1.0.0'
-  s.dependency 'OTAnnotationKit', '~> 1.0.0'
 end
