@@ -12,7 +12,7 @@
 //--------------------------------------
 window.OTSolution = window.OTSolution || {};
 
-OTSolution.Annotations = function(options) {
+OTSolution.Annotations = function (options) {
 
   options = options || {};
   this.widgetVersion = 'js-1.0.0-beta';
@@ -55,7 +55,7 @@ OTSolution.Annotations = function(options) {
   mirrored = (' ' + self.videoFeed.element.className + ' ').indexOf(' ' + 'OT_mirrored' + ' ') > -1;
   scaledToFill = (' ' + self.videoFeed.element.className + ' ').indexOf(' ' + 'OT_fit-mode-cover' + ' ') > -1;
 
-  this.canvas = function() {
+  this.canvas = function () {
     return canvas;
   };
 
@@ -64,7 +64,7 @@ OTSolution.Annotations = function(options) {
    * when using {@link Toolbar#addCanvas}.
    * @param session The OpenTok session.
    */
-  this.link = function(session) {
+  this.link = function (session) {
     this.session = session;
   };
 
@@ -72,7 +72,7 @@ OTSolution.Annotations = function(options) {
    * Changes the active annotation color for the canvas.
    * @param color The hex string representation of the color (#rrggbb).
    */
-  this.changeColor = function(color) {
+  this.changeColor = function (color) {
     self.userColor = color;
     if (!self.lineWidth) {
       self.lineWidth = 2; // TODO Default to first option in list of line widths
@@ -83,7 +83,7 @@ OTSolution.Annotations = function(options) {
    * Changes the line/stroke width of the active annotation for the canvas.
    * @param size The size in pixels.
    */
-  this.changeLineWidth = function(size) {
+  this.changeLineWidth = function (size) {
     this.lineWidth = size;
   };
 
@@ -92,7 +92,7 @@ OTSolution.Annotations = function(options) {
    * automatically by the toolbar, but can be used to programmatically select an item.
    * @param item The menu item to set as selected.
    */
-  this.selectItem = function(item) {
+  this.selectItem = function (item) {
     if (self.overlay) {
       self.overlay.style.display = 'none';
       self.overlay = null;
@@ -113,15 +113,15 @@ OTSolution.Annotations = function(options) {
 
         self.parent.appendChild(self.overlay);
 
-        self.parent.onmouseover = function() {
+        self.parent.onmouseover = function () {
           self.overlay.style.opacity = 1;
         };
 
-        self.parent.onmouseout = function() {
+        self.parent.onmouseout = function () {
           self.overlay.style.opacity = 0;
         };
 
-        self.overlay.onclick = function() {
+        self.overlay.onclick = function () {
           self.captureScreenshot();
         };
       } else {
@@ -140,7 +140,7 @@ OTSolution.Annotations = function(options) {
    * Sets the color palette for the color picker
    * @param colors The array of hex color strings (#rrggbb).
    */
-  this.colors = function(colors) {
+  this.colors = function (colors) {
     this.colors = colors;
     this.changeColor(colors[0]);
   };
@@ -149,7 +149,7 @@ OTSolution.Annotations = function(options) {
    * Clears the canvas for the active user. Only annotations added by the active OpenTok user will
    * be removed, leaving the history of all other annotations.
    */
-  this.clear = function() {
+  this.clear = function () {
     clearCanvas(false, self.session.connection.connectionId);
     if (self.session) {
       self.session.signal({
@@ -162,20 +162,7 @@ OTSolution.Annotations = function(options) {
   /**
    * Captures a screenshot of the annotations displayed on top of the active video feed.
    */
-  this.captureScreenshot = function() {
-
-    OTSolution.Annotations.Analytics.logEvent({
-      widgetVersion: self.widgetVersion,
-      guid: OTSolution.Annotations.Analytics.get_uuid(),
-      source: window.location.href,
-      logVersion: '1',
-      clientSystemTime: new Date().getTime(),
-      action: 'an_capture',
-      variation: '',
-      sessionId: self.session.sessionId,
-      partnerId: self.videoFeed.session.apiKey,
-      connectionId: self.session.connection.connectionId
-    });
+  this.captureScreenshot = function () {
 
     var canvasCopy = document.createElement('canvas');
     canvasCopy.width = canvas.width;
@@ -217,7 +204,7 @@ OTSolution.Annotations = function(options) {
 
     // Combine the video and annotation images
     var image = new Image();
-    image.onload = function() {
+    image.onload = function () {
       var ctxCopy = canvasCopy.getContext('2d');
       if (mirrored) {
         ctxCopy.translate(width, 0);
@@ -232,7 +219,7 @@ OTSolution.Annotations = function(options) {
       }
       ctxCopy.drawImage(canvas, 0, 0);
 
-      cbs.forEach(function(cb) {
+      cbs.forEach(function (cb) {
         cb.call(self, canvasCopy.toDataURL());
       });
 
@@ -243,16 +230,16 @@ OTSolution.Annotations = function(options) {
 
   };
 
-  this.onScreenCapture = function(cb) {
+  this.onScreenCapture = function (cb) {
     cbs.push(cb);
   };
 
-  this.onResize = function() {
+  this.onResize = function () {
     drawHistory = [];
 
     drawUpdates(updateHistory, true);
 
-    eventHistory.forEach(function(history) {
+    eventHistory.forEach(function (history) {
       updateCanvas(history, true);
     });
   };
@@ -415,19 +402,6 @@ OTSolution.Annotations = function(options) {
             case 'touchend':
               client.isDrawing = false;
 
-              OTSolution.Annotations.Analytics.logEvent({
-                widgetVersion: self.widgetVersion,
-                guid: OTSolution.Annotations.Analytics.get_uuid(),
-                source: window.location.href,
-                logVersion: '1',
-                clientSystemTime: new Date().getTime(),
-                action: 'an_draw',
-                variation: 'an_shape',
-                sessionId: self.session.sessionId,
-                partnerId: self.videoFeed.session.apiKey,
-                connectionId: self.session.connection.connectionId
-              });
-
               var points = selectedItem.points;
 
               if (points.length === 2) {
@@ -510,7 +484,7 @@ OTSolution.Annotations = function(options) {
     }
   }
 
-  addEventListeners(canvas, 'mousedown mousemove mouseup mouseout touchstart touchmove touchend', function(event) {
+  addEventListeners(canvas, 'mousedown mousemove mouseup mouseout touchstart touchmove touchend', function (event) {
 
     // Handle text annotation separately and ignore mouse movements if we're not dragging.
     var istextEvent = self.selectedItem && self.selectedItem.id === 'OT_text';
@@ -557,7 +531,7 @@ OTSolution.Annotations = function(options) {
   var textEvent;
   var textInputId = 'textAnnotation';
   var ignoreClicks = false;
-  var handleClick = function(event) {
+  var handleClick = function (event) {
 
     event.preventDefault();
 
@@ -576,7 +550,7 @@ OTSolution.Annotations = function(options) {
 
 
   // Listen for keydown on 'Enter' once the text input is appended
-  var handleKeyDown = function(event) {
+  var handleKeyDown = function (event) {
 
     // Enter
     if (event.which === 13) {
@@ -592,18 +566,18 @@ OTSolution.Annotations = function(options) {
 
   };
 
-  var addKeyDownListener = function() {
+  var addKeyDownListener = function () {
     context.addEventListener('keydown', handleKeyDown);
   };
 
-  var removeKeyDownListener = function() {
+  var removeKeyDownListener = function () {
     context.removeEventListener('keydown', handleKeyDown);
   };
 
   /**
    * Get the value of the text input and use it to create an "event".
    */
-  var processTextEvent = function() {
+  var processTextEvent = function () {
 
     var textInput = context.getElementById(textInputId);
     var inputheight = textInput.clientHeight;
@@ -631,7 +605,7 @@ OTSolution.Annotations = function(options) {
   };
 
 
-  var createTextInput = function(event) {
+  var createTextInput = function (event) {
 
     var textInput = context.createElement('input');
 
@@ -668,7 +642,7 @@ OTSolution.Annotations = function(options) {
    * End Handle text markup
    */
 
-  var draw = function(update, resizeEvent) {
+  var draw = function (update, resizeEvent) {
 
     if (!ctx) {
       ctx = canvas.getContext('2d');
@@ -681,7 +655,7 @@ OTSolution.Annotations = function(options) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Repopulate the canvas with items from drawHistory
-    drawHistory.forEach(function(history) {
+    drawHistory.forEach(function (history) {
 
       ctx.strokeStyle = history.color;
       ctx.lineWidth = history.lineWidth;
@@ -772,7 +746,7 @@ OTSolution.Annotations = function(options) {
     }
   };
 
-  var drawPoints = function(ctx, points) {
+  var drawPoints = function (ctx, points) {
     var scale = scaleForPoints(points);
 
     ctx.beginPath();
@@ -816,7 +790,7 @@ OTSolution.Annotations = function(options) {
     ctx.closePath();
   };
 
-  var scaleForPoints = function(points) {
+  var scaleForPoints = function (points) {
     // mX and mY refer to the end point of the enclosing rectangle (touch up)
     var minX = Number.MAX_VALUE;
     var minY = Number.MAX_VALUE;
@@ -847,7 +821,7 @@ OTSolution.Annotations = function(options) {
     };
   };
 
-  var drawTextUpdate = function(update) {
+  var drawTextUpdate = function (update) {
 
 
 
@@ -855,7 +829,7 @@ OTSolution.Annotations = function(options) {
 
   };
 
-  var drawIncoming = function(update, resizeEvent, index) {
+  var drawIncoming = function (update, resizeEvent, index) {
 
     var iCanvas = {
       width: update.canvasWidth,
@@ -940,19 +914,19 @@ OTSolution.Annotations = function(options) {
     draw(null);
   };
 
-  var drawUpdates = function(updates, resizeEvent) {
+  var drawUpdates = function (updates, resizeEvent) {
 
-    updates.forEach(function(update, index) {
+    updates.forEach(function (update, index) {
       if (update.id === self.videoFeed.stream.connection.connectionId) {
         drawIncoming(update, resizeEvent, index);
       }
     });
   };
 
-  var clearCanvas = function(incoming, cid) {
+  var clearCanvas = function (incoming, cid) {
     // console.log('cid: ' + cid);
     // Remove all elements from history that were drawn by the sender
-    drawHistory = drawHistory.filter(function(history) {
+    drawHistory = drawHistory.filter(function (history) {
       console.log(history.fromId);
       return history.fromId !== cid;
     });
@@ -975,17 +949,17 @@ OTSolution.Annotations = function(options) {
   /** Signal Handling **/
   if (self.videoFeed.session) {
     self.videoFeed.session.on({
-      'signal:otAnnotation_pen': function(event) {
+      'signal:otAnnotation_pen': function (event) {
         if (event.from.connectionId !== self.session.connection.connectionId) {
           drawUpdates(JSON.parse(event.data));
         }
       },
-      'signal:otAnnotation_text': function(event) {
+      'signal:otAnnotation_text': function (event) {
         if (event.from.connectionId !== self.session.connection.connectionId) {
           drawUpdates(JSON.parse(event.data));
         }
       },
-      'signal:otAnnotation_history': function(event) {
+      'signal:otAnnotation_history': function (event) {
         // We will receive these from everyone in the room, only listen to the first
         // person. Also the data is chunked together so we need all of that person's
         if (!drawHistoryReceivedFrom || drawHistoryReceivedFrom === event.from.connectionId) {
@@ -993,13 +967,13 @@ OTSolution.Annotations = function(options) {
           drawUpdates(JSON.parse(event.data));
         }
       },
-      'signal:otAnnotation_clear': function(event) {
+      'signal:otAnnotation_clear': function (event) {
         if (event.from.connectionId !== self.session.connection.connectionId) {
           // Only clear elements drawn by the sender's (from) Id
           clearCanvas(true, event.from.connectionId);
         }
       },
-      connectionCreated: function(event) {
+      connectionCreated: function (event) {
         if (drawHistory.length > 0 && event.connection.connectionId !== self.session.connection.connectionId) {
           batchSignal('otWhiteboard_history', drawHistory, event.connection);
         }
@@ -1007,11 +981,11 @@ OTSolution.Annotations = function(options) {
     });
   }
 
-  var batchSignal = function(type, data, toConnection) {
+  var batchSignal = function (type, data, toConnection) {
     // We send data in small chunks so that they fit in a signal
     // Each packet is maximum ~250 chars, we can fit 8192/250 ~= 32 updates per signal
     var dataCopy = data.slice();
-    var signalError = function(err) {
+    var signalError = function (err) {
       if (err) {
         TB.error(err);
       }
@@ -1028,11 +1002,11 @@ OTSolution.Annotations = function(options) {
   };
 
   var updateTimeout;
-  var sendUpdate = function(update) {
+  var sendUpdate = function (update) {
     if (self.session) {
       batchUpdates.push(update);
       if (!updateTimeout) {
-        updateTimeout = setTimeout(function() {
+        updateTimeout = setTimeout(function () {
           batchSignal('otAnnotation_pen', batchUpdates);
           batchUpdates = [];
           updateTimeout = null;
@@ -1046,7 +1020,7 @@ OTSolution.Annotations = function(options) {
 //  OPENTOK ANNOTATION TOOLBAR
 //--------------------------------------
 
-OTSolution.Annotations.Toolbar = function(options) {
+OTSolution.Annotations.Toolbar = function (options) {
   var self = this;
   var _toolbar = this;
 
@@ -1189,47 +1163,47 @@ OTSolution.Annotations.Toolbar = function(options) {
    *
    * @constructor
    */
-  var ColorPicker = function(parent, colors, options) {
+  var ColorPicker = function (parent, colors, options) {
     var self = this;
     var context = _toolbar.externalWindow ? _toolbar.externalWindow.document : document;
 
-    this.getElm = function(el) {
+    this.getElm = function (el) {
       if (typeof el === 'string') {
         return context.querySelector(el);
       }
       return el;
     };
 
-    this.render = function() {
+    this.render = function () {
       var self = this,
         html = '';
 
-      self.colors.forEach(function(c) {
+      self.colors.forEach(function (c) {
         html += self.options.template.replace(/\{color\}/g, c);
       });
 
       self.elm.innerHTML = html;
     };
 
-    this.close = function() {
+    this.close = function () {
       this.elm.style.display = 'none';
     };
 
-    this.open = function() {
+    this.open = function () {
       this.elm.style.display = this.options.style.display;
     };
 
-    this.colorChosen = function(cb) {
+    this.colorChosen = function (cb) {
       this.cbs.push(cb);
     };
 
-    this.set = function(c, p) {
+    this.set = function (c, p) {
       var self = this;
       self.color = c;
       if (p === false) {
         return;
       }
-      self.cbs.forEach(function(cb) {
+      self.cbs.forEach(function (cb) {
         cb.call(self, c);
       });
     };
@@ -1246,7 +1220,7 @@ OTSolution.Annotations.Toolbar = function(options) {
     self.render();
 
     // Click on colors
-    self.elm.addEventListener('click', function(ev) {
+    self.elm.addEventListener('click', function (ev) {
       var color = ev.target.getAttribute('data-col');
       if (!color) {
         return;
@@ -1261,7 +1235,7 @@ OTSolution.Annotations.Toolbar = function(options) {
   };
 
   var panel;
-  this.createPanel = function(externalWindow) {
+  this.createPanel = function (externalWindow) {
     if (_toolbar.parent) {
       var context = externalWindow ? externalWindow.document : document;
       panel = context.createElement('div');
@@ -1301,11 +1275,11 @@ OTSolution.Annotations.Toolbar = function(options) {
             externalWindow: _toolbar.externalWindow
           });
 
-          pk.colorChosen(function(color) {
+          pk.colorChosen(function (color) {
             var colorGroup = context.getElementById('OT_colors');
             colorGroup.style.backgroundColor = color;
 
-            canvases.forEach(function(canvas) {
+            canvases.forEach(function (canvas) {
               canvas.changeColor(color);
             });
           });
@@ -1320,10 +1294,10 @@ OTSolution.Annotations.Toolbar = function(options) {
             colorChoices[j].style.cursor = 'pointer';
             colorChoices[j].style.borderRadius = '100%';
             colorChoices[j].style.opacity = 0.7;
-            colorChoices[j].onmouseover = function() {
+            colorChoices[j].onmouseover = function () {
               this.style.opacity = 1;
             };
-            colorChoices[j].onmouseout = function() {
+            colorChoices[j].onmouseout = function () {
               this.style.opacity = 0.7;
             };
           }
@@ -1392,14 +1366,14 @@ OTSolution.Annotations.Toolbar = function(options) {
 
       panel.innerHTML = toolbarItems.join('');
 
-      panel.onclick = function(ev) {
+      panel.onclick = function (ev) {
         var group = ev.target.getAttribute('data-type') === 'group';
         var itemName = ev.target.getAttribute('data-col');
         var id = ev.target.getAttribute('id');
 
         // Close the submenu if we are clicking on an item and not a group button
         if (!group) {
-          self.items.forEach(function(item) {
+          self.items.forEach(function (item) {
             if (item.title !== 'Clear' && item.title === itemName) {
               if (self.selectedItem) {
                 var lastBtn = context.getElementById(self.selectedItem.id);
@@ -1423,7 +1397,7 @@ OTSolution.Annotations.Toolbar = function(options) {
 
               attachDefaultAction(item);
 
-              canvases.forEach(function(canvas) {
+              canvases.forEach(function (canvas) {
                 canvas.selectItem(self.selectedItem);
               });
 
@@ -1432,7 +1406,7 @@ OTSolution.Annotations.Toolbar = function(options) {
           });
           subPanel.style.display = 'none';
         } else {
-          self.items.forEach(function(item) {
+          self.items.forEach(function (item) {
             if (item.title === itemName) {
               self.selectedGroup = item;
 
@@ -1450,7 +1424,7 @@ OTSolution.Annotations.Toolbar = function(options) {
 
                   if (item.id === 'OT_line_width') {
                     // We want to dynamically create icons for the list of possible line widths
-                    item.items.forEach(function(subItem) {
+                    item.items.forEach(function (subItem) {
                       // INFO Using a div here - not input to create an inner div representing the line width - better option?
                       var itemButton = context.createElement('div');
                       itemButton.setAttribute('data-col', subItem.title);
@@ -1481,7 +1455,7 @@ OTSolution.Annotations.Toolbar = function(options) {
                       submenuItems.push(itemButton.outerHTML);
                     });
                   } else {
-                    item.items.forEach(function(subItem) {
+                    item.items.forEach(function (subItem) {
                       var itemButton = context.createElement('input');
                       itemButton.setAttribute('type', 'button');
                       itemButton.setAttribute('data-col', subItem.title);
@@ -1520,19 +1494,19 @@ OTSolution.Annotations.Toolbar = function(options) {
           });
         }
 
-        self.cbs.forEach(function(cb) {
+        self.cbs.forEach(function (cb) {
           cb.call(self, id);
         });
       };
 
-      subPanel.onclick = function(ev) {
+      subPanel.onclick = function (ev) {
         var group = ev.target.getAttribute('data-type') === 'group';
         var itemName = ev.target.getAttribute('data-col');
         var id = ev.target.getAttribute('id');
         subPanel.style.display = 'none';
 
         if (!group) {
-          self.selectedGroup.items.forEach(function(item) {
+          self.selectedGroup.items.forEach(function (item) {
             if (item.id !== 'OT_clear' && item.id === id) {
               if (self.selectedItem) {
                 var lastBtn = document.getElementById(self.selectedItem.id);
@@ -1556,7 +1530,7 @@ OTSolution.Annotations.Toolbar = function(options) {
 
               attachDefaultAction(item);
 
-              canvases.forEach(function(canvas) {
+              canvases.forEach(function (canvas) {
                 canvas.selectItem(self.selectedItem);
               });
 
@@ -1565,13 +1539,13 @@ OTSolution.Annotations.Toolbar = function(options) {
           });
         }
 
-        self.cbs.forEach(function(cb) {
+        self.cbs.forEach(function (cb) {
           cb.call(self, id);
         });
       };
 
-      context.getElementById('OT_clear').onclick = function() {
-        canvases.forEach(function(canvas) {
+      context.getElementById('OT_clear').onclick = function () {
+        canvases.forEach(function (canvas) {
           canvas.clear();
         });
       };
@@ -1580,7 +1554,7 @@ OTSolution.Annotations.Toolbar = function(options) {
 
   !this.externalWindow && this.createPanel();
 
-  var attachDefaultAction = function(item) {
+  var attachDefaultAction = function (item) {
     if (!item.points) {
       // Attach default actions
       if (item.id === 'OT_line') {
@@ -1629,7 +1603,7 @@ OTSolution.Annotations.Toolbar = function(options) {
    * Callback function for toolbar menu item click events.
    * @param cb The callback function used to handle the click event.
    */
-  this.itemClicked = function(cb) {
+  this.itemClicked = function (cb) {
     this.cbs.push(cb);
   };
 
@@ -1637,7 +1611,7 @@ OTSolution.Annotations.Toolbar = function(options) {
    * Links an annotation canvas to the toolbar so that menu actions can be handled on it.
    * @param canvas The annotation canvas to be linked to the toolbar.
    */
-  this.addCanvas = function(canvas) {
+  this.addCanvas = function (canvas) {
     var self = this;
     canvas.link(self.session);
     canvas.colors(self.colors);
@@ -1649,8 +1623,8 @@ OTSolution.Annotations.Toolbar = function(options) {
    * unlinks it from the toolbar.
    * @param connectionId The stream's connection ID for the video feed whose canvas should be removed.
    */
-  this.removeCanvas = function(connectionId) {
-    canvases.forEach(function(annotationView) {
+  this.removeCanvas = function (connectionId) {
+    canvases.forEach(function (annotationView) {
       var canvas = annotationView.canvas();
       if (annotationView.videoFeed.stream.connection.connectionId === connectionId) {
         if (canvas.parentNode) {
@@ -1659,7 +1633,7 @@ OTSolution.Annotations.Toolbar = function(options) {
       }
     });
 
-    canvases = canvases.filter(function(annotationView) {
+    canvases = canvases.filter(function (annotationView) {
       return annotationView.videoFeed.stream.connection.connectionId !== connectionId;
     });
   };
@@ -1667,7 +1641,7 @@ OTSolution.Annotations.Toolbar = function(options) {
   /**
    * Removes the toolbar and all associated annotation canvases from their parent containers.
    */
-  this.remove = function() {
+  this.remove = function () {
 
     try {
       panel.parentNode.removeChild(panel);
@@ -1675,7 +1649,7 @@ OTSolution.Annotations.Toolbar = function(options) {
       console.log(e);
     }
 
-    canvases.forEach(function(annotationView) {
+    canvases.forEach(function (annotationView) {
       var canvas = annotationView.canvas();
       if (canvas.parentNode) {
         canvas.parentNode.removeChild(canvas);
@@ -1686,33 +1660,3 @@ OTSolution.Annotations.Toolbar = function(options) {
   };
 };
 
-//--------------------------------------
-//  ANALYTICS
-//--------------------------------------
-
-OTSolution.Annotations.Analytics = function() {};
-
-OTSolution.Annotations.Analytics.logEvent = function(data) {
-  var payload = data.payload || '';
-
-  if (typeof(payload) === 'object') {
-    payload = JSON.stringify(payload);
-  }
-
-  data.payload = payload;
-
-  var url_encoded_data = JSON.stringify(data);
-
-  var http = new XMLHttpRequest();
-  http.open('POST', 'https://hlg.tokbox.com/prod/logging/ClientEvent', true);
-  http.setRequestHeader('Content-type', 'application/json');
-  http.send(url_encoded_data);
-};
-
-OTSolution.Annotations.Analytics.get_uuid = function() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0,
-      v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-};
