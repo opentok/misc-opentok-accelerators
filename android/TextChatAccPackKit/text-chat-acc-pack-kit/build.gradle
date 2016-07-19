@@ -11,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0.0"
         project.archivesBaseName = "opentok-text-chat-acc-pack"
-        project.version = "1.0.1"
+        project.version = "1.0.0"
     }
     buildTypes {
         release {
