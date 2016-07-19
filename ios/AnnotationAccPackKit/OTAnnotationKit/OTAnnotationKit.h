@@ -4,10 +4,10 @@
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
+#import <OTAnnotationKit/OTAnnotator.h>
 #import <OTAnnotationKit/OTAnnotatable.h>
 #import <OTAnnotationKit/OTAnnotationDataManager.h>
 #import <OTAnnotationKit/OTAnnotationPath.h>
-#import <OTAnnotationKit/OTAnnotationPoint.h>
 #import <OTAnnotationKit/OTAnnotationTextView.h>
 #import <OTAnnotationKit/OTAnnotationView.h>
 #import <OTAnnotationKit/OTAnnotationScrollView.h>

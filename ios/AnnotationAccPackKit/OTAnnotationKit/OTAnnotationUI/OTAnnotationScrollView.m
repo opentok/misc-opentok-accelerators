@@ -21,6 +21,8 @@
 #import "Constants.h"
 
 @interface OTAnnotationScrollView() <UIScrollViewDelegate>
+@property (nonatomic) OTAnnotationView *annotationView;
+@property (nonatomic) OTAnnotationDataManager *annotationDataManager;
 @property (nonatomic) OTAnnotationToolbarView *toolbarView;
 
 @property (nonatomic) NSLayoutConstraint *annotationScrollViewWidth;
@@ -28,6 +30,10 @@
 @end
 
 @implementation OTAnnotationScrollView
+
+- (OTAnnotationDataManager *)annotationDataManager {
+    return _annotationView.annotationDataManager;
+}
 
 - (void)setAnnotating:(BOOL)annotating {
     _annotating = annotating;
@@ -73,12 +79,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-        [OTKLogger analyticsWithClientVersion:KLogClientVersion
-                                       source:[[NSBundle mainBundle] bundleIdentifier]
-                                  componentId:kLogComponentIdentifier
-                                         guid:[[NSUUID UUID] UUIDString]];
-        
-        [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
         
         // scroll view
         _zoomEnabled = YES;

@@ -7,10 +7,6 @@
 //
 
 #import "OTAnnotationView.h"
-#import "OTAnnotationDataManager.h"
-
-#import "OTAnnotationPoint.h"
-#import "OTAnnotationPoint_Private.h"
 
 #import <OTKAnalytics/OTKLogger.h>
 
@@ -27,7 +23,14 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-        // init
+        
+        [OTKLogger analyticsWithClientVersion:KLogClientVersion
+                                       source:[[NSBundle mainBundle] bundleIdentifier]
+                                  componentId:kLogComponentIdentifier
+                                         guid:[[NSUUID UUID] UUIDString]];
+        
+        [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
+        
         _annotationDataManager = [[OTAnnotationDataManager alloc] init];
         [self setBackgroundColor:[UIColor clearColor]];
     }
@@ -43,13 +46,14 @@
         _currentEditingTextView = (OTAnnotationTextView *)annotatable;
     }
     else {
-        _currentDrawPath = nil;
         
-        if (_currentEditingTextView) {
-            [_currentEditingTextView commit];
-        }
+        [self commitCurrentAnnotatable];
+        _currentAnnotatable = nil;
+        _currentDrawPath = nil;
         _currentEditingTextView = nil;
     }
+    
+    _currentAnnotatable = annotatable;
 }
 
 - (void)addAnnotatable:(id<OTAnnotatable>)annotatable {
@@ -92,6 +96,13 @@
     [self setNeedsDisplay];
 }
 
+- (void)commitCurrentAnnotatable {
+    
+    if ([_currentAnnotatable respondsToSelector:@selector(commit)]) {
+        [_currentAnnotatable commit];
+    }
+}
+
 - (void)drawRect:(CGRect)rect {
     [self.annotationDataManager.annotatable enumerateObjectsUsingBlock:^(id<OTAnnotatable> annotatable, NSUInteger idx, BOOL *stop) {
         
@@ -109,8 +120,9 @@
     if (_currentDrawPath) {
         [self.annotationDataManager addAnnotatable:_currentDrawPath];
         UITouch *touch = [touches anyObject];
-        OTAnnotationPoint *touchPoint = [[OTAnnotationPoint alloc] initWithTouchPoint:touch];
-        [_currentDrawPath drawAtPoint:touchPoint];
+        CGPoint touchPoint = [touch locationInView:touch.view];
+        OTAnnotationPoint *annotatinPoint = [OTAnnotationPoint pointWithX:touchPoint.x andY:touchPoint.y];
+        [_currentDrawPath drawAtPoint:annotatinPoint];
         [OTKLogger logEventAction:KLogActionStartDrawing variation:KLogVariationSuccess completion:nil];
     }
 }
@@ -119,8 +131,9 @@
     
     if (_currentDrawPath) {
         UITouch *touch = [touches anyObject];
-        OTAnnotationPoint *touchPoint = [[OTAnnotationPoint alloc] initWithTouchPoint:touch];
-        [_currentDrawPath drawToPoint:touchPoint];
+        CGPoint touchPoint = [touch locationInView:touch.view];
+        OTAnnotationPoint *annotatinPoint = [OTAnnotationPoint pointWithX:touchPoint.x andY:touchPoint.y];
+        [_currentDrawPath drawToPoint:annotatinPoint];
         [self setNeedsDisplay];
     }
 }
@@ -133,4 +146,3 @@
 }
 
 @end
-

@@ -1,8 +1,6 @@
 //
 //  AnnotationManager.h
-//  ScreenShareSample
 //
-//  Created by Xi Huang on 5/18/16.
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
@@ -13,13 +11,13 @@
 
 @property (readonly, nonatomic) NSArray<id<OTAnnotatable>> *annotatable;
 
+@property (readonly, nonatomic) id<OTAnnotatable> peakOfAnnotatable;
+
 - (instancetype)init;
 
 - (void)addAnnotatable:(id<OTAnnotatable>)annotatable;
 
 - (id<OTAnnotatable>)pop;
-
-- (id<OTAnnotatable>)peakOfAnnotatable;
 
 - (BOOL)containsAnnotatable:(id<OTAnnotatable>)annotatable;
 

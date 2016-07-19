@@ -115,6 +115,8 @@
     self.dotborder.strokeColor = [UIColor clearColor].CGColor;
     [self setUserInteractionEnabled:NO];
     [OTKLogger logEventAction:KLogActionText variation:KLogVariationSuccess completion:nil];
+    
+    // TODO: draw to the annotationView rather than adding to it directly
 }
 
 - (void)handlePanGesture:(UIGestureRecognizer *)recognizer {

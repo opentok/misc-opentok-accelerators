@@ -1,13 +1,23 @@
 //
 //  ScreenSharePath.h
-//  ScreenShareSample
 //
-//  Created by Xi Huang on 4/26/16.
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
-#import "OTAnnotatable.h"
-#import "OTAnnotationPoint.h"
+#import <OTAnnotationKit/OTAnnotatable.h>
+
+@interface OTAnnotationPoint : NSObject
+
+@property (readonly, nonatomic) CGFloat x;
+
+@property (readonly, nonatomic) CGFloat y;
+
+@property (readonly, nonatomic) CGPoint cgPoint;
+
++ (instancetype)pointWithX:(CGFloat)x
+                      andY:(CGFloat)y;
+
+@end
 
 @interface OTAnnotationPath : UIBezierPath <OTAnnotatable>
 
@@ -24,4 +34,5 @@
 + (instancetype)pathWithPoints:(NSArray<OTAnnotationPoint *> *)points
                    strokeColor:(UIColor *)strokeColor;
 - (void)drawWholePath;
+
 @end

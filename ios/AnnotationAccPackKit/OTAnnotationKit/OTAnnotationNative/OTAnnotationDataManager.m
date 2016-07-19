@@ -10,6 +10,7 @@
 
 @interface OTAnnotationDataManager()
 @property (nonatomic) NSMutableArray<id<OTAnnotatable>> *mutableAnnotatable;
+@property (nonatomic) id<OTAnnotatable> peakOfAnnotatable;
 @end
 
 @implementation OTAnnotationDataManager
@@ -27,14 +28,16 @@
 
 - (void)addAnnotatable:(id<OTAnnotatable>)annotatable {
     if (!annotatable || ![annotatable conformsToProtocol:@protocol(OTAnnotatable)]) return;
-    [self.mutableAnnotatable addObject:annotatable];
+    [_mutableAnnotatable addObject:annotatable];
+    _peakOfAnnotatable = annotatable;
     [self annotatable];
 }
 
 - (id<OTAnnotatable>)pop {
     if (self.annotatable.count == 0) return nil;
-    id<OTAnnotatable> lastObject = [self.mutableAnnotatable lastObject];
-    [self.mutableAnnotatable removeLastObject];
+    id<OTAnnotatable> lastObject = [_mutableAnnotatable lastObject];
+    [_mutableAnnotatable removeLastObject];
+    _peakOfAnnotatable = [_mutableAnnotatable lastObject];
     [self annotatable];
     return lastObject;
 }
@@ -54,7 +57,7 @@
 }
 
 - (void)undoAll {
-    [self.mutableAnnotatable removeAllObjects];
+    [_mutableAnnotatable removeAllObjects];
     [self annotatable];
 }
 

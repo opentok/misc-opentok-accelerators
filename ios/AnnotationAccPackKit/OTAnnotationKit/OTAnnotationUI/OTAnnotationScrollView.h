@@ -4,15 +4,20 @@
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <OTAnnotationKit/OTAnnotationView.h>
 #import <OTAnnotationKit/OTAnnotationTextView.h>
 #import <OTAnnotationKit/OTAnnotationToolbarView.h>
+#import <OTAnnotationKit/OTAnnotationDataManager.h>
 
 @interface OTAnnotationScrollView : UIView
 
 @property (nonatomic, getter = isAnnotating) BOOL annotating;
 
 @property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
+
+@property (readonly, nonatomic) OTAnnotationView *annotationView;
+
+@property (readonly, nonatomic) OTAnnotationDataManager *annotationDataManager;
 
 - (instancetype)init;
 
@@ -23,7 +28,7 @@
 @property (readonly, nonatomic) OTAnnotationToolbarView *toolbarView;
 - (void)initializeToolbarView;
 
-#pragma mark - annotation
+#pragma mark - Annotation
 - (void)startDrawing;
 
 - (void)drawWithAnnotatable:(id<OTAnnotatable>)annotatable;
