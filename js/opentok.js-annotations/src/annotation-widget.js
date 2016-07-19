@@ -336,22 +336,33 @@ OTSolution.Annotations = function(options) {
             break;
           case 'mouseup':
           case 'touchend':
+            client.dragging = false;
+            update = {
+              id: self.videoFeed.stream.connection.connectionId,
+              fromId: self.session.connection.connectionId,
+              fromX: client.lastX,
+              fromY: client.lastY,
+              toX: x,
+              toY: y,
+              color: resizeEvent ? event.userColor : self.userColor,
+              lineWidth: self.lineWidth,
+              videoWidth: self.videoFeed.videoElement().clientWidth,
+              videoHeight: self.videoFeed.videoElement().clientHeight,
+              canvasWidth: canvas.width,
+              canvasHeight: canvas.height,
+              mirrored: mirrored,
+              startPoint: self.isStartPoint, // Each segment is treated as a new set of points
+              endPoint: false,
+              selectedItem: selectedItem
+            };
+            draw(update, true);
+            client.lastX = x;
+            client.lastY = y;
+            !resizeEvent && sendUpdate(update);
+            self.isStartPoint = false;
+            break;
           case 'mouseout':
             client.dragging = false;
-
-            OTSolution.Annotations.Analytics.logEvent({
-              widgetVersion: self.widgetVersion,
-              guid: OTSolution.Annotations.Analytics.get_uuid(),
-              source: window.location.href,
-              logVersion: '1',
-              clientSystemTime: new Date().getTime(),
-              action: 'an_draw',
-              variation: 'an_pen',
-              sessionId: self.session.sessionId,
-              partnerId: self.videoFeed.session.apiKey,
-              connectionId: self.session.connection.connectionId,
-              selectedItem: selectedItem
-            });
         }
       } else if (selectedItem.id === 'OT_text') {
 
