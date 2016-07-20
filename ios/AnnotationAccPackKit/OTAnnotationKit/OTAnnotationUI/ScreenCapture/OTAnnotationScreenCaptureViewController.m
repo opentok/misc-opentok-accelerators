@@ -6,6 +6,7 @@
 
 #import "OTAnnotationScreenCaptureViewController.h"
 #import "OTAnnotationScreenCaptureView.h"
+#import "OTAnnotationKitBundle.h"
 
 @interface OTAnnotationScreenCaptureViewController ()
 @property (nonatomic) OTAnnotationScreenCaptureModel *captureModel;
@@ -30,7 +31,7 @@
 
 - (instancetype)initWithSharedImage:(UIImage *)sharedImage {
     
-    if (self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"OTAnnotationKitBundle" withExtension:@"bundle"]]]) {
+    if (self = [super initWithNibName:NSStringFromClass([self class]) bundle:[OTAnnotationKitBundle annotationKitBundle]]) {
     
         _captureModel = [[OTAnnotationScreenCaptureModel alloc] initWithSharedImage:sharedImage sharedDate:[NSDate date]];
         

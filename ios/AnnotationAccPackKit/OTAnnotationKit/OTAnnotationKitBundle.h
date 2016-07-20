@@ -8,4 +8,6 @@
 
 @interface OTAnnotationKitBundle : NSObject
 
++ (NSBundle *)annotationKitBundle;
+
 @end

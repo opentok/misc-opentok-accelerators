@@ -15,6 +15,7 @@
 @property (nonatomic) CGPoint referenceCenter;
 @property (nonatomic) CGAffineTransform referenceRotateTransform;
 @property (nonatomic) CGAffineTransform currentRotateTransform;
+@property (nonatomic) UIPanGestureRecognizer *panRecognizer;
 @property (nonatomic) UIPinchGestureRecognizer *activePinchRecognizer;
 @property (nonatomic) UIRotationGestureRecognizer *activeRotationRecognizer;
 @property (nonatomic) CAShapeLayer *dotborder;
@@ -24,6 +25,43 @@
 @end
 
 @implementation OTAnnotationTextView
+
+- (void)setDraggable:(BOOL)draggable {
+    _draggable = draggable;
+    if (_draggable) {
+        _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                 action:@selector(handlePanGesture:)];
+        [self addGestureRecognizer:_panRecognizer];
+    }
+    else {
+        [self removeGestureRecognizer:_panRecognizer];
+        _panRecognizer = nil;
+    }
+}
+
+- (void)setResizable:(BOOL)resizable {
+    _resizable = resizable;
+    if (_resizable) {
+        _activePinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
+        [self addGestureRecognizer:_activePinchRecognizer];
+    }
+    else {
+        [self removeGestureRecognizer:_activePinchRecognizer];
+        _activePinchRecognizer = nil;
+    }
+}
+
+- (void)setRotatable:(BOOL)rotatable {
+    _rotatable = rotatable;
+    if (_rotatable) {
+        _activeRotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
+        [self addGestureRecognizer:_activeRotationRecognizer];
+    }
+    else {
+        [self removeGestureRecognizer:_activeRotationRecognizer];
+        _activeRotationRecognizer = nil;
+    }
+}
 
 + (instancetype)defaultWithTextColor:(UIColor *)textColor {
     return [[OTAnnotationTextView alloc] initWithText:nil textColor:textColor fontSize:0.0f];
@@ -60,14 +98,20 @@
         [self setDelegate:self];
         [self setTextColor:textColor];
         [self setScrollEnabled:NO];
-        [self addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                           action:@selector(handlePanGesture:)]];
         
+        self.draggable = YES;
+        _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                 action:@selector(handlePanGesture:)];
+        [self addGestureRecognizer:_panRecognizer];
+        
+        self.resizable = YES;
         _activePinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
         [self addGestureRecognizer:_activePinchRecognizer];
         
+        self.rotatable = YES;
         _activeRotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
         [self addGestureRecognizer:_activeRotationRecognizer];
+    
         _referenceRotateTransform = CGAffineTransformIdentity;
         _currentRotateTransform = CGAffineTransformIdentity;
         
@@ -114,6 +158,9 @@
 - (void)commit {
     self.dotborder.strokeColor = [UIColor clearColor].CGColor;
     [self setUserInteractionEnabled:NO];
+    self.resizable = NO;
+    self.draggable = NO;
+    self.rotatable = NO;
     [OTKLogger logEventAction:KLogActionText variation:KLogVariationSuccess completion:nil];
     
     // TODO: draw to the annotationView rather than adding to it directly

@@ -9,8 +9,10 @@
 #import "OTAnnotationToolbarView+Animation.h"
 #import "OTAnnotationColorPickerView.h"
 #import "OTAnnotationToolbarButton.h"
+#import "OTAnnotationKitBundle.h"
 
 #import <LHToolbar/LHToolbar.h>
+#import <OTKAnalytics/OTKLogger.h>
 
 #import "OTAnnotationScreenCaptureViewController.h"
 #import "OTAnnotationEditTextViewController.h"
@@ -100,14 +102,14 @@
 
 - (void)didMoveToSuperview {
     if (!self.superview) {
-        self.annotationScrollView.annotating = NO;
+        self.annotationScrollView.annotatable = NO;
         [self.colorPickerView removeFromSuperview];
     }
 }
 
 - (void)configureToolbarButtons {
 
-    NSBundle *frameworkBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"OTAnnotationKitBundle" withExtension:@"bundle"]];
+    NSBundle *frameworkBundle = [OTAnnotationKitBundle annotationKitBundle];
     
     _annotateButton = [[OTAnnotationToolbarButton alloc] init];
     [_annotateButton setImage:[UIImage imageNamed:@"annotate" inBundle:frameworkBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
@@ -141,22 +143,21 @@
 - (void)toolbarButtonPressed:(UIButton *)sender {
     
     if (sender == self.doneButton) {
-        self.annotationScrollView.annotating = NO;
+        self.annotationScrollView.annotatable = NO;
         [self dismissColorPickerView];
         [self.toolbar removeContentViewAtIndex:0];
         [self moveSelectionShadowViewTo:nil];
         [self resetToolbarButtons];
     }
     else if (sender == self.annotateButton) {
-        self.annotationScrollView.annotating = YES;
+        self.annotationScrollView.annotatable = YES;
         [self dismissColorPickerView];
         [self.toolbar insertContentView:self.doneButton atIndex:0];
-        [self.annotationScrollView startDrawing];
-        [self.annotationScrollView setAnnotationColor:self.colorPickerView.selectedColor];
+        [self.annotationScrollView.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:self.colorPickerView.selectedColor]];
         [self disableButtons:@[self.annotateButton ,self.textButton, self.eraseButton]];
     }
     else if (sender == self.textButton) {
-        self.annotationScrollView.annotating = YES;
+        self.annotationScrollView.annotatable = YES;
         [self dismissColorPickerView];
         [self.toolbar insertContentView:self.doneButton atIndex:0];
         OTAnnotationEditTextViewController *editTextViewController = [OTAnnotationEditTextViewController defaultWithTextColor:self.colorButton.backgroundColor];
@@ -169,10 +170,10 @@
         [self showColorPickerView];
     }
     else if (sender == self.eraseButton) {
-        [self.annotationScrollView erase];
+        [self.annotationScrollView.annotationView undoAnnotatable];
     }
     else if (sender == self.screenshotButton) {
-        self.captureViewController.sharedImage = [self.annotationScrollView captureScreen];
+        self.captureViewController.sharedImage = [self.annotationScrollView.annotationView captureScreen];
         UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
         [topViewController presentViewController:self.captureViewController animated:YES completion:nil];
     }
@@ -221,8 +222,11 @@
    didSelectColorButton:(OTAnnotationColorPickerViewButton *)button
           selectedColor:(UIColor *)selectedColor {
     
+    [OTKLogger logEventAction:KLogActionPickerColor variation:KLogVariationSuccess completion:nil];
     [self.colorButton setBackgroundColor:selectedColor];
-    [self.annotationScrollView setAnnotationColor:selectedColor];
+    if (self.annotationScrollView.isAnnotatable) {
+        [self.annotationScrollView.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:self.colorPickerView.selectedColor]];
+    }
 }
 
 @end

@@ -8,6 +8,9 @@
 
 @interface OTFullScreenAnnotationViewController : UIViewController
 
+/**
+ *  Initializes the full screen annotation view controller
+ */
 - (instancetype)init;
 
 @end

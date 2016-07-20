@@ -10,7 +10,7 @@
 #import <OTAnnotationKit/OTAnnotationKit.h>
 
 @interface AnnotationManualViewController ()
-@property (nonatomic) OTAnnotationScrollView *screenShareView;
+@property (nonatomic) OTAnnotationScrollView *annotationScrollView;
 @end
 
 @implementation AnnotationManualViewController
@@ -22,12 +22,12 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     
-    self.screenShareView = [[OTAnnotationScrollView alloc] initWithFrame:CGRectMake(0,
+    self.annotationScrollView = [[OTAnnotationScrollView alloc] initWithFrame:CGRectMake(0,
                                                                                     64,
                                                                                     CGRectGetWidth([UIScreen mainScreen].bounds),
                                                                                     CGRectGetHeight([UIScreen mainScreen].bounds) - 64)];
-    [self.screenShareView addContentView:imageView];
-    [self.view addSubview:self.screenShareView];
+    [self.annotationScrollView addContentView:imageView];
+    [self.view addSubview:self.annotationScrollView];
     
     
     OTAnnotationPoint *p1 = [OTAnnotationPoint pointWithX:119 andY:16];
@@ -36,7 +36,7 @@
     OTAnnotationPoint *p4 = [OTAnnotationPoint pointWithX:119 andY:16];
     OTAnnotationPoint *p5 = [OTAnnotationPoint pointWithX:144 andY:28];
     OTAnnotationPath *path = [OTAnnotationPath pathWithPoints:@[p1, p2, p3, p4, p5] strokeColor:nil];
-    [self.screenShareView drawWithAnnotatable:path];
+    [self.annotationScrollView.annotationView addAnnotatable:path];
     
     
     
@@ -46,7 +46,7 @@
     OTAnnotationPoint *p9 = [OTAnnotationPoint pointWithX:160 andY:26];
     OTAnnotationPoint *p10 = [OTAnnotationPoint pointWithX:160 andY:30];
     OTAnnotationPath *path1 = [OTAnnotationPath pathWithPoints:@[p6, p7, p8, p9, p10] strokeColor:[UIColor redColor]];
-    [self.screenShareView drawWithAnnotatable:path1];
+    [self.annotationScrollView.annotationView addAnnotatable:path1];
 }
 
 @end

@@ -6,6 +6,7 @@
 
 #import "OTAnnotationEditTextViewController.h"
 #import "OTAnnotationTextView.h"
+#import "OTAnnotationKitBundle.h"
 
 @interface OTAnnotationEditTextViewController() <UIPickerViewDataSource, UIPickerViewDelegate> {
     BOOL shouldStatusShowAfterDismissal;
@@ -32,7 +33,7 @@
                     fontSize:(CGFloat)fontSize {
     
     if (self = [super initWithNibName:NSStringFromClass([self class])
-                               bundle:[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"OTAnnotationKitBundle" withExtension:@"bundle"]]]) {
+                               bundle:[OTAnnotationKitBundle annotationKitBundle]]) {
 
         _fontSizeArray = @[@24, @30, @36, @42, @48, @54, @60, @66, @72];
         
@@ -49,7 +50,6 @@
         _annotationTextView  = [[OTAnnotationTextView alloc] initWithText:text textColor:textColor fontSize:fontSize];
         [_annotationTextView setUserInteractionEnabled:NO];
         [self.view addSubview:_annotationTextView];
-        
         
         NSUInteger selectedRow = [self.fontSizeArray indexOfObject:@(fontSize)];
         if (selectedRow != NSNotFound) {

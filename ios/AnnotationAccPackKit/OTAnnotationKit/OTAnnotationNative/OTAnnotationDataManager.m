@@ -56,7 +56,7 @@
     [self pop];
 }
 
-- (void)undoAll {
+- (void)popAll {
     [_mutableAnnotatable removeAllObjects];
     [self annotatable];
 }

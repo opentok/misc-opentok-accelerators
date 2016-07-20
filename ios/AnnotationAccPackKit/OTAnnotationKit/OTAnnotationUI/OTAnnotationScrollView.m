@@ -22,7 +22,6 @@
 
 @interface OTAnnotationScrollView() <UIScrollViewDelegate>
 @property (nonatomic) OTAnnotationView *annotationView;
-@property (nonatomic) OTAnnotationDataManager *annotationDataManager;
 @property (nonatomic) OTAnnotationToolbarView *toolbarView;
 
 @property (nonatomic) NSLayoutConstraint *annotationScrollViewWidth;
@@ -30,23 +29,18 @@
 @end
 
 @implementation OTAnnotationScrollView
-
-- (OTAnnotationDataManager *)annotationDataManager {
-    return _annotationView.annotationDataManager;
-}
-
-- (void)setAnnotating:(BOOL)annotating {
-    _annotating = annotating;
+- (void)setAnnotatable:(BOOL)annotatable {
+    _annotatable = annotatable;
     
     if (self.scrollView.contentSize.width > CGRectGetWidth(self.frame) || self.scrollView.contentSize.height > CGRectGetHeight(self.frame)) {
-        self.scrollView.scrollEnabled = !_annotating;
+        self.scrollView.scrollEnabled = !_annotatable;
     }
     
     if (self.zoomEnabled) {
-        self.scrollView.pinchGestureRecognizer.enabled = !annotating;
+        self.scrollView.pinchGestureRecognizer.enabled = !_annotatable;
     }
     
-    if (!_annotating) {
+    if (!_annotatable) {
         [self.annotationView setCurrentAnnotatable:nil];
     }
 }
@@ -65,15 +59,6 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.scrollView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-}
-
-- (void)setAnnotationColor:(UIColor *)annotationColor {
-    [self.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:annotationColor]];
-    [OTKLogger logEventAction:KLogActionPickerColor variation:KLogVariationSuccess completion:nil];
-}
-
-- (instancetype)init {
-    return [self initWithFrame:CGRectZero];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -188,7 +173,7 @@
 }
 
 - (void)addSubview:(UIView *)view {
-    if ([view conformsToProtocol:@protocol(OTAnnotatable)] && !self.annotating) return;
+    if ([view conformsToProtocol:@protocol(OTAnnotatable)] && !self.annotatable) return;
     [super addSubview:view];
 }
 
@@ -210,14 +195,6 @@
     [OTKLogger logEventAction:KLogActionUseToolbar variation:KLogVariationSuccess completion:nil];
 }
 
-- (void)startDrawing {
-    [self.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:self.annotationColor]];
-}
-
-- (void)drawWithAnnotatable:(id<OTAnnotatable>)annotatable {
-    [self.annotationView addAnnotatable:annotatable];
-}
-
 - (void)addTextAnnotation:(OTAnnotationTextView *)annotationTextView {
     [self.scrollView setZoomScale:1.0 animated:NO];   // this will need to reset in case that added text view is out of bound
     annotationTextView.frame = CGRectMake(self.scrollView.contentOffset.x + LeadingPaddingOfAnnotationTextView,
@@ -226,29 +203,6 @@
                                           CGRectGetHeight(annotationTextView.bounds));
     [self.annotationView addAnnotatable:annotationTextView];
     [self.annotationView setCurrentAnnotatable:annotationTextView];
-}
-
-- (UIImage *)captureScreen {
-    [OTKLogger logEventAction:KLogActionScreenCapture variation:KLogVariationSuccess completion:nil];
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    UIGraphicsBeginImageContext(screenRect.size);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextFillRect(ctx, screenRect);
-    [self.window.layer renderInContext:ctx];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
-
-- (void)erase {
-    [self.annotationView undoAnnotatable];
-    [OTKLogger logEventAction:KLogActionErase variation:KLogVariationSuccess completion:nil];
-}
-
-- (void)eraseAll {
-    [self.annotationView removeAllAnnotatables];
-    [OTKLogger logEventAction:KLogActionErase variation:KLogVariationSuccess completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate

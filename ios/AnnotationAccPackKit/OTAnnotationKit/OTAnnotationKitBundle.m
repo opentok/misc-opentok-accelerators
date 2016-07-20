@@ -11,7 +11,7 @@
 
 @implementation OTAnnotationKitBundle
 
-+ (NSBundle *)textChatKitBundle {
++ (NSBundle *)annotationKitBundle {
     
     NSURL *annotationtKitBundleURL = [[NSBundle mainBundle] URLForResource:@"OTAnnotationKitBundle" withExtension:@"bundle"];
     if (annotationtKitBundleURL){

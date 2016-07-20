@@ -76,18 +76,18 @@
     [self addLineToPoint:[lastPoint cgPoint]];
 }
 
-- (void)drawAtPoint:(OTAnnotationPoint *)touchPoint {
+- (void)startAtPoint:(OTAnnotationPoint *)point {
     
-    CGPoint point = [touchPoint cgPoint];
-    [self moveToPoint:point];
-    [self addPoint:touchPoint];
+    CGPoint cgPoint = [point cgPoint];
+    [self moveToPoint:cgPoint];
+    [self addPoint:point];
 }
 
-- (void)drawToPoint:(OTAnnotationPoint *)touchPoint {
+- (void)drawToPoint:(OTAnnotationPoint *)point {
     
-    CGPoint p = [touchPoint cgPoint];
-    [self addLineToPoint:p];
-    [self addPoint:touchPoint];
+    CGPoint cgPoint = [point cgPoint];
+    [self addLineToPoint:cgPoint];
+    [self addPoint:point];
 }
 
 #pragma mark - private method

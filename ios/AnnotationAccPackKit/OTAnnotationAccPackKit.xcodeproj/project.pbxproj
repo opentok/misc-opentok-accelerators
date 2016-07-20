@@ -217,17 +217,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13DC9607CC586E28ED263D7B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4C3934A4E8A030B52F7CF4EA /* Pods-OTAnnotationKit.debug.xcconfig */,
-				9B1A8A67C35A82E8228E61DE /* Pods-OTAnnotationKit.release.xcconfig */,
-				A44C2ECC29331993A3CEFCD7 /* Pods-OTAnnotationKitTests.debug.xcconfig */,
-				F85034F657541E07FF00E3DC /* Pods-OTAnnotationKitTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		A0AB57651D2C392D00F8410B /* OTAnnotationKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,12 +264,12 @@
 		A0AB57AA1D2C48E400F8410B /* OTAnnotationUI */ = {
 			isa = PBXGroup;
 			children = (
-				A0AB57AB1D2C48E400F8410B /* ColorPicker */,
 				A0AB57AE1D2C48E400F8410B /* OTAnnotationScrollView.h */,
 				A0AB57AF1D2C48E400F8410B /* OTAnnotationScrollView.m */,
 				A0AB57B01D2C48E400F8410B /* OTAnnotationScrollView_Private.h */,
 				A0AB57B11D2C48E400F8410B /* OTFullScreenAnnotationViewController.h */,
 				A0AB57B21D2C48E400F8410B /* OTFullScreenAnnotationViewController.m */,
+				A0AB57AB1D2C48E400F8410B /* ColorPicker */,
 				A0AB57B31D2C48E400F8410B /* ScreenCapture */,
 				A0AB57B81D2C48E400F8410B /* Text */,
 				A0AB57BB1D2C48E400F8410B /* Toolbar */,
@@ -703,6 +692,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAnnotationKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -723,6 +713,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAnnotationKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
