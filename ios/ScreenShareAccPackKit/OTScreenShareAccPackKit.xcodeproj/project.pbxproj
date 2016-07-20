@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		A0E9FA871D4032FC00460599 /* Distribution */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A0E9FA8A1D4032FC00460599 /* Build configuration list for PBXAggregateTarget "Distribution" */;
+			buildPhases = (
+				A0E9FA8B1D40330000460599 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Distribution;
+			productName = Distribution;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		A058350C1D2F4BAD00E484FB /* ShareWholeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350B1D2F4BAD00E484FB /* ShareWholeScreenViewController.m */; };
 		A058350F1D2F4E4700E484FB /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A058350E1D2F4E4700E484FB /* ColorViewController.m */; };
@@ -24,6 +38,12 @@
 		A0CFE1C31D25CEAB00D8449B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CFE16A1D25BFB800D8449B /* LaunchScreen.storyboard */; };
 		A0CFE1C41D25CEAB00D8449B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0CFE16C1D25BFB800D8449B /* Main.storyboard */; };
 		A0CFE4731D26428500D8449B /* OTScreenSharerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE4571D25F29100D8449B /* OTScreenSharerTests.m */; };
+		A0E9FA8F1D40334600460599 /* OTScreenCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE0BF1D25BF8200D8449B /* OTScreenCapture.m */; };
+		A0E9FA901D40334600460599 /* OTScreenSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE0BD1D25BF8200D8449B /* OTScreenSharer.m */; };
+		A0E9FA931D40334600460599 /* OTScreenSharer_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0844FAF1D38512400D0EB83 /* OTScreenSharer_Private.h */; };
+		A0E9FA941D40334600460599 /* OTScreenShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0CFE0BB1D25BF8200D8449B /* OTScreenShareKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0E9FA951D40334600460599 /* OTScreenSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = A0CFE0BC1D25BF8200D8449B /* OTScreenSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0E9FA961D40334600460599 /* OTScreenCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = A0CFE0BE1D25BF8200D8449B /* OTScreenCapture.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +102,7 @@
 		A0CFE4571D25F29100D8449B /* OTScreenSharerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTScreenSharerTests.m; sourceTree = "<group>"; };
 		A0CFE4631D25F49D00D8449B /* OTScreenShareKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTScreenShareKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0CFE46D1D26422700D8449B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0E9FA9B1D40334600460599 /* OTScreenShareKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTScreenShareKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +128,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0E9FA911D40334600460599 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -126,6 +154,7 @@
 				A09A4AA11CD02A800024C349 /* OTScreenShareAccPackKit.app */,
 				A09A4AC01CD02A990024C349 /* OTScreenShareKit.framework */,
 				A0CFE4631D25F49D00D8449B /* OTScreenShareKitTests.xctest */,
+				A0E9FA9B1D40334600460599 /* OTScreenShareKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,6 +223,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0E9FA921D40334600460599 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0E9FA931D40334600460599 /* OTScreenSharer_Private.h in Headers */,
+				A0E9FA941D40334600460599 /* OTScreenShareKit.h in Headers */,
+				A0E9FA951D40334600460599 /* OTScreenSharer.h in Headers */,
+				A0E9FA961D40334600460599 /* OTScreenCapture.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -252,6 +292,24 @@
 			productReference = A0CFE4631D25F49D00D8449B /* OTScreenShareKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A0E9FA8D1D40334600460599 /* OTScreenShareKitStatic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0E9FA981D40334600460599 /* Build configuration list for PBXNativeTarget "OTScreenShareKitStatic" */;
+			buildPhases = (
+				A0E9FA8E1D40334600460599 /* Sources */,
+				A0E9FA911D40334600460599 /* Frameworks */,
+				A0E9FA921D40334600460599 /* Headers */,
+				A0E9FA971D40334600460599 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OTScreenShareKitStatic;
+			productName = ScreenShareKit;
+			productReference = A0E9FA9B1D40334600460599 /* OTScreenShareKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -272,6 +330,9 @@
 						CreatedOnToolsVersion = 7.3;
 						TestTargetID = A09A4AA01CD02A800024C349;
 					};
+					A0E9FA871D4032FC00460599 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = A09A4A9C1CD02A800024C349 /* Build configuration list for PBXProject "OTScreenShareAccPackKit" */;
@@ -290,6 +351,8 @@
 				A09A4AA01CD02A800024C349 /* OTScreenShareAccPackKit */,
 				A09A4ABF1CD02A990024C349 /* OTScreenShareKit */,
 				A0CFE4621D25F49D00D8449B /* OTScreenShareKitTests */,
+				A0E9FA871D4032FC00460599 /* Distribution */,
+				A0E9FA8D1D40334600460599 /* OTScreenShareKitStatic */,
 			);
 		};
 /* End PBXProject section */
@@ -320,7 +383,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0E9FA971D40334600460599 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A0E9FA8B1D40330000460599 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nWORKSPACE_NAME=\"OTScreenShareAccPackKit.xcworkspace\"\nFRAMEWORK_NAME=\"OTScreenShareKit\"\nSCHEME_NAME=\"OTScreenShareKitStatic\"\n\n# Build fat framework\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"./${FRAMEWORK_NAME}.framework\"\n\n# Replace the framework executable within the framework with a new version created by merging the device and simulator frameworks' executables with lipo.\nlipo -create -output \"./${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 6\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n#cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# re-direct to the Documentation folder and build the Documentation\n# cd Documentation\n# xcodebuild -project \"Documentation.xcodeproj\" -scheme \"AppleDoc\"\n# cd ..\n\n# Create binary\nzip -r ./ScreenShareKit.zip OTScreenShareKit.framework\n\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"${SRCROOT}/${FRAMEWORK_NAME}.framework\"\nfi\n\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A09A4A9D1CD02A800024C349 /* Sources */ = {
@@ -348,6 +434,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0CFE4731D26428500D8449B /* OTScreenSharerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0E9FA8E1D40334600460599 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0E9FA8F1D40334600460599 /* OTScreenCapture.m in Sources */,
+				A0E9FA901D40334600460599 /* OTScreenSharer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +671,70 @@
 			};
 			name = Release;
 		};
+		A0E9FA881D4032FC00460599 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A0E9FA891D4032FC00460599 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A0E9FA991D40334600460599 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/OpenTok",
+				);
+				INFOPLIST_FILE = OTScreenShareKitStatic.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Tokbox.ScreenShareKit;
+				PRODUCT_NAME = OTScreenShareKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A0E9FA9A1D40334600460599 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/OpenTok",
+				);
+				INFOPLIST_FILE = OTScreenShareKitStatic.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Tokbox.ScreenShareKit;
+				PRODUCT_NAME = OTScreenShareKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -611,6 +770,24 @@
 			buildConfigurations = (
 				A0CFE46B1D25F49D00D8449B /* Debug */,
 				A0CFE46C1D25F49D00D8449B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0E9FA8A1D4032FC00460599 /* Build configuration list for PBXAggregateTarget "Distribution" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0E9FA881D4032FC00460599 /* Debug */,
+				A0E9FA891D4032FC00460599 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0E9FA981D40334600460599 /* Build configuration list for PBXNativeTarget "OTScreenShareKitStatic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0E9FA991D40334600460599 /* Debug */,
+				A0E9FA9A1D40334600460599 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

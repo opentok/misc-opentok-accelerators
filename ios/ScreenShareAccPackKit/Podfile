@@ -4,6 +4,10 @@ target 'OTScreenShareKit' do
   pod 'OTAcceleratorPackUtil', '~> 1.0.0'
 end
 
+target 'OTScreenShareKitStatic' do
+  pod 'OTAcceleratorPackUtil', '~> 1.0.0'
+end
+
 target 'OTScreenShareKitTests' do
   pod 'Kiwi'
 end
