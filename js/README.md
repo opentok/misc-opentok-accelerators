@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Accelerator Pack for JavaScript<br/>Version 1.0.1
+# OpenTok Text Chat Accelerator Pack for JavaScript<br/>Version 1.0.0
 
 This document describes how to use the OpenTok Text Chat Accelerator Pack for JavaScript. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages in a web-based application. 
 
@@ -18,8 +18,8 @@ This guide has the following sections:
 To be prepared to develop your text chat app:
 
 1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
-2. Your project must include [Underscore](http://underscorejs.org/).
-3. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.</li><li>Download and extract the text chat and one-to-one communication components from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.1.zip) file provided by TokBox.</li></ol>
+2. Your project must include [jQuery](https://jquery.com/), [Moment.js](http://momentjs.com/), [timeago](http://timeago.yarp.com/), and [Underscore](http://underscorejs.org/).
+3. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.</li><li>Download and extract the text chat and one-to-one communication components from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.</li></ol>
 4. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
 
 _**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._

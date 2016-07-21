@@ -226,10 +226,12 @@
       }, function (error) {
         if (error) {
           console.log('Error sending a message');
+          _log(_logEventData.actionSendMessage, _logEventData.variationFailure);
           deferred.resolve(error);
         } else {
           console.log('Message sent');
           deferred.resolve(messageData);
+          _log(_logEventData.actionSendMessage, _logEventData.variationSuccess);
         }
       });
     }

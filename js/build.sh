@@ -31,6 +31,7 @@ then
     cp -v text-chat-acc-pack.js $PUBLIC/js/components/text-chat-acc-pack.js
     cp -v theme.css $PUBLIC/css/theme.css
     	gulp zip
+	exit 0
 else
 	echo "Please run this script from 'JS'."
 	exit 1

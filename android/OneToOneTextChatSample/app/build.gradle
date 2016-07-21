@@ -37,6 +37,5 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile 'com.opentok.android:opentok-text-chat-acc-pack:+'
     compile 'com.opentok.android:accelerator-pack:+'
-
 }
 
