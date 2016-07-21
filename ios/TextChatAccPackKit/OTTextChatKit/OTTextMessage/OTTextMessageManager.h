@@ -31,7 +31,7 @@ extern NSString* const KLogVariationFailure;
 @property (readonly, nonatomic) NSArray<OTTextMessage *> *messages;
 @property (readonly, nonatomic) NSString *alias;
 @property (readonly, nonatomic) NSString *receiverAlias;
-@property (readonly, nonatomic) NSUInteger maximumTextMessageLength;
+@property (nonatomic) NSUInteger maximumTextMessageLength;
 
 - (void)connect;
 
@@ -42,7 +42,5 @@ extern NSString* const KLogVariationFailure;
 - (OTTextMessage *)getTextChatFromIndexPath:(NSIndexPath *)indexPath;
 
 - (void)setAlias:(NSString *)alias;
-
-- (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength;
 
 @end

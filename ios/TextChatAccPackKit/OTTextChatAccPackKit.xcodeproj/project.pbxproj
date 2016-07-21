@@ -81,6 +81,8 @@
 		A0D9E6411D2480E400C6F73E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0905DE01D1D946300004217 /* Main.storyboard */; };
 		A0DEAAD81D2F1FB4004CF13A /* OTTextChatKitBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */; };
 		A0DEAAD91D2F1FB4004CF13A /* OTTextChatKitBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */; };
+		A0E9FB111D4147E300460599 /* OTTestingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E9FB0F1D4147E300460599 /* OTTestingInfo.h */; };
+		A0E9FB121D4147E300460599 /* OTTestingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9FB101D4147E300460599 /* OTTestingInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +163,8 @@
 		A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextMessageManager.m; sourceTree = "<group>"; };
 		A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatKitBundle.h; sourceTree = "<group>"; };
 		A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatKitBundle.m; sourceTree = "<group>"; };
+		A0E9FB0F1D4147E300460599 /* OTTestingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTestingInfo.h; sourceTree = "<group>"; };
+		A0E9FB101D4147E300460599 /* OTTestingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTestingInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +295,8 @@
 				A0AC65AA1D1D9DC900F7AAC5 /* GCDHelper.m */,
 				A0AC65AB1D1D9DC900F7AAC5 /* UIViewController+Helper.h */,
 				A0AC65AC1D1D9DC900F7AAC5 /* UIViewController+Helper.m */,
+				A0E9FB0F1D4147E300460599 /* OTTestingInfo.h */,
+				A0E9FB101D4147E300460599 /* OTTestingInfo.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -369,6 +375,7 @@
 				A0AC66421D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h in Headers */,
 				A0DEAAD81D2F1FB4004CF13A /* OTTextChatKitBundle.h in Headers */,
 				A0AC66341D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h in Headers */,
+				A0E9FB111D4147E300460599 /* OTTestingInfo.h in Headers */,
 				A0AC663C1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h in Headers */,
 				A0AC664A1D1D9DC900F7AAC5 /* OTTextMessageManager.h in Headers */,
 				A0AC65F61D1D9DC900F7AAC5 /* GCDHelper.h in Headers */,
@@ -604,6 +611,7 @@
 				A0AC664C1D1D9DC900F7AAC5 /* OTTextMessageManager.m in Sources */,
 				A0DEAAD91D2F1FB4004CF13A /* OTTextChatKitBundle.m in Sources */,
 				A0AC66401D1D9DC900F7AAC5 /* OTTextChatView.m in Sources */,
+				A0E9FB121D4147E300460599 /* OTTestingInfo.m in Sources */,
 				A0AC65F81D1D9DC900F7AAC5 /* GCDHelper.m in Sources */,
 				A0AC663A1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m in Sources */,
 				A0AC66361D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m in Sources */,

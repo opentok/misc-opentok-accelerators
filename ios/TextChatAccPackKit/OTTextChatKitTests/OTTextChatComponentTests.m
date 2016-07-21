@@ -41,7 +41,7 @@ describe(@"setMaximumTextMessageLength", ^(){
     
     it(@"Maximum Text Length is set lower than zero", ^{
         [tcc setMaximumTextMessageLength:-1];
-        [[theValue([tcc maximumTextMessageLength]) should] equal:theValue(NSUIntegerMax)];
+        [[theValue([tcc maximumTextMessageLength]) should] equal:theValue(120)];
     });
 
     it(@"Maximum Text Length is set zero", ^{
