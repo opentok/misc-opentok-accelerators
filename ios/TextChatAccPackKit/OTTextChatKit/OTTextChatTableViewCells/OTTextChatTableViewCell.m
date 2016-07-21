@@ -10,7 +10,7 @@
 
 @implementation OTTextChatTableViewCell
 
-- (void)awakeFromNib {
+-(void)awakeFromNib {
     
     self.layer.cornerRadius = 6.0f;
     self.message.layer.cornerRadius = 6.0f;
@@ -35,7 +35,7 @@
     self.cornerUpLeftView = [self cornerMaker:self.cornerUpLeftView andWithPath:pathleft];
 }
 
-- (UIView *) cornerMaker: (UIView *)view andWithPath:(UIBezierPath *)path {
+-(UIView *)cornerMaker: (UIView *)view andWithPath:(UIBezierPath *)path {
     CAShapeLayer *maskleft = [CAShapeLayer new];
     maskleft.frame = view.bounds;
     maskleft.path = path.CGPath;
@@ -43,8 +43,8 @@
     return view;
 }
 
-- (void)updateCellFromTextChat:(OTTextMessage *)textChat
-                  customizator:(OTTextChatUICustomizator *)customizator {
+-(void)updateCellFromTextChat:(OTTextMessage *)textChat
+                   customizer:(OTTextChatUICustomizator *)customizer {
     
     if (!textChat) return;
     
@@ -59,15 +59,15 @@
     switch (textChat.type) {
         case TCMessageTypesSent:
         case TCMessageTypesSentShort:
-            if(customizator.tableViewCellSendBackgroundColor != nil) self.message.backgroundColor = customizator.tableViewCellSendBackgroundColor;
-            if(customizator.tableViewCellSendTextColor != nil) self.message.textColor = customizator.tableViewCellSendTextColor;
-            if(customizator.tableViewCellSendBackgroundColor != nil) self.cornerUpRightView.backgroundColor = customizator.tableViewCellSendBackgroundColor;
+            if(customizer.tableViewCellSendBackgroundColor != nil) self.message.backgroundColor = customizer.tableViewCellSendBackgroundColor;
+            if(customizer.tableViewCellSendTextColor != nil) self.message.textColor = customizer.tableViewCellSendTextColor;
+            if(customizer.tableViewCellSendBackgroundColor != nil) self.cornerUpRightView.backgroundColor = customizer.tableViewCellSendBackgroundColor;
             break;
         case TCMessageTypesReceived:
         case TCMessageTypesReceivedShort:
-            if(customizator.tableViewCellReceiveBackgroundColor != nil)self.message.backgroundColor = customizator.tableViewCellReceiveBackgroundColor;
-            if(customizator.tableViewCellReceiveTextColor != nil)self.message.textColor = customizator.tableViewCellReceiveTextColor;
-            if(customizator.tableViewCellReceiveBackgroundColor != nil)self.cornerUpLeftView.backgroundColor = customizator.tableViewCellReceiveBackgroundColor;
+            if(customizer.tableViewCellReceiveBackgroundColor != nil)self.message.backgroundColor = customizer.tableViewCellReceiveBackgroundColor;
+            if(customizer.tableViewCellReceiveTextColor != nil)self.message.textColor = customizer.tableViewCellReceiveTextColor;
+            if(customizer.tableViewCellReceiveBackgroundColor != nil)self.cornerUpLeftView.backgroundColor = customizer.tableViewCellReceiveBackgroundColor;
             break;
         default:
             break;

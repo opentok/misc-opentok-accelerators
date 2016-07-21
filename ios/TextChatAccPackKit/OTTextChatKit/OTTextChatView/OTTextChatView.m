@@ -303,7 +303,7 @@ static CGFloat StatusBarHeight = 20.0;
     OTTextChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId
                                                                   forIndexPath:indexPath];
     [cell updateCellFromTextChat:textChat
-                    customizator:self.customizator];
+                      customizer:self.customizator];
     return cell;
 }
 
