@@ -27,8 +27,7 @@
     sessionId: '',
     token: '',
     screensharing: {
-      extensionID: 'knmknlapoidpamfmadaalafimbjegekh',
-      extensionPathFF: 'ff-extension/wms-screensharing.xpi',
+      extensionID: '',
       annotation: true
     }
   };
@@ -256,15 +255,7 @@
     }
   };
 
-  var setCredenials = function () {
-    var el = document.getElementById('credentials');
-    var credentials = JSON.parse(el.getAttribute('data'));
-    el.remove();
-    $.extend(_options, credentials);
-  };
-
   document.addEventListener('DOMContentLoaded', function () {
-    setCredenials();
     $('#callActive').on('click', _connectCall);
   });
 
