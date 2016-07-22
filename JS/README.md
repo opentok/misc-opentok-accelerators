@@ -1,4 +1,4 @@
-![logo](./tokbox-logo.png)
+![logo](../tokbox-logo.png)
 # OpenTok Screensharing with Annotations Accelerator Pack for JavaScript<br/>Version 1.0.0
 
 This document describes how to develop a web-based application that uses the OpenTok Screensharing with Annotations Accelerator Pack for JavaScript.
