@@ -32,4 +32,5 @@ Pod::Spec.new do |s|
 
   s.dependency 'LHToolbar', '1.2.1-beta'
   s.dependency 'OTKAnalytics', '1.0.0'
+  s.dependency 'OTAcceleratorPackUtil', '1.0.0'
 end

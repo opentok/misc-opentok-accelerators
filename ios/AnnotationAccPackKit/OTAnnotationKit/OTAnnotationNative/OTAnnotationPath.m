@@ -1,14 +1,30 @@
 //
 //  ScreenSharePath.m
-//  ScreenShareSample
 //
-//  Created by Xi Huang on 4/26/16.
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
 #import "OTAnnotationPath.h"
-#import "OTAnnotationPoint.h"
-#import "OTAnnotationPoint_Private.h"
+
+@interface OTAnnotationPoint()
+@property (nonatomic) CGFloat x;
+@property (nonatomic) CGFloat y;
+@property (nonatomic) CGPoint point;
+@end
+
+@implementation OTAnnotationPoint
+
++ (instancetype)pointWithX:(CGFloat)x andY:(CGFloat)y {
+    OTAnnotationPoint *pt = [[OTAnnotationPoint alloc] init];
+    pt.x = x;
+    pt.y = y;
+    return pt;
+}
+
+- (CGPoint)cgPoint {
+    return CGPointMake(_x, _y);
+}
+@end
 
 @interface OTAnnotationPath()
 @property (nonatomic) UIColor *strokeColor;
@@ -47,33 +63,39 @@
 }
 
 - (void)drawWholePath {
-    OTAnnotationPoint *fistPoint = [self.points firstObject];
-    [self moveToPoint:[fistPoint CGPointValue]];
-    for (NSUInteger i = 1; i < self.points.count; i++) {
-        [self addLineToPoint:[self.points[i] CGPointValue]];
-    }
-}
-
-- (void)drawAtPoint:(OTAnnotationPoint *)touchPoint {
-
-    CGPoint point = [touchPoint CGPointValue];
-    [self moveToPoint:point];
-    [self addPoint:touchPoint];
-}
-
-- (void)drawToPoint:(OTAnnotationPoint *)touchPoint {
     
-    CGPoint p = [touchPoint CGPointValue];
-    [self addLineToPoint:p];
-    [self addPoint:touchPoint];
+    OTAnnotationPoint *firstPoint = [self.points firstObject];
+    
+    [self moveToPoint:[firstPoint cgPoint]];
+    for (NSUInteger i = 1; i < self.points.count - 1; i++) {
+        OTAnnotationPoint *thisPoint = self.points[i];
+        [self addLineToPoint:[thisPoint cgPoint]];
+    }
+    
+    OTAnnotationPoint *lastPoint = [self.points lastObject];
+    [self addLineToPoint:[lastPoint cgPoint]];
+}
+
+- (void)startAtPoint:(OTAnnotationPoint *)point {
+    
+    CGPoint cgPoint = [point cgPoint];
+    [self moveToPoint:cgPoint];
+    [self addPoint:point];
+}
+
+- (void)drawToPoint:(OTAnnotationPoint *)point {
+    
+    CGPoint cgPoint = [point cgPoint];
+    [self addLineToPoint:cgPoint];
+    [self addPoint:point];
 }
 
 #pragma mark - private method
 - (void)addPoint:(OTAnnotationPoint *)touchPoint {
     if (_mutablePoints.count == 0) {
-        _startPoint = [touchPoint CGPointValue];
+        _startPoint = [touchPoint cgPoint];
     }
     [_mutablePoints addObject:touchPoint];
-    _endPoint = [touchPoint CGPointValue];
+    _endPoint = [touchPoint cgPoint];
 }
 @end
