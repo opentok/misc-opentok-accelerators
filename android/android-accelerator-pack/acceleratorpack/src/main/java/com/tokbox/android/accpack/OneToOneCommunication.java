@@ -102,7 +102,7 @@ public class OneToOneCommunication implements
         void onAudioOnly(boolean enabled);
 
         /**
-         * Invoked when the preview (publisher view) is ready to be added to the container.
+         * Invoked when the preview (view) is ready to be added to the container.
          *
          * @param preview Indicates the publisher view.
          */
@@ -114,7 +114,6 @@ public class OneToOneCommunication implements
          * @param remoteView Indicates the subscriber view.
          */
         void onRemoteViewReady(View remoteView);
-
     }
 
     /*Constructor
@@ -709,6 +708,23 @@ public class OneToOneCommunication implements
             return mPublisher.getView();
         }
 
+        return null;
+    }
+
+    public Publisher getLocal(){
+        if ( mPublisher != null ){
+            return mPublisher;
+        }
+        return null;
+    }
+
+    public Subscriber getRemote(){
+        if ( mSubscriber != null ){
+            return mSubscriber;
+        }
+        if ( mScreenSubscriber != null ){
+            return mScreenSubscriber;
+        }
         return null;
     }
 
