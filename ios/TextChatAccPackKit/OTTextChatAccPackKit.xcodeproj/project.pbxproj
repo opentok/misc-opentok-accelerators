@@ -6,8 +6,42 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		A006F1861D402520001295D7 /* Distribution */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A006F1891D402520001295D7 /* Build configuration list for PBXAggregateTarget "Distribution" */;
+			buildPhases = (
+				A006F1A91D402A7B001295D7 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Distribution;
+			productName = Distribution;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		3F298C6B1D25BF9900D2F48A /* OTTextChatKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A061B99E1D1D99270020DDD8 /* OTTextChatKitBundle.bundle */; };
+		A006F18D1D4028A8001295D7 /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65AC1D1D9DC900F7AAC5 /* UIViewController+Helper.m */; };
+		A006F18E1D4028A8001295D7 /* OTTextMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */; };
+		A006F18F1D4028A8001295D7 /* OTTextChatKitBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */; };
+		A006F1901D4028A8001295D7 /* OTTextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatView.m */; };
+		A006F1911D4028A8001295D7 /* GCDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65AA1D1D9DC900F7AAC5 /* GCDHelper.m */; };
+		A006F1921D4028A8001295D7 /* OTTextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EA1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m */; };
+		A006F1931D4028A8001295D7 /* OTTextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65E71D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m */; };
+		A006F1941D4028A8001295D7 /* OTTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F21D1D9DC900F7AAC5 /* OTTextMessage.m */; };
+		A006F1971D4028A8001295D7 /* OTTextChatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E41D1D9DC900F7AAC5 /* OTTextChatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A006F1981D4028A8001295D7 /* OTTextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A006F1991D4028A8001295D7 /* OTTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F11D1D9DC900F7AAC5 /* OTTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A006F19A1D4028A8001295D7 /* OTTextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E91D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A006F19B1D4028A8001295D7 /* OTTextChatView_UserInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EF1D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h */; };
+		A006F19C1D4028A8001295D7 /* OTTextChatKitBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */; };
+		A006F19D1D4028A8001295D7 /* OTTextChatTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E61D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h */; };
+		A006F19E1D4028A8001295D7 /* OTTextChatUICustomizator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EB1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h */; };
+		A006F19F1D4028A8001295D7 /* OTTextMessageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */; };
+		A006F1A01D4028A8001295D7 /* GCDHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65A91D1D9DC900F7AAC5 /* GCDHelper.h */; };
+		A006F1A11D4028A8001295D7 /* OTTextMessage_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */; };
+		A006F1A21D4028A8001295D7 /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65AB1D1D9DC900F7AAC5 /* UIViewController+Helper.h */; };
 		A059B98F1D1DE771008F1F14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0905E361D1D946300004217 /* Assets.xcassets */; };
 		A059B9901D1DE771008F1F14 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0905E7B1D1D956500004217 /* Info.plist */; };
 		A059B9911D1DE771008F1F14 /* OTTextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E381D1D946300004217 /* OTTextChatView.xib */; };
@@ -47,6 +81,8 @@
 		A0D9E6411D2480E400C6F73E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0905DE01D1D946300004217 /* Main.storyboard */; };
 		A0DEAAD81D2F1FB4004CF13A /* OTTextChatKitBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */; };
 		A0DEAAD91D2F1FB4004CF13A /* OTTextChatKitBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */; };
+		A0E9FB111D4147E300460599 /* OTTestingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E9FB0F1D4147E300460599 /* OTTestingInfo.h */; };
+		A0E9FB121D4147E300460599 /* OTTestingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9FB101D4147E300460599 /* OTTestingInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +117,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A006F1A61D4028A8001295D7 /* OTTextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTTextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A061B9711D1D98FA0020DDD8 /* OTTextChatAccPackKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTTextChatAccPackKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A061B98D1D1D990D0020DDD8 /* OTTextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTTextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A061B99E1D1D99270020DDD8 /* OTTextChatKitBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTTextChatKitBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,9 +163,18 @@
 		A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextMessageManager.m; sourceTree = "<group>"; };
 		A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatKitBundle.h; sourceTree = "<group>"; };
 		A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatKitBundle.m; sourceTree = "<group>"; };
+		A0E9FB0F1D4147E300460599 /* OTTestingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTestingInfo.h; sourceTree = "<group>"; };
+		A0E9FB101D4147E300460599 /* OTTestingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTestingInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A006F1951D4028A8001295D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A061B96E1D1D98FA0020DDD8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -180,6 +226,7 @@
 				A061B98D1D1D990D0020DDD8 /* OTTextChatKit.framework */,
 				A061B99E1D1D99270020DDD8 /* OTTextChatKitBundle.bundle */,
 				A061B9A81D1D99680020DDD8 /* OTTextChatKitTests.xctest */,
+				A006F1A61D4028A8001295D7 /* OTTextChatKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,6 +295,8 @@
 				A0AC65AA1D1D9DC900F7AAC5 /* GCDHelper.m */,
 				A0AC65AB1D1D9DC900F7AAC5 /* UIViewController+Helper.h */,
 				A0AC65AC1D1D9DC900F7AAC5 /* UIViewController+Helper.m */,
+				A0E9FB0F1D4147E300460599 /* OTTestingInfo.h */,
+				A0E9FB101D4147E300460599 /* OTTestingInfo.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -296,6 +345,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		A006F1961D4028A8001295D7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A006F1971D4028A8001295D7 /* OTTextChatKit.h in Headers */,
+				A006F1981D4028A8001295D7 /* OTTextChatView.h in Headers */,
+				A006F1991D4028A8001295D7 /* OTTextMessage.h in Headers */,
+				A006F19A1D4028A8001295D7 /* OTTextChatUICustomizator.h in Headers */,
+				A006F19B1D4028A8001295D7 /* OTTextChatView_UserInterface.h in Headers */,
+				A006F19C1D4028A8001295D7 /* OTTextChatKitBundle.h in Headers */,
+				A006F19D1D4028A8001295D7 /* OTTextChatTableViewCell.h in Headers */,
+				A006F19E1D4028A8001295D7 /* OTTextChatUICustomizator_Private.h in Headers */,
+				A006F19F1D4028A8001295D7 /* OTTextMessageManager.h in Headers */,
+				A006F1A01D4028A8001295D7 /* GCDHelper.h in Headers */,
+				A006F1A11D4028A8001295D7 /* OTTextMessage_Private.h in Headers */,
+				A006F1A21D4028A8001295D7 /* UIViewController+Helper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A061B98A1D1D990D0020DDD8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,6 +375,7 @@
 				A0AC66421D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h in Headers */,
 				A0DEAAD81D2F1FB4004CF13A /* OTTextChatKitBundle.h in Headers */,
 				A0AC66341D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h in Headers */,
+				A0E9FB111D4147E300460599 /* OTTestingInfo.h in Headers */,
 				A0AC663C1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h in Headers */,
 				A0AC664A1D1D9DC900F7AAC5 /* OTTextMessageManager.h in Headers */,
 				A0AC65F61D1D9DC900F7AAC5 /* GCDHelper.h in Headers */,
@@ -318,6 +387,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		A006F18B1D4028A8001295D7 /* OTTextChatKitStatic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A006F1A31D4028A8001295D7 /* Build configuration list for PBXNativeTarget "OTTextChatKitStatic" */;
+			buildPhases = (
+				A006F18C1D4028A8001295D7 /* Sources */,
+				A006F1951D4028A8001295D7 /* Frameworks */,
+				A006F1961D4028A8001295D7 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OTTextChatKitStatic;
+			productName = OTTextChatKit;
+			productReference = A006F1A61D4028A8001295D7 /* OTTextChatKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		A061B9701D1D98FA0020DDD8 /* OTTextChatAccPackKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A061B9851D1D98FA0020DDD8 /* Build configuration list for PBXNativeTarget "OTTextChatAccPackKit" */;
@@ -399,6 +485,9 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Tokbox, Inc.";
 				TargetAttributes = {
+					A006F1861D402520001295D7 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					A061B9701D1D98FA0020DDD8 = {
 						CreatedOnToolsVersion = 7.3;
 					};
@@ -430,6 +519,8 @@
 				A061B98C1D1D990D0020DDD8 /* OTTextChatKit */,
 				A061B99D1D1D99270020DDD8 /* OTTextChatKitBundle */,
 				A061B9A71D1D99680020DDD8 /* OTTextChatKitTests */,
+				A006F1861D402520001295D7 /* Distribution */,
+				A006F18B1D4028A8001295D7 /* OTTextChatKitStatic */,
 			);
 		};
 /* End PBXProject section */
@@ -470,7 +561,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A006F1A91D402A7B001295D7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nWORKSPACE_NAME=\"OTTextChatAccPackKit.xcworkspace\"\nFRAMEWORK_NAME=\"OTTextChatKit\"\nBUNDLE_NAME=\"OTTextChatKitBundle\"\nSCHEME_NAME=\"OTTextChatKitStatic\"\n\n# Build fat framework\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${SCHEME_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\" -derivedDataPath \"${SRCROOT}/build\"\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"./${FRAMEWORK_NAME}.framework\"\n\n# Replace the framework executable within the framework with a new version created by merging the device and simulator frameworks' executables with lipo.\nlipo -create -output \"./${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Build/Products/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# Copy the Swift module mappings for the simulator into the framework.  The device mappings already exist from step 6. cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# Build bundle\nxcodebuild -workspace \"${WORKSPACE_NAME}\" -scheme \"${BUNDLE_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphoneos\" -derivedDataPath \"${SRCROOT}/build\"\ncp -r \"${SRCROOT}/build/Build/Products/Release-iphoneos/${BUNDLE_NAME}.bundle\" \"./${BUNDLE_NAME}.bundle\"\n\n# re-direct to the Documentation folder and build the Documentation\n# cd Documentation\n# xcodebuild -project \"Documentation.xcodeproj\" -scheme \"AppleDoc\"\n# cd ..\n\n# Create binary\nzip -r ./TextChatKit.zip OTTextChatKit.framework OTTextChatKitBundle.bundle\n\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"${SRCROOT}/${FRAMEWORK_NAME}.framework\"\nfi\n\nif [ -d \"${SRCROOT}/${BUNDLE_NAME}.bundle\" ]; then\nrm -rf \"${SRCROOT}/${BUNDLE_NAME}.bundle\"\nfi\n\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		A006F18C1D4028A8001295D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A006F18D1D4028A8001295D7 /* UIViewController+Helper.m in Sources */,
+				A006F18E1D4028A8001295D7 /* OTTextMessageManager.m in Sources */,
+				A006F18F1D4028A8001295D7 /* OTTextChatKitBundle.m in Sources */,
+				A006F1901D4028A8001295D7 /* OTTextChatView.m in Sources */,
+				A006F1911D4028A8001295D7 /* GCDHelper.m in Sources */,
+				A006F1921D4028A8001295D7 /* OTTextChatUICustomizator.m in Sources */,
+				A006F1931D4028A8001295D7 /* OTTextChatTableViewCell.m in Sources */,
+				A006F1941D4028A8001295D7 /* OTTextMessage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A061B96D1D1D98FA0020DDD8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -489,6 +611,7 @@
 				A0AC664C1D1D9DC900F7AAC5 /* OTTextMessageManager.m in Sources */,
 				A0DEAAD91D2F1FB4004CF13A /* OTTextChatKitBundle.m in Sources */,
 				A0AC66401D1D9DC900F7AAC5 /* OTTextChatView.m in Sources */,
+				A0E9FB121D4147E300460599 /* OTTestingInfo.m in Sources */,
 				A0AC65F81D1D9DC900F7AAC5 /* GCDHelper.m in Sources */,
 				A0AC663A1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m in Sources */,
 				A0AC66361D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m in Sources */,
@@ -547,6 +670,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A006F1871D402520001295D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A006F1881D402520001295D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A006F1A41D4028A8001295D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = OTTextChatKitStatic.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTTextChatKit;
+				PRODUCT_NAME = OTTextChatKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A006F1A51D4028A8001295D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = OTTextChatKitStatic.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTTextChatKit;
+				PRODUCT_NAME = OTTextChatKit;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		A061B9861D1D98FA0020DDD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -754,6 +933,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A006F1891D402520001295D7 /* Build configuration list for PBXAggregateTarget "Distribution" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A006F1871D402520001295D7 /* Debug */,
+				A006F1881D402520001295D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A006F1A31D4028A8001295D7 /* Build configuration list for PBXNativeTarget "OTTextChatKitStatic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A006F1A41D4028A8001295D7 /* Debug */,
+				A006F1A51D4028A8001295D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A061B9851D1D98FA0020DDD8 /* Build configuration list for PBXNativeTarget "OTTextChatAccPackKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

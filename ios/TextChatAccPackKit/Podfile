@@ -4,6 +4,10 @@ target 'OTTextChatKit' do
   pod 'OTAcceleratorPackUtil'
 end
 
+target 'OTTextChatKitStatic' do 
+  pod 'OTAcceleratorPackUtil'
+end
+
 target 'OTTextChatKitTests' do 
   pod 'Kiwi'
 end

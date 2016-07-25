@@ -25,10 +25,34 @@ typedef NS_ENUM(NSUInteger, TCMessageTypes) {
 };
 
 @property (nonatomic) TCMessageTypes type;
+
+/**
+ *  Initialize the new message, adding the specified data to its properties.
+ *
+ *  @param message  The new message text to be sent or received.
+ *  @param alias    The alias of the sender.
+ *  @param senderId the ID of the user, if this is empty a new one will be generated with NSUUID
+ *
+ *  @return The initialized message object.
+ */
 - (instancetype)initWithMessage:(NSString *)message
                           alias:(NSString *)alias
                        senderId:(NSString *)senderId;
+
+/**
+ *  Initialize the received message as a JSON string to ensure communication interoperability.
+ *
+ *  @param jsonString A JSON string, sent by the other application, containing all the required data for the message object.
+ *
+ *  @return The initialized message object.
+ */
 - (instancetype)initWithJSONString:(NSString *)jsonString;
+
+/**
+ *  Retrieve the current message as a JSON string to ensure communication interoperability.
+ *
+ *  @return A string containing all the message object data.
+ */
 - (NSString *)getTextChatSignalJSONString;
 
 @end

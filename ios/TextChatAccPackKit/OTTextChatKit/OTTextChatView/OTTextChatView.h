@@ -33,19 +33,11 @@ typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, OTTextMes
 
 @class OTTextChatView;
 
-@protocol TextChatViewDataSource <NSObject>
-
-- (void)textChatView:(OTTextChatView *)textChatView numberOfRowsInSection:(NSInteger)section;
-
-- (UITableViewCell *)textChatView:(OTTextChatView *)textChatView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-@end
-
 /**
  *  The delegate of a TextChatView object must confirm to the TextChatViewDelegate protocol.
  *  Optional methods of the protocol allow the delegate to notify the connectivity.
  */
 @protocol TextChatViewDelegate <NSObject>
-
 
 /**
  *  Notifies the delegate that the text chat view finished sending the message, with or without an error.
