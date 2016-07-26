@@ -1,11 +1,11 @@
 platform :ios, '8.0'
 
 target 'OTTextChatKit' do 
-  pod 'OTAcceleratorPackUtil'
+  pod 'OTAcceleratorPackUtil', '~> 1.0.0'
 end
 
 target 'OTTextChatKitStatic' do 
-  pod 'OTAcceleratorPackUtil'
+  pod 'OTAcceleratorPackUtil', '~> 1.0.0'
 end
 
 target 'OTTextChatKitTests' do 
