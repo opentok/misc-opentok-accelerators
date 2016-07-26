@@ -211,12 +211,12 @@ static CGFloat StatusBarHeight = 20.0;
 }
 
 - (void)show {
-    
     if (self.isShown) return;
     
     UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
     if (topViewController) {
         [topViewController.view addSubview:self];
+        [OTKLogger logEventAction:KLogActionOpen variation:KLogVariationSuccess completion:nil];
     }
 }
 
@@ -224,6 +224,7 @@ static CGFloat StatusBarHeight = 20.0;
     if (self.isShown) {
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self removeFromSuperview];
+        [OTKLogger logEventAction:KLogActionClose variation:KLogVariationSuccess completion:nil];
     }
 }
 

@@ -19,9 +19,11 @@ NSString* const kLogComponentIdentifier = @"textChatAccPack";
 NSString* const KLogClientVersion = @"ios-vsol-1.0.0";
 NSString* const KLogActionInitialize = @"Init";
 NSString* const KLogActionStart = @"Start";
-NSString* const KLogActionStop = @"Stop";
-NSString* const KLogActionSendMessage = @"SendMessage";
-NSString* const KLogActionReceiveMessage = @"ReceiveMessage";
+NSString* const KLogActionEnd = @"End";
+NSString* const KLogActionOpen = @"OpenTC";
+NSString* const KLogActionClose = @"CloseTC";
+NSString* const KLogActionSendMessage = @"Send Msg";
+NSString* const KLogActionReceiveMessage = @"Receive Msg";
 NSString* const KLogActionSetMaxLength = @"SetMaxLength";
 NSString* const KLogVariationAttempt = @"Attempt";
 NSString* const KLogVariationSuccess = @"Success";
@@ -114,7 +116,7 @@ static NSString* const kTextChatType = @"text-chat";
 - (void)disconnect {
     
     if (![OTTestingInfo isTesting]) {
-        [OTKLogger logEventAction:KLogActionStop
+        [OTKLogger logEventAction:KLogActionEnd
                         variation:KLogVariationAttempt
                        completion:nil];
     }
@@ -123,14 +125,14 @@ static NSString* const kTextChatType = @"text-chat";
     if(disconnectionError){
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionStop
+            [OTKLogger logEventAction:KLogActionEnd
                             variation:KLogVariationFailure
                            completion:nil];
         }
     } else {
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionStop
+            [OTKLogger logEventAction:KLogActionEnd
                             variation:KLogVariationSuccess
                            completion:nil];
         }
