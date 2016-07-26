@@ -2,5 +2,5 @@ platform :ios, '8.0'
  
 target 'OneToOneTextChatSample' do
   pod 'SVProgressHUD'
-  pod 'OTTextChatKit'
+  pod 'OTTextChatKit', '~> 1.0.0'
 end
