@@ -7,7 +7,10 @@ cd TextChatAccPackKit/
 pod cache clean --all
 pod install
 xcodebuild -workspace "OTTextChatAccPackKit.xcworkspace" -scheme "OTTextChatKitBundle" -sdk "iphonesimulator9.3"
-xcodebuild clean test -workspace "OTTextChatAccPackKit.xcworkspace" -scheme "OTTextChatKitTests" -sdk "iphonesimulator9.3" -destination "OS=9.3,name=iPhone 6 Plus" -configuration Debug && exit ${PIPESTATUS[0]}
+xcodebuild clean test -workspace "OTTextChatAccPackKit.xcworkspace" -scheme "OTTextChatKitTests" -sdk "iphonesimulator9.3" -destination "OS=9.3,name=iPhone 6 Plus" -configuration Debug
+if [${PIPESTATUS[0]} == true]; then
+  exit ${PIPESTATUS[0]}
+fi
 
 # validate cocoapods submission
 pod spec lint OTTextChatKit.podspec --use-libraries --allow-warnings --verbose
