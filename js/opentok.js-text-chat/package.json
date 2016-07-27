@@ -1,6 +1,6 @@
 {
   "name": "opentok-text-chat",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "OpenTok text chat accelerator pack",
   "main": "dist/opentok-text-chat.js",
   "directories": {
@@ -52,9 +52,16 @@
     "merge-stream": "^1.0.0",
     "mocha": "^2.3.3",
     "opentok-one-to-one-communication": "^1.0.6",
-    "opentok-solutions-logging": "^1.0.1",
     "rimraf": "^2.4.3",
     "sinon": "^1.17.0",
     "yuidocjs": "^0.9.0"
+  },
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "kuende-livestamp": "^1.1.2",
+    "moment": "^2.14.1",
+    "opentok-solutions-logging": "^1.0.6",
+    "timeago": "^1.5.3",
+    "underscore": "^1.8.3"
   }
 }
