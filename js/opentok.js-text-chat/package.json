@@ -1,6 +1,6 @@
 {
   "name": "opentok-text-chat",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "OpenTok text chat accelerator pack",
   "main": "dist/opentok-text-chat.js",
   "directories": {
@@ -61,7 +61,6 @@
     "kuende-livestamp": "^1.1.2",
     "moment": "^2.14.1",
     "opentok-solutions-logging": "^1.0.6",
-    "timeago": "^1.5.3",
     "underscore": "^1.8.3"
   }
 }
