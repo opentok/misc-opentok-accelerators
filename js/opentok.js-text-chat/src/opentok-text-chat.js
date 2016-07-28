@@ -1,21 +1,29 @@
-/* global OTKAnalytics moment define */
+/* global OTKAnalytics define */
 (function () {
 
-    /** Include external dependencies */
-  var _require = function (dependency) {
-    var canRequire = typeof exports === 'object' && require !== undefined;
-    if (canRequire) {
-      return require(dependency);
-    }
-    throw new Error(['Please include', dependency, 'in your project'].join(' '));
-  };
+  /** Include external dependencies */
 
-  var _ = this._ || _require('underscore');
-  var $ = this.$ || _require('jquery');
-  global.jQuery = $;
-  var moment = this.moment || _require('moment');
-  var livestamp = this.livestamp || _.require('kuende-livestamp');
-  var OTKAnalytics = this.OTKAnalytics || _require('opentok-solutions-logging');
+  var _;
+  var $;
+  var OTKAnalytics;
+
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    /* eslint-disable import/no-unresolved */
+    _ = require('underscore');
+    $ = require('jquery');
+    window.jQuery = $;
+    window.moment = require('moment');
+    require('kuende-livestamp');
+    OTKAnalytics = require('opentok-solutions-logging');
+    /* eslint-enable import/no-unresolved */
+  } else {
+    _ = this._;
+    $ = this.$;
+    window.jQuery = $;
+    window.moment = this.moment;
+    OTKAnalytics = this.OTKAnalytics;
+  }
+
 
   // Reference to instance of TextChatAccPack
   var _this;
