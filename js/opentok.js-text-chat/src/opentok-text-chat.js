@@ -1,5 +1,29 @@
-/* global OTKAnalytics moment define */
+/* global OTKAnalytics define */
 (function () {
+
+  /** Include external dependencies */
+
+  var _;
+  var $;
+  var OTKAnalytics;
+
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    /* eslint-disable import/no-unresolved */
+    _ = require('underscore');
+    $ = require('jquery');
+    window.jQuery = $;
+    window.moment = require('moment');
+    require('kuende-livestamp');
+    OTKAnalytics = require('opentok-solutions-logging');
+    /* eslint-enable import/no-unresolved */
+  } else {
+    _ = this._;
+    $ = this.$;
+    window.jQuery = $;
+    window.moment = this.moment;
+    OTKAnalytics = this.OTKAnalytics;
+  }
+
 
   // Reference to instance of TextChatAccPack
   var _this;

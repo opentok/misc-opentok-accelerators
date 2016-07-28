@@ -1,6 +1,22 @@
 /* global OTKAnalytics moment define */
 (function () {
 
+    /** Include external dependencies */
+  var _require = function (dependency) {
+    var canRequire = typeof exports === 'object' && require !== undefined;
+    if (canRequire) {
+      return require(dependency);
+    }
+    throw new Error(['Please include', dependency, 'in your project'].join(' '));
+  };
+
+  var _ = this._ || _require('underscore');
+  var $ = this.$ || _require('jquery');
+  global.jQuery = $;
+  var moment = this.moment || _require('moment');
+  var livestamp = this.livestamp || _.require('kuende-livestamp');
+  var OTKAnalytics = this.OTKAnalytics || _require('opentok-solutions-logging');
+
   // Reference to instance of TextChatAccPack
   var _this;
   var _session;
@@ -226,10 +242,12 @@
       }, function (error) {
         if (error) {
           console.log('Error sending a message');
+          _log(_logEventData.actionSendMessage, _logEventData.variationFailure);
           deferred.resolve(error);
         } else {
           console.log('Message sent');
           deferred.resolve(messageData);
+          _log(_logEventData.actionSendMessage, _logEventData.variationSuccess);
         }
       });
     }
