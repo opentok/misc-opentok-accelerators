@@ -21,7 +21,8 @@
         "prefer-arrow-callback": 0,
         "object-shorthand": 0,
         "new-cap": [2, { "properties": false }],
-        "no-unused-expressions": [2, { "allowTernary": true, "allowShortCircuit": true }]
+        "no-unused-expressions": [2, { "allowTernary": true, "allowShortCircuit": true }],
+        "global-require": 0
     },
     "globals": {
         "$": true,
