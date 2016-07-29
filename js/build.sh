@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 PUBLIC="../../sample-app/public"
 LOGGING="../../sample-app/node_modules/opentok-solutions-logging/opentok-solutions-logging.js"
@@ -40,4 +41,3 @@ fi
 
 echo Invalid parameters, please use ‘-t’ to run tests or ‘-d’ to create zip file with JS and doc.
 exit 1
-
