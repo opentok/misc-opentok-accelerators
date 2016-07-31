@@ -11,8 +11,7 @@
 @implementation OTTestingInfo
 
 + (BOOL)isTesting {
-    NSDictionary* environment = [[NSProcessInfo processInfo] environment];
-    return [environment objectForKey:@"XCInjectBundleInto"] ? NO :  YES;
+    return [[NSProcessInfo processInfo].processName isEqualToString:@"OTTextChatKitTests"] ? YES : NO;
 }
 
 @end
