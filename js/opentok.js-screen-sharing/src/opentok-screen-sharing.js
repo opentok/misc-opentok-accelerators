@@ -63,7 +63,7 @@
     name: 'guidScreensharingAccPack',
     actionInitialize: 'Init',
     actionStart: 'Start',
-    actionEnd: 'Stop',
+    actionEnd: 'End',
     enableAnnotations: 'EnableAnnotations',
     disableAnnotations: 'DisableAnnotations',
     enableAudioScreenSharing: 'EnableAudioScreenSharing',
@@ -155,7 +155,7 @@
     var outerDeferred = $.Deferred();
 
     if (!!_this.annotation) {
-      _log(_logEventData.enableAnnotations, _logEventData.variationAttempt);
+      _log(_logEventData.enableAnnotations, _logEventData.variationSuccess);
 
       _accPack.setupExternalAnnotation()
         .then(function (annotationWindow) {
@@ -262,9 +262,7 @@
   };
 
   var start = function () {
-
     _log(_logEventData.actionStart, _logEventData.variationAttempt);
-
     extensionAvailable(_this.extensionID, _this.extensionPathFF)
       .then(_initPublisher)
       .then(_publish)
@@ -272,11 +270,9 @@
         console.log('Error starting screensharing: ', error);
         _log(_logEventData.actionStart, _logEventData.variationError);
       });
-
   };
 
   var end = function (callEnded) {
-    _log(_logEventData.actionEnd, _logEventData.variationAttempt);
     _stopPublishing();
     _active = false;
     if (callEnded) {
@@ -424,7 +420,6 @@
 
     // init analytics logs
     _logAnalytics();
-    _log(_logEventData.actionInitialize, _logEventData.variationAttempt);
     _log(_logEventData.actionInitialize, _logEventData.variationSuccess);
   };
 
