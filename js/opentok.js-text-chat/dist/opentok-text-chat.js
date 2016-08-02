@@ -38,10 +38,12 @@
     componentId: 'textChatAccPack',
     name: 'guidTextChatAccPack',
     actionInitialize: 'Init',
-    actionSendMessage: 'SendMessage',
-    actionReceiveMessage: 'ReceiveMessage',
-    actionMaximize: 'Maximize',
-    actionMinimize: 'Minimize',
+    actionStart: 'Start',
+    actionEnd: 'End',
+    actionOpen: 'OpenTC',
+    actionClose: 'CloseTC',
+    actionSendMessage: 'Send Msg',
+    actionReceiveMessage: 'Receive Msg',
     actionSetMaxLength: 'SetMaxLength',
     variationAttempt: 'Attempt',
     variationError: 'Failure',
@@ -141,7 +143,6 @@
     $('#characterCount').text('0');
   };
 
-
   var _getBubbleHtml = function (message) {
     /* eslint-disable max-len, prefer-template */
     var bubble = [
@@ -199,7 +200,6 @@
     }
     _triggerEvent('errorSendingMessage', error);
   };
-
 
   var _sendMessage = function (recipient, message) {
     var deferred = new $.Deferred();
@@ -263,7 +263,6 @@
     return deferred.promise();
   };
 
-
   var _sendTxtMessage = function (text) {
     if (!_.isEmpty(text)) {
       $.when(_sendMessage(_this._remoteParticipant, text))
@@ -286,7 +285,6 @@
   };
 
   var _setupUI = function () {
-
     var parent = document.querySelector(_this.options.textChatContainer) || document.body;
 
     var chatView = document.createElement('section');
@@ -318,8 +316,6 @@
   };
 
   var _onIncomingMessage = function (signal) {
-    _log(_logEventData.actionReceiveMessage, _logEventData.variationAttempt);
-
     var data = JSON.parse(signal.data);
 
     if (_shouldAppendMessage(data)) {
@@ -345,40 +341,32 @@
   };
 
   var _initTextChat = function () {
-    // Add INITIALIZE attempt log event
-    _log(_logEventData.actionInitialize, _logEventData.variationAttempt);
-
     _enabled = true;
     _displayed = true;
     _initialized = true;
     _setupUI();
     _triggerEvent('showTextChat');
     _session.on('signal:text-chat', _handleTextChat);
+    _log(_logEventData.actionStart, _logEventData.variationSuccess);
   };
 
   var _showTextChat = function () {
-    // Add MAXIMIZE attempt log event
-    _log(_logEventData.actionMaximize, _logEventData.variationAttempt);
-
     document.querySelector(_this.options.textChatContainer).classList.remove('hidden');
     _displayed = true;
     _triggerEvent('showTextChat');
 
-    // Add MAXIMIZE success log event
-    _log(_logEventData.actionMaximize, _logEventData.variationSuccess);
+    // Add OPEN success log event
+    _log(_logEventData.actionOpen, _logEventData.variationSuccess);
   };
 
   var _hideTextChat = function () {
-    // Add MINIMIZE attempt log event
-    _log(_logEventData.actionMinimize, _logEventData.variationAttempt);
-
     document.querySelector(_this.options.textChatContainer).classList.add('hidden');
     _displayed = false;
     _triggerEvent('hideTextChat');
 
-    // Add MINIMIZE success log event
-    _log(_logEventData.actionMinimize, _logEventData.variationSuccess);
-
+    // Add CLOSE success log event
+    _log(_logEventData.actionClose, _logEventData.variationSuccess);
+    _log(_logEventData.actionEnd, _logEventData.variationSuccess);
   };
 
   var _appendControl = function () {
@@ -404,7 +392,6 @@
       }
     };
   };
-
 
   var _validateOptions = function (options) {
 
@@ -487,7 +474,6 @@
     _logAnalytics();
 
     if (!!_.property('_this.options.limitCharacterMessage')(options)) {
-      _log(_logEventData.actionSetMaxLength, _logEventData.variationAttempt);
       _log(_logEventData.actionSetMaxLength, _logEventData.variationSuccess);
     }
 
@@ -511,7 +497,6 @@
       _hideTextChat();
     }
   };
-
 
   if (typeof exports === 'object') {
     module.exports = TextChatAccPack;
