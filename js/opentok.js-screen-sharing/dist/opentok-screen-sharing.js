@@ -1,6 +1,23 @@
 /* global chrome OT ScreenSharingAccPack OTKAnalytics define */
 (function () {
 
+  /** Include external dependencies */
+  var _;
+  var $;
+  var OTKAnalytics;
+
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    /* eslint-disable import/no-unresolved */
+    _ = require('underscore');
+    $ = require('jquery');
+    OTKAnalytics = require('opentok-solutions-logging');
+    /* eslint-enable import/no-unresolved */
+  } else {
+    _ = this._;
+    $ = this.$;
+    OTKAnalytics = this.OTKAnalytics;
+  }
+
   /** Private Variables*/
   var _this; // Reference to instance of ScreenSharingAccPack
   var _active; // Currently sharing screen?
@@ -75,7 +92,6 @@
 
   var _logAnalytics = function () {
 
-    if (!OTKAnalytics) { return; }
     // init the analytics logs
     var _source = window.location.href;
 
@@ -99,7 +115,7 @@
   };
 
   var _log = function (action, variation) {
-    if (!_otkanalytics) { return; }
+
     var data = {
       action: action,
       variation: variation
