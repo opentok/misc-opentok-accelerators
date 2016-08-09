@@ -94,6 +94,8 @@
   var _composer;
   var _lastMessage;
   var _newMessages;
+  var _sentMessageHistory = [];
+  var _remoteParticipant = false;
 
   // Reference to Accelerator Pack Common Layer
   var _accPack;
@@ -113,6 +115,7 @@
       '</div>',
       '<div id="wmsChatWrap">',
       '<div class="wms-messages-holder" id="messagesHolder">',
+      '<div class="wms-messages-alert hidden" id="messagesWaiting">Messsages will be delivered once your contact arrives</div>',
       '<div class="wms-message-item wms-message-sent">',
       '</div>',
       '</div>',
@@ -202,7 +205,15 @@
   };
 
   var _sendMessage = function (recipient, message) {
+
     var deferred = new $.Deferred();
+
+    _sentMessageHistory.push({ recipient: recipient, message: message });
+    if (!_remoteParticipant) {
+      _showWaitingMessage();
+      deferred.resolve();
+    }
+
     var messageData = {
       text: message,
       sender: {
@@ -284,6 +295,16 @@
     }
   };
 
+  var _showWaitingMessage = function () {
+    var el = document.getElementById('messagesWaiting');
+    el && el.classList.remove('hidden');
+  };
+
+  var _hideWaitingMessage = function () {
+    var el = document.getElementById('messagesWaiting');
+    el && el.classList.add('hidden');
+  };
+
   var _setupUI = function () {
     var parent = document.querySelector(_this.options.textChatContainer) || document.body;
 
@@ -340,6 +361,34 @@
     }
   };
 
+  var _deliverUnsentMessages = function () {
+    _sentMessageHistory.forEach(function (message) {
+      _sendMessage(message.recipient, message.message);
+    });
+    _sentMessageHistory = [];
+  };
+
+  var _handleReadySignal = function (event) {
+    if (event.from.connectionId !== _session.connection.connectionId) {
+      _remoteParticipant = true;
+      _deliverUnsentMessages();
+    }
+  };
+
+  /**
+   * Send a signal to the other parties, letting them know that we are ready to receive
+   * messages and would like to recieve their message history
+   */
+  var _signalReady = function () {
+    var readySignal = { type: 'text-chat-ready', data: JSON.stringify({ ready: true }) };
+    _session.on('signal:text-chat-ready', _handleReadySignal);
+    _session.signal(readySignal, function (error) {
+      if (error) {
+        console.log('Error sending ready signal', error);
+      }
+    });
+  };
+
   var _initTextChat = function () {
     _enabled = true;
     _displayed = true;
@@ -347,6 +396,7 @@
     _setupUI();
     _triggerEvent('showTextChat');
     _session.on('signal:text-chat', _handleTextChat);
+    _signalReady();
     _log(_logEventData.actionStart, _logEventData.variationSuccess);
   };
 
@@ -440,9 +490,24 @@
     _accPack && _accPack.registerEvents(events);
   };
 
+  var _handleStreamCreated = function (event) {
+    if (event && event.stream.connection.connectionId !== _session.connection.connectionId) {
+      _remoteParticipant = true;
+      _hideWaitingMessage();
+    }
+  };
+
+  var _handleStreamDestroyed = function () {
+    if (_session.streams.length() < 2) {
+      _remoteParticipant = false;
+    }
+  };
+
   var _addEventListeners = function () {
 
     if (_accPack) {
+      _accPack.registerEventListener('streamCreated', _handleStreamCreated);
+      _accPack.registerEventListener('streamDestroyed', _handleStreamDestroyed);
 
       _accPack.registerEventListener('startCall', function () {
         if (_controlAdded) {
@@ -458,7 +523,17 @@
           _hideTextChat();
         }
       });
+    } else {
+      _session.on('streamCreated', _handleStreamCreated);
+      _session.on('streamDestroyed', _handleStreamDestroyed);
     }
+
+    /**
+     * We need to check for remote participants in case we were the last party to join and
+     * the session event fired before the text chat component was initialized.
+     */
+    _handleStreamCreated();
+
   };
 
   // Constructor
