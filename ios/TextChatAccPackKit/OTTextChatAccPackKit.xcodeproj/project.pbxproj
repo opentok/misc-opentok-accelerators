@@ -21,35 +21,38 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		3F298C6B1D25BF9900D2F48A /* OTTextChatKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A061B99E1D1D99270020DDD8 /* OTTextChatKitBundle.bundle */; };
 		A006F18D1D4028A8001295D7 /* UIViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65AC1D1D9DC900F7AAC5 /* UIViewController+Helper.m */; };
-		A006F18E1D4028A8001295D7 /* OTTextMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */; };
 		A006F18F1D4028A8001295D7 /* OTTextChatKitBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */; };
-		A006F1901D4028A8001295D7 /* OTTextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatView.m */; };
+		A006F1901D4028A8001295D7 /* OTTextChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatViewController.m */; };
 		A006F1911D4028A8001295D7 /* GCDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65AA1D1D9DC900F7AAC5 /* GCDHelper.m */; };
-		A006F1921D4028A8001295D7 /* OTTextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EA1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m */; };
 		A006F1931D4028A8001295D7 /* OTTextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65E71D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m */; };
 		A006F1941D4028A8001295D7 /* OTTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F21D1D9DC900F7AAC5 /* OTTextMessage.m */; };
 		A006F1971D4028A8001295D7 /* OTTextChatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E41D1D9DC900F7AAC5 /* OTTextChatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A006F1981D4028A8001295D7 /* OTTextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A006F1981D4028A8001295D7 /* OTTextChatViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A006F1991D4028A8001295D7 /* OTTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F11D1D9DC900F7AAC5 /* OTTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A006F19A1D4028A8001295D7 /* OTTextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E91D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A006F19B1D4028A8001295D7 /* OTTextChatView_UserInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EF1D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h */; };
 		A006F19C1D4028A8001295D7 /* OTTextChatKitBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */; };
 		A006F19D1D4028A8001295D7 /* OTTextChatTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E61D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h */; };
-		A006F19E1D4028A8001295D7 /* OTTextChatUICustomizator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EB1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h */; };
-		A006F19F1D4028A8001295D7 /* OTTextMessageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */; };
 		A006F1A01D4028A8001295D7 /* GCDHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65A91D1D9DC900F7AAC5 /* GCDHelper.h */; };
 		A006F1A11D4028A8001295D7 /* OTTextMessage_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */; };
 		A006F1A21D4028A8001295D7 /* UIViewController+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65AB1D1D9DC900F7AAC5 /* UIViewController+Helper.h */; };
 		A059B98F1D1DE771008F1F14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0905E361D1D946300004217 /* Assets.xcassets */; };
-		A059B9901D1DE771008F1F14 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0905E7B1D1D956500004217 /* Info.plist */; };
-		A059B9911D1DE771008F1F14 /* OTTextChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E381D1D946300004217 /* OTTextChatView.xib */; };
 		A059B9921D1DE771008F1F14 /* TextChatComponentDivTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E391D1D946300004217 /* TextChatComponentDivTableViewCell.xib */; };
 		A059B9931D1DE771008F1F14 /* TextChatReceivedShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E3A1D1D946300004217 /* TextChatReceivedShortTableViewCell.xib */; };
 		A059B9941D1DE771008F1F14 /* TextChatReceivedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E3B1D1D946300004217 /* TextChatReceivedTableViewCell.xib */; };
 		A059B9951D1DE771008F1F14 /* TextChatSentShortTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E3C1D1D946300004217 /* TextChatSentShortTableViewCell.xib */; };
 		A059B9961D1DE771008F1F14 /* TextChatSentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0905E3D1D1D946300004217 /* TextChatSentTableViewCell.xib */; };
+		A05D92761D56B3780043F0E3 /* OTTextChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05D92751D56B3780043F0E3 /* OTTextChatViewController.xib */; };
+		A05D92781D56D51B0043F0E3 /* OTTextChatKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A05D92771D56D51B0043F0E3 /* OTTextChatKitBundle.bundle */; };
+		A05D927B1D57D18D0043F0E3 /* OTTextChatInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = A05D92791D57D18D0043F0E3 /* OTTextChatInputView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A05D927C1D57D18D0043F0E3 /* OTTextChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = A05D927A1D57D18D0043F0E3 /* OTTextChatInputView.m */; };
+		A05D927D1D57D2340043F0E3 /* OTTextChatInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = A05D92791D57D18D0043F0E3 /* OTTextChatInputView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A05D92861D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05D92841D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.m */; };
+		A05D92871D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05D92851D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.xib */; };
+		A05D928E1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05D928C1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.m */; };
+		A05D928F1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05D928D1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.xib */; };
+		A05D92941D58FC480043F0E3 /* CustomTimestampTextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05D92931D58FC480043F0E3 /* CustomTimestampTextChatTableViewCell.m */; };
+		A05D92961D58FC560043F0E3 /* CustomTimestampTextChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05D92951D58FC560043F0E3 /* CustomTimestampTextChatTableViewCell.xib */; };
+		A05D92991D590AF10043F0E3 /* CustomDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = A05D92981D590AF10043F0E3 /* CustomDateFormatter.m */; };
 		A061B9941D1D990D0020DDD8 /* OTTextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A061B98D1D1D990D0020DDD8 /* OTTextChatKit.framework */; };
 		A061B9951D1D990D0020DDD8 /* OTTextChatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A061B98D1D1D990D0020DDD8 /* OTTextChatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A061B9AD1D1D99680020DDD8 /* OTTextChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A061B98D1D1D990D0020DDD8 /* OTTextChatKit.framework */; };
@@ -62,25 +65,31 @@
 		A0AC66321D1D9DC900F7AAC5 /* OTTextChatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E41D1D9DC900F7AAC5 /* OTTextChatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0AC66341D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E61D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h */; };
 		A0AC66361D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65E71D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m */; };
-		A0AC66381D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65E91D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0AC663A1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EA1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m */; };
-		A0AC663C1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EB1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h */; };
-		A0AC663E1D1D9DC900F7AAC5 /* OTTextChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0AC66401D1D9DC900F7AAC5 /* OTTextChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatView.m */; };
-		A0AC66421D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65EF1D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h */; };
+		A0AC663E1D1D9DC900F7AAC5 /* OTTextChatViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0AC66401D1D9DC900F7AAC5 /* OTTextChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatViewController.m */; };
 		A0AC66441D1D9DC900F7AAC5 /* OTTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F11D1D9DC900F7AAC5 /* OTTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0AC66461D1D9DC900F7AAC5 /* OTTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F21D1D9DC900F7AAC5 /* OTTextMessage.m */; };
 		A0AC66481D1D9DC900F7AAC5 /* OTTextMessage_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */; };
-		A0AC664A1D1D9DC900F7AAC5 /* OTTextMessageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */; };
-		A0AC664C1D1D9DC900F7AAC5 /* OTTextMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */; };
 		A0D9E63C1D2480DA00C6F73E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0905DDC1D1D946300004217 /* AppDelegate.m */; };
 		A0D9E63D1D2480DA00C6F73E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0905DE31D1D946300004217 /* main.m */; };
-		A0D9E63E1D2480DA00C6F73E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0905DE51D1D946300004217 /* ViewController.m */; };
+		A0D9E63E1D2480DA00C6F73E /* DefaultTextChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0905DE51D1D946300004217 /* DefaultTextChatTableViewController.m */; };
 		A0D9E63F1D2480E400C6F73E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0905DDD1D1D946300004217 /* Assets.xcassets */; };
 		A0D9E6401D2480E400C6F73E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0905DDE1D1D946300004217 /* LaunchScreen.storyboard */; };
 		A0D9E6411D2480E400C6F73E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0905DE01D1D946300004217 /* Main.storyboard */; };
+		A0DD4FE01D55A4B000DA719B /* OTTextChat.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DD4FDE1D55A4B000DA719B /* OTTextChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0DD4FE11D55A4B000DA719B /* OTTextChat.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DD4FDF1D55A4B000DA719B /* OTTextChat.m */; };
+		A0DD4FE31D55B0B600DA719B /* OTTextChat.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DD4FDE1D55A4B000DA719B /* OTTextChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0DD4FE41D55B0BB00DA719B /* OTTextChat.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DD4FDF1D55A4B000DA719B /* OTTextChat.m */; };
+		A0DD4FEB1D566E3C00DA719B /* OTTextChatTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DD4FE91D566E3C00DA719B /* OTTextChatTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0DD4FEC1D566E3C00DA719B /* OTTextChatTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DD4FEA1D566E3C00DA719B /* OTTextChatTableView.m */; };
+		A0DD4FED1D5671AD00DA719B /* OTTextChatTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DD4FE91D566E3C00DA719B /* OTTextChatTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0DD4FF01D56725D00DA719B /* CustomTextChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DD4FEF1D56725D00DA719B /* CustomTextChatTableViewController.m */; };
 		A0DEAAD81D2F1FB4004CF13A /* OTTextChatKitBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */; };
 		A0DEAAD91D2F1FB4004CF13A /* OTTextChatKitBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */; };
+		A0E138FC1D59368A00EF343F /* OTTextChatNavigationBar.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E138FA1D59368A00EF343F /* OTTextChatNavigationBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0E138FD1D59368A00EF343F /* OTTextChatNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E138FB1D59368A00EF343F /* OTTextChatNavigationBar.m */; };
+		A0E138FE1D593CAF00EF343F /* OTTextChatNavigationBar.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E138FA1D59368A00EF343F /* OTTextChatNavigationBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0E139001D593FAA00EF343F /* OTTextChatNavigationBar_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E138FF1D593FAA00EF343F /* OTTextChatNavigationBar_Private.h */; };
 		A0E9FB111D4147E300460599 /* OTTestingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E9FB0F1D4147E300460599 /* OTTestingInfo.h */; };
 		A0E9FB121D4147E300460599 /* OTTestingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9FB101D4147E300460599 /* OTTestingInfo.m */; };
 /* End PBXBuildFile section */
@@ -118,6 +127,21 @@
 
 /* Begin PBXFileReference section */
 		A006F1A61D4028A8001295D7 /* OTTextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTTextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A05D92751D56B3780043F0E3 /* OTTextChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OTTextChatViewController.xib; sourceTree = "<group>"; };
+		A05D92771D56D51B0043F0E3 /* OTTextChatKitBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OTTextChatKitBundle.bundle; sourceTree = "<group>"; };
+		A05D92791D57D18D0043F0E3 /* OTTextChatInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatInputView.h; sourceTree = "<group>"; };
+		A05D927A1D57D18D0043F0E3 /* OTTextChatInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatInputView.m; sourceTree = "<group>"; };
+		A05D92831D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSendTextChatTableViewCell.h; sourceTree = "<group>"; };
+		A05D92841D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSendTextChatTableViewCell.m; sourceTree = "<group>"; };
+		A05D92851D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSendTextChatTableViewCell.xib; sourceTree = "<group>"; };
+		A05D928B1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomReceiveTextChatTableViewCell.h; sourceTree = "<group>"; };
+		A05D928C1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomReceiveTextChatTableViewCell.m; sourceTree = "<group>"; };
+		A05D928D1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomReceiveTextChatTableViewCell.xib; sourceTree = "<group>"; };
+		A05D92921D58FC480043F0E3 /* CustomTimestampTextChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTimestampTextChatTableViewCell.h; sourceTree = "<group>"; };
+		A05D92931D58FC480043F0E3 /* CustomTimestampTextChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTimestampTextChatTableViewCell.m; sourceTree = "<group>"; };
+		A05D92951D58FC560043F0E3 /* CustomTimestampTextChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTimestampTextChatTableViewCell.xib; sourceTree = "<group>"; };
+		A05D92971D590AF10043F0E3 /* CustomDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDateFormatter.h; sourceTree = "<group>"; };
+		A05D92981D590AF10043F0E3 /* CustomDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDateFormatter.m; sourceTree = "<group>"; };
 		A061B9711D1D98FA0020DDD8 /* OTTextChatAccPackKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTTextChatAccPackKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A061B98D1D1D990D0020DDD8 /* OTTextChatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTTextChatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A061B99E1D1D99270020DDD8 /* OTTextChatKitBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTTextChatKitBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,10 +153,9 @@
 		A0905DE11D1D946300004217 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A0905DE21D1D946300004217 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0905DE31D1D946300004217 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A0905DE41D1D946300004217 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A0905DE51D1D946300004217 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A0905DE41D1D946300004217 /* DefaultTextChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTextChatTableViewController.h; sourceTree = "<group>"; };
+		A0905DE51D1D946300004217 /* DefaultTextChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTextChatTableViewController.m; sourceTree = "<group>"; };
 		A0905E361D1D946300004217 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A0905E381D1D946300004217 /* OTTextChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OTTextChatView.xib; sourceTree = "<group>"; };
 		A0905E391D1D946300004217 /* TextChatComponentDivTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatComponentDivTableViewCell.xib; sourceTree = "<group>"; };
 		A0905E3A1D1D946300004217 /* TextChatReceivedShortTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatReceivedShortTableViewCell.xib; sourceTree = "<group>"; };
 		A0905E3B1D1D946300004217 /* TextChatReceivedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextChatReceivedTableViewCell.xib; sourceTree = "<group>"; };
@@ -150,19 +173,23 @@
 		A0AC65E41D1D9DC900F7AAC5 /* OTTextChatKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatKit.h; sourceTree = "<group>"; };
 		A0AC65E61D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatTableViewCell.h; sourceTree = "<group>"; };
 		A0AC65E71D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatTableViewCell.m; sourceTree = "<group>"; };
-		A0AC65E91D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatUICustomizator.h; sourceTree = "<group>"; };
-		A0AC65EA1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatUICustomizator.m; sourceTree = "<group>"; };
-		A0AC65EB1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatUICustomizator_Private.h; sourceTree = "<group>"; };
-		A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatView.h; sourceTree = "<group>"; };
-		A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatView.m; sourceTree = "<group>"; };
-		A0AC65EF1D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatView_UserInterface.h; sourceTree = "<group>"; };
+		A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatViewController.h; sourceTree = "<group>"; };
+		A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatViewController.m; sourceTree = "<group>"; };
 		A0AC65F11D1D9DC900F7AAC5 /* OTTextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextMessage.h; sourceTree = "<group>"; };
 		A0AC65F21D1D9DC900F7AAC5 /* OTTextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextMessage.m; sourceTree = "<group>"; };
 		A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextMessage_Private.h; sourceTree = "<group>"; };
-		A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextMessageManager.h; sourceTree = "<group>"; };
-		A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextMessageManager.m; sourceTree = "<group>"; };
+		A0DD4FDE1D55A4B000DA719B /* OTTextChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChat.h; sourceTree = "<group>"; };
+		A0DD4FDF1D55A4B000DA719B /* OTTextChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChat.m; sourceTree = "<group>"; };
+		A0DD4FE21D55A7B700DA719B /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		A0DD4FE91D566E3C00DA719B /* OTTextChatTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatTableView.h; sourceTree = "<group>"; };
+		A0DD4FEA1D566E3C00DA719B /* OTTextChatTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatTableView.m; sourceTree = "<group>"; };
+		A0DD4FEE1D56725D00DA719B /* CustomTextChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextChatTableViewController.h; sourceTree = "<group>"; };
+		A0DD4FEF1D56725D00DA719B /* CustomTextChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextChatTableViewController.m; sourceTree = "<group>"; };
 		A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatKitBundle.h; sourceTree = "<group>"; };
 		A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatKitBundle.m; sourceTree = "<group>"; };
+		A0E138FA1D59368A00EF343F /* OTTextChatNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatNavigationBar.h; sourceTree = "<group>"; };
+		A0E138FB1D59368A00EF343F /* OTTextChatNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTextChatNavigationBar.m; sourceTree = "<group>"; };
+		A0E138FF1D593FAA00EF343F /* OTTextChatNavigationBar_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTextChatNavigationBar_Private.h; sourceTree = "<group>"; };
 		A0E9FB0F1D4147E300460599 /* OTTestingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTTestingInfo.h; sourceTree = "<group>"; };
 		A0E9FB101D4147E300460599 /* OTTestingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTestingInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,6 +261,7 @@
 		A0905DDA1D1D946300004217 /* OTTextChatAccPackKit */ = {
 			isa = PBXGroup;
 			children = (
+				A05D92771D56D51B0043F0E3 /* OTTextChatKitBundle.bundle */,
 				A0905DDB1D1D946300004217 /* AppDelegate.h */,
 				A0905DDC1D1D946300004217 /* AppDelegate.m */,
 				A0905DDD1D1D946300004217 /* Assets.xcassets */,
@@ -241,8 +269,21 @@
 				A0905DE01D1D946300004217 /* Main.storyboard */,
 				A0905DE21D1D946300004217 /* Info.plist */,
 				A0905DE31D1D946300004217 /* main.m */,
-				A0905DE41D1D946300004217 /* ViewController.h */,
-				A0905DE51D1D946300004217 /* ViewController.m */,
+				A0905DE41D1D946300004217 /* DefaultTextChatTableViewController.h */,
+				A0905DE51D1D946300004217 /* DefaultTextChatTableViewController.m */,
+				A0DD4FEE1D56725D00DA719B /* CustomTextChatTableViewController.h */,
+				A0DD4FEF1D56725D00DA719B /* CustomTextChatTableViewController.m */,
+				A05D92831D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.h */,
+				A05D92841D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.m */,
+				A05D92851D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.xib */,
+				A05D928B1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.h */,
+				A05D928C1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.m */,
+				A05D928D1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.xib */,
+				A05D92921D58FC480043F0E3 /* CustomTimestampTextChatTableViewCell.h */,
+				A05D92931D58FC480043F0E3 /* CustomTimestampTextChatTableViewCell.m */,
+				A05D92951D58FC560043F0E3 /* CustomTimestampTextChatTableViewCell.xib */,
+				A05D92971D590AF10043F0E3 /* CustomDateFormatter.h */,
+				A05D92981D590AF10043F0E3 /* CustomDateFormatter.m */,
 			);
 			path = OTTextChatAccPackKit;
 			sourceTree = "<group>";
@@ -252,7 +293,7 @@
 			children = (
 				A0905E361D1D946300004217 /* Assets.xcassets */,
 				A0905E7B1D1D956500004217 /* Info.plist */,
-				A0905E381D1D946300004217 /* OTTextChatView.xib */,
+				A05D92751D56B3780043F0E3 /* OTTextChatViewController.xib */,
 				A0905E391D1D946300004217 /* TextChatComponentDivTableViewCell.xib */,
 				A0905E3A1D1D946300004217 /* TextChatReceivedShortTableViewCell.xib */,
 				A0905E3B1D1D946300004217 /* TextChatReceivedTableViewCell.xib */,
@@ -277,10 +318,12 @@
 			children = (
 				A0AC65AD1D1D9DC900F7AAC5 /* Info.plist */,
 				A0AC65E41D1D9DC900F7AAC5 /* OTTextChatKit.h */,
+				A0DD4FE21D55A7B700DA719B /* Constant.h */,
 				A0DEAAD61D2F1FB4004CF13A /* OTTextChatKitBundle.h */,
 				A0DEAAD71D2F1FB4004CF13A /* OTTextChatKitBundle.m */,
+				A0DD4FDE1D55A4B000DA719B /* OTTextChat.h */,
+				A0DD4FDF1D55A4B000DA719B /* OTTextChat.m */,
 				A0AC65E51D1D9DC900F7AAC5 /* OTTextChatTableViewCells */,
-				A0AC65E81D1D9DC900F7AAC5 /* OTTextChatUICustomizator */,
 				A0AC65EC1D1D9DC900F7AAC5 /* OTTextChatView */,
 				A0AC65F01D1D9DC900F7AAC5 /* OTTextMessage */,
 				A0AC65A81D1D9DC900F7AAC5 /* Helpers */,
@@ -310,22 +353,18 @@
 			path = OTTextChatTableViewCells;
 			sourceTree = "<group>";
 		};
-		A0AC65E81D1D9DC900F7AAC5 /* OTTextChatUICustomizator */ = {
-			isa = PBXGroup;
-			children = (
-				A0AC65E91D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h */,
-				A0AC65EA1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m */,
-				A0AC65EB1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h */,
-			);
-			path = OTTextChatUICustomizator;
-			sourceTree = "<group>";
-		};
 		A0AC65EC1D1D9DC900F7AAC5 /* OTTextChatView */ = {
 			isa = PBXGroup;
 			children = (
-				A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatView.h */,
-				A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatView.m */,
-				A0AC65EF1D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h */,
+				A05D92791D57D18D0043F0E3 /* OTTextChatInputView.h */,
+				A05D927A1D57D18D0043F0E3 /* OTTextChatInputView.m */,
+				A0DD4FE91D566E3C00DA719B /* OTTextChatTableView.h */,
+				A0DD4FEA1D566E3C00DA719B /* OTTextChatTableView.m */,
+				A0AC65ED1D1D9DC900F7AAC5 /* OTTextChatViewController.h */,
+				A0AC65EE1D1D9DC900F7AAC5 /* OTTextChatViewController.m */,
+				A0E138FA1D59368A00EF343F /* OTTextChatNavigationBar.h */,
+				A0E138FB1D59368A00EF343F /* OTTextChatNavigationBar.m */,
+				A0E138FF1D593FAA00EF343F /* OTTextChatNavigationBar_Private.h */,
 			);
 			path = OTTextChatView;
 			sourceTree = "<group>";
@@ -336,8 +375,6 @@
 				A0AC65F11D1D9DC900F7AAC5 /* OTTextMessage.h */,
 				A0AC65F21D1D9DC900F7AAC5 /* OTTextMessage.m */,
 				A0AC65F31D1D9DC900F7AAC5 /* OTTextMessage_Private.h */,
-				A0AC65F41D1D9DC900F7AAC5 /* OTTextMessageManager.h */,
-				A0AC65F51D1D9DC900F7AAC5 /* OTTextMessageManager.m */,
 			);
 			path = OTTextMessage;
 			sourceTree = "<group>";
@@ -350,16 +387,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A006F1971D4028A8001295D7 /* OTTextChatKit.h in Headers */,
-				A006F1981D4028A8001295D7 /* OTTextChatView.h in Headers */,
+				A006F1981D4028A8001295D7 /* OTTextChatViewController.h in Headers */,
 				A006F1991D4028A8001295D7 /* OTTextMessage.h in Headers */,
-				A006F19A1D4028A8001295D7 /* OTTextChatUICustomizator.h in Headers */,
-				A006F19B1D4028A8001295D7 /* OTTextChatView_UserInterface.h in Headers */,
-				A006F19C1D4028A8001295D7 /* OTTextChatKitBundle.h in Headers */,
 				A006F19D1D4028A8001295D7 /* OTTextChatTableViewCell.h in Headers */,
-				A006F19E1D4028A8001295D7 /* OTTextChatUICustomizator_Private.h in Headers */,
-				A006F19F1D4028A8001295D7 /* OTTextMessageManager.h in Headers */,
+				A006F19C1D4028A8001295D7 /* OTTextChatKitBundle.h in Headers */,
+				A0DD4FE31D55B0B600DA719B /* OTTextChat.h in Headers */,
 				A006F1A01D4028A8001295D7 /* GCDHelper.h in Headers */,
+				A0DD4FED1D5671AD00DA719B /* OTTextChatTableView.h in Headers */,
+				A0E138FE1D593CAF00EF343F /* OTTextChatNavigationBar.h in Headers */,
 				A006F1A11D4028A8001295D7 /* OTTextMessage_Private.h in Headers */,
+				A05D927D1D57D2340043F0E3 /* OTTextChatInputView.h in Headers */,
 				A006F1A21D4028A8001295D7 /* UIViewController+Helper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,19 +405,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0E139001D593FAA00EF343F /* OTTextChatNavigationBar_Private.h in Headers */,
 				A0AC66321D1D9DC900F7AAC5 /* OTTextChatKit.h in Headers */,
-				A0AC663E1D1D9DC900F7AAC5 /* OTTextChatView.h in Headers */,
+				A0DD4FE01D55A4B000DA719B /* OTTextChat.h in Headers */,
+				A0AC663E1D1D9DC900F7AAC5 /* OTTextChatViewController.h in Headers */,
 				A0AC66441D1D9DC900F7AAC5 /* OTTextMessage.h in Headers */,
-				A0AC66381D1D9DC900F7AAC5 /* OTTextChatUICustomizator.h in Headers */,
-				A0AC66421D1D9DC900F7AAC5 /* OTTextChatView_UserInterface.h in Headers */,
-				A0DEAAD81D2F1FB4004CF13A /* OTTextChatKitBundle.h in Headers */,
 				A0AC66341D1D9DC900F7AAC5 /* OTTextChatTableViewCell.h in Headers */,
+				A0DEAAD81D2F1FB4004CF13A /* OTTextChatKitBundle.h in Headers */,
 				A0E9FB111D4147E300460599 /* OTTestingInfo.h in Headers */,
-				A0AC663C1D1D9DC900F7AAC5 /* OTTextChatUICustomizator_Private.h in Headers */,
-				A0AC664A1D1D9DC900F7AAC5 /* OTTextMessageManager.h in Headers */,
 				A0AC65F61D1D9DC900F7AAC5 /* GCDHelper.h in Headers */,
 				A0AC66481D1D9DC900F7AAC5 /* OTTextMessage_Private.h in Headers */,
+				A0DD4FEB1D566E3C00DA719B /* OTTextChatTableView.h in Headers */,
+				A05D927B1D57D18D0043F0E3 /* OTTextChatInputView.h in Headers */,
 				A0AC65FA1D1D9DC900F7AAC5 /* UIViewController+Helper.h in Headers */,
+				A0E138FC1D59368A00EF343F /* OTTextChatNavigationBar.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,10 +568,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F298C6B1D25BF9900D2F48A /* OTTextChatKitBundle.bundle in Resources */,
+				A05D92871D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.xib in Resources */,
+				A05D928F1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.xib in Resources */,
+				A05D92781D56D51B0043F0E3 /* OTTextChatKitBundle.bundle in Resources */,
 				A0D9E63F1D2480E400C6F73E /* Assets.xcassets in Resources */,
 				A0D9E6401D2480E400C6F73E /* LaunchScreen.storyboard in Resources */,
 				A0D9E6411D2480E400C6F73E /* Main.storyboard in Resources */,
+				A05D92961D58FC560043F0E3 /* CustomTimestampTextChatTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,11 +583,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A059B9961D1DE771008F1F14 /* TextChatSentTableViewCell.xib in Resources */,
+				A05D92761D56B3780043F0E3 /* OTTextChatViewController.xib in Resources */,
 				A059B9921D1DE771008F1F14 /* TextChatComponentDivTableViewCell.xib in Resources */,
 				A059B9951D1DE771008F1F14 /* TextChatSentShortTableViewCell.xib in Resources */,
-				A059B9901D1DE771008F1F14 /* Info.plist in Resources */,
 				A059B98F1D1DE771008F1F14 /* Assets.xcassets in Resources */,
-				A059B9911D1DE771008F1F14 /* OTTextChatView.xib in Resources */,
 				A059B9931D1DE771008F1F14 /* TextChatReceivedShortTableViewCell.xib in Resources */,
 				A059B9941D1DE771008F1F14 /* TextChatReceivedTableViewCell.xib in Resources */,
 			);
@@ -583,13 +623,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A006F18D1D4028A8001295D7 /* UIViewController+Helper.m in Sources */,
-				A006F18E1D4028A8001295D7 /* OTTextMessageManager.m in Sources */,
 				A006F18F1D4028A8001295D7 /* OTTextChatKitBundle.m in Sources */,
-				A006F1901D4028A8001295D7 /* OTTextChatView.m in Sources */,
+				A006F1901D4028A8001295D7 /* OTTextChatViewController.m in Sources */,
 				A006F1911D4028A8001295D7 /* GCDHelper.m in Sources */,
-				A006F1921D4028A8001295D7 /* OTTextChatUICustomizator.m in Sources */,
 				A006F1931D4028A8001295D7 /* OTTextChatTableViewCell.m in Sources */,
 				A006F1941D4028A8001295D7 /* OTTextMessage.m in Sources */,
+				A0DD4FE41D55B0BB00DA719B /* OTTextChat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,8 +637,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0D9E63C1D2480DA00C6F73E /* AppDelegate.m in Sources */,
+				A05D928E1D58463D0043F0E3 /* CustomReceiveTextChatTableViewCell.m in Sources */,
+				A0DD4FF01D56725D00DA719B /* CustomTextChatTableViewController.m in Sources */,
 				A0D9E63D1D2480DA00C6F73E /* main.m in Sources */,
-				A0D9E63E1D2480DA00C6F73E /* ViewController.m in Sources */,
+				A0D9E63E1D2480DA00C6F73E /* DefaultTextChatTableViewController.m in Sources */,
+				A05D92991D590AF10043F0E3 /* CustomDateFormatter.m in Sources */,
+				A05D92861D583EEC0043F0E3 /* CustomSendTextChatTableViewCell.m in Sources */,
+				A05D92941D58FC480043F0E3 /* CustomTimestampTextChatTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,12 +652,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0AC65FC1D1D9DC900F7AAC5 /* UIViewController+Helper.m in Sources */,
-				A0AC664C1D1D9DC900F7AAC5 /* OTTextMessageManager.m in Sources */,
+				A0DD4FE11D55A4B000DA719B /* OTTextChat.m in Sources */,
 				A0DEAAD91D2F1FB4004CF13A /* OTTextChatKitBundle.m in Sources */,
-				A0AC66401D1D9DC900F7AAC5 /* OTTextChatView.m in Sources */,
+				A05D927C1D57D18D0043F0E3 /* OTTextChatInputView.m in Sources */,
+				A0AC66401D1D9DC900F7AAC5 /* OTTextChatViewController.m in Sources */,
+				A0DD4FEC1D566E3C00DA719B /* OTTextChatTableView.m in Sources */,
+				A0E138FD1D59368A00EF343F /* OTTextChatNavigationBar.m in Sources */,
 				A0E9FB121D4147E300460599 /* OTTestingInfo.m in Sources */,
 				A0AC65F81D1D9DC900F7AAC5 /* GCDHelper.m in Sources */,
-				A0AC663A1D1D9DC900F7AAC5 /* OTTextChatUICustomizator.m in Sources */,
 				A0AC66361D1D9DC900F7AAC5 /* OTTextChatTableViewCell.m in Sources */,
 				A0AC66461D1D9DC900F7AAC5 /* OTTextMessage.m in Sources */,
 			);
