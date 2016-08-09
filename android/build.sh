@@ -1,3 +1,5 @@
+set -e
+
 task="$1"
 
 cd TextChatAccPackKit
@@ -39,4 +41,3 @@ fi
 
 echo Invalid parameters, please use ‘-b’ to build, ‘-t’ to run tests, ‘-d’ to create zip file with binary and doc or ‘-f’ to perform all actions.
 exit 1
-

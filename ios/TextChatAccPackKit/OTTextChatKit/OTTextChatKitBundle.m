@@ -5,7 +5,7 @@
 //
 
 #import "OTTextChatKitBundle.h"
-#import "OTTextChatView.h"
+#import "OTTextChatViewController.h"
 
 @implementation OTTextChatKitBundle
 
@@ -20,7 +20,7 @@
         return textChatViewBundle;
     }
     
-    textChatKitBundleURL = [[NSBundle bundleForClass:[OTTextChatView class]] URLForResource:@"OTTextChatKitBundle" withExtension:@"bundle"];
+    textChatKitBundleURL = [[NSBundle bundleForClass:[OTTextChatViewController class]] URLForResource:@"OTTextChatKitBundle" withExtension:@"bundle"];
     if (textChatKitBundleURL) {
         NSBundle *textChatViewBundle = [NSBundle bundleWithURL:textChatKitBundleURL];
         if (!textChatViewBundle.isLoaded) {

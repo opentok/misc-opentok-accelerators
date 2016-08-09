@@ -131,7 +131,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         super.onCreate(savedInstanceState);
 
         // Retain this fragment across configuration changes.
@@ -145,6 +144,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     * @param apiKey  The API Key.
     */
     public static TextChatFragment newInstance(AccPackSession session, String apiKey) {
+
         if ( session == null ){
             throw new IllegalArgumentException("Session argument cannot be null");
         }
@@ -158,6 +158,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         fragment.mSession.setSignalListener(fragment);
         fragment.mSession.setSessionListener(fragment);
         fragment.mApiKey = apiKey;
+        addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_SUCCESS);
 
         return fragment;
     }
@@ -165,7 +166,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         rootView = (ViewGroup) inflater.inflate(R.layout.main_layout, container, false);
 
@@ -213,15 +213,12 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Close onClick");
-                addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-
                 try  {
                     InputMethodManager inputMgr = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputMgr.hideSoftInputFromWindow(mMsgEditText.getWindowToken(), 0);
                 } catch (Exception e) {
                     throw e;
                 }
-
                 onClose();
             }
         });
@@ -236,7 +233,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
      *
      */
     public void close(){
-        addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         onClose();
     }
 
@@ -485,6 +481,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         //rootView.setVisibility(View.GONE);
         if (this.mListener != null) {
             mListener.onClosed();
+            addLogEvent(OpenTokConfig.LOG_ACTION_END, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
         isRestarted = true;
 
@@ -614,6 +611,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         if ( this.customSenderArea ) {
             setSendMessageView(this.mSendMessageView);
         }
+        addLogEvent(OpenTokConfig.LOG_ACTION_OPEN, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     @Override

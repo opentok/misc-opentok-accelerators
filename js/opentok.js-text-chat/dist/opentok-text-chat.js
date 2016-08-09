@@ -1,5 +1,29 @@
-/* global OTKAnalytics moment define */
+/* global OTKAnalytics define */
 (function () {
+
+  /** Include external dependencies */
+
+  var _;
+  var $;
+  var OTKAnalytics;
+
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    /* eslint-disable import/no-unresolved */
+    _ = require('underscore');
+    $ = require('jquery');
+    window.jQuery = $;
+    window.moment = require('moment');
+    require('kuende-livestamp');
+    OTKAnalytics = require('opentok-solutions-logging');
+    /* eslint-enable import/no-unresolved */
+  } else {
+    _ = this._;
+    $ = this.$;
+    window.jQuery = $;
+    window.moment = this.moment;
+    OTKAnalytics = this.OTKAnalytics;
+  }
+
 
   // Reference to instance of TextChatAccPack
   var _this;
@@ -14,10 +38,12 @@
     componentId: 'textChatAccPack',
     name: 'guidTextChatAccPack',
     actionInitialize: 'Init',
-    actionSendMessage: 'SendMessage',
-    actionReceiveMessage: 'ReceiveMessage',
-    actionMaximize: 'Maximize',
-    actionMinimize: 'Minimize',
+    actionStart: 'Start',
+    actionEnd: 'End',
+    actionOpen: 'OpenTC',
+    actionClose: 'CloseTC',
+    actionSendMessage: 'Send Msg',
+    actionReceiveMessage: 'Receive Msg',
     actionSetMaxLength: 'SetMaxLength',
     variationAttempt: 'Attempt',
     variationError: 'Failure',
@@ -68,6 +94,8 @@
   var _composer;
   var _lastMessage;
   var _newMessages;
+  var _sentMessageHistory = [];
+  var _remoteParticipant = false;
 
   // Reference to Accelerator Pack Common Layer
   var _accPack;
@@ -87,6 +115,7 @@
       '</div>',
       '<div id="wmsChatWrap">',
       '<div class="wms-messages-holder" id="messagesHolder">',
+      '<div class="wms-messages-alert hidden" id="messagesWaiting">Messsages will be delivered once your contact arrives</div>',
       '<div class="wms-message-item wms-message-sent">',
       '</div>',
       '</div>',
@@ -116,7 +145,6 @@
     _composer.value = '';
     $('#characterCount').text('0');
   };
-
 
   var _getBubbleHtml = function (message) {
     /* eslint-disable max-len, prefer-template */
@@ -176,9 +204,16 @@
     _triggerEvent('errorSendingMessage', error);
   };
 
-
   var _sendMessage = function (recipient, message) {
+
     var deferred = new $.Deferred();
+
+    _sentMessageHistory.push({ recipient: recipient, message: message });
+    if (!_remoteParticipant) {
+      _showWaitingMessage();
+      deferred.resolve();
+    }
+
     var messageData = {
       text: message,
       sender: {
@@ -226,17 +261,18 @@
       }, function (error) {
         if (error) {
           console.log('Error sending a message');
+          _log(_logEventData.actionSendMessage, _logEventData.variationFailure);
           deferred.resolve(error);
         } else {
           console.log('Message sent');
           deferred.resolve(messageData);
+          _log(_logEventData.actionSendMessage, _logEventData.variationSuccess);
         }
       });
     }
 
     return deferred.promise();
   };
-
 
   var _sendTxtMessage = function (text) {
     if (!_.isEmpty(text)) {
@@ -259,8 +295,17 @@
     }
   };
 
-  var _setupUI = function () {
+  var _showWaitingMessage = function () {
+    var el = document.getElementById('messagesWaiting');
+    el && el.classList.remove('hidden');
+  };
 
+  var _hideWaitingMessage = function () {
+    var el = document.getElementById('messagesWaiting');
+    el && el.classList.add('hidden');
+  };
+
+  var _setupUI = function () {
     var parent = document.querySelector(_this.options.textChatContainer) || document.body;
 
     var chatView = document.createElement('section');
@@ -292,8 +337,6 @@
   };
 
   var _onIncomingMessage = function (signal) {
-    _log(_logEventData.actionReceiveMessage, _logEventData.variationAttempt);
-
     var data = JSON.parse(signal.data);
 
     if (_shouldAppendMessage(data)) {
@@ -318,41 +361,62 @@
     }
   };
 
-  var _initTextChat = function () {
-    // Add INITIALIZE attempt log event
-    _log(_logEventData.actionInitialize, _logEventData.variationAttempt);
+  var _deliverUnsentMessages = function () {
+    _sentMessageHistory.forEach(function (message) {
+      _sendMessage(message.recipient, message.message);
+    });
+    _sentMessageHistory = [];
+  };
 
+  var _handleReadySignal = function (event) {
+    if (event.from.connectionId !== _session.connection.connectionId) {
+      _remoteParticipant = true;
+      _deliverUnsentMessages();
+    }
+  };
+
+  /**
+   * Send a signal to the other parties, letting them know that we are ready to receive
+   * messages and would like to recieve their message history
+   */
+  var _signalReady = function () {
+    var readySignal = { type: 'text-chat-ready', data: JSON.stringify({ ready: true }) };
+    _session.on('signal:text-chat-ready', _handleReadySignal);
+    _session.signal(readySignal, function (error) {
+      if (error) {
+        console.log('Error sending ready signal', error);
+      }
+    });
+  };
+
+  var _initTextChat = function () {
     _enabled = true;
     _displayed = true;
     _initialized = true;
     _setupUI();
     _triggerEvent('showTextChat');
     _session.on('signal:text-chat', _handleTextChat);
+    _signalReady();
+    _log(_logEventData.actionStart, _logEventData.variationSuccess);
   };
 
   var _showTextChat = function () {
-    // Add MAXIMIZE attempt log event
-    _log(_logEventData.actionMaximize, _logEventData.variationAttempt);
-
     document.querySelector(_this.options.textChatContainer).classList.remove('hidden');
     _displayed = true;
     _triggerEvent('showTextChat');
 
-    // Add MAXIMIZE success log event
-    _log(_logEventData.actionMaximize, _logEventData.variationSuccess);
+    // Add OPEN success log event
+    _log(_logEventData.actionOpen, _logEventData.variationSuccess);
   };
 
   var _hideTextChat = function () {
-    // Add MINIMIZE attempt log event
-    _log(_logEventData.actionMinimize, _logEventData.variationAttempt);
-
     document.querySelector(_this.options.textChatContainer).classList.add('hidden');
     _displayed = false;
     _triggerEvent('hideTextChat');
 
-    // Add MINIMIZE success log event
-    _log(_logEventData.actionMinimize, _logEventData.variationSuccess);
-
+    // Add CLOSE success log event
+    _log(_logEventData.actionClose, _logEventData.variationSuccess);
+    _log(_logEventData.actionEnd, _logEventData.variationSuccess);
   };
 
   var _appendControl = function () {
@@ -378,7 +442,6 @@
       }
     };
   };
-
 
   var _validateOptions = function (options) {
 
@@ -427,9 +490,24 @@
     _accPack && _accPack.registerEvents(events);
   };
 
+  var _handleStreamCreated = function (event) {
+    if (event && event.stream.connection.connectionId !== _session.connection.connectionId) {
+      _remoteParticipant = true;
+      _hideWaitingMessage();
+    }
+  };
+
+  var _handleStreamDestroyed = function () {
+    if (_session.streams.length() < 2) {
+      _remoteParticipant = false;
+    }
+  };
+
   var _addEventListeners = function () {
 
     if (_accPack) {
+      _accPack.registerEventListener('streamCreated', _handleStreamCreated);
+      _accPack.registerEventListener('streamDestroyed', _handleStreamDestroyed);
 
       _accPack.registerEventListener('startCall', function () {
         if (_controlAdded) {
@@ -445,7 +523,17 @@
           _hideTextChat();
         }
       });
+    } else {
+      _session.on('streamCreated', _handleStreamCreated);
+      _session.on('streamDestroyed', _handleStreamDestroyed);
     }
+
+    /**
+     * We need to check for remote participants in case we were the last party to join and
+     * the session event fired before the text chat component was initialized.
+     */
+    _handleStreamCreated();
+
   };
 
   // Constructor
@@ -461,7 +549,6 @@
     _logAnalytics();
 
     if (!!_.property('_this.options.limitCharacterMessage')(options)) {
-      _log(_logEventData.actionSetMaxLength, _logEventData.variationAttempt);
       _log(_logEventData.actionSetMaxLength, _logEventData.variationSuccess);
     }
 
@@ -485,7 +572,6 @@
       _hideTextChat();
     }
   };
-
 
   if (typeof exports === 'object') {
     module.exports = TextChatAccPack;

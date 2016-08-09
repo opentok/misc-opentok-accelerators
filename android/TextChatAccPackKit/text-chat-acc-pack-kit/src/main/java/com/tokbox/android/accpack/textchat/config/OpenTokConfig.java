@@ -7,9 +7,12 @@ public class OpenTokConfig {
     public static final String LOG_CLIENT_VERSION = "android-vsol-1.0.0";
     public static final String LOG_COMPONENTID = "textChatAccPack";
     public static final String LOG_ACTION_INITIALIZE = "Init";
-    public static final String LOG_ACTION_SEND_MESSAGE = "SendMessage";
-    public static final String LOG_ACTION_RECEIVE_MESSAGE = "ReceiveMessage";
-    public static final String LOG_ACTION_CLOSE = "Close";
+    public static final String LOG_ACTION_START = "Start";
+    public static final String LOG_ACTION_END = "End";
+    public static final String LOG_ACTION_OPEN = "OpenTC";
+    public static final String LOG_ACTION_CLOSE = "CloseTC";
+    public static final String LOG_ACTION_SEND_MESSAGE = "Send Msg";
+    public static final String LOG_ACTION_RECEIVE_MESSAGE = "Receive Msg";
     public static final String LOG_ACTION_SET_MAX_LENGTH = "SetMaxLength";
 
     public static final String LOG_VARIATION_ATTEMPT = "Attempt";
