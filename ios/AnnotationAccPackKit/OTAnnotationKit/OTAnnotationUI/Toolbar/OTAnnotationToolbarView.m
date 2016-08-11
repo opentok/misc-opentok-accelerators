@@ -37,6 +37,13 @@
 
 @implementation OTAnnotationToolbarView
 
+- (void)setAnnotationScrollView:(OTAnnotationScrollView *)annotationScrollView {
+    _annotationScrollView = annotationScrollView;
+    if (!annotationScrollView) {
+        [[NSNotificationCenter defaultCenter] removeObserver:OTAnnotationTextViewDidCancelChangeNotification];
+    }
+}
+
 - (OTAnnotationColorPickerView *)colorPickerView {
     if (!_colorPickerView) {
         _colorPickerView = [[OTAnnotationColorPickerView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, CGRectGetWidth([UIScreen mainScreen].bounds), HeightOfColorPicker)];
@@ -56,13 +63,15 @@
 
 - (UIButton *)doneButton {
     if (!_doneButton) {
-    
+        
         _doneButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) / 6, CGRectGetHeight(self.bounds))];
         [_doneButton.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
+        [_doneButton setImage:[UIImage imageNamed:@"checkmark" inBundle:[OTAnnotationKitBundle annotationKitBundle] compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        _doneButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_doneButton setBackgroundColor:[UIColor colorWithRed:75.0/255.0f green:157.0/255.0f blue:179.0f/255.0f alpha:1.0]];
+        [_doneButton setBackgroundColor:[UIColor colorWithRed:118.0/255.0f green:206.0/255.0f blue:31.0/255.0f alpha:1.0]];
         [_doneButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _doneButton.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     }
     return _doneButton;
 }
@@ -86,8 +95,20 @@
         [self addSubview:_toolbar];
         self.backgroundColor = [UIColor lightGrayColor];
         _annotationScrollView = annotationScrollView;
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:OTAnnotationTextViewDidCancelChangeNotification
+                                                          object:nil queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification *notification) {
+                                                          
+                                                          [self toolbarButtonPressed:self.doneButton];
+                                                      }];
     }
     return self;
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:OTAnnotationTextViewDidCancelChangeNotification];
 }
 
 + (instancetype)toolbar {
@@ -148,6 +169,7 @@
         [self.toolbar removeContentViewAtIndex:0];
         [self moveSelectionShadowViewTo:nil];
         [self resetToolbarButtons];
+        [OTKLogger logEventAction:KLogActionDone variation:KLogVariationSuccess completion:nil];
     }
     else if (sender == self.annotateButton) {
         self.annotationScrollView.annotatable = YES;
@@ -164,7 +186,7 @@
         editTextViewController.delegate = self;
         UIViewController *topViewController = [UIViewController topViewControllerWithRootViewController];
         [topViewController presentViewController:editTextViewController animated:YES completion:nil];
-        [self disableButtons:@[self.annotateButton, self.colorButton, self.textButton, self.screenshotButton, self.eraseButton]];
+        [self disableButtons:@[self.annotateButton, self.textButton, self.screenshotButton, self.eraseButton]];
     }
     else if (sender == self.colorButton) {
         [self showColorPickerView];
@@ -225,7 +247,15 @@
     [OTKLogger logEventAction:KLogActionPickerColor variation:KLogVariationSuccess completion:nil];
     [self.colorButton setBackgroundColor:selectedColor];
     if (self.annotationScrollView.isAnnotatable) {
-        [self.annotationScrollView.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:self.colorPickerView.selectedColor]];
+        if ([self.annotationScrollView.annotationView.currentAnnotatable isKindOfClass:[OTAnnotationTextView class]]) {
+            
+            OTAnnotationTextView *textView = (OTAnnotationTextView *)self.annotationScrollView.annotationView.currentAnnotatable;
+            textView.textColor = selectedColor;
+        }
+        else {
+            
+            [self.annotationScrollView.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:selectedColor]];
+        }
     }
 }
 

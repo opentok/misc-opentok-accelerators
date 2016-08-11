@@ -1,14 +1,14 @@
 //
 //  AnnotationView.m
-//  ScreenShareSample
 //
-//  Created by Xi Huang on 5/18/16.
-//  Copyright © 2016 Lucas Huang. All rights reserved.
+//  Copyright © 2016 Tokbox. All rights reserved.
 //
 
 #import "OTAnnotationView.h"
 
 #import <OTKAnalytics/OTKLogger.h>
+#import "OTAnnotator.h"
+#import "OTAnnotationView+Signaling.h"
 
 #import "Constants.h"
 
@@ -16,9 +16,19 @@
 @property (nonatomic) OTAnnotationTextView *currentEditingTextView;
 @property (nonatomic) OTAnnotationPath *currentDrawPath;
 @property (nonatomic) OTAnnotationDataManager *annotationDataManager;
+@property (weak, nonatomic) OTAnnotator *annotator;
 @end
 
 @implementation OTAnnotationView
+
+- (OTAnnotator *)annotator {
+    if (!_annotator) {
+        if ([OTAnnotator annotator].annotationView == self) {
+            _annotator = [OTAnnotator annotator];
+        }
+    }
+    return _annotator;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     
@@ -42,13 +52,15 @@
     if ([annotatable isKindOfClass:[OTAnnotationPath class]]) {
         _currentAnnotatable = annotatable;
         _currentDrawPath = (OTAnnotationPath *)annotatable;
+        [self addAnnotatable:annotatable];
+        [OTKLogger logEventAction:KLogActionFreeHand variation:KLogVariationSuccess completion:nil];
     }
     else if ([annotatable isKindOfClass:[OTAnnotationTextView class]]) {
         _currentAnnotatable = annotatable;
         _currentEditingTextView = (OTAnnotationTextView *)annotatable;
+        [self addAnnotatable:annotatable];
     }
     else {
-        
         [self commitCurrentAnnotatable];
     }
 }
@@ -61,7 +73,9 @@
     
     if ([annotatable isMemberOfClass:[OTAnnotationPath class]]) {
         OTAnnotationPath *path = (OTAnnotationPath *)annotatable;
-        [path drawWholePath];
+        if (path.points.count != 0) {
+            [path drawWholePath];
+        }
         [self.annotationDataManager addAnnotatable:path];
         [self setNeedsDisplay];
     }
@@ -133,20 +147,32 @@
 #pragma mark - UIResponder
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    if (_currentDrawPath) {
-        [self.annotationDataManager addAnnotatable:_currentDrawPath];
-        UITouch *touch = [touches anyObject];
-        CGPoint touchPoint = [touch locationInView:touch.view];
-        OTAnnotationPoint *annotatinPoint = [OTAnnotationPoint pointWithX:touchPoint.x andY:touchPoint.y];
-        [_currentDrawPath startAtPoint:annotatinPoint];
-        [OTKLogger logEventAction:KLogActionStartDrawing variation:KLogVariationSuccess completion:nil];
+    if (_currentEditingTextView) return;
+    
+    if (!_currentDrawPath || _currentDrawPath.points.count != 0) {
+        self.currentAnnotatable = [OTAnnotationPath pathWithStrokeColor:_currentDrawPath.strokeColor];
     }
+    UITouch *touch = [touches anyObject];
+    
+    if (self.annotator && self.annotator.isSendAnnotationEnabled){
+        [self signalAnnotatble:_currentAnnotatable touch:touch addtionalInfo:nil];
+    }
+    
+    CGPoint touchPoint = [touch locationInView:touch.view];
+    OTAnnotationPoint *annotatinPoint = [OTAnnotationPoint pointWithX:touchPoint.x andY:touchPoint.y];
+    [_currentDrawPath startAtPoint:annotatinPoint];
+    [OTKLogger logEventAction:KLogActionStartDrawing variation:KLogVariationSuccess completion:nil];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     
     if (_currentDrawPath) {
         UITouch *touch = [touches anyObject];
+        
+        if (self.annotator && self.annotator.isSendAnnotationEnabled){
+            [self signalAnnotatble:_currentAnnotatable touch:touch addtionalInfo:nil];
+        }
+        
         CGPoint touchPoint = [touch locationInView:touch.view];
         OTAnnotationPoint *annotatinPoint = [OTAnnotationPoint pointWithX:touchPoint.x andY:touchPoint.y];
         [_currentDrawPath drawToPoint:annotatinPoint];
@@ -155,8 +181,19 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
     if (_currentDrawPath) {
-        _currentDrawPath = [OTAnnotationPath pathWithStrokeColor:_currentDrawPath.strokeColor];
+        UITouch *touch = [touches anyObject];
+        
+        if (self.annotator && self.annotator.isSendAnnotationEnabled){
+            [self signalAnnotatble:_currentAnnotatable touch:touch addtionalInfo:@{@"endPoint":@(YES)}];
+        }
+        
+        CGPoint touchPoint = [touch locationInView:touch.view];
+        OTAnnotationPoint *annotatinPoint = [OTAnnotationPoint pointWithX:touchPoint.x andY:touchPoint.y];
+        [_currentDrawPath drawToPoint:annotatinPoint];
+        [self setNeedsDisplay];
+        [self commitCurrentAnnotatable];
         [OTKLogger logEventAction:KLogActionEndDrawing variation:KLogVariationSuccess completion:nil];
     }
 }

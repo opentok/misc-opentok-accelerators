@@ -1,9 +1,7 @@
 //
 //  AnnotationManager.m
-//  ScreenShareSample
 //
-//  Created by Xi Huang on 5/18/16.
-//  Copyright © 2016 Lucas Huang. All rights reserved.
+//  Copyright © 2016 Tokbox. All rights reserved.
 //
 
 #import "OTAnnotationDataManager.h"

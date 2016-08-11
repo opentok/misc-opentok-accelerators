@@ -42,6 +42,10 @@
     
     if (!_annotatable) {
         [self.annotationView setCurrentAnnotatable:nil];
+        [self.annotationView setUserInteractionEnabled:NO];
+    }
+    else {
+        [self.annotationView setUserInteractionEnabled:YES];
     }
 }
 
@@ -59,6 +63,8 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.scrollView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    self.annotationScrollViewWidth.constant = frame.size.width;
+    self.annotationScrollViewHeigth.constant = frame.size.height;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -68,7 +74,7 @@
         // scroll view
         _zoomEnabled = YES;
         _scrollView = [[UIScrollView alloc] init];
-        [_scrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
         _scrollView.maximumZoomScale = 3.0f;
         _scrollView.delegate = self;
         [self addSubview:_scrollView];
@@ -103,7 +109,7 @@
         
         // scroll content view
         _scrollContentView  = [[UIView alloc] init];
-        [_scrollContentView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        _scrollContentView.translatesAutoresizingMaskIntoConstraints = NO;
         [_scrollView addSubview:_scrollContentView];
         [NSLayoutConstraint constraintWithItem:_scrollContentView
                                      attribute:NSLayoutAttributeTop
@@ -135,10 +141,11 @@
                                                                      multiplier:1.0
                                                                        constant:CGRectGetHeight(frame)];
         _annotationScrollViewHeigth.active = YES;
+        [self.scrollView setContentSize:CGSizeMake(self.annotationScrollViewWidth.constant, self.annotationScrollViewHeigth.constant)];
         
         // annotation view
         _annotationView = [[OTAnnotationView alloc] init];
-        [_annotationView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        _annotationView.translatesAutoresizingMaskIntoConstraints = NO;
         [_scrollContentView addSubview:_annotationView];
         [NSLayoutConstraint constraintWithItem:_annotationView
                                      attribute:NSLayoutAttributeTop
@@ -168,6 +175,8 @@
                                      attribute:NSLayoutAttributeRight
                                     multiplier:1.0
                                       constant:0.0].active = YES;
+        
+        self.annotatable = NO;
     }
     return self;
 }
@@ -201,7 +210,6 @@
                                           self.scrollView.contentOffset.y + annotationTextView.frame.origin.y,
                                           CGRectGetWidth(annotationTextView.bounds),
                                           CGRectGetHeight(annotationTextView.bounds));
-    [self.annotationView addAnnotatable:annotationTextView];
     [self.annotationView setCurrentAnnotatable:annotationTextView];
 }
 

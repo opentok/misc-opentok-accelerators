@@ -36,7 +36,7 @@ public class AnnotationsText implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Log.i("MARINAS", "ONCLICK ANNOTATIONSTEXT");
+
     }
 
     public EditText getEditText() {

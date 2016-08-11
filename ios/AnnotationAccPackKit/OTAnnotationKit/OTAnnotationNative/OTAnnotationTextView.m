@@ -1,65 +1,119 @@
 //
 //  ScreenShareTextView.m
-//  ScreenShareSample
 //
-//  Created by Xi Huang on 4/27/16.
-//  Copyright © 2016 Lucas Huang. All rights reserved.
+//  Copyright © 2016 Tokbox. All rights reserved.
 //
 
 #import "OTAnnotationTextView.h"
 #import <OTKAnalytics/OTKLogger.h>
 
+#import "OTAnnotationTextView+Gesture.h"
+#import "OTAnnotationTextView_Gesture.h"
+
+#import "OTAnnotationKitBundle.h"
 #import "Constants.h"
 
-@interface OTAnnotationTextView() <UITextViewDelegate>
-@property (nonatomic) CGPoint referenceCenter;
-@property (nonatomic) CGAffineTransform referenceRotateTransform;
-@property (nonatomic) CGAffineTransform currentRotateTransform;
-@property (nonatomic) UIPanGestureRecognizer *panRecognizer;
-@property (nonatomic) UIPinchGestureRecognizer *activePinchRecognizer;
-@property (nonatomic) UIRotationGestureRecognizer *activeRotationRecognizer;
-@property (nonatomic) CAShapeLayer *dotborder;
-
+@interface OTAnnotationTextView() <UITextViewDelegate> {
+    BOOL startTyping;
+}
+@property (nonatomic) UIButton *cancelButton;
 @property (nonatomic) UIButton *rotateButton;
 @property (nonatomic) UIButton *pinchButton;
 @end
 
 @implementation OTAnnotationTextView
 
+NSString *const OTAnnotationTextViewDidFinishChangeNotification = @"OTAnnotationTextViewDidFinishChangeNotification";
+NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotationTextViewDidCancelChangeNotification";
+
+- (UIButton *)cancelButton {
+    if (!_cancelButton) {
+        _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_cancelButton setBackgroundColor:[UIColor clearColor]];
+        [_cancelButton setImage:[UIImage imageNamed:@"delete icon" inBundle:[OTAnnotationKitBundle annotationKitBundle] compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        _cancelButton.center = CGPointMake(0, 0);
+        [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_cancelButton];
+    }
+    return _cancelButton;
+}
+
 - (void)setDraggable:(BOOL)draggable {
     _draggable = draggable;
     if (_draggable) {
-        _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                 action:@selector(handlePanGesture:)];
-        [self addGestureRecognizer:_panRecognizer];
+        _onViewPanRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                       action:@selector(handleOnViewDragGesture:)];
+        [self addGestureRecognizer:_onViewPanRecognizer];
     }
     else {
-        [self removeGestureRecognizer:_panRecognizer];
-        _panRecognizer = nil;
+        [self removeGestureRecognizer:_onViewPanRecognizer];
+        _onViewPanRecognizer = nil;
     }
 }
 
 - (void)setResizable:(BOOL)resizable {
     _resizable = resizable;
     if (_resizable) {
-        _activePinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
-        [self addGestureRecognizer:_activePinchRecognizer];
+        _onViewPinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleOnViewZoomGesture:)];
+        [self addGestureRecognizer:_onViewPinchRecognizer];
+        
+        _pinchButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [_pinchButton setBackgroundColor:[UIColor clearColor]];
+        [_pinchButton setImage:[UIImage imageNamed:@"resize icon" inBundle:[OTAnnotationKitBundle annotationKitBundle] compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        _pinchButton.center = CGPointMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+        _pinchButton.layer.cornerRadius = CGRectGetWidth(_pinchButton.bounds) / 2;
+        _pinchButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        _pinchButton.layer.borderWidth = 2.0f;
+        [self addSubview:_pinchButton];
+        
+        _onButtonZoomRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleOnButtonZoomGesture:)];
+        [_pinchButton addGestureRecognizer:_onButtonZoomRecognizer];
     }
     else {
-        [self removeGestureRecognizer:_activePinchRecognizer];
-        _activePinchRecognizer = nil;
+        
+        [self removeGestureRecognizer:_onViewPinchRecognizer];
+        _onViewPinchRecognizer = nil;
+        
+        // workaround: the text view will get cut off if we remove it directly
+        _pinchButton.hidden = YES;
+        _pinchButton = nil;
+        
+        [self removeGestureRecognizer:_onButtonZoomRecognizer];
+        _onButtonZoomRecognizer = nil;
     }
 }
 
 - (void)setRotatable:(BOOL)rotatable {
     _rotatable = rotatable;
     if (_rotatable) {
-        _activeRotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
-        [self addGestureRecognizer:_activeRotationRecognizer];
+        _onViewRotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleOnViewRotateGesture:)];
+        [self addGestureRecognizer:_onViewRotationRecognizer];
+        
+        _rotateButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [_rotateButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_rotateButton setBackgroundColor:[UIColor clearColor]];
+        [_rotateButton setImage:[UIImage imageNamed:@"rotate icon" inBundle:[OTAnnotationKitBundle annotationKitBundle] compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        _rotateButton.center = CGPointMake(0, CGRectGetHeight(self.bounds));
+        _rotateButton.layer.cornerRadius = CGRectGetWidth(_rotateButton.bounds) / 2;
+        _rotateButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        _rotateButton.layer.borderWidth = 2.0f;
+        [self addSubview:_rotateButton];
+        
+        _onButtonRotateRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleOnButtonRotateGesture:)];
+        [_rotateButton addGestureRecognizer:_onButtonRotateRecognizer];
     }
     else {
-        [self removeGestureRecognizer:_activeRotationRecognizer];
-        _activeRotationRecognizer = nil;
+        
+        [self removeGestureRecognizer:_onViewRotationRecognizer];
+        _onViewRotationRecognizer = nil;
+        
+        // workaround: the text view will get cut off if we remove it directly
+        _rotateButton.hidden = YES;
+        _rotateButton = nil;
+        
+        [self removeGestureRecognizer:_onButtonRotateRecognizer];
+        _onButtonRotateRecognizer = nil;
     }
 }
 
@@ -72,14 +126,25 @@
                     fontSize:(CGFloat)fontSize {
     
     if (self = [super init]) {
+        
         CGRect screenBounds = [UIScreen mainScreen].bounds;
-        self.frame = CGRectMake(LeadingPaddingOfAnnotationTextView, 100, CGRectGetWidth(screenBounds) - LeadingPaddingOfAnnotationTextView * 2, 0);
+        self.frame = CGRectMake(LeadingPaddingOfAnnotationTextView, 180, CGRectGetWidth(screenBounds) - LeadingPaddingOfAnnotationTextView * 2, 0);
+        
+        // attributes
+        [self setClipsToBounds:NO];
+        [self setBackgroundColor:[UIColor clearColor]];
+        [self setDelegate:self];
+        [self setTextColor:textColor];
+        [self setScrollEnabled:NO];
         [self setTextAlignment:NSTextAlignmentCenter];
         [self setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        [self setSelectable:NO];
+        [self setEditable:YES];
+        [self setUserInteractionEnabled:NO];
         
         // text content
         if (!text) {
-            [self setText:@"Content"];
+            [self setText:@"Type Something"];
         }
         else {
             [self setText:text];
@@ -91,158 +156,101 @@
         else {
             [self setFont:[UIFont systemFontOfSize:fontSize]];
         }
-        [self resizeTextView:self];
-        
-        // attributes
-        [self setBackgroundColor:[UIColor clearColor]];
-        [self setDelegate:self];
-        [self setTextColor:textColor];
-        [self setScrollEnabled:NO];
-        
-        self.draggable = YES;
-        _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                 action:@selector(handlePanGesture:)];
-        [self addGestureRecognizer:_panRecognizer];
-        
-        self.resizable = YES;
-        _activePinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
-        [self addGestureRecognizer:_activePinchRecognizer];
-        
-        self.rotatable = YES;
-        _activeRotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchOrRotateGesture:)];
-        [self addGestureRecognizer:_activeRotationRecognizer];
     
-        _referenceRotateTransform = CGAffineTransformIdentity;
-        _currentRotateTransform = CGAffineTransformIdentity;
+        _referenceTransform = CGAffineTransformIdentity;
+        _currentTransform = CGAffineTransformIdentity;
         
-        // dash border
-        _dotborder = [CAShapeLayer layer];
-        _dotborder.strokeColor = [UIColor whiteColor].CGColor;
-        _dotborder.fillColor = nil;
-        _dotborder.lineWidth = 3.0f;
-        _dotborder.lineDashPattern = @[@4, @4];
-        [self.layer addSublayer:_dotborder];
-        _dotborder.path = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
-        _dotborder.frame = self.bounds;
+        _referenceCenter = self.center;
+        _currentCenter = self.center;
         
-//        _rotateButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-//        [_rotateButton setTitle:@"Rotate" forState:UIControlStateNormal];
-//        [_rotateButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        [_rotateButton setBackgroundColor:[UIColor blueColor]];
-//        _rotateButton.center = CGPointMake(CGRectGetWidth(self.bounds), 0);
-//        _rotateButton.layer.cornerRadius = 15.0f;
-//        _rotateButton.layer.borderColor = [UIColor whiteColor].CGColor;
-//        _rotateButton.layer.borderWidth = 2.0f;
-//        [self addSubview:_rotateButton];
-//        
-//        _pinchButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-//        [_pinchButton setTitle:@"Pinch" forState:UIControlStateNormal];
-//        [_pinchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        [_pinchButton setBackgroundColor:[UIColor blueColor]];
-//        _pinchButton.center = CGPointMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
-//        _pinchButton.layer.cornerRadius = 15.0f;
-//        _pinchButton.layer.borderColor = [UIColor whiteColor].CGColor;
-//        _pinchButton.layer.borderWidth = 2.0f;
-//        [self addSubview:_pinchButton];
-        
-        self.clipsToBounds = NO;
+        [self resizeTextView];
     }
     return self;
 }
 
 - (void)setFont:(UIFont *)font {
     super.font = font;
-    [self resizeTextView:self];
+    [self resizeTextView];
+}
+
+- (void)setFrame:(CGRect)frame {
+    // -_- -_- -_- -_- -_-
+    // workaround: http://stackoverflow.com/questions/16301147/why-uitextview-draws-text-in-bad-frame-after-resizing
+    // by doing this, the text view won't get cut off after resizing
+    [super setFrame:CGRectZero];
+    [super setFrame:frame];
 }
 
 - (void)commit {
-    self.dotborder.strokeColor = [UIColor clearColor].CGColor;
-    [self setUserInteractionEnabled:NO];
+    
+    self.layer.borderWidth = 0.0f;
+    self.layer.borderColor = nil;
+    self.backgroundColor = nil;
+
     self.resizable = NO;
     self.draggable = NO;
     self.rotatable = NO;
+    
+    // workaround: the text view will get cut off if we remove it directly
+    self.cancelButton.hidden = YES;
+    self.cancelButton = nil;
+    
+    [self setUserInteractionEnabled:NO];
     [OTKLogger logEventAction:KLogActionText variation:KLogVariationSuccess completion:nil];
-    
-    // TODO: draw to the annotationView rather than adding to it directly
 }
 
-- (void)handlePanGesture:(UIGestureRecognizer *)recognizer {
-    
-    if (![recognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-        return;
-    }
-    
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan: {
-            self.referenceCenter = self.center;
-            break;
-        }
-            
-        case UIGestureRecognizerStateChanged: {
-            CGPoint panTranslation = [(UIPanGestureRecognizer *)recognizer translationInView:self.superview];
-            self.center = CGPointMake(self.referenceCenter.x + panTranslation.x,
-                                      self.referenceCenter.y + panTranslation.y);
-            break;
-        }
-            
-        case UIGestureRecognizerStateEnded: {
-            self.referenceCenter = self.center;
-            break;
-        }
-            
-        default:
-            break;
-    }
-}
-
-- (void)handlePinchOrRotateGesture:(UIGestureRecognizer *)recognizer
-{
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan: {
-            self.currentRotateTransform = self.referenceRotateTransform;
-            break;
-        }
-            
-        case UIGestureRecognizerStateChanged: {
-            
-            if (recognizer == self.activeRotationRecognizer) {
-                
-                self.currentRotateTransform = CGAffineTransformRotate(self.referenceRotateTransform, self.activeRotationRecognizer.rotation);
-            }
-            
-            if (recognizer == self.activePinchRecognizer) {
-                
-                self.currentRotateTransform = CGAffineTransformScale(self.referenceRotateTransform, self.activePinchRecognizer.scale, self.activePinchRecognizer.scale);
-            }
-            self.transform = self.currentRotateTransform;
-            break;
-        }
-            
-        case UIGestureRecognizerStateEnded: {
-            self.referenceRotateTransform = self.currentRotateTransform;
-            break;
-        }
-            
-        default:
-            break;
-    }
-}
-
-- (void)resizeTextView:(UITextView *)textView {
+- (void)resizeTextView {
     CGFloat fixedWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - LeadingPaddingOfAnnotationTextView * 2;
-    CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
-    CGRect newFrame = textView.frame;
+    CGSize newSize = [self sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+    CGRect newFrame = self.frame;
     newFrame.size = CGSizeMake(fixedWidth, newSize.height);
-    textView.frame = newFrame;
-    
-    self.dotborder.path = [UIBezierPath bezierPathWithRect:textView.bounds].CGPath;
-    self.dotborder.frame = textView.bounds;
-    self.pinchButton.center = CGPointMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+    self.frame = newFrame;
+}
+
+- (void)cancelButtonPressed:(UIButton *)sender {
+    if (self.annotationTextViewDelegate) {
+        [self.annotationTextViewDelegate annotationTextViewDidCancel:self];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:OTAnnotationTextViewDidCancelChangeNotification object:self];
+    [self removeFromSuperview];
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    return YES;
 }
 
 #pragma mark - UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView {
-    [self resizeTextView:textView];
+    [self resizeTextView];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    // for faking the place holder in UITextView
+    if (!startTyping) {
+        startTyping = YES;
+        self.text = nil;
+    }
+    
+    // handle done button from keyboard
+    if ([text isEqualToString:@"\n"]) {
+        
+        if (!textView.text.length) return NO;
+        
+        if (self.annotationTextViewDelegate) {
+            self.draggable = YES;
+            self.resizable = YES;
+            self.rotatable = YES;
+            
+            // set editable and selectable NO so it won't have the pop-up menu
+            [self setEditable:NO];
+            [self setSelectable:NO];
+            [self.annotationTextViewDelegate annotationTextViewDidFinishChange:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:OTAnnotationTextViewDidFinishChangeNotification object:self];
+            [self cancelButton];
+        }
+    }
+    return YES;
 }
 
 @end

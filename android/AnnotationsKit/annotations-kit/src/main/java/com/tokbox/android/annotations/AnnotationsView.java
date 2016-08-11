@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
@@ -28,6 +29,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.opentok.android.Connection;
+import com.opentok.android.Session;
 import com.tokbox.android.accpack.AccPackSession;
 import com.tokbox.android.annotations.config.OpenTokConfig;
 import com.tokbox.android.annotations.utils.*;
@@ -35,10 +38,64 @@ import com.tokbox.android.logging.OTKAnalytics;
 import com.tokbox.android.logging.OTKAnalyticsData;
 
 import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
-public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.ActionsListener {
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.PointF;
+import android.graphics.Rect;
+import android.os.Build;
+import android.text.Editable;
+import android.text.TextPaint;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.opentok.android.Connection;
+import com.opentok.android.Session;
+import com.tokbox.android.accpack.AccPackSession;
+import com.tokbox.android.annotations.config.OpenTokConfig;
+import com.tokbox.android.annotations.utils.AnnotationsVideoRenderer;
+import com.tokbox.android.logging.OTKAnalytics;
+import com.tokbox.android.logging.OTKAnalyticsData;
+
+import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.ActionsListener, AccPackSession.SignalListener {
     private static final String LOG_TAG = AnnotationsView.class.getSimpleName();
+    private static final String SIGNAL_TYPE = "otAnnotation";
+
     private AnnotationsPath mCurrentPath = null;
     private AnnotationsText mCurrentText = null;
     private Paint mCurrentPaint;
@@ -46,6 +103,9 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     private AnnotationsVideoRenderer videoRenderer;
 
     private int mCurrentColor = 0;
+    private int mSelectedColor = 0;
+    private float mLineWidth = 10.0f;
+    private int mTextSize = 48;
     private AnnotationsManager mAnnotationsManager;
 
     private static final float TOLERANCE = 5;
@@ -61,7 +121,6 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     private boolean loaded = false;
 
     private AnnotationsListener mListener;
-
     private Annotatable mCurrentAnnotatable;
 
     private boolean defaultLayout = false;
@@ -71,6 +130,20 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     private OTKAnalyticsData mAnalyticsData;
     private OTKAnalytics mAnalytics;
+
+    private boolean isScreensharing = false;
+
+    private boolean mSignalMirrored = false;
+    private boolean isStartPoint = false;
+    private boolean mMirrored = false;
+
+    private String canvasId;
+    private boolean clear = false;
+
+    private ViewType mType;
+    private Context mContext;
+
+    private ViewGroup mContentView;
 
     /**
      * Monitors state changes in the Annotations component.
@@ -98,12 +171,12 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
      *
      **/
     public enum Mode {
-        Pen("annotation-pen"),
-        Clear("annotation-clear"),
-        Text("annotation-text"),
-        Color("annotation-color"),
-        Capture("annotation-capture"),
-        Done("annotation-done");
+        Pen("otAnnotation_pen"),
+        Clear("otAnnotation_clear"),
+        Text("otAnnotation_text"),
+        Color("otAnnotation_color"),
+        Capture("otAnnotation_capture"),
+        Done("otAnnotation_done");
 
         private String type;
 
@@ -116,16 +189,24 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         }
     }
 
+    public enum ViewType {
+        SubscriberView,
+        PublisherView
+    }
+
     /*
      * Constructor
      * @param context Application context
      * @param session The OpenTok Accelerator Pack session instance.
      * @param partnerId  The partner id - apiKey.
      **/
-    public AnnotationsView(Context context, AccPackSession session, String partnerId) {
+    public AnnotationsView(Context context, AccPackSession session, String partnerId, boolean isScreensharing, ViewType type) {
         super(context);
+        this.mContext = context;
         this.mSession = session;
         this.mPartnerId = partnerId;
+        this.mSession.setSignalListener(this);
+        this.isScreensharing = isScreensharing;
         init();
     }
 
@@ -146,6 +227,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     public void attachToolbar(AnnotationsToolbar toolbar) {
         mToolbar = toolbar;
         mToolbar.setActionListener(this);
+        addLogEvent(OpenTokConfig.LOG_ACTION_USE_TOOLBAR, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     /*
@@ -174,7 +256,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         int widthPixels = 0;
         int heightPixels = 0;
 
-        if (this.getLayoutParams().width == -1 || this.getLayoutParams().height == -1 || defaultLayout) {
+        if (this.getLayoutParams().width <= 0 || this.getLayoutParams().height <=0 || defaultLayout) {
             //default case
             defaultLayout = true;
             widthPixels = getContext().getResources().getDisplayMetrics().widthPixels;
@@ -187,7 +269,7 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
             heightPixels = this.getLayoutParams().height;
         }
 
-        ViewGroup.LayoutParams params = this.getLayoutParams();
+        LayoutParams params = this.getLayoutParams();
         this.width = widthPixels;
         this.height = heightPixels - mToolbar.getHeight();
 
@@ -261,16 +343,13 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         }
         mAnalytics. setData(mAnalyticsData);
 
-        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-
         setWillNotDraw(false);
         mAnnotationsManager = new AnnotationsManager();
         mCurrentColor = getResources().getColor(R.color.picker_color_orange);
+        mSelectedColor = mCurrentColor;
         this.setVisibility(View.GONE);
 
         addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
-
-
     }
 
 
@@ -297,32 +376,37 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     public boolean onTouchEvent(MotionEvent event) {
         final float x = event.getX();
         final float y = event.getY();
-        if (    mode != null ) {
+
+        if (  mode != null ) {
+            mCurrentColor = mSelectedColor;
             if (mode == Mode.Pen) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         mAnnotationsActive = true;
                         createPathAnnotatable(false);
-                        mCurrentPath.setLastPointF(new PointF(x, y));
-                        mCurrentPath.setStartPoint(true);
                         beginTouch(x, y);
+                        mCurrentPath.addPoint(new PointF(x,y));
+                        sendAnnotation(mode.toString(), buildSignalFromPoint(x,y, true, false));
                         invalidate();
+                        addLogEvent(OpenTokConfig.LOG_ACTION_START_DRAWING, OpenTokConfig.LOG_VARIATION_SUCCESS);
                     }
                     break;
                     case MotionEvent.ACTION_MOVE: {
                         moveTouch(x, y, true);
-                        mCurrentPath.setEndPoint(false);
-                        mCurrentPath.setStartPoint(false);
-                        mCurrentPath.setLastPointF(new PointF(x, y));
+
+                        sendAnnotation(mode.toString(), buildSignalFromPoint(x,y, false, false));
+                        mCurrentPath.addPoint(new PointF(x,y));
                         invalidate();
                     }
                     break;
                     case MotionEvent.ACTION_UP: {
                         upTouch();
-                        addAnnotatable();
+                        sendAnnotation(mode.toString(), buildSignalFromPoint(x,y, false, true));
+                        addAnnotatable(mSession.getConnection().getConnectionId());
                         mCurrentPath = null;
                         mAnnotationsActive = false;
                         invalidate();
+                        addLogEvent(OpenTokConfig.LOG_ACTION_END_DRAWING, OpenTokConfig.LOG_VARIATION_SUCCESS);
                     }
                     break;
                 }
@@ -352,14 +436,12 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                     editText.setSingleLine();
                     editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
                     editText.requestFocus();
+                    editText.setTextSize(mTextSize);
 
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
                     createTextAnnotatable(editText, x, y);
-                    // mCurrentText = new AnnotationsText(editText, x, y);
-                    //  createAnnotatable(false);
-                    // invalidate();
 
                     editText.addTextChangedListener(new TextWatcher() {
 
@@ -367,19 +449,25 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                         public void onTextChanged(CharSequence s, int start, int before,
                                                   int count) {
                             drawText();
+
+                            if (count == 1){
+                                //start text is true
+                                sendAnnotation(mode.toString(), buildSignalFromText(x, y, s.toString(), true, false));
+                            }
+                            else {
+                                sendAnnotation(mode.toString(), buildSignalFromText(x, y, s.toString(), false, false));
+                            }
                         }
 
                         @Override
                         public void afterTextChanged(Editable s) {
                             // TODO Auto-generated method stub
-
                         }
 
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count,
                                                       int after) {
                             // TODO Auto-generated method stub
-
                         }
 
                     });
@@ -390,9 +478,11 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
                             if (actionId == EditorInfo.IME_ACTION_DONE) {
                                 InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                                sendAnnotation(mode.toString(), buildSignalFromText(x, y, mCurrentText.getEditText().getText().toString(), false, true));
+
                                 //Create annotatable text and add it to the canvas
                                 mAnnotationsActive = false;
-                                addAnnotatable();
+                                addAnnotatable(mSession.getConnection().getConnectionId());
 
                                 mCurrentText = null;
                                 invalidate();
@@ -466,22 +556,22 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
 
     private void beginTouch(float x, float y) {
         mCurrentPath.moveTo(x, y);
-        mCurrentPath.setCurrentPoint(new PointF(x, y));
     }
 
     private void moveTouch(float x, float y, boolean curved) {
-        float mX = mCurrentPath.getCurrentPoint().x;
-        float mY = mCurrentPath.getCurrentPoint().y;
+        if ( mCurrentPath!= null && mCurrentPath.getPoints()!= null && mCurrentPath.getPoints().size() > 0 ) {
+            float mX = mCurrentPath.getEndPoint().x;
+            float mY = mCurrentPath.getEndPoint().y;
 
-        float dx = Math.abs(x - mX);
-        float dy = Math.abs(y - mY);
-        if (dx >= TOLERANCE || dy >= TOLERANCE) {
-            if (curved) {
-                mCurrentPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
-            } else {
-                mCurrentPath.lineTo(x, y);
+            float dx = Math.abs(x - mX);
+            float dy = Math.abs(y - mY);
+            if (dx >= TOLERANCE || dy >= TOLERANCE) {
+                if (curved) {
+                    mCurrentPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
+                } else {
+                    mCurrentPath.lineTo(x, y);
+                }
             }
-            mCurrentPath.setCurrentPoint(new PointF(x, y));
         }
     }
 
@@ -490,11 +580,11 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     }
 
     private void upTouch(boolean curved) {
-        float mLastX = mCurrentPath.getLastPointF().x;
-        float mLastY = mCurrentPath.getLastPointF().y;
-        float mX = mCurrentPath.getCurrentPoint().x;
-        float mY = mCurrentPath.getCurrentPoint().y;
-
+        float mLastX = mCurrentPath.getEndPoint().x;
+        float mLastY = mCurrentPath.getEndPoint().y;
+        int index = mCurrentPath.getPoints().size()-1; //-2
+        float mX = mCurrentPath.getPoints().get(index).x;
+        float mY = mCurrentPath.getPoints().get(index).y;
         if (curved) {
             mCurrentPath.quadTo(mLastX, mLastY, (mX + mLastX) / 2, (mY + mLastY) / 2);
         } else {
@@ -503,29 +593,46 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     }
 
     public void restart(){
-
-        clearAll();
+        clearAll(false, mSession.getConnection().getConnectionId());
     }
-    private void clearAll(){
-        while(mAnnotationsManager.getAnnotatableList().size() > 0){
-            clearCanvas();
+    private void clearAll(boolean incoming, String cid){
+
+        if (mAnnotationsManager.getAnnotatableList().size() > 0) {
+            int i = mAnnotationsManager.getAnnotatableList().size() - 1;
+            while (i >= 0) {
+                Annotatable annotatable = mAnnotationsManager.getAnnotatableList().get(i);
+                if (annotatable.getCId().equals(cid)) {
+                    mAnnotationsManager.getAnnotatableList().remove(i);
+                    i--;
+                }
+                invalidate();
+            }
+            if (!incoming && !isScreensharing) {
+                sendAnnotation(mode.toString(), "");
+            }
         }
     }
 
-    private void clearCanvas() {
-        if (mAnnotationsManager.getAnnotatableList().size() > 0) {
-            int lastItem = mAnnotationsManager.getAnnotatableList().size() - 1;
-            UUID lastId = mAnnotationsManager.getAnnotatableList().get(lastItem).getId();
 
-            for (int i = (mAnnotationsManager.getAnnotatableList().size() - 1); i >= 0; i--) {
+    private void clearCanvas(boolean incoming, String cid) {
+        boolean removed = false;
+        if (mAnnotationsManager.getAnnotatableList().size() > 0) {
+            int i = mAnnotationsManager.getAnnotatableList().size() - 1;
+
+            while (!removed && i >= 0){
                 Annotatable annotatable = mAnnotationsManager.getAnnotatableList().get(i);
 
-                if (annotatable.getId().equals(lastId)) {
-                    //annotatable.getPath().reset();
+                if (annotatable.getCId().equals(cid)) {
                     mAnnotationsManager.getAnnotatableList().remove(i);
+                    removed = true;
                 }
+                i--;
             }
             invalidate();
+
+            if (!incoming && !isScreensharing){
+                sendAnnotation(mode.toString(), "");
+            }
         }
     }
 
@@ -535,35 +642,35 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     }
 
     private void createTextAnnotatable(EditText editText, float x, float y) {
-        Log.i(LOG_TAG, "Create TextAnnotatable");
+        Log.i(LOG_TAG, "Create Text Annotatable");
         mCurrentPaint = new Paint();
         mCurrentPaint.setAntiAlias(true);
         mCurrentPaint.setColor(mCurrentColor);
-        mCurrentPaint.setTextSize(48);
+        mCurrentPaint.setTextSize(mTextSize);
         mCurrentText = new AnnotationsText(editText, x, y);
     }
 
     private void createPathAnnotatable(boolean incoming) {
-        Log.i(LOG_TAG, "Create PathAnnotatable");
+        Log.i(LOG_TAG, "Create Path Annotatable");
         mCurrentPaint = new Paint();
         mCurrentPaint.setAntiAlias(true);
         mCurrentPaint.setColor(mCurrentColor);
         mCurrentPaint.setStyle(Paint.Style.STROKE);
         mCurrentPaint.setStrokeJoin(Paint.Join.ROUND);
-        mCurrentPaint.setStrokeWidth(10);
+        mCurrentPaint.setStrokeWidth(mLineWidth);
         if (mode != null && mode == Mode.Pen) {
             mCurrentPath = new AnnotationsPath();
         }
     }
 
-    private void addAnnotatable() {
+    private void addAnnotatable(String cid) {
         Log.i(LOG_TAG, "Add Annotatable");
         if (mode != null) {
             if (mode.equals(Mode.Pen)) {
-                mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height);
+                mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentPath, mCurrentPaint, width, height, cid);
                 mCurrentAnnotatable.setType(Annotatable.AnnotatableType.PATH);
             } else {
-                mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentText, mCurrentPaint, width, height);
+                mCurrentAnnotatable = new Annotatable(mode.toString(), mCurrentText, mCurrentPaint, width, height, cid);
                 mCurrentAnnotatable.setType(Annotatable.AnnotatableType.TEXT);
             }
             mAnnotationsManager.addAnnotatable(mCurrentAnnotatable);
@@ -574,49 +681,47 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
     public void onItemSelected(View v, boolean selected) {
 
         if (v.getId() == R.id.done) {
-            addLogEvent(OpenTokConfig.LOG_ACTION_DONE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-            clearAll();
-            this.setVisibility(GONE);
             mode = Mode.Done;
+            clearAll(false, mSession.getConnection().getConnectionId());
+            this.setVisibility(GONE);
 
             addLogEvent(OpenTokConfig.LOG_ACTION_DONE, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
         if (v.getId() == R.id.erase) {
-            addLogEvent(OpenTokConfig.LOG_ACTION_ERASE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             mode = Mode.Clear;
-            clearCanvas();
+            clearCanvas(false, mSession.getConnection().getConnectionId());
 
             addLogEvent(OpenTokConfig.LOG_ACTION_ERASE, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
         if (v.getId() == R.id.screenshot) {
             //screenshot capture
-            addLogEvent(OpenTokConfig.LOG_ACTION_SCREENCAPTURE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             mode = Mode.Capture;
             if (videoRenderer != null) {
                 Bitmap bmp = videoRenderer.captureScreenshot();
-                if (mListener != null) {
-                    mListener.onScreencaptureReady(bmp);
-                }
 
-                addLogEvent(OpenTokConfig.LOG_ACTION_SCREENCAPTURE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+                if (bmp != null) {
+
+                    if (mListener != null) {
+                        mListener.onScreencaptureReady(bmp);
+                    }
+
+                    addLogEvent(OpenTokConfig.LOG_ACTION_SCREENCAPTURE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+                }
             }
         }
         if (selected){
             this.setVisibility(VISIBLE);
 
             if (v.getId() == R.id.picker_color ){
-                addLogEvent(OpenTokConfig.LOG_ACTION_PICKER_COLOR, OpenTokConfig.LOG_VARIATION_ATTEMPT);
                 mode = Mode.Color;
                 this.mToolbar.bringToFront();
             }
             else {
                 if (v.getId() == R.id.type_tool) {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_TEXT, OpenTokConfig.LOG_VARIATION_ATTEMPT);
                     //type text
                     mode = Mode.Text;
                 }
                 if (v.getId() == R.id.draw_freehand) {
-                    addLogEvent(OpenTokConfig.LOG_ACTION_FREEHAND, OpenTokConfig.LOG_VARIATION_ATTEMPT);
                     //freehand lines
                     mode = Mode.Pen;
                 }
@@ -632,10 +737,485 @@ public class AnnotationsView extends ViewGroup implements AnnotationsToolbar.Act
         }
     }
 
+    private Bitmap getScreenshot(){
+        //View v1 = ((Activity)mContext).getWindow().getDecorView().getRootView();
+        View v1 = mContentView;
+        v1.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+        v1.setDrawingCacheEnabled(false);
+
+        return bitmap;
+    }
+
     @Override
     public void onColorSelected(int color) {
         this.mCurrentColor = color;
+        mSelectedColor = color;
         addLogEvent(OpenTokConfig.LOG_ACTION_PICKER_COLOR, OpenTokConfig.LOG_VARIATION_SUCCESS);
+    }
+
+    private void sendAnnotation(String type, String annotation) {
+        if ( mSession != null  && !isScreensharing) {
+            mSession.sendSignal(type, annotation);
+        }
+    }
+
+    private String buildSignalFromText(float x, float y, String text, boolean start, boolean end) {
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+
+        boolean mirrored = false;
+
+        int videoWidth = 0;
+        int videoHeight = 0;
+
+        if (videoRenderer != null) {
+            mirrored = videoRenderer.isMirrored();
+            videoWidth = videoRenderer.getVideoWidth();
+            videoHeight = videoRenderer.getVideoHeight();
+        }
+
+        try {
+            jsonObject.put("id", this.canvasId);
+            jsonObject.put("fromId", mSession.getConnection().getConnectionId());
+            jsonObject.put("fromX", x);
+            jsonObject.put("fromY", y);
+            jsonObject.put("color", String.format("#%06X", (0xFFFFFF & mCurrentColor)));
+            jsonObject.put("videoWidth", videoWidth);
+            jsonObject.put("videoHeight", videoHeight);
+            jsonObject.put("canvasWidth", this.width);
+            jsonObject.put("canvasHeight", this.height);
+            jsonObject.put("mirrored", mirrored);
+            jsonObject.put("text", text);
+            jsonObject.put("start", start);
+            jsonObject.put("end", end);
+            jsonObject.put("font", mTextSize+"px Arial"); //TODO: Fix font type
+
+            jsonArray.put(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonArray.toString();
+    }
+
+
+    private String buildSignalFromPoint(float x, float y, boolean startPoint, boolean endPoint) {
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        boolean mirrored = false;
+
+        int videoWidth = 0;
+        int videoHeight = 0;
+
+
+        if (videoRenderer != null) {
+            mirrored = videoRenderer.isMirrored();
+            videoWidth = videoRenderer.getVideoWidth();
+            videoHeight = videoRenderer.getVideoHeight();
+        }
+
+        try {
+            jsonObject.put("id", mSession.getConnection().getConnectionId());
+            jsonObject.put("fromId", mSession.getConnection().getConnectionId());
+            jsonObject.put("fromX", mCurrentPath.getEndPoint().x);
+            jsonObject.put("fromY", mCurrentPath.getEndPoint().y);
+            jsonObject.put("toX", x);
+            jsonObject.put("toY", y);
+            jsonObject.put("color", String.format("#%06X", (0xFFFFFF & mCurrentColor)));
+            jsonObject.put("lineWidth", 10);
+            jsonObject.put("videoWidth", videoWidth);
+            jsonObject.put("videoHeight", videoHeight);
+            jsonObject.put("canvasWidth", this.width);
+            jsonObject.put("canvasHeight", this.height);
+            jsonObject.put("mirrored", mirrored);
+            jsonObject.put("smoothed", false);
+            jsonObject.put("startPoint", startPoint);
+            jsonObject.put("endPoint", false);
+
+            jsonArray.put(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonArray.toString();
+    }
+
+
+    @Override
+    public void onSignalReceived(Session session, String type, String data, Connection connection) {
+        Log.i(LOG_TAG, type + ": " + data);
+
+        String mycid = session.getConnection().getConnectionId();
+        String cid = connection.getConnectionId();
+
+        if (!cid.equals(mycid)) { // Ensure that we only handle signals from other users on the current canvas
+
+            if (type.contains(SIGNAL_TYPE)) {
+
+                this.setVisibility(VISIBLE);
+                if (!loaded){
+                    resize();
+                    loaded = true;
+                }
+
+                if (type.contains(Mode.Pen.toString())) {
+                    Log.i(LOG_TAG, "New pen annotations is received");
+                    penAnnotations(connection, data);
+                } else {
+                    if (type.equalsIgnoreCase(Mode.Clear.toString())) {
+                        Log.i(LOG_TAG, "New clear annotations is received");
+                        mode = Mode.Clear;
+                        clearCanvas(true, connection.getConnectionId());
+                    } else {
+                        if (type.equalsIgnoreCase(Mode.Done.toString())) {
+                            Log.i(LOG_TAG, "New done annotations is received");
+                            mode = Mode.Done;
+                            clearAll(true, connection.getConnectionId());
+                        } else {
+                            if (type.equalsIgnoreCase(Mode.Text.toString())) {
+                                Log.i(LOG_TAG, "New text annotations is received");
+                                textAnnotation(connection, data);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void penAnnotations(Connection connection, String data){
+        mode = Mode.Pen;
+        // Build object from JSON array
+        try {
+            JSONArray updates = new JSONArray(data);
+
+            for (int i = 0; i < updates.length(); i++) {
+                JSONObject json = updates.getJSONObject(i);
+
+                //TODO: temporary fix for web interoperability
+                if (!json.isNull("text")){
+                    //text-annotations
+                    textAnnotation(connection, data);
+                }
+
+                String id = (String) json.get("id");
+                if (json.get("mirrored") instanceof Number) {
+                    Number value = (Number) json.get("mirrored");
+                    mSignalMirrored = value.intValue() == 1;
+                } else {
+                    mSignalMirrored = (boolean) json.get("mirrored");
+                }
+
+                boolean initialPoint = false;
+                boolean secondPoint = false;
+                boolean endPoint = false;
+
+                if (!json.isNull("endPoint")) {
+                    if (json.get("endPoint") instanceof Number) {
+                        Number value = (Number) json.get("endPoint");
+                        endPoint = value.intValue() == 1;
+                    } else {
+                        endPoint = (boolean) json.get("endPoint");
+                    }
+                }
+                if (!json.isNull("startPoint")) {
+                    if (json.get("startPoint") instanceof Number) {
+                        Number value = (Number) json.get("startPoint");
+                        initialPoint = value.intValue() == 1;
+                    } else {
+                        initialPoint = (boolean) json.get("startPoint");
+                    }
+
+                    if (initialPoint) {
+                        mCurrentColor = Color.parseColor(((String) json.get("color")).toLowerCase());
+                        mLineWidth = ((Number) json.get("lineWidth")).floatValue();
+                        //changeStrokeWidth(((Number) json.get("lineWidth")).floatValue(), cid);
+                        isStartPoint = true;
+                    } else {
+                        // If the start point flag was already set, we received the next point in the sequence
+                        if (isStartPoint) {
+                            secondPoint = true;
+                            isStartPoint = false;
+                        }
+                    }
+                } else {
+                    mCurrentColor = Color.parseColor(((String) json.get("color")).toLowerCase());
+                    //changeColor(Color.parseColor(((String) json.get("color")).toLowerCase()), cid);
+                    //changeStrokeWidth(((Number) json.get("lineWidth")).floatValue(), cid);
+                }
+
+                if (videoRenderer != null) {
+                    // Handle scale
+                    float scale = 1;
+
+                    Map<String, Float> canvas = new HashMap<>();
+                    canvas.put("width", (float) this.width);
+                    canvas.put("height", (float) this.height);
+
+                    Map<String, Float> video = new HashMap<>();
+                    video.put("width", (float) videoRenderer.getVideoWidth());
+                    video.put("height", (float) videoRenderer.getVideoHeight());
+
+                    Map<String, Float> iCanvas = new HashMap<>();
+                    iCanvas.put("width", ((Number) json.get("canvasWidth")).floatValue());
+                    iCanvas.put("height", ((Number) json.get("canvasHeight")).floatValue());
+
+                    Map<String, Float> iVideo = new HashMap<>();
+                    iVideo.put("width", ((Number) json.get("videoWidth")).floatValue());
+                    iVideo.put("height", ((Number) json.get("videoHeight")).floatValue());
+
+
+                    float canvasRatio = canvas.get("width") / canvas.get("height");
+                    float videoRatio = video.get("width") / video.get("height");
+                    float iCanvasRatio = iCanvas.get("width") / iCanvas.get("height");
+                    float iVideoRatio = iVideo.get("width") / iVideo.get("height");
+
+                    /**
+                     * This assumes that if the width is the greater value, video frames
+                     * can be scaled so that they have equal widths, which can be used to
+                     * find the offset in the y axis. Therefore, the offset on the x axis
+                     * will be 0. If the height is the greater value, the offset on the y
+                     * axis will be 0.
+                     */
+                    if (canvasRatio < 0) {
+                        scale = canvas.get("width") / iCanvas.get("width");
+                    } else {
+                        scale = canvas.get("height") / iCanvas.get("height");
+                    }
+
+                    Log.i(LOG_TAG, "Scale: " + scale);
+
+
+                    float centerX = canvas.get("width") / 2;
+                    float centerY = canvas.get("height") / 2;
+
+                    float iCenterX = iCanvas.get("width") / 2;
+                    float iCenterY = iCanvas.get("height") / 2;
+
+                    float fromX = centerX - (scale * (iCenterX - ((Number) json.get("fromX")).floatValue()));
+                    float fromY = centerY - (scale * (iCenterY - ((Number) json.get("fromY")).floatValue()));
+
+                    float toX = centerX - (scale * (iCenterX - ((Number) json.get("toX")).floatValue()));
+                    float toY = centerY - (scale * (iCenterY - ((Number) json.get("toY")).floatValue()));
+
+                    Log.i(LOG_TAG, "From: " + fromX + ", " + fromY);
+                    Log.i(LOG_TAG, "To: " + toX + ", " + toY);
+
+                    if (mSignalMirrored) {
+                        Log.i(LOG_TAG, "Signal is mirrored");
+                        fromX = this.width - fromX;
+                        toX = this.width - toX;
+                    }
+                    mMirrored = videoRenderer.isMirrored();
+                    if (mMirrored) {
+                        Log.i("CanvasOffset", "Feed is mirrored");
+                        // Revert (Double negative)
+                        fromX = this.width - fromX;
+                        toX = this.width - toX;
+                    }
+
+                    boolean smoothed = false;
+
+                    if (!json.isNull("smoothed")) {
+                        if (json.get("smoothed") instanceof Number) {
+                            Number value = (Number) json.get("smoothed");
+                            smoothed = value.intValue() == 1;
+                        } else {
+                            smoothed = (boolean) json.get("smoothed");
+                        }
+                    }
+                    if (smoothed) {
+                        if (isStartPoint) {
+                            mAnnotationsActive = true;
+                            createPathAnnotatable(false);
+                            mCurrentPath.addPoint(new PointF(toX, toY));
+                        } else if (secondPoint) {
+                            beginTouch((toX + mCurrentPath.getEndPoint().x) / 2, (toY + mCurrentPath.getEndPoint().y) / 2);
+                            mCurrentPath.addPoint(new PointF(toX, toY));
+                        } else {
+                            moveTouch(toX, toY, true);
+                            mCurrentPath.addPoint(new PointF(toX, toY));
+                        }
+                    }
+                    else {
+                        if (isStartPoint && endPoint) {
+                            mAnnotationsActive = true;
+                            createPathAnnotatable(false);
+                            mCurrentPath.addPoint(new PointF(fromX, fromY));
+                            // We have a straight line
+                            beginTouch(fromX, fromY);
+                            moveTouch(toX, toY, false);
+                            upTouch();
+                        } else if (isStartPoint) {
+                            mAnnotationsActive = true;
+                            createPathAnnotatable(false);
+                            mCurrentPath.addPoint(new PointF(fromX, fromY));
+                            beginTouch(toX, toY);
+                        } else if (endPoint) {
+                            moveTouch(toX, toY, false);
+                            upTouch();
+                            addAnnotatable(connection.getConnectionId());
+                            mAnnotationsActive = false;
+                        } else {
+                            moveTouch(toX, toY, false);
+                            mCurrentPath.addPoint(new PointF(toX, toY));
+                        }
+                    }
+
+                    invalidate(); // Need this to finalize the drawing on the screen
+                }
+            }
+
+            //temporary solution while endpoint is always false
+            if (mAnnotationsActive) {
+                addAnnotatable(connection.getConnectionId());
+                mAnnotationsActive = false;
+            }
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+    }
+
+    private void textAnnotation(Connection connection, String data) {
+
+        mode = Mode.Text;
+        // Build object from JSON array
+        try {
+            JSONArray updates = new JSONArray(data);
+
+            for (int i = 0; i < updates.length(); i++) {
+                JSONObject json = updates.getJSONObject(i);
+
+                String id = (String) json.get("id");
+                if (json.get("mirrored") instanceof Number) {
+                    Number value = (Number) json.get("mirrored");
+                    mSignalMirrored = value.intValue() == 1;
+                } else {
+                    mSignalMirrored = (boolean) json.get("mirrored");
+                }
+
+                //get color
+                mCurrentColor = Color.parseColor(((String) json.get("color")).toLowerCase());
+
+                //get text
+                String text = ((String) json.get("text"));
+
+                //TODO: fix font style
+                String font = ((String) json.get("font")); // "font":"16px Arial"
+                //mTextSize = Integer.valueOf(font.split("px")[0]);
+
+                boolean end = true;
+                boolean start = true;
+
+
+                if (!json.isNull("end")) {
+                    if (json.get("end") instanceof Number) {
+                        Number value = (Number) json.get("end");
+                        end = value.intValue() == 1;
+                    } else {
+                        end = (boolean) json.get("end");
+                    }
+                }
+
+                if (!json.isNull("start")) {
+                    if (json.get("start") instanceof Number) {
+                        Number value = (Number) json.get("start");
+                        start = value.intValue() == 1;
+                    } else {
+                        start = (boolean) json.get("start");
+                    }
+                }
+
+                if (videoRenderer != null) {
+                    // Handle scale
+                    float scale = 1;
+
+                    Map<String, Float> canvas = new HashMap<>();
+                    canvas.put("width", (float) this.width);
+                    canvas.put("height", (float) this.height);
+
+                    Map<String, Float> video = new HashMap<>();
+                    video.put("width", (float) videoRenderer.getVideoWidth());
+                    video.put("height", (float) videoRenderer.getVideoHeight());
+
+                    Map<String, Float> iCanvas = new HashMap<>();
+                    iCanvas.put("width", ((Number) json.get("canvasWidth")).floatValue());
+                    iCanvas.put("height", ((Number) json.get("canvasHeight")).floatValue());
+
+                    Map<String, Float> iVideo = new HashMap<>();
+                    iVideo.put("width", ((Number) json.get("videoWidth")).floatValue());
+                    iVideo.put("height", ((Number) json.get("videoHeight")).floatValue());
+
+
+                    float canvasRatio = canvas.get("width") / canvas.get("height");
+                    float videoRatio = video.get("width") / video.get("height");
+                    float iCanvasRatio = iCanvas.get("width") / iCanvas.get("height");
+                    float iVideoRatio = iVideo.get("width") / iVideo.get("height");
+
+                    /**
+                     * This assumes that if the width is the greater value, video frames
+                     * can be scaled so that they have equal widths, which can be used to
+                     * find the offset in the y axis. Therefore, the offset on the x axis
+                     * will be 0. If the height is the greater value, the offset on the y
+                     * axis will be 0.
+                     */
+                    if (canvasRatio < 0) {
+                        scale = canvas.get("width") / iCanvas.get("width");
+                    } else {
+                        scale = canvas.get("height") / iCanvas.get("height");
+                    }
+
+                    Log.i(LOG_TAG, "Scale: " + scale);
+
+                    float centerX = canvas.get("width") / 2;
+                    float centerY = canvas.get("height") / 2;
+
+                    float iCenterX = iCanvas.get("width") / 2;
+                    float iCenterY = iCanvas.get("height") / 2;
+
+                    float textX = centerX - (scale * (iCenterX - ((Number) json.get("fromX")).floatValue()));
+                    float textY = centerY - (scale * (iCenterY - ((Number) json.get("fromY")).floatValue()));
+
+                    if (start) {
+                        EditText editText = new EditText(getContext());
+                        editText.setVisibility(VISIBLE);
+                        editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+                        // Add whatever you want as size
+                        int editTextHeight = 70;
+                        int editTextWidth = 200;
+
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(editTextWidth, editTextHeight);
+
+                        //You could adjust the position
+                        params.topMargin = (int) (textX);
+                        params.leftMargin = (int) (textY);
+                        this.addView(editText, params);
+                        editText.setVisibility(VISIBLE);
+                        editText.setSingleLine();
+                        editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                        editText.requestFocus();
+                        editText.setText(text);
+                        editText.setTextSize(mTextSize);
+
+                        createTextAnnotatable(editText, textX, textY);
+
+                        mAnnotationsActive = true;
+
+                    }
+                    if (end) {
+                        mAnnotationsActive = false;
+                        addAnnotatable(connection.getConnectionId());
+                        mCurrentText = null;
+                    } else {
+                        mCurrentText.getEditText().setText(text.toString());
+                    }
+                    invalidate(); // Need this to finalize the drawing on the screen
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     //add log events

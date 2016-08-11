@@ -33,6 +33,12 @@
 
     };
 
+    if(navigator.userAgent.indexOf('Firefox') !== -1 ){
+      var ghost = window.open('about:blank');
+      ghost.focus();
+      ghost.close();
+    }
+
 </script>
 
 <style type="text/css" media="screen">

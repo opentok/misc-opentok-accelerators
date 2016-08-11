@@ -3,14 +3,10 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OTAnnotationEditTextViewController">
             <connections>
-                <outlet property="changeFontButton" destination="qXU-n4-i6k" id="ORv-zk-LuL"/>
-                <outlet property="doneButton" destination="u3F-6T-qET" id="wuB-u6-NuQ"/>
-                <outlet property="toolbarBottomLayoutConstraint" destination="2Y6-az-ATM" id="Cv1-BX-52e"/>
                 <outlet property="view" destination="iN0-l3-epB" id="hlG-CC-wkr"/>
             </connections>
         </placeholder>
@@ -19,46 +15,8 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kT-ch-D2J">
-                    <rect key="frame" x="0.0" y="564" width="600" height="36"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3F-6T-qET">
-                            <rect key="frame" x="474" y="6" width="120" height="24"/>
-                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" title="Done">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="doneButtonPressed:" destination="-1" eventType="touchUpInside" id="Iao-hm-ngT"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qXU-n4-i6k">
-                            <rect key="frame" x="6" y="6" width="462" height="24"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" title="Tap to change font: 32pt">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="changeFontButtonPressed:" destination="-1" eventType="touchUpInside" id="GcJ-FZ-a7E"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="u3F-6T-qET" firstAttribute="top" secondItem="8kT-ch-D2J" secondAttribute="top" constant="6" id="4P2-6c-5qc"/>
-                        <constraint firstItem="u3F-6T-qET" firstAttribute="width" secondItem="8kT-ch-D2J" secondAttribute="width" multiplier="0.2" id="CiX-CP-SnC"/>
-                        <constraint firstAttribute="bottom" secondItem="u3F-6T-qET" secondAttribute="bottom" constant="6" id="GAe-yt-L3S"/>
-                        <constraint firstItem="qXU-n4-i6k" firstAttribute="leading" secondItem="8kT-ch-D2J" secondAttribute="leading" constant="6" id="Qsx-VA-opN"/>
-                        <constraint firstAttribute="trailing" secondItem="u3F-6T-qET" secondAttribute="trailing" constant="6" id="awr-Jm-cHK"/>
-                        <constraint firstAttribute="bottom" secondItem="qXU-n4-i6k" secondAttribute="bottom" constant="6" id="fTE-fs-lnk"/>
-                        <constraint firstItem="u3F-6T-qET" firstAttribute="leading" secondItem="qXU-n4-i6k" secondAttribute="trailing" constant="6" id="hG2-BW-cox"/>
-                        <constraint firstItem="qXU-n4-i6k" firstAttribute="top" secondItem="8kT-ch-D2J" secondAttribute="top" constant="6" id="ucm-y0-fvh"/>
-                    </constraints>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFD-P5-hZZ">
-                    <rect key="frame" x="8" y="8" width="27" height="27"/>
+                    <rect key="frame" x="16" y="16" width="27" height="27"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <state key="normal" image="whiteCross">
                         <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -71,12 +29,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="8kT-ch-D2J" secondAttribute="bottom" id="2Y6-az-ATM"/>
-                <constraint firstAttribute="trailing" secondItem="8kT-ch-D2J" secondAttribute="trailing" id="323-HL-xUM"/>
-                <constraint firstItem="8kT-ch-D2J" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.06" id="FKX-k5-9wn"/>
-                <constraint firstItem="8kT-ch-D2J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Idi-9z-B2Z"/>
-                <constraint firstItem="RFD-P5-hZZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="ggw-rd-gMj"/>
-                <constraint firstItem="RFD-P5-hZZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="h3m-ac-59A"/>
+                <constraint firstItem="RFD-P5-hZZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="ggw-rd-gMj"/>
+                <constraint firstItem="RFD-P5-hZZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="h3m-ac-59A"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
         </view>

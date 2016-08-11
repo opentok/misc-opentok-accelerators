@@ -10,7 +10,7 @@ public class Annotatable {
     private String mode;
     private String data;
 
-    private UUID id;
+    private String cid;
     private AnnotatableType type;
     private AnnotationsPath path;
 
@@ -30,8 +30,8 @@ public class Annotatable {
         TEXT
     }
 
-    public Annotatable(String mode, AnnotationsPath path, Paint paint, int canvasWidth, int canvasHeight) {
-        this.id = UUID.randomUUID();
+    public Annotatable(String mode, AnnotationsPath path, Paint paint, int canvasWidth, int canvasHeight, String cid) {
+        this.cid = cid;
         this.mode = mode;
         this.path = path;
         this.canvasWidth = canvasWidth;
@@ -39,8 +39,8 @@ public class Annotatable {
         this.paint = paint;
     }
 
-    public Annotatable(String mode, AnnotationsText text, Paint paint, int canvasWidth, int canvasHeight) {
-        this.id = UUID.randomUUID();
+    public Annotatable(String mode, AnnotationsText text, Paint paint, int canvasWidth, int canvasHeight, String cid) {
+        this.cid = cid;
         this.mode = mode;
         this.text = text;
         this.canvasWidth = canvasWidth;
@@ -83,8 +83,8 @@ public class Annotatable {
         return type;
     }
 
-    public UUID getId() {
-        return id;
+    public String getCId() {
+        return cid;
     }
 
     public AnnotationsText getText() {
@@ -92,3 +92,4 @@ public class Annotatable {
     }
 
 }
+

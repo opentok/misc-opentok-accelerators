@@ -4,15 +4,18 @@ public class OpenTokConfig {
 
     // For internal use only. Please do not modify or remove this code.
     public static final String LOG_CLIENT_VERSION = "android-vsol-1.0.0";
-    public static final String LOG_COMPONENTID = "annotationsKit";
+    public static final String LOG_COMPONENTID = "annotationsAccPack";
     public static final String LOG_ACTION_INITIALIZE = "Init";
     public static final String LOG_ACTION_DESTROY = "Destroy";
-    public static final String LOG_ACTION_FREEHAND = "FreeHand";
-    public static final String LOG_ACTION_PICKER_COLOR = "PickerColor";
+    public static final String LOG_ACTION_FREEHAND = "Free Hand";
+    public static final String LOG_ACTION_START_DRAWING = "Start Drawing";
+    public static final String LOG_ACTION_END_DRAWING = "End Drawing";
+    public static final String LOG_ACTION_PICKER_COLOR = "Picker Color";
     public static final String LOG_ACTION_TEXT = "Text";
-    public static final String LOG_ACTION_SCREENCAPTURE = "ScreenCapture";
+    public static final String LOG_ACTION_SCREENCAPTURE = "Screen Capture";
     public static final String LOG_ACTION_ERASE = "Erase";
     public static final String LOG_ACTION_DONE = "DONE";
+    public static final String LOG_ACTION_USE_TOOLBAR = "Use Toolbar";
 
     public static final String LOG_VARIATION_ATTEMPT = "Attempt";
     public static final String LOG_VARIATION_ERROR = "Failure";

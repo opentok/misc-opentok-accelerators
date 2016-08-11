@@ -382,24 +382,29 @@ public class AnnotationsVideoRenderer extends BaseVideoRenderer {
     }
 
     public Bitmap captureScreenshot() {
-        ByteBuffer bb = mRenderer.mCurrentFrame.getBuffer();
-        bb.clear();
+        ByteBuffer bb;
+        if ( mRenderer.mCurrentFrame != null ) {
+            bb = mRenderer.mCurrentFrame.getBuffer();
+            bb.clear();
 
-        int width = mRenderer.mCurrentFrame.getWidth();
-        int height = mRenderer.mCurrentFrame.getHeight();
-        int half_width = (width + 1) >> 1;
-        int half_height = (height +1) >> 1;
-        int y_size = width * height;
-        int uv_size = half_width * half_height;
+            int width = mRenderer.mCurrentFrame.getWidth();
+            int height = mRenderer.mCurrentFrame.getHeight();
+            int half_width = (width + 1) >> 1;
+            int half_height = (height +1) >> 1;
+            int y_size = width * height;
+            int uv_size = half_width * half_height;
 
-        byte[] yuv = new byte[y_size + uv_size * 2];
-        bb.get(yuv);
-        int[] intArray = new int[width*height];
+            byte[] yuv = new byte[y_size + uv_size * 2];
+            bb.get(yuv);
+            int[] intArray = new int[width*height];
 
-        // Decode Yuv data to integer array
-        decodeYUV420(intArray, yuv, width, height);
+            // Decode Yuv data to integer array
+            decodeYUV420(intArray, yuv, width, height);
 
-        return Bitmap.createBitmap(intArray, width, height, Bitmap.Config.ARGB_8888);
+            return Bitmap.createBitmap(intArray, width, height, Bitmap.Config.ARGB_8888);
+        }
+
+        return null;
     }
 
     static public void decodeYUV420(int[] rgba, byte[] yuv420, int width, int height) {
