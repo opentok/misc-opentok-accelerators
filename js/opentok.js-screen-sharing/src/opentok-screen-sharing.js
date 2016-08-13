@@ -251,7 +251,7 @@
 
     var deferred = $.Deferred();
 
-    if (window.location.protocol === 'http:' && !_this.options.dev ) {
+    if (window.location.protocol === 'http:' && !_this.dev ) {
       alert("Screensharing only works under 'https', please add 'https://' in front of your debugger url.");
       deferred.reject('https required');
     }
