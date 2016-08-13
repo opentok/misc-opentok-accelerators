@@ -251,7 +251,7 @@
 
     var deferred = $.Deferred();
 
-    if (window.location.protocol === 'http:') {
+    if (window.location.protocol === 'http:' && !_this.options.dev ) {
       alert("Screensharing only works under 'https', please add 'https://' in front of your debugger url.");
       deferred.reject('https required');
     }
@@ -421,7 +421,8 @@
       'extensionID',
       'extensionPathFF',
       'screensharingParent',
-      'localScreenProperties'
+      'localScreenProperties',
+      'dev'
     ];
 
     _.extend(_this, _.defaults(_.pick(options, optionsProps)), {
