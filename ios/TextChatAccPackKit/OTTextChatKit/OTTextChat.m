@@ -20,6 +20,21 @@
 
 static NSString* const kTextChatType = @"text-chat";
 
+@implementation OTTextChatConnection
+
+- (instancetype)initWithConnectionId:(NSString *)connectionId
+                        creationTime:(NSDate *)creationTime
+                          customData:(NSString *)customData {
+    if (self = [super init]) {
+        _connectionId = connectionId;
+        _creationTime = creationTime;
+        _customdData = customData;
+    }
+    return self;
+}
+
+@end
+
 @interface OTTextChat() <OTSessionDelegate> {
     OTConnection *receiverConnection;
 }
@@ -27,8 +42,8 @@ static NSString* const kTextChatType = @"text-chat";
 @property (nonatomic) OTAcceleratorSession *session;
 @property (strong, nonatomic) OTTextChatViewEventBlock handler;
 
-@property (nonatomic) NSString *connectionId;
 @property (nonatomic) NSString *receiverAlias;
+@property (nonatomic) OTTextChatConnection *connection;
 
 @end
 
@@ -84,8 +99,8 @@ static NSString* const kTextChatType = @"text-chat";
                            completion:nil];
         }
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
-            [self.delegate didConnectWithError:connectionError];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:didConnectWithError:)]) {
+            [self.delegate textChat:self didConnectWithError:connectionError];
         }
         
         if (self.handler) {
@@ -124,8 +139,8 @@ static NSString* const kTextChatType = @"text-chat";
                            completion:nil];
         }
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didDisConnectWithError:)]) {
-            [self.delegate didDisConnectWithError:disconnectionError];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:didDisConnectWithError:)]) {
+            [self.delegate textChat:self didDisConnectWithError:disconnectionError];
         }
         
         if (self.handler) {
@@ -143,7 +158,7 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)sendMessage:(NSString *)text {
-    OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:text alias:self.alias senderId:self.connectionId];
+    OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:text alias:self.alias senderId:self.connection.connectionId];
     [self sendCustomMessage:textMessage];
 }
 
@@ -159,7 +174,7 @@ static NSString* const kTextChatType = @"text-chat";
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"Message format is wrong. Text is empty or null"}];
         if (self.delegate) {
-            [self.delegate didSendTextMessage:nil error:error];
+            [self.delegate textChat:self didSendTextMessage:nil error:error];
         }
         
         if (![OTTestingInfo isTesting]) {
@@ -176,7 +191,7 @@ static NSString* const kTextChatType = @"text-chat";
                 NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
                                                      code:-1
                                                  userInfo:@{NSLocalizedDescriptionKey:@"Error in parsing sender data"}];
-                [self.delegate didSendTextMessage:nil error:error];
+                [self.delegate textChat:self didSendTextMessage:nil error:error];
             }
             
             if (![OTTestingInfo isTesting]) {
@@ -196,7 +211,7 @@ static NSString* const kTextChatType = @"text-chat";
                 [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
             }
             if (self.delegate) {
-                [self.delegate didSendTextMessage:nil error:error];
+                [self.delegate textChat:self didSendTextMessage:nil error:error];
             }
             return;
         }
@@ -206,7 +221,7 @@ static NSString* const kTextChatType = @"text-chat";
         }
         
         if (self.delegate) {
-            [self.delegate didSendTextMessage:textMessage error:nil];
+            [self.delegate textChat:self didSendTextMessage:textMessage error:nil];
         }
         
         if (self.handler) {
@@ -223,7 +238,7 @@ static NSString* const kTextChatType = @"text-chat";
         }
         
         if (self.delegate) {
-            [self.delegate didSendTextMessage:nil error:error];
+            [self.delegate textChat:self didSendTextMessage:nil error:error];
         }
         
         if (self.handler) {
@@ -241,10 +256,12 @@ static NSString* const kTextChatType = @"text-chat";
         [OTKLogger setSessionId:session.sessionId connectionId:session.connection.connectionId partnerId:@([self.session.apiKey integerValue])];
     }
     
-    self.connectionId = session.connection.connectionId;
+    self.connection = [[OTTextChatConnection alloc] initWithConnectionId:session.connection.connectionId
+                                                            creationTime:session.connection.creationTime
+                                                              customData:session.connection.data];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
-        [self.delegate didConnectWithError:nil];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:didConnectWithError:)]) {
+        [self.delegate textChat:self didConnectWithError:nil];
     }
     
     if (self.handler) {
@@ -256,8 +273,8 @@ static NSString* const kTextChatType = @"text-chat";
     
     NSLog(@"TextChatComponent sessionDidDisconnect");
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didDisConnectWithError:)]) {
-        [self.delegate didDisConnectWithError:nil];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:didDisConnectWithError:)]) {
+        [self.delegate textChat:self didDisConnectWithError:nil];
     }
     
     if (self.handler) {
@@ -267,8 +284,8 @@ static NSString* const kTextChatType = @"text-chat";
 
 - (void)session:(OTSession*)session didFailWithError:(OTError*)error {
     NSLog(@"didFailWithError: (%@)", error);
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
-        [self.delegate didConnectWithError:error];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:didConnectWithError:)]) {
+        [self.delegate textChat:self didConnectWithError:error];
     }
     
     if (self.handler) {
@@ -283,6 +300,10 @@ static NSString* const kTextChatType = @"text-chat";
     
     // store receiverConnection for sending message to a point rather than boardcasting
     receiverConnection = connection;
+}
+
+- (void)session:(OTSession *)session connectionDestroyed:(OTConnection *)connection {
+    
 }
 
 - (void)session:(OTSession*)session
@@ -305,7 +326,7 @@ receivedSignalType:(NSString*)type
         if (textMessage) {
             
             if (self.delegate) {
-                [self.delegate didReceiveTextMessage:textMessage error:nil];
+                [self.delegate textChat:self didReceiveTextMessage:textMessage error:nil];
             }
             
             if (self.handler) {

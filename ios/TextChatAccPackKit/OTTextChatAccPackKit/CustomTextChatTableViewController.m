@@ -48,7 +48,7 @@
         
         if (!error) {
             if (signal == OTTextChatViewEventSignalDidConnect) {
-                [senderIdentifiers addObject:self.textChat.connectionId];
+                [senderIdentifiers addObject:self.textChat.connection.connectionId];
             }
             
             if (signal == OTTextChatViewEventSignalDidDisconnect) {
