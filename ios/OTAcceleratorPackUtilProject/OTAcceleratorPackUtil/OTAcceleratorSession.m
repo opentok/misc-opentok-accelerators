@@ -8,9 +8,9 @@
 
 #import "OTAcceleratorSession.h"
 
-static NSString * InternalApiKey = @"";
-static NSString * InternalSessionId = @"";
-static NSString * InternalToken = @"";
+static NSString * InternalApiKey = nil;
+static NSString * InternalSessionId = nil;
+static NSString * InternalToken = nil;
 
 @interface OTAcceleratorSession() <OTSessionDelegate>
 @property (nonatomic) NSString *apiKey;
@@ -218,6 +218,29 @@ receivedSignalType:(NSString*)type
         
         if ([obj respondsToSelector:@selector(session:receivedSignalType:fromConnection:withString:)]) {
             [obj session:session receivedSignalType:type fromConnection:connection withString:string];
+        }
+    }];
+}
+
+- (void)     session:(OTSession*)session
+archiveStartedWithId:(NSString*)archiveId
+                name:(NSString*)name {
+    
+    [self.delegates enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
+        
+        if ([obj respondsToSelector:@selector(session:receivedSignalType:fromConnection:withString:)]) {
+            [obj session:session archiveStartedWithId:archiveId name:name];
+        }
+    }];
+}
+
+- (void)     session:(OTSession*)session
+archiveStoppedWithId:(NSString*)archiveId {
+    
+    [self.delegates enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
+        
+        if ([obj respondsToSelector:@selector(session:receivedSignalType:fromConnection:withString:)]) {
+            [obj session:session archiveStoppedWithId:archiveId];
         }
     }];
 }

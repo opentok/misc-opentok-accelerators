@@ -1,8 +1,6 @@
 //
-//  APSession.h
-//  APSessionDemo
+//  OTAcceleratorSession.h
 //
-//  Created by Xi Huang on 4/7/16.
 //  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 

@@ -1,9 +1,7 @@
 //
 //  OTAcceleratorPackUtil.h
-//  Pods
 //
-//  Created by Xi Huang on 5/6/16.
-//
+//  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
 #import <OTAcceleratorPackUtil/OTAcceleratorSession.h>
