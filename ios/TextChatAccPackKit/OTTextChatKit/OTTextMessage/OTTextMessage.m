@@ -15,6 +15,8 @@ static NSString * const kSenderId = @"id";
 
 static NSString * const kSendOn = @"sentOn";
 
+static NSString * const kCustomData = @"customData";
+
 @implementation OTTextMessage
 
 - (instancetype)initWithMessage:(NSString *)message
@@ -44,14 +46,13 @@ static NSString * const kSendOn = @"sentOn";
                         dateTime:(NSDate *)dateTime
                             text:(NSString *)text {
     
-    NSParameterAssert(senderId != nil);
-    NSParameterAssert(alias != nil);
-    NSParameterAssert(dateTime != nil);
+    if (!senderId || !alias || !dateTime || !text) return nil;
     
     if (self = [super init]) {
         _senderId = [senderId copy];
         _alias = [alias copy];
         _dateTime = [dateTime copy];
+        _text = [text copy];
     }
     return self;
 }
@@ -99,13 +100,14 @@ static NSString * const kSendOn = @"sentOn";
     if (!self.alias || !self.senderId || !self.text) return nil;
 
     NSError *jsonError;
-    NSDictionary *json = @{kText: self.text,
-                           kSender: @{
-                                   kSenderAlias: self.alias,
-                                   kSenderId: self.senderId,
-                                   },
-                           kSendOn: [NSString stringWithFormat:@"%@", @([self.dateTime timeIntervalSince1970] * 1000)]
-                           };
+    NSMutableDictionary *json = [NSMutableDictionary dictionary];
+    json[kText] = self.text;
+    json[kSender] = @{kSenderAlias: self.alias, kSenderId: self.senderId};
+    json[kSendOn] = [NSString stringWithFormat:@"%@", @([self.dateTime timeIntervalSince1970] * 1000)];
+    if (self.customData) {
+        json[kCustomData] = self.customData;
+    }
+    
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingPrettyPrinted error:&jsonError];
     if (jsonError) {
         NSLog(@"Error to parse JSON data");

@@ -122,6 +122,8 @@ typedef void (^OTTextChatViewEventBlock)(OTTextChatViewEventSignal signal, OTTex
 
 @property (readonly, nonatomic) NSString *connectionId;
 
-- (void)sendMessage:(NSString *)message;
+- (void)sendMessage:(NSString *)text;
+
+- (void)sendCustomMessage:(OTTextMessage *)textMessage;
 
 @end

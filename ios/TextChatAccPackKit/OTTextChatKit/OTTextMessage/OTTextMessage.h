@@ -26,6 +26,8 @@
  */
 @property (copy, nonatomic, readonly) NSDate *dateTime;
 
+@property (copy, nonatomic) NSDictionary *customData;
+
 + (instancetype)messageWithSenderId:(NSString *)senderId
                               alias:(NSString *)alias
                                text:(NSString *)text;

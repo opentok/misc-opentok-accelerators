@@ -142,14 +142,19 @@ static NSString* const kTextChatType = @"text-chat";
     }
 }
 
-- (void)sendMessage:(NSString *)message {
+- (void)sendMessage:(NSString *)text {
+    OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:text alias:self.alias senderId:self.connectionId];
+    [self sendCustomMessage:textMessage];
+}
+
+- (void)sendCustomMessage:(OTTextMessage *)textMessage {
     NSError *error;
     
     if (![OTTestingInfo isTesting]) {
         [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationAttempt completion:nil];
     }
     
-    if (!message || !message.length) {
+    if (!textMessage.text || !textMessage.text.length) {
         error = [NSError errorWithDomain:NSCocoaErrorDomain
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"Message format is wrong. Text is empty or null"}];
@@ -164,8 +169,6 @@ static NSString* const kTextChatType = @"text-chat";
     }
     
     if (self.session.sessionId) {
-        
-        OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:message alias:self.alias senderId:self.connectionId];
         
         NSString *jsonString = [textMessage getTextChatSignalJSONString];
         if (!jsonString) {
