@@ -31,9 +31,13 @@
     self.textChatInputView.textField.delegate = self;
     
     __weak DefaultTextChatTableViewController *weakSelf = self;
-    [self.textChat connectWithHandler:^(OTTextChatViewEventSignal signal, OTTextMessage *message, NSError *error) {
+    [self.textChat connectWithHandler:^(OTTextChatConnectionEventSignal signal, OTTextChatConnection *connection, NSError *error) {
         
-        if (signal == OTTextChatViewEventSignalDidSendMessage || signal == OTTextChatViewEventSignalDidReceiveMessage) {
+    }];
+    
+    self.textChat.messageHandler = ^(OTTextChatMessageEventSignal signal, OTTextMessage *message, NSError *error) {
+        
+        if (signal == OTTextChatMessageEventSignalDidSendMessage || signal == OTTextChatMessageEventSignalDidReceiveMessage) {
             
             if (!error) {
                 [weakSelf.textMessages addObject:message];
@@ -42,7 +46,7 @@
                 [weakSelf scrollTextChatTableViewToBottom];
             }
         }
-    }];
+    };
     
     [self.textChatInputView.sendButton addTarget:self action:@selector(sendTextMessage) forControlEvents:UIControlEventTouchUpInside];
     [self configureCountLabel];

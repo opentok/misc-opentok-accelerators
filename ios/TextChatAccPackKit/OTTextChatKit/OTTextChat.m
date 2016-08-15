@@ -40,10 +40,9 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 @property (nonatomic) OTAcceleratorSession *session;
-@property (strong, nonatomic) OTTextChatViewEventBlock handler;
 
 @property (nonatomic) NSString *receiverAlias;
-@property (nonatomic) OTTextChatConnection *connection;
+@property (nonatomic) OTTextChatConnection *selfConnection;
 
 @end
 
@@ -103,8 +102,8 @@ static NSString* const kTextChatType = @"text-chat";
             [self.delegate textChat:self didConnectWithError:connectionError];
         }
         
-        if (self.handler) {
-            self.handler(OTTextChatViewEventSignalDidConnect, nil, connectionError);
+        if (self.connectionHandler) {
+            self.connectionHandler(OTTextChatConnectionEventSignalDidConnect, nil, connectionError);
         }
     }
     else {
@@ -117,8 +116,8 @@ static NSString* const kTextChatType = @"text-chat";
     }
 }
 
-- (void)connectWithHandler:(OTTextChatViewEventBlock)handler {
-    self.handler = handler;
+- (void)connectWithHandler:(OTTextChatConnectionBlock)handler {
+    self.connectionHandler = handler;
     [self connect];
 }
 
@@ -143,8 +142,8 @@ static NSString* const kTextChatType = @"text-chat";
             [self.delegate textChat:self didDisConnectWithError:disconnectionError];
         }
         
-        if (self.handler) {
-            self.handler(OTTextChatViewEventSignalDidDisconnect, nil, disconnectionError);
+        if (self.connectionHandler) {
+            self.connectionHandler(OTTextChatConnectionEventSignalDidDisconnect, nil, disconnectionError);
         }
     }
     else {
@@ -158,7 +157,7 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)sendMessage:(NSString *)text {
-    OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:text alias:self.alias senderId:self.connection.connectionId];
+    OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:text alias:self.alias senderId:self.selfConnection.connectionId];
     [self sendCustomMessage:textMessage];
 }
 
@@ -224,8 +223,8 @@ static NSString* const kTextChatType = @"text-chat";
             [self.delegate textChat:self didSendTextMessage:textMessage error:nil];
         }
         
-        if (self.handler) {
-            self.handler(OTTextChatViewEventSignalDidSendMessage, textMessage, nil);
+        if (self.messageHandler) {
+            self.messageHandler(OTTextChatMessageEventSignalDidSendMessage, textMessage, nil);
         }
     }
     else {
@@ -241,8 +240,8 @@ static NSString* const kTextChatType = @"text-chat";
             [self.delegate textChat:self didSendTextMessage:nil error:error];
         }
         
-        if (self.handler) {
-            self.handler(OTTextChatViewEventSignalDidSendMessage, nil, error);
+        if (self.messageHandler) {
+            self.messageHandler(OTTextChatMessageEventSignalDidSendMessage, nil, error);
         }
     }
 }
@@ -256,7 +255,7 @@ static NSString* const kTextChatType = @"text-chat";
         [OTKLogger setSessionId:session.sessionId connectionId:session.connection.connectionId partnerId:@([self.session.apiKey integerValue])];
     }
     
-    self.connection = [[OTTextChatConnection alloc] initWithConnectionId:session.connection.connectionId
+    self.selfConnection = [[OTTextChatConnection alloc] initWithConnectionId:session.connection.connectionId
                                                             creationTime:session.connection.creationTime
                                                               customData:session.connection.data];
     
@@ -264,8 +263,8 @@ static NSString* const kTextChatType = @"text-chat";
         [self.delegate textChat:self didConnectWithError:nil];
     }
     
-    if (self.handler) {
-        self.handler(OTTextChatViewEventSignalDidConnect, nil, nil);
+    if (self.connectionHandler) {
+        self.connectionHandler(OTTextChatConnectionEventSignalDidConnect, nil, nil);
     }
 }
 
@@ -277,8 +276,8 @@ static NSString* const kTextChatType = @"text-chat";
         [self.delegate textChat:self didDisConnectWithError:nil];
     }
     
-    if (self.handler) {
-        self.handler(OTTextChatViewEventSignalDidDisconnect, nil, nil);
+    if (self.connectionHandler) {
+        self.connectionHandler(OTTextChatConnectionEventSignalDidDisconnect, nil, nil);
     }
 }
 
@@ -288,8 +287,8 @@ static NSString* const kTextChatType = @"text-chat";
         [self.delegate textChat:self didConnectWithError:error];
     }
     
-    if (self.handler) {
-        self.handler(OTTextChatViewEventSignalDidConnect, nil, error);
+    if (self.connectionHandler) {
+        self.connectionHandler(OTTextChatConnectionEventSignalDidConnect, nil, error);
     }
 }
 
@@ -300,10 +299,37 @@ static NSString* const kTextChatType = @"text-chat";
     
     // store receiverConnection for sending message to a point rather than boardcasting
     receiverConnection = connection;
+    
+    OTTextChatConnection *textChatConnection = [[OTTextChatConnection alloc] initWithConnectionId:connection.connectionId
+                                                                             creationTime:connection.creationTime
+                                                                               customData:connection.data];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:connectionCreated:)]) {
+        [self.delegate textChat:self connectionCreated:textChatConnection];
+    }
+    
+    if (self.connectionHandler) {
+        self.connectionHandler(OTTextChatConnectionEventSignalConnectionCreated, textChatConnection, nil);
+    }
 }
 
 - (void)session:(OTSession *)session connectionDestroyed:(OTConnection *)connection {
     
+    if ([receiverConnection.connectionId isEqualToString:connection.connectionId]) {
+        receiverConnection = nil;
+    }
+    
+    OTTextChatConnection *textChatConnection = [[OTTextChatConnection alloc] initWithConnectionId:connection.connectionId
+                                                                                     creationTime:connection.creationTime
+                                                                                       customData:connection.data];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:connectionDestroyed:)]) {
+        [self.delegate textChat:self connectionDestroyed:textChatConnection];
+    }
+    
+    if (self.connectionHandler) {
+        self.connectionHandler(OTTextChatConnectionEventSignalConnectionDestroyed, textChatConnection, nil);
+    }
 }
 
 - (void)session:(OTSession*)session
@@ -329,8 +355,8 @@ receivedSignalType:(NSString*)type
                 [self.delegate textChat:self didReceiveTextMessage:textMessage error:nil];
             }
             
-            if (self.handler) {
-                self.handler(OTTextChatViewEventSignalDidReceiveMessage, textMessage, nil);
+            if (self.messageHandler) {
+                self.messageHandler(OTTextChatMessageEventSignalDidReceiveMessage, textMessage, nil);
             }
             
             if (![OTTestingInfo isTesting]) {

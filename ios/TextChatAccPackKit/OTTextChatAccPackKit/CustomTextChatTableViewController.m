@@ -44,29 +44,31 @@
     self.textChatInputView.sendButton.backgroundColor = [UIColor colorWithRed:2/255.0f green:132/255.0f blue:196/255.0f alpha:1.0f];
     
     __weak CustomTextChatTableViewController *weakSelf = self;
-    [self.textChat connectWithHandler:^(OTTextChatViewEventSignal signal, OTTextMessage *textMessage, NSError *error) {
+    [self.textChat connectWithHandler:^(OTTextChatConnectionEventSignal signal, OTTextChatConnection *connection, NSError *error) {
         
         if (!error) {
-            if (signal == OTTextChatViewEventSignalDidConnect) {
-                [senderIdentifiers addObject:self.textChat.connection.connectionId];
+            if (signal == OTTextChatConnectionEventSignalDidConnect) {
+                [senderIdentifiers addObject:self.textChat.selfConnection.connectionId];
             }
             
-            if (signal == OTTextChatViewEventSignalDidDisconnect) {
+            if (signal == OTTextChatConnectionEventSignalDidDisconnect) {
                 [self.textChat connect];
-            }
-            
-            if (signal == OTTextChatViewEventSignalDidSendMessage || signal == OTTextChatViewEventSignalDidReceiveMessage) {
-                
-                [weakSelf addTextMessage:textMessage];
-                [weakSelf.tableView reloadData];
-                [weakSelf scrollTextChatTableViewToBottom];
-                
-                if (signal == OTTextChatViewEventSignalDidSendMessage) {
-                    weakSelf.textChatInputView.textField.text = nil;
-                }
             }
         }
     }];
+    
+    self.textChat.messageHandler = ^(OTTextChatMessageEventSignal signal, OTTextMessage *textMessage, NSError *error) {
+        if (signal == OTTextChatMessageEventSignalDidSendMessage || signal == OTTextChatMessageEventSignalDidReceiveMessage) {
+            
+            [weakSelf addTextMessage:textMessage];
+            [weakSelf.tableView reloadData];
+            [weakSelf scrollTextChatTableViewToBottom];
+            
+            if (signal == OTTextChatMessageEventSignalDidSendMessage) {
+                weakSelf.textChatInputView.textField.text = nil;
+            }
+        }
+    };
     
     [self configureBlurBackground];
     [self configureCustomCells];
