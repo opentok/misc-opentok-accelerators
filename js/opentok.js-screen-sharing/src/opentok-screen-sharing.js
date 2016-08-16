@@ -380,9 +380,6 @@
       }
     }
 
-    if (OT.$.browser() === 'Firefox' && (!extensionPathFF || !extensionPathFF.length)) {
-      throw new Error('Error starting the screensharing. Firefox screensharing extension required');
-    }
   };
 
   var _validateOptions = function (options) {
