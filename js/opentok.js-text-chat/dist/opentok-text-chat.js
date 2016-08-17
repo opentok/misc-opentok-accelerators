@@ -108,21 +108,21 @@
   var renderUILayout = function () {
     /* eslint-disable max-len, prefer-template */
     return [
-      '<div class="wms-widget-wrapper">',
-      '<div class="wms-widget-chat wms-widget-extras" id="chatContainer">',
-      '<div class="wms-messages-header hidden" id="chatHeader">',
+      '<div class="ots-widget-wrapper">',
+      '<div class="ots-widget-chat ots-widget-extras" id="chatContainer">',
+      '<div class="ots-messages-header hidden" id="chatHeader">',
       '<span>Chat with</span>',
       '</div>',
-      '<div id="wmsChatWrap">',
-      '<div class="wms-messages-holder" id="messagesHolder">',
-      '<div class="wms-messages-alert hidden" id="messagesWaiting">Messsages will be delivered once your contact arrives</div>',
-      '<div class="wms-message-item wms-message-sent">',
+      '<div id="otsChatWrap">',
+      '<div class="ots-messages-holder" id="messagesHolder">',
+      '<div class="ots-messages-alert hidden" id="messagesWaiting">Messsages will be delivered once your contact arrives</div>',
+      '<div class="ots-message-item ots-message-sent">',
       '</div>',
       '</div>',
-      '<div class="wms-send-message-box">',
-      '<input type="text" maxlength=' + _this.options.limitCharacterMessage + ' class="wms-message-input" placeholder="Enter your message here" id="messageBox">',
-      '<button class="wms-icon-check" id="sendMessage" type="submit"></button>',
-      '<div class="wms-character-count"><span><span id="characterCount">0</span>/' + _this.options.limitCharacterMessage + ' characters</span></div>',
+      '<div class="ots-send-message-box">',
+      '<input type="text" maxlength=' + _this.options.limitCharacterMessage + ' class="ots-message-input" placeholder="Enter your message here" id="messageBox">',
+      '<button class="ots-icon-check" id="sendMessage" type="submit"></button>',
+      '<div class="ots-character-count"><span><span id="characterCount">0</span>/' + _this.options.limitCharacterMessage + ' characters</span></div>',
       '</div>',
       '</div>',
       '</div>',
@@ -150,9 +150,9 @@
     /* eslint-disable max-len, prefer-template */
     var bubble = [
       '<div class="' + message.messageClass + '" >',
-      '<div class="wms-user-name-initial"> ' + message.username[0] + '</div>',
-      '<div class="wms-item-timestamp"> ' + message.username + ', <span data-livestamp=" ' + new Date(message.time) + '" </span></div>',
-      '<div class="wms-item-text">',
+      '<div class="ots-user-name-initial"> ' + message.username[0] + '</div>',
+      '<div class="ots-item-timestamp"> ' + message.username + ', <span data-livestamp=" ' + new Date(message.time) + '" </span></div>',
+      '<div class="ots-item-text">',
       '<span> ' + message.message + '</span>',
       '</div>',
       '</div>'
@@ -163,7 +163,7 @@
 
   var _renderChatMessage = function (messageSenderId, messageSenderAlias, message, sentOn) {
 
-    var sentByClass = _sender.id === messageSenderId ? 'wms-message-item wms-message-sent' : 'wms-message-item';
+    var sentByClass = _sender.id === messageSenderId ? 'ots-message-item ots-message-sent' : 'ots-message-item';
 
     var view = _getBubbleHtml({
       username: messageSenderAlias,
@@ -181,7 +181,7 @@
 
   var _handleMessageSent = function (data) {
     if (_shouldAppendMessage(data)) {
-      $('.wms-item-text').last().append(['<span>', data.message, '</span>'].join(''));
+      $('.ots-item-text').last().append(['<span>', data.message, '</span>'].join(''));
       var chatholder = $(_newMessages);
       chatholder[0].scrollTop = chatholder[0].scrollHeight;
       _cleanComposer();
@@ -212,6 +212,8 @@
     if (!_remoteParticipant) {
       _showWaitingMessage();
       deferred.resolve();
+    } else {
+      _hideWaitingMessage();
     }
 
     var messageData = {
@@ -340,7 +342,7 @@
     var data = JSON.parse(signal.data);
 
     if (_shouldAppendMessage(data)) {
-      $('.wms-item-text').last().append(['<span>', data.text, '</span>'].join(''));
+      $('.ots-item-text').last().append(['<span>', data.text, '</span>'].join(''));
     } else {
       _renderChatMessage(data.sender.id, data.sender.alias, data.text, data.sentOn);
     }
@@ -424,7 +426,7 @@
     var feedControls = document.querySelector(_this.options.controlsContainer);
 
     var el = document.createElement('div');
-    el.innerHTML = '<div class="video-control circle text-chat enabled" id="enableTextChat"></div>';
+    el.innerHTML = '<div class="ots-video-control circle text-chat enabled" id="enableTextChat"></div>';
 
     var enableTextChat = el.firstChild;
     feedControls.appendChild(enableTextChat);
