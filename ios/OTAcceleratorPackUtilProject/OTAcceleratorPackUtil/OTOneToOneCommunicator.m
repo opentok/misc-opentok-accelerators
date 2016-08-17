@@ -62,6 +62,7 @@ static NSString* const KLogVariationFailure = @"Failure";
                    token:(NSString *)token {
 
     [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
+    [OTOneToOneCommunicator sharedInstance].session = [OTAcceleratorSession getAcceleratorPackSession];
 }
 
 - (void)connect {
