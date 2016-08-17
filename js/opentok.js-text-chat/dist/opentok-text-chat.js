@@ -212,6 +212,8 @@
     if (!_remoteParticipant) {
       _showWaitingMessage();
       deferred.resolve();
+    } else {
+      _hideWaitingMessage();
     }
 
     var messageData = {
