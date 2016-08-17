@@ -9,7 +9,7 @@ SPEC_BEGIN(OTTextChatTest)
 __block OTTextMessage *tc;
 
 beforeAll(^(){
-    [OTTextChatView setOpenTokApiKey:@"testTextChat"
+    [OTTextChatViewController setOpenTokApiKey:@"testTextChat"
                            sessionId:@"testTextChat"
                                token:@"testTextChat"];
     

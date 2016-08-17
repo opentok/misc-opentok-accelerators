@@ -1,10 +1,10 @@
 //
-//  OTTextChatView.h
+//  OTTextChat.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <OTTextChatKit/OTTextChatUICustomizator.h>
+#import <Foundation/Foundation.h>
 #import <OTTextChatKit/OTTextMessage.h>
 
 /**
@@ -15,11 +15,11 @@
  *  @constant TextChatViewEventSignalDidConnect        A disconnect was requested and succeeded.
  *  @constant TextChatViewEventSignalDidDisconnect     A new connection was requested and succeeded.
  */
-typedef NS_ENUM(NSUInteger, TextChatViewEventSignal) {
-    TextChatViewEventSignalDidSendMessage = 0,
-    TextChatViewEventSignalDidReceiveMessage,
-    TextChatViewEventSignalDidConnect,
-    TextChatViewEventSignalDidDisconnect
+typedef NS_ENUM(NSUInteger, OTTextChatViewEventSignal) {
+    OTTextChatViewEventSignalDidSendMessage = 0,
+    OTTextChatViewEventSignalDidReceiveMessage,
+    OTTextChatViewEventSignalDidConnect,
+    OTTextChatViewEventSignalDidDisconnect
 };
 
 /**
@@ -29,42 +29,38 @@ typedef NS_ENUM(NSUInteger, TextChatViewEventSignal) {
  *  @param textChat The current message sent or received.
  *  @param error    The error object indicating there is a problem when sending the signal.
  */
-typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, OTTextMessage *textChat, NSError *w);
+typedef void (^OTTextChatViewEventBlock)(OTTextChatViewEventSignal signal, OTTextMessage *textChat, NSError *w);
 
-@class OTTextChatView;
+@class OTTextChatViewController;
 
 /**
  *  The delegate of a TextChatView object must confirm to the TextChatViewDelegate protocol.
  *  Optional methods of the protocol allow the delegate to notify the connectivity.
  */
-@protocol TextChatViewDelegate <NSObject>
+@protocol OTTextChatViewDelegate <NSObject>
 
 /**
  *  Notifies the delegate that the text chat view finished sending the message, with or without an error.
- *  
- *  @param textChatView The text chat view object notifying the delegate of this impending event.
+ *
  *  @param textChat The text chat message object.
  *  @param error An error object, used by the text chat view, when there is an error sending a message.
  */
-- (void)textChatView:(OTTextChatView *)textChatView
-     didSendtextChat:(OTTextMessage *)textChat
-               error:(NSError *)error;
+- (void)didSendTextMessage:(OTTextMessage *)textChat
+                     error:(NSError *)error;
 
 /**
  *  Notifies the delegate that the text chat view finished receiving the message, with or without an error.
  *
  *  @param textChat The text chat message object.
- *  @param textChatView The text chat view object notifying the delegate of this impending event.
+ *  @param error An error object, used by the text chat view, when there is an error receiving a message.
  */
-- (void)textChatView:(OTTextChatView *)textChatView
-  didReceiveTextChat:(OTTextMessage *)textChat;
-
-@optional
+- (void)didReceiveTextMessage:(OTTextMessage *)textChat
+                        error:(NSError *)error;
 
 /**
  *  Notifies the delegate the text chat view has established a text chat connection, with or without an error.
  *
- *  @param error An error object. It can contain information related to a connection error, a nil value, 
+ *  @param error An error object. It can contain information related to a connection error, a nil value,
  *               or information indicating a successful connection.
  */
 - (void)didConnectWithError:(NSError *)error;
@@ -72,13 +68,13 @@ typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, OTTextMes
 /**
  *  Notifies the delegate that the text chat view has stopped a text chat connection, with or without an error.
  *
- *  @param error An error object. It can contain information related to a disconnect error, a nil value, 
+ *  @param error An error object. It can contain information related to a disconnect error, a nil value,
  *               or information indicating a connection was successfully closed.
  */
 - (void)didDisConnectWithError:(NSError *)error;
 @end
 
-@interface OTTextChatView : UIView
+@interface OTTextChat : NSObject
 
 /**
  *  Add the configuration detail to your app.
@@ -96,31 +92,12 @@ typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, OTTextMes
  *
  *  The delegate must adopt the TextChatViewDelegate protocol. The delegate is not retained.
  */
-@property (weak, nonatomic) id<TextChatViewDelegate> delegate;
-
-/**
- *  A boolean value that indicates whether the text chat view is shown or hidden.
- */
-@property (readonly, nonatomic, getter=isShown) BOOL show;
-
-/**
- *  The object that manages modifiable user interfaces.
- */
-@property (readonly, nonatomic) OTTextChatUICustomizator *customizator;
+@property (weak, nonatomic) id<OTTextChatViewDelegate> delegate;
 
 /**
  *  @return Returns an initialized text chat view object.
  */
-+ (instancetype)textChatView;
-
-/**
- *  Returns an initialized text chat view object whose bottom is attached.
- *
- *  @param bottomView The view the TextChat view will attach on top.
- *
- *  @return An initialized text chat view object.
- */
-+ (instancetype)textChatViewWithBottomView:(UIView *)bottomView;
++ (instancetype)textChat;
 
 /**
  *  Establishes a text chat connection.
@@ -132,35 +109,19 @@ typedef void (^TextChatViewEventBlock)(TextChatViewEventSignal signal, OTTextMes
  *
  *  @param handler NS_ENUM for the various event signals.
  */
-- (void)connectWithHandler:(TextChatViewEventBlock)handler;
+- (void)connectWithHandler:(OTTextChatViewEventBlock)handler;
 
 /**
  *  Stops a text chat connection.
  */
 - (void)disconnect;
 
-/**
- *  Shows the text chat view.
- */
-- (void)show;
+@property (nonatomic) NSString *alias;
 
-/**
- *  Hides the text chat view.
- */
-- (void)dismiss;
+@property (readonly, nonatomic) NSString *receiverAlias;
 
-/**
- *  Assign an alias to the sender.
- *
- *  @param alias String with the alias of the sender.
- */
-- (void)setAlias:(NSString *)alias;
+@property (readonly, nonatomic) NSString *connectionId;
 
-/**
- *  Set the maximum length of characters for a message.
- *
- *  @param length The maximum number of characters allowed for a message.
- */
-- (void)setMaximumTextMessageLength:(NSUInteger)length;
+- (void)sendMessage:(NSString *)message;
 
 @end

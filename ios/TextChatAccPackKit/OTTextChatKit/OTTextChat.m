@@ -1,90 +1,70 @@
 //
-//  OTTextMessageManager.m
+//  OTTextChatter.m
+//  OTTextChatAccPackKit
 //
+//  Created by Xi Huang on 8/5/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <OpenTok/OpenTok.h>
+#import "OTTextChat.h"
 
-#import "OTTextMessageManager.h"
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 #import <OTKAnalytics/OTKLogger.h>
 
+#import "OTTextMessage.h"
+#import "OTTextMessage_Private.h"
+
+#import "OTTextChatKitBundle.h"
+#import "Constant.h"
 #import "OTTestingInfo.h"
 
-static NSUInteger DefaultTextMessageLength = 120;
-static NSUInteger MaximumTextMessageLength = 8196;
+static NSString* const kTextChatType = @"text-chat";
 
-NSString* const kLogComponentIdentifier = @"textChatAccPack";
-NSString* const KLogClientVersion = @"ios-vsol-1.0.0";
-NSString* const KLogActionInitialize = @"Init";
-NSString* const KLogActionStart = @"Start";
-NSString* const KLogActionEnd = @"End";
-NSString* const KLogActionOpen = @"OpenTC";
-NSString* const KLogActionClose = @"CloseTC";
-NSString* const KLogActionSendMessage = @"Send Msg";
-NSString* const KLogActionReceiveMessage = @"Receive Msg";
-NSString* const KLogActionSetMaxLength = @"SetMaxLength";
-NSString* const KLogVariationAttempt = @"Attempt";
-NSString* const KLogVariationSuccess = @"Success";
-NSString* const KLogVariationFailure = @"Failure";
+@interface OTTextChat() <OTSessionDelegate> {
+    OTConnection *receiverConnection;
+}
 
-@interface OTTextMessageManager() <OTSessionDelegate>
 @property (nonatomic) OTAcceleratorSession *session;
+@property (strong, nonatomic) OTTextChatViewEventBlock handler;
 
-@property (nonatomic) NSMutableArray<OTTextMessage *> *mutableMessages;
-
-@property (nonatomic) NSString *senderId;
-@property (nonatomic) NSString *alias;
+@property (nonatomic) NSString *connectionId;
 @property (nonatomic) NSString *receiverAlias;
 
 @end
 
-static NSString* const kTextChatType = @"text-chat";
+@implementation OTTextChat
 
-@implementation OTTextMessageManager
-
-- (NSArray<OTTextMessage *> *)messages {
-    return [self.mutableMessages copy];
++ (void)setOpenTokApiKey:(NSString *)apiKey
+               sessionId:(NSString *)sessionId
+                   token:(NSString *)token {
+    
+    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
 }
 
-- (void)setAlias:(NSString *)alias {
-    _alias = alias;
-}
-
-- (void)setMaximumTextMessageLength:(NSUInteger)maximumTextMessageLength {
-    
-    if (![OTTestingInfo isTesting]) {
-        [OTKLogger logEventAction:KLogActionSetMaxLength variation:KLogVariationAttempt completion:nil];
-    }
-    
-    if (maximumTextMessageLength > 8196) {
-        _maximumTextMessageLength = DefaultTextMessageLength;
-        
-        if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionSetMaxLength variation:KLogVariationFailure completion:nil];
-        }
-    }
-    else {
-        _maximumTextMessageLength = maximumTextMessageLength;
-        
-        if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionSetMaxLength variation:KLogVariationSuccess completion:nil];
-        }
-    }
++ (instancetype)textChat {
+    return [[OTTextChat alloc] init];
 }
 
 - (instancetype)init {
+    if (![OTTestingInfo isTesting]) {
+        [OTKLogger analyticsWithClientVersion:KLogClientVersion
+                                       source:[[NSBundle mainBundle] bundleIdentifier]
+                                  componentId:kLogComponentIdentifier
+                                         guid:[[NSUUID UUID] UUIDString]];
+    }
+    
+    if (![OTTestingInfo isTesting]) {
+        [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
+    }
+    
     if (self = [super init]) {
-        _mutableMessages = [[NSMutableArray alloc] init];
         _session = [OTAcceleratorSession getAcceleratorPackSession];
-        _maximumTextMessageLength = MaximumTextMessageLength;
-        
-        if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
-        }
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)connect {
@@ -103,7 +83,16 @@ static NSString* const kTextChatType = @"text-chat";
                             variation:KLogVariationFailure
                            completion:nil];
         }
-    } else {
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
+            [self.delegate didConnectWithError:connectionError];
+        }
+        
+        if (self.handler) {
+            self.handler(OTTextChatViewEventSignalDidConnect, nil, connectionError);
+        }
+    }
+    else {
         
         if (![OTTestingInfo isTesting]) {
             [OTKLogger logEventAction:KLogActionStart
@@ -111,6 +100,11 @@ static NSString* const kTextChatType = @"text-chat";
                            completion:nil];
         }
     }
+}
+
+- (void)connectWithHandler:(OTTextChatViewEventBlock)handler {
+    self.handler = handler;
+    [self connect];
 }
 
 - (void)disconnect {
@@ -129,7 +123,16 @@ static NSString* const kTextChatType = @"text-chat";
                             variation:KLogVariationFailure
                            completion:nil];
         }
-    } else {
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didDisConnectWithError:)]) {
+            [self.delegate didDisConnectWithError:disconnectionError];
+        }
+        
+        if (self.handler) {
+            self.handler(OTTextChatViewEventSignalDidDisconnect, nil, disconnectionError);
+        }
+    }
+    else {
         
         if (![OTTestingInfo isTesting]) {
             [OTKLogger logEventAction:KLogActionEnd
@@ -151,7 +154,7 @@ static NSString* const kTextChatType = @"text-chat";
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"Message format is wrong. Text is empty or null"}];
         if (self.delegate) {
-            [self.delegate didAddTextChat:nil error:error];
+            [self.delegate didSendTextMessage:nil error:error];
         }
         
         if (![OTTestingInfo isTesting]) {
@@ -162,15 +165,15 @@ static NSString* const kTextChatType = @"text-chat";
     
     if (self.session.sessionId) {
         
-        OTTextMessage *textChat = [[OTTextMessage alloc] initWithMessage:message alias:self.alias senderId:self.senderId];
+        OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:message alias:self.alias senderId:self.connectionId];
         
-        NSString *jsonString = [textChat getTextChatSignalJSONString];
+        NSString *jsonString = [textMessage getTextChatSignalJSONString];
         if (!jsonString) {
             if (self.delegate) {
                 NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
                                                      code:-1
                                                  userInfo:@{NSLocalizedDescriptionKey:@"Error in parsing sender data"}];
-                [self.delegate didAddTextChat:nil error:error];
+                [self.delegate didSendTextMessage:nil error:error];
             }
             
             if (![OTTestingInfo isTesting]) {
@@ -181,7 +184,7 @@ static NSString* const kTextChatType = @"text-chat";
         
         [self.session signalWithType:kTextChatType
                               string:jsonString
-                          connection:nil
+                          connection:receiverConnection
                                error:&error];
         
         if (error) {
@@ -190,36 +193,21 @@ static NSString* const kTextChatType = @"text-chat";
                 [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
             }
             if (self.delegate) {
-                [self.delegate didAddTextChat:nil error:error];
+                [self.delegate didSendTextMessage:nil error:error];
             }
             return;
         }
-        
-        // determine new type
-        if ([self.messages count] > 0) {
-            
-            OTTextMessage *prev = self.messages[self.messages.count - 1];
-            
-            // not sure why 120
-            if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < 120 &&
-                [textChat.senderId isEqualToString:prev.senderId]) {
-                
-                if (textChat.type == TCMessageTypesReceived) {
-                    textChat.type = TCMessageTypesReceivedShort;
-                }
-                else {
-                    textChat.type = TCMessageTypesSentShort;
-                }
-            }
-        }
-        [self.mutableMessages addObject:textChat];
         
         if (![OTTestingInfo isTesting]) {
             [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationSuccess completion:nil];
         }
         
         if (self.delegate) {
-            [self.delegate didAddTextChat:textChat error:nil];
+            [self.delegate didSendTextMessage:textMessage error:nil];
+        }
+        
+        if (self.handler) {
+            self.handler(OTTextChatViewEventSignalDidSendMessage, textMessage, nil);
         }
     }
     else {
@@ -232,16 +220,13 @@ static NSString* const kTextChatType = @"text-chat";
         }
         
         if (self.delegate) {
-            [self.delegate didAddTextChat:nil error:error];
+            [self.delegate didSendTextMessage:nil error:error];
+        }
+        
+        if (self.handler) {
+            self.handler(OTTextChatViewEventSignalDidSendMessage, nil, error);
         }
     }
-}
-
-- (OTTextMessage *)getTextChatFromIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < 0 || indexPath.row >= self.messages.count) {
-        return nil;
-    }
-    return self.messages[indexPath.row];
 }
 
 #pragma mark - OTSessionDelegate
@@ -253,10 +238,14 @@ static NSString* const kTextChatType = @"text-chat";
         [OTKLogger setSessionId:session.sessionId connectionId:session.connection.connectionId partnerId:@([self.session.apiKey integerValue])];
     }
     
-    self.senderId = session.connection.connectionId;
+    self.connectionId = session.connection.connectionId;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
         [self.delegate didConnectWithError:nil];
+    }
+    
+    if (self.handler) {
+        self.handler(OTTextChatViewEventSignalDidConnect, nil, nil);
     }
 }
 
@@ -267,6 +256,10 @@ static NSString* const kTextChatType = @"text-chat";
     if (self.delegate && [self.delegate respondsToSelector:@selector(didDisConnectWithError:)]) {
         [self.delegate didDisConnectWithError:nil];
     }
+    
+    if (self.handler) {
+        self.handler(OTTextChatViewEventSignalDidDisconnect, nil, nil);
+    }
 }
 
 - (void)session:(OTSession*)session didFailWithError:(OTError*)error {
@@ -274,22 +267,19 @@ static NSString* const kTextChatType = @"text-chat";
     if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
         [self.delegate didConnectWithError:error];
     }
- }
-
-- (void)session:(OTSession*)session streamCreated:(OTStream*)stream {
-    NSLog(@"session streamCreated (%@)", stream.streamId);
+    
+    if (self.handler) {
+        self.handler(OTTextChatViewEventSignalDidConnect, nil, error);
+    }
 }
 
-- (void)session:(OTSession*)session streamDestroyed:(OTStream*)stream {
-    NSLog(@"session streamDestroyed (%@)", stream.streamId);
-}
+- (void)session:(OTSession *)session streamCreated:(OTStream *)stream {}
+- (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream{}
 
-- (void)session:(OTSession *)session connectionCreated:(OTConnection *)connection {
-    NSLog(@"session connectionCreated (%@)", connection.connectionId);
-}
-
-- (void)session:(OTSession *)session connectionDestroyed:(OTConnection *)connection {
-    NSLog(@"session connectionDestroyed (%@)", connection.connectionId);
+- (void)session:(OTSession*) session connectionCreated:(OTConnection*)connection {
+    
+    // store receiverConnection for sending message to a point rather than boardcasting
+    receiverConnection = connection;
 }
 
 - (void)session:(OTSession*)session
@@ -303,46 +293,30 @@ receivedSignalType:(NSString*)type
             [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationAttempt completion:nil];
         }
         
-        OTTextMessage *textChat = [[OTTextMessage alloc] initWithJSONString:string];
+        OTTextMessage *textMessage = [[OTTextMessage alloc] initWithJSONString:string];
         
-        if (!self.receiverAlias || ![self.receiverAlias isEqualToString:textChat.alias]) {
-            self.receiverAlias = textChat.alias;
+        if (!self.receiverAlias || ![self.receiverAlias isEqualToString:textMessage.alias]) {
+            self.receiverAlias = textMessage.alias;
         }
         
-        // determine new type
-        if ([self.messages count] > 0) {
+        if (textMessage) {
             
-            OTTextMessage *prev = self.messages[self.messages.count - 1];
-            
-            // not sure why 120
-            if ([textChat.dateTime timeIntervalSinceDate:prev.dateTime] < 120 &&
-                [textChat.senderId isEqualToString:prev.senderId]) {
-                
-                if (textChat.type == TCMessageTypesReceived) {
-                    textChat.type = TCMessageTypesReceivedShort;
-                }
-                else {
-                    textChat.type = TCMessageTypesSentShort;
-                }
-            }
-        }
-        
-        if (textChat) {
-            [self.mutableMessages addObject:textChat];
             if (self.delegate) {
-                [self.delegate didReceiveTextChat:textChat];
-                
-                if (![OTTestingInfo isTesting]) {
-                    [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationSuccess completion:nil];
-                }
+                [self.delegate didReceiveTextMessage:textMessage error:nil];
+            }
+            
+            if (self.handler) {
+                self.handler(OTTextChatViewEventSignalDidReceiveMessage, textMessage, nil);
+            }
+            
+            if (![OTTestingInfo isTesting]) {
+                [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationSuccess completion:nil];
             }
         }
-    }
-    else {
-        //sent message
-        
-        if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationSuccess completion:nil];
+        else {
+            if (![OTTestingInfo isTesting]) {
+                [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationFailure completion:nil];
+            }
         }
     }
 }

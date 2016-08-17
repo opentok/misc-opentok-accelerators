@@ -16,9 +16,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [OTTextChatView setOpenTokApiKey:@"<#Replace#>"
-                           sessionId:@"<#Replace#>"
-                               token:@"<#Replace#>"];
+    [OTTextChat setOpenTokApiKey:<#apikey#>
+                       sessionId:<#sessionid#>
+                           token:<#token#>];
     return YES;
 }
 

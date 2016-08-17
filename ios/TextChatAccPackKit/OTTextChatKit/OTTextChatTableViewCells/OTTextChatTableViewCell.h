@@ -4,49 +4,31 @@
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <OTTextChatKit/OTTextChatUICustomizator.h>
-#import "OTTextMessage.h"
-#import "OTTextMessage_Private.h"
+#import <UIKit/UIKit.h>
+#import <OTTextChatKit/OTTextMessage.h>
 
 @interface OTTextChatTableViewCell : UITableViewCell
 
 /**
  *  The message text displayed in the bubble.
  */
-@property (weak, nonatomic) IBOutlet UITextView *message;
+@property (readonly, weak, nonatomic) UITextView *messageTextView;
 
 /**
  *  The time at which the message was received or sent.
  */
-@property (weak, nonatomic) IBOutlet UILabel *userTimeLabel;
-
-/**
- *  The first letter of the sender's name.
- */
-@property (weak, nonatomic) IBOutlet UILabel *userLetterLabel;
+@property (readonly, weak, nonatomic) UILabel *userInfoLabel;
 
 /**
  *  View containing the first letter of the sender's name.
  */
-@property (weak, nonatomic) IBOutlet UIView *userFirstLetter;
-
-/**
- *  The corner of the message bubble when sending the message.
- */
-@property (weak, nonatomic) IBOutlet UIView *cornerUpRightView;
-
-/**
- *  The corner of the message bubble when receiving the message.
- */
-@property (weak, nonatomic) IBOutlet UIView *cornerUpLeftView;
+@property (readonly, weak, nonatomic) UIView *avatarHolder;
 
 /**
  *  Update the cell with the specified text chat information, and apply UI customization if available.
  *
  *  @param textChat     The message being sent or received.
- *  @param customizer   UI customization for the bubble color or text color of the new message.
  */
--(void)updateCellFromTextChat:(OTTextMessage *)textChat
-                   customizer:(OTTextChatUICustomizator *)customizer;
+-(void)updateCellFromTextChat:(OTTextMessage *)textChat;
 
 @end

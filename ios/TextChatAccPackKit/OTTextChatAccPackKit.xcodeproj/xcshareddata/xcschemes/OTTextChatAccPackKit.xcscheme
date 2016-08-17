@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A07B968E1D1B6273002397EE"
+               BlueprintIdentifier = "A061B9701D1D98FA0020DDD8"
                BuildableName = "OTTextChatAccPackKit.app"
                BlueprintName = "OTTextChatAccPackKit"
                ReferencedContainer = "container:OTTextChatAccPackKit.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A07B968E1D1B6273002397EE"
+            BlueprintIdentifier = "A061B9701D1D98FA0020DDD8"
             BuildableName = "OTTextChatAccPackKit.app"
             BlueprintName = "OTTextChatAccPackKit"
             ReferencedContainer = "container:OTTextChatAccPackKit.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A07B968E1D1B6273002397EE"
+            BlueprintIdentifier = "A061B9701D1D98FA0020DDD8"
             BuildableName = "OTTextChatAccPackKit.app"
             BlueprintName = "OTTextChatAccPackKit"
             ReferencedContainer = "container:OTTextChatAccPackKit.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A07B968E1D1B6273002397EE"
+            BlueprintIdentifier = "A061B9701D1D98FA0020DDD8"
             BuildableName = "OTTextChatAccPackKit.app"
             BlueprintName = "OTTextChatAccPackKit"
             ReferencedContainer = "container:OTTextChatAccPackKit.xcodeproj">
