@@ -20,9 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.communicator = [OTOneToOneCommunicator communicator];
+    self.communicator = [OTOneToOneCommunicator sharedInstance];
     self.communicator.delegate = self;
     [self.communicator connect];
+    
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"TestReset" style:UIBarButtonItemStylePlain target:self action:@selector(testResetButtonPressed)];
+    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
 
 - (void)oneToOneCommunicationWithSignal:(OTOneToOneCommunicationSignal)signal
@@ -36,6 +39,12 @@
         self.communicator.subscriberView.frame = self.subscriberView.bounds;
         [self.subscriberView addSubview:self.communicator.subscriberView];
     }
+}
+
+- (void)testResetButtonPressed {
+    
+    // the behavior here should be: force the session to disconnect
+    [OTOneToOneCommunicator setOpenTokApiKey:@"testResetButtonPressed" sessionId:@"testResetButtonPressed" token:@"testResetButtonPressed"];
 }
 
 @end

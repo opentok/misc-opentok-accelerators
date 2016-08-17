@@ -9,7 +9,6 @@
 @interface OTAcceleratorSession : OTSession
 
 @property (readonly, nonatomic) NSString *apiKey;
-@property (readonly, nonatomic) NSString *token;
 
 + (void)setOpenTokApiKey:(NSString *)apiKey
                sessionId:(NSString *)sessionId

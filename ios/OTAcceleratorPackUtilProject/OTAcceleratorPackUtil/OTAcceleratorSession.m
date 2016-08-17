@@ -13,23 +13,19 @@ static NSString * InternalSessionId = nil;
 static NSString * InternalToken = nil;
 
 @interface OTAcceleratorSession() <OTSessionDelegate>
-@property (nonatomic) NSString *apiKey;
-@property (nonatomic) NSString *token;
 
 @property (nonatomic) NSMutableSet <id<OTSessionDelegate>> *delegates;
-
 // in order to signal sessionDidDisconnect: back to inactive registers
 @property (nonatomic) NSMutableSet <id<OTSessionDelegate>> *inactiveDelegate;
+
 @end
 
 @implementation OTAcceleratorSession
 
+static OTAcceleratorSession *sharedSession;
+
 - (NSString *)apiKey {
     return InternalApiKey;
-}
-
-- (NSString *)sessionId {
-    return InternalSessionId;
 }
 
 + (NSSet<id<OTSessionDelegate>> *)getRegisters {
@@ -37,19 +33,7 @@ static NSString * InternalToken = nil;
 }
 
 + (instancetype)getAcceleratorPackSession {
-    
-    static OTAcceleratorSession *sharedInstance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        sharedInstance = [[OTAcceleratorSession alloc] initWithApiKey:InternalApiKey
-                                                            sessionId:InternalSessionId
-                                                             delegate:nil];
-        sharedInstance.delegate = sharedInstance;
-        sharedInstance.delegates = [[NSMutableSet alloc] init];
-        sharedInstance.inactiveDelegate = [[NSMutableSet alloc] init];
-    });
-    return sharedInstance;
+    return sharedSession;
 }
 
 + (void)setOpenTokApiKey:(NSString *)apiKey
@@ -63,6 +47,24 @@ static NSString * InternalToken = nil;
     NSAssert(InternalApiKey.length != 0, @"OpenTok: API key can not be empty, please add it to OneToOneCommunicator");
     NSAssert(InternalSessionId.length != 0, @"OpenTok: Session Id can not be empty, please add it to OneToOneCommunicator");
     NSAssert(InternalToken.length != 0, @"OpenTok: Token can not be empty, please add it to OneToOneCommunicator");
+    
+    if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnected ||
+        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnecting) {
+        
+        OTError *error;
+        [sharedSession disconnect:&error];
+        if (error) {
+            NSLog(@"AcceleratorSesssion Error: %@", error.localizedDescription);
+        }
+    }
+    
+    // re-init
+    sharedSession = [[OTAcceleratorSession alloc] initWithApiKey:InternalApiKey
+                                                        sessionId:InternalSessionId
+                                                         delegate:nil];
+    sharedSession.delegate = sharedSession;
+    sharedSession.delegates = [[NSMutableSet alloc] init];
+    sharedSession.inactiveDelegate = [[NSMutableSet alloc] init];
 }
 
 + (NSError *)registerWithAccePack:(id)delegate {
@@ -127,7 +129,6 @@ static NSString * InternalToken = nil;
 #pragma mark - OTSessionDelegate
 -(void)sessionDidConnect:(OTSession*)session {
     
-    
     [self.delegates enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
         
         if ([obj respondsToSelector:@selector(sessionDidConnect:)]) {
@@ -137,7 +138,6 @@ static NSString * InternalToken = nil;
 }
 
 - (void)sessionDidDisconnect:(OTSession *)session {
-    
     
     [self.delegates enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
         

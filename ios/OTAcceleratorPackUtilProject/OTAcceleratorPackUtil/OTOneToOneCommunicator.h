@@ -33,7 +33,7 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 
 @interface OTOneToOneCommunicator : NSObject
 
-+ (instancetype)communicator;
++ (instancetype)sharedInstance;
 + (void)setOpenTokApiKey:(NSString *)apiKey
                sessionId:(NSString *)sessionId
                    token:(NSString *)token;
