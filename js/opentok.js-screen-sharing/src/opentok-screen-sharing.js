@@ -25,44 +25,44 @@
   var _session; // OpenTok session
 
   var _screenSharingControl = [
-    '<div class="video-control circle share-screen" id="startScreenSharing"></div>'
+    '<div class="ots-video-control circle share-screen" id="startScreenSharing"></div>'
   ].join('\n');
 
   var _screenSharingView = [
     '<div class="hidden" id="screenShareView">',
-    '<div class="wms-feed-main-video">',
-    '<div class="wms-feed-holder" id="videoHolderScreenShare"></div>',
-    '<div class="wms-feed-mask"></div>',
-    '<img src="/images/main/video-mask.png"/>',
+    '<div class="ots-feed-main-video">',
+    '<div class="ots-feed-holder" id="videoHolderScreenShare"></div>',
+    '<div class="ots-feed-mask"></div>',
+    '<img src="https://assets.tokbox.com/solutions/images/widget-video-mask.png"/>',
     '</div>',
-    '<div class="wms-feed-call-controls" id="feedControlsFromScreen">',
-    '<button class="wms-icon-screen active hidden" id="endScreenShareBtn"></button>',
+    '<div class="ots-feed-call-controls" id="feedControlsFromScreen">',
+    '<button class="ots-icon-screen active hidden" id="endScreenShareBtn"></button>',
     '</div>',
     '</div>'
   ].join('\n');
 
   var _screenDialogsExtensions = [
     /* eslint-disable max-len */
-    '<div id="dialog-form-chrome" class="wms-modal" style="display: none;">',
-    '<div class="wms-modal-body">',
-    '<div class="wms-modal-title with-icon">',
-    '<i class="wms-icon-share-large"></i>',
+    '<div id="dialog-form-chrome" class="ots-ss-modal" style="display: none;">',
+    '<div class="ots-modal-body">',
+    '<div class="ots-modal-title with-icon">',
+    '<i class="ots-icon-share-large"></i>',
     '<span>Screen Share<br/>Extension Installation</span>',
     '</div>',
     '<p>You need a Chrome extension to share your screen. Install Screensharing Extension. Once you have installed, please, click the share screen button again.</p>',
-    '<button id="btn-install-plugin-chrome" class="wms-btn-install">Accept</button>',
-    '<button id="btn-cancel-plugin-chrome" class="wms-cancel-btn-install"></button>',
+    '<button id="btn-install-plugin-chrome" class="ots-btn-install">Accept</button>',
+    '<button id="btn-cancel-plugin-chrome" class="ots-cancel-btn-install"></button>',
     '</div>',
     '</div>',
-    '<div id="dialog-form-ff" class="wms-modal" style="display: none;">',
-    '<div class="wms-modal-body">',
-    '<div class="wms-modal-title with-icon">',
-    '<i class="wms-icon-share-large"></i>',
+    '<div id="dialog-form-ff" class="ots-ss-modal" style="display: none;">',
+    '<div class="ots-modal-body">',
+    '<div class="ots-modal-title with-icon">',
+    '<i class="ots-icon-share-large"></i>',
     '<span>Screen Share<br/>Extension Installation</span>',
     '</div>',
     '<p>You need a Firefox extension to share your screen. Install Screensharing Extension. Once you have installed, refresh your browser and click the share screen button again.</p>',
-    '<a href="#" id="btn-install-plugin-ff" class="wms-btn-install" href="">Install extension</a>',
-    '<a href="#" id="btn-cancel-plugin-ff" class="wms-cancel-btn-install"></a>',
+    '<a href="#" id="btn-install-plugin-ff" class="ots-btn-install" href="">Install extension</a>',
+    '<a href="#" id="btn-cancel-plugin-ff" class="ots-cancel-btn-install"></a>',
     '</div>',
     '</div>'
     /* eslint-enable max-len */
