@@ -12,17 +12,27 @@
 /**
  *  The alias of the sender or receiver.
  */
-@property (nonatomic, readonly) NSString *alias;
+@property (copy, nonatomic, readonly) NSString *alias;
 /**
  *  A unique identifier for the sender of the message.
  */
-@property (nonatomic, readonly) NSString *senderId;
+@property (copy, nonatomic, readonly) NSString *senderId;
 /**
  *  The content of the text message.
  */
-@property (nonatomic, readonly) NSString *text;
+@property (copy, nonatomic, readonly) NSString *text;
 /**
  *  The date and time when the message was sent (UNIXTIMESTAMP format).
  */
-@property (nonatomic, readonly) NSDate *dateTime;
+@property (copy, nonatomic, readonly) NSDate *dateTime;
+
++ (instancetype)messageWithSenderId:(NSString *)senderId
+                              alias:(NSString *)alias
+                               text:(NSString *)text;
+
+- (instancetype)initWithSenderId:(NSString *)senderId
+                           alias:(NSString *)alias
+                        dateTime:(NSDate *)dateTime
+                            text:(NSString *)text;
+
 @end
