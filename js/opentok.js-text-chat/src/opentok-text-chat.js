@@ -108,14 +108,14 @@
   var renderUILayout = function () {
     /* eslint-disable max-len, prefer-template */
     return [
-      '<div class="ots-widget-wrapper">',
-      '<div class="ots-widget-chat ots-widget-extras" id="chatContainer">',
-      '<div class="ots-messages-header hidden" id="chatHeader">',
+      '<div class="ots-text-chat-container">',
+      '<div class="ots-text-chat">',
+      '<div class="ots-messages-header ots-hidden" id="chatHeader">',
       '<span>Chat with</span>',
       '</div>',
       '<div id="otsChatWrap">',
       '<div class="ots-messages-holder" id="messagesHolder">',
-      '<div class="ots-messages-alert hidden" id="messagesWaiting">Messsages will be delivered once your contact arrives</div>',
+      '<div class="ots-messages-alert ots-hidden" id="messagesWaiting">Messsages will be delivered once your contact arrives</div>',
       '<div class="ots-message-item ots-message-sent">',
       '</div>',
       '</div>',
@@ -299,12 +299,12 @@
 
   var _showWaitingMessage = function () {
     var el = document.getElementById('messagesWaiting');
-    el && el.classList.remove('hidden');
+    el && el.classList.remove('ots-hidden');
   };
 
   var _hideWaitingMessage = function () {
     var el = document.getElementById('messagesWaiting');
-    el && el.classList.add('hidden');
+    el && el.classList.add('ots-hidden');
   };
 
   var _setupUI = function () {
@@ -403,7 +403,7 @@
   };
 
   var _showTextChat = function () {
-    document.querySelector(_this.options.textChatContainer).classList.remove('hidden');
+    document.querySelector(_this.options.textChatContainer).classList.remove('ots-hidden');
     _displayed = true;
     _triggerEvent('showTextChat');
 
@@ -412,7 +412,7 @@
   };
 
   var _hideTextChat = function () {
-    document.querySelector(_this.options.textChatContainer).classList.add('hidden');
+    document.querySelector(_this.options.textChatContainer).classList.add('ots-hidden');
     _displayed = false;
     _triggerEvent('hideTextChat');
 
@@ -513,14 +513,14 @@
 
       _accPack.registerEventListener('startCall', function () {
         if (_controlAdded) {
-          document.querySelector('#enableTextChat').classList.remove('hidden');
+          document.querySelector('#enableTextChat').classList.remove('ots-hidden');
         } else {
           _appendControl();
         }
       });
 
       _accPack.registerEventListener('endCall', function () {
-        document.getElementById('enableTextChat').classList.add('hidden');
+        document.getElementById('enableTextChat').classList.add('ots-hidden');
         if (_displayed) {
           _hideTextChat();
         }
