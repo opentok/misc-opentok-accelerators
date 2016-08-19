@@ -242,7 +242,6 @@
    */
   var _stopPublishing = function () {
     _session.unpublish(_this.publisher);
-    _this.publisher = null;
   };
 
   /** Public Methods */
