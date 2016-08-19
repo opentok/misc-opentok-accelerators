@@ -158,8 +158,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         fragment.mSession.setSignalListener(fragment);
         fragment.mSession.setSessionListener(fragment);
         fragment.mApiKey = apiKey;
-        addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_SUCCESS);
-
+        
         return fragment;
     }
 

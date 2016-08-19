@@ -404,6 +404,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
 
     private void initTextChatFragment(){
         mTextChatFragment = TextChatFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
+        addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_SUCCESS);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
     }
