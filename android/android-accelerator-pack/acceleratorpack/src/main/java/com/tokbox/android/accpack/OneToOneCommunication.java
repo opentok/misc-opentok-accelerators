@@ -383,10 +383,12 @@ public class OneToOneCommunication implements
             isScreensharing = true;
         }
         else {
-            mSubscriber = new Subscriber(mContext, stream);
-            mSubscriber.setVideoListener(this);
-            mSubscriber.setSubscriberListener(this);
-            mSession.subscribe(mSubscriber);
+            if ( mSubscriber == null ) { //oneToOne --> keep the first subscriber connection
+                mSubscriber = new Subscriber(mContext, stream);
+                mSubscriber.setVideoListener(this);
+                mSubscriber.setSubscriberListener(this);
+                mSession.subscribe(mSubscriber);
+            }
         }
     }
 
