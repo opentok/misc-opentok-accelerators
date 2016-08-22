@@ -21,6 +21,28 @@ static NSString* const KLogVariationAttempt = @"Attempt";
 static NSString* const KLogVariationSuccess = @"Success";
 static NSString* const KLogVariationFailure = @"Failure";
 
+@interface LoggingWrapper: NSObject
+@property (nonatomic) OTKLogger *logger;
+@end
+
+@implementation LoggingWrapper
+
++ (instancetype)sharedInstance {
+    
+    static LoggingWrapper *sharedInstance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[LoggingWrapper alloc] init];
+        sharedInstance.logger = [[OTKLogger alloc] initWithClientVersion:KLogClientVersion
+                                                                  source:[[NSBundle mainBundle] bundleIdentifier]
+                                                             componentId:kLogComponentIdentifier
+                                                                    guid:[[NSUUID UUID] UUIDString]];
+    });
+    return sharedInstance;
+}
+
+@end
+
 @interface OTOneToOneCommunicator() <OTSessionDelegate, OTSubscriberKitDelegate, OTPublisherDelegate>
 @property (nonatomic) BOOL isCallEnabled;
 @property (nonatomic) OTSubscriber *subscriber;
@@ -28,32 +50,18 @@ static NSString* const KLogVariationFailure = @"Failure";
 @property (nonatomic) OTAcceleratorSession *session;
 
 @property (strong, nonatomic) OTOneToOneCommunicatorBlock handler;
-
 @end
 
 @implementation OTOneToOneCommunicator
 
 + (instancetype)sharedInstance {
-    
-    [OTKLogger analyticsWithClientVersion:KLogClientVersion
-                                   source:[[NSBundle mainBundle] bundleIdentifier]
-                              componentId:kLogComponentIdentifier
-                                     guid:[[NSUUID UUID] UUIDString]];
-    
-    [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
 
     static OTOneToOneCommunicator *sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[OTOneToOneCommunicator alloc] init];
         sharedInstance.session = [OTAcceleratorSession getAcceleratorPackSession];
-        
-        [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
     });
-    
-    if (!sharedInstance) {
-        [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
-    }
     return sharedInstance;
 }
 
@@ -62,25 +70,38 @@ static NSString* const KLogVariationFailure = @"Failure";
                    token:(NSString *)token {
 
     [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
+    
+    LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
+    [loggingWrapper.logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
+    OTOneToOneCommunicator *sharedInstance = [OTOneToOneCommunicator sharedInstance];
+    if (sharedInstance) {
+        [loggingWrapper.logger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
+    }
+    else {
+        [loggingWrapper.logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
+    }
+    
+    // update session in case of changing credentials
     [OTOneToOneCommunicator sharedInstance].session = [OTAcceleratorSession getAcceleratorPackSession];
 }
 
 - (void)connect {
     
-    [OTKLogger logEventAction:KLogActionStartCommunication
-                    variation:KLogVariationAttempt
-                   completion:nil];
+    LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
+    [loggingWrapper.logger logEventAction:KLogActionStartCommunication
+                                variation:KLogVariationAttempt
+                               completion:nil];
     
     NSError *connectError = [OTAcceleratorSession registerWithAccePack:self];
     if (!connectError) {
-        [OTKLogger logEventAction:KLogActionStartCommunication
-                        variation:KLogVariationSuccess
-                       completion:nil];
+        [loggingWrapper.logger logEventAction:KLogActionStartCommunication
+                                    variation:KLogVariationSuccess
+                                   completion:nil];
     }
     else {
-        [OTKLogger logEventAction:KLogActionStartCommunication
-                        variation:KLogVariationFailure
-                       completion:nil];
+        [loggingWrapper.logger logEventAction:KLogActionStartCommunication
+                                    variation:KLogVariationFailure
+                                   completion:nil];
     }
     
     // need to explcitly publish and subscribe if the communicator joins/rejoins a connected session
@@ -137,16 +158,17 @@ static NSString* const KLogVariationFailure = @"Failure";
         }
     }
     
+    LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
     NSError *disconnectError = [OTAcceleratorSession deregisterWithAccePack:self];
     if (!disconnectError) {
-        [OTKLogger logEventAction:KLogActionEndCommunication
-                        variation:KLogVariationSuccess
-                       completion:nil];
+        [loggingWrapper.logger logEventAction:KLogActionEndCommunication
+                                    variation:KLogVariationSuccess
+                                   completion:nil];
     }
     else {
-        [OTKLogger logEventAction:KLogActionEndCommunication
-                        variation:KLogVariationFailure
-                       completion:nil];
+        [loggingWrapper.logger logEventAction:KLogActionEndCommunication
+                                    variation:KLogVariationFailure
+                                   completion:nil];
     }
     
     self.isCallEnabled = NO;
@@ -167,7 +189,9 @@ static NSString* const KLogVariationFailure = @"Failure";
 -(void)sessionDidConnect:(OTSession*)session {
     
     NSLog(@"OneToOneCommunicator sessionDidConnect:");
-    [OTKLogger setSessionId:session.sessionId connectionId:session.connection.connectionId partnerId:@([self.session.apiKey integerValue])];
+    [[LoggingWrapper sharedInstance].logger setSessionId:session.sessionId
+                                            connectionId:session.connection.connectionId
+                                               partnerId:@([self.session.apiKey integerValue])];
     
     if (!self.publisher) {
         NSString *deviceName = [UIDevice currentDevice].name;
@@ -287,7 +311,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     _subscriber.subscribeToAudio = subscribeToAudio;
 }
 
-- (BOOL)subscribeToAudio {
+- (BOOL)isSubscribeToAudio {
     return _subscriber.subscribeToAudio;
 }
 
@@ -295,7 +319,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     _subscriber.subscribeToVideo = subscribeToVideo;
 }
 
-- (BOOL)subscribeToVideo {
+- (BOOL)isSubscribeToVideo {
     return _subscriber.subscribeToVideo;
 }
 
@@ -303,7 +327,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     _publisher.publishAudio = publishAudio;
 }
 
-- (BOOL)publishAudio {
+- (BOOL)isPublishAudio {
     return _publisher.publishAudio;
 }
 
@@ -311,7 +335,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     _publisher.publishVideo = publishVideo;
 }
 
-- (BOOL)publishVideo {
+- (BOOL)isPublishVideo {
     return _publisher.publishVideo;
 }
 

@@ -49,13 +49,13 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 
 // SUBSCRIBER
 @property (readonly, nonatomic) UIView *subscriberView;
-@property (nonatomic) BOOL subscribeToAudio;
-@property (nonatomic) BOOL subscribeToVideo;
+@property (nonatomic, getter=isSubscribeToAudio) BOOL subscribeToAudio;
+@property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
 
 // PUBLISHER
 @property (readonly, nonatomic) UIView *publisherView;
-@property (nonatomic) BOOL publishAudio;
-@property (nonatomic) BOOL publishVideo;
+@property (nonatomic, getter=isPublishAudio) BOOL publishAudio;
+@property (nonatomic, getter=isPublishVideo) BOOL publishVideo;
 @property (nonatomic) AVCaptureDevicePosition cameraPosition;
 
 @end
