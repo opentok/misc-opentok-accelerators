@@ -477,7 +477,8 @@
     return _.defaults(_.omit(options, ['accPack', '_sender']), {
       limitCharacterMessage: 160,
       controlsContainer: '#feedControls',
-      textChatContainer: '#chatContainer'
+      textChatContainer: '#chatContainer',
+      alwaysOpen: false
     });
   };
 
@@ -512,11 +513,13 @@
       _accPack.registerEventListener('streamDestroyed', _handleStreamDestroyed);
 
       _accPack.registerEventListener('startCall', function () {
-        if (_controlAdded) {
-          document.querySelector('#enableTextChat').classList.remove('ots-hidden');
-        } else {
-          _appendControl();
-        }
+        if(!_this.options.alwaysOpen) { 
+          if (_controlAdded) {
+            document.querySelector('#enableTextChat').classList.remove('ots-hidden');
+          } else {
+            _appendControl();
+          }
+        }  
       });
 
       _accPack.registerEventListener('endCall', function () {
@@ -554,7 +557,11 @@
       _log(_logEventData.actionSetMaxLength, _logEventData.variationSuccess);
     }
 
-    _appendControl();
+    if(_this.options.alwaysOpen) {
+      _initTextChat();
+    } else {
+      _appendControl();  
+    }
     _registerEvents();
     _addEventListeners();
   };
