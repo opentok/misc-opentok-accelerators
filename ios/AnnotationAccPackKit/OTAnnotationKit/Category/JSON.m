@@ -9,9 +9,6 @@
 @implementation JSON
 
 + (id)parseJSON:(NSString*)string {
-    
-    if (!string) return nil;
-    
     NSError *error;
     id json = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
     if (error) return nil;
@@ -19,12 +16,9 @@
     return json;
 }
 
-+ (NSString *)stringify:(id)json {
-    
-    if (!json) return nil;
-    
++ (NSString *)stringify:(NSDictionary*)json {
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:0 error:&error];
+    NSData *jsonData = [NSJSONSerialization  dataWithJSONObject:json options:0 error:&error];
     if (error) return nil;
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }

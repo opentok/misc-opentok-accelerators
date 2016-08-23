@@ -1,7 +1,7 @@
 //
 //  AnnotationView.h
 //
-//  Copyright © 2016 Tokbox. All rights reserved.
+//  Copyright © 2016 Lucas Huang. All rights reserved.
 //
 
 #import <OTAnnotationKit/OTAnnotatable.h>
@@ -51,9 +51,6 @@
  */
 - (void)commitCurrentAnnotatable;
 
-/**
- *  Capture the current screen
- */
 - (UIImage *)captureScreen;
 
 @end

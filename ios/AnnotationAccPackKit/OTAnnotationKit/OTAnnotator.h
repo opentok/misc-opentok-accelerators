@@ -22,15 +22,9 @@ typedef void (^OTAnnotationBlock)(OTAnnotationSignal signal, NSError *error);
 
 @interface OTAnnotator : NSObject
 
-/**
- *  A boolean value to indicate whether the annotationView should receive remote annotation data and then annotate. Enabling this property will not allow to anntoate locally.
- */
-@property (readonly, nonatomic, getter=isReceiveAnnotationEnabled) BOOL receiveAnnotationEnabled;
+@property (nonatomic, getter=isReceiveAnnotationEnabled) BOOL receiveAnnotationEnabled;
 
-/**
- *  A boolean value to indicate whether the annotationView should send annotation data.
- */
-@property (readonly, nonatomic, getter=isSendAnnotationEnabled) BOOL sendAnnotationEnabled;
+@property (nonatomic, getter=isSendAnnotationEnabled) BOOL sendAnnotationEnabled;
 
 + (instancetype)annotator;
 
@@ -38,13 +32,9 @@ typedef void (^OTAnnotationBlock)(OTAnnotationSignal signal, NSError *error);
                sessionId:(NSString *)sessionId
                    token:(NSString *)token;
 
-- (void)connectForReceivingAnnotation;
+- (void)connect;
 
-- (void)connectForSendingAnnotation;
-
-- (void)connectForReceivingAnnotationWithHandler:(OTAnnotationBlock)handler;
-
-- (void)connectForSendingAnnotationWithHandler:(OTAnnotationBlock)handler;
+- (void)connectWithHandler:(OTAnnotationBlock)handler;
 
 - (void)disconnect;
 

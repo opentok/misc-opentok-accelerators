@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SendAnnotationViewController : UIViewController
+@interface RemoteAnnotationViewController : UIViewController
 
 @end

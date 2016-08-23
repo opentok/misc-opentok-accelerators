@@ -10,15 +10,12 @@
 
 SPEC_BEGIN(OTFullScreenAnnotationViewControllerTests)
 
-describe(@"Initialization of OTFullScreenAnnotationViewController", ^(){
+context(@"Initialization of OTFullScreenAnnotationViewController", ^(){
     
-    context(@"An instance of OTFullScreenAnnotationViewController", ^(){
+    describe(@"An instance of OTFullScreenAnnotationViewController", ^(){
         
         OTFullScreenAnnotationViewController *fullSreenAnnotationVC = [[OTFullScreenAnnotationViewController alloc]  init];
-        
-        it(@"should not be nil", ^{
-            [[fullSreenAnnotationVC shouldNot] beNil];
-        });
+        [[fullSreenAnnotationVC shouldNot] beNil];
     });
 });
 

@@ -1,5 +1,3 @@
-set -e
-
 task="$1"
 
 cd AnnotationsKit

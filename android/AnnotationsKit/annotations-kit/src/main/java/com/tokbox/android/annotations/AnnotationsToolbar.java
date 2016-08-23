@@ -2,7 +2,9 @@ package com.tokbox.android.annotations;
 
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,6 +12,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 public class AnnotationsToolbar extends LinearLayout {
