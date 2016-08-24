@@ -523,10 +523,12 @@
       });
 
       _accPack.registerEventListener('endCall', function () {
-        document.getElementById('enableTextChat').classList.add('ots-hidden');
-        if (_displayed) {
-          _hideTextChat();
-        }
+        if(!_this.options.alwaysOpen) { 
+          document.getElementById('enableTextChat').classList.add('ots-hidden');
+          if (_displayed) {
+            _hideTextChat();
+          }
+        } 
       });
     } else {
       _session.on('streamCreated', _handleStreamCreated);
