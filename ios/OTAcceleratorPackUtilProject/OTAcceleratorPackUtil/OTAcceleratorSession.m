@@ -81,6 +81,12 @@ static OTAcceleratorSession *sharedSession;
     // notify sessionDidConnect when session has connected
     if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnected) {
         [delegate sessionDidConnect:sharedSession];
+        
+        NSDictionary *streams = sharedSession.streams;
+        for (NSString *stream in streams) {
+            [delegate session:sharedSession streamCreated:streams[stream]];
+        }
+        
         return nil;
     }
     
