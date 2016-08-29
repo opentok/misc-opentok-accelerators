@@ -4,7 +4,7 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
-1.1.4
+1.1.5
 -----
 
 ### Enhancements
@@ -12,6 +12,11 @@ The changelog for `acc-pack-common` iOS.
 - Now you can add a name to your publisher by setting `publisherName` property.
 - Now `connect` and `disconnect` will return an immediate `NSError` object to indicate pre-connection errors.
 - The block handler of `connectWithHandler:` is required now.
+
+1.1.4
+-----
+
+### This version is deprecated as it has a severe bug.
 
 1.1.3
 -----
