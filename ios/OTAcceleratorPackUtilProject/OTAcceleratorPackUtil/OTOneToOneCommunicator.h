@@ -38,9 +38,9 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
                sessionId:(NSString *)sessionId
                    token:(NSString *)token;
 
-- (void)connect;
+- (NSError *)connect;
 - (void)connectWithHandler:(OTOneToOneCommunicatorBlock)handler;
-- (void)disconnect;
+- (NSError *)disconnect;
 
 @property (weak, nonatomic) id<OTOneToOneCommunicatorDelegate> delegate;
 
@@ -53,6 +53,7 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 @property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
 
 // PUBLISHER
+@property (nonatomic) NSString *publisherName;
 @property (readonly, nonatomic) UIView *publisherView;
 @property (nonatomic, getter=isPublishAudio) BOOL publishAudio;
 @property (nonatomic, getter=isPublishVideo) BOOL publishVideo;

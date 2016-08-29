@@ -24,6 +24,9 @@
 		A0127ACC1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127ACB1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m */; };
 		A0127AD41D346D7200CDA3F5 /* OTOneToOneCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127AD21D346D7200CDA3F5 /* OTOneToOneCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0127AD51D346D7200CDA3F5 /* OTOneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127AD31D346D7200CDA3F5 /* OTOneToOneCommunicator.m */; };
+		A0FEABFF1D73B3BF000BDDA4 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */; };
+		A0FEAC001D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */; };
+		A0FEAC011D73B3BF000BDDA4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A0FEABFE1D73B3BF000BDDA4 /* Podfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +79,9 @@
 		A0127ACB1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOneToOneCommunicatorViewController.m; sourceTree = "<group>"; };
 		A0127AD21D346D7200CDA3F5 /* OTOneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTOneToOneCommunicator.h; sourceTree = "<group>"; };
 		A0127AD31D346D7200CDA3F5 /* OTOneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTOneToOneCommunicator.m; sourceTree = "<group>"; };
+		A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OTAcceleratorPackUtil.podspec; sourceTree = "<group>"; };
+		A0FEABFE1D73B3BF000BDDA4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,9 @@
 		A0127A821D34651B00CDA3F5 = {
 			isa = PBXGroup;
 			children = (
+				A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */,
+				A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */,
+				A0FEABFE1D73B3BF000BDDA4 /* Podfile */,
 				A0127A8D1D34651B00CDA3F5 /* OTAcceleratorPackUtilProject */,
 				A0127AAB1D34652500CDA3F5 /* OTAcceleratorPackUtil */,
 				A0127A8C1D34651B00CDA3F5 /* Products */,
@@ -254,8 +263,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0FEAC011D73B3BF000BDDA4 /* Podfile in Resources */,
 				A0127A9E1D34651B00CDA3F5 /* LaunchScreen.storyboard in Resources */,
 				A0127A9B1D34651B00CDA3F5 /* Assets.xcassets in Resources */,
+				A0FEAC001D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec in Resources */,
 				A0127A991D34651B00CDA3F5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +288,7 @@
 				A0127A961D34651B00CDA3F5 /* ViewController.m in Sources */,
 				A0127AC31D34668100CDA3F5 /* TestSessionViewController.m in Sources */,
 				A0127A931D34651B00CDA3F5 /* AppDelegate.m in Sources */,
+				A0FEABFF1D73B3BF000BDDA4 /* CHANGELOG.md in Sources */,
 				A0127A901D34651B00CDA3F5 /* main.m in Sources */,
 				A0127AC91D3466AD00CDA3F5 /* FakeAccePack2.m in Sources */,
 				A0127AC81D3466AD00CDA3F5 /* FakeAccePack1.m in Sources */,

@@ -85,7 +85,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     [OTOneToOneCommunicator sharedInstance].session = [OTAcceleratorSession getAcceleratorPackSession];
 }
 
-- (void)connect {
+- (NSError *)connect {
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
     [loggingWrapper.logger logEventAction:KLogActionStartCommunication
@@ -104,47 +104,33 @@ static NSString* const KLogVariationFailure = @"Failure";
                                    completion:nil];
     }
     
-    // need to explcitly publish and subscribe if the communicator joins/rejoins a connected session
-    if (self.session.sessionConnectionStatus == OTSessionConnectionStatusConnected &&
-        self.session.streams[self.publisher.stream.streamId]) {
-        
-        OTError *error = nil;
-        [self.session publish:self.publisher error:&error];
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }
-    
-    if (self.session.sessionConnectionStatus == OTSessionConnectionStatusConnected &&
-        self.session.streams[self.subscriber.stream.streamId]) {
-        
-        OTError *error = nil;
-        [self.session subscribe:self.subscriber error:&error];
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }
-    
     self.isCallEnabled = YES;
+    return connectError;
 }
 
 - (void)connectWithHandler:(OTOneToOneCommunicatorBlock)handler {
 
+    if (!handler) return;
+    
     self.handler = handler;
-    [self connect];
+    NSError *error = [self connect];
+    if (error) {
+        self.handler(OTSessionDidFail, error);
+    }
 }
 
-- (void)disconnect {
+- (NSError *)disconnect {
     
-    // need to explicitly unpublish and unsubscriber if the communicator is the only part to dismiss from the accelerator session
-    // when there are multiple accelerator packs, the accelerator session will not call the disconnect method until the last delegate object is removed
+    // need to explicitly unpublish and unsubscriber if the communicator is the only accelerator to dismiss from the common session
+    // when there are multiple accelerator packs, the common session will not call the disconnect method until the last delegate object is removed
     if (self.publisher) {
         
         OTError *error = nil;
         [self.publisher.view removeFromSuperview];
         [self.session unpublish:self.publisher error:&error];
         if (error) {
-            NSLog(@"%@", error.localizedDescription);
+            self.publisher = nil;
+            NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
     }
     
@@ -154,7 +140,8 @@ static NSString* const KLogVariationFailure = @"Failure";
         [self.subscriber.view removeFromSuperview];
         [self.session unsubscribe:self.subscriber error:&error];
         if (error) {
-            NSLog(@"%@", error.localizedDescription);
+            self.subscriber = nil;
+            NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
     }
     
@@ -172,6 +159,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     }
     
     self.isCallEnabled = NO;
+    return disconnectError;
 }
 
 - (void)notifiyAllWithSignal:(OTOneToOneCommunicationSignal)signal error:(NSError *)error {
@@ -188,14 +176,18 @@ static NSString* const KLogVariationFailure = @"Failure";
 #pragma mark - OTSessionDelegate
 -(void)sessionDidConnect:(OTSession*)session {
     
-    NSLog(@"OneToOneCommunicator sessionDidConnect:");
     [[LoggingWrapper sharedInstance].logger setSessionId:session.sessionId
                                             connectionId:session.connection.connectionId
                                                partnerId:@([self.session.apiKey integerValue])];
     
     if (!self.publisher) {
-        NSString *deviceName = [UIDevice currentDevice].name;
-        self.publisher = [[OTPublisher alloc] initWithDelegate:self name:deviceName];
+        
+        if (self.publisherName) {
+            self.publisher = [[OTPublisher alloc] initWithDelegate:self name:self.publisherName];
+        }
+        else {
+            self.publisher = [[OTPublisher alloc] initWithDelegate:self name:[UIDevice currentDevice].name];
+        }
     }
     
     OTError *error;
@@ -212,8 +204,6 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 - (void)sessionDidDisconnect:(OTSession *)session {
 
-    NSLog(@"OneToOneCommunicator sessionDidDisconnect:");
-
     self.publisher = nil;
     self.subscriber = nil;
     
@@ -222,8 +212,6 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
-
-    NSLog(@"session streamCreated (%@)", stream.streamId);
     
     OTError *error;
     self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
@@ -233,7 +221,6 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
-    NSLog(@"session streamDestroyed (%@)", stream.streamId);
 
     if (self.subscriber.stream && [self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
         [self.subscriber.view removeFromSuperview];
@@ -244,14 +231,12 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)session:(OTSession *)session didFailWithError:(OTError *)error {
-    NSLog(@"session did failed with error: (%@)", error);
     [self notifiyAllWithSignal:OTSessionDidFail
                          error:error];
 }
 
 #pragma mark - OTPublisherDelegate
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
-    NSLog(@"publisher did failed with error: (%@)", error);
     [self notifiyAllWithSignal:OTPublisherDidFail
                          error:error];
 }
@@ -293,7 +278,6 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)subscriber:(OTSubscriberKit *)subscriber didFailWithError:(OTError *)error {
-    NSLog(@"subscriber did failed with error: (%@)", error);
     [self notifiyAllWithSignal:OTSubscriberDidFail
                          error:error];
 }

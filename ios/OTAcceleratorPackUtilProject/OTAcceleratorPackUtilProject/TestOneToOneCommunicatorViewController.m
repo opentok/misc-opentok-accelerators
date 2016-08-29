@@ -24,7 +24,7 @@
     self.communicator.delegate = self;
     [self.communicator connect];
     
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"TestReset" style:UIBarButtonItemStylePlain target:self action:@selector(testResetButtonPressed)];
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"EndCall" style:UIBarButtonItemStylePlain target:self action:@selector(endCallButtonPressed)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
 
@@ -41,10 +41,8 @@
     }
 }
 
-- (void)testResetButtonPressed {
-    
-    // the behavior here should be: force the session to disconnect
-    [OTOneToOneCommunicator setOpenTokApiKey:@"testResetButtonPressed" sessionId:@"testResetButtonPressed" token:@"testResetButtonPressed"];
+- (void)endCallButtonPressed {
+    [self.communicator disconnect];
 }
 
 @end

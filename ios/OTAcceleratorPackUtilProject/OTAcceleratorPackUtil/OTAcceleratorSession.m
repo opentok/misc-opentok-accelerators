@@ -54,7 +54,7 @@ static OTAcceleratorSession *sharedSession;
         OTError *error;
         [sharedSession disconnect:&error];
         if (error) {
-            NSLog(@"AcceleratorSesssion Error: %@", error.localizedDescription);
+            NSLog(@"%s Error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
         }
     }
     
@@ -95,9 +95,6 @@ static OTAcceleratorSession *sharedSession;
     
     OTError *error;
     [sharedSession connectWithToken:InternalToken error:&error];
-    if (error) {
-        NSLog(@"AcceleratorSesssion Error: %@", error.localizedDescription);
-    }
     return error;
 }
 
@@ -118,9 +115,6 @@ static OTAcceleratorSession *sharedSession;
         
         OTError *error;
         [sharedSession disconnect:&error];
-        if (error) {
-            NSLog(@"AcceleratorSesssion Error: %@", error.localizedDescription);
-        }
         return error;
     }
     return nil;
