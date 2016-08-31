@@ -85,8 +85,7 @@ static NSString * const kCustomData = @"customData";
             _senderId = dict[kSender][kSenderId];
         }
 
-
-        if (dict[kSendOn] && [dict[kSendOn] isKindOfClass:[NSString class]]) {
+        if (dict[kSendOn] && [dict[kSendOn] isKindOfClass:[NSNumber class]]) {
             _dateTime = [NSDate dateWithTimeIntervalSince1970:([dict[kSendOn] doubleValue] / 1000)];
         }
 
@@ -103,7 +102,7 @@ static NSString * const kCustomData = @"customData";
     NSMutableDictionary *json = [NSMutableDictionary dictionary];
     json[kText] = self.text;
     json[kSender] = @{kSenderAlias: self.alias, kSenderId: self.senderId};
-    json[kSendOn] = [NSString stringWithFormat:@"%@", @([self.dateTime timeIntervalSince1970] * 1000)];
+    json[kSendOn] = @([self.dateTime timeIntervalSince1970] * 1000);
     if (self.customData) {
         json[kCustomData] = self.customData;
     }
