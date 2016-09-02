@@ -135,6 +135,23 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
         // Retain this fragment across configuration changes.
         setRetainInstance(true);
+
+        String source = getContext().getPackageName();
+
+        SharedPreferences prefs = getContext().getSharedPreferences("opentok", Context.MODE_PRIVATE);
+        String guidVSol = prefs.getString("guidVSol", null);
+        if (null == guidVSol) {
+            guidVSol = UUID.randomUUID().toString();
+            prefs.edit().putString("guidVSol", guidVSol).commit();
+        }
+
+        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.LOG_CLIENT_VERSION, source, OpenTokConfig.LOG_COMPONENTID, guidVSol).build();
+        mAnalytics = new OTKAnalytics(mAnalyticsData);
+
+        mAnalyticsData.setPartnerId(mApiKey);
+        mAnalytics. setData(mAnalyticsData);
+
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
@@ -158,7 +175,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         fragment.mSession.setSignalListener(fragment);
         fragment.mSession.setSessionListener(fragment);
         fragment.mApiKey = apiKey;
-        
+
         return fragment;
     }
 
@@ -225,6 +242,14 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         updateTitle(defaultTitle());
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //Fragment could not be yet visible, but it belongs to a visible parent container
+        addLogEvent(OpenTokConfig.LOG_ACTION_OPEN, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        addLogEvent(OpenTokConfig.LOG_ACTION_OPEN, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     /**
@@ -477,10 +502,10 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     protected void onClose() {
-        //rootView.setVisibility(View.GONE);
+
+        addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         if (this.mListener != null) {
             mListener.onClosed();
-            addLogEvent(OpenTokConfig.LOG_ACTION_END, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
         isRestarted = true;
 
@@ -562,9 +587,9 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
                     addLogEvent(OpenTokConfig.LOG_ACTION_RECEIVE_MESSAGE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
                     try {
                         msg = new ChatMessage.ChatMessageBuilder(senderId, UUID.randomUUID(), ChatMessage.MessageStatus.RECEIVED_MESSAGE)
-                                    .senderAlias(senderAlias)
-                                    .text(text)
-                                    .build();
+                                .senderAlias(senderAlias)
+                                .text(text)
+                                .build();
                         msg.setTimestamp(Long.valueOf(date).longValue());
                         addMessage(msg);
                         onNewReceivedMessage(msg);
@@ -579,24 +604,11 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
 
     @Override
     public void onConnected(Session session) {
-        String source = getContext().getPackageName();
-
-        SharedPreferences prefs = getContext().getSharedPreferences("opentok", Context.MODE_PRIVATE);
-        String guidVSol = prefs.getString("guidVSol", null);
-        if (null == guidVSol) {
-            guidVSol = UUID.randomUUID().toString();
-            prefs.edit().putString("guidVSol", guidVSol).commit();
-        }
-
-        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.LOG_CLIENT_VERSION, source, OpenTokConfig.LOG_COMPONENTID, guidVSol).build();
-        mAnalytics = new OTKAnalytics(mAnalyticsData);
 
         mAnalyticsData.setSessionId(session.getSessionId());
         mAnalyticsData.setConnectionId(session.getConnection().getConnectionId());
-        mAnalyticsData.setPartnerId(mApiKey);
 
-        mAnalytics. setData(mAnalyticsData);
-
+        addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_ATTEMPT);
         //TO IMPROVE: add pending log events --> recall methods
         if ( this.maxTextLength != MAX_DEFAULT_LENGTH ){
             setMaxTextLength(this.maxTextLength);
@@ -610,11 +622,14 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         if ( this.customSenderArea ) {
             setSendMessageView(this.mSendMessageView);
         }
-        addLogEvent(OpenTokConfig.LOG_ACTION_OPEN, OpenTokConfig.LOG_VARIATION_SUCCESS);
+
+        addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     @Override
     public void onDisconnected(Session session) {
+        addLogEvent(OpenTokConfig.LOG_ACTION_END, OpenTokConfig.LOG_VARIATION_ATTEMPT);
+        addLogEvent(OpenTokConfig.LOG_ACTION_END, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     @Override
@@ -633,7 +648,7 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
             addLogEvent(OpenTokConfig.LOG_ACTION_SEND_MESSAGE, OpenTokConfig.LOG_VARIATION_ERROR);
         }
         else {
-            addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ERROR);
+            addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_ERROR);
         }
     }
 

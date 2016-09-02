@@ -308,6 +308,10 @@
   };
 
   var _setupUI = function () {
+
+    // Add INITIALIZE success log event
+    _log(_logEventData.actionInitialize, _logEventData.variationAttempt);
+
     var parent = document.querySelector(_this.options.textChatContainer) || document.body;
 
     var chatView = document.createElement('section');
@@ -339,6 +343,7 @@
   };
 
   var _onIncomingMessage = function (signal) {
+    _log(_logEventData.actionReceiveMessage, _logEventData.variationAttempt);
     var data = JSON.parse(signal.data);
 
     if (_shouldAppendMessage(data)) {
@@ -392,6 +397,7 @@
   };
 
   var _initTextChat = function () {
+    _log(_logEventData.actionStart, _logEventData.variationAttempt);
     _enabled = true;
     _displayed = true;
     _initialized = true;
@@ -403,6 +409,7 @@
   };
 
   var _showTextChat = function () {
+    _log(_logEventData.actionOpen, _logEventData.variationAttempt);
     document.querySelector(_this.options.textChatContainer).classList.remove('ots-hidden');
     _displayed = true;
     _triggerEvent('showTextChat');
@@ -412,6 +419,8 @@
   };
 
   var _hideTextChat = function () {
+    _log(_logEventData.actionClose, _logEventData.variationAttempt);
+    _log(_logEventData.actionEnd, _logEventData.variationAttempt);
     document.querySelector(_this.options.textChatContainer).classList.add('ots-hidden');
     _displayed = false;
     _triggerEvent('hideTextChat');
