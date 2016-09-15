@@ -3,6 +3,7 @@ package com.tokbox.android.accpack;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.hardware.Camera;
 import android.util.Log;
 import android.view.View;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class OneToOneCommunication implements
-        AccPackSession.SessionListener, Publisher.PublisherListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
+        AccPackSession.SessionListener, Publisher.PublisherListener, Publisher.CameraListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
 
     private static final String LOGTAG = OneToOneCommunication.class.getName();
     private Context mContext;
@@ -40,13 +41,14 @@ public class OneToOneCommunication implements
     private boolean mRemoteAudio = true;
     private boolean mRemoteVideo = true;
 
+    private int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+
     private boolean isRemote = false;
     private boolean startPublish = false;
 
     private boolean isScreensharing = false;
 
     protected Listener mListener;
-
 
     private String mSessionId;
     private String mApiKey;
@@ -170,6 +172,8 @@ public class OneToOneCommunication implements
             if (mPublisher == null) {
                 mPublisher = new Publisher(mContext, "myPublisher");
                 mPublisher.setPublisherListener(this);
+                mPublisher.setPublishVideo(mLocalVideo);
+                mPublisher.setPublishAudio(mLocalAudio);
                 attachPublisherView();
                 mSession.publish(mPublisher);
                 startPublish = false;
@@ -235,24 +239,27 @@ public class OneToOneCommunication implements
      *              <code>false</code>).
      */
     public void enableLocalMedia(MediaType type, boolean value) {
-        if ( mPublisher != null ) {
+
             switch (type) {
                 case AUDIO:
-                    mPublisher.setPublishAudio(value);
+                    if ( mPublisher != null ) {
+                        mPublisher.setPublishAudio(value);
+                    }
                     this.mLocalAudio = value;
                     break;
 
                 case VIDEO:
-                    mPublisher.setPublishVideo(value);
                     this.mLocalVideo = value;
-                    if (value) {
-                        mPublisher.getView().setVisibility(View.VISIBLE);
-                    } else {
-                        mPublisher.getView().setVisibility(View.GONE);
+                    if ( mPublisher != null ) {
+                        mPublisher.setPublishVideo(value);
+                        if (value) {
+                            mPublisher.getView().setVisibility(View.VISIBLE);
+                        } else {
+                            mPublisher.getView().setVisibility(View.GONE);
+                        }
                     }
                     break;
             }
-        }
     }
 
     /**
@@ -361,6 +368,15 @@ public class OneToOneCommunication implements
         return isScreensharing;
     }
 
+    /**
+     * Check the active camera
+     *
+     * @return The ID of the active camera.
+     */
+    public int getCameraId() {
+        return mCameraId;
+    }
+
     public void reloadViews() {
         if ( mPublisher != null ) {
             attachPublisherView();
@@ -423,18 +439,18 @@ public class OneToOneCommunication implements
     }
 
     private void attachSubscriberView(Subscriber subscriber) {
+        if ( subscriber!= null && subscriber.getStream()!= null ) {
+            if (subscriber.getStream().getStreamVideoType() == Stream.StreamVideoType.StreamVideoTypeScreen) {
+                subscriber.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
+                        BaseVideoRenderer.STYLE_VIDEO_FIT);
+            } else {
+                subscriber.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
+                        BaseVideoRenderer.STYLE_VIDEO_FILL);
 
-        if ( subscriber.getStream().getStreamVideoType() == Stream.StreamVideoType.StreamVideoTypeScreen ) {
-            subscriber.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
-                    BaseVideoRenderer.STYLE_VIDEO_FIT);
+            }
+            isRemote = true;
+            onRemoteViewReady(subscriber.getView());
         }
-        else {
-            subscriber.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
-                    BaseVideoRenderer.STYLE_VIDEO_FILL);
-
-        }
-        isRemote = true;
-        onRemoteViewReady(subscriber.getView());
     }
 
     private void setRemoteAudioOnly(boolean audioOnly) {
@@ -636,6 +652,17 @@ public class OneToOneCommunication implements
         Log.i(LOGTAG, "Video may no longer be disabled as stream quality improved.");
     }
 
+    @Override
+    public void onCameraChanged(Publisher publisher, int i) {
+        Log.i(LOGTAG, "Camera changed: "+i);
+        mCameraId = i;
+    }
+
+    @Override
+    public void onCameraError(Publisher publisher, OpentokError opentokError) {
+        Log.i(LOGTAG, "Camera error: ");
+    }
+
     public AccPackSession getSession() {
         return mSession;
     }
@@ -728,6 +755,15 @@ public class OneToOneCommunication implements
             return mScreenSubscriber;
         }
         return null;
+    }
+
+    public void setRemoteFill(boolean fill){
+        if ( mScreenSubscriber != null && fill ){
+            mScreenSubscriber.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
+        }
+        if ( mSubscriber != null && fill ){
+            mSubscriber.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
+        }
     }
 
     private void addLogEvent(String action, String variation){

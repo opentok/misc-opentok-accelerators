@@ -11,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         project.archivesBaseName = "opentok-android-accelerator-pack"
-        project.version = "1.0.5"
+        project.version = "1.0.9"
     }
     buildTypes {
         release {
