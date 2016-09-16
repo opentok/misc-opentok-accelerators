@@ -172,8 +172,11 @@ public class OneToOneCommunication implements
             if (mPublisher == null) {
                 mPublisher = new Publisher(mContext, "myPublisher");
                 mPublisher.setPublisherListener(this);
+                mPublisher.setCameraListener(this);
+
                 mPublisher.setPublishVideo(mLocalVideo);
                 mPublisher.setPublishAudio(mLocalAudio);
+
                 attachPublisherView();
                 mSession.publish(mPublisher);
                 startPublish = false;
