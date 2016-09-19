@@ -335,6 +335,8 @@ receivedSignalType:(NSString*)type
  fromConnection:(OTConnection*)connection
      withString:(NSString*)string {
     
+    if (![type isEqualToString:kTextChatType]) return;
+    
     if (![connection.connectionId isEqualToString:self.session.connection.connectionId]) {
         
         if (![OTTestingInfo isTesting]) {
