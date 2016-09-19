@@ -228,7 +228,7 @@ archiveStartedWithId:(NSString*)archiveId
     
     [self.delegates enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
         
-        if ([obj respondsToSelector:@selector(session:receivedSignalType:fromConnection:withString:)]) {
+        if ([obj respondsToSelector:@selector(session:archiveStartedWithId:name:)]) {
             [obj session:session archiveStartedWithId:archiveId name:name];
         }
     }];
@@ -239,7 +239,7 @@ archiveStoppedWithId:(NSString*)archiveId {
     
     [self.delegates enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
         
-        if ([obj respondsToSelector:@selector(session:receivedSignalType:fromConnection:withString:)]) {
+        if ([obj respondsToSelector:@selector(session:archiveStoppedWithId:)]) {
             [obj session:session archiveStoppedWithId:archiveId];
         }
     }];
