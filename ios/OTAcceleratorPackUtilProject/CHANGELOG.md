@@ -4,6 +4,17 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.1.6
+-----
+
+### Enhancements
+
+- update to use OpenTok SDK 2.9.0(https://tokbox.com/developer/sdks/ios/release-notes.html)
+
+### Fixes
+
+- Fixed incorrect condition check on selector `session:archiveStartedWithId:name:` and `session:archiveStoppedWithId:`
+
 1.1.5
 -----
 

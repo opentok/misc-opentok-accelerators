@@ -4,6 +4,8 @@ package com.tokbox.android.accpack;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.Camera;
+import android.hardware.camera2.CameraCharacteristics;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 
@@ -41,7 +43,7 @@ public class OneToOneCommunication implements
     private boolean mRemoteAudio = true;
     private boolean mRemoteVideo = true;
 
-    private int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+    private int mCameraId;
 
     private boolean isRemote = false;
     private boolean startPublish = false;
@@ -131,8 +133,14 @@ public class OneToOneCommunication implements
         this.mApiKey = apiKey;
 
         mStreams = new ArrayList<Stream>();
-    }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mCameraId = CameraCharacteristics.LENS_FACING_FRONT;
+        }
+        else {
+            mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+        }
+    }
 
     /**
      * Set 1to1 communication listener.
@@ -172,8 +180,11 @@ public class OneToOneCommunication implements
             if (mPublisher == null) {
                 mPublisher = new Publisher(mContext, "myPublisher");
                 mPublisher.setPublisherListener(this);
+                mPublisher.setCameraListener(this);
+
                 mPublisher.setPublishVideo(mLocalVideo);
                 mPublisher.setPublishAudio(mLocalAudio);
+
                 attachPublisherView();
                 mSession.publish(mPublisher);
                 startPublish = false;
@@ -240,26 +251,26 @@ public class OneToOneCommunication implements
      */
     public void enableLocalMedia(MediaType type, boolean value) {
 
-            switch (type) {
-                case AUDIO:
-                    if ( mPublisher != null ) {
-                        mPublisher.setPublishAudio(value);
-                    }
-                    this.mLocalAudio = value;
-                    break;
+        switch (type) {
+            case AUDIO:
+                if ( mPublisher != null ) {
+                    mPublisher.setPublishAudio(value);
+                }
+                this.mLocalAudio = value;
+                break;
 
-                case VIDEO:
-                    this.mLocalVideo = value;
-                    if ( mPublisher != null ) {
-                        mPublisher.setPublishVideo(value);
-                        if (value) {
-                            mPublisher.getView().setVisibility(View.VISIBLE);
-                        } else {
-                            mPublisher.getView().setVisibility(View.GONE);
-                        }
+            case VIDEO:
+                this.mLocalVideo = value;
+                if ( mPublisher != null ) {
+                    mPublisher.setPublishVideo(value);
+                    if (value) {
+                        mPublisher.getView().setVisibility(View.VISIBLE);
+                    } else {
+                        mPublisher.getView().setVisibility(View.GONE);
                     }
-                    break;
-            }
+                }
+                break;
+        }
     }
 
     /**
