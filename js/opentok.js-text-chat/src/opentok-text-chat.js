@@ -502,6 +502,13 @@
     _accPack && _accPack.registerEvents(events);
   };
 
+  var _handleConnectionCreated = function (event) {
+    if (event && event.connection.connectionId !== _session.connection.connectionId) {
+      _remoteParticipant = true;
+      _hideWaitingMessage();
+    }
+  };
+
   var _handleStreamCreated = function (event) {
     if (event && event.stream.connection.connectionId !== _session.connection.connectionId) {
       _remoteParticipant = true;
@@ -543,6 +550,8 @@
       _session.on('streamCreated', _handleStreamCreated);
       _session.on('streamDestroyed', _handleStreamDestroyed);
     }
+
+    _session.on('connectionCreated', _handleConnectionCreated);
 
     /**
      * We need to check for remote participants in case we were the last party to join and
