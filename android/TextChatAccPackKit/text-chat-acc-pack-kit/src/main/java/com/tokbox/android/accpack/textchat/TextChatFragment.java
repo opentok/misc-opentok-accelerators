@@ -62,7 +62,6 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     private TextView mTitleBar;
     private ImageButton mCloseBtn;
     private TextView mMsgCharsView;
-
     private int maxTextLength = MAX_DEFAULT_LENGTH;
     private TextChatListener mListener;
     private String senderId;
@@ -162,8 +161,8 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     */
     public static TextChatFragment newInstance(AccPackSession session, String apiKey) {
 
-        if ( session == null ){
-            throw new IllegalArgumentException("Session argument cannot be null");
+        if ( session == null || apiKey == null || apiKey.trim().length() == 0 ){
+            throw new IllegalArgumentException("Arguments cannot be null");
         }
 
         TextChatFragment fragment = new TextChatFragment();
@@ -275,13 +274,18 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
      *
      * @param length The maximum length of a text chat message (in characters).
      */
-    public void setMaxTextLength(int length) {
+    public void setMaxTextLength(int length) throws  Exception {
         addLogEvent(OpenTokConfig.LOG_ACTION_SET_MAX_LENGTH, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        if (maxTextLength > MAX_OPENTOK_LENGTH ){
+        if ( length > MAX_OPENTOK_LENGTH ){
             onError("Your maximum length is over size limit on the OpenTok platform (maximum length 8196)");
             addLogEvent(OpenTokConfig.LOG_ACTION_SET_MAX_LENGTH, OpenTokConfig.LOG_VARIATION_ERROR);
+            throw  new Exception("The maximum length cannot be over size limit on the OpenTok platform (maximum length 8196)");
         }
         else {
+            if ( length <= 0 ){
+                onError("Your maximum length should be less than 0");
+                throw  new Exception("The maximum length cannot be less than 0");
+            }
             maxTextLength = length;
             mMsgCharsView.setText(String.valueOf(maxTextLength));
             addLogEvent(OpenTokConfig.LOG_ACTION_SET_MAX_LENGTH, OpenTokConfig.LOG_VARIATION_SUCCESS);
@@ -289,18 +293,35 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
     }
 
     /**
+     * Get the max text length
+     * @return The max text length.
+     */
+    public int getMaxTextLength() {
+        return maxTextLength;
+    }
+
+    /**
      * Set the sender alias for outgoing messages.
      *
      * @param senderAlias The alias for the sender.
      */
-    public void setSenderAlias(String senderAlias) {
+    public void setSenderAlias(String senderAlias) throws Exception {
 
-        if ( senderAlias == null || senderAlias.isEmpty() ) {
+        if ( senderAlias == null || senderAlias.length() == 0 ) {
             onError("The alias cannot be null or empty");
+            throw new Exception("Sender allias cannot be null or empty");
         }
         this.senderAlias = senderAlias;
         senders.put(senderId, senderAlias);
         updateTitle(defaultTitle());
+    }
+
+    /**
+     * Get the sender alias
+     * @return The sender alias.
+     */
+    public String getSenderAlias() {
+        return this.senderAlias;
     }
 
     /**
@@ -313,7 +334,10 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
      * Set the customized action bar.
      * @param actionBar The customized action bar.
      */
-    public void setActionBar(ViewGroup actionBar) {
+    public void setActionBar(ViewGroup actionBar) throws Exception {
+        if ( actionBar == null ) {
+            throw new Exception("ActionBar cannot be null");
+        }
         mActionBarView = actionBar;
         customActionBar = true;
     }
@@ -330,7 +354,12 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
      * Set the customized send message area view.
      * @param sendMessageView The customized send message area view.
      */
-    public void setSendMessageView(ViewGroup sendMessageView) {
+    public void setSendMessageView(ViewGroup sendMessageView) throws Exception {
+
+        if ( sendMessageView == null ) {
+            throw new Exception("MessageView cannot be null");
+        }
+
         mSendMessageView = sendMessageView;
         customSenderArea = true;
     }
@@ -609,20 +638,23 @@ public class TextChatFragment extends Fragment implements AccPackSession.SignalL
         mAnalyticsData.setConnectionId(session.getConnection().getConnectionId());
 
         addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-        //TO IMPROVE: add pending log events --> recall methods
-        if ( this.maxTextLength != MAX_DEFAULT_LENGTH ){
-            setMaxTextLength(this.maxTextLength);
+        try {
+            //TO IMPROVE: add pending log events --> recall methods
+            if (this.maxTextLength != MAX_DEFAULT_LENGTH) {
+                setMaxTextLength(this.maxTextLength);
+            }
+            if (this.senderAlias != DEFAULT_SENDER_ALIAS) {
+                setSenderAlias(this.senderAlias);
+            }
+            if (this.customActionBar) {
+                setActionBar(this.mActionBarView);
+            }
+            if (this.customSenderArea) {
+                setSendMessageView(this.mSendMessageView);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if ( this.senderAlias != DEFAULT_SENDER_ALIAS ){
-            setSenderAlias(this.senderAlias);
-        }
-        if ( this.customActionBar ){
-            setActionBar(this.mActionBarView);
-        }
-        if ( this.customSenderArea ) {
-            setSendMessageView(this.mSendMessageView);
-        }
-
         addLogEvent(OpenTokConfig.LOG_ACTION_START, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
