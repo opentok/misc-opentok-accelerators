@@ -1,6 +1,6 @@
 {
   "name": "opentok-text-chat",
-  "version": "1.0.16",
+  "version": "1.0.18",
   "description": "OpenTok text chat accelerator pack",
   "main": "dist/opentok-text-chat.js",
   "directories": {
