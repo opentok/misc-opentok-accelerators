@@ -106,6 +106,8 @@
 
   // Private methods
   var renderUILayout = function () {
+    var deliveryMessage =
+      _this.options.waitingMessage || 'Messages will be delivered once your contact arrives';
     /* eslint-disable max-len, prefer-template */
     return [
       '<div class="ots-text-chat-container">',
@@ -115,7 +117,7 @@
       '</div>',
       '<div id="otsChatWrap">',
       '<div class="ots-messages-holder" id="messagesHolder">',
-      '<div class="ots-messages-alert ots-hidden" id="messagesWaiting">Messsages will be delivered once your contact arrives</div>',
+      '<div class="ots-messages-alert ots-hidden" id="messagesWaiting">' + deliveryMessage + '</div>',
       '<div class="ots-message-item ots-message-sent">',
       '</div>',
       '</div>',
@@ -202,6 +204,16 @@
       $(_this.comms_elements.messagesView).append(view());
     }
     _triggerEvent('errorSendingMessage', error);
+  };
+
+  var _showWaitingMessage = function () {
+    var el = document.getElementById('messagesWaiting');
+    el && el.classList.remove('ots-hidden');
+  };
+
+  var _hideWaitingMessage = function () {
+    var el = document.getElementById('messagesWaiting');
+    el && el.classList.add('ots-hidden');
   };
 
   var _sendMessage = function (recipient, message) {
@@ -295,16 +307,6 @@
           _handleMessageError(error);
         });
     }
-  };
-
-  var _showWaitingMessage = function () {
-    var el = document.getElementById('messagesWaiting');
-    el && el.classList.remove('ots-hidden');
-  };
-
-  var _hideWaitingMessage = function () {
-    var el = document.getElementById('messagesWaiting');
-    el && el.classList.add('ots-hidden');
   };
 
   var _setupUI = function () {
@@ -529,22 +531,22 @@
       _accPack.registerEventListener('streamDestroyed', _handleStreamDestroyed);
 
       _accPack.registerEventListener('startCall', function () {
-        if(!_this.options.alwaysOpen) { 
+        if (!_this.options.alwaysOpen) {
           if (_controlAdded) {
             document.querySelector('#enableTextChat').classList.remove('ots-hidden');
           } else {
             _appendControl();
           }
-        }  
+        }
       });
 
       _accPack.registerEventListener('endCall', function () {
-        if(!_this.options.alwaysOpen) { 
+        if (!_this.options.alwaysOpen) {
           document.getElementById('enableTextChat').classList.add('ots-hidden');
           if (_displayed) {
             _hideTextChat();
           }
-        } 
+        }
       });
     } else {
       _session.on('streamCreated', _handleStreamCreated);
@@ -577,10 +579,10 @@
       _log(_logEventData.actionSetMaxLength, _logEventData.variationSuccess);
     }
 
-    if(_this.options.alwaysOpen) {
+    if (_this.options.alwaysOpen) {
       _initTextChat();
     } else {
-      _appendControl();  
+      _appendControl();
     }
     _registerEvents();
     _addEventListeners();
