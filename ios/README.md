@@ -1,31 +1,10 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Accelerator Pack for iOS<br/>Version 1.0.0
+# OpenTok Text Chat Accelerator Pack for iOS<br/>Version 2.0.0
 
-This document describes how to use the OpenTok Text Chat Accelerator Pack for iOS. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages on an iOS mobile device.
+## Quick start
 
-You can configure and run this sample app within just a few minutes!
-
-
-This guide has the following sections:
-
-* [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-* [Quick start](#quick-start): A step-by-step tutorial to help you quickly import and run the sample app.
-* [Exploring the code](#exploring-the-code): This describes the sample app code design, which uses recommended best practices to implement the text chat features. 
-
-## Prerequisites
-
-To be prepared to develop your text chat app:
-
-1. Install Xcode version 5 or later.
-2. Review the [OpenTok iOS SDK Requirements](https://tokbox.com/developer/sdks/ios/).
-3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
-
-_You do not need the OpenTok iOS SDK to use this sample._
-
-_**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
-
-
+This section shows you how to use the accelerator pack.
 
 ## Quick start
 
@@ -156,7 +135,7 @@ In order to signal sending a message, you must first call the `connect` method. 
 
 Once you no longer need to exchange messages, call the `disconnect` method to leave the session.
 
-The method implementations use the [OpenTok signaling API](https://tokbox.com/developer/sdks/ios/reference/Protocols/OTSessionDelegate.html#//api/name/session:receivedSignalType:fromConnection:withString:), which monitors the session connections to determine when individual chat messages are sent and received. 
+The method implementations use the [OpenTok signaling API](https://tokbox.com/developer/sdks/ios/reference/Protocols/OTSessionDelegate.html#//api/name/session:receivedSignalType:fromConnection:withString:), which monitors the session connections to determine when individual chat messages are sent and received.
 
 
 ```objc
@@ -171,5 +150,11 @@ The method implementations use the [OpenTok signaling API](https://tokbox.com/de
 @end
 ```
 
+## Requirements
 
+To develop your text chat app:
 
+1. Install Xcode version 5 or later.
+2. Review the [OpenTok iOS SDK Requirements](https://tokbox.com/developer/sdks/ios/).
+
+_You do not need the OpenTok iOS SDK to use this sample._

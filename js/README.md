@@ -1,28 +1,10 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Accelerator Pack for JavaScript<br/>Version 1.0.0
+# OpenTok Text Chat Accelerator Pack for JavaScript<br/>Version 2.0.0
 
-This document describes how to use the OpenTok Text Chat Accelerator Pack for JavaScript. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages in a web-based application. 
+## Quick start
 
-You can configure and run this sample app within just a few minutes!
-
-
-This guide has the following sections:
-
-* [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-* [Quick start](#quick-start): A step-by-step tutorial to help you quickly run the sample app.
-* [Exploring the code](#exploring-the-code): This describes the sample app code design, which uses recommended best practices to implement the text chat features. 
-
-## Prerequisites
-
-To be prepared to develop your text chat app:
-
-1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
-2. Your project must include [jQuery](https://jquery.com/), [Moment.js](http://momentjs.com/), [timeago](http://timeago.yarp.com/), and [Underscore](http://underscorejs.org/).
-3. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.</li><li>Download and extract the text chat and one-to-one communication components from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-1.0.0.zip) file provided by TokBox.</li></ol>
-4. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
-
-_**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
+This section shows you how to use the accelerator pack.
 
 ## Quick start
 
@@ -78,9 +60,9 @@ While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must
 
 * **text-chat-acc-pack.js**: _(Available in the Text Chat Accelerator Pack)._ Minified JS file which contains **acc-pack-communication.js** , **acc-pack-text-chat.js**. These files appear on your system after running `build-sample.sh`.
 
-* **[app.js](./sample-app/public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements. 
+* **[app.js](./sample-app/public/js/app.js)**: Stores the information required to configure the session and authorize the app to make requests to the backend server, manages the client connection to the OpenTok session, manages the UI responses to call events, and sets up and manages the local and remote media UI elements.
 
-* **[CSS files](./opentok.js-text-chat/css/)**: Defines the client UI style. 
+* **[CSS files](./opentok.js-text-chat/css/)**: Defines the client UI style.
 
 * **[index.html](./sample-app/public/index.html)**: This web page provides you with a quick start if you don't already have a web page making calls against OpenTok.js (via accelerator-pack.js) and text-chat-acc-pack.js. Its `<head>` element loads the OpenTok.js library, Text Chat library, and other dependencies, and its `<body>` element implements the UI container for the controls on your own page. It contains the tag script to load the otkanalytics.js file.
 
@@ -93,12 +75,12 @@ While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must
     <script src="https://assets.tokbox.com/otkanalytics.js" type="text/javascript" defer></script>
     <script src="js/components/text-chat-acc-pack.js" type="text/javascript" defer></script>
     <script src="js/components/accelerator-pack.js" type="text/javascript" defer></script>
-   
+
 ```
 
 ### Text Chat Accelerator Pack
 
-The `TextChatAccPack` class in text-chat-acc-pack.js is the backbone of the text chat communication features for the app. 
+The `TextChatAccPack` class in text-chat-acc-pack.js is the backbone of the text chat communication features for the app.
 
 This class sets up the text chat UI views and events, and provides functions for sending, receiving, and rendering individual chat messages.
 
@@ -134,9 +116,9 @@ Otherwise, this initialization code demonstrates how the `TextChatAccPack` objec
           limitCharacterMessage: 160,
           controlsContainer: '#feedControls',
           textChatContainer: '#chatContainer'
-        } 
+        }
       };
-      
+
       var textChatOptions = {
        accPack: _this,
        session: _session,
@@ -161,7 +143,7 @@ The `TextChat` component defines the following methods:
 | `isDisplayed()` | Determines if the text chat accelerator pack is displayed.  |
 | `isEnabled()` | Determines if the text chat accelerator pack is enabled.  |
 
-  
+
 For example, this line determines whether the text chat accelerator pack is displayed:
 
   ```javascript
@@ -195,4 +177,10 @@ The following code shows how to subscribe to these events:
       });
   ```
 
+  ## Requirements
 
+  To develop your text chat app:
+
+  1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
+  2. Your project must include [jQuery](https://jquery.com/), [Moment.js](http://momentjs.com/), [timeago](http://timeago.yarp.com/), and [Underscore](http://underscorejs.org/).
+  3. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.</li><li>Download and extract the text chat and one-to-one communication components from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-2.0.0.zip) file provided by TokBox.</li></ol>
