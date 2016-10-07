@@ -34,7 +34,7 @@
 
   var _logEventData = {
     // vars for the analytics logs. Internal use
-    clientVersion: 'js-vsol-1.0.0',
+    clientVersion: 'js-vsol-2.0.0',
     componentId: 'textChatAccPack',
     name: 'guidTextChatAccPack',
     actionInitialize: 'Init',
@@ -325,6 +325,11 @@
 
     _composer.onkeyup = function updateCharCounter() {
       $('#characterCount').text(_composer.value.length);
+      if(_composer.value.length != 0) {
+        $('.ots-icon-check').addClass("active");
+      } else {
+        $('.ots-icon-check').removeClass("active");
+      }
     };
 
     _composer.onkeydown = function controlComposerInput(event) {

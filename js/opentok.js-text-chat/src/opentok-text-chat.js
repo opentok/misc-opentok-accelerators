@@ -325,6 +325,11 @@
 
     _composer.onkeyup = function updateCharCounter() {
       $('#characterCount').text(_composer.value.length);
+      if(_composer.value.length != 0) {
+        $('.ots-icon-check').addClass("active");
+      } else {
+        $('.ots-icon-check').removeClass("active");
+      }
     };
 
     _composer.onkeydown = function controlComposerInput(event) {
