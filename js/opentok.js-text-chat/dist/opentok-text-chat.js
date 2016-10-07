@@ -165,7 +165,9 @@
 
   var _renderChatMessage = function (messageSenderId, messageSenderAlias, message, sentOn) {
 
-    var sentByClass = _sender.id === messageSenderId ? 'ots-message-item ots-message-sent' : 'ots-message-item';
+    var sentByClass = _sender.id === messageSenderId ?
+      'ots-message-item ots-message-sent' :
+      'ots-message-item';
 
     var view = _getBubbleHtml({
       username: messageSenderAlias,
@@ -325,10 +327,10 @@
 
     _composer.onkeyup = function updateCharCounter() {
       $('#characterCount').text(_composer.value.length);
-      if(_composer.value.length != 0) {
-        $('.ots-icon-check').addClass("active");
+      if (_composer.value.length !== 0) {
+        $('.ots-icon-check').addClass('active');
       } else {
-        $('.ots-icon-check').removeClass("active");
+        $('.ots-icon-check').removeClass('active');
       }
     };
 
