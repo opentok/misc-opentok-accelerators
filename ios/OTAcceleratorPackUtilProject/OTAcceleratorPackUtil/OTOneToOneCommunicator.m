@@ -1,9 +1,7 @@
 //
-//  TextChatComponentChatView.h
-//  TextChatComponent
+//  OTOneToOneCommunicator.m
 //
-//  Created by Xi Huang on 2/23/16.
-//  Copyright © 2016 Tokbox. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "OTOneToOneCommunicator.h"
@@ -12,7 +10,7 @@
 #import <Opentok/OpenTok.h>
 #import <OTKAnalytics/OTKLogger.h>
 
-static NSString* const KLogClientVersion = @"ios-vsol-1.0.0";
+static NSString* const KLogClientVersion = @"ios-vsol-1.1.0";
 static NSString* const kLogComponentIdentifier = @"oneToOneCommunication";
 static NSString* const KLogActionInitialize = @"Init";
 static NSString* const KLogActionStartCommunication = @"StartComm";
@@ -58,34 +56,29 @@ static NSString* const KLogVariationFailure = @"Failure";
 
     static OTOneToOneCommunicator *sharedInstance;
     static dispatch_once_t onceToken;
+    
+    if (!sharedInstance) {
+        [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
+    }
+    
     dispatch_once(&onceToken, ^{
         sharedInstance = [[OTOneToOneCommunicator alloc] init];
         sharedInstance.session = [OTAcceleratorSession getAcceleratorPackSession];
+        
+        if (sharedInstance && sharedInstance.session) {
+            [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
+        }
+        else {
+            [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
+        }
     });
     return sharedInstance;
 }
 
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token {
-
-    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
-    
-    LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
-    [loggingWrapper.logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
-    OTOneToOneCommunicator *sharedInstance = [OTOneToOneCommunicator sharedInstance];
-    if (sharedInstance) {
-        [loggingWrapper.logger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
-    }
-    else {
-        [loggingWrapper.logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
-    }
-    
-    // update session in case of changing credentials
-    [OTOneToOneCommunicator sharedInstance].session = [OTAcceleratorSession getAcceleratorPackSession];
-}
-
 - (NSError *)connect {
+    
+    // refresh in case of credentials update
+    self.session = [OTAcceleratorSession getAcceleratorPackSession];
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
     [loggingWrapper.logger logEventAction:KLogActionStartCommunication
@@ -104,7 +97,6 @@ static NSString* const KLogVariationFailure = @"Failure";
                                    completion:nil];
     }
     
-    self.isCallEnabled = YES;
     return connectError;
 }
 
@@ -197,6 +189,7 @@ static NSString* const KLogVariationFailure = @"Failure";
                              error:error];
     }
     else {
+        self.isCallEnabled = YES;
         [self notifiyAllWithSignal:OTSessionDidConnect
                              error:nil];
     }
@@ -235,51 +228,102 @@ static NSString* const KLogVariationFailure = @"Failure";
                          error:error];
 }
 
+- (void)sessionDidBeginReconnecting:(OTSession *)session {
+    [self notifiyAllWithSignal:OTSessionDidBeginReconnecting
+                         error:nil];
+}
+
+- (void)sessionDidReconnect:(OTSession *)session {
+    [self notifiyAllWithSignal:OTSessionDidReconnect
+                         error:nil];
+}
+
 #pragma mark - OTPublisherDelegate
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
-    [self notifiyAllWithSignal:OTPublisherDidFail
-                         error:error];
+    if (publisher == self.publisher) {
+        [self notifiyAllWithSignal:OTPublisherDidFail
+                             error:error];
+    }
 }
 
 - (void)publisher:(OTPublisherKit*)publisher streamCreated:(OTStream*)stream {
-    [self notifiyAllWithSignal:OTPublisherStreamCreated
-                         error:nil];
+    if (publisher == self.publisher) {
+        [self notifiyAllWithSignal:OTPublisherStreamCreated
+                             error:nil];
+    }
 }
 
 - (void)publisher:(OTPublisherKit*)publisher streamDestroyed:(OTStream*)stream {
-    [self notifiyAllWithSignal:OTPublisherStreamDestroyed
-                         error:nil];
+    if (publisher == self.publisher) {
+        [self notifiyAllWithSignal:OTPublisherStreamDestroyed
+                             error:nil];
+    }
 }
 
 #pragma mark - OTSubscriberKitDelegate
 -(void) subscriberDidConnectToStream:(OTSubscriberKit*)subscriber {
-    [self notifiyAllWithSignal:OTSubscriberConnect
-                         error:nil];
+    
+    if (subscriber == self.subscriber) {
+        [self notifiyAllWithSignal:OTSubscriberDidConnect
+                             error:nil];
+    }
 }
 
 -(void)subscriberVideoDisabled:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
-    [self notifiyAllWithSignal:OTSubscriberVideoDisabled
-                         error:nil];
+    
+    if (subscriber != self.subscriber) return;
+    
+    if (reason == OTSubscriberVideoEventPublisherPropertyChanged) {
+        [self notifiyAllWithSignal:OTSubscriberVideoDisabledByPublisher
+                             error:nil];
+    }
+    else if (reason == OTSubscriberVideoEventSubscriberPropertyChanged) {
+        [self notifiyAllWithSignal:OTSubscriberVideoDisabledBySubscriber
+                             error:nil];
+    }
+    else if (reason == OTSubscriberVideoEventQualityChanged) {
+        [self notifiyAllWithSignal:OTSubscriberVideoDisabledByBadQuality
+                             error:nil];
+    }
 }
 
 - (void)subscriberVideoEnabled:(OTSubscriberKit *)subscriber reason:(OTSubscriberVideoEventReason)reason {
-    [self notifiyAllWithSignal:OTSubscriberVideoEnabled
-                         error:nil];
+    
+    if (subscriber != self.subscriber) return;
+    
+    if (reason == OTSubscriberVideoEventPublisherPropertyChanged) {
+        [self notifiyAllWithSignal:OTSubscriberVideoEnabledByPublisher
+                             error:nil];
+    }
+    else if (reason == OTSubscriberVideoEventSubscriberPropertyChanged) {
+        [self notifiyAllWithSignal:OTSubscriberVideoEnabledByGoodQuality
+                             error:nil];
+    }
+    else if (reason == OTSubscriberVideoEventQualityChanged) {
+        [self notifiyAllWithSignal:OTSubscriberVideoEnabledByGoodQuality
+                             error:nil];
+    }
 }
 
--(void) subscriberVideoDisableWarning:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
-    [self notifiyAllWithSignal:OTSubscriberVideoDisableWarning
-                         error:nil];
+-(void)subscriberVideoDisableWarning:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    if (subscriber == self.subscriber) {
+        [self notifiyAllWithSignal:OTSubscriberVideoDisableWarning
+                             error:nil];
+    }
 }
 
--(void) subscriberVideoDisableWarningLifted:(OTSubscriberKit *)subscriber reason:(OTSubscriberVideoEventReason)reason {
-    [self notifiyAllWithSignal:OTSubscriberVideoDisableWarningLifted
-                         error:nil];
+-(void)subscriberVideoDisableWarningLifted:(OTSubscriberKit *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    if (subscriber == self.subscriber) {
+        [self notifiyAllWithSignal:OTSubscriberVideoDisableWarningLifted
+                             error:nil];
+    }
 }
 
 - (void)subscriber:(OTSubscriberKit *)subscriber didFailWithError:(OTError *)error {
-    [self notifiyAllWithSignal:OTSubscriberDidFail
-                         error:error];
+    if (subscriber == self.subscriber) {
+        [self notifiyAllWithSignal:OTSubscriberDidFail
+                             error:error];
+    }
 }
 
 #pragma mark - Setters and Getters
@@ -296,6 +340,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (BOOL)isSubscribeToAudio {
+    if (!_subscriber.stream.hasAudio) return NO;
     return _subscriber.subscribeToAudio;
 }
 
@@ -304,6 +349,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (BOOL)isSubscribeToVideo {
+    if (!_subscriber.stream.hasVideo) return NO;
     return _subscriber.subscribeToVideo;
 }
 

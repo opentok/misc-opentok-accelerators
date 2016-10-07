@@ -1,9 +1,7 @@
 //
-//  APSession.m
-//  APSessionDemo
+//  OTAcceleratorSession.m
 //
-//  Created by Xi Huang on 4/7/16.
-//  Copyright © 2016 Lucas Huang. All rights reserved.
+//  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "OTAcceleratorSession.h"
@@ -241,6 +239,26 @@ archiveStoppedWithId:(NSString*)archiveId {
         
         if ([obj respondsToSelector:@selector(session:archiveStoppedWithId:)]) {
             [obj session:session archiveStoppedWithId:archiveId];
+        }
+    }];
+}
+
+- (void)sessionDidBeginReconnecting:(OTSession*)session {
+    
+    [self.delegates enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
+        
+        if ([obj respondsToSelector:@selector(sessionDidBeginReconnecting:)]) {
+            [obj sessionDidBeginReconnecting:session];
+        }
+    }];
+}
+
+- (void)sessionDidReconnect:(OTSession *)session {
+    
+    [self.delegates enumerateObjectsUsingBlock:^(id<OTSessionDelegate> obj, BOOL *stop) {
+        
+        if ([obj respondsToSelector:@selector(sessionDidReconnect:)]) {
+            [obj sessionDidReconnect:session];
         }
     }];
 }

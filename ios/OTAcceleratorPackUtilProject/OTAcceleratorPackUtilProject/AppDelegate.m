@@ -1,8 +1,6 @@
 //
 //  AppDelegate.m
-//  OTAcceleratorPackUtilProject
 //
-//  Created by Xi Huang on 7/11/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
@@ -19,7 +17,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [OTOneToOneCommunicator setOpenTokApiKey:@"" sessionId:@"" token:@""];
+    [OTAcceleratorSession setOpenTokApiKey:@"" sessionId:@"" token:@""];
     return YES;
 }
 

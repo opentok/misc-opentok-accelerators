@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class OneToOneCommunication implements
-        AccPackSession.SessionListener, Publisher.PublisherListener, Publisher.CameraListener, Subscriber.SubscriberListener, Subscriber.VideoListener {
+        AccPackSession.SessionListener, Publisher.PublisherListener, Publisher.CameraListener, Subscriber.SubscriberListener, Subscriber.VideoListener, Session.ReconnectionListener {
 
     private static final String LOGTAG = OneToOneCommunication.class.getName();
     private Context mContext;
@@ -118,6 +118,21 @@ public class OneToOneCommunication implements
          * @param remoteView Indicates the subscriber view.
          */
         void onRemoteViewReady(View remoteView);
+
+        /**
+         * Invoked when the session is attempting to reconnect
+         */
+        void onReconnecting();
+
+        /**
+         * Invoked when the session reconnected
+         */
+        void onReconnected();
+
+        /**
+         * Invoked when the camera change the id
+         */
+        void onCameraChanged(int newCameraId);
     }
 
     /*Constructor
@@ -489,6 +504,80 @@ public class OneToOneCommunication implements
         mSession = null;
     }
 
+    private void restartViews() {
+        if ( mSubscriber != null ) {
+            onRemoteViewReady(mSubscriber.getView());
+        }
+        if ( mScreenSubscriber != null ) {
+            onRemoteViewReady(mScreenSubscriber.getView());
+        }
+        if ( mPublisher != null ){
+            onPreviewReady(null);
+        }
+    }
+
+    protected void onInitialized() {
+        if ( this.mListener != null ) {
+            this.mListener.onInitialized();
+        }
+
+        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
+    }
+
+    protected void onError(String error) {
+        if ( this.mListener != null ) {
+            this.mListener.onError(error);
+        }
+    }
+
+    protected void onQualityWarning(boolean warning) {
+        if ( this.mListener != null ) {
+            this.mListener.onQualityWarning(warning);
+        }
+    }
+
+    protected void onAudioOnly(boolean enabled) {
+        if ( this.mListener != null ) {
+            this.mListener.onAudioOnly(enabled);
+        }
+    }
+
+    protected void onPreviewReady(View preview) {
+        if ( this.mListener != null ) {
+            this.mListener.onPreviewReady(preview);
+        }
+    }
+
+    protected void onRemoteViewReady(View remoteView) {
+        if ( this.mListener != null ) {
+            this.mListener.onRemoteViewReady(remoteView);
+        }
+    }
+
+    protected void onReconnecting(){
+        if ( this.mListener != null ) {
+            this.mListener.onReconnecting();
+        }
+    }
+
+    protected void onReconnected(){
+        if ( this.mListener != null ) {
+            this.mListener.onReconnected();
+        }
+    }
+
+    protected void onCameraChanged(int newCameraId){
+        if ( this.mListener != null ) {
+            this.mListener.onCameraChanged(newCameraId);
+        }
+    }
+
+    private void addLogEvent(String action, String variation){
+        if ( mAnalytics!= null ) {
+            mAnalytics.logEvent(action, variation);
+        }
+    }
+
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         isStarted = true;
@@ -667,65 +756,29 @@ public class OneToOneCommunication implements
     public void onCameraChanged(Publisher publisher, int i) {
         Log.i(LOGTAG, "Camera changed: "+i);
         mCameraId = i;
+        onCameraChanged(i);
     }
 
     @Override
     public void onCameraError(Publisher publisher, OpentokError opentokError) {
         Log.i(LOGTAG, "Camera error: ");
+        onError(opentokError.getErrorCode() + " - " + opentokError.getMessage());
+    }
+
+    @Override
+    public void onReconnecting(Session session) {
+        Log.i(LOGTAG, "The session is attempting to reconnect.");
+        onReconnecting();
+    }
+
+    @Override
+    public void onReconnected(Session session) {
+        Log.i(LOGTAG, "The session reconnected.");
+        onReconnected();
     }
 
     public AccPackSession getSession() {
         return mSession;
-    }
-
-    private void restartViews() {
-        if ( mSubscriber != null ) {
-            onRemoteViewReady(mSubscriber.getView());
-        }
-        if ( mScreenSubscriber != null ) {
-            onRemoteViewReady(mScreenSubscriber.getView());
-        }
-        if ( mPublisher != null ){
-            onPreviewReady(null);
-        }
-    }
-
-    protected void onInitialized() {
-        if ( this.mListener != null ) {
-            this.mListener.onInitialized();
-        }
-
-        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
-    }
-
-    protected void onError(String error) {
-        if ( this.mListener != null ) {
-            this.mListener.onError(error);
-        }
-    }
-
-    protected void onQualityWarning(boolean warning) {
-        if ( this.mListener != null ) {
-            this.mListener.onQualityWarning(warning);
-        }
-    }
-
-    protected void onAudioOnly(boolean enabled) {
-        if ( this.mListener != null ) {
-            this.mListener.onAudioOnly(enabled);
-        }
-    }
-
-    protected void onPreviewReady(View preview) {
-        if ( this.mListener != null ) {
-            this.mListener.onPreviewReady(preview);
-        }
-    }
-
-    protected void onRemoteViewReady(View remoteView) {
-        if ( this.mListener != null ) {
-            this.mListener.onRemoteViewReady(remoteView);
-        }
     }
 
     public View getRemoteVideoView (){
@@ -774,12 +827,6 @@ public class OneToOneCommunication implements
         }
         if ( mSubscriber != null && fill ){
             mSubscriber.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
-        }
-    }
-
-    private void addLogEvent(String action, String variation){
-        if ( mAnalytics!= null ) {
-            mAnalytics.logEvent(action, variation);
         }
     }
 }

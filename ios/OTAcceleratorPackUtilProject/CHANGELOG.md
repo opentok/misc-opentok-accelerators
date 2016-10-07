@@ -4,16 +4,54 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.1.10
+
+### Enhancements
+
+- Enhance documentation.
+- Remove connection related methods as it's unnecessary.
+
+1.1.9
+-----
+
+### Fixes
+
+- Fixed `isSubscribeToAudio` and `isSubscribeToVideo` have a wrong value as `subscriber.stream` is not taken into account.
+
+1.1.8
+-----
+
+### Enhancements
+
+- Add documentation
+
+### Breaking changes
+
+- Remove `setOpenTokApiKey:sessionId:token:` from OTOneToOneCommunicator. Instead, force to use the one from `OTAcceleratorSession` to avoid redundancy.
+
+1.1.7
+-----
+
+### Enhancements
+
+- Add reconnection callback.
+- Update documentation in general.
+- Update setting for XCode8.
+
+### Breaking changes
+
+- Update event signals to be more precise especially to subscriber disable events.
+
 1.1.6
 -----
 
 ### Enhancements
 
-- update to use OpenTok SDK 2.9.0(https://tokbox.com/developer/sdks/ios/release-notes.html)
+- Update to use OpenTok SDK 2.9.0(https://tokbox.com/developer/sdks/ios/release-notes.html).
 
 ### Fixes
 
-- Fixed incorrect condition check on selector `session:archiveStartedWithId:name:` and `session:archiveStoppedWithId:`
+- Fixed incorrect condition check on selector `session:archiveStartedWithId:name:` and `session:archiveStoppedWithId:`.
 
 1.1.5
 -----

@@ -1,8 +1,6 @@
 //
 //  TestOneToOneCommunicatorViewController.m
-//  OTAcceleratorPackUtilProject
 //
-//  Created by Xi Huang on 7/11/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
@@ -28,14 +26,19 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.communicator disconnect];
+}
+
 - (void)oneToOneCommunicationWithSignal:(OTOneToOneCommunicationSignal)signal
                                   error:(NSError *)error {
     
-    if (signal == OTSessionDidConnect) {
+    if (signal == OTSessionDidConnect && !error) {
         self.communicator.publisherView.frame = self.publisherView.bounds;
         [self.publisherView addSubview:self.communicator.publisherView];
     }
-    else if (signal == OTSubscriberConnect) {
+    else if (signal == OTSubscriberDidConnect && !error) {
         self.communicator.subscriberView.frame = self.subscriberView.bounds;
         [self.subscriberView addSubview:self.communicator.subscriberView];
     }
