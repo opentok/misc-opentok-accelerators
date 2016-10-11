@@ -4,6 +4,12 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.2.0
+
+### Enhancements
+
+- Update OpenTok iOS SDK dependency to 2.9.1 (https://tokbox.com/developer/sdks/ios/release-notes.html)
+
 1.1.10
 
 ### Enhancements

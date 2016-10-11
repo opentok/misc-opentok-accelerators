@@ -238,6 +238,15 @@ static NSString* const KLogVariationFailure = @"Failure";
                          error:nil];
 }
 
+- (void)sessionDidBeginReconnecting:(OTSession *)session {
+    [self notifiyAllWithSignal:OTSessionConnectionDidBeginReconnecting
+                         error:nil];
+}
+
+- (void)sessionDidReconnect:(OTSession *)session {
+    [self notifiyAllWithSignal:OTSessionConnectionDidReconnect
+                         error:nil];
+}
 #pragma mark - OTPublisherDelegate
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
     if (publisher == self.publisher) {
