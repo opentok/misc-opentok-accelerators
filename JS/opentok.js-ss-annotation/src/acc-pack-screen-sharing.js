@@ -9,7 +9,7 @@
   var _session; // OpenTok session
 
   var _screenSharingControl = [
-    '<div class="video-control circle share-screen" id="startScreenSharing"></div>'
+    '<div class="video-control circle share-screen" id="startScreenSharing" title="Enable/Disable Screen Sharing"></div>'
   ].join('\n');
 
   var _screenSharingView = [
@@ -56,8 +56,9 @@
 
   var _setupUI = function (parent) {
     $('body').append(_screenDialogsExtensions);
-    $(_this._screenSharingControls).append(_screenSharingControl);
-    $(parent).append(_screenSharingView);
+    var children = $(_this._screenSharingControls).children();
+    var count =  children.length;
+    $(_screenSharingControl).insertBefore(children[count-1]);
   };
 
   var _toggleScreenSharingButton = function (show) {

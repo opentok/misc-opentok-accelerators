@@ -19,29 +19,38 @@
             android:layout_height="@dimen/icon_height"
             android:layout_centerVertical="true"
             android:layout_marginRight="14.1dp"
-            android:layout_toLeftOf="@+id/call"
+            android:layout_toLeftOf="@+id/localAudio"
             android:background="@drawable/bckg_icon"
             android:src="@drawable/video_icon" />
-
-        <ImageButton
-            android:id="@+id/call"
-            android:layout_width="@dimen/icon_width"
-            android:layout_height="@dimen/icon_height"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/initiate_call_button"
-            android:clickable="true"
-            android:src="@drawable/start_call" />
 
         <ImageButton
             android:id="@+id/localAudio"
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
             android:layout_centerVertical="true"
+            android:background="@drawable/bckg_icon"
+            android:src="@drawable/mic_icon" />
+
+        <ImageButton
+            android:id="@+id/call"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14.1dp"
+            android:layout_toRightOf="@+id/localAudio"
+            android:background="@drawable/initiate_call_button"
+            android:clickable="true"
+            android:src="@drawable/start_call" />
+
+        <ImageButton
+            android:id="@+id/annotations"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="14.1dp"
             android:layout_toRightOf="@+id/call"
             android:background="@drawable/bckg_icon"
-            android:src="@drawable/mic_icon" />
+            android:src="@drawable/annotate" />
 
         <ImageButton
             android:id="@+id/screenSharing"
@@ -49,7 +58,7 @@
             android:layout_height="@dimen/icon_height"
             android:layout_centerVertical="true"
             android:layout_marginLeft="14.1dp"
-            android:layout_toRightOf="@+id/localAudio"
+            android:layout_toRightOf="@+id/annotations"
             android:background="@drawable/bckg_icon"
             android:src="@drawable/screenshare" />
 

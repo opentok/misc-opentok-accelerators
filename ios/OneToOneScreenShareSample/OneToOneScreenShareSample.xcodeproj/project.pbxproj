@@ -14,6 +14,7 @@
 		A060AF6F1CF36B0700589311 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A060AF6D1CF36B0700589311 /* Main.storyboard */; };
 		A060AF711CF36B0700589311 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A060AF701CF36B0700589311 /* Assets.xcassets */; };
 		A060AF741CF36B0700589311 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A060AF721CF36B0700589311 /* LaunchScreen.storyboard */; };
+		A068D36B1D8FC3F500EC24BB /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A068D36A1D8FC3F500EC24BB /* UIView+Helper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,8 @@
 		A060AF701CF36B0700589311 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A060AF731CF36B0700589311 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A060AF751CF36B0700589311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A068D3691D8FC3F500EC24BB /* UIView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Helper.h"; sourceTree = "<group>"; };
+		A068D36A1D8FC3F500EC24BB /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Helper.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,8 @@
 				A060AF6B1CF36B0700589311 /* MainViewController.m */,
 				3F65DAB71CF377D30012111D /* MainView.h */,
 				3F65DAB81CF377D30012111D /* MainView.m */,
+				A068D3691D8FC3F500EC24BB /* UIView+Helper.h */,
+				A068D36A1D8FC3F500EC24BB /* UIView+Helper.m */,
 				A060AF6D1CF36B0700589311 /* Main.storyboard */,
 				A060AF701CF36B0700589311 /* Assets.xcassets */,
 				A060AF721CF36B0700589311 /* LaunchScreen.storyboard */,
@@ -124,12 +129,16 @@
 		A060AF591CF36B0700589311 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Tokbox, Inc.";
 				TargetAttributes = {
 					A060AF601CF36B0700589311 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = MGD69Q275W;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -173,6 +182,7 @@
 				A060AF691CF36B0700589311 /* AppDelegate.m in Sources */,
 				A060AF661CF36B0700589311 /* main.m in Sources */,
 				3F65DAB91CF377D30012111D /* MainView.m in Sources */,
+				A068D36B1D8FC3F500EC24BB /* UIView+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +222,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -257,8 +269,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -287,6 +301,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -306,6 +321,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

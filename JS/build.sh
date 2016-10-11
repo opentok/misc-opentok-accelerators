@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 PUBLIC="../../sample-app/public"
 SRC_PATH="../opentok.js-ss-annotation/src/"
@@ -23,13 +24,9 @@ function copyDependencies()
 	echo "Copying NPM Packages"
 	cp -v $NPM_MODULES/opentok-one-to-one-communication/opentok-one-to-one-communication.js $SRC_PATH
 	cp -v $NPM_MODULES/opentok-annotation/dist/opentok-annotation.js $SRC_PATH
-	cp -v $NPM_MODULES/opentok-annotation/css/annotation.css $CSS_PATH
-	cp -v $NPM_MODULES/opentok-annotation/templates/* $TEMPLATES_PATH
-	cp -v $NPM_MODULES/opentok-annotation/images/* $IMAGES_PATH/annotation
 	cp -v $NPM_MODULES/opentok-screen-sharing/dist/opentok-screen-sharing.js $SRC_PATH
-	cp -v $NPM_MODULES/opentok-screen-sharing/css/screen-share.css $CSS_PATH
-	cp -v $NPM_MODULES/opentok-text-chat/dist/opentok-text-chat.js $SRC_PATH
 	cp -v $NPM_MODULES/opentok-solutions-logging/dist/opentok-solutions-logging.js $SRC_PATH
+	cp -v $NPM_MODULES/opentok-solutions-css/style.css $CSS_PATH
 }
 
 if [[ -d opentok.js-ss-annotation ]]
@@ -41,18 +38,9 @@ then
 	gulp dist
         gulp zip
 	cd dist
-    cp -v screenshare-annotation-acc-pack.js $PUBLIC/js/components/screenshare-annotation-acc-pack.js
-    cp -v theme.css $PUBLIC/css/theme.css
-    cp -r -v images/* $PUBLIC/images/
-		cp -r -v templates/* $PUBLIC/templates/
-
-	if [[ -f "../screenshare.html" ]]
-	then
-		mkdir $PUBLIC/templates
-		cp -v $TEMPLATES_PATH/screenshare.html $PUBLIC/templates
-	fi
+  cp -v screenshare-annotation-acc-pack.js $PUBLIC/js/components/screenshare-annotation-acc-pack.js
+	cp -v opentok-style.css $PUBLIC/css/
 else
 	echo "Please run this script from 'js-screensharing-annotation'."
 	exit 1
 fi
-

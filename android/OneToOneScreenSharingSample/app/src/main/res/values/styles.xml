@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="actionBarSize">45dp</item>
+        <item name="actionBarSize">60dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

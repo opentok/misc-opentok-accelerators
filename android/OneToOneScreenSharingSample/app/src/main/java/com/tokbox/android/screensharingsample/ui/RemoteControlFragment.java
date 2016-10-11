@@ -114,7 +114,7 @@ public class RemoteControlFragment extends Fragment {
         return mRootView;
     }
 
-    public void updateRemoteAudio(){
+    private void updateRemoteAudio(){
         if(!mActivity.getComm().getRemoteAudio()){
             mControlCallbacks.onDisableRemoteAudio(true);
             mAudioBtn.setImageResource(R.drawable.audio);
@@ -125,7 +125,7 @@ public class RemoteControlFragment extends Fragment {
         }
     }
 
-    public void updateRemoteVideo(){
+    private void updateRemoteVideo(){
         if(!mActivity.getComm().getRemoteVideo()){
             mControlCallbacks.onDisableRemoteVideo(true);
             mVideoBtn.setImageResource(R.drawable.video_icon);

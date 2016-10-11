@@ -90,7 +90,7 @@ public class PreviewCameraFragment extends Fragment {
         return mRootView;
     }
 
-    public void cameraSwap() {
+    private void cameraSwap() {
         mCameraCallbacks.onCameraSwap();
     }
 

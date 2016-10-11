@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="screensharing_bar_height">40dp</dimen>
-    <dimen name="screensharing_bar_width">5dp</dimen>
-</resources>

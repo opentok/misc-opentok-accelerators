@@ -33,7 +33,7 @@ gulp.task('js-dev', function () {
 
 gulp.task('css', function () {
   return gulp.src('css/*.css')
-    .pipe(concatCss('theme.css'))
+    .pipe(concatCss('opentok-style.css'))
     .pipe(gulp.dest('dist/'));
 });
 
@@ -58,7 +58,7 @@ gulp.task('zip', function () {
     'dist/images/**',
     'dist/screenshare-annotation-acc-pack.js'
   ], { base: 'dist/' })
-    .pipe(zip('opentok-js-screenshare-annotation-1.0.0.zip'))
+    .pipe(zip('opentok-js-screenshare-annotation-1.1.0.zip'))
     .pipe(gulp.dest('dist'));
 });
 

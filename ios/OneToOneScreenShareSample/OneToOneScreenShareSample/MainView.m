@@ -8,6 +8,8 @@
 #import <OTScreenShareKit/OTScreenShareKit.h>
 #import <OTAnnotationKit/OTAnnotationKit.h>
 
+#import "UIView+Helper.h"
+
 @interface MainView()
 @property (weak, nonatomic) IBOutlet UIView *publisherView;
 @property (weak, nonatomic) IBOutlet UIView *subscriberView;
@@ -26,21 +28,21 @@
 @property (nonatomic) UIImageView *subscriberPlaceHolderImageView;
 @property (nonatomic) UIImageView *publisherPlaceHolderImageView;
 
-@property (nonatomic) OTAnnotationScrollView *annotationView;
+@property (nonatomic) OTAnnotationScrollView *annotationScrollView;
 @property (weak, nonatomic) IBOutlet UIView *actionButtonView;
-
 @property (weak, nonatomic) IBOutlet UIView *screenshareNotificationBar;
+
 @end
 
 @implementation MainView
 
-- (OTAnnotationScrollView *)annotationView {
-    if (!_annotationView) {
-        _annotationView = [[OTAnnotationScrollView alloc] init];
-        _annotationView.backgroundColor = [UIColor darkGrayColor];
-        [_annotationView initializeToolbarView];
+- (OTAnnotationScrollView *)annotationScrollView {
+    if (!_annotationScrollView) {
+        _annotationScrollView = [[OTAnnotationScrollView alloc] init];
+        _annotationScrollView.backgroundColor = [UIColor darkGrayColor];
+        [_annotationScrollView initializeToolbarView];
     }
-    return _annotationView;
+    return _annotationScrollView;
 }
 
 
@@ -103,7 +105,7 @@
     publisherView.frame = CGRectMake(0, 0, CGRectGetWidth(self.publisherView.bounds), CGRectGetHeight(self.publisherView.bounds));
     [self.publisherView addSubview:publisherView];
     publisherView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addAttachedLayoutConstantsToSuperview:publisherView];
+    [publisherView addAttachedLayoutConstantsToSuperview];
 }
 
 - (void)removePublisherView {
@@ -113,7 +115,7 @@
 - (void)addPlaceHolderToPublisherView {
     self.publisherPlaceHolderImageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.publisherView.bounds), CGRectGetHeight(self.publisherView.bounds));
     [self.publisherView addSubview:self.publisherPlaceHolderImageView];
-    [self addAttachedLayoutConstantsToSuperview:self.publisherPlaceHolderImageView];
+    [self.publisherPlaceHolderImageView addAttachedLayoutConstantsToSuperview];
 }
 
 - (void)connectCallHolder:(BOOL)connected {
@@ -126,8 +128,8 @@
         self.callButton.layer.backgroundColor = [UIColor colorWithRed:(106/255.0) green:(173/255.0) blue:(191/255.0) alpha:1.0].CGColor;
     }
 }
-- (void)mutePubliserhMic:(BOOL)muted {
-    if (muted) {
+- (void)updatePublisherAudio:(BOOL)connected {
+    if (connected) {
         [self.publisherAudioButton setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
     }
     else {
@@ -135,7 +137,7 @@
     }
 }
 
-- (void)connectPubliserVideo:(BOOL)connected {
+- (void)updatePublisherVideo:(BOOL)connected {
     if (connected) {
         [self.publisherVideoButton setImage:[UIImage imageNamed:@"video"] forState: UIControlStateNormal];
     }
@@ -150,7 +152,7 @@
     subsciberView.frame = CGRectMake(0, 0, CGRectGetWidth(self.subscriberView.bounds), CGRectGetHeight(self.subscriberView.bounds));
     [self.subscriberView addSubview:subsciberView];
     subsciberView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addAttachedLayoutConstantsToSuperview:subsciberView];
+    [subsciberView addAttachedLayoutConstantsToSuperview];
 }
 
 - (void)removeSubscriberView {
@@ -160,11 +162,11 @@
 - (void)addPlaceHolderToSubscriberView {
     self.subscriberPlaceHolderImageView.frame = self.subscriberView.bounds;
     [self.subscriberView addSubview:self.subscriberPlaceHolderImageView];
-    [self addAttachedLayoutConstantsToSuperview:self.subscriberPlaceHolderImageView];
+    [self.subscriberPlaceHolderImageView addAttachedLayoutConstantsToSuperview];
 }
 
-- (void)muteSubscriberMic:(BOOL)muted {
-    if (muted) {
+- (void)updateSubscriberAudioButton:(BOOL)connected {
+    if (connected) {
         [self.subscriberAudioButton setImage:[UIImage imageNamed:@"audio"] forState: UIControlStateNormal];
     }
     else {
@@ -172,7 +174,7 @@
     }
 }
 
-- (void)connectSubsciberVideo:(BOOL)connected {
+- (void)updateSubsciberVideoButton:(BOOL)connected {
     if (connected) {
         [self.subscriberVideoButton setImage:[UIImage imageNamed:@"video"] forState: UIControlStateNormal];
     }
@@ -182,42 +184,39 @@
 }
 
 - (void)showSubscriberControls:(BOOL)shown {
-    if (shown) {
-        [self.subscriberAudioButton setHidden:NO];
-        [self.subscriberVideoButton setHidden:NO];
-    }
-    else {
-        [self.subscriberAudioButton setHidden:YES];
-        [self.subscriberVideoButton setHidden:YES];
-    }
+    [self.subscriberAudioButton setHidden:!shown];
+    [self.subscriberVideoButton setHidden:!shown];
 }
 
 - (void)addScreenShareViewWithContentView:(UIView *)view {
-    self.annotationView.frame = self.shareView.bounds;
-    [self.annotationView addContentView:view];
+    view.frame = self.shareView.bounds;
+    self.annotationScrollView.frame = self.shareView.bounds;
+    self.annotationScrollView.scrollView.contentSize = self.shareView.bounds.size;
+    [self.annotationScrollView addContentView:view];
+    [self.shareView addSubview:self.annotationScrollView];
+    
     [self.shareView setHidden:NO];
-    [self.shareView addSubview:self.annotationView];
     [self.publisherView setHidden:YES];
     [self bringSubviewToFront:self.actionButtonView];
 }
 
 - (void)removeScreenShareView {
     [self.shareView setHidden:YES];
-    [self.annotationView removeFromSuperview];
     [self.publisherView setHidden:NO];
+    [self.annotationScrollView removeFromSuperview];
 }
 
 #pragma mark - annotation bar
 - (void)toggleAnnotationToolBar {
     
-    if (!self.annotationView.toolbarView || !self.annotationView.toolbarView.superview) {
+    if (!self.annotationScrollView.toolbarView || !self.annotationScrollView.toolbarView.superview) {
         
-        CGFloat toolbarViewHeight = self.annotationView.toolbarView.bounds.size.height;
-        self.annotationView.toolbarView.frame = CGRectMake(0,
-                                                           CGRectGetHeight(self.annotationView.bounds) - toolbarViewHeight + 20,
-                                                           self.annotationView.toolbarView.bounds.size.width,
+        CGFloat toolbarViewHeight = self.annotationScrollView.toolbarView.bounds.size.height;
+        self.annotationScrollView.toolbarView.frame = CGRectMake(0,
+                                                           CGRectGetHeight(self.annotationScrollView.bounds) - toolbarViewHeight + 20,
+                                                           self.annotationScrollView.toolbarView.bounds.size.width,
                                                            toolbarViewHeight);
-        [self addSubview:self.annotationView.toolbarView];
+        [self addSubview:self.annotationScrollView.toolbarView];
     }
     else {
         [self removeAnnotationToolBar];
@@ -225,11 +224,11 @@
 }
 
 - (void)removeAnnotationToolBar {
-    [self.annotationView.toolbarView removeFromSuperview];
+    [self.annotationScrollView.toolbarView removeFromSuperview];
 }
 
 - (void)cleanCanvas {
-    [self.annotationView eraseAll];
+    [self.annotationScrollView.annotationView removeAllAnnotatables];
 }
 
 #pragma mark - other controls
@@ -288,44 +287,5 @@
 - (void)showReverseCameraButton; {
     self.publisherCameraButton.hidden = NO;
 }
-
-#pragma mark - private method
--(void)addAttachedLayoutConstantsToSuperview:(UIView *)view {
-    
-    if (!view.superview) {
-        return;
-    }
-    
-    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:view
-                                                           attribute:NSLayoutAttributeTop
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:view.superview
-                                                           attribute:NSLayoutAttributeTop
-                                                          multiplier:1.0
-                                                            constant:0.0];
-    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:view
-                                                               attribute:NSLayoutAttributeLeading
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:view.superview
-                                                               attribute:NSLayoutAttributeLeading
-                                                              multiplier:1.0
-                                                                constant:0.0];
-    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:view
-                                                                attribute:NSLayoutAttributeTrailing
-                                                                relatedBy:NSLayoutRelationEqual
-                                                                   toItem:view.superview
-                                                                attribute:NSLayoutAttributeTrailing
-                                                               multiplier:1.0
-                                                                 constant:0.0];
-    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:view
-                                                              attribute:NSLayoutAttributeBottom
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:view.superview
-                                                              attribute:NSLayoutAttributeBottom
-                                                             multiplier:1.0
-                                                               constant:0.0];
-    [NSLayoutConstraint activateConstraints:@[top, leading, trailing, bottom]];
-}
-
 
 @end

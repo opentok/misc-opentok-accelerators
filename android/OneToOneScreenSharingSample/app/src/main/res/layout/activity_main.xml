@@ -47,7 +47,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
                     android:src="@drawable/avatar" />
-
             </RelativeLayout>
 
         </RelativeLayout>
@@ -74,7 +73,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
                     android:src="@drawable/avatar" />
-
             </RelativeLayout>
         </RelativeLayout>
 
@@ -84,7 +82,8 @@
             android:layout_height="@dimen/action_bar_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:visibility="visible"></RelativeLayout>
+            android:visibility="visible">
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/camera_preview_fragment_container"
@@ -111,52 +110,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
-            android:layout_above="@+id/actionbar_preview_fragment_container">
+            android:layout_above="@+id/actionbar_preview_fragment_container"/>
 
-            <include layout="@layout/calendar_layout"
-                android:id="@+id/menu1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
-            </include>
-            <include layout="@layout/settings_layout"
-                android:id="@+id/menu4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
-            </include>
+        <com.tokbox.android.annotations.AnnotationsToolbar
+            android:id="@+id/annotations_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/actionbar_preview_fragment_container"
+            android:visibility="gone"/>
 
-            <RelativeLayout
-                android:id="@+id/menu2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:background="@drawable/base_hero_mount">
-
-                <ImageView
-                    android:id="@+id/graph1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ira_comparison"/>
-            </RelativeLayout>
-
-            <WebView
-                android:id="@+id/menu3"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </WebView>
-
-            <com.tokbox.android.annotations.AnnotationsToolbar
-                android:id="@+id/annotations_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:visibility="gone"/>
-
-        </FrameLayout>
+        <TextView
+            android:id="@+id/call_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textColor="@color/white"
+            android:text="Call Toolbar"
+            android:background="@color/black"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onCallToolbar"
+            android:visibility="gone">
+        </TextView>
 
     </RelativeLayout>
 

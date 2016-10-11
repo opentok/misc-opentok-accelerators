@@ -8,4 +8,5 @@
 #import <OTScreenShareKit/OTScreenShareKit.h>
 
 @interface MainViewController : UIViewController
+
 @end

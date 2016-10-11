@@ -6,10 +6,9 @@
   var _session;
   var _annotation;
   var _screensharing; // eslint-disable-line no-unused-vars
+  var _streams = {};
 
   var _commonOptions = {
-    subscribers: [],
-    streams: [],
     localCallProperties: {
       insertMode: 'append',
       width: '100%',
@@ -173,7 +172,7 @@
     };
     _annotation.start(_session, annotationOptions)
       .then(function () {
-        var mainContainer = document.getElementById('main');
+        var mainContainer = document.getElementById('otsWidget');
         mainContainer.classList.add('aspect-ratio');
         _annotation.linkCanvas(subscriber, canvasContainer, {
           absoluteParent: videoContainer
@@ -188,7 +187,7 @@
    */
   var endAnnotationView = function () {
     _annotation.end();
-    var mainContainer = document.getElementById('main');
+    var mainContainer = document.getElementById('otsWidget');
     mainContainer.classList.remove('aspect-ratio');
   };
 
@@ -203,6 +202,13 @@
     _annotation.linkCanvas(pubSub, annotationContainer, {
       externalWindow: externalWindow
     });
+
+    if (externalWindow) {
+      var subscriberStream = _.findWhere(_streams, { videoType: 'camera' });
+      if (!!subscriberStream) {
+        _annotation.addSubscriberToExternalWindow(subscriberStream);
+      }
+    }
   };
 
   var _registerSessionEvents = function () {
@@ -211,9 +217,11 @@
 
     _session.on({
       streamCreated: function (event) {
+        _streams[event.stream.id] = event.stream;
         triggerEvent('streamCreated', event);
       },
       streamDestroyed: function (event) {
+        delete _streams[event.stream.id];
         triggerEvent('streamDestroyed', event);
       }
     });
