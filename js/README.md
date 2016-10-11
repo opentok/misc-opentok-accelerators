@@ -98,15 +98,15 @@ The following `options` fields are used in the `TextChatAccPack` constructor:<br
 | Set the text chat container to automatically be displayed. | `alwaysOpen`  |
 
 
-If you install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat), you can instantiate the `TextChatAccPack` instance with this approach:
+If you're using a bundler like webpack or Browserify, you can install the the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat), and import into your application:
 
   ```javascript
-  const textChat = require('opentok-text-chat');
-  const textChatAccPack = new textChat(options);
+  const TextChatAccPack = require('opentok-text-chat');
+  const textChat = new TextChatAccPack(options);
   ```
 
 
-Otherwise, this initialization code demonstrates how the `TextChatAccPack` object is initialized:
+Otherwise, the package will need to be in `global` scope to be initialized initialization code demonstrates how the `TextChatAccPack` object is initialized:
 
   ```javascript
       var _options = {
