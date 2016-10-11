@@ -23,5 +23,5 @@ Pod::Spec.new do |s|
     'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatUICustomizator/OTTextChatUICustomizator.h',
     'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatView.h', 
     'ios/TextChatAccPackKit/OTTextChatKit/OTTextMessage/OTTextMessage.h'
-  s.dependency 'OTAcceleratorPackUtil', '~> 1.1.10'
+  s.dependency 'OTAcceleratorPackUtil'
 end
