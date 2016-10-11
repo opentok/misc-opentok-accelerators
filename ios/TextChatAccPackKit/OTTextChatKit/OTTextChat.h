@@ -77,17 +77,6 @@ typedef void (^OTTextChatViewEventBlock)(OTTextChatViewEventSignal signal, OTTex
 @interface OTTextChat : NSObject
 
 /**
- *  Add the configuration detail to your app.
- *
- *  @param apiKey       Your OpenTok API key.
- *  @param sessionId    The session ID of this instance.
- *  @param token        The token generated for this connection.
- */
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token;
-
-/**
  *  The object that acts as the delegate of the text chat view.
  *
  *  The delegate must adopt the TextChatViewDelegate protocol. The delegate is not retained.
@@ -97,7 +86,7 @@ typedef void (^OTTextChatViewEventBlock)(OTTextChatViewEventSignal signal, OTTex
 /**
  *  @return Returns an initialized text chat view object.
  */
-+ (instancetype)textChat;
+- (instancetype)init;
 
 /**
  *  Establishes a text chat connection.

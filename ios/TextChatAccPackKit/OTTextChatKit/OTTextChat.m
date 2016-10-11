@@ -30,35 +30,25 @@ static NSString* const kTextChatType = @"text-chat";
 @property (nonatomic) NSString *connectionId;
 @property (nonatomic) NSString *receiverAlias;
 
+@property (nonatomic) OTKLogger *logger;
+
 @end
 
 @implementation OTTextChat
 
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token {
-    
-    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
-}
-
-+ (instancetype)textChat {
-    return [[OTTextChat alloc] init];
-}
-
 - (instancetype)init {
-    if (![OTTestingInfo isTesting]) {
-        [OTKLogger analyticsWithClientVersion:KLogClientVersion
-                                       source:[[NSBundle mainBundle] bundleIdentifier]
-                                  componentId:kLogComponentIdentifier
-                                         guid:[[NSUUID UUID] UUIDString]];
-    }
-    
-    if (![OTTestingInfo isTesting]) {
-        [OTKLogger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
-    }
     
     if (self = [super init]) {
-        _session = [OTAcceleratorSession getAcceleratorPackSession];
+        self.session = [OTAcceleratorSession getAcceleratorPackSession];
+        
+        if (![OTTestingInfo isTesting]) {
+            _logger = [[OTKLogger alloc] initWithClientVersion:KLogClientVersion
+                                                        source:[[NSBundle mainBundle] bundleIdentifier]
+                                                   componentId:kLogComponentIdentifier
+                                                          guid:[[NSUUID UUID] UUIDString]];
+            
+            [_logger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
+        }
     }
     return self;
 }
@@ -70,18 +60,18 @@ static NSString* const kTextChatType = @"text-chat";
 - (void)connect {
     
     if (![OTTestingInfo isTesting]) {
-        [OTKLogger logEventAction:KLogActionStart
-                        variation:KLogVariationAttempt
-                       completion:nil];
+        [_logger logEventAction:KLogActionStart
+                      variation:KLogVariationAttempt
+                     completion:nil];
     }
     
     NSError *connectionError = [OTAcceleratorSession registerWithAccePack:self];
     if(connectionError){
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionStart
-                            variation:KLogVariationFailure
-                           completion:nil];
+            [_logger logEventAction:KLogActionStart
+                          variation:KLogVariationFailure
+                         completion:nil];
         }
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(didConnectWithError:)]) {
@@ -95,9 +85,9 @@ static NSString* const kTextChatType = @"text-chat";
     else {
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionStart
-                            variation:KLogVariationSuccess
-                           completion:nil];
+            [_logger logEventAction:KLogActionStart
+                          variation:KLogVariationSuccess
+                         completion:nil];
         }
     }
 }
@@ -110,18 +100,18 @@ static NSString* const kTextChatType = @"text-chat";
 - (void)disconnect {
     
     if (![OTTestingInfo isTesting]) {
-        [OTKLogger logEventAction:KLogActionEnd
-                        variation:KLogVariationAttempt
-                       completion:nil];
+        [_logger logEventAction:KLogActionEnd
+                      variation:KLogVariationAttempt
+                     completion:nil];
     }
     
     NSError *disconnectionError = [OTAcceleratorSession deregisterWithAccePack:self];
     if(disconnectionError){
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionEnd
-                            variation:KLogVariationFailure
-                           completion:nil];
+            [_logger logEventAction:KLogActionEnd
+                          variation:KLogVariationFailure
+                         completion:nil];
         }
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(didDisConnectWithError:)]) {
@@ -135,9 +125,9 @@ static NSString* const kTextChatType = @"text-chat";
     else {
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionEnd
-                            variation:KLogVariationSuccess
-                           completion:nil];
+            [_logger logEventAction:KLogActionEnd
+                          variation:KLogVariationSuccess
+                         completion:nil];
         }
     }
 }
@@ -146,7 +136,9 @@ static NSString* const kTextChatType = @"text-chat";
     NSError *error;
     
     if (![OTTestingInfo isTesting]) {
-        [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationAttempt completion:nil];
+        [_logger logEventAction:KLogActionSendMessage
+                      variation:KLogVariationAttempt
+                     completion:nil];
     }
     
     if (!message || !message.length) {
@@ -158,7 +150,9 @@ static NSString* const kTextChatType = @"text-chat";
         }
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
+            [_logger logEventAction:KLogActionSendMessage
+                          variation:KLogVariationFailure
+                         completion:nil];
         }
         return;
     }
@@ -177,7 +171,9 @@ static NSString* const kTextChatType = @"text-chat";
             }
             
             if (![OTTestingInfo isTesting]) {
-                [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
+                [_logger logEventAction:KLogActionSendMessage
+                              variation:KLogVariationFailure
+                             completion:nil];
             }
             return;
         }
@@ -190,7 +186,9 @@ static NSString* const kTextChatType = @"text-chat";
         if (error) {
             
             if (![OTTestingInfo isTesting]) {
-                [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
+                [_logger logEventAction:KLogActionSendMessage
+                              variation:KLogVariationFailure
+                             completion:nil];
             }
             if (self.delegate) {
                 [self.delegate didSendTextMessage:nil error:error];
@@ -199,7 +197,9 @@ static NSString* const kTextChatType = @"text-chat";
         }
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationSuccess completion:nil];
+            [_logger logEventAction:KLogActionSendMessage
+                          variation:KLogVariationSuccess
+                         completion:nil];
         }
         
         if (self.delegate) {
@@ -216,7 +216,9 @@ static NSString* const kTextChatType = @"text-chat";
                                 userInfo:@{NSLocalizedDescriptionKey:@"OTSession did not connect"}];
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionSendMessage variation:KLogVariationFailure completion:nil];
+            [_logger logEventAction:KLogActionSendMessage
+                          variation:KLogVariationFailure
+                         completion:nil];
         }
         
         if (self.delegate) {
@@ -235,7 +237,9 @@ static NSString* const kTextChatType = @"text-chat";
     NSLog(@"TextChatComponent sessionDidConnect");
     
     if (![OTTestingInfo isTesting]) {
-        [OTKLogger setSessionId:session.sessionId connectionId:session.connection.connectionId partnerId:@([self.session.apiKey integerValue])];
+        [_logger setSessionId:session.sessionId
+                 connectionId:session.connection.connectionId
+                    partnerId:@([self.session.apiKey integerValue])];
     }
     
     self.connectionId = session.connection.connectionId;
@@ -290,7 +294,9 @@ receivedSignalType:(NSString*)type
     if (![connection.connectionId isEqualToString:self.session.connection.connectionId]) {
         
         if (![OTTestingInfo isTesting]) {
-            [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationAttempt completion:nil];
+            [_logger logEventAction:KLogActionReceiveMessage
+                          variation:KLogVariationAttempt
+                         completion:nil];
         }
         
         OTTextMessage *textMessage = [[OTTextMessage alloc] initWithJSONString:string];
@@ -310,12 +316,16 @@ receivedSignalType:(NSString*)type
             }
             
             if (![OTTestingInfo isTesting]) {
-                [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationSuccess completion:nil];
+                [_logger logEventAction:KLogActionReceiveMessage
+                              variation:KLogVariationSuccess
+                             completion:nil];
             }
         }
         else {
             if (![OTTestingInfo isTesting]) {
-                [OTKLogger logEventAction:KLogActionReceiveMessage variation:KLogVariationFailure completion:nil];
+                [_logger logEventAction:KLogActionReceiveMessage
+                              variation:KLogVariationFailure
+                             completion:nil];
             }
         }
     }

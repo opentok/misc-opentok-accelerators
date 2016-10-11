@@ -32,7 +32,7 @@
     
     senderIdentifiers = [[NSMutableSet alloc] init];
     
-    self.textChat = [OTTextChat textChat];
+    self.textChat = [[OTTextChat alloc] init];
     self.textChat.alias = @"BD Demo";
     self.textMessages = [[NSMutableArray alloc] init];
     

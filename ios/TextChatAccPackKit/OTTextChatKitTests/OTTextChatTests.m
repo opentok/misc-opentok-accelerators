@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
+#import <OTAcceleratorPackUtil/OTAcceleratorSession.h>
 #import <OTTextChatKit/OTTextChatKit.h>
 #import "OTTextMessage_Private.h"
 
@@ -9,9 +10,9 @@ SPEC_BEGIN(OTTextChatTest)
 __block OTTextMessage *tc;
 
 beforeAll(^(){
-    [OTTextChatViewController setOpenTokApiKey:@"testTextChat"
-                           sessionId:@"testTextChat"
-                               token:@"testTextChat"];
+    [OTAcceleratorSession setOpenTokApiKey:@"testTextChat"
+                                 sessionId:@"testTextChat"
+                                     token:@"testTextChat"];
     
     tc = [[OTTextMessage alloc] init];
 });

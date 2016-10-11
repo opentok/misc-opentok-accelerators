@@ -21,7 +21,7 @@
     
     maximumTextMessageLength = 120;
     
-    self.textChat = [OTTextChat textChat];
+    self.textChat = [[OTTextChat alloc] init];
     self.textChat.alias = @"Tokboxer";
     self.textMessages = [[NSMutableArray alloc] init];
     

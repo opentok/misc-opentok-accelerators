@@ -34,14 +34,6 @@
 
 @implementation OTTextChatViewController
 + (instancetype)textChatViewController {
-
-    if (![OTTestingInfo isTesting]) {
-        [OTKLogger analyticsWithClientVersion:KLogClientVersion
-                                       source:[[NSBundle mainBundle] bundleIdentifier]
-                                  componentId:kLogComponentIdentifier
-                                         guid:[[NSUUID UUID] UUIDString]];
-    }
-
     NSBundle *textChatViewBundle = [OTTextChatKitBundle textChatKitBundle];
     return [[OTTextChatViewController alloc] initWithNibName:NSStringFromClass([OTTextChatViewController class]) bundle:textChatViewBundle];
 }

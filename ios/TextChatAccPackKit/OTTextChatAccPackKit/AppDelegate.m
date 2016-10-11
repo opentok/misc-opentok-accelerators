@@ -5,7 +5,7 @@
 //
 
 #import "AppDelegate.h"
-#import <OTTextChatKit/OTTextChatKit.h>
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 @interface AppDelegate ()
 
@@ -16,9 +16,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [OTTextChat setOpenTokApiKey:<#apikey#>
-                       sessionId:<#sessionid#>
-                           token:<#token#>];
+    
+#warning replace your opentok credentials here
+    [OTAcceleratorSession setOpenTokApiKey:@"100"
+                                 sessionId:@"2_MX4xMDB-fjE0NzYxMzM3NTkzODR-SmV0d1QyS01XOWNmTFY3bzFTNmVFb3Bmfn4"
+                                     token:@"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9NGVkMTcxMmJkZTcyMDBkZTcyYjU0NzNmMzEzMTM3ZmJiODAwMGRhZjpzZXNzaW9uX2lkPTJfTVg0eE1EQi1makUwTnpZeE16TTNOVGt6T0RSLVNtVjBkMVF5UzAxWE9XTm1URlkzYnpGVE5tVkZiM0JtZm40JmNyZWF0ZV90aW1lPTE0NzYxMzM1MzAmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ3NjEzMzUzMC4xMTY4MTE0MjU4NDA0JmV4cGlyZV90aW1lPTE0Nzg3MjU1MzA="];
     return YES;
 }
 
