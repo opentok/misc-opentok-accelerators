@@ -12,18 +12,26 @@ typedef NS_ENUM(NSUInteger, OTScreenShareSignal) {
     OTScreenShareSignalSessionDidFail,
     OTScreenShareSignalSessionStreamCreated,
     OTScreenShareSignalSessionStreamDestroyed,
+    OTScreenShareSignalSessionDidBeginReconnecting,
+    OTScreenShareSignalSessionDidReconnect,
     OTScreenShareSignalPublisherDidFail,
-    OTScreenShareSignalSubscriberConnect,
+    OTScreenShareSignalPublisherStreamCreated,
+    OTScreenShareSignalPublisherStreamDestroyed,
+    OTScreenShareSignalSubscriberDidConnect,
     OTScreenShareSignalSubscriberDidFail,
-    OTScreenShareSignalSubscriberVideoDisabled,
-    OTScreenShareSignalSubscriberVideoEnabled,
+    OTScreenShareSignalSubscriberVideoDisabledByPublisher,
+    OTScreenShareSignalSubscriberVideoDisabledBySubscriber,
+    OTScreenShareSignalSubscriberVideoDisabledByBadQuality,
+    OTScreenShareSignalSubscriberVideoEnabledByPublisher,
+    OTScreenShareSignalSubscriberVideoEnabledBySubscriber,
+    OTScreenShareSignalSubscriberVideoEnabledByGoodQuality,
     OTScreenShareSignalSubscriberVideoDisableWarning,
     OTScreenShareSignalSubscriberVideoDisableWarningLifted,
 };
 
 typedef NS_ENUM(NSInteger, OTScreenShareVideoViewContentMode) {
-    OTScreenShareVideoViewFit,
-    OTScreenShareVideoViewFill
+    OTScreenShareVideoViewFill,
+    OTScreenShareVideoViewFit
 };
 
 typedef void (^OTScreenShareBlock)(OTScreenShareSignal signal, NSError *error);
@@ -46,25 +54,19 @@ typedef void (^OTScreenShareBlock)(OTScreenShareSignal signal, NSError *error);
 + (instancetype)sharedInstance;
 
 /**
- *  Add the configuration detail to your app.
- *
- *  @param apiKey   Your OpenTok API key.
- *  @param sessionId    The session ID of this instance.
- *  @param token    The token generated for this connection.
- */
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token;
-
-/**
- *  Start sharing with a specified UIView.
+ *  Registers to the shared session: [OTAcceleratorSession] and perform publishing/subscribing automatically with a given UIView.
  *
  *  @param view The UIView to be shared
+ *
+ *  @return An error to indicate whether it connects successfully, non-nil if it fails.
+ *
+ *  @discussion Given an instance of UIView, it will publish a stream to OpenTok cloud as the video source. 
+ *  If nil, the screen sharer is able to subscribe a audio/video stream automatically.
  */
 - (NSError *)connectWithView:(UIView *)view;
 
 /**
- *  Start sharing with a specified UIView, notifying change by the handler block.
+ *  An alternative connect method with a completion block handler.
  *
  *  @param view    The UIView to be shared.
  *  @param handler The completion handler to call with the change.
@@ -73,7 +75,9 @@ typedef void (^OTScreenShareBlock)(OTScreenShareSignal signal, NSError *error);
                 handler:(OTScreenShareBlock)handler;
 
 /**
- *  Stop sharing.
+ *  De-registers to the shared session: [OTAcceleratorSession] and stops publishing/subscriber.
+ *
+ *  @return An error to indicate whether it disconnects successfully, non-nil if it fails.
  */
 - (NSError *)disconnect;
 
@@ -85,20 +89,59 @@ typedef void (^OTScreenShareBlock)(OTScreenShareSignal signal, NSError *error);
 /**
  *  The object that acts as the delegate of the screen sharer.
  *
- *  The delegate must adopt the ScreenShareDelegate protocol. The delegate is not retained.
+ *  The delegate must adopt the OTScreenShareDelegate protocol. The delegate is not retained.
  */
 @property (weak, nonatomic) id<OTScreenShareDelegate> delegate;
 
-// SUBSCRIBER
+#pragma mark - subscriber
+/**
+ *  The scaling of the rendered video, as defined by the <OTScreenShareVideoViewContentMode> enum.
+ *  The default value is OTVideoViewScaleBehaviorFill. 
+ *  Set it to OTVideoViewScaleBehaviorFit to have the video shrink, as needed, so that the entire video is visible(with pillarboxing).
+ */
 @property (nonatomic) OTScreenShareVideoViewContentMode subscriberVideoContentMode;
+
+/**
+ *  The current dimensions of the video media track on the subscriber's stream.
+ *  This property can change if a stream published from an iOS device resizes, based on a change in the device orientation, or a change in video resolution occurs.
+ */
 @property (readonly, nonatomic) CGSize subscriberVideoDimension;
+
+/**
+ *  The view containing a playback buffer for associated video data. Add this view to your view heirarchy to display a video stream.
+ *
+ *  The subscriber view is available after OTScreenShareSignalSubscriberDidConnect being signaled.
+ */
 @property (readonly, nonatomic) UIView *subscriberView;
+
+/**
+ *  A boolean value to indicate whether the screen sharer has available audio from subscription.
+ *  This property will take the stream's hasAudio into account internally.
+ */
 @property (nonatomic, getter=isSubscribeToAudio) BOOL subscribeToAudio;
+
+/**
+ *  A boolean value to indicate whether the screen sharer has available video from subscription.
+ *  This property will take the stream's hasVideo into account internally.
+ */
 @property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
 
-// PUBLISHER
+#pragma mark - publisher
+/**
+ *  The view for this publisher. If this view becomes visible, it will display a preview of the active screen share feed.
+ *
+ *  The publisher view is available after OTScreenShareSignalSessionDidConnect being signaled.
+ */
 @property (readonly, nonatomic) UIView *publisherView;
+
+/**
+ *  A boolean value to indicate whether to publish audio.
+ */
 @property (nonatomic, getter=isPublishAudio) BOOL publishAudio;
+
+/**
+ *  A boolean value to indicate whether to publish video.
+ */
 @property (nonatomic, getter=isPublishVideo) BOOL publishVideo;
 
 @end

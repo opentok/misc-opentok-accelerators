@@ -61,7 +61,7 @@
     '<span>Screen Share<br/>Extension Installation</span>',
     '</div>',
     '<p>You need a Firefox extension to share your screen. Install Screensharing Extension. Once you have installed, refresh your browser and click the share screen button again.</p>',
-    '<a href="#" id="btn-install-plugin-ff" class="ots-btn-install" href="">Install extension</a>',
+    '<a href="#" id="btn-install-plugin-ff" class="ots-btn-install">Install extension</a>',
     '<a href="#" id="btn-cancel-plugin-ff" class="ots-cancel-btn-install"></a>',
     '</div>',
     '</div>'
@@ -123,9 +123,20 @@
     _otkanalytics.logEvent(data);
   };
 
+  var _defaultScreenProperties = {
+    insertMode: 'append',
+    width: '100%',
+    height: '100%',
+    showControls: false,
+    style: {
+      buttonDisplayMode: 'off',
+    },
+    videoSource: 'window',
+  };
+
   var _setupUI = function (parent) {
     $('body').append(_screenDialogsExtensions);
-    $(_this._screenSharingControls).append(_screenSharingControl);
+    $(_this.controlsContainer).append(_screenSharingControl);
     $(parent).append(_screenSharingView);
   };
 
@@ -152,13 +163,17 @@
 
       var innerDeferred = $.Deferred();
 
-      var container = publisherDiv || $('#videoHolderScreenShare');
+      var container = publisherDiv || _this.screenSharingContainer;
+      var properties =
+        _this.localScreenProperties ||
+        _this.localScreenProperties ||
+        _defaultScreenProperties;
 
-      _this.publisher = OT.initPublisher(container, _this.localScreenProperties, function (error) {
+      _this.publisher = OT.initPublisher(container, properties, function (error) {
         if (error) {
           _triggerEvent('screenSharingError', error);
           innerDeferred.reject(_.extend(_.omit(error, 'messsage'), {
-            message: 'Error starting the screen sharing'
+            message: 'Error starting the screen sharing',
           }));
         } else {
           innerDeferred.resolve();
@@ -170,7 +185,7 @@
 
     var outerDeferred = $.Deferred();
 
-    if (!!_this.annotation) {
+    if (_this.annotation && _this.externalWindow) {
       _log(_logEventData.enableAnnotations, _logEventData.variationSuccess);
 
       _accPack.setupExternalAnnotation()
@@ -225,12 +240,12 @@
           _log(_logEventData.actionStart, _logEventData.variationError);
         }
       } else {
-        if (_this.annotation) {
+        if (_this.annotation && _this.externalWindow) {
           _accPack.linkAnnotation(_this.publisher, annotationContainer, _this.annotationWindow);
           _log(_logEventData.actionInitialize, _logEventData.variationSuccess);
         }
         _active = true;
-        _triggerEvent('startScreenSharing');
+        _triggerEvent('startScreenSharing', _this.publisher);
         _log(_logEventData.actionStart, _logEventData.variationSuccess);
       }
     });
@@ -250,16 +265,18 @@
 
     var deferred = $.Deferred();
 
-    if (window.location.protocol === 'http:' && !_this.dev ) {
+    if (window.location.protocol === 'http:' && !_this.dev) {
       alert("Screensharing only works under 'https', please add 'https://' in front of your debugger url.");
       deferred.reject('https required');
     }
 
     OT.checkScreenSharingCapability(function (response) {
-      console.log('checkScreenSharingCapability', response);
       if (!response.supported || !response.extensionRegistered) {
         if (OT.$.browser() === 'Firefox' && response.extensionInstalled) {
           deferred.resolve();
+        } else if (OT.$.browser() === 'Firefox' && !response.extensionInstalled) {
+          $('#dialog-form-ff').toggle();
+          deferred.reject('screensharing extension not installed');
         } else {
           alert('This browser does not support screen sharing! Please use Chrome, Firefox or IE!');
           deferred.reject('browser support not available');
@@ -293,7 +310,7 @@
     if (callEnded) {
       _toggleScreenSharingButton(false);
     }
-    _triggerEvent('endScreenSharing');
+    _triggerEvent('endScreenSharing', _this.publisher);
     _log(_logEventData.actionEnd, _logEventData.variationSuccess);
   };
 
@@ -364,7 +381,7 @@
 
   };
 
-  var _validateExtension = function (extensionID, extensionPathFF) {
+  var _validateExtension = function (extensionID) {
 
     if (OT.$.browser() === 'Chrome') {
       if (!extensionID || !extensionID.length) {
@@ -413,18 +430,26 @@
     // Extend our instance
     var optionsProps = [
       'annotation',
+      'externalWindow',
       'extensionURL',
       'extensionID',
       'extensionPathFF',
-      'screensharingParent',
+      'screenSharingContainer',
+      'screenSharingParent',
+      'controlsContainer',
+      'screenProperties',
       'localScreenProperties',
-      'dev'
+      'dev',
     ];
 
-    _.extend(_this, _.defaults(_.pick(options, optionsProps)), {
+
+    _.extend(_this, _.defaults(_.pick(options, optionsProps), {
       screenSharingParent: '#videoContainer',
-      _screenSharingControls: '#feedControls'
-    });
+      screenSharingContainer: document.getElementById('videoHolderSharedScreen'),
+      controlsContainer: '#feedControls',
+    }));
+
+
 
     // Do UIy things
     _setupUI(_this.screensharingParent);

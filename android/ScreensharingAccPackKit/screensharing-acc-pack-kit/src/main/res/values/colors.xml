@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="screensharing_bar">#7ED321</color>
+    <color name="gradientStart">#5B5B5B</color>
+    <color name="gradientEnd">#393939</color>
+    <color name="Orange">#FF8C00</color>
+    <color name="Purple">#4B0082</color>
+    <color name="Brown">#800000</color>
+    <color name="TransparentBlack">#CC000000</color>
+    <color name="annotations_toolbar_bckg">#666666</color>
+</resources>

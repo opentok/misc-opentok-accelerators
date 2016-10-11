@@ -31,7 +31,7 @@
                                      self.screenSharer.publishAudio = NO;
                                      self.screenSharer.subscribeToAudio = NO;
                                  }
-                                 else if (signal == OTScreenShareSignalSubscriberConnect) {
+                                 else if (signal == OTScreenShareSignalSubscriberDidConnect) {
                                      
                                      [self.screenSharer.subscriberView removeFromSuperview];
                                      self.screenSharer.subscriberView.frame = self.view.bounds;

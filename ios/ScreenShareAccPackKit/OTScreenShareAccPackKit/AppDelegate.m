@@ -5,7 +5,7 @@
 //
 
 #import "AppDelegate.h"
-#import <OTScreenShareKit/OTScreenShareKit.h>
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 @interface AppDelegate ()
 
@@ -15,9 +15,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [OTScreenSharer setOpenTokApiKey:@"replace"
-                           sessionId:@"replace"
-                               token:@"replace"];
+    [OTAcceleratorSession setOpenTokApiKey:@"replace"
+                                 sessionId:@"replace"
+                                     token:@"replace"];
     return YES;
 }
 

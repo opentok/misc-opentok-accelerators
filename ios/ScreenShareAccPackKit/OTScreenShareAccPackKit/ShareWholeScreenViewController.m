@@ -28,12 +28,12 @@
     UIBarButtonItem *previewBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Navigate" style:UIBarButtonItemStylePlain target:self action:@selector(navigateToOtherViews)];
     self.navigationItem.rightBarButtonItem = previewBarButtonItem;
 
-    // UNCOMMENT this will start the screen share and you can view it from another subscriber
     self.screenSharer = [OTScreenSharer sharedInstance];
-    [self.screenSharer connectWithView:[UIApplication sharedApplication].keyWindow.rootViewController.view handler:^(OTScreenShareSignal signal, NSError *error) {
+    [self.screenSharer connectWithView:[UIApplication sharedApplication].keyWindow.rootViewController.view
+                               handler:^(OTScreenShareSignal signal, NSError *error) {
         
-        NSLog(@"%@", error);
-    }];
+                                   NSLog(@"%@", error);
+                               }];
 }
 
 - (void)navigateToOtherViews {
