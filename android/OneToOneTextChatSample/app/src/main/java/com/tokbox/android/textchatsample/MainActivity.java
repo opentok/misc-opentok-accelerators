@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                     mAudioOnlyImage = new ImageView(this);
                     mAudioOnlyImage.setImageResource(R.drawable.avatar);
                     mAudioOnlyImage.setBackgroundResource(R.drawable.bckg_audio_only);
-                    mPreviewViewContainer.addView(mAudioOnlyImage);
+                    mPreviewViewContainer.addView(mAudioOnlyImage, layoutParamsPreview);
                 } else {
                     mPreviewViewContainer.removeView(mAudioOnlyImage);
                 }
