@@ -106,7 +106,7 @@ If you're using a bundler like webpack or Browserify, you can install the the te
   ```
 
 
-Otherwise, the package will need to be in `global` scope to be initialized initialization code demonstrates how the `TextChatAccPack` object is initialized:
+Otherwise, the package will need to be in `global` scope to be initialized:
 
   ```javascript
       var _options = {
