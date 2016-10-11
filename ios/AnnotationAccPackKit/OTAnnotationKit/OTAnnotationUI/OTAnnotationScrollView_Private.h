@@ -8,8 +8,6 @@
 
 @interface OTAnnotationScrollView ()
 
-@property (nonatomic) UIScrollView *scrollView;
 
-@property (nonatomic) UIView *scrollContentView;
 
 @end

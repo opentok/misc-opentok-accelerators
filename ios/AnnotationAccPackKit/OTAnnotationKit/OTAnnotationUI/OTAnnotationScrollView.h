@@ -19,42 +19,43 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter = isAnnotatable) BOOL annotatable;
 
 /**
- *  A boolean value to indicate whether the annotation scroll view is zoomable.
- */
-@property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
-
-/**
  *  The associated annotation view.
  */
 @property (readonly, nonatomic) OTAnnotationView *annotationView;
 
 /**
- *  Initializes an annotataion scroll view with the specified frame rectangle.
+ *  The associated scroll view that enables annotating on scrollable content.
  *
- *  @param frame The frame rectangle for the view, measured in points.
+ *  @discussion Specifying the contentSize of this scroll view will install width/height constraints internally to make annotationView large enough to annotate. It's the same  size with the annotationView otherwise.
+ */
+@property (readonly, nonatomic) UIScrollView *scrollView;
+
+/**
+ *  Initialize an annotataion scroll view.
  *
  *  @return A new OTAnnotationScrollView object.
  */
-- (instancetype)initWithFrame:(CGRect)frame;
+- (instancetype)init;
 
 /**
- *  Add the annotatable content with a given view. 
- *  Scrolling will be enabled automatically if the bounds rectangle of the given view is larger than the bounds rectangle of the annotation scroll view.
+ *  Add the annotatable content with a given view.
  *
  *  @param view The content view.
+ *
+ *  @discussion Scrolling will not be enabled until you specify the contentSize of the associated scroll view.
  */
 - (void)addContentView:(UIView *)view;
 
 #pragma mark - Tool bar
 /**
- *  A tool bar view that has all essential operations to annotate. 
- *  This is optional, all operations can be performed programmatically.
- *  This will be nil until initializeToolbarView gets called.
+ *  A pre-defined toolbar UI that has all essential operations to annotate.
+ *  
+ *  @discussion This is optional, all operations can be performed programmatically. This will be nil until initializeToolbarView gets called.
  */
 @property (nullable, readonly, nonatomic) OTAnnotationToolbarView *toolbarView;
 
 /**
- *  Initializes the associated tool bar view.
+ *  Initialize the associated toolbar view.
  */
 - (void)initializeToolbarView;
 

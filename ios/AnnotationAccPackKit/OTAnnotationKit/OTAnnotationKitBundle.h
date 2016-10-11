@@ -8,6 +8,9 @@
 
 @interface OTAnnotationKitBundle : NSObject
 
+/**
+ *  @return The bundle for assets in OTAnnotationKit.
+ */
 + (NSBundle *)annotationKitBundle;
 
 @end

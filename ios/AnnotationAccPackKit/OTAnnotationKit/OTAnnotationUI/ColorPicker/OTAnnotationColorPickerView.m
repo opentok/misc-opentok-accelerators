@@ -6,7 +6,7 @@
 
 #import "OTAnnotationColorPickerView.h"
 #import "UIButton+AutoLayoutHelper.h"
-
+#import "UIView+Helper.h"
 #import "Constants.h"
 
 #pragma mark - ScreenShareColorPickerViewButton
@@ -61,6 +61,17 @@
 
 @implementation OTAnnotationColorPickerView
 
+- (void)setAnnotationColorPickerViewOrientation:(OTAnnotationColorPickerViewOrientation)annotationColorPickerViewOrientation {
+    _annotationColorPickerViewOrientation = annotationColorPickerViewOrientation;
+    if (annotationColorPickerViewOrientation == OTAnnotationColorPickerViewOrientationPortrait) {
+        self.colorToolbar.orientation = LHToolbarOrientationHorizontal;
+    }
+    else if (annotationColorPickerViewOrientation == OTAnnotationColorPickerViewOrientationLandscape) {
+        self.colorToolbar.orientation = LHToolbarOrientationVertical;
+    }
+    [self.colorToolbar reloadToolbar];
+}
+
 - (UIColor *)selectedColor {
     if (!self.selectedButton) return nil;
     return self.selectedButton.backgroundColor;
@@ -83,8 +94,9 @@
         
         
         _colorToolbar = [[LHToolbar alloc] initWithNumberOfItems:self.colorDict.count];
-        _colorToolbar.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
+        _colorToolbar.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_colorToolbar];
+        [_colorToolbar addAttachedLayoutConstantsToSuperview];
         self.backgroundColor = [UIColor colorWithRed:38.0 / 255.0 green:38.0 / 255.0 blue:38.0 / 255.0 alpha:1.0];
         [self configureColorPickerButtons];
     }

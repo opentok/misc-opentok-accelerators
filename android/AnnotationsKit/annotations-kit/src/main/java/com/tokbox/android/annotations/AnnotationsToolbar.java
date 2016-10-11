@@ -2,20 +2,19 @@ package com.tokbox.android.annotations;
 
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-
+/**
+ * Defines the layout for the annotations toolbar
+ */
 public class AnnotationsToolbar extends LinearLayout {
 
     private View rootView;
@@ -24,10 +23,10 @@ public class AnnotationsToolbar extends LinearLayout {
     private ImageButton mTypeBtn;
     private ImageButton mScreenshotBtn;
     private ImageButton mPickerColorBtn;
-    private TextView mDoneBtn;
+    private ImageButton mDoneBtn;
 
     private Context mContext;
-    private LinearLayout mMainToolbar;
+    private RelativeLayout mMainToolbar;
     private LinearLayout mColorToolbar;
     private HorizontalScrollView mColorScrollView;
 
@@ -36,7 +35,7 @@ public class AnnotationsToolbar extends LinearLayout {
     /**
      * Monitors state changes in the AnnotationsToolbar.
      *
-     **/
+     */
     public  interface ActionsListener {
 
         /**
@@ -51,20 +50,35 @@ public class AnnotationsToolbar extends LinearLayout {
     }
 
     /**
-     * Set AnnotationsToolbar listener
-     * @param listener: ActionsListener
-     **/
-    public void setActionListener(ActionsListener listener) {
-        this.mActionsListener = listener;
-    }
+     * Constructor
+     * @param context Application context
+     */
+    public AnnotationsToolbar(Context context) throws Exception {
+        super(context);
 
+        if ( context == null ){
+            throw new Exception("Context cannot be null");
+        }
+        mContext = context;
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+
+        init();
+    }
 
     /**
      * Constructor
      * @param context Application context
-     **/
-    public AnnotationsToolbar(Context context) {
-        super(context);
+     * @param attrs A collection of attributes
+     */
+    public AnnotationsToolbar(Context context, AttributeSet attrs) throws Exception {
+        super(context, attrs);
+
+        if ( context == null ){
+            throw new Exception("Context cannot be null");
+        }
+
         mContext = context;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -73,24 +87,17 @@ public class AnnotationsToolbar extends LinearLayout {
         init();
     }
 
-    /*
-     * Constructor
-     * @param context Application context
-     * @param attrs A collection of attributes
-     **/
-    public AnnotationsToolbar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mContext = context;
-
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-
-        init();
+    /**
+     * Sets AnnotationsToolbar listener
+     * @param listener: ActionsListener
+     */
+    public void setActionListener(ActionsListener listener) {
+        this.mActionsListener = listener;
     }
 
     private void init() {
         rootView = inflate(mContext, R.layout.annotations_toolbar, this);
-        mMainToolbar = (LinearLayout) rootView.findViewById(R.id.main_toolbar);
+        mMainToolbar = (RelativeLayout) rootView.findViewById(R.id.main_toolbar);
 
         mColorToolbar = (LinearLayout) rootView.findViewById(R.id.color_toolbar);
         mColorScrollView = (HorizontalScrollView) rootView.findViewById(R.id.color_view);
@@ -99,7 +106,7 @@ public class AnnotationsToolbar extends LinearLayout {
         mTypeBtn = (ImageButton) mMainToolbar.findViewById(R.id.type_tool);
         mScreenshotBtn = (ImageButton) mMainToolbar.findViewById(R.id.screenshot);
         mEraseBtn = (ImageButton) mMainToolbar.findViewById(R.id.erase);
-        mDoneBtn = (TextView) mMainToolbar.findViewById(R.id.done);
+        mDoneBtn = (ImageButton) mMainToolbar.findViewById(R.id.done);
 
         final int mCount = mColorToolbar.getChildCount();
 
@@ -121,22 +128,6 @@ public class AnnotationsToolbar extends LinearLayout {
         mDoneBtn.setOnClickListener(mActionsClickListener);
 
         mDoneBtn.setSelected(false);
-    }
-
-    /*
-     * Restart toolbar actions
-     **/
-    public void restart(){
-        int mCount = mMainToolbar.getChildCount();
-        for (int i = 0; i < mCount; ++i) {
-            mMainToolbar.getChildAt(i).setSelected(false);
-        }
-
-        mCount = mColorToolbar.getChildCount();
-        for (int i = 0; i < mCount; ++i) {
-            mColorToolbar.getChildAt(i).setSelected(false);
-        }
-
     }
 
 
@@ -208,6 +199,10 @@ public class AnnotationsToolbar extends LinearLayout {
                     } else {
                         v.setSelected(true);
                     }
+                    mDoneBtn.setVisibility(VISIBLE);
+                }
+                else {
+                    restart();
                 }
                 mActionsListener.onItemSelected(v, v.isSelected());
             }
@@ -233,5 +228,28 @@ public class AnnotationsToolbar extends LinearLayout {
             }
         }
     }
+
+    /**
+     * Restarts the toolbar actions
+     */
+    public void restart(){
+        int mCount = mMainToolbar.getChildCount();
+        for (int i = 0; i < mCount; ++i) {
+            mMainToolbar.getChildAt(i).setSelected(false);
+        }
+
+        mCount = mColorToolbar.getChildCount();
+        for (int i = 0; i < mCount; ++i) {
+            mColorToolbar.getChildAt(i).setSelected(false);
+        }
+
+        int color = getResources().getColor(R.color.picker_color_orange);
+        mPickerColorBtn.setColorFilter(color);
+        if  (mActionsListener != null ){
+            mActionsListener.onColorSelected(color);
+        }
+        mDoneBtn.setVisibility(GONE);
+    }
+
 
 }

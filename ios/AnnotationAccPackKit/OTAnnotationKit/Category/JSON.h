@@ -10,6 +10,6 @@
 
 + (id)parseJSON:(NSString*)string;
 
-+ (NSString *)stringify:(NSDictionary*)json;
++ (NSString *)stringify:(id)json;
 
 @end

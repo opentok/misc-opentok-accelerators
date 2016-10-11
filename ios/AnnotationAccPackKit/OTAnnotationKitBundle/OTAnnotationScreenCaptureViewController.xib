@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -34,12 +34,18 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
+                                    <variation key="heightClass=compact">
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    </variation>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screenshot April 14, 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A6-ua-Qw2">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screenshot April 14, 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A6-ua-Qw2">
                                     <rect key="frame" x="139" y="354" width="242" height="24"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <variation key="heightClass=compact">
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                                    </variation>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgL-3O-VOb">
                                     <rect key="frame" x="0.0" y="408" width="520" height="112"/>
@@ -50,8 +56,8 @@
                                             <state key="normal" title="Cancel">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <variation key="widthClass=regular">
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <variation key="heightClass=compact">
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             </variation>
                                             <connections>
                                                 <action selector="cancelButtonPressed:" destination="-1" eventType="touchUpInside" id="EYJ-Do-uv6"/>
@@ -63,8 +69,8 @@
                                             <state key="normal" title="Save">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <variation key="widthClass=regular">
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <variation key="heightClass=compact">
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             </variation>
                                             <connections>
                                                 <action selector="saveButtonPressed:" destination="-1" eventType="touchUpInside" id="Jrt-GV-tzl"/>
@@ -76,8 +82,8 @@
                                             <state key="normal" title="Share">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <variation key="widthClass=regular">
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <variation key="heightClass=compact">
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             </variation>
                                             <connections>
                                                 <action selector="shareButtonPressed:" destination="-1" eventType="touchUpInside" id="RlG-Kj-0aL"/>
@@ -107,12 +113,16 @@
                             <constraints>
                                 <constraint firstItem="rgL-3O-VOb" firstAttribute="leading" secondItem="0Ny-9k-kel" secondAttribute="leading" id="1d2-P4-eRq"/>
                                 <constraint firstItem="xJl-c5-skg" firstAttribute="centerX" secondItem="0Ny-9k-kel" secondAttribute="centerX" id="2Vn-tL-kPi"/>
-                                <constraint firstItem="0A6-ua-Qw2" firstAttribute="top" secondItem="t7S-ej-ybZ" secondAttribute="bottom" constant="16" id="4mg-t6-W6Q"/>
+                                <constraint firstItem="0A6-ua-Qw2" firstAttribute="top" secondItem="t7S-ej-ybZ" secondAttribute="bottom" constant="16" id="4mg-t6-W6Q">
+                                    <variation key="heightClass=compact" constant="8"/>
+                                </constraint>
                                 <constraint firstItem="0A6-ua-Qw2" firstAttribute="centerX" secondItem="0Ny-9k-kel" secondAttribute="centerX" id="7hg-tz-qCH"/>
                                 <constraint firstItem="t7S-ej-ybZ" firstAttribute="leading" secondItem="0Ny-9k-kel" secondAttribute="leading" id="DA2-na-yYn"/>
                                 <constraint firstItem="xJl-c5-skg" firstAttribute="top" secondItem="0A6-ua-Qw2" secondAttribute="bottom" constant="2" id="EdE-wY-z5T"/>
                                 <constraint firstAttribute="trailing" secondItem="rgL-3O-VOb" secondAttribute="trailing" id="FFa-Jv-iJV"/>
-                                <constraint firstItem="rgL-3O-VOb" firstAttribute="top" secondItem="xJl-c5-skg" secondAttribute="bottom" constant="8" id="Ntd-pz-aDG"/>
+                                <constraint firstItem="rgL-3O-VOb" firstAttribute="top" secondItem="xJl-c5-skg" secondAttribute="bottom" constant="8" id="Ntd-pz-aDG">
+                                    <variation key="heightClass=compact" constant="2"/>
+                                </constraint>
                                 <constraint firstAttribute="bottom" secondItem="rgL-3O-VOb" secondAttribute="bottom" id="UPC-hi-VOr"/>
                                 <constraint firstAttribute="trailing" secondItem="t7S-ej-ybZ" secondAttribute="trailing" id="jQG-Pw-2II"/>
                                 <constraint firstItem="t7S-ej-ybZ" firstAttribute="top" secondItem="0Ny-9k-kel" secondAttribute="top" id="vDu-RF-5sg"/>

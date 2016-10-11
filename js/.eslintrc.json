@@ -16,7 +16,8 @@
         "new-cap": [2, { "properties": false }],
         "no-unused-expressions": [2, { "allowTernary": true, "allowShortCircuit": true }],
         "comma-dangle": 0,
-        "vars-on-top": 0
+        "vars-on-top": 0,
+        "global-require": 0
     },
     "globals": {
         "$": true,

@@ -1,30 +1,12 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Annotations Accelerator Pack for Android<br/>Version 1.0.0
-
-This document describes how to use the OpenTok Annotations Accelerator Pack for Android. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations on an Android mobile device.
-
-**Note**: The OpenTok Annotations Accelerator Pack does not include a standalone sample app such as [screensharing-annotation-acc-pack](https://github.com/opentok/screensharing-annotation-acc-pack), though you can easily build your own apps with it. It is also used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
-
-This guide has the following sections:
-
-* [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-* [Quick start](#quick-start): A step-by-step tutorial to help you quickly import and use the OpenTok Annotations Accelerator Pack for Android.
-* [Exploring the code](#exploring-the-code): This describes the Accelerator Pack code design, which uses recommended best practices to implement the annotation and frame grab capabilities available in the OpenTok client SDK. 
-
-
-## Prerequisites
-
-To be prepared to develop with the Annotations Accelerator Pack for Android:
-
-1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
-2. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
-3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
-
-_**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using the [OpenTok Server SDK](https://tokbox.com/developer/sdks/server/)._
-
+# OpenTok Annotations Accelerator Pack for Android<br/>Version 1.1.0
 
 ## Quick start
+
+This section shows you how to prepare and use the OpenTok Annotations Accelerator Pack as part of an application.
+
+## Add the Annotations library
 
 There are 3 options for installing the OpenTok Annotations Accelerator Pack library:
 
@@ -36,7 +18,7 @@ There are 3 options for installing the OpenTok Annotations Accelerator Pack libr
 ### Using the repository
 
 1. Clone the [OpenTok Annotations Accelerator Pack repo](https://github.com/opentok/annotation-acc-pack).
-2. Start Android Studio and create a project. 
+2. Start Android Studio and create a project.
 3. Navigate to the **android** folder, select the **AnnotationsKit** folder, and click **Choose**.
 4. From the project view, right-click the app name and select **New > Module > Import Gradle Project**.
 5. Navigate to the directory in which you cloned **OpenTok Annotations Accelerator Pack**, select **annotations-kit**, and click **Finish**.
@@ -47,50 +29,38 @@ There are 3 options for installing the OpenTok Annotations Accelerator Pack libr
 
 ### Using Maven
 
-<ol>
+1. In the `build.gradle` file for your solution, add the following code to the section labeled `repositories`:
 
-<li>Modify the <b>build.gradle</b> for your solution and add the following code snippet to the section labeled 'repositories’:
+  ```
+  maven { url  "http://tokbox.bintray.com/maven" }
+  ```
 
-<code>
-maven { url  "http://tokbox.bintray.com/maven" }
-</code>
+2. Add the following code snippet to the section labeled 'dependencies’:
 
-</li>
-
-<li>Modify the <b>build.gradle</b> for your activity and add the following code snippet to the section labeled 'dependencies’: 
-
-
-<code>
-compile 'com.opentok.android:opentok-annotations:1.0.0'
-</code>
-
-</li>
-
-</ol>
-
-
+  ```
+  compile 'com.opentok.android:opentok-annotations:1.1.0’
+  ```
 
 ### Downloading and Installing the AAR File
 
-1.  Download the [OpenTok Annotations Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/annotations/android/opentok-annotations-1.0.0.zip) containing the AAR file and documentation, and extract the **opentok-annotations-1.0.0.aar** file.
-2.  Right-click the app name and select **Open Module Settings** and click **+**.
+1.  Download the [OpenTok Annotations Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/annotations/android/opentok-annotations-1.1.0.zip) containing the AAR file and documentation,
+1. Extract the **opentok-annotations-1.1.0.aar** file.
+2.  Right-click the app name, select **Open Module Settings**, and click **+**.
 3.  Select **Import .JAR/.AAR Package** and click **Next**.
 4.  Browse to the **Annotations Accelerator Pack library AAR** and click **Finish**.
 
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the annotations features. 
+For detail about the APIs used to develop this accelerator pack, see the [OpenTok Android SDK Reference](https://tokbox.com/developer/sdks/android/reference/) and [Android API Reference](http://developer.android.com/reference/packages.html).
 
-For detail about the APIs used to develop this sample, see the [OpenTok Android SDK Reference](https://tokbox.com/developer/sdks/android/reference/) and [Android API Reference](http://developer.android.com/reference/packages.html).
+_**NOTE:** The accelerator pack contains logic used for logging. This is used to submit anonymous usage data for internal TokBox purposes only. We request that you do not modify or remove any logging code in your use of this accelerator pack._
 
 ### Class design
 
-The following classes represent the software design for the OpenTok Annotations Accelerator Pack.
-
 | Class        | Description  |
 | ------------- | ------------- |
-| `AnnotationsToolbar`   | Provides the initializers and methods for the annotation toolbar view, and initializes such functionality as text annotations, screen capture button, erase button that removes the last annotation that was added, color selector for drawing stroke and text annotations, and controls scrolling. You can customize this toolbar. |
+| `AnnotationsToolbar`   | Provides the initializers and methods for the annotation toolbar view, and initializes functionality such as text annotations, a screen capture button, an erase button that removes the last annotation that was added, a color selector for drawing strokes and text annotations, and controls scrolling. You can customize this toolbar. |
 | `AnnotationsView`   | Provides the rectangular area on the screen which is responsible for drawing annotations and event handling. |
 | `AnnotationsListener`   | Monitors state changes in the Annotations component. For example, a new event would occur when a screen capture is ready or there is an error. |
 | `AnnotationsPath`   | Extends the [Android Path class](https://developer.android.com/reference/android/graphics/Path.html), and defines the various geometric paths to be drawn in the `AnnotationView` canvas. |
@@ -99,23 +69,31 @@ The following classes represent the software design for the OpenTok Annotations 
 | `AnnotationsManager`   | Manages the set of the annotations in the annotations view. |
 | `AnnotationsVideoRenderer`   | Extends the [BaseVideoRenderer](https://tokbox.com/developer/sdks/android/reference/com/opentok/android/BaseVideoRenderer.html) class in the OpenTok Android SDK, and includes screenshot functionality. |
 
-**NOTE:** Scrolling is frozen while the user adds annotations. Scrolling is re-enabled after the user clicks **Done**, and the annotations are removed at that point. 
+**NOTE:** Scrolling is frozen while the user adds annotations. Scrolling is re-enabled after the user clicks **Done**, and the annotations are removed at that point.
 
 
-### Using the AnnotationsKit
+### Using the Annotations Acc Pack
 
 
 #### Add the annotation toolbar
 
 Add the `AnnotationsToolbar` to your layout:</p>
 
-```
+```java
 <com.tokbox.android.annotations.AnnotationsToolbar
     android:id="@+id/annotations_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"/>
 ```
+
+The `AnnotationsToolbar` offers the following actions:
+  - _Freehand Annotation_: Handwritten annotation
+  - _Text Annotation_: Text label annotations.
+  - _Color Picker_: Select a color for the annotation.
+  - _Erase_: Delete the most recent annotation.
+  - _Screen Capture_: Take a screenshot of the annotations.
+  - _Done_: Clear all annotations and re-enabling scrolling.
 
 
 #### Add a custom annotation renderer
@@ -124,29 +102,22 @@ If you would like to create a new instance of the `AnnotationsVideoRenderer` cla
 
 ```java
 AnnotationsVideoRenderer mRenderer = new AnnotationsVideoRenderer(this);
-```
-
-
-The following code illustrates how to set the `AnnotationsVideoRenderer` to the publisher or subscriber. For example, if the publisher is screensharing, set the `AnnotationsVideoRenderer` to the publisher screen. This could be used to get a screenshot of the screen:
-
-```java
-mRenderer = new AnnotationsVideoRenderer(getContext());
 mScreenPublisher.setRenderer(mRenderer);
 ```
+
 
 #### Attach the annotation canvas to a view
 
 You can attach an annotation canvas to a publisher or subscriber view:
 
-The following code initializes the `AnnotationsView`, attaches the `AnnotationsToolbar` to the `AnnotationsView`, sets the `VideoRenderer`, and adds the `AnnotationsView` to the publisher or subscriber view:
-
-
 ```java
-if ( mAnnotationsView == null ){
-    mAnnotationsView = new AnnotationsView(getContext(), mSession, mApiKey)
-    mAnnotationsView.attachToolbar(mAnnotationsToolbar);
-    mAnnotationsView.setVideoRenderer(mRenderer); //to use screen capture
-    mScreenView.addView(mAnnotationsView);
+try {
+  AnnotationsView annotationsView = new AnnotationsView(this, mComm.getSession(), OpenTokConfig.API_KEY, mComm.getRemote());
+  annotationsView.attachToolbar(mAnnotationsToolbar);
+  previewContainer.addView(annotationsView);
+          
+} catch (Exception e) {
+  Log.i(LOG_TAG, "Exception - add annotations view " + e);
 }
 ```
 
@@ -154,25 +125,46 @@ if ( mAnnotationsView == null ){
 
 To listen for annotation events, implement an `AnnotationsListener`:
 
-In the following example, the `onScreencaptureReady()` event is fired when a new screen capture is ready. 
-
 ```java
-public class MainActivity 
-    extends AppCompatActivity 
-    implements AnnotationsView.AnnotationsListener {
-
-	@Override
-	public void onScreencaptureReady(Bitmap bmp) {
-    		saveScreencapture(bmp);
-	}
+public  interface AnnotationsListener {
+  void onScreencaptureReady(Bitmap bmp);
+  void onAnnotationsSelected(AnnotationsView.Mode mode);
+  void onAnnotationsDone();
+  void onError(String error);
 }
 ```
 
+```java
+public class MainActivity
+    extends AppCompatActivity
+    implements AnnotationsView.AnnotationsListener {
 
-You can create handlers for the following types of annotations:
-  - _Freehand Annotation_: Handwritten annotation 
-  - _Text Annotation_: Text label annotations.
-  - _Color Picker_: Select a color for the annotation.
-  - _Erase_: Delete the most recent annotation.
-  - _Screen Capture_: Take a screenshot of the annotations.
-  - _Done_: Clear all annotations.
+    @Override
+    public void onScreencaptureReady(Bitmap bmp) {
+        //A new screencapture is ready
+    }
+
+    @Override
+    public void onAnnotationsSelected(AnnotationsView.Mode mode) {
+        //An annotations item in the toolbar is selected
+    }
+
+    @Override
+    public void onAnnotationsDone() {
+        //The DONE button annotations item in the toolbar is selected. Scrolling is re-enabled.
+    }
+
+    @Override
+    public void onError(String error) {
+       //An error happens in the annotations
+    }
+  ...
+}
+```
+
+## Requirements
+
+To develop an application that uses the OpenTok Annotations Accelerator Pack for Android:
+
+  1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
+  2. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).

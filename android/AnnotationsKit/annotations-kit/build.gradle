@@ -11,13 +11,20 @@ android {
         versionCode 1
         versionName "1.0"
         project.archivesBaseName = "opentok-annotations"
-        project.version = "1.0.0"
+        project.version = "1.1.0"
+        testApplicationId "com.tokbox.android.annotations.test"
+        testInstrumentationRunner "com.tokbox.android.annotations.testbase.TestRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
     }
 
     libraryVariants.all { variant ->
@@ -51,9 +58,7 @@ android {
         zipBundle.dependsOn javadoc
 
     }
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
+
 }
 
 if (project.hasProperty("MAVEN_USERNAME") && project.hasProperty("MAVEN_PASSWORD")) {
@@ -95,7 +100,8 @@ def getRevisionAndTime() {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
+    androidTestCompile 'com.android.support:appcompat-v7:23.0.3'
+    androidTestCompile 'junit:junit:4.+'
+    androidTestCompile files('src/androidTest/libs/android-junit-report-1.5.8.jar')
     compile 'com.opentok.android:accelerator-pack:+'
 }

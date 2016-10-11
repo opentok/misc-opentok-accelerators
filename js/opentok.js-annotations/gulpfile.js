@@ -16,7 +16,9 @@ gulp.task('js', function () {
     .pipe(gulp.dest(dist));
 
   var min = gulp.src('dist/opentok-annotation.js')
-    .pipe(uglify())
+    .pipe(uglify().on('error', function (e) {
+      console.log(e);
+    }))
     .pipe(rename({
       suffix: '.min',
     }))
@@ -36,21 +38,21 @@ gulp.task('css', function () {
 
 gulp.task('images', function () {
   return gulp.src(
-    [
-      'images/**',
-    ], { base: 'images/' })
+      [
+        'images/**',
+      ], { base: 'images/' })
     .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('zip', function () {
-   return gulp.src(
-     [
-       'dist/annotation.css',
-       'dist/images/**',
-       'dist/opentok-annotation.min.js',
-     ], { base: 'dist/' })
-     .pipe(zip('opentok-js-annotation-1.0.0.zip'))
-     .pipe(gulp.dest(dist));
- });
+  return gulp.src(
+      [
+        'dist/annotation.css',
+        'dist/images/**',
+        'dist/opentok-annotation.min.js',
+      ], { base: 'dist/' })
+    .pipe(zip('opentok-js-annotation-1.1.0.zip'))
+    .pipe(gulp.dest(dist));
+});
 
 gulp.task('dist', ['js', 'css', 'images', 'zip']);

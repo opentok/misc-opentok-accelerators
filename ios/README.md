@@ -1,48 +1,47 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Annotations Accelerator Pack for iOS<br/>Version 1.0.0
+# OpenTok Annotations Accelerator Pack for iOS<br/>Version 1.1.0
 
-This document describes how to use the OpenTok Annotations Accelerator Pack for iOS. Through the exploration of this Accelerator Pack, you will learn best practices for development and customization with annotations on an iOS mobile device.
+This document describes how to use the OpenTok Annotations Accelerator Pack for iOS.
 
-**Note**: The OpenTok Annotations Accelerator Pack does not include a standalone sample app such as [screensharing-annotation-acc-pack](https://github.com/opentok/screensharing-annotation-acc-pack), though you can easily build your own apps with it. It is also used as a component for more comprehensive Accelerator Packs that offer such features as screensharing and video along with annotations. 
-
-
-This guide has the following sections:
-
-* [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-* [Quick start](#quick-start): A step-by-step tutorial to help you quickly import and use the OpenTok Annotations Accelerator Pack for iOS.
-* [Exploring the code](#exploring-the-code): This describes the Accelerator Pack code design, which uses recommended best practices to implement the annotation and frame grab capabilities available in the OpenTok client SDK.  
-
-
-## Prerequisites
-
-To be prepared to develop with the Annotations Accelerator Pack for Android:
-
-1. Install Xcode version 5 or later.
-2. Review the [OpenTok iOS SDK Requirements](https://tokbox.com/developer/sdks/ios/).
-3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
-
-
-_**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using the [OpenTok Server SDK](https://tokbox.com/developer/sdks/server/)._
-
-
-## Quick start
+## Add the library
 
 To get up and running quickly with your development, go through the following steps using CocoaPods:
 
-1.  Add the following line to your pod file: ` pod ‘OTAnnotationKit’  `
+1. Add the following line to your pod file: ` pod 'OTAnnotationKit'  `
 2. In a terminal prompt, navigate into your project directory and type `pod install`.
-3. Reopen your project using the new *.xcworkspace file.
+3. Reopen your project using the new `*.xcworkspace` file.
 
 For more information about CocoaPods, including installation instructions, visit [CocoaPods Getting Started](https://guides.cocoapods.org/using/getting-started.html#getting-started).
 
+### Configure and build the app
+
+Configure the sample app code. Then, build and run the app.
+
+1. Get values for **API Key**, **Session ID**, and **Token**. See [OpenTok One-to-One Communication Sample App home page](../README.md) for important information.
+
+1. In XCode, open **AppDelegate.h** and add [OTAcceleratorPackUtil](https://cocoapods.org/pods/OTAcceleratorPackUtil) by `#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>`
+
+1. Replace the following empty strings with the corresponding **API Key**, **Session ID**, and **Token** values:
+
+    ```objc
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+        // Override point for customization after application launch.    
+        [OTAcceleratorSession setOpenTokApiKey:@""
+                                     sessionId:@""
+                                         token:@""];
+        return YES;
+    }
+    ```
+
+1. Use Xcode to build and run the app on an iOS simulator or a device.
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the annotations features. 
+For detail about the APIs used to develop this accelerator pack, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
 
-For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
-
+_**NOTE:** This accelerator pack collects anonymous usage data for internal TokBox purposes only. Please do not modify or remove any logging code from this sample application._
 
 ### Class design
 
@@ -50,38 +49,70 @@ The following classes represent the software design for the OpenTok Annotations 
 
 | Class        | Description  |
 | ------------- | ------------- |
-| `OTAnnotationScrollView` | Provides the initializers and methods for the client annotating views. |
+| `OTAnnotator` | The core component for enabling remote annotation across devices and platforms. |  
+| `OTAnnotationScrollView` | Provides essentials components for annotating on either the entire screen or a specified portion of the screen. |
 | `OTAnnotationToolbarView`   | A convenient annotation toolbar that is optionally available for your development. As an alternative, you can create your own toolbar using `OTAnnotationScrollView`. |
-| `OTFullScreenAnnotationViewController`   | Combines both the scroll and annotation toolbar views. |
+| `OTFullScreenAnnotationViewController`   | A convenient view controller enables you to annotate the whole screen immediately. |
 
 
 ### Annotation features
 
-The `OTAnnotationScrollView` class is the backbone of the annotation features in this accelerator pack.
+The `OTAnnotationScrollView` class is the backbone of the annotation features in this Sample.
 
 
 ```objc
-@interface OTAnnotationScrollView : UIView
-
-@property (nonatomic, getter = isAnnotating) BOOL annotating;
-@property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
-
-- (instancetype)init;
-- (instancetype)initWithFrame:(CGRect)frame;
-- (void)addContentView:(UIView *)view;  // this will enable scrolling if image is larger than actual device screen
-
-@property (readonly, nonatomic) OTAnnotationToolbarView *toolbarView;
-- (void)initializeToolbarView;
-
-#pragma mark - annotation
-- (void)startDrawing;
-@property (nonatomic) UIColor *annotationColor;
-- (void)addTextAnnotation:(OTAnnotationTextView *)annotationTextView;
-- (UIImage *)captureScreen;
-- (void)erase;
-- (void)eraseAll;
-
-@end
+self.annotationView = [[OTAnnotationScrollView alloc] init];
+self.annotationView.frame = <# desired frame #>;
+[self.annotationView initializeToolbarView];
+self.annotationView.toolbarView.frame = <# desired frame #>;
 ```
 
+If you would like to be annotated on either the entire screen or a specified portion of the screen:
+```objc
+self.annotator = [[OTAnnotator alloc] init];
+[self.annotator connectForReceivingAnnotationWithSize:<# desired size #>
+                                    completionHandler:^(OTAnnotationSignal signal, NSError *error) {
+                                        if (signal == OTAnnotationSessionDidConnect){
+                                            self.annotator.annotationScrollView.frame = self.view.bounds;
+                                            [self.view addSubview:self.annotator.annotationScrollView];
+                                        }
+                                    }];
 
+self.annotator.dataReceivingHandler = ^(NSArray *data) {
+    NSLog(@"%@", data);
+};
+```
+
+If you would like to annotate on a remote client's screen:
+```objc
+self.annotator = [[OTAnnotator alloc] init];
+[self.annotator connectForSendingAnnotationWithSize:self.sharer.subscriberView.frame.size
+                                completionHandler:^(OTAnnotationSignal signal, NSError *error) {
+    
+                                    if (signal == OTAnnotationSessionDidConnect){
+        
+                                        // configure annotation view
+                                        self.annotator.annotationScrollView.frame = self.view.bounds;
+                                        [self.view addSubview:self.annotator.annotationScrollView];
+
+                                        // self.sharer.subscriberView is the screen shared from a remote client.
+                                        // It does not make sense to `connectForSendingAnnotationWithSize` if you don't receive a screen sharing.
+                                        [self.annotator.annotationScrollView addContentView:self.sharer.subscriberView];
+        
+                                        // configure annotation feature
+                                        self.annotator.annotationScrollView.annotatable = YES;
+                                        self.annotator.annotationScrollView.annotationView.currentAnnotatable = [OTAnnotationPath pathWithStrokeColor:[UIColor yellowColor]];
+                                    }
+                                }];
+
+self.annotator.dataSendingHandler = ^(NSArray *data, NSError *error) {
+    NSLog(@"%@", data);
+};
+```
+
+## Requirements
+
+To be prepared to develop with the Annotations Accelerator Pack for iOS:
+
+1. Install Xcode version 5 or later, with ARC enabled.
+2. Your device must be running iOS 8 or later.

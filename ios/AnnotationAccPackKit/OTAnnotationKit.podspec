@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "OTAnnotationKit"
-  s.version          = "1.1.0-beta"
+  s.version          = "1.1.0"
   s.summary          = "OpenTok Annotations Accelerator Pack enables users to annotate their screens."
 
   s.description      = "This document describes how to use the OpenTok Annotations Accelerator Pack for iOS. Through the exploration of the OpenTok Annotations Sample App, you will learn best practices for annotating on an iOS mobile device."
@@ -14,15 +14,15 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'ios/AnnotationAccPackKit/OTAnnotationKit/**/*'
-  
+
   s.resource_bundles = {
     'OTAnnotationKitBundle' => ['ios/AnnotationAccPackKit/OTAnnotationKitBundle/**/*']
   }
 
-  s.public_header_files = 'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationKit.h', 
+  s.public_header_files = 'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationKit.h',
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotator.h',
-    'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationNative/OTAnnotatable.h', 
-    'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationNative/OTAnnotationDataManager.h', 
+    'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationNative/OTAnnotatable.h',
+    'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationNative/OTAnnotationDataManager.h',
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationNative/OTAnnotationPath.h',
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationNative/OTAnnotationPoint.h',
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationNative/OTAnnotationTextView.h',
@@ -31,7 +31,6 @@ Pod::Spec.new do |s|
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationUI/OTFullScreenAnnotationViewController.h',
     'ios/AnnotationAccPackKit/OTAnnotationKit/OTAnnotationUI/Toolbar/OTAnnotationToolbarView.h'
 
-  s.dependency 'LHToolbar', '1.2.1-beta'
-  s.dependency 'OTKAnalytics', '1.0.0'
-  s.dependency 'OTAcceleratorPackUtil', '1.0.0'
+  s.dependency 'LHToolbar', '1.3.0-beta'
+  s.dependency 'OTAcceleratorPackUtil'
 end

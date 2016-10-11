@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <OTAnnotationKit/OTAnnotationKit.h>
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 @interface AppDelegate ()
 
@@ -18,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+#warning - replace your OpenTok credentials here
+    [OTAcceleratorSession setOpenTokApiKey:@"apikey"
+                                 sessionId:@"sessionid"
+                                     token:@"token"];
     return YES;
 }
 

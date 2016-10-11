@@ -1,45 +1,55 @@
 package com.tokbox.android.annotations;
 
-import android.graphics.Paint;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.UUID;
 
+/**
+ * Defines the annotations view text
+ */
 public class AnnotationsText implements View.OnClickListener{
 
-    private UUID id;
     EditText editText;
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    //String text;
     float x, y;
 
-    AnnotationsText(EditText editText, float x, float y) {
-        this.id = UUID.randomUUID();
+    /**
+     * Constructor
+     * @param editText Text view editable
+     * @param x x-position
+     * @param y y-position
+     */
+    public AnnotationsText(EditText editText, float x, float y) {
         this.editText = editText;
         this.x = x;
         this.y = y;
     }
 
-    public UUID getId() {
-        return id;
+    /**
+     * Returns the text view editable
+     */
+    public EditText getEditText() {
+        return editText;
+    }
+
+    /**
+     * Returns the x-position
+     */
+    public float getX() {
+        return x;
+    }
+
+    /**
+     * Returns the y-position
+     */
+    public float getY() {
+        return y;
     }
 
     @Override
     public void onClick(View v) {
-        Log.i("MARINAS", "ONCLICK ANNOTATIONSTEXT");
+
     }
 
-    public EditText getEditText() {
-        return editText;
-    }
+
 }

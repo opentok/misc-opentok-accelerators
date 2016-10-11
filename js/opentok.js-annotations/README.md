@@ -1,9 +1,9 @@
 
 ![logo](https://raw.githubusercontent.com/opentok/annotation-acc-pack/1.0.0/tokbox-logo.png)
 
-# OpenTok Annotation Accererator Pack
+# OpenTok Annotations Accelerator Pack
 
-This package provides an easy way to get started in implementing interoperable annotation over audio/video or shared screen using the OpenTok platform.  For usage details, take a look at the [Screen Sharing Annotation Sample App](https://github.com/opentok/screensharing-annotation-acc-pack/tree/master/JS).
+This package provides an easy way to get started in implementing interoperable annotation over audio/video or shared screen using the OpenTok platform.  For usage details, see the [OpenTok Screensharing with Annotations Accelerator Pack for JavaScript](https://github.com/opentok/screensharing-annotation-acc-pack/tree/master/JS).
 
 
 ###Installation:

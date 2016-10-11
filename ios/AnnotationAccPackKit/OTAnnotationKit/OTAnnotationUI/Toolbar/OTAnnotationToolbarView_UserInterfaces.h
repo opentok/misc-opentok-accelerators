@@ -11,4 +11,5 @@
 
 @property (nonatomic) UIView *selectionShadowView;
 @property (nonatomic) OTAnnotationColorPickerView *colorPickerView;
+
 @end

@@ -31,10 +31,22 @@
         CGRect selfFrame = self.frame;
         self.colorPickerView.frame = selfFrame;
         [self.superview insertSubview:self.colorPickerView belowSubview:self];
+        
         [UIView animateWithDuration:1.0 animations:^(){
             
-            CGFloat newY = selfFrame.origin.y - HeightOfColorPicker - GapOfToolBarAndColorPicker;
-            self.colorPickerView.frame = CGRectMake(selfFrame.origin.x, newY, CGRectGetWidth(self.bounds), HeightOfColorPicker);
+            
+            if (self.toolbarViewOrientation == OTAnnotationToolbarViewOrientationPortraitlBottom) {
+                CGFloat newY = selfFrame.origin.y - HeightOfColorPicker;
+                self.colorPickerView.frame = CGRectMake(selfFrame.origin.x, newY, CGRectGetWidth(self.bounds), HeightOfColorPicker);
+            }
+            else if (self.toolbarViewOrientation == OTAnnotationToolbarViewOrientationLandscapeLeft) {
+                CGFloat newX = selfFrame.origin.x + HeightOfColorPicker;
+                self.colorPickerView.frame = CGRectMake(newX, selfFrame.origin.y, WidthOfColorPicker, CGRectGetHeight(self.bounds));
+            }
+            else if (self.toolbarViewOrientation == OTAnnotationToolbarViewOrientationLandscapeRight) {
+                CGFloat newX = selfFrame.origin.x - HeightOfColorPicker;
+                self.colorPickerView.frame = CGRectMake(newX, selfFrame.origin.y, WidthOfColorPicker, CGRectGetHeight(self.bounds));
+            }
         }];
     }
     else {
@@ -47,8 +59,18 @@
     CGRect colorPickerViewFrame = self.colorPickerView.frame;
     [UIView animateWithDuration:1.0 animations:^(){
         
-        CGFloat newY = colorPickerViewFrame.origin.y + HeightOfColorPicker + GapOfToolBarAndColorPicker;
-        self.colorPickerView.frame = CGRectMake(0, newY, CGRectGetWidth(colorPickerViewFrame), HeightOfColorPicker);
+        if (self.toolbarViewOrientation == OTAnnotationToolbarViewOrientationPortraitlBottom) {
+            CGFloat newY = colorPickerViewFrame.origin.y + HeightOfColorPicker;
+            self.colorPickerView.frame = CGRectMake(0, newY, CGRectGetWidth(colorPickerViewFrame), HeightOfColorPicker);
+        }
+        else if (self.toolbarViewOrientation == OTAnnotationToolbarViewOrientationLandscapeLeft) {
+            CGFloat newX = colorPickerViewFrame.origin.x - WidthOfColorPicker;
+            self.colorPickerView.frame = CGRectMake(newX, 0, WidthOfColorPicker, CGRectGetHeight(colorPickerViewFrame));
+        }
+        else if (self.toolbarViewOrientation == OTAnnotationToolbarViewOrientationLandscapeRight) {
+            CGFloat newX = colorPickerViewFrame.origin.x + WidthOfColorPicker;
+            self.colorPickerView.frame = CGRectMake(newX, 0, WidthOfColorPicker, CGRectGetHeight(colorPickerViewFrame));
+        }
     } completion:^(BOOL finished){
         
         [self.colorPickerView removeFromSuperview];

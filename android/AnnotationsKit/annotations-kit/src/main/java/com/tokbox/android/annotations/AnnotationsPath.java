@@ -1,57 +1,75 @@
 package com.tokbox.android.annotations;
 
 import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.PointF;
 
-import java.util.UUID;
+import java.util.ArrayList;
 
+/**
+ * Defines a customizable Path for Android
+ */
 public class AnnotationsPath extends Path {
 
-    private UUID id;
-
     private PointF currentPoint;
-    private boolean isStartPoint = false; //related to the currentPoint
-    private boolean isEndPoint = false; //related to the currentPoint
+    private PointF startPoint;
+    private PointF endPoint;
+    private ArrayList<PointF> points;
     private PointF lastPoint;
 
-    public PointF getLastPointF() {
-        return lastPoint;
-    }
-
-    public void setLastPointF(PointF lastPoint) {
-        this.lastPoint = lastPoint;
-    }
-
+    /**
+     * Constructor
+     */
     public AnnotationsPath() {
-        this.id = UUID.randomUUID();
+        this.points = new ArrayList<PointF>();
     }
 
-    public boolean isStartPoint() {
-        return isStartPoint;
+    /**
+     * Sets the start point
+     * @param startPoint point to set
+     */
+    public void setStartPoint(PointF startPoint) {
+        this.startPoint = startPoint;
     }
 
-    public boolean isEndPoint() {
-        return isEndPoint;
+    /**
+     * Sets the end point
+     * @param endPoint point to set
+     */
+    public void setEndPoint(PointF endPoint) {
+        this.endPoint = endPoint;
     }
 
-    public void setStartPoint(boolean startPoint) {
-        isStartPoint = startPoint;
+    /**
+     * Returns the start point
+     */
+    public PointF getStartPoint() {
+        return startPoint;
     }
 
-    public void setEndPoint(boolean endPoint) {
-        isEndPoint = endPoint;
+    /**
+     * Returns the end point
+     */
+    public PointF getEndPoint() {
+        return endPoint;
     }
 
-    public void setCurrentPoint(PointF point){
-        currentPoint = point;
+    /**
+     * Adds a new point to the path
+     * @param point to be added
+     */
+    public void addPoint(PointF point) {
+        if (points.size() == 0) {
+            startPoint = point;
+        }
+        points.add(point);
+        endPoint = point;
     }
 
-    public PointF getCurrentPoint() {
-        return currentPoint;
-    }
-
-    public UUID getId() {
-        return id;
+    /**
+     * Returns the points list of the path
+     */
+    public ArrayList<PointF> getPoints() {
+        return points;
     }
 }
+
