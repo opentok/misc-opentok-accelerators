@@ -1,6 +1,7 @@
 set -e
 
 task="$1"
+args="$#"
 
 cd ScreensharingAccPackKit
 
@@ -35,11 +36,21 @@ fi
 
 #Run android tests
 if [ "$task" == "-at" ]; then
-        adb uninstall com.tokbox.android.accpack.screensharing.test
-        ./gradlew build
-        adb install -r screensharing-acc-pack-kit/build/outputs/apk/opentok-screensharing-annotations-debug-androidTest-unaligned.apk
-        adb shell am instrument -e package com.tokbox.android.accpack.screensharing.test "$@" -w com.tokbox.android.accpack.screensharing.test/com.tokbox.android.accpack.screensharing.testbase.TestRunner
-        exit 0
+    i=0
+    argv=""
+    for var in "$@"
+    do
+          params[$i]=$var
+          i=$[$i+1]
+    done
+    for ((i = 1; i <= $args; i++)); do
+          argv="$argv ${params[$i]}"
+    done
+    adb uninstall com.tokbox.android.accpack.screensharing.test
+    ./gradlew assembleAndroidTest
+    adb install -r screensharing-acc-pack-kit/build/outputs/apk/opentok-screensharing-annotations-debug-androidTest-unaligned.apk
+    adb shell am instrument -e package com.tokbox.android.accpack.screensharing.test $argv -w com.tokbox.android.accpack.screensharing.test/com.tokbox.android.accpack.screensharing.testbase.TestRunner
+    exit 0
 fi
 
 #Create zip file with binary and doc
