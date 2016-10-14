@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Annotations Accelerator Pack for Android<br/>Version 1.1.0
+# OpenTok Annotations Accelerator Pack for Android<br/>Version 1.1
 
 ## Quick start
 

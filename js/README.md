@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Annotation Accelerator Pack for JavaScript<br/>Version 1.1.0
+# OpenTok Annotation Accelerator Pack for JavaScript<br/>Version 1.1
 
 ## Quick start
 

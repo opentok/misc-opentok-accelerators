@@ -1,6 +1,6 @@
 ![logo](./tokbox-logo.png)
 
-# OpenTok Annotations Accelerator Pack<br/>Version 1.1.0
+# OpenTok Annotations Accelerator Pack<br/>Version 1.1
 
 The OpenTok Annotations Accelerator Pack provides functionality you can add to your OpenTok applications that enables users to have the ability to annotate on a local or remote screen.
 
