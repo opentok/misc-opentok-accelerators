@@ -148,4 +148,11 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  */
 - (NSError *)subscribeToStreamWithName:(NSString *)name;
 
+/**
+ *  Manually subscribe to a stream with a specfieid stream id.
+ *
+ *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
+ */
+- (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId;
+
 @end

@@ -4,6 +4,14 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.2.2
+-----
+
+### Enhancements
+
+- Add `subscribeToStreamWithStreamId:` for switching to another stream.
+
+
 1.2.1
 -----
 

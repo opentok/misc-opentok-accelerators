@@ -375,6 +375,25 @@ static NSString* const KLogVariationFailure = @"Failure";
     return [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is no such stream with name: %@", name]}];
 }
 
+- (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId {
+    for (OTStream *stream in self.session.streams.allValues) {
+        if ([stream.streamId isEqualToString:streamId]) {
+            NSError *unsubscribeError;
+            [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+            if (unsubscribeError) {
+                NSLog(@"%@", unsubscribeError);
+            }
+            
+            NSError *subscrciberError;
+            self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
+            [self.session subscribe:self.subscriber error:&subscrciberError];
+            return subscrciberError;
+        }
+    }
+    
+    return [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is no such stream with streamId: %@", streamId]}];
+}
+
 #pragma mark - Setters and Getters
 - (UIView *)subscriberView {
     return _subscriber.view;
