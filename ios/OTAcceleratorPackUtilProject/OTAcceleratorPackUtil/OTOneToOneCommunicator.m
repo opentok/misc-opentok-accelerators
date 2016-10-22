@@ -134,9 +134,9 @@ static NSString* const KLogVariationFailure = @"Failure";
         [self.publisher.view removeFromSuperview];
         [self.session unpublish:self.publisher error:&error];
         if (error) {
-            self.publisher = nil;
             NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
+        self.publisher = nil;
     }
     
     if (self.subscriber) {
@@ -145,9 +145,9 @@ static NSString* const KLogVariationFailure = @"Failure";
         [self.subscriber.view removeFromSuperview];
         [self.session unsubscribe:self.subscriber error:&error];
         if (error) {
-            self.subscriber = nil;
             NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
+        self.subscriber = nil;
     }
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
@@ -210,10 +210,6 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)sessionDidDisconnect:(OTSession *)session {
-
-    self.publisher = nil;
-    self.subscriber = nil;
-    
     [self notifiyAllWithSignal:OTSessionDidDisconnect
                          error:nil];
 }

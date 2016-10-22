@@ -4,6 +4,13 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.2.3
+-----
+
+### Enhancements
+
+- Nil out `publisher` and `subscriber` in `disconnect` method for avoiding potential side effect.
+
 1.2.2
 -----
 
