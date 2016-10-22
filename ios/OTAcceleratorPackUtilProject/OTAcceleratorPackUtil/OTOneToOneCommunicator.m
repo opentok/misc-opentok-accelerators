@@ -52,6 +52,19 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 @implementation OTOneToOneCommunicator
 
+- (void)setSubscriberVideoContentMode:(OTVideoViewContentMode)subscriberVideoContentMode {
+    _subscriberVideoContentMode = subscriberVideoContentMode;
+    
+    if (self.subscriber) {
+        if (_subscriberVideoContentMode == OTVideoViewFit) {
+            self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
+        }
+        else {
+            self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
+        }
+    }
+}
+
 + (instancetype)sharedInstance {
 
     static OTOneToOneCommunicator *sharedInstance;
@@ -178,7 +191,8 @@ static NSString* const KLogVariationFailure = @"Failure";
             self.publisher = [[OTPublisher alloc] initWithDelegate:self name:self.publisherName];
         }
         else {
-            self.publisher = [[OTPublisher alloc] initWithDelegate:self name:[UIDevice currentDevice].name];
+            self.publisherName = [NSString stringWithFormat:@"%@-%@", [UIDevice currentDevice].systemName, [UIDevice currentDevice].name];
+            self.publisher = [[OTPublisher alloc] initWithDelegate:self name:self.publisherName];
         }
     }
     
@@ -206,11 +220,27 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
     
-    OTError *error;
+    // we always subscribe one stream for this acc pack
+    // please see - subscribeToStreamWithName: to switch subscription
+    if (self.subscriber) {
+        NSError *unsubscribeError;
+        [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+        if (unsubscribeError) {
+            NSLog(@"%@", unsubscribeError);
+        }
+    }
+    
+    OTError *subscrciberError;
     self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
-    [self.session subscribe:self.subscriber error:&error];
+    if (self.subscriberVideoContentMode == OTVideoViewFit) {
+        self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
+    }
+    else {
+        self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
+    }
+    [self.session subscribe:self.subscriber error:&subscrciberError];
     [self notifiyAllWithSignal:OTSessionStreamCreated
-                         error:error];
+                         error:subscrciberError];
 }
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
@@ -238,15 +268,6 @@ static NSString* const KLogVariationFailure = @"Failure";
                          error:nil];
 }
 
-- (void)sessionDidBeginReconnecting:(OTSession *)session {
-    [self notifiyAllWithSignal:OTSessionConnectionDidBeginReconnecting
-                         error:nil];
-}
-
-- (void)sessionDidReconnect:(OTSession *)session {
-    [self notifiyAllWithSignal:OTSessionConnectionDidReconnect
-                         error:nil];
-}
 #pragma mark - OTPublisherDelegate
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
     if (publisher == self.publisher) {
@@ -333,6 +354,25 @@ static NSString* const KLogVariationFailure = @"Failure";
         [self notifiyAllWithSignal:OTSubscriberDidFail
                              error:error];
     }
+}
+
+- (NSError *)subscribeToStreamWithName:(NSString *)name {
+    for (OTStream *stream in self.session.streams.allValues) {
+        if ([stream.name isEqualToString:name]) {
+            NSError *unsubscribeError;
+            [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+            if (unsubscribeError) {
+                NSLog(@"%@", unsubscribeError);
+            }
+            
+            NSError *subscrciberError;
+            self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
+            [self.session subscribe:self.subscriber error:&subscrciberError];
+            return subscrciberError;
+        }
+    }
+    
+    return [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is no such stream with name: %@", name]}];
 }
 
 #pragma mark - Setters and Getters
