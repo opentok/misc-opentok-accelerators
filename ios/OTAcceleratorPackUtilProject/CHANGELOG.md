@@ -4,6 +4,13 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.2.4
+-----
+
+### Enhancements
+
+- Nil out `publisherView` and `subscriberView` in `disconnect` method for avoiding potential side effect.
+
 1.2.3
 -----
 
@@ -26,7 +33,7 @@ The changelog for `acc-pack-common` iOS.
 
 - Add `subscriberVideoContentMode` for displaying a fit or fill video.
 - Add `subscribeToStreamWithName:` for switching to another stream.
-- Make sure that the publisher has a name
+- Make sure that the publisher has a name.
 
 ### Fixes
 

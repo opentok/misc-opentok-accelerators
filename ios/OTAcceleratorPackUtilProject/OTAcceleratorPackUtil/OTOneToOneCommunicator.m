@@ -47,6 +47,9 @@ static NSString* const KLogVariationFailure = @"Failure";
 @property (nonatomic) OTPublisher *publisher;
 @property (nonatomic) OTAcceleratorSession *session;
 
+@property (nonatomic) UIView *subscriberView;
+@property (nonatomic) UIView *publisherView;
+
 @property (strong, nonatomic) OTOneToOneCommunicatorBlock handler;
 @end
 
@@ -137,6 +140,7 @@ static NSString* const KLogVariationFailure = @"Failure";
             NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
         self.publisher = nil;
+        self.publisherView = nil;
     }
     
     if (self.subscriber) {
@@ -148,6 +152,7 @@ static NSString* const KLogVariationFailure = @"Failure";
             NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
         self.subscriber = nil;
+        self.subscriberView = nil;
     }
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
