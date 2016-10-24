@@ -35,6 +35,20 @@
 + (instancetype)getAcceleratorPackSession;
 
 /**
+ *  Retrieve the current publisher objects, which are injected to a session by publish:error:.
+ *
+ *  @return All running publisher objects.
+ */
++ (NSArray<OTPublisher *> *)getPublishers;
+
+/**
+ *  Retrieve the current subscribing subscriber objects, which are injected by subscribe:error:.
+ *
+ *  @return All running subscribers objects.
+ */
++ (NSArray<OTSubscriber *> *)getSubscribers;
+
+/**
  *  Register an accelerator pack under this shared session so the accelerator pack starts receiving event notifications from OpenTok.
  *
  *  Any objects, that conform protocol OTSessionDelegate, are considered as an accelerator pack in the concept of OTAcceleratorSession.

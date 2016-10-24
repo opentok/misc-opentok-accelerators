@@ -4,6 +4,6 @@ target 'OTAcceleratorPackUtilProject' do
 end
 
 target 'OTAcceleratorPackUtil' do 
-  pod 'OpenTok', '~> 2.9.0'
+  pod 'OpenTok', '~> 2.9.1'
   pod 'OTKAnalytics'
 end

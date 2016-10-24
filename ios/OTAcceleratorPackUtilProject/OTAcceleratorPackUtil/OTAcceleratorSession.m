@@ -5,6 +5,7 @@
 //
 
 #import "OTAcceleratorSession.h"
+#import <objc/objc-runtime.h>
 
 static NSString * InternalApiKey = nil;
 static NSString * InternalSessionId = nil;
@@ -16,11 +17,57 @@ static NSString * InternalToken = nil;
 // in order to signal sessionDidDisconnect: back to inactive registers
 @property (nonatomic) NSMutableSet <id<OTSessionDelegate>> *inactiveDelegate;
 
+@property (nonatomic) NSMutableSet<OTPublisher *> *publishers;
+@property (nonatomic) NSMutableSet<OTSubscriber *> *subscribers;
+
 @end
 
 @implementation OTAcceleratorSession
 
 static OTAcceleratorSession *sharedSession;
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        [OTAcceleratorSession swizzlingSelector:@selector(publish:error:) withSelector:@selector(publishOnThisSesssion:error:)];
+        
+        [OTAcceleratorSession swizzlingSelector:@selector(unpublish:error:) withSelector:@selector(unpublishOnThisSesssion:error:)];
+        
+        [OTAcceleratorSession swizzlingSelector:@selector(subscribe:error:) withSelector:@selector(subscribeOnThisSession:error:)];
+        
+        [OTAcceleratorSession swizzlingSelector:@selector(unsubscribe:error:) withSelector:@selector(unsubscribeOnThisSession:error:)];
+    });
+}
+
++ (void)swizzlingSelector:(SEL)originalSelector withSelector:(SEL)swizzledSelector {
+    
+    Class class = [self class];
+    
+    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+    
+    // When swizzling a class method, use the following:
+    // Class class = object_getClass((id)self);
+    // ...
+    // Method originalMethod = class_getClassMethod(class, originalSelector);
+    // Method swizzledMethod = class_getClassMethod(class, swizzledSelector);
+    
+    BOOL didAddMethod =
+    class_addMethod(class,
+                    originalSelector,
+                    method_getImplementation(swizzledMethod),
+                    method_getTypeEncoding(swizzledMethod));
+    
+    if (didAddMethod) {
+        class_replaceMethod(class,
+                            swizzledSelector,
+                            method_getImplementation(originalMethod),
+                            method_getTypeEncoding(originalMethod));
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    }
+}
 
 - (NSString *)apiKey {
     return InternalApiKey;
@@ -63,6 +110,8 @@ static OTAcceleratorSession *sharedSession;
     sharedSession.delegate = sharedSession;
     sharedSession.delegates = [[NSMutableSet alloc] init];
     sharedSession.inactiveDelegate = [[NSMutableSet alloc] init];
+    sharedSession.publishers = [[NSMutableSet alloc] init];
+    sharedSession.subscribers = [[NSMutableSet alloc] init];
 }
 
 + (NSError *)registerWithAccePack:(id)delegate {
@@ -116,6 +165,34 @@ static OTAcceleratorSession *sharedSession;
         return error;
     }
     return nil;
+}
+
+- (void)publishOnThisSesssion:(OTPublisher *)publisher error:(OTError *__autoreleasing *)error {
+    [self publishOnThisSesssion:publisher error:error];    // this will call publish:error: because of swizzling
+    [self.publishers addObject:publisher];
+}
+
+- (void)unpublishOnThisSesssion:(OTPublisher *)publisher error:(OTError *__autoreleasing *)error {
+    [self unpublishOnThisSesssion:publisher error:error];
+    [self.publishers removeObject:publisher];
+}
+
+- (void)subscribeOnThisSession:(OTSubscriber *)subscriber error:(OTError *__autoreleasing *)error {
+    [self subscribeOnThisSession:subscriber error:error];  // this will call subscribe:error: because of swizzling
+    [self.subscribers addObject:subscriber];
+}
+
+- (void)unsubscribeOnThisSession:(OTSubscriber *)subscriber error:(OTError *__autoreleasing *)error {
+    [self unsubscribeOnThisSession:subscriber error:error];
+    [self.subscribers removeObject:subscriber];
+}
+
++ (NSArray<OTPublisher *> *)getPublishers {
+    return [[OTAcceleratorSession getAcceleratorPackSession].publishers allObjects];
+}
+
++ (NSArray<OTSubscriber *> *)getSubscribers {
+    return [[OTAcceleratorSession getAcceleratorPackSession].subscribers allObjects];
 }
 
 + (BOOL)containsAccePack:(id)delegate {
