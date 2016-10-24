@@ -30,6 +30,11 @@ typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
     OTSubscriberVideoDisableWarningLifted,
 };
 
+typedef NS_ENUM(NSInteger, OTVideoViewContentMode) {
+    OTVideoViewFill,
+    OTVideoViewFit
+};
+
 typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal, NSError *error);
 
 @protocol OTOneToOneCommunicatorDelegate <NSObject>
@@ -43,6 +48,12 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *  @return Returns the shared OTOneToOneCommunicator object.
  */
 + (instancetype)sharedInstance;
+
+/**
+ *  A string that represents the current communicator.
+ *  If not specified, the value will be "system name-name specified by Setting", e.g. @"iOS-MyiPhone"
+ */
+@property (nonatomic) NSString *publisherName;
 
 /**
  *  Registers to the shared session: [OTAcceleratorSession] and perform publishing/subscribing automatically.
@@ -86,6 +97,13 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 @property (readonly, nonatomic) UIView *subscriberView;
 
 /**
+ *  The scaling of the rendered video, as defined by the <OTVideoViewContentMode> enum.
+ *  The default value is OTVideoViewScaleBehaviorFill.
+ *  Set it to OTVideoViewScaleBehaviorFit to have the video shrink, as needed, so that the entire video is visible(with pillarboxing).
+ */
+@property (nonatomic) OTVideoViewContentMode subscriberVideoContentMode;
+
+/**
  *  A boolean value to indicate whether the communicator has available audio from subscription.
  *  This property will take the stream's hasAudio into account internally.
  */
@@ -98,11 +116,6 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 @property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
 
 #pragma mark - publisher
-/**
- *  A string that will be associated with this publisher's stream.
- */
-@property (nonatomic) NSString *publisherName;
-
 /**
  *  The view for this publisher. If this view becomes visible, it will display a preview of the active camera feed.
  * 
@@ -126,5 +139,20 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *  if the publisher has not yet begun publishing, getting this property returns the preferred camera position.
  */
 @property (nonatomic) AVCaptureDevicePosition cameraPosition;
+
+#pragma mark - advanced
+/**
+ *  Manually subscribe to a stream with a specfieid name.
+ *
+ *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
+ */
+- (NSError *)subscribeToStreamWithName:(NSString *)name;
+
+/**
+ *  Manually subscribe to a stream with a specfieid stream id.
+ *
+ *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
+ */
+- (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId;
 
 @end

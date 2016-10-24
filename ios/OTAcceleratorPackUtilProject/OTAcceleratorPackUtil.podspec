@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "OTAcceleratorPackUtil"
-  s.version          = "1.2.0"
+  s.version          = "1.2.3"
   s.summary          = "OpenTok Common Accelerator Session Pack permits all accelerators and samples to share the same OpenTok session."
 
   s.description      = "The Common Accelerator Session Pack is required whenever you use any of the OpenTok accelerators. The Common Accelerator Session Pack is a common layer that permits all accelerators and samples to share the same OpenTok session. The accelerator packs and sample app access the OpenTok session through the Common Accelerator Session Pack layer, which allows them to share a single OpenTok session.

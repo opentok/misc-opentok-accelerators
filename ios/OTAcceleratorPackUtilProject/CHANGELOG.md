@@ -4,13 +4,50 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.2.4
+-----
+
+### Enhancements
+
+- Nil out `publisherView` and `subscriberView` in `disconnect` method for avoiding potential side effect.
+
+1.2.3
+-----
+
+### Enhancements
+
+- Nil out `publisher` and `subscriber` in `disconnect` method for avoiding potential side effect.
+
+1.2.2
+-----
+
+### Enhancements
+
+- Add `subscribeToStreamWithStreamId:` for switching to another stream.
+
+
+1.2.1
+-----
+
+### Enhancements
+
+- Add `subscriberVideoContentMode` for displaying a fit or fill video.
+- Add `subscribeToStreamWithName:` for switching to another stream.
+- Make sure that the publisher has a name.
+
+### Fixes
+
+- Perform un-subscription and do subscription if there are any new streams being created. This will ensure that the session does not hold extra unused subscribers.
+
 1.2.0
+-----
 
 ### Enhancements
 
 - Update OpenTok iOS SDK dependency to 2.9.1 (https://tokbox.com/developer/sdks/ios/release-notes.html)
 
 1.1.10
+------
 
 ### Enhancements
 
