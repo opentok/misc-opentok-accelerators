@@ -61,6 +61,7 @@ public class OneToOneCommunication implements
     private OTKAnalyticsData mAnalyticsData;
     private OTKAnalytics mAnalytics;
 
+    private BaseVideoRenderer mScreenRenderer;
 
     /**
      * Defines values for the {@link #enableLocalMedia(MediaType, boolean)}
@@ -420,6 +421,10 @@ public class OneToOneCommunication implements
             mScreenSubscriber = new Subscriber(mContext, stream);
             mScreenSubscriber.setVideoListener(this);
             mScreenSubscriber.setSubscriberListener(this);
+
+            if ( mScreenRenderer != null ){
+                mScreenSubscriber.setRenderer(mScreenRenderer);
+            }
             mSession.subscribe(mScreenSubscriber);
 
             isScreensharing = true;
@@ -827,6 +832,12 @@ public class OneToOneCommunication implements
         }
         if ( mSubscriber != null && fill ){
             mSubscriber.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
+        }
+    }
+
+    public void setRemoteScreenRenderer(BaseVideoRenderer renderer){
+        if ( renderer != null ){
+            mScreenRenderer = renderer;
         }
     }
 }
