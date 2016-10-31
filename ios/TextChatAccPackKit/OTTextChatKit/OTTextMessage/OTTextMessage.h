@@ -9,18 +9,22 @@
  *  A data model describing information used in individual text chat messages.
  */
 @interface OTTextMessage : NSObject
+
 /**
  *  The alias of the sender or receiver.
  */
 @property (copy, nonatomic, readonly) NSString *alias;
+
 /**
  *  A unique identifier for the sender of the message.
  */
 @property (copy, nonatomic, readonly) NSString *senderId;
+
 /**
  *  The content of the text message.
  */
 @property (copy, nonatomic, readonly) NSString *text;
+
 /**
  *  The date and time when the message was sent (UNIXTIMESTAMP format).
  */

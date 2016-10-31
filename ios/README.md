@@ -2,159 +2,85 @@
 
 # OpenTok Text Chat Accelerator Pack for iOS<br/>Version 2.0.0
 
-## Quick start
+This document describes how to use the OpenTok Text Chat Accelerator Pack for iOS. 
 
-This section shows you how to use the accelerator pack.
+## Add the library
 
-## Quick start
+To get up and running quickly with your development, go through the following steps using CocoaPods:
 
-To get up and running quickly with your app, go through the following steps in the tutorial provided below:
-
-### Using CocoaPods
-
-1. In a terminal prompt, navigate into your project directory and type `pod install`.
-2. Reopen your project using the new *.xcworkspace file.
+1. Add the following line to your pod file: ` pod 'OTTextChatKit'  `
+2. In a terminal prompt, navigate into your project directory and type `pod install`.
+3. Reopen your project using the new `*.xcworkspace` file.
 
 For more information about CocoaPods, including installation instructions, visit [CocoaPods Getting Started](https://guides.cocoapods.org/using/getting-started.html#getting-started).
 
+### Configure and build the app
 
-### Configuring the app
+Configure the sample app code. Then, build and run the app.
 
-Now you are ready to add the configuration detail to your app. These will include the **Session ID**, **Token**, and **API Key** you retrieved earlier (see [Prerequisites](#prerequisites)).
+1. Get values for **API Key**, **Session ID**, and **Token**. See [OpenTok One-to-One Communication Sample App home page](../README.md) for important information.
 
-In **AppDelegate.h**, replace the following empty strings with the required detail:
+1. In XCode, open **AppDelegate.h** and add [OTAcceleratorPackUtil](https://cocoapods.org/pods/OTAcceleratorPackUtil) by `#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>`
 
+1. Replace the following empty strings with the corresponding **API Key**, **Session ID**, and **Token** values:
 
-   ```objc
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    ```objc
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    // Override point for customization after application launch.    
-    [OTTextChatView setOpenTokApiKey:@""
-                           sessionId:@""
-                               token:@""];
-    return YES;
-}
-   ```
+        // Override point for customization after application launch.    
+        [OTAcceleratorSession setOpenTokApiKey:@""
+                                     sessionId:@""
+                                         token:@""];
+        return YES;
+    }
+    ```
 
-_At this point you can try running the app! You can either use a simulator or an actual mobile device._
-
+1. Use Xcode to build and run the app on an iOS simulator or a device.
 
 ## Exploring the code
 
-This section describes how the sample app code design uses recommended best practices to deploy the text chat communication features. The sample app design extends the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/) and [OpenTok Common Accelerator Session Pack](https://github.com/opentok/acc-pack-common/) by adding logic using the classes in the `TextChatKit` framework.
+For detail about the APIs used to develop this accelerator pack, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
 
-For detail about the APIs used to develop this sample, see the [OpenTok iOS SDK Reference](https://tokbox.com/developer/sdks/ios/reference/).
+_**NOTE:** This accelerator pack collects anonymous usage data for internal TokBox purposes only. Please do not modify or remove any logging code from this sample application._
 
-  - [App design](#app-design)
-  - [Text Chat view](#text-chat-view)
-
-_**NOTE:** The sample app contains logic used for logging. This is used to submit anonymous usage data for internal TokBox purposes only. We request that you do not modify or remove any logging code in your use of this sample application._
-
-### App design
-
-The following classes, interfaces, and protocols represent the software design for this sample app, focusing primarily on the text chat features. For details about the one-to-one communication aspects of the design, see the [OpenTok One-to-One Communication Sample App](https://github.com/opentok/one-to-one-sample-apps/tree/master/one-to-one-sample-app/iOS).
+### Class design
 
 | Class        | Description  |
 | ------------- | ------------- |
-| `MainViewController`   | In conjunction with **Main.storyboard**, this class uses the OpenTok API to initiate the client connection to the OpenTok session, and implements the sample UI and text chat callbacks.   |
-| `TextChatView`   | Provides the initializers and methods for the client text chat UI views. |
-| `TextChatViewDelegate`   | Delegate that monitors both receiving and sending activity. For example, a message is successfully sent, or a message is sent with a code in the event of an error. |
+| `OTTextChat`   | This component represents a OpenTok connection that is able to send/receive textual content. |
+| `OTTextChatTableView`   | This class contains the basic configuration of the text chat layout.  |
+| `OTTextChatViewController`   | This class is the backbone element to display text chat data and implement your custom UI. This is aimed to provide customization to developers.|
 
-
-### Text Chat view
-
-The `TextChatView` class is the backbone of the text chat features for the app. It serves as a controller for the text chat UI widget, and defines delegates for exchanging messages that are implemented in this example by the `MainViewController` class:
+#### A simple way to use it
 
 ```objc
-@interface OTTextChatView : UIView
-
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token;
-
-@property (weak, nonatomic) id<TextChatViewDelegate> delegate;
-
-@property (readonly, nonatomic, getter=isShown) BOOL show;
-
-@property (readonly, nonatomic) OTTextChatUICustomizator *customizator;
-
-+ (instancetype)textChatView;
-
-+ (instancetype)textChatViewWithBottomView:(UIView *)bottomView;
-
-- (void)connect;
-
-- (void)connectWithHandler:(TextChatViewEventBlock)handler;
-
-- (void)disconnect;
-
-- (void)show;
-
-- (void)dismiss;
-
-- (void)setAlias:(NSString *)alias;
-
-- (void)setMaximumTextMessageLength:(NSUInteger)length;
-
-@end
-```
-
-
-#### Initialization methods
-
-The following `TextChatView` methods are used to initialize the text chat features so the client can send and receive text messages.
-
-| Feature        | Methods  |
-| ------------- | ------------- |
-| Initialize the text chat view. | `textChatView()`, `textChatViewWithBottomView()` |
-| Set the maximum chat text length.   | `setMaximumTextMessageLength()`  |
-| Set the sender alias and the sender ID of the outgoing messages.  | `setAlias()`  |
-
-
-For example, the following method in `MainViewController` instantiates and initializes a `TextChatView` object, setting the maximum message length to 200 characters.
-
-```objc
+// The view controller is inherited from OTTextChatViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.textChatView = [OTTextChatView textChatView];
-    [self.textChatView setMaximumTextMessageLength:200];
-    [self.textChatView setAlias:@“Tokboxer”];
+    self.textChat = [[OTTextChat alloc] init];
+    self.textChat.alias = @"Tokboxer";
+    self.textMessages = [[NSMutableArray alloc] init];
+    
+    self.textChatNavigationBar.topItem.title = self.textChat.alias;
+    self.tableView.textChatTableViewDelegate = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.textChatInputView.textField.delegate = self;
+    
+    __weak DefaultTextChatTableViewController *weakSelf = self;
+    [self.textChat connectWithHandler:^(OTTextChatViewEventSignal signal, OTTextMessage *message, NSError *error) {
+        
+        if (signal == OTTextChatViewEventSignalDidSendMessage || signal == OTTextChatViewEventSignalDidReceiveMessage) {
+            
+            if (!error) {
+                [weakSelf.textMessages addObject:message];
+                [weakSelf.tableView reloadData];
+                weakSelf.textChatInputView.textField.text = nil;
+                [weakSelf scrollTextChatTableViewToBottom];
+            }
+        }
+    }];
 }
 ```
 
-#### Sending and receiving messages
-
-By conforming to the `TextChatViewDelegate`, the `MainVewController` class defines methods that determine the UI responses to chat events. When a user clicks the send button, a `didAddMessageWithError` event is received.
-
-In order to signal sending a message, you must first call the `connect` method. This allows you to begin using the `TextChatViewDelegate` protocol to receive notifications about messages being sent and received.
-
-```objc
-[self.textChatView connect];
-```
-
-Once you no longer need to exchange messages, call the `disconnect` method to leave the session.
-
-The method implementations use the [OpenTok signaling API](https://tokbox.com/developer/sdks/ios/reference/Protocols/OTSessionDelegate.html#//api/name/session:receivedSignalType:fromConnection:withString:), which monitors the session connections to determine when individual chat messages are sent and received.
-
-
-```objc
-@protocol TextChatViewDelegate <NSObject>
-- (void)textChatViewDidSendMessage:(TextChatView *)textChatView
-                             error:(NSError *)error;
-- (void)textChatViewDidReceiveMessage:(TextChatView *)textChatView;
-
-@optional
-- (void)didConnectWithError:(NSError *)error;
-- (void)didDisConnectWithError:(NSError *)error;
-@end
-```
-
-## Requirements
-
-To develop your text chat app:
-
-1. Install Xcode version 5 or later.
-2. Review the [OpenTok iOS SDK Requirements](https://tokbox.com/developer/sdks/ios/).
-
-_You do not need the OpenTok iOS SDK to use this sample._
+#### Customization of cells
+Please see `CustomTextChatTableViewController` and `OTTextChatTableViewDataSource` from the sample provided.

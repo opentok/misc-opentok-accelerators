@@ -105,12 +105,26 @@ typedef void (^OTTextChatViewEventBlock)(OTTextChatViewEventSignal signal, OTTex
  */
 - (void)disconnect;
 
+/**
+ *  The name of the sender.
+ */
 @property (nonatomic) NSString *alias;
 
+/**
+ *  The name of the receiver.
+ */
 @property (readonly, nonatomic) NSString *receiverAlias;
 
+/**
+ *  The identifier of a connection object from OpenTok.
+ */
 @property (readonly, nonatomic) NSString *connectionId;
 
+/**
+ *  Attempt to send the message to another connection
+ *
+ *  @param message The message attempted to send.
+ */
 - (void)sendMessage:(NSString *)message;
 
 @end

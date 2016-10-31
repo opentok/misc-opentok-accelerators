@@ -998,12 +998,10 @@ fi
 			<key>files</key>
 			<array>
 				<string>A05D92871D583EEC0043F0E3</string>
-				<string>A0C7575C1DA8588B005E77E1</string>
 				<string>A0428A3E1DAC3DFF00CE8B3F</string>
 				<string>A05D928F1D58463D0043F0E3</string>
 				<string>A0D9E63F1D2480E400C6F73E</string>
 				<string>A0D9E6401D2480E400C6F73E</string>
-				<string>A0C7575D1DA8588B005E77E1</string>
 				<string>A0D9E6411D2480E400C6F73E</string>
 				<string>A05D92961D58FC560043F0E3</string>
 			</array>
@@ -2741,20 +2739,6 @@ fi
 			<string>&lt;group&gt;</string>
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
-		</dict>
-		<key>A0C7575C1DA8588B005E77E1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A0C7575A1DA8588B005E77E1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A0C7575D1DA8588B005E77E1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A0C7575B1DA8588B005E77E1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>A0D9E63C1D2480DA00C6F73E</key>
 		<dict>

@@ -20,8 +20,11 @@ Pod::Spec.new do |s|
   }
 
   s.public_header_files = 'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatKit.h', 
-    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatUICustomizator/OTTextChatUICustomizator.h',
-    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatView.h', 
+    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChat.h',
+    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatView.h',
+    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatInputView.h',
+    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatViewController.h',
+    'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatNavigationBar.h',
     'ios/TextChatAccPackKit/OTTextChatKit/OTTextMessage/OTTextMessage.h'
   s.dependency 'OTAcceleratorPackUtil'
 end
