@@ -1,5 +1,7 @@
 set -e
 
+task="$1"
+
 # relocate
 cd TextChatAccPackKit/
 
@@ -14,3 +16,11 @@ pod spec lint OTTextChatKit.podspec --use-libraries --allow-warnings --verbose
 
 # cd Documentation/
 # xcodebuild -project "Documentation.xcodeproj" -scheme "AppleDoc"
+
+#Run UI tests
+if [ "$task" == "-ui" ]; then
+        cd ../OneToOneTextChatSample
+        xcodebuild -workspace OneToOneTextChatSample.xcworkspace -scheme OneToOneTextChatSample -sdk iphonesimulator10.0 -configuration Debug -derivedDataPath build
+        cd ../OneToOneTextChatSampleUITests/
+        python TextChatUITest.py '../OneToOneTextChatSample/build/Build/Products/Debug-iphonesimulator/OneToOneTextChatSample.app' -platform 'iOS' -platformVersion '10.0' -deviceName 'iPhone 6s Plus' -bundleId 'com.tokbox.OneToOneTextChatSample'
+fi
