@@ -4,6 +4,13 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.2.8
+-----
+
+### Fixes
+
+- Use `#import <objc/runtime.h>` instead of `#import <objc/objc-runtime.h>` to solve compilation error.
+
 1.2.7
 -----
 

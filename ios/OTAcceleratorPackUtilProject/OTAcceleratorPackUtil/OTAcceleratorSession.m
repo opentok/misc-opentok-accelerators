@@ -5,7 +5,7 @@
 //
 
 #import "OTAcceleratorSession.h"
-#import <objc/objc-runtime.h>
+#import <objc/runtime.h>
 
 static NSString * InternalApiKey = nil;
 static NSString * InternalSessionId = nil;
