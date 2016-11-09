@@ -404,37 +404,53 @@ static NSString* const KLogVariationFailure = @"Failure";
     return _publisher.view;
 }
 
+- (BOOL)isRemoteAudioAvailable {
+    if (!_subscriber) return NO;
+    return _subscriber.stream.hasAudio;
+}
+
+- (BOOL)isRemoteVideoAvailable {
+    if (!_subscriber) return NO;
+    return _subscriber.stream.hasVideo;
+}
+
 - (void)setSubscribeToAudio:(BOOL)subscribeToAudio {
+    if (!_subscriber) return;
     _subscriber.subscribeToAudio = subscribeToAudio;
 }
 
 - (BOOL)isSubscribeToAudio {
-    if (!_subscriber.stream.hasAudio) return NO;
+    if (!_subscriber) return NO;
     return _subscriber.subscribeToAudio;
 }
 
 - (void)setSubscribeToVideo:(BOOL)subscribeToVideo {
+    if (!_subscriber) return;
     _subscriber.subscribeToVideo = subscribeToVideo;
 }
 
 - (BOOL)isSubscribeToVideo {
-    if (!_subscriber.stream.hasVideo) return NO;
+    if (!_subscriber) return NO;
     return _subscriber.subscribeToVideo;
 }
 
 - (void)setPublishAudio:(BOOL)publishAudio {
+    if (!_publisher) return;
     _publisher.publishAudio = publishAudio;
 }
 
 - (BOOL)isPublishAudio {
+    if (!_publisher) return NO;
     return _publisher.publishAudio;
 }
 
 - (void)setPublishVideo:(BOOL)publishVideo {
+    if (!_publisher) return;
     _publisher.publishVideo = publishVideo;
 }
 
 - (BOOL)isPublishVideo {
+    if (!_publisher) return NO;
     return _publisher.publishVideo;
 }
 

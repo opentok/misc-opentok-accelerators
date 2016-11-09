@@ -104,14 +104,22 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 @property (nonatomic) OTVideoViewContentMode subscriberVideoContentMode;
 
 /**
- *  A boolean value to indicate whether the communicator has available audio from subscription.
- *  This property will take the stream's hasAudio into account internally.
+ *  A boolean value to indicate whether the communicator has audio available.
+ */
+@property (nonatomic, readonly) BOOL isRemoteAudioAvailable;
+
+/**
+ *  A boolean value to indicate whether the communicator has video available.
+ */
+@property (nonatomic, readonly) BOOL isRemoteVideoAvailable;
+
+/**
+ *  A boolean value to indicate whether the communicator subscript to audio.
  */
 @property (nonatomic, getter=isSubscribeToAudio) BOOL subscribeToAudio;
 
 /**
- *  A boolean value to indicate whether the communicator has available video from subscription.
- *  This property will take the stream's hasVideo into account internally.
+ *  A boolean value to indicate whether the communicator subscript to video.
  */
 @property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
 

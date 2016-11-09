@@ -4,6 +4,13 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+1.2.5
+-----
+
+### Enhancements
+
+- Introduce `isRemoteAudioAvailable` and `isRemoteVideoAvailable` to have more audio and video control.
+
 1.2.4
 -----
 

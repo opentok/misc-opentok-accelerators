@@ -118,6 +118,10 @@ static OTAcceleratorSession *sharedSession;
     
     OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
     
+    if ([sharedSession.delegates containsObject:delegate]) {
+        return nil;
+    }
+    
     if ([delegate conformsToProtocol:@protocol(OTSessionDelegate)]) {
         if ([sharedSession.inactiveDelegate containsObject:delegate]) {
             [sharedSession.inactiveDelegate removeObject:delegate];
