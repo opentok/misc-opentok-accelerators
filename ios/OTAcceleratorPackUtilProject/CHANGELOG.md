@@ -4,12 +4,16 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
-1.2.5
+1.2.7
 -----
 
 ### Enhancements
 
 - Introduce `isRemoteAudioAvailable` and `isRemoteVideoAvailable` to have more audio and video control.
+
+### Fixed
+
+- Fix a crash that `NSMutableSet` can't remove `nil`.
 
 1.2.4
 -----

@@ -172,21 +172,25 @@ static OTAcceleratorSession *sharedSession;
 }
 
 - (void)publishOnThisSesssion:(OTPublisher *)publisher error:(OTError *__autoreleasing *)error {
+    if (!publisher) return;
     [self publishOnThisSesssion:publisher error:error];    // this will call publish:error: because of swizzling
     [self.publishers addObject:publisher];
 }
 
 - (void)unpublishOnThisSesssion:(OTPublisher *)publisher error:(OTError *__autoreleasing *)error {
+    if (!publisher) return;
     [self unpublishOnThisSesssion:publisher error:error];
     [self.publishers removeObject:publisher];
 }
 
 - (void)subscribeOnThisSession:(OTSubscriber *)subscriber error:(OTError *__autoreleasing *)error {
+    if (!subscriber) return;
     [self subscribeOnThisSession:subscriber error:error];  // this will call subscribe:error: because of swizzling
     [self.subscribers addObject:subscriber];
 }
 
 - (void)unsubscribeOnThisSession:(OTSubscriber *)subscriber error:(OTError *__autoreleasing *)error {
+    if (!subscriber) return;
     [self unsubscribeOnThisSession:subscriber error:error];
     [self.subscribers removeObject:subscriber];
 }
