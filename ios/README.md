@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Screensharing Accelerator Pack for iOS<br/>Version 1.1.0
+# OpenTok Screensharing Accelerator Pack for iOS<br/>Version 1.1
 
 This document describes how to use the OpenTok Screensharing Accelerator Pack for iOS.
 

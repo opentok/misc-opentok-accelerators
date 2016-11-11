@@ -1,6 +1,6 @@
 ![logo](./tokbox-logo.png)
 
-# OpenTok Screensharing Accelerator Pack<br/>Version 1.1.0
+# OpenTok Screensharing Accelerator Pack<br/>Version 1.1
 
 The OpenTok Screensharing Accelerator Pack provides functionality you can add to your OpenTok applications. This functionality enables users to share an application window screen (not the device screen) from both mobile and browser-based devices.
 

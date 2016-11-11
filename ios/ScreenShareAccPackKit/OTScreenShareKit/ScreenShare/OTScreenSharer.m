@@ -11,7 +11,7 @@
 #import "OTScreenSharer_Private.h"
 
 static NSString * const kLogComponentIdentifier = @"screenSharingAccPack";
-static NSString * const KLogClientVersion = @"ios-vsol-1.1.0";
+static NSString * const KLogClientVersion = @"ios-vsol-1.1.3";
 static NSString * const KLogActionInitialize = @"Init";
 static NSString * const KLogActionStart = @"Start";
 static NSString * const KLogActionEnd = @"End";
@@ -53,6 +53,10 @@ static NSString * const KLogVariationFailure = @"Failure";
 @property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTAcceleratorSession *session;
 @property (nonatomic) OTPublisher *publisher;
+
+@property (nonatomic) UIView *publisherView;
+@property (nonatomic) UIView *subscriberView;
+
 @property (strong, nonatomic) OTScreenShareBlock handler;
 
 @end
@@ -132,9 +136,10 @@ static NSString * const KLogVariationFailure = @"Failure";
         [self.publisher.view removeFromSuperview];
         [self.session unpublish:self.publisher error:&error];
         if (error) {
-            self.subscriber = nil;
             NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
+        self.publisher = nil;
+        self.publisherView = nil;
     }
 
     if (self.subscriber) {
@@ -143,9 +148,10 @@ static NSString * const KLogVariationFailure = @"Failure";
         [self.subscriber.view removeFromSuperview];
         [self.session unsubscribe:self.subscriber error:&error];
         if (error) {
-            self.subscriber = nil;
             NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
+        self.subscriber = nil;
+        self.subscriberView = nil;
     }
 
     NSError *disconnectError = [OTAcceleratorSession deregisterWithAccePack:self];
@@ -186,11 +192,15 @@ static NSString * const KLogVariationFailure = @"Failure";
     [[SSLoggingWrapper sharedInstance].logger setSessionId:session.sessionId connectionId:session.connection.connectionId partnerId:@([self.session.apiKey integerValue])];
 
     if (!self.publisher) {
-        NSString *deviceName = [UIDevice currentDevice].name;
+        
+        if (!self.publisherName) {
+            self.publisherName = [NSString stringWithFormat:@"%@-%@", [UIDevice currentDevice].systemName, [UIDevice currentDevice].name];
+        }
         self.publisher = [[OTPublisher alloc] initWithDelegate:self
-                                                          name:deviceName
+                                                          name:self.publisherName
                                                     audioTrack:YES
                                                     videoTrack:YES];
+        
         [self.publisher setVideoType:OTPublisherKitVideoTypeScreen];
         self.publisher.audioFallbackEnabled = NO;
         [self.publisher setVideoCapture:self.screenCapture];
@@ -210,16 +220,23 @@ static NSString * const KLogVariationFailure = @"Failure";
 }
 
 - (void) sessionDidDisconnect:(OTSession *)session {
-    self.publisher = nil;
-    self.subscriber = nil;
-    
     [self notifiyAllWithSignal:OTScreenShareSignalSessionDidDisconnect
                          error:nil];
 }
 
 - (void)session:(OTSession *)session streamCreated:(OTStream *)stream {
 
-    OTError *error;
+    // we always subscribe one stream for this acc pack
+    // please see - subscribeToStreamWithName: to switch subscription
+    if (self.subscriber) {
+        NSError *unsubscribeError;
+        [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+        if (unsubscribeError) {
+            NSLog(@"%@", unsubscribeError);
+        }
+    }
+    
+    OTError *subscrciberError;
     self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
     if (self.subscriberVideoContentMode == OTScreenShareVideoViewFit) {
         self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
@@ -227,9 +244,9 @@ static NSString * const KLogVariationFailure = @"Failure";
     else {
         self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
     }
-    [self.session subscribe:self.subscriber error:&error];
+    [self.session subscribe:self.subscriber error:&subscrciberError];
     [self notifiyAllWithSignal:OTScreenShareSignalSessionStreamCreated
-                         error:error];
+                         error:subscrciberError];
 }
 
 - (void) session:(OTSession *)session streamDestroyed:(OTStream *)stream {
@@ -353,42 +370,53 @@ static NSString * const KLogVariationFailure = @"Failure";
     return _publisher.view;
 }
 
+- (BOOL)isRemoteAudioAvailable {
+    if (!_subscriber) return NO;
+    return _subscriber.stream.hasAudio;
+}
+
+- (BOOL)isRemoteVideoAvailable {
+    if (!_subscriber) return NO;
+    return _subscriber.stream.hasVideo;
+}
+
 - (void)setSubscribeToAudio:(BOOL)subscribeToAudio {
+    if (!_subscriber) return;
     _subscriber.subscribeToAudio = subscribeToAudio;
 }
 
 - (BOOL)isSubscribeToAudio {
-    if (!_subscriber.stream.hasAudio) return NO;
+    if (!_subscriber) return NO;
     return _subscriber.subscribeToAudio;
 }
 
 - (void)setSubscribeToVideo:(BOOL)subscribeToVideo {
+    if (!_subscriber) return;
     _subscriber.subscribeToVideo = subscribeToVideo;
 }
 
 - (BOOL)isSubscribeToVideo {
-    if (!_subscriber.stream.hasVideo) return NO;
+    if (!_subscriber) return NO;
     return _subscriber.subscribeToVideo;
 }
 
 - (void)setPublishAudio:(BOOL)publishAudio {
+    if (!_publisher) return;
     _publisher.publishAudio = publishAudio;
-    if (_publisher.publishAudio){
-        [[SSLoggingWrapper sharedInstance].logger logEventAction:KLogActionEnableAudioScreensharing variation:KLogVariationSuccess completion:nil];
-    } else {
-        [[SSLoggingWrapper sharedInstance].logger logEventAction:KLogActionDisableAudioScreensharing variation:KLogVariationSuccess completion:nil];
-    }
 }
 
 - (BOOL)isPublishAudio {
+    if (!_publisher) return NO;
     return _publisher.publishAudio;
 }
 
 - (void)setPublishVideo:(BOOL)publishVideo {
+    if (!_publisher) return;
     _publisher.publishVideo = publishVideo;
 }
 
 - (BOOL)isPublishVideo {
+    if (!_publisher) return NO;
     return _publisher.publishVideo;
 }
 
@@ -410,6 +438,46 @@ static NSString * const KLogVariationFailure = @"Failure";
             self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
         }
     }
+}
+
+#pragma mark - advanced
+
+- (NSError *)subscribeToStreamWithName:(NSString *)name {
+    for (OTStream *stream in self.session.streams.allValues) {
+        if ([stream.name isEqualToString:name]) {
+            NSError *unsubscribeError;
+            [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+            if (unsubscribeError) {
+                NSLog(@"%@", unsubscribeError);
+            }
+            
+            NSError *subscrciberError;
+            self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
+            [self.session subscribe:self.subscriber error:&subscrciberError];
+            return subscrciberError;
+        }
+    }
+    
+    return [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is no such stream with name: %@", name]}];
+}
+
+- (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId {
+    for (OTStream *stream in self.session.streams.allValues) {
+        if ([stream.streamId isEqualToString:streamId]) {
+            NSError *unsubscribeError;
+            [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+            if (unsubscribeError) {
+                NSLog(@"%@", unsubscribeError);
+            }
+            
+            NSError *subscrciberError;
+            self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
+            [self.session subscribe:self.subscriber error:&subscrciberError];
+            return subscrciberError;
+        }
+    }
+    
+    return [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is no such stream with streamId: %@", streamId]}];
 }
 
 @end

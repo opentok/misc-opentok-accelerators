@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Screensharing Accelerator Pack for JavaScript<br/>Version 1.1.0
+# OpenTok Screensharing Accelerator Pack for JavaScript<br/>Version 1.1
 
 ## Quick start
 

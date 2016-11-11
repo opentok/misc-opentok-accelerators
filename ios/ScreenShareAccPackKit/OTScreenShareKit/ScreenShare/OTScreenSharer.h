@@ -49,6 +49,12 @@ typedef void (^OTScreenShareBlock)(OTScreenShareSignal signal, NSError *error);
 @property (readonly, nonatomic) BOOL isScreenSharing;
 
 /**
+ *  A string that represents the current communicator.
+ *  If not specified, the value will be "system name-name specified by Setting", e.g. @"iOS-MyiPhone"
+ */
+@property (nonatomic) NSString *publisherName;
+
+/**
  *  @return Returns the shared OTScreenSharer object.
  */
 + (instancetype)sharedInstance;
@@ -108,6 +114,16 @@ typedef void (^OTScreenShareBlock)(OTScreenShareSignal signal, NSError *error);
 @property (readonly, nonatomic) CGSize subscriberVideoDimension;
 
 /**
+ *  A boolean value to indicate whether the subscriber has audio available.
+ */
+@property (nonatomic, readonly) BOOL isRemoteAudioAvailable;
+
+/**
+ *  A boolean value to indicate whether the subscriber has video available.
+ */
+@property (nonatomic, readonly) BOOL isRemoteVideoAvailable;
+
+/**
  *  The view containing a playback buffer for associated video data. Add this view to your view heirarchy to display a video stream.
  *
  *  The subscriber view is available after OTScreenShareSignalSubscriberDidConnect being signaled.
@@ -115,14 +131,12 @@ typedef void (^OTScreenShareBlock)(OTScreenShareSignal signal, NSError *error);
 @property (readonly, nonatomic) UIView *subscriberView;
 
 /**
- *  A boolean value to indicate whether the screen sharer has available audio from subscription.
- *  This property will take the stream's hasAudio into account internally.
+ *  A boolean value to indicate whether the screen sharer subscripts to audio.
  */
 @property (nonatomic, getter=isSubscribeToAudio) BOOL subscribeToAudio;
 
 /**
- *  A boolean value to indicate whether the screen sharer has available video from subscription.
- *  This property will take the stream's hasVideo into account internally.
+ *  A boolean value to indicate whether the screen sharer subscripts to video.
  */
 @property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
 
@@ -143,5 +157,20 @@ typedef void (^OTScreenShareBlock)(OTScreenShareSignal signal, NSError *error);
  *  A boolean value to indicate whether to publish video.
  */
 @property (nonatomic, getter=isPublishVideo) BOOL publishVideo;
+
+#pragma mark - advanced
+/**
+ *  Manually subscribe to a stream with a specfieid name.
+ *
+ *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
+ */
+- (NSError *)subscribeToStreamWithName:(NSString *)name;
+
+/**
+ *  Manually subscribe to a stream with a specfieid stream id.
+ *
+ *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
+ */
+- (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId;
 
 @end

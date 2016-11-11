@@ -1,6 +1,6 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Screensharing Accelerator Pack for Android<br/>Version 1.1.0
+# OpenTok Screensharing Accelerator Pack for Android<br/>Version 1.1
 
 This document describes how to use the OpenTok Screensharing Accelerator Pack for Android. Through the exploration of the OpenTok Screensharing with Annotations Sample App, you will learn best practices for screensharing on an Android mobile device.
 
