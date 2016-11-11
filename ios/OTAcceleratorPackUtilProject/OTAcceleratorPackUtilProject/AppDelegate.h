@@ -5,11 +5,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (OTAcceleratorSession *)getSharedAcceleratorSession;
 
 @end
 

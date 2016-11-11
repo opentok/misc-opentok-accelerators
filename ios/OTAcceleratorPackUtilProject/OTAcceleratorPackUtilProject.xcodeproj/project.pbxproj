@@ -25,7 +25,6 @@
 		A0127AD41D346D7200CDA3F5 /* OTOneToOneCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127AD21D346D7200CDA3F5 /* OTOneToOneCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0127AD51D346D7200CDA3F5 /* OTOneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127AD31D346D7200CDA3F5 /* OTOneToOneCommunicator.m */; };
 		A0E904EA1DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E904E91DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m */; };
-		A0E904ED1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E904EC1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m */; };
 		A0FEABFF1D73B3BF000BDDA4 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */; };
 		A0FEAC001D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */; };
 		A0FEAC011D73B3BF000BDDA4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A0FEABFE1D73B3BF000BDDA4 /* Podfile */; };
@@ -83,11 +82,9 @@
 		A0127AD31D346D7200CDA3F5 /* OTOneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTOneToOneCommunicator.m; sourceTree = "<group>"; };
 		A0E904E81DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestOneToOneCommunicatorSwitchingViewController.h; sourceTree = "<group>"; };
 		A0E904E91DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOneToOneCommunicatorSwitchingViewController.m; sourceTree = "<group>"; };
-		A0E904EB1DBB452800270E87 /* TestOneToOneCommunicatorContentModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestOneToOneCommunicatorContentModeViewController.h; sourceTree = "<group>"; };
-		A0E904EC1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOneToOneCommunicatorContentModeViewController.m; sourceTree = "<group>"; };
 		A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OTAcceleratorPackUtil.podspec; sourceTree = "<group>"; };
-		A0FEABFE1D73B3BF000BDDA4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		A0FEABFE1D73B3BF000BDDA4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,8 +144,6 @@
 				A0127ACB1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m */,
 				A0E904E81DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.h */,
 				A0E904E91DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m */,
-				A0E904EB1DBB452800270E87 /* TestOneToOneCommunicatorContentModeViewController.h */,
-				A0E904EC1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m */,
 				A0127A971D34651B00CDA3F5 /* Main.storyboard */,
 				A0127A9A1D34651B00CDA3F5 /* Assets.xcassets */,
 				A0127A9C1D34651B00CDA3F5 /* LaunchScreen.storyboard */,
@@ -298,7 +293,6 @@
 				A0127A961D34651B00CDA3F5 /* ViewController.m in Sources */,
 				A0127AC31D34668100CDA3F5 /* TestSessionViewController.m in Sources */,
 				A0127A931D34651B00CDA3F5 /* AppDelegate.m in Sources */,
-				A0E904ED1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m in Sources */,
 				A0FEABFF1D73B3BF000BDDA4 /* CHANGELOG.md in Sources */,
 				A0127A901D34651B00CDA3F5 /* main.m in Sources */,
 				A0127AC91D3466AD00CDA3F5 /* FakeAccePack2.m in Sources */,

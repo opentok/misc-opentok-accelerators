@@ -5,9 +5,9 @@
 //
 
 #import "TestOneToOneCommunicatorViewController.h"
-#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
+#import "AppDelegate.h"
 
-@interface TestOneToOneCommunicatorViewController () <OTOneToOneCommunicatorDelegate>
+@interface TestOneToOneCommunicatorViewController () <OTOneToOneCommunicatorDelegate, OTOneToOneCommunicatorDataSource>
 @property (weak, nonatomic) IBOutlet UIView *subscriberView;
 @property (weak, nonatomic) IBOutlet UIView *publisherView;
 @property (nonatomic) OTOneToOneCommunicator *communicator;
@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.communicator = [OTOneToOneCommunicator sharedInstance];
+    self.communicator = [[OTOneToOneCommunicator alloc] initWithDataSource:self];
     self.communicator.delegate = self;
     [self.communicator connect];
     
@@ -46,6 +46,11 @@
 
 - (void)endCallButtonPressed {
     [self.communicator disconnect];
+}
+
+#pragma mark - OTOneToOneCommunicatorDataSource
+- (OTAcceleratorSession *)sessionOfOTOneToOneCommunicator:(OTOneToOneCommunicator *)oneToOneCommunicator {
+    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
 }
 
 @end
