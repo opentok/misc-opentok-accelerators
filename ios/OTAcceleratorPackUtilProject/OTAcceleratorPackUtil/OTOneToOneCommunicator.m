@@ -43,9 +43,10 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 @interface OTOneToOneCommunicator() <OTSessionDelegate, OTSubscriberKitDelegate, OTPublisherDelegate>
 @property (nonatomic) BOOL isCallEnabled;
+@property (nonatomic) NSString *name;
 @property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTPublisher *publisher;
-@property (nonatomic) OTAcceleratorSession *session;
+@property (weak, nonatomic) OTAcceleratorSession *session;
 
 @property (nonatomic) UIView *subscriberView;
 @property (nonatomic) UIView *publisherView;
@@ -55,53 +56,39 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 @implementation OTOneToOneCommunicator
 
-- (void)setSubscriberVideoContentMode:(OTVideoViewContentMode)subscriberVideoContentMode {
-    _subscriberVideoContentMode = subscriberVideoContentMode;
+- (instancetype)initWithDataSource:(id<OTOneToOneCommunicatorDataSource>)dataSource {
     
-    if (self.subscriber) {
-        if (_subscriberVideoContentMode == OTVideoViewFit) {
-            self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
-        }
-        else {
-            self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
-        }
-    }
+    return [self initWithName:[NSString stringWithFormat:@"%@-%@", [UIDevice currentDevice].systemName, [UIDevice currentDevice].name]
+                   dataSource:dataSource];
 }
 
-+ (instancetype)sharedInstance {
-
-    static OTOneToOneCommunicator *sharedInstance;
-    static dispatch_once_t onceToken;
+- (instancetype)initWithName:(NSString *)name
+                  dataSource:(id<OTOneToOneCommunicatorDataSource>)dataSource {
     
-    if (!sharedInstance) {
-        [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
+    [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
+    
+    if (!dataSource) {
+        [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
+        return nil;
     }
     
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[OTOneToOneCommunicator alloc] init];
-        sharedInstance.session = [OTAcceleratorSession getAcceleratorPackSession];
-        
-        if (sharedInstance && sharedInstance.session) {
-            [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
-        }
-        else {
-            [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
-        }
-    });
-    return sharedInstance;
+    if (self = [super init]) {
+        _name = name;
+        _dataSource = dataSource;
+        _session = [_dataSource sessionOfOTOneToOneCommunicator:self];
+        [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
+    }
+    return self;
 }
 
 - (NSError *)connect {
-    
-    // refresh in case of credentials update
-    self.session = [OTAcceleratorSession getAcceleratorPackSession];
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
     [loggingWrapper.logger logEventAction:KLogActionStartCommunication
                                 variation:KLogVariationAttempt
                                completion:nil];
     
-    NSError *connectError = [OTAcceleratorSession registerWithAccePack:self];
+    NSError *connectError = [self.session registerWithAccePack:self];
     if (!connectError) {
         [loggingWrapper.logger logEventAction:KLogActionStartCommunication
                                     variation:KLogVariationSuccess
@@ -156,7 +143,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     }
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
-    NSError *disconnectError = [OTAcceleratorSession deregisterWithAccePack:self];
+    NSError *disconnectError = [self.session deregisterWithAccePack:self];
     if (!disconnectError) {
         [loggingWrapper.logger logEventAction:KLogActionEndCommunication
                                     variation:KLogVariationSuccess
@@ -191,14 +178,7 @@ static NSString* const KLogVariationFailure = @"Failure";
                                                partnerId:@([self.session.apiKey integerValue])];
     
     if (!self.publisher) {
-        
-        if (self.publisherName) {
-            self.publisher = [[OTPublisher alloc] initWithDelegate:self name:self.publisherName];
-        }
-        else {
-            self.publisherName = [NSString stringWithFormat:@"%@-%@", [UIDevice currentDevice].systemName, [UIDevice currentDevice].name];
-            self.publisher = [[OTPublisher alloc] initWithDelegate:self name:self.publisherName];
-        }
+        self.publisher = [[OTPublisher alloc] initWithDelegate:self name:self.name];
     }
     
     OTError *error;
@@ -233,12 +213,6 @@ static NSString* const KLogVariationFailure = @"Failure";
     
     OTError *subscrciberError;
     self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
-    if (self.subscriberVideoContentMode == OTVideoViewFit) {
-        self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
-    }
-    else {
-        self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
-    }
     [self.session subscribe:self.subscriber error:&subscrciberError];
     [self notifiyAllWithSignal:OTSessionStreamCreated
                          error:subscrciberError];
@@ -360,6 +334,8 @@ static NSString* const KLogVariationFailure = @"Failure";
 - (NSError *)subscribeToStreamWithName:(NSString *)name {
     for (OTStream *stream in self.session.streams.allValues) {
         if ([stream.name isEqualToString:name]) {
+            [self.subscriberView removeFromSuperview];
+            self.subscriberView = nil;
             NSError *unsubscribeError;
             [self.session unsubscribe:self.subscriber error:&unsubscribeError];
             if (unsubscribeError) {

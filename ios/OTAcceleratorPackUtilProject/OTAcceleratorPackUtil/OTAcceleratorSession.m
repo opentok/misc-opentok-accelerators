@@ -7,11 +7,11 @@
 #import "OTAcceleratorSession.h"
 #import <objc/runtime.h>
 
-static NSString * InternalApiKey = nil;
-static NSString * InternalSessionId = nil;
-static NSString * InternalToken = nil;
-
 @interface OTAcceleratorSession() <OTSessionDelegate>
+
+@property (nonatomic) NSString *internalApiKey;
+@property (nonatomic) NSString *internalSessionId;
+@property (nonatomic) NSString *internalToken;
 
 @property (nonatomic) NSMutableSet <id<OTSessionDelegate>> *delegates;
 // in order to signal sessionDidDisconnect: back to inactive registers
@@ -70,70 +70,48 @@ static OTAcceleratorSession *sharedSession;
 }
 
 - (NSString *)apiKey {
-    return InternalApiKey;
+    return _internalApiKey;
 }
 
-+ (NSSet<id<OTSessionDelegate>> *)getRegisters {
-    return [[OTAcceleratorSession getAcceleratorPackSession].delegates copy];
-}
-
-+ (instancetype)getAcceleratorPackSession {
-    return sharedSession;
-}
-
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token {
+- (instancetype)initWithOpenTokApiKey:(NSString *)apiKey
+                            sessionId:(NSString *)sessionId
+                                token:(NSString *)token {
     
-    InternalApiKey = apiKey;
-    InternalSessionId = sessionId;
-    InternalToken = token;
+    NSAssert(apiKey.length != 0, @"OpenTok: API key can not be empty, please add it to OneToOneCommunicator");
+    NSAssert(sessionId.length != 0, @"OpenTok: Session Id can not be empty, please add it to OneToOneCommunicator");
+    NSAssert(token.length != 0, @"OpenTok: Token can not be empty, please add it to OneToOneCommunicator");
     
-    NSAssert(InternalApiKey.length != 0, @"OpenTok: API key can not be empty, please add it to OneToOneCommunicator");
-    NSAssert(InternalSessionId.length != 0, @"OpenTok: Session Id can not be empty, please add it to OneToOneCommunicator");
-    NSAssert(InternalToken.length != 0, @"OpenTok: Token can not be empty, please add it to OneToOneCommunicator");
-    
-    if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnected ||
-        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnecting) {
+    if (self = [super initWithApiKey:apiKey sessionId:sessionId delegate:self]) {
+        _internalApiKey = apiKey;
+        _internalSessionId = sessionId;
+        _internalToken = token;
         
-        OTError *error;
-        [sharedSession disconnect:&error];
-        if (error) {
-            NSLog(@"%s Error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
-        }
+        _delegates = [[NSMutableSet alloc] init];
+        _inactiveDelegate = [[NSMutableSet alloc] init];
+        _publishers = [[NSMutableSet alloc] init];
+        _subscribers = [[NSMutableSet alloc] init];
     }
-    
-    // re-init
-    sharedSession = [[OTAcceleratorSession alloc] initWithApiKey:InternalApiKey
-                                                        sessionId:InternalSessionId
-                                                         delegate:nil];
-    sharedSession.delegate = sharedSession;
-    sharedSession.delegates = [[NSMutableSet alloc] init];
-    sharedSession.inactiveDelegate = [[NSMutableSet alloc] init];
-    sharedSession.publishers = [[NSMutableSet alloc] init];
-    sharedSession.subscribers = [[NSMutableSet alloc] init];
+    return self;
 }
 
-+ (NSError *)registerWithAccePack:(id)delegate {
+- (NSError *)registerWithAccePack:(id)delegate {
     
-    OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
-    
-    if ([sharedSession.delegates containsObject:delegate]) {
+    if ([self.delegates containsObject:delegate]) {
         return nil;
     }
     
     if ([delegate conformsToProtocol:@protocol(OTSessionDelegate)]) {
-        if ([sharedSession.inactiveDelegate containsObject:delegate]) {
-            [sharedSession.inactiveDelegate removeObject:delegate];
+        if ([self.inactiveDelegate containsObject:delegate]) {
+            [self.inactiveDelegate removeObject:delegate];
         }
-        [sharedSession.delegates addObject:delegate];
+        [self.delegates addObject:delegate];
     }
     
     // notify sessionDidConnect when session has connected
-    if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnected) {
+    if (self.sessionConnectionStatus == OTSessionConnectionStatusConnected) {
         [delegate sessionDidConnect:sharedSession];
         
-        NSDictionary *streams = sharedSession.streams;
+        NSDictionary *streams = self.streams;
         for (NSString *stream in streams) {
             [delegate session:sharedSession streamCreated:streams[stream]];
         }
@@ -141,31 +119,29 @@ static OTAcceleratorSession *sharedSession;
         return nil;
     }
     
-    if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusConnecting ||
-        sharedSession.sessionConnectionStatus == OTSessionConnectionStatusReconnecting) return nil;
+    if (self.sessionConnectionStatus == OTSessionConnectionStatusConnecting ||
+        self.sessionConnectionStatus == OTSessionConnectionStatusReconnecting) return nil;
     
     OTError *error;
-    [sharedSession connectWithToken:InternalToken error:&error];
+    [self connectWithToken:self.internalToken error:&error];
     return error;
 }
 
-+ (NSError *)deregisterWithAccePack:(id)delegate {
-    
-    OTAcceleratorSession *sharedSession = [OTAcceleratorSession getAcceleratorPackSession];
+- (NSError *)deregisterWithAccePack:(id)delegate {
     
     // notify sessionDidDisconnect to delegates who has de-registered
-    if ([delegate conformsToProtocol:@protocol(OTSessionDelegate)] && [sharedSession.delegates containsObject:delegate]) {
-        [sharedSession.delegates removeObject:delegate];
-        [sharedSession.inactiveDelegate addObject:delegate];
+    if ([delegate conformsToProtocol:@protocol(OTSessionDelegate)] && [self.delegates containsObject:delegate]) {
+        [self.delegates removeObject:delegate];
+        [self.inactiveDelegate addObject:delegate];
     }
 
-    if (sharedSession.delegates.count == 0) {
+    if (self.delegates.count == 0) {
         
-        if (sharedSession.sessionConnectionStatus == OTSessionConnectionStatusNotConnected ||
-            sharedSession.sessionConnectionStatus == OTSessionConnectionStatusDisconnecting) return nil;
+        if (self.sessionConnectionStatus == OTSessionConnectionStatusNotConnected ||
+            self.sessionConnectionStatus == OTSessionConnectionStatusDisconnecting) return nil;
         
         OTError *error;
-        [sharedSession disconnect:&error];
+        [self disconnect:&error];
         return error;
     }
     return nil;
@@ -195,18 +171,20 @@ static OTAcceleratorSession *sharedSession;
     [self.subscribers removeObject:subscriber];
 }
 
-+ (NSArray<OTPublisher *> *)getPublishers {
-    return [[OTAcceleratorSession getAcceleratorPackSession].publishers allObjects];
+- (NSArray<OTPublisher *> *)getPublishers {
+    return [self.publishers allObjects];
 }
 
-+ (NSArray<OTSubscriber *> *)getSubscribers {
-    return [[OTAcceleratorSession getAcceleratorPackSession].subscribers allObjects];
+- (NSArray<OTSubscriber *> *)getSubscribers {
+    return [self.subscribers allObjects];
 }
 
-+ (BOOL)containsAccePack:(id)delegate {
-    
-    OTAcceleratorSession *session = [OTAcceleratorSession getAcceleratorPackSession];
-    return [session.delegates containsObject:delegate];
+- (BOOL)containsAccePack:(id)delegate {
+    return [self.delegates containsObject:delegate];
+}
+
+- (NSSet<id<OTSessionDelegate>> *)getRegisters {
+    return [self.delegates copy];
 }
 
 #pragma mark - OTSessionDelegate

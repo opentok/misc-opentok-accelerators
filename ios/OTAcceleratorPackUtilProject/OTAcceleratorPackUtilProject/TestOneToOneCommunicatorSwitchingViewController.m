@@ -5,9 +5,9 @@
 //
 
 #import "TestOneToOneCommunicatorSwitchingViewController.h"
-#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
+#import "AppDelegate.h"
 
-@interface TestOneToOneCommunicatorSwitchingViewController()<OTOneToOneCommunicatorDelegate>
+@interface TestOneToOneCommunicatorSwitchingViewController()<OTOneToOneCommunicatorDelegate, OTOneToOneCommunicatorDataSource>
 @property (weak, nonatomic) IBOutlet UIView *subscriberView;
 @property (weak, nonatomic) IBOutlet UIView *publisherView;
 @property (nonatomic) OTOneToOneCommunicator *communicator;
@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.communicator = [OTOneToOneCommunicator sharedInstance];
+    self.communicator = [[OTOneToOneCommunicator alloc] initWithDataSource:self];
     self.communicator.delegate = self;
     [self.communicator connect];
     
@@ -46,7 +46,19 @@
 
 - (void)switchButtonPressed {
     // please specify anotherTokboxer to test it
-    [self.communicator subscribeToStreamWithName:@"anotherTokboxer"];
+    OTAcceleratorSession *session = [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
+    
+    for (OTStream *stream in session.streams.allValues) {
+        if ([self.communicator.name isEqualToString:stream.name]) {
+            [self.communicator subscribeToStreamWithName:stream.name];
+            break;
+        }
+    }
+}
+
+#pragma mark - OTOneToOneCommunicatorDataSource
+- (OTAcceleratorSession *)sessionOfOTOneToOneCommunicator:(OTOneToOneCommunicator *)oneToOneCommunicator {
+    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
 }
 
 @end
