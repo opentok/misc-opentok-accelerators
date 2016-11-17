@@ -36,13 +36,22 @@
 @property (weak, nonatomic) id<OTAnnotationEditTextViewProtocol> delegate;
 
 /**
- *  Initializer Factory method to set the default color for the text.
+ *  Initializer method to set the default color for the text.
  *
  *  @param textColor The default text color.
  *
  *  @return A text object initialized with the default color.
  */
-+ (instancetype)defaultWithTextColor:(UIColor *)textColor;
+- (instancetype)initWithTextColor:(UIColor *)textColor;
+
+/**
+ *  Initializer method to set the default color for the remote text.
+ *
+ *  @param textColor The default text color.
+ *
+ *  @return A text object initialized with the default color.
+ */
+- (instancetype)initRemoteWithTextColor:(UIColor *)textColor;
 
 /**
  *  Creates a new annotation edit text object initialized with text and color.

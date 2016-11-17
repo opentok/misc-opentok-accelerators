@@ -8,9 +8,13 @@
 #import <OTAnnotationKit/OTAnnotationKit.h>
 #import <OTScreenShareKit/OTScreenShareKit.h>
 
-@interface SendAnnotationFitViewController ()
+@interface SendAnnotationFitViewController () <OTAnnotationToolbarViewDataSource>
 @property (nonatomic) OTAnnotator *annotator;
 @property (nonatomic) OTScreenSharer *sharer;
+
+@property (weak, nonatomic) IBOutlet UIView *shareView;
+@property (weak, nonatomic) IBOutlet UIView *toolbarContainerView;
+
 @end
 
 @implementation SendAnnotationFitViewController
@@ -43,18 +47,23 @@
                                      
                                      // connect for annotation
                                      self.annotator = [[OTAnnotator alloc] init];
-                                     [self.annotator connectForSendingAnnotationWithSize:self.sharer.subscriberView.frame.size completionHandler:^(OTAnnotationSignal signal, NSError *error) {
+                                     [self.annotator connectWithCompletionHandler:^(OTAnnotationSignal signal, NSError *error) {
                                          
                                          if (signal == OTAnnotationSessionDidConnect){
                                              
                                              // configure annotation view
-                                             self.annotator.annotationScrollView.frame = self.view.bounds;
+                                             self.annotator.annotationScrollView.frame = self.shareView.bounds;
+                                             self.annotator.annotationScrollView.scrollView.contentSize = self.shareView.bounds.size;
+                                             self.sharer.subscriberView.frame = self.annotator.annotationScrollView.bounds;
                                              [self.annotator.annotationScrollView addContentView:self.sharer.subscriberView];
-                                             [self.view addSubview:self.annotator.annotationScrollView];
+                                             [self.shareView addSubview:self.annotator.annotationScrollView];
                                              
-                                             // configure annotation feature
-                                             self.annotator.annotationScrollView.annotatable = YES;
-                                             self.annotator.annotationScrollView.annotationView.currentAnnotatable = [OTAnnotationPath pathWithStrokeColor:[UIColor yellowColor]];
+                                             [self.annotator.annotationScrollView initializeUniversalToolbarView];
+                                             self.annotator.annotationScrollView.toolbarView.toolbarViewDataSource = self;
+                                             
+                                             // using frame and self.view to contain toolbarView is for having more space to interact with color picker
+                                             self.annotator.annotationScrollView.toolbarView.frame = self.toolbarContainerView.frame;
+                                             [self.view addSubview:self.annotator.annotationScrollView.toolbarView];
                                          }
                                      }];
                                      
@@ -72,6 +81,10 @@
     self.annotator = nil;
     [self.sharer disconnect];
     self.sharer = nil;
+}
+
+- (UIView *)annotationToolbarViewForRootViewForScreenShot:(OTAnnotationToolbarView *)toolbarView {
+    return self.shareView;
 }
 
 @end

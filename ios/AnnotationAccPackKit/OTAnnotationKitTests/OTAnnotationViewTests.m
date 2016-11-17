@@ -12,9 +12,9 @@ SPEC_BEGIN(OTAnnotationViewTests)
 
 describe(@"Initialization of OTAnnotationView", ^(){
     
-    OTAnnotationView *annotationView = [[OTAnnotationView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    
     context(@"An instance of OTAnnotationView", ^(){
+        
+        OTAnnotationView *annotationView = [[OTAnnotationView alloc] init];
         
         it(@"should not be nil", ^{
             [[annotationView shouldNot] beNil];

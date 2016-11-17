@@ -51,14 +51,35 @@
 - (void)addAnnotatable:(id<OTAnnotatable>)annotatable;
 
 /**
- *  Erase the last annotatable object.
+ *  Erase the last annotatable object on the annotation view.
+ *
+ *  @return The last annotatable object, nil otherwise.
  */
-- (void)undoAnnotatable;
+- (id<OTAnnotatable>)undoAnnotatable;
+
+/**
+ *  Erase the last remote annotatable object on the annotation view.
+ *
+ *  @return The last remote annotatableobject, nil otherwise.
+ */
+- (id<OTAnnotatable>)undoRemoteAnnotatable;
+
+/**
+ *  Erase a remote annotatable object with guid.
+ *
+ *  @param  The guid associated with the remote annotatable object to be removed.
+ */
+- (void)removeRemoteAnnotatableWithGUID:(NSString *)guid;
 
 /**
  *  Clear all annotatable objects from the annotation view
  */
 - (void)removeAllAnnotatables;
+
+/**
+ *  Clear all remote annotatable objects from the annotation view
+ */
+- (void)removeAllRemoteAnnotatables;
 
 /**
  *  The current annotatable object that being used, uncommitted. If a new currentAnnotatable is being set, the last annotatable object will be commited.

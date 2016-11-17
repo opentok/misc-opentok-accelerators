@@ -47,24 +47,24 @@
                                      
                                      // connect for annotation
                                      self.annotator = [[OTAnnotator alloc] init];
-                                     [self.annotator connectForSendingAnnotationWithSize:self.sharer.subscriberView.frame.size
-                                                                       completionHandler:^(OTAnnotationSignal signal, NSError *error) {
-                                         
-                                                                           if (signal == OTAnnotationSessionDidConnect){
-                                             
-                                                                               // configure annotation view
-                                                                               self.annotator.annotationScrollView.frame = self.view.bounds;
-                                                                               [self.view addSubview:self.annotator.annotationScrollView];
-                                                                               
-                                                                               // self.sharer.subscriberView is the screen shared from a remote client.
-                                                                               // It does not make sense to `connectForSendingAnnotationWithSize` if you don't receive a screen sharing.
-                                                                               [self.annotator.annotationScrollView addContentView:self.sharer.subscriberView];
-                                                                               
-                                                                               // configure annotation feature
-                                                                               self.annotator.annotationScrollView.annotatable = YES;
-                                                                               self.annotator.annotationScrollView.annotationView.currentAnnotatable = [OTAnnotationPath pathWithStrokeColor:[UIColor yellowColor]];
-                                                                           }
-                                                                       }];
+                                     [self.annotator connectWithCompletionHandler:^(OTAnnotationSignal signal, NSError *error) {
+                                                       
+                                         if (signal == OTAnnotationSessionDidConnect){
+                                 
+                                             // configure annotation view
+                                             self.annotator.annotationScrollView.frame = self.view.bounds;
+                                             self.annotator.annotationScrollView.scrollView.contentSize = self.sharer.subscriberView.frame.size;
+                                             [self.view addSubview:self.annotator.annotationScrollView];
+                                           
+                                             // self.sharer.subscriberView is the screen shared from a remote client.
+                                             // It does not make sense to `connectForSendingAnnotationWithSize` if you don't receive a screen sharing.
+                                             [self.annotator.annotationScrollView addContentView:self.sharer.subscriberView];
+                                           
+                                             // configure annotation feature
+                                             self.annotator.annotationScrollView.annotatable = YES;
+                                             self.annotator.annotationScrollView.annotationView.currentAnnotatable = [[OTAnnotationPath alloc] initWithStrokeColor:[UIColor yellowColor]];
+                                         }
+                                     }];
                                      
                                      self.annotator.dataSendingHandler = ^(NSArray *data, NSError *error) {
                                          NSLog(@"%@", data);

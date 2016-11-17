@@ -160,13 +160,35 @@
         self.overlay = null;
       }
 
+      /**
+       * Update classes for toolbar items
+       */
+      var updateSelected = function () {
+
+        // Remove the 'selected' class from the currently selected item (or parent)
+        var current = context.getElementById(self.selectedItem.id);
+        var shapesBtn = context.getElementById('OT_shapes');
+        var currentIsShape = shapesBtn.classList.contains('selected');
+        currentIsShape ? shapesBtn.classList.remove('selected') : current.classList.remove('selected');
+
+        // If the newly selected item is a shape, update the shapes subpanel button
+        var newlySelected = context.getElementById(item.id);
+        if (newlySelected.parentElement.classList.contains('shapes')) {
+          shapesBtn.classList.add('selected');
+        } else {
+          newlySelected.classList.add('selected');
+        }
+      }
+
       if (item && item.id === 'OT_capture') {
         self.captureScreenshot();
       } else if (item && item.id.indexOf('OT_line_width') !== -1) {
         if (item.size) {
           self.changeLineWidth(item.size);
         }
-      } else {
+      // 'undo' and 'clear' are actions, not items that can be selected
+      } else if (item.id !== 'OT_undo' && item.id !== 'OT_clear') {
+        updateSelected();
         self.selectedItem = item;
       }
     };
@@ -195,11 +217,6 @@
 
     this.undo = function () {
       undoLast(false, self.session.connection.connectionId);
-      if (self.session) {
-        self.session.signal({
-          type: 'otAnnotation_undo'
-        });
-      }
     }
 
     // TODO Allow the user to choose the image type? (jpg, png) Also allow size?
@@ -230,32 +247,37 @@
           height = canvas.height;
           width = width * scale;
         }
+        // If stretched to fill, we need an offset to center the image
+        offsetX = (width - canvas.width) / 2;
+        offsetY = (height - canvas.height) / 2;
 
       } else {
         if (width > height) {
           scale = canvas.width / width;
           width = canvas.width;
           height = height * scale;
+          offsetX = 0;
+          offsetY = (canvas.height - height)/2;
         } else {
           scale = canvas.height / height;
           height = canvas.height;
           width = width * scale;
+          offsetX = (canvas.width - width) / 2;
+          offsetY = 0;
         }
-      }
 
-      // If stretched to fill, we need an offset to center the image
-      offsetX = (width - canvas.width) / 2;
-      offsetY = (height - canvas.height) / 2;
+      }
 
       // Combine the video and annotation images
       var image = new Image();
+
       image.onload = function () {
         var ctxCopy = canvasCopy.getContext('2d');
         if (mirrored) {
           ctxCopy.translate(width, 0);
           ctxCopy.scale(-1, 1);
         }
-        ctxCopy.drawImage(image, offsetX, offsetY, width, height);
+        ctxCopy.drawImage(image, offsetX, offsetY, width,height);
 
         // We want to make sure we draw the annotations the same way, so we need to flip back
         if (mirrored) {
@@ -360,6 +382,7 @@
                   startPoint: self.isStartPoint, // Each segment is treated as a new set of points
                   endPoint: false,
                   selectedItem: selectedItem,
+                  platform: 'web',
                   guid: event.guid
                 };
                 draw(update, true);
@@ -389,6 +412,7 @@
                 startPoint: self.isStartPoint, // Each segment is treated as a new set of points
                 endPoint: true,
                 selectedItem: selectedItem,
+                platform: 'web',
                 guid: event.guid
               };
               draw(update, true);
@@ -417,6 +441,7 @@
             canvasHeight: canvas.height,
             mirrored: mirrored,
             selectedItem: selectedItem,
+            platform: 'web',
             guid: event.guid
           };
 
@@ -477,6 +502,7 @@
                     smoothed: false,
                     startPoint: true,
                     selectedItem: selectedItem,
+                    platform: 'web',
                     guid: event.guid
                   };
 
@@ -519,6 +545,8 @@
                       smoothed: selectedItem.enableSmoothing,
                       startPoint: firstPoint,
                       endPoint: endPoint,
+                      selectedItem: selectedItem,
+                      platform: 'web',
                       guid: event.guid
 
                     };
@@ -731,7 +759,7 @@
         history.startPoint = !!history.startPoint;
 
         var secondPoint = false;
-        var isText = !!history.selectedItem && history.selectedItem.title === 'Text' && history.text;
+        var isText = history.hasOwnProperty('text');
 
         if (isText) {
           ctx.font = history.font;
@@ -1015,11 +1043,53 @@
       for (var i = drawHistory.length - 1; i >= 0; i--) {
         historyItem = drawHistory[i];
         if (historyItem.fromId === cid) {
+
+          if(historyItem.platform === 'ios') {
+            undoLastIos(incoming, cid, itemsToRemove);
+            break;
+          } 
+                
           endPoint = endPoint || historyItem.endPoint;
           removed = drawHistory.splice(i, 1)[0];
           removedItems.push(removed.guid);
           if (!endPoint || (endPoint && removed.startPoint === true)) {
             break;
+          }
+        }
+      }
+
+      if (incoming) {
+        updateHistory = updateHistory.filter(function (history) {
+          return !itemsToRemove.includes(history.guid);
+        });
+      } else {
+        eventHistory = eventHistory.filter(function (history) {
+          return !removedItems.includes(history.guid);
+        });
+
+        self.session.signal({
+          type: 'otAnnotation_undo',
+          data: JSON.stringify(removedItems)
+        });
+      }
+
+      draw();
+    }
+
+    var undoLastIos = function (incoming, cid, itemsToRemove) {
+
+      var historyItem;
+      var removed;
+      var endPoint = false;
+      var removedItems = [];
+      
+     
+      for (var i = drawHistory.length - 1; i >= 0; i--) {
+        historyItem = drawHistory[i];
+        if (historyItem.fromId === cid) {
+          if(historyItem.guid === itemsToRemove[0]) {
+            removed = drawHistory.splice(i, 1)[0];
+            removedItems.push(removed.guid);
           }
         }
       }
@@ -1086,9 +1156,7 @@
     }
 
     var batchSignal = function (data, toConnection) {
-      // We send data in small chunks so that they fit in a signal
-      // Each packet is maximum ~250 chars, we can fit 8192/250 ~= 32 updates per signal
-      var dataCopy = data.slice();
+
       var signalError = function (err) {
         if (err) {
           TB.error(err);
@@ -1104,14 +1172,31 @@
         type = id === 'OT_text' ? 'otAnnotation_text' : 'otAnnotation_pen';
       };
 
-      while (dataCopy.length) {
-        var dataChunk = dataCopy.splice(0, Math.min(dataCopy.length, 32));
+      /**
+       * If the 'type' string exceeds the maximum length (128 bytes), or the
+       * 'data' string exceeds the maximum size (8 kB), OT will return a 413 error
+       * and the signal will not be sent.  The maximum number of characters that
+       * can be sent in the signal is 8,192.  Currently, the largest updates are
+       * 995 characters, meaning that the limit for the number of updates per
+       * signal should be 8, even taking into account the additional characters
+       * required to convert the entire array of updates as opposed to each one
+       * individually.  However, OT is throwing a 413 error once the size exceeds
+       * 7,900 characters. So, 7 is the magic number for the time being.
+       */
+      var dataChunk;
+      var start = 0;
+      var updatesPerSignal = 7;
+      while (start < data.length) {
+        dataChunk = data.slice(start, start + updatesPerSignal);
         updateType(dataChunk);
+        start += updatesPerSignal;
         var signal = {
           type: type,
           data: JSON.stringify(dataChunk)
         };
-        if (toConnection) signal.to = toConnection;
+        if (toConnection) {
+          signal.to = toConnection;
+        }
         self.session.signal(signal, signalError);
       }
     };
@@ -1183,105 +1268,106 @@
         title: 'Shapes',
         icon: [imageAssets, 'annotation-shapes.png'].join(''),
         items: [{
-          id: 'OT_rect',
-          title: 'Rectangle',
-          icon: [imageAssets, 'annotation-rectangle.png'].join(''),
-          points: [
-            [0, 0],
-            [1, 0],
-            [1, 1],
-            [0, 1],
-            [0, 0] // Reconnect point
-          ]
-        },
-        {
-          id: 'OT_rect_fill',
-          title: 'Rectangle-Fill',
-          icon: [imageAssets, 'annotation-rectangle.png'].join(''),
-          points: [
-            [0, 0],
-            [1, 0],
-            [1, 1],
-            [0, 1],
-            [0, 0] // Reconnect point
-          ]
-        }, {
-          id: 'OT_oval',
-          title: 'Oval',
-          icon: [imageAssets, 'annotation-oval.png'].join(''),
-          enableSmoothing: true,
-          points: [
-            [0, 0.5],
-            [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
-            [0.5, 0],
-            [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
-            [1, 0.5],
-            [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
-            [0.5, 1],
-            [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
-            [0, 0.5],
-            [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
-          ]
-        }, {
-          id: 'OT_oval_fill',
-          title: 'Oval-Fill',
-          icon: [imageAssets, 'annotation-oval-fill.png'].join(''),
-          enableSmoothing: true,
-          points: [
-            [0, 0.5],
-            [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
-            [0.5, 0],
-            [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
-            [1, 0.5],
-            [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
-            [0.5, 1],
-            [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
-            [0, 0.5],
-            [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
-          ]
-        },{
-          id: 'OT_star',
-          title: 'Star',
-          icon: [imageAssets, 'annotation-star.png'].join(''),
-          points: [
-            /* eslint-disable max-len */
-            [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(126 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(126 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(162 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(162 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(198 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(198 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(234 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(234 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(270 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(270 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(306 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(306 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(342 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(342 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(18 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(18 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(54 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(54 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))]
-            /* eslint-enable max-len */
-          ]
-        }, {
-          id: 'OT_arrow',
-          title: 'Arrow',
-          icon: [imageAssets, 'annotation-arrow.png'].join(''),
-          points: [
-            [0, 1],
-            [3, 1],
-            [3, 0],
-            [5, 2],
-            [3, 4],
-            [3, 3],
-            [0, 3],
-            [0, 1] // Reconnect point
-          ]
-        }, {
-          id: 'OT_line',
-          title: 'Line',
-          icon: [imageAssets, 'annotation-line.png'].join(''),
-          selectedIcon: [imageAssets, 'annotation-line.png'].join(''),
-          points: [
-            [0, 0],
-            [0, 1]
-          ]
-        }]
+            id: 'OT_rect',
+            title: 'Rectangle',
+            icon: [imageAssets, 'annotation-rectangle.png'].join(''),
+            points: [
+              [0, 0],
+              [1, 0],
+              [1, 1],
+              [0, 1],
+              [0, 0] // Reconnect point
+            ]
+          },
+          {
+            id: 'OT_rect_fill',
+            title: 'Rectangle-Fill',
+            icon: [imageAssets, 'annotation-rectangle.png'].join(''),
+            points: [
+              [0, 0],
+              [1, 0],
+              [1, 1],
+              [0, 1],
+              [0, 0] // Reconnect point
+            ]
+          }, {
+            id: 'OT_oval',
+            title: 'Oval',
+            icon: [imageAssets, 'annotation-oval.png'].join(''),
+            enableSmoothing: true,
+            points: [
+              [0, 0.5],
+              [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
+              [0.5, 0],
+              [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
+              [1, 0.5],
+              [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
+              [0.5, 1],
+              [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
+              [0, 0.5],
+              [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
+            ]
+          }, {
+            id: 'OT_oval_fill',
+            title: 'Oval-Fill',
+            icon: [imageAssets, 'annotation-oval-fill.png'].join(''),
+            enableSmoothing: true,
+            points: [
+              [0, 0.5],
+              [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
+              [0.5, 0],
+              [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
+              [1, 0.5],
+              [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
+              [0.5, 1],
+              [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
+              [0, 0.5],
+              [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
+            ]
+          }, {
+            id: 'OT_star',
+            title: 'Star',
+            icon: [imageAssets, 'annotation-star.png'].join(''),
+            points: [
+              /* eslint-disable max-len */
+              [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(126 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(126 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(162 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(162 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(198 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(198 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(234 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(234 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(270 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(270 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(306 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(306 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(342 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(342 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(18 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(18 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(54 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(54 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))]
+              /* eslint-enable max-len */
+            ]
+          }, {
+            id: 'OT_arrow',
+            title: 'Arrow',
+            icon: [imageAssets, 'annotation-arrow.png'].join(''),
+            points: [
+              [0, 1],
+              [3, 1],
+              [3, 0],
+              [5, 2],
+              [3, 4],
+              [3, 3],
+              [0, 3],
+              [0, 1] // Reconnect point
+            ]
+          }, {
+            id: 'OT_line',
+            title: 'Line',
+            icon: [imageAssets, 'annotation-line.png'].join(''),
+            selectedIcon: [imageAssets, 'annotation-line.png'].join(''),
+            points: [
+              [0, 0],
+              [0, 1]
+            ]
+          }
+        ]
       }, {
         id: 'OT_text',
         title: 'Text',
@@ -1292,7 +1378,7 @@
         title: 'Capture',
         icon: [imageAssets, 'annotation-camera.png'].join(''),
         selectedIcon: [imageAssets, 'annotation-camera.png'].join('')
-      },{
+      }, {
         id: 'OT_undo',
         title: 'Undo',
         icon: [imageAssets, 'annotation-undo.png'].join('')
@@ -1318,7 +1404,7 @@
         if (index !== -1) {
           var toolbarItem = toolbarItems[index];
           if (toolbarItem.title === 'Shapes' && !!options.shapes) {
-            var shapes = options.shapes.reduce(function(shapeAcc, shape) {
+            var shapes = options.shapes.reduce(function (shapeAcc, shape) {
               var shapeIndex = shapeNames.indexOf(shape);
               return shapeIndex !== -1 ? shapeAcc.concat(toolbarItem.items[shapeIndex]) : shapeAcc;
             }, []);
@@ -1513,7 +1599,7 @@
 
           }
 
-            if (item.title === 'Pen' && !Array.isArray(item.items)) {
+          if (item.title === 'Pen' && !Array.isArray(item.items)) {
             // Add defaults
             item.items = [{
               id: 'OT_line_width_2',
@@ -1558,6 +1644,26 @@
         }
 
         panel.innerHTML = toolbarItems.join('');
+
+        /**
+         * Since the color picker button uses its background to display the
+         * current color, we need to add a pseudo-element element to the toolbar
+         * to simulate hover state on the button.  When the user hovers over the
+         * button, we add the 'colors-hover' class to 'OT_toolbar' which has a
+         * pseudo-element which makes it seem as though the color picker button
+         * background is changing.
+         * TODO: Update the color picker and color choices to display colors
+         *       using pseudo-elements, so that we can more easily apply hover
+         *       states.
+         */
+        var toggleColorsHover = function (hover) {
+          var action = hover ? 'add' : 'remove';
+          document.getElementById('OT_toolbar').classList[action]('colors-hover');
+        };
+        var colors = context.getElementById('OT_colors');
+        colors.addEventListener('mouseenter', function () { toggleColorsHover(true); });
+        colors.addEventListener('mouseleave', function () { toggleColorsHover(false); });
+        /** End color picker hover state */
 
         panel.onclick = function (ev) {
           var group = ev.target.getAttribute('data-type') === 'group';
@@ -1606,7 +1712,7 @@
 
                         var lineIcon = context.createElement('div');
                         lineIcon.setAttribute('class', 'line-width-icon')
-                        // TODO Allow devs to change this?
+                          // TODO Allow devs to change this?
                         lineIcon.style.backgroundColor = '#FFFFFF';
                         lineIcon.style.width = '80%';
                         lineIcon.style.height = subItem.size + 'px';
@@ -1732,7 +1838,7 @@
           });
         };
 
-        window.addEventListener('OT_clear', function() {
+        window.addEventListener('OT_clear', function () {
           onClear();
           self.selectedItem = null;
           canvases.forEach(function (canvas) {
@@ -1740,8 +1846,8 @@
           });
         });
 
-        window.addEventListener('OT_pen', function(evt) {
-          var item = self.items.find(function(item) {
+        window.addEventListener('OT_pen', function (evt) {
+          var item = self.items.find(function (item) {
             return item.id === 'OT_pen';
           });
 
@@ -1814,14 +1920,17 @@
     /**
      * Links an annotation canvas to the toolbar so that menu actions can be handled on it.
      * @param canvas The annotation canvas to be linked to the toolbar.
+     * @param externalWindow External screen sharing window
      */
-    this.addCanvas = function (canvas) {
+    this.addCanvas = function (canvas, externalWindow) {
       var self = this;
+      var context = externalWindow ? externalWindow.document : document;
       canvas.link(self.session);
       canvas.colors(self.colors);
       canvases.push(canvas);
-      canvases.forEach(function(canvas) {
+      canvases.forEach(function (canvas) {
         canvas.selectedItem = canvas.selectedItem || self.items[0];
+        context.getElementById(canvas.selectedItem.id).classList.add('selected');
       });
     };
 
@@ -1868,6 +1977,7 @@
   };
 
 }.call(this));
+
 /* global OT OTSolution OTKAnalytics ScreenSharingAccPack define */
 (function () {
   /** Include external dependencies */
@@ -2075,7 +2185,7 @@
       container: container(),
       colors: colors,
       items: items.length ? items : ['*'],
-      shapes: shapes.length ? shapes : ['rectangle', 'oval', 'star', 'line'],
+      shapes: shapes.length ? shapes : ['rectangle', 'oval', 'star', 'arrow', 'line'],
       externalWindow: externalWindow || null,
       imageAssets: imageAssets,
       backgroundColor: backgroundColor,
@@ -2106,7 +2216,7 @@
 
     var width = screen.width * 0.80 | 0;
     var height = width / (_aspectRatio);
-    var externalWindowHTML = '<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-type" content="text/html; charset=utf-8"><title>OpenTok Screen Sharing Solution Annotation</title><style type="text/css" media="screen"> body{margin:0;background-color:rgba(0,153,203,.7);box-sizing:border-box;height:100vh}canvas{top:0;z-index:1000}.hidden{display:none}.ots-hidden{display:none !important}.main-wrap{width:100%;height:100%;-ms-box-orient:horizontal;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-moz-flex;display:-webkit-flex;display:flex;-webkit-justify-content:center;justify-content:center;-webkit-align-items:center;align-items:center}.inner-wrap{position:relative;border-radius:8px;overflow:hidden}.ots-annotation-toolbar-container{position:fixed;top:125px;right:0;width:60px;z-index:1000;background-color:#666}.ots-annotation-toolbar-container .OT_panel{display:flex;flex-direction:column;align-items:center}.ots-annotation-toolbar-container .annotation-btn{height:60px;width:60px;background-position:center center;background-repeat:no-repeat!important;background-color:#666;cursor:pointer;border:none}.ots-annotation-toolbar-container .annotation-btn.pen{background-image:url(https://assets.tokbox.com/solutions/images/annotation-pencil.png);background-size:27px 30px}.ots-annotation-toolbar-container .annotation-btn.colors{width:23px;height:24px;border:3px solid #fff;margin:18px 18.5px}.ots-annotation-toolbar-container .annotation-btn.line{background-image:url(https://assets.tokbox.com/solutions/images/annotation-line.png);background-size:26px 31px}.ots-annotation-toolbar-container .annotation-btn.line-width{background-image:url(https://assets.tokbox.com/solutions/images/annotation-line_width.png);background-size:26px 31px}.ots-annotation-toolbar-container .annotation-btn.shapes{background-image:url(https://assets.tokbox.com/solutions/images/annotation-shapes.png);background-size:26px 31px}.ots-annotation-toolbar-container .annotation-btn.text{background-image:url(https://assets.tokbox.com/solutions/images/annotation-text.png);background-size:21px 25px}.ots-annotation-toolbar-container .annotation-btn.capture{background-image:url(https://assets.tokbox.com/solutions/images/annotation-camera.png);background-size:34px 31px}.ots-annotation-toolbar-container .annotation-btn.clear{background-image:url(https://assets.tokbox.com/solutions/images/annotation-clear.png);background-size:31px 31px}.ots-annotation-toolbar-container .annotation-btn.undo{background-image:url(https://assets.tokbox.com/solutions/images/annotation-undo.png);background-size:34px 31px}.ots-annotation-toolbar-container .OT_subpanel,.ots-annotation-toolbar-container .color-picker{position:absolute;right:65px;width:40px;background-color:#333;display:flex;flex-direction:column;align-items:center;transition:opacity .5s ease-out}.ots-annotation-toolbar-container .OT_subpanel.pen{top:0}.ots-annotation-toolbar-container .OT_subpanel.pen .line-width-option{width:40px;height:40px;cursor:pointer}.ots-annotation-toolbar-container .OT_subpanel.pen:after,.ots-annotation-toolbar-container .color-picker:after{width:0;height:0;border-top:15px solid transparent;border-bottom:15px solid transparent;border-left:15px solid #333;right:-15px;content:"";position:absolute}.ots-annotation-toolbar-container .OT_subpanel.pen:after{top:15px}.ots-annotation-toolbar-container .color-picker{top:0}.ots-annotation-toolbar-container .color-picker:after{top:75px}.ots-annotation-toolbar-container .color-picker .color-choice{width:20px;height:20px;margin:10px;cursor:pointer;border-radius:100%}.ots-annotation-toolbar-container .color-picker .color-choice.active{border:2px solid #fff}.ots-annotation-toolbar-container .OT_subpanel.shapes{display:flex;flex-direction:column;top:75px;min-height:159.89px}.ots-annotation-toolbar-container .OT_subpanel.shapes:after{position:absolute;top:62.5px;right:-15px;content:"";width:0;height:0;border-top:15px solid transparent;border-bottom:15px solid transparent;border-left:15px solid #333}.ots-annotation-toolbar-container .OT_subpanel.shapes input{width:22px;height:22px;margin:9px;border:none;background-color:#333;background-repeat:no-repeat;background-position:center center}.ots-annotation-toolbar-container .OT_subpanel.shapes .annotation-btn.rectangle{background-image:url(https://assets.tokbox.com/solutions/images/annotation-rectangle.png);background-size:18px 18px}.ots-annotation-toolbar-container .OT_subpanel.shapes .annotation-btn.rectangle-fill{background-image:url(https://assets.tokbox.com/solutions/images/annotation-rectangle-fill.png);background-size:18px 18px}.ots-annotation-toolbar-container .OT_subpanel.shapes .annotation-btn.oval{background-image:url(https://assets.tokbox.com/solutions/images/annotation-oval.png);background-size:20px 20px}.ots-annotation-toolbar-container .OT_subpanel.shapes .annotation-btn.oval-fill{background-image:url(https://assets.tokbox.com/solutions/images/annotation-oval-fill.png);background-size:20px 20px}.ots-annotation-toolbar-container .OT_subpanel.shapes .annotation-btn.star{background-image:url(https://assets.tokbox.com/solutions/images/annotation-star.png);background-size:22px 22px}.ots-annotation-toolbar-container .OT_subpanel.shapes .annotation-btn.arrow{background-image:url(https://assets.tokbox.com/solutions/images/annotation-arrow.png);background-size:6.5px 23.5px}.publisherContainer{display:block;background-color:#000;position:absolute}.publisher-wrap{height:100%;width:100%}.subscriberContainer{position:absolute;top:20px;left:20px;width:200px;height:120px;background-color:#000;border:2px solid #fff;border-radius:6px}.subscriberContainer .OT_video-poster{width:100%;height:100%;opacity:.25;background-repeat:no-repeat;background-image:url(https://static.opentok.com/webrtc/v2.8.2/images/rtc/audioonly-silhouette.svg);background-size:50%;background-position:center}.OT_video-element{height:100%;width:100%}.OT_edge-bar-item{display:none}</style></head><body> <div class="main-wrap"> <div id="annotationContainer" class="inner-wrap"></div></div><div id="toolbarContainer" class="ots-annotation-toolbar-container"> <div id="toolbar" class="toolbar-wrap"></div></div><div id="subscriberVideo" class="subscriberContainer hidden"></div><script type="text/javascript" charset="utf-8"> /** Must use double-quotes since everything must be converted to a string */ var opener; var canvas; if (!toolbar){alert("Something went wrong: You must pass an OpenTok annotation toolbar object into the window.")}else{opener=window.opener; window.onbeforeunload=window.triggerCloseEvent;}var localScreenProperties={insertMode: "append", width: "100%", height: "100%", videoSource: "window", showControls: false, style:{buttonDisplayMode: "off"}, subscribeToVideo: "true", subscribeToAudio: "false", fitMode: "contain"}; var createContainerElements=function(){var parentDiv=document.getElementById("annotationContainer"); var publisherContainer=document.createElement("div"); publisherContainer.setAttribute("id", "screenshare_publisher"); publisherContainer.classList.add("publisher-wrap"); parentDiv.appendChild(publisherContainer); return{annotation: parentDiv, publisher: publisherContainer};}; var addSubscriberVideo=function(stream){var container=document.getElementById("subscriberVideo"); var subscriber=session.subscribe(stream, container, localScreenProperties, function(error){if (error){console.log("Failed to add subscriber video", error);}container.classList.remove("hidden");});}; if (navigator.userAgent.indexOf("Firefox") !==-1){var ghost=window.open("about:blank"); ghost.focus(); ghost.close();}</script></body></html>';
+    var externalWindowHTML = '<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-type" content="text/html; charset=utf-8"><title>OpenTok Screen Sharing Solution Annotation</title><link rel="stylesheet" href="https://assets.tokbox.com/solutions/css/style.css"><style type="text/css" media="screen"> body{margin:0;background-color:rgba(0,153,203,.7);box-sizing:border-box;height:100vh}canvas{top:0;z-index:1000}.hidden{display:none}.ots-hidden{display:none !important}.main-wrap{width:100%;height:100%;-ms-box-orient:horizontal;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-moz-flex;display:-webkit-flex;display:flex;-webkit-justify-content:center;justify-content:center;-webkit-align-items:center;align-items:center}.inner-wrap{position:relative;border-radius:8px;overflow:hidden}.publisherContainer{display:block;background-color:#000;position:absolute}.publisher-wrap{height:100%;width:100%}.subscriberContainer{position:absolute;top:20px;left:20px;width:200px;height:120px;background-color:#000;border:2px solid #fff;border-radius:6px}.subscriberContainer .OT_video-poster{width:100%;height:100%;opacity:.25;background-repeat:no-repeat;background-image:url(https://static.opentok.com/webrtc/v2.8.2/images/rtc/audioonly-silhouette.svg);background-size:50%;background-position:center}.OT_video-element{height:100%;width:100%}.OT_edge-bar-item{display:none}</style></head><body> <div class="main-wrap"> <div id="annotationContainer" class="inner-wrap"></div></div><div id="toolbarContainer" class="ots-annotation-toolbar-container"> <div id="toolbar" class="toolbar-wrap"></div></div><div id="subscriberVideo" class="subscriberContainer hidden"></div><script type="text/javascript" charset="utf-8"> /** Must use double-quotes since everything must be converted to a string */ var opener; var canvas; if (!toolbar){alert("Something went wrong: You must pass an OpenTok annotation toolbar object into the window.")}else{opener=window.opener; window.onbeforeunload=window.triggerCloseEvent;}var localScreenProperties={insertMode: "append", width: "100%", height: "100%", videoSource: "window", showControls: false, style:{buttonDisplayMode: "off"}, subscribeToVideo: "true", subscribeToAudio: "false", fitMode: "contain"}; var createContainerElements=function(){var parentDiv=document.getElementById("annotationContainer"); var publisherContainer=document.createElement("div"); publisherContainer.setAttribute("id", "screenshare_publisher"); publisherContainer.classList.add("publisher-wrap"); parentDiv.appendChild(publisherContainer); return{annotation: parentDiv, publisher: publisherContainer};}; var addSubscriberVideo=function(stream){var container=document.getElementById("subscriberVideo"); var subscriber=session.subscribe(stream, container, localScreenProperties, function(error){if (error){console.log("Failed to add subscriber video", error);}container.classList.remove("hidden");});}; if (navigator.userAgent.indexOf("Firefox") !==-1){var ghost=window.open("about:blank"); ghost.focus(); ghost.close();}</script></body></html>';
 
     /* eslint-disable max-len */
     var windowFeatures = [
@@ -2228,7 +2338,7 @@
       externalWindow: _elements.externalWindow
     });
 
-    toolbar.addCanvas(_canvas);
+    toolbar.addCanvas(_canvas, _elements.externalWindow);
 
     var onScreenCapture = _this.options.onScreenCapture ? _this.options.onScreenCapture :
       function (dataUrl) {
@@ -2285,6 +2395,15 @@
 
     _log(_logEventData.actionEnd, _logEventData.variationSuccess);
   };
+
+  var hideToolbar = function () {
+    $(toolbar.parent).hide();
+  };
+
+  var showToolbar = function () {
+    $(toolbar.parent).show();
+  };
+
   /**
    * @constructor
    * Represents an annotation component, used for annotation over video or a shared screen
@@ -2315,7 +2434,9 @@
     linkCanvas: linkCanvas,
     resizeCanvas: resizeCanvas,
     addSubscriberToExternalWindow: addSubscriberToExternalWindow,
-    end: end
+    end: end,
+    hideToolbar:hideToolbar,
+    showToolbar:showToolbar
   };
 
   if (typeof exports === 'object') {

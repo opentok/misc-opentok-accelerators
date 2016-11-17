@@ -13,6 +13,7 @@
 
 #import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 #import "OTAnnotator.h"
+#import "OTAnnotationToolbarView_UserInterfaces.h"
 #import "UIColor+HexString.h"
 #import "JSON.h"
 
@@ -20,10 +21,9 @@
     NSMutableDictionary *signalingPoint;
     NSMutableArray *signalingPoints;
     OTStream *latestScreenShareStream;
-    CGSize canvasSize;
+    
+    NSMutableArray *ovalPoints;
 }
-@property (nonatomic) BOOL receiveAnnotationEnabled;
-@property (nonatomic) BOOL sendAnnotationEnabled;
 
 @property (nonatomic) OTAnnotationScrollView *annotationScrollView;
 @property (nonatomic) OTAcceleratorSession *session;
@@ -39,54 +39,34 @@
     
     if (self = [super init]) {
         _session = [OTAcceleratorSession getAcceleratorPackSession];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eraseButtonPressed:) name:kOTAnnotationToolbarDidPressEraseButton object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanButtonPressed:) name:kOTAnnotationToolbarDidPressCleanButton object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidAdd:) name:kOTAnnotationToolbarDidAddTextAnnotation object:nil];
     }
     return self;
 }
 
-- (NSError *)connectWithSize:(CGSize)size {
+- (void)dealloc {
+    [self disconnect];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (NSError *)connect {
     if (!self.delegate && !self.handler) return nil;
-    canvasSize = size;
     return [OTAcceleratorSession registerWithAccePack:self];
 }
 
-- (void)connectWithSize:(CGSize)size
-      completionHandler:(OTAnnotationBlock)handler {
-    
+- (void)connectWithCompletionHandler:(OTAnnotationBlock)handler {
     self.handler = handler;
-    [self connectWithSize:size];
-}
-
-- (NSError *)connectForReceivingAnnotationWithSize:(CGSize)size {
-    _receiveAnnotationEnabled = YES;
-    _sendAnnotationEnabled = NO;
-    return [self connectWithSize:size];
-}
-
-- (NSError *)connectForSendingAnnotationWithSize:(CGSize)size {
-    _receiveAnnotationEnabled = NO;
-    _sendAnnotationEnabled = YES;
-    return [self connectWithSize:size];
-}
-
-- (void)connectForReceivingAnnotationWithSize:(CGSize)size
-                            completionHandler:(OTAnnotationBlock)handler {
-    _receiveAnnotationEnabled = YES;
-    _sendAnnotationEnabled = NO;
-    [self connectWithSize:size completionHandler:handler];
-}
-
-- (void)connectForSendingAnnotationWithSize:(CGSize)size
-                          completionHandler:(OTAnnotationBlock)handler {
-    _receiveAnnotationEnabled = NO;
-    _sendAnnotationEnabled = YES;
-    [self connectWithSize:size completionHandler:handler];
+    [self connect];
 }
 
 - (NSError *)disconnect {
     if (self.annotationScrollView) {
         [self.annotationScrollView.annotationView removeAllAnnotatables];
+        [self.annotationScrollView.annotationView removeAllRemoteAnnotatables];
     }
-    canvasSize = CGSizeZero;
     return [OTAcceleratorSession deregisterWithAccePack:self];
 }
 
@@ -104,9 +84,8 @@
 - (void) sessionDidConnect:(OTSession *)session {
     
     self.annotationScrollView = [[OTAnnotationScrollView alloc] init];
-    self.annotationScrollView.scrollView.contentSize = canvasSize;
+    self.annotationScrollView.scrollView.contentSize = self.annotationScrollView.bounds.size;
     self.annotationScrollView.annotationView.annotationViewDelegate = self;
-    [self.annotationScrollView.annotationView setCurrentAnnotatable:[OTAnnotationPath pathWithStrokeColor:nil]];
     [self notifiyAllWithSignal:OTAnnotationSessionDidConnect
                          error:nil];
 }
@@ -136,11 +115,13 @@
 }
 
 - (void)session:(OTSession *)session connectionCreated:(OTConnection *)connection {
-    
+    [self notifiyAllWithSignal:OTAnnotationConnectionCreated
+                         error:nil];
 }
 
 - (void)session:(OTSession *)session connectionDestroyed:(OTStream *)stream {
-    
+    [self notifiyAllWithSignal:OTAnnotationConnectionDestroyed
+                         error:nil];
 }
 
 - (void)sessionDidBeginReconnecting:(OTSession *)session {
@@ -159,11 +140,19 @@ receivedSignalType:(NSString*)type
  fromConnection:(OTConnection*)connection
      withString:(NSString*)string {
     
-    if (![type containsString:@"otAnnotation_pen"]) return;
+    if (![type isEqualToString:@"otAnnotation_pen"] &&
+        ![type isEqualToString:@"otAnnotation_text"] &&
+        ![type isEqualToString:@"otAnnotation_undo"] &&
+        ![type isEqualToString:@"otAnnotation_clear"]) {
+        
+        return;
+    }
 
-    if (self.receiveAnnotationEnabled &&
-        self.session.sessionConnectionStatus == OTSessionConnectionStatusConnected &&
+    if (self.session.sessionConnectionStatus == OTSessionConnectionStatusConnected &&
         ![self.session.connection.connectionId isEqualToString:connection.connectionId]) {
+        
+        // make sure contentSize is up-to-date
+        self.annotationScrollView.scrollView.contentSize = self.annotationScrollView.bounds.size;
         
         NSArray *jsonArray = [JSON parseJSON:string];
         
@@ -175,27 +164,75 @@ receivedSignalType:(NSString*)type
         if (self.delegate) {
             [self.delegate annotator:self receivedAnnotationData:jsonArray];
         }
+        
+        if ([type isEqualToString:@"otAnnotation_undo"]) {
+            
+            if (jsonArray.count == 1 && [jsonArray.firstObject isEqual:[NSNull null]]) {
+                [self.annotationScrollView.annotationView removeRemoteAnnotatableWithGUID:nil];
+                return;
+            }
+            
+            for (NSString *guid in jsonArray) {
+                [self.annotationScrollView.annotationView removeRemoteAnnotatableWithGUID:guid];
+            }
+            return;
+        }
+        
+        if ([type isEqualToString:@"otAnnotation_clear"]) {
+            [self.annotationScrollView.annotationView removeAllRemoteAnnotatables];
+            return;
+        }
+        
         if (jsonArray.count == 0) return;
         
+        // draw text
+        if ([type isEqualToString:@"otAnnotation_text"] && jsonArray.count == 1) {
+            [self drawText:[jsonArray firstObject]];
+            return;
+        }
+        
         // set path attributes
-        if ([jsonArray firstObject][@"color"] && [jsonArray firstObject][@"lineWidth"]) {
+        NSDictionary *firstJsonObject = [jsonArray firstObject];
+        if (firstJsonObject[@"color"] && firstJsonObject[@"guid"] && firstJsonObject[@"lineWidth"]) {
+            NSString *remoteGUID = firstJsonObject[@"guid"];
             UIColor *drawingColor = [UIColor colorFromHexString:[jsonArray firstObject][@"color"]];
-            self.annotationScrollView.annotationView.currentAnnotatable = [OTAnnotationPath pathWithStrokeColor:drawingColor];
-            OTAnnotationPath *currentPath = (OTAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable;
-            
             CGFloat lineWidth = [[jsonArray firstObject][@"lineWidth"] floatValue];
+            
+            self.annotationScrollView.annotationView.currentAnnotatable = [[OTRemoteAnnotationPath alloc] initWithStrokeColor:drawingColor
+                                                                                                                   remoteGUID:remoteGUID];
+            OTRemoteAnnotationPath *currentPath = (OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable;
             currentPath.lineWidth = lineWidth;
         }
         else {
-            self.annotationScrollView.annotationView.currentAnnotatable = [OTAnnotationPath pathWithStrokeColor:nil];
+            self.annotationScrollView.annotationView.currentAnnotatable = [[OTRemoteAnnotationPath alloc] initWithStrokeColor:nil];
+        }
+        
+        // draw oval
+        if ([jsonArray.lastObject isKindOfClass:[NSDictionary class]] && [jsonArray.lastObject[@"selectedItem"][@"id"] isEqualToString:@"OT_oval"]) {
+            
+            if (!ovalPoints) {
+                ovalPoints = [NSMutableArray arrayWithCapacity:10];
+            }
+            
+            [ovalPoints addObjectsFromArray:jsonArray];
+            
+            // this is a workaround because an oval data array is composed by two signals. one has seven elements and another has three elements. 
+            if (ovalPoints.count == 10) {
+                jsonArray = [NSArray arrayWithArray:ovalPoints];
+                ovalPoints = nil;
+            }
+            else {
+                return;
+            }
         }
         
         // calculate drawing position
         for (NSDictionary *json in jsonArray) {
             
             // this is the unique property from web
-            if (![type containsString:@"ios_"]) {
-                [self drawOnFitModeWithJson:json path:(OTAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
+            NSString *platform = json[@"platform"];
+            if (platform && [platform isEqualToString:@"web"]) {
+                [self drawOnFitModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
                 continue;
             }
             
@@ -217,23 +254,159 @@ receivedSignalType:(NSString*)type
 
             if ((remoteCanvasWidth == videoWidth && remoteCanvasHeight == videoHeight) || thisCanvasAspectRatio == remoteCanvasAspectRatio) {
                 // draw on the fill mode or on the same aspect ratio
-                [self drawOnFillModeWithJson:json path:(OTAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
+                [self drawOnFillModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
             }
             else {
                 // draw on irregular aspect ratio
-                [self drawOnFitModeWithJson:json path:(OTAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
+                [self drawOnFitModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
             }
         }
     }
 }
 
-- (void)drawOnFillModeWithJson:(NSDictionary *)json
-                          path:(OTAnnotationPath *)path {
+- (void)eraseButtonPressed:(NSNotification *)notification {
+    
+    if (!notification || !notification.object || !latestScreenShareStream) return;
+
+    NSString *jsonString;
+    
+    if ([notification.object isMemberOfClass:[OTAnnotationPath class]] ) {
+        OTAnnotationPath *path = (OTAnnotationPath *)notification.object;
+        jsonString = [JSON stringify:@[path.uuid]];
+    }
+    else if ([notification.object isMemberOfClass:[OTAnnotationTextView class]]) {
+        jsonString = [JSON stringify:@[[NSNull null]]];
+    }
+    
+    if (jsonString) {
+        NSError *error;
+        [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_undo" string:jsonString connection:latestScreenShareStream.connection error:&error];
+        if (error) {
+            NSLog(@"remoteEraseButtonPressed: %@", error);
+        }
+    }
+}
+
+- (void)cleanButtonPressed:(NSNotification *)notification {
+    
+    if (!latestScreenShareStream) return;
+    
+    NSError *error;
+    [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_clear" string:nil connection:latestScreenShareStream.connection error:&error];
+    if (error) {
+        NSLog(@"remoteCleanButtonPressed: %@", error);
+    }
+}
+
+- (void)textDidAdd:(NSNotification *)notification {
+    
+    if (!latestScreenShareStream) return;
+    if (![notification.object isMemberOfClass:[OTAnnotationTextView class]]) return;
+    
+    OTAnnotationTextView *textView = (OTAnnotationTextView *)notification.object;
+    NSDictionary *data = @{
+                           @"id": latestScreenShareStream.connection.connectionId,
+                           @"fromId": self.session.connection.connectionId,
+                           @"fromX": @(textView.frame.origin.x),
+                           @"fromY": @(textView.frame.origin.y),
+                           @"videoWidth": @(latestScreenShareStream.videoDimensions.width),
+                           @"videoHeight": @(latestScreenShareStream.videoDimensions.height),
+                           @"canvasWidth": @(self.annotationScrollView.scrollView.contentSize.width),
+                           @"canvasHeight": @(self.annotationScrollView.scrollView.contentSize.height),
+                           @"mirrored": @(NO),
+                           @"platform": @"ios",
+                           @"text": textView.text,
+                           @"color": [UIColor hexStringFromColor:textView.textColor],
+                           @"font": [NSString stringWithFormat:@"%@px Arial", @(textView.font.pointSize * [UIScreen mainScreen].scale)]
+                           };
+    NSError *error;
+    NSString *jsonString = [JSON stringify:@[data]];
+    
+    [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_text" string:jsonString connection:latestScreenShareStream.connection error:&error];
+    if (error) {
+        NSLog(@"remoteCleanButtonPressed: %@", error);
+    }
+}
+
+- (void)drawText:(NSDictionary *)json {
     
     CGFloat remoteCanvasWidth = [json[@"canvasWidth"] floatValue];
     CGFloat remoteCanvasHeight = [json[@"canvasHeight"] floatValue];
-    CGFloat xScaleFactor = canvasSize.width / remoteCanvasWidth;
-    CGFloat yScaleFactor = canvasSize.height / remoteCanvasHeight;
+    CGFloat thisCanvasWidth = CGRectGetWidth(self.annotationScrollView.annotationView.bounds);
+    CGFloat thisCanvasHeight = CGRectGetHeight(self.annotationScrollView.annotationView.bounds);
+    
+    // apply scale factor
+    // Based on this: http://www.iosres.com/index-legacy.html
+    // iPhone 4&4s aspect ratio is 3:2 = 0.666
+    // iPhone 5&5s&6&6s aspect ratio is 16:9 = 0.5625
+    // iPad aspect ratio is 4:3 = 0.75
+    
+    CGFloat scale = 1.0f;
+    if (thisCanvasWidth < thisCanvasHeight) {
+        scale = thisCanvasHeight / remoteCanvasHeight;
+    }
+    else {
+        scale = thisCanvasWidth / remoteCanvasWidth;
+    }
+    
+    remoteCanvasWidth *= scale;
+    remoteCanvasHeight *= scale;
+    
+    // remote x and y
+    CGFloat fromX = [json[@"fromX"] floatValue] * scale;
+    CGFloat fromY = [json[@"fromY"] floatValue] * scale;
+    
+    OTAnnotationPoint *pt;
+    
+    if (thisCanvasWidth < thisCanvasHeight) {
+        
+        // letter boxing is produced on horizontal level
+        CGFloat actualDrawingFromX = fromX - (remoteCanvasWidth / 2 - self.annotationScrollView.annotationView.center.x);
+        pt = [OTAnnotationPoint pointWithX:actualDrawingFromX andY:fromY];
+    }
+    else {
+        
+        // letter boxing is produced on vertical level
+        CGFloat actualDrawingFromY = fromY - (remoteCanvasHeight / 2 - self.annotationScrollView.annotationView.center.y);
+        pt = [OTAnnotationPoint pointWithX:fromX andY:actualDrawingFromY];
+    }
+
+    CGPoint cgPt = [pt cgPoint];
+    NSString *text = json[@"text"];
+    UIColor *color = [UIColor colorFromHexString:json[@"color"]];
+    
+    NSString *fontSizeString = json[@"font"];
+    NSArray *fontSizeStringArray = [fontSizeString componentsSeparatedByString:@" "];
+    NSUInteger fontSize = [[fontSizeStringArray firstObject] integerValue];
+//    NSString *remoteGUID = json[@"guid"];
+    
+//    if (!text || !color || !fontSizeString || !fontSizeStringArray || fontSizeStringArray.count != 2 || !remoteGUID) return;
+    if (!text || !color || !fontSizeString || !fontSizeStringArray || fontSizeStringArray.count != 2) return;
+    
+    OTRemoteAnnotationTextView *annotationTextView = [[OTRemoteAnnotationTextView alloc] initWithText:text
+                                                                                            textColor:color
+                                                                                             fontSize:fontSize * scale];
+    
+    // add text annotation
+    [self.annotationScrollView addContentView:annotationTextView];
+    [self.annotationScrollView addTextAnnotation:annotationTextView];
+    [annotationTextView commit];
+    
+    // reset position
+    annotationTextView.frame = CGRectMake(cgPt.x,
+                                          cgPt.y,
+                                          CGRectGetWidth(annotationTextView.bounds),
+                                          CGRectGetHeight(annotationTextView.bounds));
+    [annotationTextView sizeToFit];
+}
+
+- (void)drawOnFillModeWithJson:(NSDictionary *)json
+                          path:(OTRemoteAnnotationPath *)path {
+    
+    CGFloat remoteCanvasWidth = [json[@"canvasWidth"] floatValue];
+    CGFloat remoteCanvasHeight = [json[@"canvasHeight"] floatValue];
+    CGFloat xScaleFactor = self.annotationScrollView.bounds.size.width / remoteCanvasWidth;
+    CGFloat yScaleFactor = self.annotationScrollView.bounds.size.height / remoteCanvasHeight;
     
     CGFloat fromX = [json[@"fromX"] floatValue] * xScaleFactor;
     CGFloat fromY = [json[@"fromY"] floatValue] * yScaleFactor;
@@ -243,27 +416,29 @@ receivedSignalType:(NSString*)type
     OTAnnotationPoint *pt1 = [OTAnnotationPoint pointWithX:fromX andY:fromY];
     OTAnnotationPoint *pt2 = [OTAnnotationPoint pointWithX:toX andY:toY];
     
-    if (path.points.count == 0) {
-        [path startAtPoint:pt1];
-        [path drawToPoint:pt2];
+    if ([json[@"smoothed"] boolValue]) {
+        [path drawCurveToPoint:pt2];
     }
     else {
-        [path drawToPoint:pt1];
-        [path drawToPoint:pt2];
+        if (path.points.count == 0) {
+            [path startAtPoint:pt1];
+            [path drawToPoint:pt2];
+        }
+        else {
+            [path drawToPoint:pt1];
+            [path drawToPoint:pt2];
+        }
     }
 }
 
 // this method is always work when web annotations as a subscriber
 - (void)drawOnFitModeWithJson:(NSDictionary *)json
-                         path:(OTAnnotationPath *)path {
+                         path:(OTRemoteAnnotationPath *)path {
     
     CGFloat remoteCanvasWidth = [json[@"canvasWidth"] floatValue];
     CGFloat remoteCanvasHeight = [json[@"canvasHeight"] floatValue];
     CGFloat thisCanvasWidth = CGRectGetWidth(self.annotationScrollView.annotationView.bounds);
     CGFloat thisCanvasHeight = CGRectGetHeight(self.annotationScrollView.annotationView.bounds);
-    
-    CGFloat remoteCanvasAspectRatio = remoteCanvasWidth / remoteCanvasHeight;
-    CGFloat thisCanvasAspectRatio = thisCanvasWidth / thisCanvasHeight;
     
     // apply scale factor
     // Based on this: http://www.iosres.com/index-legacy.html
@@ -271,18 +446,16 @@ receivedSignalType:(NSString*)type
     // iPhone 5&5s&6&6s aspect ratio is 16:9 = 0.5625
     // iPad aspect ratio is 4:3 = 0.75
     
-    // we don't even need to calculate whether letter boxing is produced on horizontal or vertical level
-    // and we can calculate whether the scale should apply on horizontal or vertical level
     CGFloat scale = 1.0f;
-    if (thisCanvasAspectRatio < remoteCanvasAspectRatio) {
+    if (thisCanvasWidth < thisCanvasHeight) {
         scale = thisCanvasHeight / remoteCanvasHeight;
     }
     else {
         scale = thisCanvasWidth / remoteCanvasWidth;
     }
 
-    CGFloat canvasCenterX = remoteCanvasWidth / 2.0f * scale;
-    CGFloat canvasCenterY = remoteCanvasHeight / 2.0f * scale;
+    remoteCanvasWidth *= scale;
+    remoteCanvasHeight *= scale;
     
     // remote x and y
     CGFloat fromX = [json[@"fromX"] floatValue] * scale;
@@ -293,30 +466,35 @@ receivedSignalType:(NSString*)type
     OTAnnotationPoint *pt1;
     OTAnnotationPoint *pt2;
     
-    if (thisCanvasAspectRatio < remoteCanvasAspectRatio) {
+    if (thisCanvasWidth < thisCanvasHeight) {
         
         // letter boxing is produced on horizontal level
-        CGFloat actualDrawingFromX = fromX - (canvasCenterX - self.annotationScrollView.annotationView.center.x);
-        CGFloat actualDrawingToX = toX - (canvasCenterX - self.annotationScrollView.annotationView.center.x);
+        CGFloat actualDrawingFromX = fromX - (remoteCanvasWidth / 2 - self.annotationScrollView.annotationView.center.x);
+        CGFloat actualDrawingToX = toX - (remoteCanvasWidth / 2 - self.annotationScrollView.annotationView.center.x);
         pt1 = [OTAnnotationPoint pointWithX:actualDrawingFromX andY:fromY];
         pt2 = [OTAnnotationPoint pointWithX:actualDrawingToX andY:toY];
     }
     else {
         
         // letter boxing is produced on vertical level
-        CGFloat actualDrawingFromY = fromY - (canvasCenterY - self.annotationScrollView.annotationView.center.y);
-        CGFloat actualDrawingToY = toY - (canvasCenterY - self.annotationScrollView.annotationView.center.y);
+        CGFloat actualDrawingFromY = fromY - (remoteCanvasHeight / 2 - self.annotationScrollView.annotationView.center.y);
+        CGFloat actualDrawingToY = toY - (remoteCanvasHeight / 2 - self.annotationScrollView.annotationView.center.y);
         pt1 = [OTAnnotationPoint pointWithX:fromX andY:actualDrawingFromY];
         pt2 = [OTAnnotationPoint pointWithX:toX andY:actualDrawingToY];
     }
-
-    if (path.points.count == 0) {
-        [path startAtPoint:pt1];
-        [path drawToPoint:pt2];
+    
+    if ([json[@"smoothed"] boolValue]) {
+        [path drawCurveToPoint:pt2];
     }
     else {
-        [path drawToPoint:pt1];
-        [path drawToPoint:pt2];
+        if (path.points.count == 0) {
+            [path startAtPoint:pt1];
+            [path drawToPoint:pt2];
+        }
+        else {
+            [path drawToPoint:pt1];
+            [path drawToPoint:pt2];
+        }
     }
 }
 
@@ -327,6 +505,13 @@ receivedSignalType:(NSString*)type
              withEvent:(UIEvent *)event {
     
     signalingPoints = [[NSMutableArray alloc] init];
+    
+    // update this to ensure color property is not affected by remote annotation data
+    if (self.annotationScrollView.toolbarView) {
+        OTAnnotationPath *path = (OTAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable;
+        path.strokeColor = self.annotationScrollView.toolbarView.colorPickerView.selectedColor;
+    }
+    
     [self signalAnnotatble:annotationView.currentAnnotatable
                      touch:touch
              addtionalInfo:@{@"startPoint":@(YES), @"endPoint":@(NO)}];
@@ -335,9 +520,31 @@ receivedSignalType:(NSString*)type
 - (void)annotationView:(OTAnnotationView *)annotationView
             touchMoved:(UITouch *)touch
              withEvent:(UIEvent *)event {
+    
+    if (!signalingPoints) {
+        signalingPoints = [[NSMutableArray alloc] init];
+    }
+    
     [self signalAnnotatble:annotationView.currentAnnotatable
                      touch:touch
              addtionalInfo:@{@"startPoint":@(NO), @"endPoint":@(NO)}];
+    
+    if (signalingPoints.count == 5) {
+        NSError *error;
+        NSString *jsonString = [JSON stringify:signalingPoints];
+        [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_pen" string:jsonString connection:latestScreenShareStream.connection error:&error];
+        
+        // notify sending data
+        if (self.dataReceivingHandler) {
+            self.dataReceivingHandler(signalingPoints);
+        }
+        
+        if (self.delegate) {
+            [self.delegate annotator:self receivedAnnotationData:signalingPoints];
+        }
+        
+        signalingPoints = nil;
+    }
 }
 
 - (void)annotationView:(OTAnnotationView *)annotationView
@@ -347,12 +554,17 @@ receivedSignalType:(NSString*)type
     if (signalingPoint) {
         [self signalAnnotatble:annotationView.currentAnnotatable
                          touch:touch
-                 addtionalInfo:@{@"startPoint":@(NO), @"endPoint":@(NO)}];  // the `endPoint` is not `NO` here because web does not recognize it, we can change this later.
+                 addtionalInfo:@{@"startPoint":@(NO), @"endPoint":@(YES)}];  // the `endPoint` is not `NO` here because web does not recognize it, we can change this later.
+    }
+    else {
+        NSMutableDictionary *lastPoint = (NSMutableDictionary *)[signalingPoints lastObject];
+        lastPoint[@"startPoint"] = @(NO);
+        lastPoint[@"endPoint"] = @(YES);
     }
     
     NSError *error;
     NSString *jsonString = [JSON stringify:signalingPoints];
-    [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"ios_otAnnotation_pen" string:jsonString connection:latestScreenShareStream.connection error:&error];
+    [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_pen" string:jsonString connection:latestScreenShareStream.connection error:&error];
     
     // notify sending data
     if (self.dataReceivingHandler) {
@@ -374,18 +586,24 @@ receivedSignalType:(NSString*)type
         
         CGPoint touchPoint = [touch locationInView:touch.view];
         if (!signalingPoint) {
+            
+            OTAnnotationPath *path = (OTAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable;
+            
             signalingPoint = [NSMutableDictionary dictionaryWithDictionary:info];
             signalingPoint[@"id"] = latestScreenShareStream.connection.connectionId;    // receiver id
+            signalingPoint[@"platform"] = @"ios";
             signalingPoint[@"fromId"] = self.session.connection.connectionId;   // sender id
             signalingPoint[@"fromX"] = @(touchPoint.x);
             signalingPoint[@"fromY"] = @(touchPoint.y);
             signalingPoint[@"videoWidth"] = @(latestScreenShareStream.videoDimensions.width);
             signalingPoint[@"videoHeight"] = @(latestScreenShareStream.videoDimensions.height);
-            signalingPoint[@"canvasWidth"] = @(canvasSize.width);
-            signalingPoint[@"canvasHeight"] = @(canvasSize.height);
-            signalingPoint[@"lineWidth"] = @(2);
+            signalingPoint[@"canvasWidth"] = @(self.annotationScrollView.scrollView.contentSize.width);
+            signalingPoint[@"canvasHeight"] = @(self.annotationScrollView.scrollView.contentSize.height);
+            signalingPoint[@"lineWidth"] = @(path.lineWidth * [UIScreen mainScreen].scale);
             signalingPoint[@"mirrored"] = @(NO);
+            signalingPoint[@"guid"] = path.uuid;
             signalingPoint[@"smoothed"] = @(YES);    // this is to enable drawing smoothly
+            signalingPoint[@"color"] = [UIColor hexStringFromColor:path.strokeColor];
         }
         else {
             signalingPoint[@"toX"] = @(touchPoint.x);

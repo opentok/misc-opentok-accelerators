@@ -14,7 +14,7 @@ describe(@"Initialization of OTAnnotationPath", ^(){
     
     context(@"An instance of OTAnnotationPath with pathWithStrokeColor", ^(){
         
-        OTAnnotationPath *annotationPath = [OTAnnotationPath pathWithStrokeColor:[UIColor yellowColor]];
+        OTAnnotationPath *annotationPath = [[OTAnnotationPath alloc] initWithStrokeColor:[UIColor yellowColor]];
         it(@"should not be nil", ^{
             [[annotationPath shouldNot] beNil];
         });
@@ -31,7 +31,8 @@ describe(@"Initialization of OTAnnotationPath", ^(){
     
     context(@"An instance of OTAnnotationPath with pathWithPoints", ^(){
         
-        OTAnnotationPath *annotationPath = [OTAnnotationPath pathWithPoints:[[NSArray alloc] init] strokeColor:[UIColor greenColor]];
+        OTAnnotationPath *annotationPath = [[OTAnnotationPath alloc] initWithPoints:@[] strokeColor:[UIColor greenColor]];
+        
         it(@"should not be nil", ^{
             [[annotationPath shouldNot] beNil];
         });

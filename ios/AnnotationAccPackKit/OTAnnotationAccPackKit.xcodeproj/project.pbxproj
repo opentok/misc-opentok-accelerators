@@ -205,7 +205,7 @@
 		A0070D421D2C6724001C65EE /* OTAnnotationScrollViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationScrollViewTests.m; sourceTree = "<group>"; };
 		A0070D431D2C6724001C65EE /* OTFullScreenAnnotationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTFullScreenAnnotationViewControllerTests.m; sourceTree = "<group>"; };
 		A018FAB81DA46B9100C118F9 /* OTAnnotationKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OTAnnotationKit.podspec; sourceTree = "<group>"; };
-		A018FAB91DA46B9100C118F9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		A018FAB91DA46B9100C118F9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A05835061D2F395200E484FB /* OTAnnotationKitBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationKitBundle.h; sourceTree = "<group>"; };
 		A05835071D2F395200E484FB /* OTAnnotationKitBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAnnotationKitBundle.m; sourceTree = "<group>"; };
 		A0685F341D6F988400F34DD1 /* AnnLoggingWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnLoggingWrapper.h; sourceTree = "<group>"; };
@@ -275,6 +275,7 @@
 		A0B63ED31D48207E00123B51 /* AnnotationManualViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationManualViewController.swift; sourceTree = "<group>"; };
 		A0C0DC4C1D932C7600978934 /* ReceiveAnnotationOnPartialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiveAnnotationOnPartialViewController.h; sourceTree = "<group>"; };
 		A0C0DC4D1D932C7600978934 /* ReceiveAnnotationOnPartialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiveAnnotationOnPartialViewController.m; sourceTree = "<group>"; };
+		A0D26AF51DBD95A400D8E360 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		A0D8947A1D50040800863A14 /* OTAnnotationTextView+Gesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OTAnnotationTextView+Gesture.h"; sourceTree = "<group>"; };
 		A0D8947B1D50040800863A14 /* OTAnnotationTextView+Gesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OTAnnotationTextView+Gesture.m"; sourceTree = "<group>"; };
 		A0D8947E1D50043100863A14 /* OTAnnotationTextView_Gesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAnnotationTextView_Gesture.h; sourceTree = "<group>"; };
@@ -498,6 +499,7 @@
 		A0DB6E3F1D230BC900E14C86 = {
 			isa = PBXGroup;
 			children = (
+				A0D26AF51DBD95A400D8E360 /* CHANGELOG.md */,
 				A018FAB81DA46B9100C118F9 /* OTAnnotationKit.podspec */,
 				A018FAB91DA46B9100C118F9 /* Podfile */,
 				A0AB57FE1D2C49E700F8410B /* OTAnnotationAccPackKit */,

@@ -15,18 +15,15 @@ context(@"Initialization of OTAnnotationEditTextViewController", ^(){
     describe(@"An instance of OTAnnotationEditTextViewController", ^(){
         
         it(@"should not be nil", ^{
-            [[[[OTAnnotationEditTextViewController alloc] init] shouldNot] beNil];
+            [[[[OTAnnotationEditTextViewController alloc] init] should] beNil];
         });
         
-        it(@"init with text should not be nil", ^{
-            [[[[OTAnnotationEditTextViewController alloc] initWithText:@"" textColor:[UIColor blueColor]] shouldNot] beNil];
+        it(@"init with text and color should not be nil", ^{
+            [[[[OTAnnotationEditTextViewController alloc] initWithText:@"OTAnnotationEditTextViewController" textColor:[UIColor blueColor]] shouldNot] beNil];
         });
         
-    });
-    
-    describe(@"OTAnnotationEditTextViewController Factory", ^{
-        it(@"should be able to set default text color", ^{
-            [[[OTAnnotationEditTextViewController defaultWithTextColor:[UIColor blackColor]] shouldNot] beNil];
+        it(@"init with color should not be nil", ^{
+            [[[[OTAnnotationEditTextViewController alloc] initWithTextColor:[UIColor blackColor]] shouldNot] beNil];
         });
     });
 });

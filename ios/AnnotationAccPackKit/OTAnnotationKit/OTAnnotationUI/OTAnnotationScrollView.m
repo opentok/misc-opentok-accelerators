@@ -37,11 +37,9 @@
     
     if (!_annotatable) {
         [self.annotationView setCurrentAnnotatable:nil];
-        
     }
     
     self.scrollView.scrollEnabled = !_annotatable;
-    [self.annotationView setUserInteractionEnabled:_annotatable];
 }
 
 - (instancetype)init {
@@ -131,6 +129,13 @@
     CGRect mainBounds = [UIScreen mainScreen].bounds;
     self.toolbarView = [[OTAnnotationToolbarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainBounds), DefaultToolbarHeight)
                                                  annotationScrollView:self];
+    [[AnnLoggingWrapper sharedInstance].logger logEventAction:KLogActionUseToolbar variation:KLogVariationSuccess completion:nil];
+}
+
+- (void)initializeUniversalToolbarView {
+    CGRect mainBounds = [UIScreen mainScreen].bounds;
+    self.toolbarView = [[OTAnnotationToolbarView alloc] initUniversalWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainBounds), DefaultToolbarHeight)
+                                                          annotationScrollView:self];
     [[AnnLoggingWrapper sharedInstance].logger logEventAction:KLogActionUseToolbar variation:KLogVariationSuccess completion:nil];
 }
 

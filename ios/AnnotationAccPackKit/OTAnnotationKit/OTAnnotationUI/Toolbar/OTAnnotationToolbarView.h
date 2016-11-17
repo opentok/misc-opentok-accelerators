@@ -6,13 +6,19 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const kOTAnnotationToolbarDidPressDoneButton;
+extern NSString *const kOTAnnotationToolbarDidPressDrawButton;
+extern NSString *const kOTAnnotationToolbarDidPressTextButton;
+extern NSString *const kOTAnnotationToolbarDidPressEraseButton;
+extern NSString *const kOTAnnotationToolbarDidPressCleanButton;
+extern NSString *const kOTAnnotationToolbarDidAddTextAnnotation;
+
 @class OTAnnotationToolbarView;
 @protocol OTAnnotationToolbarViewDataSource <NSObject>
 - (UIView *)annotationToolbarViewForRootViewForScreenShot:(OTAnnotationToolbarView *)toolbarView;
 @end
 
 @protocol OTAnnotationToolbarViewDelegate <NSObject>
-- (void)annotationToolbarView:(OTAnnotationToolbarView *)toolbarView didPressToolbarViewItemButtonAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 typedef NS_ENUM(NSUInteger, OTAnnotationToolbarViewOrientation) {
@@ -29,13 +35,6 @@ typedef NS_ENUM(NSUInteger, OTAnnotationToolbarViewOrientation) {
  *  The delegate must adopt the OTAnnotationToolbarViewDataSource protocol. The data source is not retained.
  */
 @property (weak, nonatomic) id<OTAnnotationToolbarViewDataSource> toolbarViewDataSource;
-
-/**
- *  The object that acts as the delegate of the annotation toolbar view.
- *
- *  The delegate must adopt the OTAnnotationToolbarViewDelegate protocol. The delegate is not retained.
- */
-@property (weak, nonatomic) id<OTAnnotationToolbarViewDelegate> toolbarViewDelegate;
 
 /**
  *  The orientation of this annotation toolbar.

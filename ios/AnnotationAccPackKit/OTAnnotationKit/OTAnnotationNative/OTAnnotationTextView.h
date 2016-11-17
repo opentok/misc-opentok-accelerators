@@ -53,7 +53,7 @@ extern NSString *const OTAnnotationTextViewDidCancelChangeNotification;
  *
  *  @return A new object of OTAnnotationTextView.
  */
-+ (instancetype)defaultWithTextColor:(UIColor *)textColor;
+- (instancetype)initWithTextColor:(UIColor *)textColor;
 
 /**
  *  Initialize a text annotation with given content, color and font size.
@@ -67,9 +67,37 @@ extern NSString *const OTAnnotationTextViewDidCancelChangeNotification;
 - (instancetype)initWithText:(NSString *)text
                    textColor:(UIColor *)textColor
                     fontSize:(CGFloat)fontSize;
+
+/**
+ *  Initialize a remote text annotation with given content, color and font size. It's not resizable and rotatable.
+ *
+ *  @param text      The content of the text view.
+ *  @param textColor The text color.
+ *  @param fontSize  The font size of the content.
+ *
+ *  @return A new object of OTAnnotationTextView
+ */
+- (instancetype)initRemoteWithText:(NSString *)text
+                         textColor:(UIColor *)textColor
+                          fontSize:(CGFloat)fontSize;
+
 /**
  *  Commit the change.
  */
 - (void)commit;
+
+@end
+
+@interface OTRemoteAnnotationTextView : OTAnnotationTextView
+
+@property (readonly, nonatomic) NSString *remoteGUID;
+
+- (instancetype)initWithTextColor:(UIColor *)textColor
+                       remoteGUID:(NSString *)remoteGUID;
+
+- (instancetype)initWithText:(NSString *)text
+                   textColor:(UIColor *)textColor
+                    fontSize:(CGFloat)fontSize
+                  remoteGUID:(NSString *)remoteGUID;
 
 @end

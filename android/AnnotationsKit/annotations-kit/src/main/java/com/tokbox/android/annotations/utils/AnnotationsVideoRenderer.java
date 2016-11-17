@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.util.Log;
 import android.view.View;
 
 import com.opentok.android.BaseVideoRenderer;
@@ -268,6 +267,9 @@ public class AnnotationsVideoRenderer extends BaseVideoRenderer {
 
         @Override
         public void onDrawFrame(GL10 gl) {
+            gl.glClearColor(0, 0, 0, 1);
+            GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+
             mFrameLock.lock();
             if (mCurrentFrame != null && !mVideoDisabled) {
                 GLES20.glUseProgram(mProgram);
@@ -282,11 +284,8 @@ public class AnnotationsVideoRenderer extends BaseVideoRenderer {
                 float scaleX = 1.0f, scaleY = 1.0f;
                 float ratio = (float) mCurrentFrame.getWidth()
                         / mCurrentFrame.getHeight();
-//                Log.i("RenderFrame", "Frame size: " + mCurrentFrame.getWidth() + ", " + mCurrentFrame.getHeight());
                 float vratio = (float) mViewportWidth / mViewportHeight;
-//                Log.i("RenderFrame", "Viewport size: " + mViewportWidth + ", " + mViewportHeight);
 
-//                Log.i("RenderFrame", "Fit enabled: " + mVideoFitEnabled);
 
                 if (mVideoFitEnabled) {
                     if (ratio > vratio) {

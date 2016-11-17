@@ -23,6 +23,7 @@ static NSString* const KLogActionPickerColor = @"PickerColor";
 static NSString* const KLogActionText = @"Text";
 static NSString* const KLogActionScreenCapture = @"ScreenCapture";
 static NSString* const KLogActionErase = @"Erase";
+static NSString* const KLogActionEraseAll = @"EraseAll";
 static NSString* const KLogActionUseToolbar = @"UseToolbar";
 static NSString* const KLogActionDone = @"DONE";
 

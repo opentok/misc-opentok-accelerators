@@ -160,13 +160,35 @@
         self.overlay = null;
       }
 
+      /**
+       * Update classes for toolbar items
+       */
+      var updateSelected = function () {
+
+        // Remove the 'selected' class from the currently selected item (or parent)
+        var current = context.getElementById(self.selectedItem.id);
+        var shapesBtn = context.getElementById('OT_shapes');
+        var currentIsShape = shapesBtn.classList.contains('selected');
+        currentIsShape ? shapesBtn.classList.remove('selected') : current.classList.remove('selected');
+
+        // If the newly selected item is a shape, update the shapes subpanel button
+        var newlySelected = context.getElementById(item.id);
+        if (newlySelected.parentElement.classList.contains('shapes')) {
+          shapesBtn.classList.add('selected');
+        } else {
+          newlySelected.classList.add('selected');
+        }
+      }
+
       if (item && item.id === 'OT_capture') {
         self.captureScreenshot();
       } else if (item && item.id.indexOf('OT_line_width') !== -1) {
         if (item.size) {
           self.changeLineWidth(item.size);
         }
-      } else {
+      // 'undo' and 'clear' are actions, not items that can be selected
+      } else if (item.id !== 'OT_undo' && item.id !== 'OT_clear') {
+        updateSelected();
         self.selectedItem = item;
       }
     };
@@ -195,11 +217,6 @@
 
     this.undo = function () {
       undoLast(false, self.session.connection.connectionId);
-      if (self.session) {
-        self.session.signal({
-          type: 'otAnnotation_undo'
-        });
-      }
     }
 
     // TODO Allow the user to choose the image type? (jpg, png) Also allow size?
@@ -230,32 +247,37 @@
           height = canvas.height;
           width = width * scale;
         }
+        // If stretched to fill, we need an offset to center the image
+        offsetX = (width - canvas.width) / 2;
+        offsetY = (height - canvas.height) / 2;
 
       } else {
         if (width > height) {
           scale = canvas.width / width;
           width = canvas.width;
           height = height * scale;
+          offsetX = 0;
+          offsetY = (canvas.height - height)/2;
         } else {
           scale = canvas.height / height;
           height = canvas.height;
           width = width * scale;
+          offsetX = (canvas.width - width) / 2;
+          offsetY = 0;
         }
-      }
 
-      // If stretched to fill, we need an offset to center the image
-      offsetX = (width - canvas.width) / 2;
-      offsetY = (height - canvas.height) / 2;
+      }
 
       // Combine the video and annotation images
       var image = new Image();
+
       image.onload = function () {
         var ctxCopy = canvasCopy.getContext('2d');
         if (mirrored) {
           ctxCopy.translate(width, 0);
           ctxCopy.scale(-1, 1);
         }
-        ctxCopy.drawImage(image, offsetX, offsetY, width, height);
+        ctxCopy.drawImage(image, offsetX, offsetY, width,height);
 
         // We want to make sure we draw the annotations the same way, so we need to flip back
         if (mirrored) {
@@ -360,6 +382,7 @@
                   startPoint: self.isStartPoint, // Each segment is treated as a new set of points
                   endPoint: false,
                   selectedItem: selectedItem,
+                  platform: 'web',
                   guid: event.guid
                 };
                 draw(update, true);
@@ -389,6 +412,7 @@
                 startPoint: self.isStartPoint, // Each segment is treated as a new set of points
                 endPoint: true,
                 selectedItem: selectedItem,
+                platform: 'web',
                 guid: event.guid
               };
               draw(update, true);
@@ -417,6 +441,7 @@
             canvasHeight: canvas.height,
             mirrored: mirrored,
             selectedItem: selectedItem,
+            platform: 'web',
             guid: event.guid
           };
 
@@ -477,6 +502,7 @@
                     smoothed: false,
                     startPoint: true,
                     selectedItem: selectedItem,
+                    platform: 'web',
                     guid: event.guid
                   };
 
@@ -519,6 +545,8 @@
                       smoothed: selectedItem.enableSmoothing,
                       startPoint: firstPoint,
                       endPoint: endPoint,
+                      selectedItem: selectedItem,
+                      platform: 'web',
                       guid: event.guid
 
                     };
@@ -731,7 +759,7 @@
         history.startPoint = !!history.startPoint;
 
         var secondPoint = false;
-        var isText = !!history.selectedItem && history.selectedItem.title === 'Text' && history.text;
+        var isText = history.hasOwnProperty('text');
 
         if (isText) {
           ctx.font = history.font;
@@ -1015,11 +1043,53 @@
       for (var i = drawHistory.length - 1; i >= 0; i--) {
         historyItem = drawHistory[i];
         if (historyItem.fromId === cid) {
+
+          if(historyItem.platform === 'ios') {
+            undoLastIos(incoming, cid, itemsToRemove);
+            break;
+          } 
+                
           endPoint = endPoint || historyItem.endPoint;
           removed = drawHistory.splice(i, 1)[0];
           removedItems.push(removed.guid);
           if (!endPoint || (endPoint && removed.startPoint === true)) {
             break;
+          }
+        }
+      }
+
+      if (incoming) {
+        updateHistory = updateHistory.filter(function (history) {
+          return !itemsToRemove.includes(history.guid);
+        });
+      } else {
+        eventHistory = eventHistory.filter(function (history) {
+          return !removedItems.includes(history.guid);
+        });
+
+        self.session.signal({
+          type: 'otAnnotation_undo',
+          data: JSON.stringify(removedItems)
+        });
+      }
+
+      draw();
+    }
+
+    var undoLastIos = function (incoming, cid, itemsToRemove) {
+
+      var historyItem;
+      var removed;
+      var endPoint = false;
+      var removedItems = [];
+      
+     
+      for (var i = drawHistory.length - 1; i >= 0; i--) {
+        historyItem = drawHistory[i];
+        if (historyItem.fromId === cid) {
+          if(historyItem.guid === itemsToRemove[0]) {
+            removed = drawHistory.splice(i, 1)[0];
+            removedItems.push(removed.guid);
           }
         }
       }
@@ -1086,9 +1156,7 @@
     }
 
     var batchSignal = function (data, toConnection) {
-      // We send data in small chunks so that they fit in a signal
-      // Each packet is maximum ~250 chars, we can fit 8192/250 ~= 32 updates per signal
-      var dataCopy = data.slice();
+
       var signalError = function (err) {
         if (err) {
           TB.error(err);
@@ -1104,14 +1172,31 @@
         type = id === 'OT_text' ? 'otAnnotation_text' : 'otAnnotation_pen';
       };
 
-      while (dataCopy.length) {
-        var dataChunk = dataCopy.splice(0, Math.min(dataCopy.length, 32));
+      /**
+       * If the 'type' string exceeds the maximum length (128 bytes), or the
+       * 'data' string exceeds the maximum size (8 kB), OT will return a 413 error
+       * and the signal will not be sent.  The maximum number of characters that
+       * can be sent in the signal is 8,192.  Currently, the largest updates are
+       * 995 characters, meaning that the limit for the number of updates per
+       * signal should be 8, even taking into account the additional characters
+       * required to convert the entire array of updates as opposed to each one
+       * individually.  However, OT is throwing a 413 error once the size exceeds
+       * 7,900 characters. So, 7 is the magic number for the time being.
+       */
+      var dataChunk;
+      var start = 0;
+      var updatesPerSignal = 7;
+      while (start < data.length) {
+        dataChunk = data.slice(start, start + updatesPerSignal);
         updateType(dataChunk);
+        start += updatesPerSignal;
         var signal = {
           type: type,
           data: JSON.stringify(dataChunk)
         };
-        if (toConnection) signal.to = toConnection;
+        if (toConnection) {
+          signal.to = toConnection;
+        }
         self.session.signal(signal, signalError);
       }
     };
@@ -1183,105 +1268,106 @@
         title: 'Shapes',
         icon: [imageAssets, 'annotation-shapes.png'].join(''),
         items: [{
-          id: 'OT_rect',
-          title: 'Rectangle',
-          icon: [imageAssets, 'annotation-rectangle.png'].join(''),
-          points: [
-            [0, 0],
-            [1, 0],
-            [1, 1],
-            [0, 1],
-            [0, 0] // Reconnect point
-          ]
-        },
-        {
-          id: 'OT_rect_fill',
-          title: 'Rectangle-Fill',
-          icon: [imageAssets, 'annotation-rectangle.png'].join(''),
-          points: [
-            [0, 0],
-            [1, 0],
-            [1, 1],
-            [0, 1],
-            [0, 0] // Reconnect point
-          ]
-        }, {
-          id: 'OT_oval',
-          title: 'Oval',
-          icon: [imageAssets, 'annotation-oval.png'].join(''),
-          enableSmoothing: true,
-          points: [
-            [0, 0.5],
-            [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
-            [0.5, 0],
-            [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
-            [1, 0.5],
-            [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
-            [0.5, 1],
-            [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
-            [0, 0.5],
-            [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
-          ]
-        }, {
-          id: 'OT_oval_fill',
-          title: 'Oval-Fill',
-          icon: [imageAssets, 'annotation-oval-fill.png'].join(''),
-          enableSmoothing: true,
-          points: [
-            [0, 0.5],
-            [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
-            [0.5, 0],
-            [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
-            [1, 0.5],
-            [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
-            [0.5, 1],
-            [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
-            [0, 0.5],
-            [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
-          ]
-        },{
-          id: 'OT_star',
-          title: 'Star',
-          icon: [imageAssets, 'annotation-star.png'].join(''),
-          points: [
-            /* eslint-disable max-len */
-            [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(126 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(126 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(162 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(162 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(198 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(198 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(234 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(234 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(270 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(270 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(306 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(306 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(342 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(342 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(18 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(18 * (Math.PI / 180))],
-            [0.5 + 0.25 * Math.cos(54 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(54 * (Math.PI / 180))],
-            [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))]
-            /* eslint-enable max-len */
-          ]
-        }, {
-          id: 'OT_arrow',
-          title: 'Arrow',
-          icon: [imageAssets, 'annotation-arrow.png'].join(''),
-          points: [
-            [0, 1],
-            [3, 1],
-            [3, 0],
-            [5, 2],
-            [3, 4],
-            [3, 3],
-            [0, 3],
-            [0, 1] // Reconnect point
-          ]
-        }, {
-          id: 'OT_line',
-          title: 'Line',
-          icon: [imageAssets, 'annotation-line.png'].join(''),
-          selectedIcon: [imageAssets, 'annotation-line.png'].join(''),
-          points: [
-            [0, 0],
-            [0, 1]
-          ]
-        }]
+            id: 'OT_rect',
+            title: 'Rectangle',
+            icon: [imageAssets, 'annotation-rectangle.png'].join(''),
+            points: [
+              [0, 0],
+              [1, 0],
+              [1, 1],
+              [0, 1],
+              [0, 0] // Reconnect point
+            ]
+          },
+          {
+            id: 'OT_rect_fill',
+            title: 'Rectangle-Fill',
+            icon: [imageAssets, 'annotation-rectangle.png'].join(''),
+            points: [
+              [0, 0],
+              [1, 0],
+              [1, 1],
+              [0, 1],
+              [0, 0] // Reconnect point
+            ]
+          }, {
+            id: 'OT_oval',
+            title: 'Oval',
+            icon: [imageAssets, 'annotation-oval.png'].join(''),
+            enableSmoothing: true,
+            points: [
+              [0, 0.5],
+              [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
+              [0.5, 0],
+              [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
+              [1, 0.5],
+              [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
+              [0.5, 1],
+              [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
+              [0, 0.5],
+              [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
+            ]
+          }, {
+            id: 'OT_oval_fill',
+            title: 'Oval-Fill',
+            icon: [imageAssets, 'annotation-oval-fill.png'].join(''),
+            enableSmoothing: true,
+            points: [
+              [0, 0.5],
+              [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)],
+              [0.5, 0],
+              [0.5 + 0.5 * Math.cos(7 * Math.PI / 4), 0.5 + 0.5 * Math.sin(7 * Math.PI / 4)],
+              [1, 0.5],
+              [0.5 + 0.5 * Math.cos(Math.PI / 4), 0.5 + 0.5 * Math.sin(Math.PI / 4)],
+              [0.5, 1],
+              [0.5 + 0.5 * Math.cos(3 * Math.PI / 4), 0.5 + 0.5 * Math.sin(3 * Math.PI / 4)],
+              [0, 0.5],
+              [0.5 + 0.5 * Math.cos(5 * Math.PI / 4), 0.5 + 0.5 * Math.sin(5 * Math.PI / 4)]
+            ]
+          }, {
+            id: 'OT_star',
+            title: 'Star',
+            icon: [imageAssets, 'annotation-star.png'].join(''),
+            points: [
+              /* eslint-disable max-len */
+              [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(126 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(126 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(162 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(162 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(198 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(198 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(234 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(234 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(270 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(270 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(306 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(306 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(342 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(342 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(18 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(18 * (Math.PI / 180))],
+              [0.5 + 0.25 * Math.cos(54 * (Math.PI / 180)), 0.5 + 0.25 * Math.sin(54 * (Math.PI / 180))],
+              [0.5 + 0.5 * Math.cos(90 * (Math.PI / 180)), 0.5 + 0.5 * Math.sin(90 * (Math.PI / 180))]
+              /* eslint-enable max-len */
+            ]
+          }, {
+            id: 'OT_arrow',
+            title: 'Arrow',
+            icon: [imageAssets, 'annotation-arrow.png'].join(''),
+            points: [
+              [0, 1],
+              [3, 1],
+              [3, 0],
+              [5, 2],
+              [3, 4],
+              [3, 3],
+              [0, 3],
+              [0, 1] // Reconnect point
+            ]
+          }, {
+            id: 'OT_line',
+            title: 'Line',
+            icon: [imageAssets, 'annotation-line.png'].join(''),
+            selectedIcon: [imageAssets, 'annotation-line.png'].join(''),
+            points: [
+              [0, 0],
+              [0, 1]
+            ]
+          }
+        ]
       }, {
         id: 'OT_text',
         title: 'Text',
@@ -1292,7 +1378,7 @@
         title: 'Capture',
         icon: [imageAssets, 'annotation-camera.png'].join(''),
         selectedIcon: [imageAssets, 'annotation-camera.png'].join('')
-      },{
+      }, {
         id: 'OT_undo',
         title: 'Undo',
         icon: [imageAssets, 'annotation-undo.png'].join('')
@@ -1318,7 +1404,7 @@
         if (index !== -1) {
           var toolbarItem = toolbarItems[index];
           if (toolbarItem.title === 'Shapes' && !!options.shapes) {
-            var shapes = options.shapes.reduce(function(shapeAcc, shape) {
+            var shapes = options.shapes.reduce(function (shapeAcc, shape) {
               var shapeIndex = shapeNames.indexOf(shape);
               return shapeIndex !== -1 ? shapeAcc.concat(toolbarItem.items[shapeIndex]) : shapeAcc;
             }, []);
@@ -1513,7 +1599,7 @@
 
           }
 
-            if (item.title === 'Pen' && !Array.isArray(item.items)) {
+          if (item.title === 'Pen' && !Array.isArray(item.items)) {
             // Add defaults
             item.items = [{
               id: 'OT_line_width_2',
@@ -1558,6 +1644,26 @@
         }
 
         panel.innerHTML = toolbarItems.join('');
+
+        /**
+         * Since the color picker button uses its background to display the
+         * current color, we need to add a pseudo-element element to the toolbar
+         * to simulate hover state on the button.  When the user hovers over the
+         * button, we add the 'colors-hover' class to 'OT_toolbar' which has a
+         * pseudo-element which makes it seem as though the color picker button
+         * background is changing.
+         * TODO: Update the color picker and color choices to display colors
+         *       using pseudo-elements, so that we can more easily apply hover
+         *       states.
+         */
+        var toggleColorsHover = function (hover) {
+          var action = hover ? 'add' : 'remove';
+          document.getElementById('OT_toolbar').classList[action]('colors-hover');
+        };
+        var colors = context.getElementById('OT_colors');
+        colors.addEventListener('mouseenter', function () { toggleColorsHover(true); });
+        colors.addEventListener('mouseleave', function () { toggleColorsHover(false); });
+        /** End color picker hover state */
 
         panel.onclick = function (ev) {
           var group = ev.target.getAttribute('data-type') === 'group';
@@ -1606,7 +1712,7 @@
 
                         var lineIcon = context.createElement('div');
                         lineIcon.setAttribute('class', 'line-width-icon')
-                        // TODO Allow devs to change this?
+                          // TODO Allow devs to change this?
                         lineIcon.style.backgroundColor = '#FFFFFF';
                         lineIcon.style.width = '80%';
                         lineIcon.style.height = subItem.size + 'px';
@@ -1732,7 +1838,7 @@
           });
         };
 
-        window.addEventListener('OT_clear', function() {
+        window.addEventListener('OT_clear', function () {
           onClear();
           self.selectedItem = null;
           canvases.forEach(function (canvas) {
@@ -1740,8 +1846,8 @@
           });
         });
 
-        window.addEventListener('OT_pen', function(evt) {
-          var item = self.items.find(function(item) {
+        window.addEventListener('OT_pen', function (evt) {
+          var item = self.items.find(function (item) {
             return item.id === 'OT_pen';
           });
 
@@ -1814,14 +1920,17 @@
     /**
      * Links an annotation canvas to the toolbar so that menu actions can be handled on it.
      * @param canvas The annotation canvas to be linked to the toolbar.
+     * @param externalWindow External screen sharing window
      */
-    this.addCanvas = function (canvas) {
+    this.addCanvas = function (canvas, externalWindow) {
       var self = this;
+      var context = externalWindow ? externalWindow.document : document;
       canvas.link(self.session);
       canvas.colors(self.colors);
       canvases.push(canvas);
-      canvases.forEach(function(canvas) {
+      canvases.forEach(function (canvas) {
         canvas.selectedItem = canvas.selectedItem || self.items[0];
+        context.getElementById(canvas.selectedItem.id).classList.add('selected');
       });
     };
 

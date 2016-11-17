@@ -11,13 +11,13 @@
 @implementation OTAnnotationToolbarView (Animation)
 
 - (void)moveSelectionShadowViewTo:(UIButton *)sender {
-    
-    [self setUserInteractionEnabled:NO];
+
     if (![sender isKindOfClass:[UIButton class]]) {
         [self.selectionShadowView removeFromSuperview];
         return;
     }
     
+    [self setUserInteractionEnabled:NO];
     CGRect holderViewFrame = sender.superview.frame;
     CGRect hodlerViewBounds = sender.superview.bounds;
     self.selectionShadowView.frame = CGRectMake(holderViewFrame.origin.x, holderViewFrame.origin.y, CGRectGetWidth(hodlerViewBounds), CGRectGetHeight(hodlerViewBounds));
@@ -34,7 +34,6 @@
         
         [UIView animateWithDuration:1.0 animations:^(){
             
-            
             if (self.toolbarViewOrientation == OTAnnotationToolbarViewOrientationPortraitlBottom) {
                 CGFloat newY = selfFrame.origin.y - HeightOfColorPicker;
                 self.colorPickerView.frame = CGRectMake(selfFrame.origin.x, newY, CGRectGetWidth(self.bounds), HeightOfColorPicker);
@@ -50,12 +49,17 @@
         }];
     }
     else {
-        [self dismissColorPickerView];
+        [self dismissColorPickerViewWithAniamtion:NO];
     }
 }
 
-- (void)dismissColorPickerView {
+- (void)dismissColorPickerViewWithAniamtion:(BOOL)animated {
 
+    if (!animated) {
+        [self.colorPickerView removeFromSuperview];
+        return;
+    }
+    
     CGRect colorPickerViewFrame = self.colorPickerView.frame;
     [UIView animateWithDuration:1.0 animations:^(){
         

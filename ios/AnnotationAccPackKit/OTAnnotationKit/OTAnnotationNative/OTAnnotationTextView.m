@@ -15,6 +15,7 @@
 
 @interface OTAnnotationTextView() <UITextViewDelegate> {
     BOOL startTyping;
+    BOOL isRemoteSignaling;
 }
 @property (nonatomic) UIButton *cancelButton;
 @property (nonatomic) UIButton *rotateButton;
@@ -117,7 +118,12 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
     }
 }
 
-+ (instancetype)defaultWithTextColor:(UIColor *)textColor {
+- (instancetype)init {
+    return nil;
+}
+
+- (instancetype)initWithTextColor:(UIColor *)textColor {
+    if (!textColor) return nil;
     return [[OTAnnotationTextView alloc] initWithText:nil textColor:textColor fontSize:0.0f];
 }
 
@@ -136,6 +142,8 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
         [self setDelegate:self];
         [self setTextColor:textColor];
         [self setScrollEnabled:NO];
+        [self setShowsVerticalScrollIndicator:NO];
+        [self setShowsHorizontalScrollIndicator:NO];
         [self setTextAlignment:NSTextAlignmentCenter];
         [self setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
         [self setSelectable:NO];
@@ -165,6 +173,17 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
         
         [self resizeTextView];
     }
+    
+    isRemoteSignaling = NO;
+    return self;
+}
+
+- (instancetype)initRemoteWithText:(NSString *)text
+                         textColor:(UIColor *)textColor
+                          fontSize:(CGFloat)fontSize{
+    if (self = [[OTAnnotationTextView alloc] initWithText:text textColor:textColor fontSize:fontSize]) {
+        isRemoteSignaling = YES;
+    }
     return self;
 }
 
@@ -179,6 +198,30 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
     // by doing this, the text view won't get cut off after resizing
     [super setFrame:CGRectZero];
     [super setFrame:frame];
+}
+
+- (void)commitToMove {
+    if (self.annotationTextViewDelegate) {
+        
+        if (isRemoteSignaling) {
+            self.resizable = NO;
+            self.rotatable = NO;
+            [self setFont:[UIFont systemFontOfSize:12.0f]];
+            [self sizeToFit];
+        }
+        else {
+            self.resizable = YES;
+            self.rotatable = YES;
+        }
+        self.draggable = YES;
+        
+        // set editable and selectable NO so it won't have the pop-up menu
+        [self setEditable:NO];
+        [self setSelectable:NO];
+        [self.annotationTextViewDelegate annotationTextViewDidFinishChange:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:OTAnnotationTextViewDidFinishChangeNotification object:self];
+        [self cancelButton];
+    }
 }
 
 - (void)commit {
@@ -196,6 +239,10 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
     self.cancelButton = nil;
     
     [self setUserInteractionEnabled:NO];
+    
+    if (isRemoteSignaling) {
+        [self sizeToFit];
+    }
     [[AnnLoggingWrapper sharedInstance].logger logEventAction:KLogActionText variation:KLogVariationSuccess completion:nil];
 }
 
@@ -236,21 +283,38 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
     if ([text isEqualToString:@"\n"]) {
         
         if (!textView.text.length) return NO;
-        
-        if (self.annotationTextViewDelegate) {
-            self.draggable = YES;
-            self.resizable = YES;
-            self.rotatable = YES;
-            
-            // set editable and selectable NO so it won't have the pop-up menu
-            [self setEditable:NO];
-            [self setSelectable:NO];
-            [self.annotationTextViewDelegate annotationTextViewDidFinishChange:self];
-            [[NSNotificationCenter defaultCenter] postNotificationName:OTAnnotationTextViewDidFinishChangeNotification object:self];
-            [self cancelButton];
-        }
+        [self commitToMove];
     }
     return YES;
+}
+
+@end
+
+#pragma mark - OTRemoteAnnotationTextView
+@interface OTRemoteAnnotationTextView()
+@property (nonatomic) NSString *remoteGUID;
+@end
+
+@implementation OTRemoteAnnotationTextView
+
+- (instancetype)initWithTextColor:(UIColor *)textColor
+                       remoteGUID:(NSString *)remoteGUID {
+    
+    if (self = [super initWithTextColor:textColor]) {
+        _remoteGUID = remoteGUID;
+    }
+    return self;
+}
+
+- (instancetype)initWithText:(NSString *)text
+                   textColor:(UIColor *)textColor
+                    fontSize:(CGFloat)fontSize
+                  remoteGUID:(NSString *)remoteGUID{
+    
+    if (self = [super initWithText:text textColor:textColor fontSize:fontSize]) {
+        _remoteGUID = remoteGUID;
+    }
+    return self;
 }
 
 @end

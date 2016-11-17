@@ -17,38 +17,30 @@
 
 @implementation OTAnnotationEditTextViewController
 
-+ (instancetype)defaultWithTextColor:(UIColor *)textColor {
+- (instancetype)init {
+    return nil;
+}
+
+- (instancetype)initWithTextColor:(UIColor *)textColor {
     
     return [[OTAnnotationEditTextViewController alloc] initWithText:nil textColor:textColor];
+}
+
+- (instancetype)initRemoteWithTextColor:(UIColor *)textColor {
+    
+    return [[OTAnnotationEditTextViewController alloc] initWithText:nil textColor:textColor fontSize:36.0f remote:YES];
 }
 
 - (instancetype)initWithText:(NSString *)text
                    textColor:(UIColor *)textColor {
     
-    if (self = [super initWithNibName:NSStringFromClass([self class])
-                               bundle:[OTAnnotationKitBundle annotationKitBundle]]) {
-        
-        self.providesPresentationContextTransitionStyle = YES;
-        self.definesPresentationContext = YES;
-        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        
-        self.view.backgroundColor = [UIColor colorWithRed:10/255.0f green:104/255.0f blue:128/255.0f alpha:1.0];
-        
-        _annotationTextView = [[OTAnnotationTextView alloc] initWithText:text textColor:textColor fontSize:36];
-        _annotationTextView.annotationTextViewDelegate = self;
-        _annotationTextView.autocorrectionType = UITextAutocorrectionTypeNo;
-        _annotationTextView.returnKeyType = UIReturnKeyDone;
-        _annotationTextView.backgroundColor = [UIColor darkGrayColor];
-        _annotationTextView.alpha = 0.8;
-        [_annotationTextView setUserInteractionEnabled:NO];
-        [self.view addSubview:_annotationTextView];
-    }
-    return self;
+    return [[OTAnnotationEditTextViewController alloc] initWithText:text textColor:textColor fontSize:36.0f remote:NO];
 }
 
 - (instancetype)initWithText:(NSString *)text
                    textColor:(UIColor *)textColor
-                    fontSize:(CGFloat)fontSize {
+                    fontSize:(CGFloat)fontSize
+                      remote:(BOOL)isRemote {
     
     if (self = [super initWithNibName:NSStringFromClass([self class])
                                bundle:[OTAnnotationKitBundle annotationKitBundle]]) {
@@ -59,9 +51,18 @@
         
         self.view.backgroundColor = [UIColor colorWithRed:10/255.0f green:104/255.0f blue:128/255.0f alpha:1.0];
         
-        _annotationTextView  = [[OTAnnotationTextView alloc] initWithText:text textColor:textColor fontSize:fontSize];
+        if (!isRemote) {
+            _annotationTextView  = [[OTAnnotationTextView alloc] initWithText:text textColor:textColor fontSize:fontSize];
+        }
+        else {
+            _annotationTextView = [[OTAnnotationTextView alloc] initRemoteWithText:text textColor:textColor fontSize:fontSize];
+        }
+        
+        _annotationTextView.annotationTextViewDelegate = self;
         _annotationTextView.autocorrectionType = UITextAutocorrectionTypeNo;
         _annotationTextView.returnKeyType = UIReturnKeyDone;
+        _annotationTextView.backgroundColor = [UIColor darkGrayColor];
+        _annotationTextView.alpha = 0.8;
         [_annotationTextView setUserInteractionEnabled:NO];
         [self.view addSubview:_annotationTextView];
     }

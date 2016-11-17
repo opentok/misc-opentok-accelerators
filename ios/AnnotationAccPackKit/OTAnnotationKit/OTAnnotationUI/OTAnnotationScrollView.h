@@ -55,9 +55,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, readonly, nonatomic) OTAnnotationToolbarView *toolbarView;
 
 /**
- *  Initialize the associated toolbar view.
+ *  Initialize the associated toolbar view that has iOS specific features.
  */
 - (void)initializeToolbarView;
+
+/**
+ *  Initialize the associated toolbar view that has all platform compatible features.
+ */
+- (void)initializeUniversalToolbarView;
 
 #pragma mark - Annotation
 /**

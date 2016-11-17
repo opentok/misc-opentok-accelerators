@@ -23,6 +23,11 @@
 @property (readonly, nonatomic) id<OTAnnotatable> peakOfAnnotatable;
 
 /**
+ *  The remote object of the peak of the stack.
+ */
+@property (readonly, nonatomic) id<OTAnnotatable> peakOfRemoteAnnotatable;
+
+/**
  *  Initialize an annotation data manager.
  *
  *  @return A new annotation data manager.
@@ -44,6 +49,20 @@
 - (id<OTAnnotatable>)pop;
 
 /**
+ *  Remove the top remote annotatable object.
+ *
+ *  @return The removed annotatable object.
+ */
+- (id<OTAnnotatable>)popRemote;
+
+/**
+ *  Remove a specified remote annotatable object.
+ *
+ *  @param annotatable The annotatable object to be removed.
+ */
+- (void)remove:(id<OTAnnotatable>)annotatable;
+
+/**
  *  Check whether the stack contains the given annotatable object.
  *
  *  @return The boolean value to indicate whether the stack contains the given annotatable object.
@@ -51,8 +70,13 @@
 - (BOOL)containsAnnotatable:(id<OTAnnotatable>)annotatable;
 
 /**
- *  Clear up the stack.
+ *  Clear up all local annotatable objects.
  */
 - (void)popAll;
+
+/**
+ *  Clear up all remote annotatable objects.
+ */
+- (void)popRemoteAll;
 
 @end
