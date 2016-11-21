@@ -383,28 +383,7 @@
     });
     _sentMessageHistory = [];
   };
-
-  var _handleReadySignal = function (event) {
-    if (event.from.connectionId !== _session.connection.connectionId) {
-      _remoteParticipant = true;
-      _deliverUnsentMessages();
-    }
-  };
-
-  /**
-   * Send a signal to the other parties, letting them know that we are ready to receive
-   * messages and would like to recieve their message history
-   */
-  var _signalReady = function () {
-    var readySignal = { type: 'text-chat-ready', data: JSON.stringify({ ready: true }) };
-    _session.on('signal:text-chat-ready', _handleReadySignal);
-    _session.signal(readySignal, function (error) {
-      if (error) {
-        console.log('Error sending ready signal', error);
-      }
-    });
-  };
-
+  
   var _initTextChat = function () {
     _log(_logEventData.actionStart, _logEventData.variationAttempt);
     _enabled = true;
@@ -413,7 +392,6 @@
     _setupUI();
     _triggerEvent('showTextChat');
     _session.on('signal:text-chat', _handleTextChat);
-    _signalReady();
     _log(_logEventData.actionStart, _logEventData.variationSuccess);
   };
 
@@ -608,6 +586,9 @@
     },
     hideTextChat: function () {
       _hideTextChat();
+    },
+    deliverUnsentMessages:function(){
+      _deliverUnsentMessages();
     }
   };
 

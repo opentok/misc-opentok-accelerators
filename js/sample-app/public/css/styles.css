@@ -5,7 +5,6 @@
     min-height: calc(720px/(1024/760));
     margin: 35px auto;
     padding: 15px;
-    border: 1px solid rgba(87, 193, 228, .85);
     box-sizing: border-box;
 }
 
@@ -22,12 +21,13 @@
 .ots-widget-container {
     width: 100%;
     height: 100%;
+    font-family: helvetica, arial, sans-serif;
+    border: 1px solid rgba(87, 193, 228, .85);
+    border-radius: 6px;
+    padding: 5px;
 }
 
-.ots-widget-container .hidden {
-    display: none;
-}
-
+/* Moves text chat next to the primary video feed */
 .ots-widget-container.display-text-chat {
     display: -webkit-box;
     display: flex;
@@ -38,7 +38,7 @@
 }
 
 .ots-widget-container.viewing-shared-screen {
-    margin-bottom: 85px;
+    padding-bottom: 65px;
 }
 
 .ots-widget-container .video-container {
@@ -70,9 +70,7 @@ only screen and (min-device-pixel-ratio:1.5) {
     }
 }
 
-
 /* Aspect Ratio for Screen Sharing */
-
 .ots-aspect-ratio {
     height: 54vw;
     min-width: 600px;
@@ -80,7 +78,7 @@ only screen and (min-device-pixel-ratio:1.5) {
     padding: 0;
 }
 
-.ots-aspect-ratio> .video-container {
+.ots-aspect-ratio > .video-container {
     position: absolute;
 }
 
@@ -110,7 +108,7 @@ only screen and (min-device-pixel-ratio:1.5) {
     background: rgba(0, 0, 0, 0.8);
 }
 
-.ots-widget-container .sharing-mask-text {
+.ots-widget-container .sharing-mask .sharing-text {
     color: lightblue;
     font-size: 1.2em;
     font-weight: 300;
@@ -157,9 +155,21 @@ only screen and (min-device-pixel-ratio:1.5) {
     z-index: 1001;
 }
 
+.ots-widget-container .secondary-video {
+    position: absolute;
+    bottom: 75px;
+    right: 30px;
+    width: 174px;
+    height: 150px;
+    z-index: 11;
+}
+
+.ots-widget-container .secondary-video.active {
+    border: 1px solid rgba(255, 255, 255, .8);
+}
+
 
 /* Move down so as to not cover canvas */
-
 .ots-widget-container .local-controls.viewing-shared-screen {
     height: 65px;
     bottom: -60px;
@@ -284,114 +294,6 @@ only screen and (min-device-pixel-ratio:1.5) {
 .ots-video-control.microphone:hover {
     background-image: url("https://assets.tokbox.com/solutions/images/icon-muted-mic.png");
 }
-
-
-/* Screensharing styles */
-
-.ots-ss-modal {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.ots-ss-modal .ots-ss-modal-body {
-    position: relative;
-    width: 456px;
-    height: 286px;
-    margin: 100px auto 0;
-    padding: 62px 70px;
-    background: #ffffff;
-    border: 1px solid #c7c7c7;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.35);
-    -moz-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.35);
-    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.35);
-    color: #282828;
-}
-
-.ots-ss-modal .ots-ss-modal-body .ots-ss-modal-title span {
-    font-size: 20px;
-    line-height: 20px;
-    font-weight: bold;
-}
-
-.ots-ss-modal .ots-ss-modal-body .ots-ss-modal-title.with-icon {
-    position: relative;
-    padding-left: 70px;
-}
-
-.ots-ss-modal .ots-ss-modal-body .ots-ss-modal-title.with-icon i {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 60px;
-    height: 41px;
-    margin-top: -23px;
-    max-width: 60px;
-    max-height: 42px;
-}
-
-.ots-ss-modal .ots-ss-modal-body p {
-    font-size: 14px;
-    margin: 20px 0;
-}
-
-.ots-ss-modal .ots-ss-modal-body .ots-btn-install {
-    display: block;
-    width: 316px;
-    height: 44px;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 44px;
-    color: #fff;
-    font-size: 14px;
-    background: #259de8;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-}
-
-.ots-ss-modal .ots-ss-modal-body .ots-cancel-btn-install {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 25px;
-    height: 25px;
-    background-image: url("https://assets.tokbox.com/solutions/images/icon-oval-281-x.png");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-color: transparent;
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (min--moz-device-pixel-ratio: 1.5),
-only screen and (min-device-pixel-ratio: 1.5) {
-    .ots-ss-modal .ots-ss-modal-body .ots-cancel-btn-install {
-        background-image: url("https://assets.tokbox.com/solutions/images/icon-oval-281-x@2x.png");
-        background-size: 25px 25px;
-    }
-}
-
-.ots-icon-share-large {
-    background-image: url("https://assets.tokbox.com/solutions/images/icon-screenshare-large.png");
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (min--moz-device-pixel-ratio: 1.5),
-only screen and (min-device-pixel-ratio: 1.5) {
-    .ots-icon-share-large {
-        background-image: url("https://assets.tokbox.com/solutions/images/icon-screenshare-large@2x.png");
-        background-size: 60px 41px;
-    }
-}
-
 
 /*Text Chat */
 
@@ -649,7 +551,114 @@ only screen and (min-device-pixel-ratio: 1.5) {
     margin: 36px 0;
 }
 
-/*Annotation */
+
+/* Screensharing styles */
+
+.ots-ss-modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.ots-ss-modal .ots-ss-modal-body {
+    position: relative;
+    width: 456px;
+    height: 286px;
+    margin: 100px auto 0;
+    padding: 62px 70px;
+    background: #ffffff;
+    border: 1px solid #c7c7c7;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.35);
+    color: #282828;
+}
+
+.ots-ss-modal .ots-ss-modal-body .ots-ss-modal-title span {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.ots-ss-modal .ots-ss-modal-body .ots-ss-modal-title.with-icon {
+    position: relative;
+    padding-left: 70px;
+}
+
+.ots-ss-modal .ots-ss-modal-body .ots-ss-modal-title.with-icon i {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 60px;
+    height: 41px;
+    margin-top: -23px;
+    max-width: 60px;
+    max-height: 42px;
+}
+
+.ots-ss-modal .ots-ss-modal-body p {
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.ots-ss-modal .ots-ss-modal-body .ots-btn-install {
+    display: block;
+    width: 316px;
+    height: 44px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 44px;
+    color: #fff;
+    font-size: 14px;
+    background: #259de8;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.ots-ss-modal .ots-ss-modal-body .ots-cancel-btn-install {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+    background-image: url("https://assets.tokbox.com/solutions/images/icon-oval-281-x.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+    .ots-ss-modal .ots-ss-modal-body .ots-cancel-btn-install {
+        background-image: url("https://assets.tokbox.com/solutions/images/icon-oval-281-x@2x.png");
+        background-size: 25px 25px;
+    }
+}
+
+.ots-icon-share-large {
+    background-image: url("https://assets.tokbox.com/solutions/images/icon-screenshare-large.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+    .ots-icon-share-large {
+        background-image: url("https://assets.tokbox.com/solutions/images/icon-screenshare-large@2x.png");
+        background-size: 60px 41px;
+    }
+}
+
+/*Annotation Styles*/
 
 .ots-annotation-toolbar-container {
     position: fixed;
