@@ -5,6 +5,7 @@
 //
 
 #import <OTAcceleratorPackUtil/OTAcceleratorSession.h>
+#import <OTAcceleratorPackUtil/OTVideoView.h>
 #import <AVFoundation/AVFoundation.h>
 
 typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
@@ -85,9 +86,7 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *
  *  The subscriber view is available after OTSubscriberDidConnect being signaled.
  */
-@property (readonly, nonatomic) UIView *subscriberView;
-
-@property (nonatomic) BOOL handleSubscriberViewAudioVideoOnOff;
+@property (readonly, nonatomic) OTVideoView *subscriberView;
 
 /**
  *  The scaling of the rendered video, as defined by the <OTVideoViewContentMode> enum.
@@ -122,10 +121,7 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  * 
  *  The publisher view is available after OTSessionDidConnect being signaled.
  */
-@property (readonly, nonatomic) UIView *publisherView;
-
-
-@property (nonatomic) BOOL handlePublisherViewAudioVideoOnOff;
+@property (readonly, nonatomic) OTVideoView *publisherView;
 
 /**
  *  A boolean value to indicate whether to publish audio.

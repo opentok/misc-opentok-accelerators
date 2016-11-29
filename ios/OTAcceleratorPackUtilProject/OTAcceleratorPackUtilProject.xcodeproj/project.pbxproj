@@ -28,7 +28,11 @@
 		A07C061A1DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = A07C06181DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A07C061B1DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = A07C06191DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.m */; };
 		A07C061D1DECFADE00BB4FD9 /* OTAcceleratorPackUtilBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A07C061C1DECFADE00BB4FD9 /* OTAcceleratorPackUtilBundle.bundle */; };
+		A0CDA0951DF22D540018A2BA /* UIView+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = A0CDA0931DF22D540018A2BA /* UIView+Helper.h */; };
+		A0CDA0961DF22D540018A2BA /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CDA0941DF22D540018A2BA /* UIView+Helper.m */; };
 		A0E904EA1DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E904E91DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m */; };
+		A0EC17701DF0F24B00771650 /* OTVideoView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0EC176E1DF0F24B00771650 /* OTVideoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0EC17711DF0F24B00771650 /* OTVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EC176F1DF0F24B00771650 /* OTVideoView.m */; };
 		A0FEABFF1D73B3BF000BDDA4 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */; };
 		A0FEAC001D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */; };
 		A0FEAC011D73B3BF000BDDA4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A0FEABFE1D73B3BF000BDDA4 /* Podfile */; };
@@ -90,8 +94,12 @@
 		A07C06181DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAcceleratorPackUtilBundle.h; sourceTree = "<group>"; };
 		A07C06191DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAcceleratorPackUtilBundle.m; sourceTree = "<group>"; };
 		A07C061C1DECFADE00BB4FD9 /* OTAcceleratorPackUtilBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OTAcceleratorPackUtilBundle.bundle; sourceTree = "<group>"; };
+		A0CDA0931DF22D540018A2BA /* UIView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Helper.h"; sourceTree = "<group>"; };
+		A0CDA0941DF22D540018A2BA /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Helper.m"; sourceTree = "<group>"; };
 		A0E904E81DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestOneToOneCommunicatorSwitchingViewController.h; sourceTree = "<group>"; };
 		A0E904E91DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOneToOneCommunicatorSwitchingViewController.m; sourceTree = "<group>"; };
+		A0EC176E1DF0F24B00771650 /* OTVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVideoView.h; sourceTree = "<group>"; };
+		A0EC176F1DF0F24B00771650 /* OTVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVideoView.m; sourceTree = "<group>"; };
 		A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OTAcceleratorPackUtil.podspec; sourceTree = "<group>"; };
 		A0FEABFE1D73B3BF000BDDA4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -177,12 +185,16 @@
 			isa = PBXGroup;
 			children = (
 				A0127AB71D34654100CDA3F5 /* OTAcceleratorPackUtil.h */,
+				A0EC176E1DF0F24B00771650 /* OTVideoView.h */,
+				A0EC176F1DF0F24B00771650 /* OTVideoView.m */,
 				A0127AB81D34654100CDA3F5 /* OTAcceleratorSession.h */,
 				A0127AB91D34654100CDA3F5 /* OTAcceleratorSession.m */,
 				A0127AD21D346D7200CDA3F5 /* OTOneToOneCommunicator.h */,
 				A0127AD31D346D7200CDA3F5 /* OTOneToOneCommunicator.m */,
 				A07C06181DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.h */,
 				A07C06191DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.m */,
+				A0CDA0931DF22D540018A2BA /* UIView+Helper.h */,
+				A0CDA0941DF22D540018A2BA /* UIView+Helper.m */,
 				A0127AAE1D34652500CDA3F5 /* Info.plist */,
 			);
 			path = OTAcceleratorPackUtil;
@@ -207,7 +219,9 @@
 				A0127ABD1D34654100CDA3F5 /* OTAcceleratorSession.h in Headers */,
 				A07C061A1DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.h in Headers */,
 				A0127AD41D346D7200CDA3F5 /* OTOneToOneCommunicator.h in Headers */,
+				A0EC17701DF0F24B00771650 /* OTVideoView.h in Headers */,
 				A0127ABC1D34654100CDA3F5 /* OTAcceleratorPackUtil.h in Headers */,
+				A0CDA0951DF22D540018A2BA /* UIView+Helper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +374,8 @@
 				A0127AD51D346D7200CDA3F5 /* OTOneToOneCommunicator.m in Sources */,
 				A0127ABE1D34654100CDA3F5 /* OTAcceleratorSession.m in Sources */,
 				A07C061B1DEBC4C400BB4FD9 /* OTAcceleratorPackUtilBundle.m in Sources */,
+				A0EC17711DF0F24B00771650 /* OTVideoView.m in Sources */,
+				A0CDA0961DF22D540018A2BA /* UIView+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +509,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OTAcceleratorPackUtilProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtilProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -504,6 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OTAcceleratorPackUtilProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtilProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
