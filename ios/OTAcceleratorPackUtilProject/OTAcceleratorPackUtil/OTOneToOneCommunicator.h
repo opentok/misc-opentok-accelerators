@@ -8,18 +8,10 @@
 #import <AVFoundation/AVFoundation.h>
 
 typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
-    OTSessionDidConnect = 0,
-    OTSessionDidDisconnect,
-    OTSessionDidFail,
-    OTSessionStreamCreated,
-    OTSessionStreamDestroyed,
-    OTSessionDidBeginReconnecting,
-    OTSessionDidReconnect,
-    OTPublisherDidFail,
-    OTPublisherStreamCreated,
-    OTPublisherStreamDestroyed,
+    OTPublisherCreated,
+    OTPublisherDestroyed,
     OTSubscriberDidConnect,
-    OTSubscriberDidFail,
+    OTSubscriberDidDidconnect,
     OTSubscriberVideoDisabledByPublisher,
     OTSubscriberVideoDisabledBySubscriber,
     OTSubscriberVideoDisabledByBadQuality,
@@ -28,6 +20,14 @@ typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
     OTSubscriberVideoEnabledByGoodQuality,
     OTSubscriberVideoDisableWarning,
     OTSubscriberVideoDisableWarningLifted,
+    OTOneToOneCommunicationError,
+    OTSessionDidBeginReconnecting,
+    OTSessionDidReconnect
+};
+
+typedef NS_ENUM(NSInteger, OTVideoViewContentMode) {
+    OTVideoViewFill,
+    OTVideoViewFit
 };
 
 typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal, NSError *error);
@@ -36,11 +36,6 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 
 @protocol OTOneToOneCommunicatorDataSource <NSObject>
 - (OTAcceleratorSession *)sessionOfOTOneToOneCommunicator:(OTOneToOneCommunicator *)oneToOneCommunicator;
-@end
-
-@protocol OTOneToOneCommunicatorDelegate <NSObject>
-- (void)oneToOneCommunicationWithSignal:(OTOneToOneCommunicationSignal)signal
-                                  error:(NSError *)error;
 @end
 
 @interface OTOneToOneCommunicator: NSObject
@@ -53,39 +48,17 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 @property (weak, nonatomic) id<OTOneToOneCommunicatorDataSource> dataSource;
 
 /**
- *  The object that acts as the delegate of the communicator.
- *
- *  The delegate must adopt the OTOneToOneCommunicatorDelegate protocol. The delegate is not retained.
- */
-@property (weak, nonatomic) id<OTOneToOneCommunicatorDelegate> delegate;
-
-/**
- *  Initialize a new `OTOneToOneCommunicator` instsance.
- *
- *  @return A new `OTOneToOneCommunicator` instsance.
- */
-- (instancetype)initWithDataSource:(id<OTOneToOneCommunicatorDataSource>)dataSource;
-
-/**
  *  Initialize a new `OTOneToOneCommunicator` instsance with a publisher name.
  *
  *  @return A new `OTOneToOneCommunicator` instsance.
  */
-- (instancetype)initWithName:(NSString *)name
-                  dataSource:(id<OTOneToOneCommunicatorDataSource>)dataSource;
+- (instancetype)initWithName:(NSString *)name;
 
 /**
  *  A string that represents the current communicator.
  *  If not specified, the value will be "system name-name specified by Setting", e.g. @"iOS-MyiPhone"
  */
 @property (readonly, nonatomic) NSString *name;
-
-/**
- *  Registers to the shared session: [OTAcceleratorSession] and perform publishing/subscribing automatically.
- *
- *  @return An error to indicate whether it connects successfully, non-nil if it fails.
- */
-- (NSError *)connect;
 
 /**
  *  An alternative connect method with a completion block handler.
@@ -114,6 +87,15 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  */
 @property (readonly, nonatomic) UIView *subscriberView;
 
+@property (nonatomic) BOOL handleSubscriberViewAudioVideoOnOff;
+
+/**
+ *  The scaling of the rendered video, as defined by the <OTVideoViewContentMode> enum.
+ *  The default value is OTVideoViewScaleBehaviorFill.
+ *  Set it to OTVideoViewScaleBehaviorFit to have the video shrink, as needed, so that the entire video is visible(with pillarboxing).
+ */
+@property (nonatomic) OTVideoViewContentMode subscriberVideoContentMode;
+
 /**
  *  A boolean value to indicate whether the communicator has audio available.
  */
@@ -141,6 +123,9 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *  The publisher view is available after OTSessionDidConnect being signaled.
  */
 @property (readonly, nonatomic) UIView *publisherView;
+
+
+@property (nonatomic) BOOL handlePublisherViewAudioVideoOnOff;
 
 /**
  *  A boolean value to indicate whether to publish audio.

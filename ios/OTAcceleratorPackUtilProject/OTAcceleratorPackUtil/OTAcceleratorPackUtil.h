@@ -6,3 +6,4 @@
 
 #import <OTAcceleratorPackUtil/OTAcceleratorSession.h>
 #import <OTAcceleratorPackUtil/OTOneToOneCommunicator.h>
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtilBundle.h>
