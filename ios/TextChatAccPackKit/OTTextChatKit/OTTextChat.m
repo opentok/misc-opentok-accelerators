@@ -8,7 +8,6 @@
 
 #import "OTTextChat.h"
 
-#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 #import <OTKAnalytics/OTKLogger.h>
 
 #import "OTTextMessage.h"
@@ -37,9 +36,18 @@ static NSString* const kTextChatType = @"text-chat";
 @implementation OTTextChat
 
 - (instancetype)init {
+    return nil;
+}
+
+- (instancetype)initWithDataSource:(id<OTTextChatDataSource>)dataSource {
+    
+    if (!dataSource) {
+        return nil;
+    }
     
     if (self = [super init]) {
-        self.session = [OTAcceleratorSession getAcceleratorPackSession];
+        _dataSource = dataSource;
+        _session = [_dataSource sessionOfOTTextChat:self];
         
         if (![OTTestingInfo isTesting]) {
             _logger = [[OTKLogger alloc] initWithClientVersion:KLogClientVersion
@@ -65,7 +73,7 @@ static NSString* const kTextChatType = @"text-chat";
                      completion:nil];
     }
     
-    NSError *connectionError = [OTAcceleratorSession registerWithAccePack:self];
+    NSError *connectionError = [self.session registerWithAccePack:self];
     if(connectionError){
         
         if (![OTTestingInfo isTesting]) {
@@ -105,7 +113,7 @@ static NSString* const kTextChatType = @"text-chat";
                      completion:nil];
     }
     
-    NSError *disconnectionError = [OTAcceleratorSession deregisterWithAccePack:self];
+    NSError *disconnectionError = [self.session deregisterWithAccePack:self];
     if(disconnectionError){
         
         if (![OTTestingInfo isTesting]) {

@@ -10,7 +10,7 @@
 #import "OTTextChatTableViewCell.h"
 #import "OTTextChatNavigationBar_Private.h"
 
-#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
+#import "OTAcceleratorSession.h"
 #import <OTKAnalytics/OTKLogger.h>
 
 #import "OTTextChatKitBundle.h"

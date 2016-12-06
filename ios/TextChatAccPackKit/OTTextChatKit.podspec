@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "OTTextChatKit"
-  s.version          = "2.0.0"
+  s.version          = "2.0.0-beta7"
   s.summary          = "OpenTok Text Chat Accelerator Pack enables text messages between mobile or browser-based devices."
 
   s.description      = "This document describes how to use the OpenTok Text Chat Accelerator Pack for iOS. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages on an iOS mobile device."
@@ -26,5 +26,5 @@ Pod::Spec.new do |s|
     'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatViewController.h',
     'ios/TextChatAccPackKit/OTTextChatKit/OTTextChatView/OTTextChatNavigationBar.h',
     'ios/TextChatAccPackKit/OTTextChatKit/OTTextMessage/OTTextMessage.h'
-  s.dependency 'OTAcceleratorPackUtil'
+  s.dependency 'OTAcceleratorPackUtil', '~> 2.0.0-beta2'
 end

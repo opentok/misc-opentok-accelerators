@@ -1,19 +1,7 @@
 platform :ios, '8.0'
 
-def shared_pods
-    pod 'OTAcceleratorPackUtil', '~> 1.1.10'
-end
-
-target 'OTTextChatAccPackKit' do
-    shared_pods
-end
-
-target 'OTTextChatKit' do 
-    shared_pods
-end
-
-target 'OTTextChatKitStatic' do 
-    shared_pods
+target 'OTTextChatKit' do
+    pod 'OTAcceleratorPackUtil', '~> 2.0.0-beta2'
 end
 
 target 'OTTextChatKitTests' do 

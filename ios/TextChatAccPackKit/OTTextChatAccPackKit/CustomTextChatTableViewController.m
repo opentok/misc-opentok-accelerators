@@ -14,7 +14,11 @@
 
 #import "CustomDateFormatter.h"
 
-@interface CustomTextChatTableViewController()<OTTextChatTableViewDataSource> {
+#import "OTTextChat.h"
+
+#import "AppDelegate.h"
+
+@interface CustomTextChatTableViewController()<OTTextChatTableViewDataSource, OTTextChatDataSource> {
     
     // this is for storing all possible identifiers
     // under bad networking or phone's sleep mode, a new identifier will be returned
@@ -32,7 +36,7 @@
     
     senderIdentifiers = [[NSMutableSet alloc] init];
     
-    self.textChat = [[OTTextChat alloc] init];
+    self.textChat = [[OTTextChat alloc] initWithDataSource:self];
     self.textChat.alias = @"BD Demo";
     self.textMessages = [[NSMutableArray alloc] init];
     
@@ -174,6 +178,11 @@
     }
     
     return cell;
+}
+
+#pragma mark - OTTextChatDataSource
+- (OTAcceleratorSession *)sessionOfOTTextChat:(OTTextChat *)textChat {
+    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
 }
 
 @end

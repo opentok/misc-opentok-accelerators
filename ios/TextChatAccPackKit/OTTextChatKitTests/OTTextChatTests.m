@@ -1,7 +1,6 @@
 #import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
 #import <OTAcceleratorPackUtil/OTAcceleratorSession.h>
-#import <OTTextChatKit/OTTextChatKit.h>
 #import "OTTextMessage_Private.h"
 
 

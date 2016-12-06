@@ -5,7 +5,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <OTTextChatKit/OTTextMessage.h>
+#import "OTTextMessage.h"
 
 @interface OTTextChatTableViewCell : UITableViewCell
 
