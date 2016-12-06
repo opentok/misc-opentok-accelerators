@@ -6,6 +6,7 @@
 
 #import "TestOneToOneCommunicatorViewController.h"
 #import "AppDelegate.h"
+#import "OTOneToOneCommunicator.h"
 
 @interface TestOneToOneCommunicatorViewController () <OTOneToOneCommunicatorDataSource>
 @property (weak, nonatomic) IBOutlet UIView *subscriberView;
@@ -37,7 +38,7 @@
             self.communicator.publisherView.frame = self.publisherView.bounds;
             [self.publisherView addSubview:self.communicator.publisherView];
         }
-        else if (signal == OTSubscriberDidConnect && !error) {
+        else if (signal == OTSubscriberCreated && !error) {
             self.communicator.subscriberView.frame = self.subscriberView.bounds;
             [self.subscriberView addSubview:self.communicator.subscriberView];
         }

@@ -1,14 +1,14 @@
 //
-//  OTOneToOneCommunicator.h
+//  OTMultiPartyCommunciator.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
 #import "OTAcceleratorSession.h"
 #import "OTVideoView.h"
 
-typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
+typedef NS_ENUM(NSUInteger, OTMultiPartyCommunciatorSignal) {
     OTPublisherCreated,
     OTPublisherDestroyed,
     OTSubscriberCreated,
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
     OTSubscriberVideoEnabledByGoodQuality,
     OTSubscriberVideoDisableWarning,
     OTSubscriberVideoDisableWarningLifted,
-    OTOneToOneCommunicationError,
+    OTMultiPartyCommunicationError,
     OTSessionDidBeginReconnecting,
     OTSessionDidReconnect
 };
@@ -31,22 +31,23 @@ typedef NS_ENUM(NSInteger, OTVideoViewContentMode) {
     OTVideoViewFit
 };
 
-typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal, NSError *error);
+@class OTMultiPartyCommunciator;
+@class OTMultiPartyRemote;
 
-@class OTOneToOneCommunicator;
+typedef void (^OTMultiPartyCommunciatorBlock)(OTMultiPartyCommunciatorSignal signal, OTMultiPartyRemote *subscriber, NSError *error);
 
-@protocol OTOneToOneCommunicatorDataSource <NSObject>
-- (OTAcceleratorSession *)sessionOfOTOneToOneCommunicator:(OTOneToOneCommunicator *)oneToOneCommunicator;
+@protocol OTMultiPartyCommunciatorDataSource <NSObject>
+- (OTAcceleratorSession *)sessionOfOTMultiPartyCommunciator:(OTMultiPartyCommunciator *)multiPartyCommunicator;
 @end
 
-@interface OTOneToOneCommunicator: NSObject
+@interface OTMultiPartyCommunciator : NSObject
 
 /**
  *  The object that acts as the data source of the communicator.
  *
  *  The delegate must adopt the OTOneToOneCommunicatorDataSource protocol. The delegate is not retained.
  */
-@property (weak, nonatomic) id<OTOneToOneCommunicatorDataSource> dataSource;
+@property (weak, nonatomic) id<OTMultiPartyCommunciatorDataSource> dataSource;
 
 /**
  *  Initialize a new `OTOneToOneCommunicator` instsance with a publisher name.
@@ -66,7 +67,7 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *
  *  @param handler The completion handler to call with the change.
  */
-- (void)connectWithHandler:(OTOneToOneCommunicatorBlock)handler;
+- (void)connectWithHandler:(OTMultiPartyCommunciatorBlock)handler;
 
 /**
  *  De-registers to the shared session: [OTAcceleratorSession] and stops publishing/subscriber.
@@ -75,12 +76,35 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  */
 - (NSError *)disconnect;
 
+#pragma mark - publisher
 /**
- *  A boolean value to indicate whether the call is enabled. `YES` once the publisher connects or after OTSessionDidConnect being signaled.
+ *  The view for this publisher. If this view becomes visible, it will display a preview of the active camera feed.
+ *
+ *  The publisher view is available after OTSessionDidConnect being signaled.
  */
-@property (readonly, nonatomic) BOOL isCallEnabled;
+@property (readonly, nonatomic) OTVideoView *publisherView;
 
-#pragma mark - subscriber
+/**
+ *  A boolean value to indicate whether to publish audio.
+ */
+@property (nonatomic, getter=isPublishAudio) BOOL publishAudio;
+
+/**
+ *  A boolean value to indicate whether to publish video.
+ */
+@property (nonatomic, getter=isPublishVideo) BOOL publishVideo;
+
+/**
+ *  The preferred camera position. When setting this property, if the change is possible, the publisher will use the camera with the specified position.
+ *  If the publisher has begun publishing, getting this property returns the current camera position;
+ *  if the publisher has not yet begun publishing, getting this property returns the preferred camera position.
+ */
+@property (nonatomic) AVCaptureDevicePosition cameraPosition;
+
+@end
+
+@interface OTMultiPartyRemote : NSObject
+
 /**
  *  The view containing a playback buffer for associated video data. Add this view to your view heirarchy to display a video stream.
  *
@@ -114,45 +138,5 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *  A boolean value to indicate whether the communicator subscript to video.
  */
 @property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
-
-#pragma mark - publisher
-/**
- *  The view for this publisher. If this view becomes visible, it will display a preview of the active camera feed.
- * 
- *  The publisher view is available after OTSessionDidConnect being signaled.
- */
-@property (readonly, nonatomic) OTVideoView *publisherView;
-
-/**
- *  A boolean value to indicate whether to publish audio.
- */
-@property (nonatomic, getter=isPublishAudio) BOOL publishAudio;
-
-/**
- *  A boolean value to indicate whether to publish video.
- */
-@property (nonatomic, getter=isPublishVideo) BOOL publishVideo;
-
-/**
- *  The preferred camera position. When setting this property, if the change is possible, the publisher will use the camera with the specified position. 
- *  If the publisher has begun publishing, getting this property returns the current camera position; 
- *  if the publisher has not yet begun publishing, getting this property returns the preferred camera position.
- */
-@property (nonatomic) AVCaptureDevicePosition cameraPosition;
-
-#pragma mark - advanced
-/**
- *  Manually subscribe to a stream with a specfieid name.
- *
- *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
- */
-- (NSError *)subscribeToStreamWithName:(NSString *)name;
-
-/**
- *  Manually subscribe to a stream with a specfieid stream id.
- *
- *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
- */
-- (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId;
 
 @end

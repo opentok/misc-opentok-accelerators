@@ -24,8 +24,6 @@
 
 @implementation OTAcceleratorSession
 
-static OTAcceleratorSession *sharedSession;
-
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -109,11 +107,11 @@ static OTAcceleratorSession *sharedSession;
     
     // notify sessionDidConnect when session has connected
     if (self.sessionConnectionStatus == OTSessionConnectionStatusConnected) {
-        [delegate sessionDidConnect:sharedSession];
+        [delegate sessionDidConnect:self];
         
         NSDictionary *streams = self.streams;
         for (NSString *stream in streams) {
-            [delegate session:sharedSession streamCreated:streams[stream]];
+            [delegate session:self streamCreated:streams[stream]];
         }
         
         return nil;

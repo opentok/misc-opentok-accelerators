@@ -1,8 +1,6 @@
 //
 //  UIView+Helper.m
-//  OTAcceleratorPackUtilProject
 //
-//  Created by Xi Huang on 12/2/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 

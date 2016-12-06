@@ -16,9 +16,9 @@
 
 - (void)placeHolderImageViewDidDismissOnVideoView:(OTVideoView *)videoView;
 
-- (void)videoView:(OTVideoView *)videoView didChangeAudioTo:(BOOL)enabled;
+- (void)videoView:(OTVideoView *)videoView didTapToChangeAudioTo:(BOOL)enabled;
 
-- (void)videoView:(OTVideoView *)videoView didChangeVideoTo:(BOOL)enabled;
+- (void)videoView:(OTVideoView *)videoView didTapToChangeVideoTo:(BOOL)enabled;
 
 @end
 
@@ -28,7 +28,7 @@
 
 + (instancetype)defaultPlaceHolderImageWithSubscriber:(OTSubscriber *)subscriber;
 
-@property (nonatomic) id<OTVideoViewProtocol> delegate;
+@property (weak, nonatomic) id<OTVideoViewProtocol> delegate;
 
 @property (nonatomic) BOOL showAudioVideoControl;
 

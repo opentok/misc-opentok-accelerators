@@ -188,8 +188,10 @@ static NSString* const KLogVariationFailure = @"Failure";
     }
     else {
         self.isCallEnabled = YES;
-        self.publisherView = [OTVideoView defaultPlaceHolderImageWithPublisher:self.publisher];
-        self.publisherView.delegate = self;
+        if (!self.publisherView) {
+            self.publisherView = [OTVideoView defaultPlaceHolderImageWithPublisher:self.publisher];
+            self.publisherView.delegate = self;
+        }
         [self notifiyAllWithSignal:OTPublisherCreated
                              error:nil];
     }
@@ -220,8 +222,16 @@ static NSString* const KLogVariationFailure = @"Failure";
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
 
     if (self.subscriber.stream && [self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
+        
+        NSError *unsubscribeError;
+        [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+        if (unsubscribeError) {
+            NSLog(@"%@", unsubscribeError);
+        }
         [self.subscriber.view removeFromSuperview];
+        [self.subscriberView clean];
         self.subscriber = nil;
+        self.subscriberView = nil;
     }
 }
 
@@ -254,14 +264,14 @@ static NSString* const KLogVariationFailure = @"Failure";
     if (subscriber == self.subscriber) {
         _subscriberView = [OTVideoView defaultPlaceHolderImageWithSubscriber:self.subscriber];
         _subscriberView.delegate = self;
-        [self notifiyAllWithSignal:OTSubscriberDidConnect
+        [self notifiyAllWithSignal:OTSubscriberCreated
                              error:nil];
     }
 }
 
 - (void)subscriberDidDisconnectFromStream:(OTSubscriberKit *)subscriber {
     if (subscriber == self.subscriber) {
-        [self notifiyAllWithSignal:OTSubscriberDidDidconnect
+        [self notifiyAllWithSignal:OTSubscriberDestroyed
                              error:nil];
     }
 }
@@ -328,6 +338,8 @@ static NSString* const KLogVariationFailure = @"Failure";
     for (OTStream *stream in self.session.streams.allValues) {
         if ([stream.name isEqualToString:name]) {
             [self.subscriberView removeFromSuperview];
+            [self.subscriberView clean];
+            self.subscriber = nil;
             self.subscriberView = nil;
             NSError *unsubscribeError;
             [self.session unsubscribe:self.subscriber error:&unsubscribeError];
@@ -348,6 +360,10 @@ static NSString* const KLogVariationFailure = @"Failure";
 - (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId {
     for (OTStream *stream in self.session.streams.allValues) {
         if ([stream.streamId isEqualToString:streamId]) {
+            [self.subscriberView removeFromSuperview];
+            [self.subscriberView clean];
+            self.subscriber = nil;
+            self.subscriberView = nil;
             NSError *unsubscribeError;
             [self.session unsubscribe:self.subscriber error:&unsubscribeError];
             if (unsubscribeError) {
@@ -374,6 +390,23 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 #pragma mark - Setters and Getters
+
+- (OTVideoViewContentMode)subscriberVideoContentMode {
+    if (_subscriber.viewScaleBehavior) {
+        return OTVideoViewFit;
+    }
+    return OTVideoViewFill;
+}
+
+- (void)setSubscriberVideoContentMode:(OTVideoViewContentMode)subscriberVideoContentMode {
+    if (!_subscriber || !_subscriber.view) return;
+    if (subscriberVideoContentMode == OTVideoViewFit) {
+        _subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
+    }
+    else {
+        _subscriber.viewScaleBehavior = OTVideoViewFill;
+    }
+}
 
 - (BOOL)isRemoteAudioAvailable {
     if (!_subscriber) return NO;
