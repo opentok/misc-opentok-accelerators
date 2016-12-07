@@ -140,4 +140,11 @@ typedef void (^OTTextChatViewEventBlock)(OTTextChatViewEventSignal signal, OTTex
  */
 - (void)sendMessage:(NSString *)message;
 
+/**
+ *  Attempt to send a custom message to another connection
+ *
+ *  @param message The custom message attempted to send.
+ */
+- (void)sendCustomMessage:(OTTextMessage *)message;
+
 @end

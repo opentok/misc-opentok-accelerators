@@ -141,6 +141,11 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)sendMessage:(NSString *)message {
+    OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:message alias:self.alias senderId:self.connectionId];
+    [self sendCustomMessage:textMessage];
+}
+
+- (void)sendCustomMessage:(OTTextMessage *)message {
     NSError *error;
     
     if (![OTTestingInfo isTesting]) {
@@ -149,7 +154,7 @@ static NSString* const kTextChatType = @"text-chat";
                      completion:nil];
     }
     
-    if (!message || !message.length) {
+    if (!message || !message.text.length) {
         error = [NSError errorWithDomain:NSCocoaErrorDomain
                                     code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:@"Message format is wrong. Text is empty or null"}];
@@ -167,9 +172,7 @@ static NSString* const kTextChatType = @"text-chat";
     
     if (self.session.sessionId) {
         
-        OTTextMessage *textMessage = [[OTTextMessage alloc] initWithMessage:message alias:self.alias senderId:self.connectionId];
-        
-        NSString *jsonString = [textMessage getTextChatSignalJSONString];
+        NSString *jsonString = [message getTextChatSignalJSONString];
         if (!jsonString) {
             if (self.delegate) {
                 NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
@@ -211,11 +214,11 @@ static NSString* const kTextChatType = @"text-chat";
         }
         
         if (self.delegate) {
-            [self.delegate didSendTextMessage:textMessage error:nil];
+            [self.delegate didSendTextMessage:message error:nil];
         }
         
         if (self.handler) {
-            self.handler(OTTextChatViewEventSignalDidSendMessage, textMessage, nil);
+            self.handler(OTTextChatViewEventSignalDidSendMessage, message, nil);
         }
     }
     else {
