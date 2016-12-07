@@ -20,6 +20,7 @@
 
 -(void)awakeFromNib {
     
+    [super awakeFromNib];
     self.layer.cornerRadius = 6.0f;
     self.messageTextView.layer.cornerRadius = 6.0f;
     self.messageTextView.textContainer.lineFragmentPadding = 20;

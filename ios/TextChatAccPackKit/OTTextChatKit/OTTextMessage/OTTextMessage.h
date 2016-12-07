@@ -26,6 +26,9 @@
  */
 @property (copy, nonatomic, readonly) NSDate *dateTime;
 
+/**
+ *  The extra user information data carried by the message.
+ */
 @property (copy, nonatomic) NSDictionary *customData;
 
 + (instancetype)messageWithSenderId:(NSString *)senderId

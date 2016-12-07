@@ -1,12 +1,15 @@
 //
-//  ViewController.m
+//  DefaultTextChatTableViewController.m
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "DefaultTextChatTableViewController.h"
+#import "OTTextChat.h"
 
-@interface DefaultTextChatTableViewController () <OTTextChatTableViewDataSource, UITextFieldDelegate> {
+#import "AppDelegate.h"
+
+@interface DefaultTextChatTableViewController () <OTTextChatTableViewDataSource, OTTextChatDataSource, UITextFieldDelegate> {
     NSUInteger maximumTextMessageLength;
     UILabel *countLabel;
 }
@@ -21,7 +24,7 @@
     
     maximumTextMessageLength = 120;
     
-    self.textChat = [OTTextChat textChat];
+    self.textChat = [[OTTextChat alloc] initWithDataSource:self];
     self.textChat.alias = @"Tokboxer";
     self.textMessages = [[NSMutableArray alloc] init];
     
@@ -138,6 +141,11 @@
     }
     NSString* charCountStr = [NSString stringWithFormat:@"%lu", (unsigned long)charLeft];
     countLabel.text = charCountStr;
+}
+
+#pragma mark - OTTextChatDataSource
+- (OTAcceleratorSession *)sessionOfOTTextChat:(OTTextChat *)textChat {
+    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
 }
 
 @end

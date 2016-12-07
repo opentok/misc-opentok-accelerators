@@ -1,14 +1,11 @@
 //
 //  OTTextChatter.m
-//  OTTextChatAccPackKit
 //
-//  Created by Xi Huang on 8/5/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
 #import "OTTextChat.h"
 
-#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 #import <OTKAnalytics/OTKLogger.h>
 
 #import "OTTextMessage.h"
@@ -48,21 +45,18 @@ static NSString* const kTextChatType = @"text-chat";
 
 @implementation OTTextChat
 
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token {
+- (instancetype)initWithDataSource:(id<OTTextChatDataSource>)dataSource {
     
-    [OTAcceleratorSession setOpenTokApiKey:apiKey sessionId:sessionId token:token];
-}
-
-+ (instancetype)textChat {
-    return [[OTTextChat alloc] init];
-}
-
-- (instancetype)init {
+    [_logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
+    
+    if (!dataSource) {
+        [_logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
+        return nil;
+    }
     
     if (self = [super init]) {
-        _session = [OTAcceleratorSession getAcceleratorPackSession];
+        _dataSource = dataSource;
+        _session = [_dataSource sessionOfOTTextChat:self];
         _logger = [[OTKLogger alloc] initWithClientVersion:KLogClientVersion
                                                     source:[[NSBundle mainBundle] bundleIdentifier]
                                                componentId:kLogComponentIdentifier
@@ -87,7 +81,7 @@ static NSString* const kTextChatType = @"text-chat";
                      completion:nil];
     }
     
-    NSError *connectionError = [OTAcceleratorSession registerWithAccePack:self];
+    NSError *connectionError = [self.session registerWithAccePack:self];
     if(connectionError){
         
         if (![OTTestingInfo isTesting]) {
@@ -127,7 +121,7 @@ static NSString* const kTextChatType = @"text-chat";
                         completion:nil];
     }
     
-    NSError *disconnectionError = [OTAcceleratorSession deregisterWithAccePack:self];
+    NSError *disconnectionError = [self.session deregisterWithAccePack:self];
     if(disconnectionError){
         
         if (![OTTestingInfo isTesting]) {

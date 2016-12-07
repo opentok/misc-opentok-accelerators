@@ -4,11 +4,10 @@
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <OTTextChatKit/OTTextMessage.h>
-#import <OTTextChatKit/OTTextChatTableView.h>
-#import <OTTextChatKit/OTTextChatInputView.h>
-#import <OTTextChatKit/OTTextChatNavigationBar.h>
+#import "OTTextMessage.h"
+#import "OTTextChatTableView.h"
+#import "OTTextChatInputView.h"
+#import "OTTextChatNavigationBar.h"
 
 @interface OTTextChatViewController : UIViewController
 
