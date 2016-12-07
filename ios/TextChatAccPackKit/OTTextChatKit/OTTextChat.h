@@ -16,118 +16,74 @@
  *  @constant TextChatViewEventSignalDidConnect        A disconnect was requested and succeeded.
  *  @constant TextChatViewEventSignalDidDisconnect     A new connection was requested and succeeded.
  */
-typedef NS_ENUM(NSUInteger, OTTextChatConnectionEventSignal) {
-    OTTextChatConnectionEventSignalDidConnect = 0,
-    OTTextChatConnectionEventSignalDidDisconnect,
-    OTTextChatConnectionEventSignalConnectionCreated,
-    OTTextChatConnectionEventSignalConnectionDestroyed
+typedef NS_ENUM(NSUInteger, OTTextChatViewEventSignal) {
+    OTTextChatViewEventSignalDidSendMessage = 0,
+    OTTextChatViewEventSignalDidReceiveMessage,
+    OTTextChatViewEventSignalDidConnect,
+    OTTextChatViewEventSignalDidDisconnect
 };
 
-typedef NS_ENUM(NSUInteger, OTTextChatMessageEventSignal) {
-    OTTextChatMessageEventSignalDidSendMessage = 0,
-    OTTextChatMessageEventSignalDidReceiveMessage
-};
+/**
+ *  TextChatViewEventBlock type for the various TextChatViewEventSignal signals.
+ *
+ *  @param signal   NS_ENUM send with one of the signal defined for TextChatViewEventSignal
+ *  @param textChat The current message sent or received.
+ *  @param error    The error object indicating there is a problem when sending the signal.
+ */
+typedef void (^OTTextChatViewEventBlock)(OTTextChatViewEventSignal signal, OTTextMessage *textChat, NSError *w);
 
 @class OTTextChat;
-@class OTTextChatConnection;
 @class OTTextChatViewController;
-
-/**
- *  TextChatEventBlock type for the various connection signals.
- *
- *  @param signal       NS_ENUM send with one of the signal defined for TextChatEventSignal.
- *  @param connection   The connection created or destroyed.
- *  @param error        The error object indicating there is a problem when sending the signal.
- */
-typedef void (^OTTextChatConnectionBlock)(OTTextChatConnectionEventSignal signal, OTTextChatConnection *connection, NSError *);
-
-/**
- *  TextChatEventBlock type for the various text message signals.
- *
- *  @param signal       NS_ENUM send with one of the signal defined for TextChatEventSignal.
- *  @param textMessage  The current message sent or received.
- *  @param error        The error object indicating there is a problem when sending the signal.
- */
-typedef void (^OTTextChatMessageBlock)(OTTextChatMessageEventSignal signal, OTTextMessage *textMessage, NSError *);
 
 @protocol OTTextChatDataSource <NSObject>
 - (OTAcceleratorSession *)sessionOfOTTextChat:(OTTextChat *)textChat;
 @end
 
 /**
- *  The delegate of a OTTextChat object must confirm to the TextChatViewDelegate protocol.
+ *  The delegate of a TextChatView object must confirm to the TextChatViewDelegate protocol.
  *  Optional methods of the protocol allow the delegate to notify the connectivity.
  */
-@protocol OTTextChatDelegate <NSObject>
+@protocol OTTextChatViewDelegate <NSObject>
 
-@optional
 /**
  *  Notifies the delegate that the text chat view finished sending the message, with or without an error.
  *
- *  @param textChat     The text chat component object.
- *  @param textMessage  The text message object.
- *  @param error        An error object, used by the text chat view, when there is an error sending a message.
+ *  @param textChat The text chat message object.
+ *  @param error An error object, used by the text chat view, when there is an error sending a message.
  */
-- (void)textChat:(OTTextChat *)textChat didSendTextMessage:(OTTextMessage *)textMessage error:(NSError *)error;
+- (void)didSendTextMessage:(OTTextMessage *)textChat
+                     error:(NSError *)error;
 
 /**
  *  Notifies the delegate that the text chat view finished receiving the message, with or without an error.
  *
- *  @param textChat     The text chat component object.
- *  @param textMessage  The text message object.
- *  @param error        An error object, used by the text chat view, when there is an error receiving a message.
+ *  @param textChat The text chat message object.
+ *  @param error An error object, used by the text chat view, when there is an error receiving a message.
  */
-- (void)textChat:(OTTextChat *)textChat didReceiveTextMessage:(OTTextMessage *)textMessage error:(NSError *)error;
+- (void)didReceiveTextMessage:(OTTextMessage *)textChat
+                        error:(NSError *)error;
 
 /**
  *  Notifies the delegate the text chat view has established a text chat connection, with or without an error.
  *
- *  @param textChat The text chat component object.
- *  @param error    An error object. It can contain information related to a connection error, a nil value,
+ *  @param error An error object. It can contain information related to a connection error, a nil value,
  *               or information indicating a successful connection.
  */
-- (void)textChat:(OTTextChat *)textChat didConnectWithError:(NSError *)error;
+- (void)didConnectWithError:(NSError *)error;
 
 /**
  *  Notifies the delegate that the text chat view has stopped a text chat connection, with or without an error.
  *
- *  @param textChat The text chat component object.
- *  @param error    An error object. It can contain information related to a disconnect error, a nil value,
+ *  @param error An error object. It can contain information related to a disconnect error, a nil value,
  *               or information indicating a connection was successfully closed.
  */
-- (void)textChat:(OTTextChat *)textChat didDisConnectWithError:(NSError *)error;
-
-- (void)textChat:(OTTextChat *)textChat connectionCreated:(OTTextChatConnection *)connection;
-
-- (void)textChat:(OTTextChat *)textChat connectionDestroyed:(OTTextChatConnection *)connection;
-
-@end
-
-@interface OTTextChatConnection : NSObject
-
-/**
- * The unique connection ID for this OTConnection object.
- */
-@property(readonly) NSString* connectionId;
-
-/**
- * The time at which the Connection was created on the OpenTok server.
- */
-@property(readonly) NSDate* creationTime;
-
-/**
- * A string containing metadata describing the connection. You can add this
- * connection data when you
- * [create a token](https://tokbox.com/developer/guides/create-token/).
- */
-@property(readonly) NSString* customdData;
-
+- (void)didDisConnectWithError:(NSError *)error;
 @end
 
 @interface OTTextChat : NSObject
 
 /**
- *  The object that acts as the data source of the screen sharer.
+ *  The object that acts as the data source of the text chat.
  *
  *  The delegate must adopt the OTTextChatDataSource protocol. The delegate is not retained.
  */
@@ -136,14 +92,12 @@ typedef void (^OTTextChatMessageBlock)(OTTextChatMessageEventSignal signal, OTTe
 /**
  *  The object that acts as the delegate of the text chat view.
  *
- *  The delegate must adopt the TextChatDelegate protocol. The delegate is not retained.
+ *  The delegate must adopt the TextChatViewDelegate protocol. The delegate is not retained.
  */
-@property (weak, nonatomic) id<OTTextChatDelegate> delegate;
+@property (weak, nonatomic) id<OTTextChatViewDelegate> delegate;
 
 /**
- *  Initialize a new `OTTextChat` instsance.
- *
- *  @return A new `OTTextChat` instsance.
+ *  @return Returns an initialized text chat view object.
  */
 - (instancetype)initWithDataSource:(id<OTTextChatDataSource>)dataSource;
 
@@ -157,25 +111,40 @@ typedef void (^OTTextChatMessageBlock)(OTTextChatMessageEventSignal signal, OTTe
  *
  *  @param handler NS_ENUM for the various event signals.
  */
-- (void)connectWithHandler:(OTTextChatConnectionBlock)handler;
+- (void)connectWithHandler:(OTTextChatViewEventBlock)handler;
 
 /**
  *  Stops a text chat connection.
  */
 - (void)disconnect;
 
+/**
+ *  The name of the sender.
+ */
 @property (nonatomic) NSString *alias;
 
+/**
+ *  The name of the receiver.
+ */
 @property (readonly, nonatomic) NSString *receiverAlias;
 
-@property (readonly, nonatomic) OTTextChatConnection *selfConnection;
+/**
+ *  The identifier of a connection object from OpenTok.
+ */
+@property (readonly, nonatomic) NSString *connectionId;
 
-@property (copy, nonatomic) OTTextChatConnectionBlock connectionHandler;
+/**
+ *  Attempt to send the message to another connection
+ *
+ *  @param message The message attempted to send.
+ */
+- (void)sendMessage:(NSString *)message;
 
-@property (copy, nonatomic) OTTextChatMessageBlock messageHandler;
-
-- (void)sendMessage:(NSString *)text;
-
-- (void)sendCustomMessage:(OTTextMessage *)textMessage;
+/**
+ *  Attempt to send a custom message to another connection
+ *
+ *  @param message The custom message attempted to send.
+ */
+- (void)sendCustomMessage:(OTTextMessage *)message;
 
 @end

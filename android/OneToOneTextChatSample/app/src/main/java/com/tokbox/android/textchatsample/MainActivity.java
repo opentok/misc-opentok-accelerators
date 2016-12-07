@@ -3,12 +3,15 @@ package com.tokbox.android.textchatsample;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     private OTKAnalyticsData mAnalyticsData;
     private OTKAnalytics mAnalytics;
 
+    private boolean mAudioPermission = false;
+    private boolean mVideoPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +91,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
             prefs.edit().putString("guidVSol", guidVSol).commit();
         }
 
-        mAnalyticsData = new OTKAnalyticsData.Builder(OpenTokConfig.LOG_CLIENT_VERSION, source, OpenTokConfig.LOG_COMPONENTID, guidVSol).build();
-        mAnalytics = new OTKAnalytics(mAnalyticsData);
-
-        //add INITIALIZE attempt log event
-        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_ATTEMPT);
-
         setContentView(R.layout.activity_main);
 
         mPreviewViewContainer = (RelativeLayout) findViewById(R.id.publisherview);
@@ -104,8 +103,14 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mActionBarContainer = (RelativeLayout) findViewById(R.id.actionbar_preview_fragment_container);
 
         //request Marshmallow camera permission
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, permsRequestCode);
+        if (ContextCompat.checkSelfPermission(this,permissions[1]) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,permissions[0]) != PackageManager.PERMISSION_GRANTED){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(permissions, permsRequestCode);
+            }
+        }
+        else {
+            mVideoPermission = true;
+            mAudioPermission = true;
         }
 
         //init 1to1 communication object
@@ -130,8 +135,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.setMessage("Connecting...");
         mProgressDialog.show();
 
-        addLogEvent(OpenTokConfig.LOG_ACTION_INITIALIZE, OpenTokConfig.LOG_VARIATION_SUCCESS);
-
     }
 
     @Override
@@ -150,12 +153,36 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     }
 
     @Override
-    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions,
+    public void onRequestPermissionsResult(final int permsRequestCode, final String[] permissions,
                                            int[] grantResults) {
         switch (permsRequestCode) {
             case 200:
-                boolean video = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                boolean audio = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                mVideoPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                mAudioPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+
+                if ( !mVideoPermission || !mAudioPermission ){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle(getResources().getString(R.string.permissions_denied_title));
+                    builder.setMessage(getResources().getString(R.string.alert_permissions_denied));
+                    builder.setPositiveButton("I'M SURE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setNegativeButton("RE-TRY", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                requestPermissions(permissions, permsRequestCode);
+                            }
+                        }
+                    });
+                    builder.show();
+                }
+
                 break;
         }
     }
@@ -182,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                     mAudioOnlyImage = new ImageView(this);
                     mAudioOnlyImage.setImageResource(R.drawable.avatar);
                     mAudioOnlyImage.setBackgroundResource(R.drawable.bckg_audio_only);
-                    mPreviewViewContainer.addView(mAudioOnlyImage);
+                    mPreviewViewContainer.addView(mAudioOnlyImage, layoutParamsPreview);
                 } else {
                     mPreviewViewContainer.removeView(mAudioOnlyImage);
                 }
@@ -202,12 +229,9 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onCall() {
         if (mComm != null && mComm.isStarted()) {
-            addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             mComm.end();
             cleanViewsAndControls();
-            addLogEvent(OpenTokConfig.LOG_ACTION_END_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
         } else {
-            addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             mComm.start();
             if (mPreviewFragment != null) {
                 mPreviewFragment.setEnabled(true);
@@ -219,16 +243,12 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     @Override
     public void onTextChat() {
         if (mTextChatContainer.getVisibility() == View.VISIBLE){
-            addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE_TEXTCHAT, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             mTextChatContainer.setVisibility(View.GONE);
             showAVCall(true);
-            addLogEvent(OpenTokConfig.LOG_ACTION_CLOSE_TEXTCHAT, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
         else {
-            addLogEvent(OpenTokConfig.LOG_ACTION_OPEN_TEXTCHAT, OpenTokConfig.LOG_VARIATION_ATTEMPT);
             showAVCall(false);
             mTextChatContainer.setVisibility(View.VISIBLE);
-            addLogEvent(OpenTokConfig.LOG_ACTION_OPEN_TEXTCHAT, OpenTokConfig.LOG_VARIATION_SUCCESS);
         }
     }
 
@@ -261,13 +281,15 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
     public void onInitialized() {
         mProgressDialog.dismiss();
         if ( mTextChatFragment != null ) {
-            //Init TextChat values
-            mTextChatFragment.setMaxTextLength(140);
-            mTextChatFragment.setSenderAlias("Tokboxer");
-            mTextChatFragment.setListener(this);
+            try {
+                //Init TextChat values
+                mTextChatFragment.setMaxTextLength(140);
+                mTextChatFragment.setSenderAlias("Tokboxer");
+                mTextChatFragment.setListener(this);
+            }catch(Exception e){
+                Log.e(LOG_TAG, e.toString());
+            }
         }
-
-        addLogEvent(OpenTokConfig.LOG_ACTION_START_COMM, OpenTokConfig.LOG_VARIATION_SUCCESS);
     }
 
     //OneToOneCommunication callbacks
@@ -354,6 +376,23 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
+    @Override
+    public void onReconnecting() {
+        Log.i(LOG_TAG, "The session is reconnecting.");
+        Toast.makeText(this, R.string.reconnecting, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onReconnected() {
+        Log.i(LOG_TAG, "The session reconnected.");
+        Toast.makeText(this, R.string.reconnected, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCameraChanged(int newCameraId) {
+        Log.i(LOG_TAG, "The camera changed. New camera id is: "+newCameraId);
+    }
+
     //TextChat Fragment listener events
     @Override
     public void onNewSentMessage(ChatMessage message) {
@@ -406,6 +445,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mTextChatFragment = TextChatFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.textchat_fragment_container, mTextChatFragment).commit();
+
     }
 
     //Audio local button event

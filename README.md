@@ -1,15 +1,15 @@
 ![logo](tokbox-logo.png)
 
-# OpenTok Text Chat Accelerator Pack<br/>Version 1.0.0
+# OpenTok Text Chat Accelerator Pack<br/>Version 2.0.0
 
-The OpenTok Text Chat Accelerator Pack provides functionality you can add to your OpenTok applications that enables users to exchange text messages between mobile or browser-based devices. 
+The OpenTok Text Chat Accelerator Pack provides functionality you can add to your OpenTok applications that enables users to exchange text messages between mobile or browser-based devices.
 
 With the OpenTok Text Chat sample app, you can:
 
 - Initiate and manage interoperable text chat communication between two users, regardless of the devices they are using.
 - Customize the UI features and layout.
 
-You can create mobile apps for Android and iOS, or embed the interactive session between users into any website. 
+You can create mobile apps for Android and iOS, or embed the interactive session between users into any website.
 
 To get started with your development, visit the following sites:
 
@@ -25,10 +25,10 @@ The JSON used when using the OpenTok signaling API with the OpenTok Text Chat co
 
 ```json
 {
-  "sentOn" : 1462396461923.305, 
-  "text" : "Hi", 
-  "sender" : { 
-    "alias" : "Tokboxer", 
+  "sentOn" : 1462396461923.305,
+  "text" : "Hi",
+  "sender" : {
+    "alias" : "Tokboxer",
     "id" : "16FEB40D-C09B-4491-A983-44677B7EBB3E"
   }
 }
@@ -38,5 +38,4 @@ This formatted JSON is converted to a string, which is submitted to the OpenTok 
 
   - [Signaling - JavaScript](https://tokbox.com/developer/guides/signaling/js/)
   - [Signaling - iOS](https://tokbox.com/developer/guides/signaling/ios/)
-  - [Signaling - Android](https://tokbox.com/developer/guides/signaling/android/) 
-
+  - [Signaling - Android](https://tokbox.com/developer/guides/signaling/android/)
