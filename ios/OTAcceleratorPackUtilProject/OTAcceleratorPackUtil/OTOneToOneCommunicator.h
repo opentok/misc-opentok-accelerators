@@ -12,6 +12,7 @@ typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
     OTPublisherCreated,
     OTPublisherDestroyed,
     OTSubscriberCreated,
+    OTSubscriberReady,
     OTSubscriberDestroyed,
     OTSubscriberVideoDisabledByPublisher,
     OTSubscriberVideoDisabledBySubscriber,

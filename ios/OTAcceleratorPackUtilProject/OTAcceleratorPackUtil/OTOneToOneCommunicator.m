@@ -133,15 +133,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     
     if (self.subscriber) {
         
-        OTError *error = nil;
-        [self.subscriber.view removeFromSuperview];
-        [self.session unsubscribe:self.subscriber error:&error];
-        if (error) {
-            NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
-        }
-        [self.subscriberView clean];
-        self.subscriber = nil;
-        self.subscriberView = nil;
+        [self cleaupSubscriber];
     }
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
@@ -207,31 +199,20 @@ static NSString* const KLogVariationFailure = @"Failure";
     // we always subscribe one stream for this acc pack
     // please see - subscribeToStreamWithName: to switch subscription
     if (self.subscriber) {
-        NSError *unsubscribeError;
-        [self.session unsubscribe:self.subscriber error:&unsubscribeError];
-        if (unsubscribeError) {
-            NSLog(@"%@", unsubscribeError);
-        }
+        [self cleaupSubscriber];
     }
     
     OTError *subscrciberError;
     self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
     [self.session subscribe:self.subscriber error:&subscrciberError];
+    [self notifiyAllWithSignal:OTSubscriberCreated error:subscrciberError];
 }
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
 
     if (self.subscriber.stream && [self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
         
-        NSError *unsubscribeError;
-        [self.session unsubscribe:self.subscriber error:&unsubscribeError];
-        if (unsubscribeError) {
-            NSLog(@"%@", unsubscribeError);
-        }
-        [self.subscriber.view removeFromSuperview];
-        [self.subscriberView clean];
-        self.subscriber = nil;
-        self.subscriberView = nil;
+        [self cleaupSubscriber];
     }
 }
 
@@ -264,14 +245,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     if (subscriber == self.subscriber) {
         _subscriberView = [OTVideoView defaultPlaceHolderImageWithSubscriber:self.subscriber];
         _subscriberView.delegate = self;
-        [self notifiyAllWithSignal:OTSubscriberCreated
-                             error:nil];
-    }
-}
-
-- (void)subscriberDidDisconnectFromStream:(OTSubscriberKit *)subscriber {
-    if (subscriber == self.subscriber) {
-        [self notifiyAllWithSignal:OTSubscriberDestroyed
+        [self notifiyAllWithSignal:OTSubscriberReady
                              error:nil];
     }
 }
@@ -333,23 +307,31 @@ static NSString* const KLogVariationFailure = @"Failure";
     }
 }
 
+- (void)cleaupSubscriber {
+    NSError *unsubscribeError;
+    [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+    if (unsubscribeError) {
+        NSLog(@"%@", unsubscribeError);
+    }
+    [self.subscriber.view removeFromSuperview];
+    [self.subscriberView clean];
+    self.subscriber = nil;
+    self.subscriberView = nil;
+    
+    [self notifiyAllWithSignal:OTSubscriberDestroyed
+                         error:unsubscribeError];
+}
+
 #pragma mark - advanced
 - (NSError *)subscribeToStreamWithName:(NSString *)name {
     for (OTStream *stream in self.session.streams.allValues) {
         if ([stream.name isEqualToString:name]) {
-            [self.subscriberView removeFromSuperview];
-            [self.subscriberView clean];
-            self.subscriber = nil;
-            self.subscriberView = nil;
-            NSError *unsubscribeError;
-            [self.session unsubscribe:self.subscriber error:&unsubscribeError];
-            if (unsubscribeError) {
-                NSLog(@"%@", unsubscribeError);
-            }
             
+            [self cleaupSubscriber];
             NSError *subscrciberError;
             self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
             [self.session subscribe:self.subscriber error:&subscrciberError];
+            [self notifiyAllWithSignal:OTSubscriberCreated error:subscrciberError];
             return subscrciberError;
         }
     }
@@ -360,19 +342,12 @@ static NSString* const KLogVariationFailure = @"Failure";
 - (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId {
     for (OTStream *stream in self.session.streams.allValues) {
         if ([stream.streamId isEqualToString:streamId]) {
-            [self.subscriberView removeFromSuperview];
-            [self.subscriberView clean];
-            self.subscriber = nil;
-            self.subscriberView = nil;
-            NSError *unsubscribeError;
-            [self.session unsubscribe:self.subscriber error:&unsubscribeError];
-            if (unsubscribeError) {
-                NSLog(@"%@", unsubscribeError);
-            }
             
+            [self cleaupSubscriber];
             NSError *subscrciberError;
             self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
             [self.session subscribe:self.subscriber error:&subscrciberError];
+            [self notifiyAllWithSignal:OTSubscriberCreated error:subscrciberError];
             return subscrciberError;
         }
     }
