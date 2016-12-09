@@ -103,7 +103,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)connectWithHandler:(OTOneToOneCommunicatorBlock)handler {
-
+    
     if (!handler) return;
     
     self.handler = handler;
@@ -209,10 +209,12 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
-
+    
     if (self.subscriber.stream && [self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
         
         [self cleaupSubscriber];
+        [self notifiyAllWithSignal:OTSubscriberDestroyed
+                             error:nil];
     }
 }
 
@@ -241,7 +243,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 #pragma mark - OTSubscriberKitDelegate
 - (void)subscriberDidConnectToStream:(OTSubscriberKit*)subscriber {
-
+    
     if (subscriber == self.subscriber) {
         _subscriberView = [OTVideoView defaultPlaceHolderImageWithSubscriber:self.subscriber];
         _subscriberView.delegate = self;
@@ -317,9 +319,6 @@ static NSString* const KLogVariationFailure = @"Failure";
     [self.subscriberView clean];
     self.subscriber = nil;
     self.subscriberView = nil;
-    
-    [self notifiyAllWithSignal:OTSubscriberDestroyed
-                         error:unsubscribeError];
 }
 
 #pragma mark - advanced
@@ -331,7 +330,6 @@ static NSString* const KLogVariationFailure = @"Failure";
             NSError *subscrciberError;
             self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
             [self.session subscribe:self.subscriber error:&subscrciberError];
-            [self notifiyAllWithSignal:OTSubscriberCreated error:subscrciberError];
             return subscrciberError;
         }
     }
@@ -347,7 +345,6 @@ static NSString* const KLogVariationFailure = @"Failure";
             NSError *subscrciberError;
             self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
             [self.session subscribe:self.subscriber error:&subscrciberError];
-            [self notifiyAllWithSignal:OTSubscriberCreated error:subscrciberError];
             return subscrciberError;
         }
     }
@@ -357,11 +354,11 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 #pragma mark - OTVideoViewProtocol
 - (void)placeHolderImageViewDidShowOnVideoView:(OTVideoView *)videoView {
-
+    
 }
 
 - (void)placeHolderImageViewDidDismissOnVideoView:(OTVideoView *)videoView {
-
+    
 }
 
 #pragma mark - Setters and Getters
@@ -379,7 +376,7 @@ static NSString* const KLogVariationFailure = @"Failure";
         _subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
     }
     else {
-        _subscriber.viewScaleBehavior = OTVideoViewFill;
+        _subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
     }
 }
 
