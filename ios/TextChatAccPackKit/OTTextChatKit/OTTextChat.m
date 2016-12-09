@@ -17,21 +17,6 @@
 
 static NSString* const kTextChatType = @"text-chat";
 
-@implementation OTTextChatConnection
-
-- (instancetype)initWithConnectionId:(NSString *)connectionId
-                        creationTime:(NSDate *)creationTime
-                          customData:(NSString *)customData {
-    if (self = [super init]) {
-        _connectionId = connectionId;
-        _creationTime = creationTime;
-        _customdData = customData;
-    }
-    return self;
-}
-
-@end
-
 @interface OTTextChat() <OTSessionDelegate> {
     OTConnection *receiverConnection;
 }
@@ -39,24 +24,21 @@ static NSString* const kTextChatType = @"text-chat";
 @property (nonatomic) OTAcceleratorSession *session;
 @property (nonatomic) OTKLogger *logger;
 @property (nonatomic) NSString *receiverAlias;
-@property (nonatomic) OTTextChatConnection *selfConnection;
+@property (nonatomic) OTConnection *selfConnection;
 
 @end
 
 @implementation OTTextChat
 
-- (instancetype)initWithDataSource:(id<OTTextChatDataSource>)dataSource {
-    
-    [_logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
-    
-    if (!dataSource) {
-        [_logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
-        return nil;
-    }
+- (void)setDataSource:(id<OTTextChatDelegate>)dataSource {
+    _dataSource = dataSource;
+    _session = [_dataSource sessionOfOTTextChat:self];
+}
+
+- (instancetype)init {
     
     if (self = [super init]) {
-        _dataSource = dataSource;
-        _session = [_dataSource sessionOfOTTextChat:self];
+        
         _logger = [[OTKLogger alloc] initWithClientVersion:KLogClientVersion
                                                     source:[[NSBundle mainBundle] bundleIdentifier]
                                                componentId:kLogComponentIdentifier
@@ -247,9 +229,7 @@ static NSString* const kTextChatType = @"text-chat";
         [_logger setSessionId:session.sessionId connectionId:session.connection.connectionId partnerId:@([self.session.apiKey integerValue])];
     }
     
-    self.selfConnection = [[OTTextChatConnection alloc] initWithConnectionId:session.connection.connectionId
-                                                            creationTime:session.connection.creationTime
-                                                              customData:session.connection.data];
+    self.selfConnection = session.connection;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:didConnectWithError:)]) {
         [self.delegate textChat:self didConnectWithError:nil];
@@ -292,9 +272,7 @@ static NSString* const kTextChatType = @"text-chat";
     // store receiverConnection for sending message to a point rather than boardcasting
     receiverConnection = connection;
     
-    OTTextChatConnection *textChatConnection = [[OTTextChatConnection alloc] initWithConnectionId:connection.connectionId
-                                                                             creationTime:connection.creationTime
-                                                                               customData:connection.data];
+    OTConnection *textChatConnection = session.connection;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:connectionCreated:)]) {
         [self.delegate textChat:self connectionCreated:textChatConnection];
@@ -311,9 +289,7 @@ static NSString* const kTextChatType = @"text-chat";
         receiverConnection = nil;
     }
     
-    OTTextChatConnection *textChatConnection = [[OTTextChatConnection alloc] initWithConnectionId:connection.connectionId
-                                                                                     creationTime:connection.creationTime
-                                                                                       customData:connection.data];
+    OTConnection *textChatConnection = session.connection;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:connectionDestroyed:)]) {
         [self.delegate textChat:self connectionDestroyed:textChatConnection];

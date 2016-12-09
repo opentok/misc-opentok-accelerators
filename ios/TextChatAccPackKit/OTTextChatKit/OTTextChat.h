@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, OTTextChatMessageEventSignal) {
  *  @param connection   The connection created or destroyed.
  *  @param error        The error object indicating there is a problem when sending the signal.
  */
-typedef void (^OTTextChatConnectionBlock)(OTTextChatConnectionEventSignal signal, OTTextChatConnection *connection, NSError *);
+typedef void (^OTTextChatConnectionBlock)(OTTextChatConnectionEventSignal signal, OTConnection *connection, NSError *);
 
 /**
  *  TextChatEventBlock type for the various text message signals.
@@ -97,30 +97,9 @@ typedef void (^OTTextChatMessageBlock)(OTTextChatMessageEventSignal signal, OTTe
  */
 - (void)textChat:(OTTextChat *)textChat didDisConnectWithError:(NSError *)error;
 
-- (void)textChat:(OTTextChat *)textChat connectionCreated:(OTTextChatConnection *)connection;
+- (void)textChat:(OTTextChat *)textChat connectionCreated:(OTConnection *)connection;
 
-- (void)textChat:(OTTextChat *)textChat connectionDestroyed:(OTTextChatConnection *)connection;
-
-@end
-
-@interface OTTextChatConnection : NSObject
-
-/**
- * The unique connection ID for this OTConnection object.
- */
-@property(readonly) NSString* connectionId;
-
-/**
- * The time at which the Connection was created on the OpenTok server.
- */
-@property(readonly) NSDate* creationTime;
-
-/**
- * A string containing metadata describing the connection. You can add this
- * connection data when you
- * [create a token](https://tokbox.com/developer/guides/create-token/).
- */
-@property(readonly) NSString* customdData;
+- (void)textChat:(OTTextChat *)textChat connectionDestroyed:(OTConnection *)connection;
 
 @end
 
@@ -145,7 +124,7 @@ typedef void (^OTTextChatMessageBlock)(OTTextChatMessageEventSignal signal, OTTe
  *
  *  @return A new `OTTextChat` instsance.
  */
-- (instancetype)initWithDataSource:(id<OTTextChatDataSource>)dataSource;
+- (instancetype)init;
 
 /**
  *  Establishes a text chat connection.
@@ -168,7 +147,7 @@ typedef void (^OTTextChatMessageBlock)(OTTextChatMessageEventSignal signal, OTTe
 
 @property (readonly, nonatomic) NSString *receiverAlias;
 
-@property (readonly, nonatomic) OTTextChatConnection *selfConnection;
+@property (readonly, nonatomic) OTConnection *selfConnection;
 
 @property (copy, nonatomic) OTTextChatConnectionBlock connectionHandler;
 

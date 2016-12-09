@@ -24,7 +24,8 @@
     
     maximumTextMessageLength = 120;
     
-    self.textChat = [[OTTextChat alloc] initWithDataSource:self];
+    self.textChat = [[OTTextChat alloc] init];
+    self.textChat.dataSource = self;
     self.textChat.alias = @"Tokboxer";
     self.textMessages = [[NSMutableArray alloc] init];
     
@@ -34,7 +35,7 @@
     self.textChatInputView.textField.delegate = self;
     
     __weak DefaultTextChatTableViewController *weakSelf = self;
-    [self.textChat connectWithHandler:^(OTTextChatConnectionEventSignal signal, OTTextChatConnection *connection, NSError *error) {
+    [self.textChat connectWithHandler:^(OTTextChatConnectionEventSignal signal, OTConnection *connection, NSError *error) {
         
     }];
     

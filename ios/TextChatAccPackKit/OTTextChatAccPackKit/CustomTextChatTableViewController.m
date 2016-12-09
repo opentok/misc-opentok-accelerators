@@ -34,7 +34,8 @@
     
     senderIdentifiers = [[NSMutableSet alloc] init];
     
-    self.textChat = [[OTTextChat alloc] initWithDataSource:self];
+    self.textChat = [[OTTextChat alloc] init];
+    self.textChat.dataSource = self;
     self.textChat.alias = @"BD Demo";
     self.textMessages = [[NSMutableArray alloc] init];
     
@@ -46,7 +47,7 @@
     self.textChatInputView.sendButton.backgroundColor = [UIColor colorWithRed:2/255.0f green:132/255.0f blue:196/255.0f alpha:1.0f];
     
     __weak CustomTextChatTableViewController *weakSelf = self;
-    [self.textChat connectWithHandler:^(OTTextChatConnectionEventSignal signal, OTTextChatConnection *connection, NSError *error) {
+    [self.textChat connectWithHandler:^(OTTextChatConnectionEventSignal signal, OTConnection *connection, NSError *error) {
         
         if (!error) {
             if (signal == OTTextChatConnectionEventSignalDidConnect) {
