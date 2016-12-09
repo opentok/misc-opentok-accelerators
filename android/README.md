@@ -1,28 +1,10 @@
 ![logo](../tokbox-logo.png)
 
-# OpenTok Text Chat Accelerator Pack for Android<br/>Version 1.0.0
+# OpenTok Text Chat Accelerator Pack for Android<br/>Version 2.0.0
 
-This document describes how to use the OpenTok Text Chat Accelerator Pack for Android. Through the exploration of the One to One Text Chat Sample Application, you will learn best practices for exchanging text messages on an Android mobile device.  
+## Quick start
 
-You can configure and run this sample app within just a few minutes!
-
-
-This guide has the following sections:
-
-* [Prerequisites](#prerequisites): A checklist of everything you need to get started.
-* [Quick start](#quick-start): A step-by-step tutorial to help you quickly import and run the sample app.
-* [Exploring the code](#exploring-the-code): This describes the sample app code design, which uses recommended best practices to implement the text chat features. 
-
-## Prerequisites
-
-To be prepared to develop your text chat app:
-
-1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
-2. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).
-3. Your app will need a **Session ID**, **Token**, and **API Key**, which you can get at the [OpenTok Developer Dashboard](https://dashboard.tokbox.com/).
-
-_**NOTE**: The OpenTok Developer Dashboard allows you to quickly run this sample program. For production deployment, you must generate the **Session ID** and **Token** values using one of the [OpenTok Server SDKs](https://tokbox.com/developer/sdks/server/)._
-
+This section shows you how to use the accelerator pack.
 
 ## Quick start
 
@@ -37,13 +19,13 @@ To learn more about the best practices used to design this app, see [Exploring t
 ### Importing the Android Studio project
 
 1. Clone the [OpenTok Text Chat Accelerator Pack repo](https://github.com/opentok/textchat-acc-pack).
-2. Start Android Studio. 
+2. Start Android Studio.
 3. In the **Quick Start** panel, click **Open an existing Android Studio Project**.
 4. Navigate to the **android** folder, select the **OneToOneTextChatSample** folder, and click **Choose**.
 
 <h3 id=addlibrary> Adding the OpenTok Text Chat Accelerator Pack library</h3>
 
-There are 3 options for installing the OpenTok Text Chat Accelerator Pack library:
+There are three options for installing the OpenTok Text Chat Accelerator Pack library:
 
   - [Using the repository](using-the-repository)
   - [Using Maven](#using-maven)
@@ -73,11 +55,11 @@ maven { url  "http://tokbox.bintray.com/maven" }
 
 </li>
 
-<li>Modify the <b>build.gradle</b> for your activity and add the following code snippet to the section labeled 'dependencies’: 
+<li>Modify the <b>build.gradle</b> for your activity and add the following code snippet to the section labeled 'dependencies’:
 
 
 <code>
-compile 'com.opentok.android:opentok-text-chat-acc-pack:1.0.0'
+compile 'com.opentok.android:opentok-text-chat-acc-pack:2.0.0'
 </code>
 
 </li>
@@ -90,7 +72,7 @@ compile 'com.opentok.android:opentok-text-chat-acc-pack:1.0.0'
 
 #### Downloading and Installing the AAR File
 
-1.  Download the [Text Chat Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/android/opentok-text-chat-acc-pack-1.0.0.zip) containing the AAR file and documentation, and extract the **opentok-text-chat-acc-pack-1.0.0.aar** file.
+1.  Download the [Text Chat Accelerator Pack zip file](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/android/opentok-text-chat-acc-pack-2.0.0.zip) containing the AAR file and documentation, and extract the **opentok-text-chat-acc-pack-2.0.0.aar** file.
 2.  Right-click the app name and select **Open Module Settings** and click **+**.
 3.  Select **Import .JAR/.AAR Package** and click  **Next**.
 4.  Browse to the **Text Chat Accelerator Pack library AAR** and click **Finish**.
@@ -126,9 +108,9 @@ You can enable or disable the `SUBSCRIBE_TO_SELF` feature by invoking the `OneTo
 
 ```java
 OneToOneCommunication comm = new OneToOneCommunication(
-  MainActivity.this, 
-  OpenTokConfig.SESSION_ID, 
-  OpenTokConfig.TOKEN, 
+  MainActivity.this,
+  OpenTokConfig.SESSION_ID,
+  OpenTokConfig.TOKEN,
   OpenTokConfig.API_KEY
 );
 
@@ -165,7 +147,7 @@ The following classes represent the software design for the accelerator pack and
 
 ###  Text Chat Accelerator Pack
 
-The `TextChatFragment` class is the backbone of the text chat communication features for the app. 
+The `TextChatFragment` class is the backbone of the text chat communication features for the app.
 
 This class, which inherits from the [`android.support.v4.app.Fragment`](http://developer.android.com/intl/es/reference/android/support/v4/app/Fragment.html) class, sets up the text chat UI views and events, sets up session listeners, and defines a listener interface that is implemented in this example by the `MainActivity` class.
 
@@ -226,9 +208,9 @@ mTextChatFragment.setMaxTextLength(1050);
 
 #### Sending and receiving messages
 
-By implementing the `TextChatFragment.TextChatListener` interface, the `MainActivity` class defines methods that monitor both receiving and sending activity. For example, a message is successfully sent, or a message is sent with a code in the event of an error. 
+By implementing the `TextChatFragment.TextChatListener` interface, the `MainActivity` class defines methods that monitor both receiving and sending activity. For example, a message is successfully sent, or a message is sent with a code in the event of an error.
 
-The method implementations shown below use the `ChatMessage` object to send and receive messages. 
+The method implementations shown below use the `ChatMessage` object to send and receive messages.
 
 The `onNewSentMessage()` event is fired when a new individual `ChatMessage` is sent to other client connected to the OpenTok session. To send a `ChatMessage`, the `TextChatFragment` uses the [OpenTok signaling API](https://tokbox.com/developer/sdks/android/reference/com/opentok/android/Session.html#sendSignal(java.lang.String,%20java.lang.String)).
 
@@ -265,8 +247,9 @@ This class works with the following `MainActivity` methods, which manage the vie
 | Manage the customizable views for the action bar and messages.   | `getSendMessageView()`, `setSendMessageView()`, `getActionBar()`,  `setActionBar()`|
 
 
+## Requirements
 
+To develop your text chat app:
 
-
-
-
+1. Install [Android Studio](http://developer.android.com/intl/es/sdk/index.html).
+2. Review the [OpenTok Android SDK Requirements](https://tokbox.com/developer/sdks/android/#developerandclientrequirements).

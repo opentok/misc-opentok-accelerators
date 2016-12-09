@@ -33,6 +33,16 @@ if [ "$task" == "-t" ]; then
         exit 0
 fi
 
+#Run UI tests
+if [ "$task" == "-ui" ]; then
+        cd ../OneToOneTextChatSample
+        ./gradlew  build
+        cd ../OneToOneTextChatSampleUITests/
+        python TextChatUITest.py -app '../OneToOneTextChatSample/app/build/outputs/apk/OneToOneTextChatSample.apk' -platform 'Android' -platformVersion '6.0' -deviceName 'Android Emulator' -appPackage 'com.tokbox.android.textchatsample'
+        cd ../TextChatAccPackKit
+        exit 0
+fi
+
 #Create zip file with binary and doc
 if [ "$task" == "-d" ]; then
         ./gradlew ZipBundleRelease
