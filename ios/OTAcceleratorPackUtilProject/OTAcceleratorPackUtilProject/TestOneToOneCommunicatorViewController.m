@@ -33,7 +33,7 @@
 }
 
 - (void)startCall {
-    [self.communicator connectWithHandler:^(OTOneToOneCommunicationSignal signal, NSError *error) {
+    [self.communicator connectWithHandler:^(OTCommunicationSignal signal, NSError *error) {
         if (signal == OTPublisherCreated && !error) {
             self.communicator.publisherView.frame = self.publisherView.bounds;
             [self.publisherView addSubview:self.communicator.publisherView];

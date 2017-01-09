@@ -1,3 +1,4 @@
+project 'OTAcceleratorPackUtil.xcodeproj'
 
 target 'OTAcceleratorPackUtil' do 
   pod 'OpenTok', '~> 2.9.2'

@@ -1,10 +1,10 @@
 //
-//  OTMultiPartyCommunciator.m
+//  OTMultiPartyCommunicator.m
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import "OTMultiPartyCommunciator.h"
+#import "OTMultiPartyCommunicator.h"
 #import "OTAcceleratorSession.h"
 #import "OTAcceleratorPackUtilBundle.h"
 
@@ -71,7 +71,7 @@
         _subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
     }
     else {
-        _subscriber.viewScaleBehavior = OTVideoViewFill;
+        _subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
     }
 }
 
@@ -85,7 +85,7 @@
 
 @end
 
-static NSString* const KLogClientVersion = @"ios-vsol-1.1.0";
+static NSString* const KLogClientVersion = @"ios-vsol-2.0.0";
 static NSString* const kLogComponentIdentifier = @"multiPartyCommunication";
 static NSString* const KLogActionInitialize = @"Init";
 static NSString* const KLogActionStartCommunication = @"StartComm";
@@ -116,7 +116,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 @end
 
-@interface OTMultiPartyCommunciator() <OTSessionDelegate, OTSubscriberKitDelegate, OTPublisherDelegate, OTVideoViewProtocol>
+@interface OTMultiPartyCommunicator() <OTSessionDelegate, OTSubscriberKitDelegate, OTPublisherDelegate, OTVideoViewProtocol>
 @property (nonatomic) BOOL isCallEnabled;
 @property (nonatomic) NSString *name;
 @property (nonatomic) OTPublisher *publisher;
@@ -124,14 +124,14 @@ static NSString* const KLogVariationFailure = @"Failure";
 @property (weak, nonatomic) OTAcceleratorSession *session;
 @property (nonatomic) OTVideoView *publisherView;
 
-@property (strong, nonatomic) OTMultiPartyCommunciatorBlock handler;
+@property (strong, nonatomic) OTMultiPartyCommunicatorBlock handler;
 @end
 
-@implementation OTMultiPartyCommunciator
+@implementation OTMultiPartyCommunicator
 
-- (void)setDataSource:(id<OTMultiPartyCommunciatorDataSource>)dataSource {
+- (void)setDataSource:(id<OTMultiPartyCommunicatorDataSource>)dataSource {
     _dataSource = dataSource;
-    _session = [_dataSource sessionOfOTMultiPartyCommunciator:self];
+    _session = [_dataSource sessionOfOTMultiPartyCommunicator:self];
 }
 
 - (instancetype)init {
@@ -225,18 +225,18 @@ static NSString* const KLogVariationFailure = @"Failure";
     return disconnectError;
 }
 
-- (void)connectWithHandler:(OTMultiPartyCommunciatorBlock)handler {
+- (void)connectWithHandler:(OTMultiPartyCommunicatorBlock)handler {
     
     if (!handler) return;
     
     self.handler = handler;
     NSError *error = [self connect];
     if (error) {
-        self.handler(OTMultiPartyCommunicationError, nil, error);
+        self.handler(OTCommunicationError, nil, error);
     }
 }
 
-- (void)notifiyAllWithSignal:(OTMultiPartyCommunciatorSignal)signal
+- (void)notifiyAllWithSignal:(OTCommunicationSignal)signal
                   subscriber:(OTMultiPartyRemote *)subscriber
                        error:(NSError *)error {
     
@@ -260,7 +260,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     OTError *error;
     [self.session publish:self.publisher error:&error];
     if (error) {
-        [self notifiyAllWithSignal:OTMultiPartyCommunicationError
+        [self notifiyAllWithSignal:OTCommunicationError
                         subscriber:nil
                              error:error];
     }
@@ -283,7 +283,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
-    for (OTMultiPartyRemote *subscriberObject in _subscribers) {
+    for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
         if (subscriberObject.subscriber.stream == stream) {
             OTError *error = nil;
             OTSubscriber *subscriber = subscriberObject.subscriber;
@@ -308,7 +308,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)session:(OTSession *)session didFailWithError:(OTError *)error {
-    [self notifiyAllWithSignal:OTMultiPartyCommunicationError
+    [self notifiyAllWithSignal:OTCommunicationError
                     subscriber:nil
                          error:error];
 }
@@ -328,7 +328,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 #pragma mark - OTPublisherDelegate
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
     if (publisher == self.publisher) {
-        [self notifiyAllWithSignal:OTMultiPartyCommunicationError
+        [self notifiyAllWithSignal:OTCommunicationError
                         subscriber:nil
                              error:error];
     }
@@ -337,15 +337,18 @@ static NSString* const KLogVariationFailure = @"Failure";
 - (void)subscriberDidConnectToStream:(OTSubscriber *)subscriber {
     
     OTMultiPartyRemote *subscriberObject = [[OTMultiPartyRemote alloc] initWithSubscriber:subscriber];
-    [_subscribers addObject:subscriberObject];
+    if (!self.subscribers) {
+        self.subscribers = [[NSMutableArray alloc] init];
+    }
+    [self.subscribers addObject:subscriberObject];
     [self notifiyAllWithSignal:OTSubscriberCreated subscriber:subscriberObject error:nil];
 }
 
 - (void)subscriberDidDisconnectFromStream:(OTSubscriber *)subscriber {
 
     OTMultiPartyRemote *subscriberObject = [[OTMultiPartyRemote alloc] initWithSubscriber:subscriber];
-    if ([_subscribers containsObject:subscriberObject]) {
-        [_subscribers removeObject:subscriberObject];
+    if ([self.subscribers containsObject:subscriberObject]) {
+        [self.subscribers removeObject:subscriberObject];
     }
     [self notifiyAllWithSignal:OTSubscriberDestroyed subscriber:subscriberObject error:nil];
 }

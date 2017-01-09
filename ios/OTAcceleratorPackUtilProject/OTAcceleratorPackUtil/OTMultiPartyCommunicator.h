@@ -1,5 +1,5 @@
 //
-//  OTMultiPartyCommunciator.h
+//  OTMultiPartyCommunicator.h
 //
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
@@ -7,47 +7,25 @@
 #import <Foundation/Foundation.h>
 #import "OTAcceleratorSession.h"
 #import "OTVideoView.h"
+#import "OTCommonCommunicator.h"
 
-typedef NS_ENUM(NSUInteger, OTMultiPartyCommunciatorSignal) {
-    OTPublisherCreated,
-    OTPublisherDestroyed,
-    OTSubscriberCreated,
-    OTSubscriberDestroyed,
-    OTSubscriberVideoDisabledByPublisher,
-    OTSubscriberVideoDisabledBySubscriber,
-    OTSubscriberVideoDisabledByBadQuality,
-    OTSubscriberVideoEnabledByPublisher,
-    OTSubscriberVideoEnabledBySubscriber,
-    OTSubscriberVideoEnabledByGoodQuality,
-    OTSubscriberVideoDisableWarning,
-    OTSubscriberVideoDisableWarningLifted,
-    OTMultiPartyCommunicationError,
-    OTSessionDidBeginReconnecting,
-    OTSessionDidReconnect
-};
-
-typedef NS_ENUM(NSInteger, OTVideoViewContentMode) {
-    OTVideoViewFill,
-    OTVideoViewFit
-};
-
-@class OTMultiPartyCommunciator;
+@class OTMultiPartyCommunicator;
 @class OTMultiPartyRemote;
 
-typedef void (^OTMultiPartyCommunciatorBlock)(OTMultiPartyCommunciatorSignal signal, OTMultiPartyRemote *subscriber, NSError *error);
+typedef void (^OTMultiPartyCommunicatorBlock)(OTCommunicationSignal signal, OTMultiPartyRemote *subscriber, NSError *error);
 
-@protocol OTMultiPartyCommunciatorDataSource <NSObject>
-- (OTAcceleratorSession *)sessionOfOTMultiPartyCommunciator:(OTMultiPartyCommunciator *)multiPartyCommunicator;
+@protocol OTMultiPartyCommunicatorDataSource <NSObject>
+- (OTAcceleratorSession *)sessionOfOTMultiPartyCommunicator:(OTMultiPartyCommunicator *)multiPartyCommunicator;
 @end
 
-@interface OTMultiPartyCommunciator : NSObject
+@interface OTMultiPartyCommunicator : NSObject
 
 /**
  *  The object that acts as the data source of the communicator.
  *
  *  The delegate must adopt the OTOneToOneCommunicatorDataSource protocol. The delegate is not retained.
  */
-@property (weak, nonatomic) id<OTMultiPartyCommunciatorDataSource> dataSource;
+@property (weak, nonatomic) id<OTMultiPartyCommunicatorDataSource> dataSource;
 
 /**
  *  Initialize a new `OTOneToOneCommunicator` instsance with a publisher name.
@@ -67,7 +45,7 @@ typedef void (^OTMultiPartyCommunciatorBlock)(OTMultiPartyCommunciatorSignal sig
  *
  *  @param handler The completion handler to call with the change.
  */
-- (void)connectWithHandler:(OTMultiPartyCommunciatorBlock)handler;
+- (void)connectWithHandler:(OTMultiPartyCommunicatorBlock)handler;
 
 /**
  *  De-registers to the shared session: [OTAcceleratorSession] and stops publishing/subscriber.
@@ -75,6 +53,11 @@ typedef void (^OTMultiPartyCommunciatorBlock)(OTMultiPartyCommunciatorSignal sig
  *  @return An error to indicate whether it disconnects successfully, non-nil if it fails.
  */
 - (NSError *)disconnect;
+
+/**
+ *  A boolean value to indicate whether the call is enabled. `YES` once the publisher connects or after OTSessionDidConnect being signaled.
+ */
+@property (readonly, nonatomic) BOOL isCallEnabled;
 
 #pragma mark - publisher
 /**

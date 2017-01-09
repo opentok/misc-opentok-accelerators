@@ -10,7 +10,7 @@
 
 #import <OTKAnalytics/OTKLogger.h>
 
-static NSString* const KLogClientVersion = @"ios-vsol-1.1.0";
+static NSString* const KLogClientVersion = @"ios-vsol-2.0.0";
 static NSString* const kLogComponentIdentifier = @"oneToOneCommunication";
 static NSString* const KLogActionInitialize = @"Init";
 static NSString* const KLogActionStartCommunication = @"StartComm";
@@ -51,7 +51,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 @property (nonatomic) OTVideoView *subscriberView;
 @property (nonatomic) OTVideoView *publisherView;
 
-@property (strong, nonatomic) OTOneToOneCommunicatorBlock handler;
+@property (strong, nonatomic) OTCommunicatorBlock handler;
 @end
 
 @implementation OTOneToOneCommunicator
@@ -102,14 +102,14 @@ static NSString* const KLogVariationFailure = @"Failure";
     return connectError;
 }
 
-- (void)connectWithHandler:(OTOneToOneCommunicatorBlock)handler {
+- (void)connectWithHandler:(OTCommunicatorBlock)handler {
     
     if (!handler) return;
     
     self.handler = handler;
     NSError *error = [self connect];
     if (error) {
-        self.handler(OTOneToOneCommunicationError, error);
+        self.handler(OTCommunicationError, error);
     }
 }
 
@@ -153,7 +153,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     return disconnectError;
 }
 
-- (void)notifiyAllWithSignal:(OTOneToOneCommunicationSignal)signal error:(NSError *)error {
+- (void)notifiyAllWithSignal:(OTCommunicationSignal)signal error:(NSError *)error {
     
     if (self.handler) {
         self.handler(signal, error);
@@ -175,7 +175,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     OTError *error;
     [self.session publish:self.publisher error:&error];
     if (error) {
-        [self notifiyAllWithSignal:OTOneToOneCommunicationError
+        [self notifiyAllWithSignal:OTCommunicationError
                              error:error];
     }
     else {
@@ -219,7 +219,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)session:(OTSession *)session didFailWithError:(OTError *)error {
-    [self notifiyAllWithSignal:OTOneToOneCommunicationError
+    [self notifiyAllWithSignal:OTCommunicationError
                          error:error];
 }
 
@@ -236,7 +236,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 #pragma mark - OTPublisherDelegate
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
     if (publisher == self.publisher) {
-        [self notifiyAllWithSignal:OTOneToOneCommunicationError
+        [self notifiyAllWithSignal:OTCommunicationError
                              error:error];
     }
 }
@@ -304,7 +304,7 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 - (void)subscriber:(OTSubscriberKit *)subscriber didFailWithError:(OTError *)error {
     if (subscriber == self.subscriber) {
-        [self notifiyAllWithSignal:OTOneToOneCommunicationError
+        [self notifiyAllWithSignal:OTCommunicationError
                              error:error];
     }
 }

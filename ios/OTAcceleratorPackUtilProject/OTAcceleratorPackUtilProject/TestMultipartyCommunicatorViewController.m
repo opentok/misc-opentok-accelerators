@@ -6,14 +6,14 @@
 
 #import "TestMultipartyCommunicatorViewController.h"
 #import "AppDelegate.h"
-#import "OTMultiPartyCommunciator.h"
+#import "OTMultiPartyCommunicator.h"
 
-@interface TestMultipartyCommunicatorViewController () <OTMultiPartyCommunciatorDataSource>
+@interface TestMultipartyCommunicatorViewController () <OTMultiPartyCommunicatorDataSource>
 @property (weak, nonatomic) IBOutlet UIView *publisherView;
 @property (weak, nonatomic) IBOutlet UIView *subscriberView1;
 @property (weak, nonatomic) IBOutlet UIView *subscriberView2;
 @property (weak, nonatomic) IBOutlet UIView *subscriberView3;
-@property (nonatomic) OTMultiPartyCommunciator *communicator;
+@property (nonatomic) OTMultiPartyCommunicator *communicator;
 @end
 
 @implementation TestMultipartyCommunicatorViewController
@@ -21,13 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.communicator = [[OTMultiPartyCommunciator alloc] init];
+    self.communicator = [[OTMultiPartyCommunicator alloc] init];
     self.communicator.dataSource = self;
     [self startCall];
 }
 
 - (void)startCall {
-    [self.communicator connectWithHandler:^(OTMultiPartyCommunciatorSignal signal, OTMultiPartyRemote *subscriber, NSError *error) {
+    [self.communicator connectWithHandler:^(OTCommunicationSignal signal, OTMultiPartyRemote *subscriber, NSError *error) {
         if (signal == OTPublisherCreated && !error) {
             self.communicator.publisherView.frame = self.publisherView.bounds;
             [self.publisherView addSubview:self.communicator.publisherView];
@@ -54,7 +54,7 @@
 }
 
 #pragma mark - OTMultiPartyCommunciatorDataSource
-- (OTAcceleratorSession *)sessionOfOTMultiPartyCommunciator:(OTMultiPartyCommunciator *)multiPartyCommunicator {
+- (OTAcceleratorSession *)sessionOfOTMultiPartyCommunicator:(OTMultiPartyCommunicator *)multiPartyCommunicator {
     
     return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
 }

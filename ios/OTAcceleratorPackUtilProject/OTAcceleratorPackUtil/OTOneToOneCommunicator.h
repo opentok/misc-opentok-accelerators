@@ -7,32 +7,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "OTAcceleratorSession.h"
 #import "OTVideoView.h"
+#import "OTCommonCommunicator.h"
 
-typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
-    OTPublisherCreated,
-    OTPublisherDestroyed,
-    OTSubscriberCreated,
-    OTSubscriberReady,
-    OTSubscriberDestroyed,
-    OTSubscriberVideoDisabledByPublisher,
-    OTSubscriberVideoDisabledBySubscriber,
-    OTSubscriberVideoDisabledByBadQuality,
-    OTSubscriberVideoEnabledByPublisher,
-    OTSubscriberVideoEnabledBySubscriber,
-    OTSubscriberVideoEnabledByGoodQuality,
-    OTSubscriberVideoDisableWarning,
-    OTSubscriberVideoDisableWarningLifted,
-    OTOneToOneCommunicationError,
-    OTSessionDidBeginReconnecting,
-    OTSessionDidReconnect
-};
-
-typedef NS_ENUM(NSInteger, OTVideoViewContentMode) {
-    OTVideoViewFill,
-    OTVideoViewFit
-};
-
-typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal, NSError *error);
 
 @class OTOneToOneCommunicator;
 
@@ -67,7 +43,7 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *
  *  @param handler The completion handler to call with the change.
  */
-- (void)connectWithHandler:(OTOneToOneCommunicatorBlock)handler;
+- (void)connectWithHandler:(OTCommunicatorBlock)handler;
 
 /**
  *  De-registers to the shared session: [OTAcceleratorSession] and stops publishing/subscriber.
