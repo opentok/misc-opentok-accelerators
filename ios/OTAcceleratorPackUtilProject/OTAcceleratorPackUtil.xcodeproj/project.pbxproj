@@ -27,6 +27,7 @@
 		A0565F351DF63F62001F9032 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0565F2E1DF63F62001F9032 /* UIView+Helper.m */; };
 		A0565F371DF640CD001F9032 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A0565F361DF640CD001F9032 /* Podfile */; };
 		A07C06171DEBC32200BB4FD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07C06161DEBC32200BB4FD9 /* Assets.xcassets */; };
+		A080E47E1E244CFA007972D8 /* OTCommonCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A080E47D1E244CFA007972D8 /* OTCommonCommunicator.m */; };
 		A08831221DF24A3D00F4D866 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0CDA0981DF23F060018A2BA /* Assets.xcassets */; };
 		A08831241DF24A5F00F4D866 /* OTAcceleratorPackUtilBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A08831231DF24A5F00F4D866 /* OTAcceleratorPackUtilBundle.bundle */; };
 		A0CDA0A41DF23F060018A2BA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0CDA09E1DF23F060018A2BA /* Info.plist */; };
@@ -84,6 +85,8 @@
 		A0565F361DF640CD001F9032 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A07C06101DEBC2B500BB4FD9 /* OTAcceleratorPackUtilBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTAcceleratorPackUtilBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07C06161DEBC32200BB4FD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A080E47C1E244CFA007972D8 /* OTCommonCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTCommonCommunicator.h; sourceTree = "<group>"; };
+		A080E47D1E244CFA007972D8 /* OTCommonCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTCommonCommunicator.m; sourceTree = "<group>"; };
 		A08831231DF24A5F00F4D866 /* OTAcceleratorPackUtilBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OTAcceleratorPackUtilBundle.bundle; sourceTree = "<group>"; };
 		A0CDA0981DF23F060018A2BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0CDA09E1DF23F060018A2BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				A0565F2C1DF63F62001F9032 /* OTVideoView.m */,
 				A0565F2D1DF63F62001F9032 /* UIView+Helper.h */,
 				A0565F2E1DF63F62001F9032 /* UIView+Helper.m */,
+				A080E47C1E244CFA007972D8 /* OTCommonCommunicator.h */,
+				A080E47D1E244CFA007972D8 /* OTCommonCommunicator.m */,
 			);
 			path = OTAcceleratorPackUtil;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 				A0565F341DF63F62001F9032 /* OTVideoView.m in Sources */,
 				A0565F321DF63F62001F9032 /* OTMultiPartyCommunicator.m in Sources */,
 				A0565F351DF63F62001F9032 /* UIView+Helper.m in Sources */,
+				A080E47E1E244CFA007972D8 /* OTCommonCommunicator.m in Sources */,
 				A0127ACC1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

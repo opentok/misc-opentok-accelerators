@@ -193,7 +193,7 @@ static NSString* const KLogVariationFailure = @"Failure";
         self.publisherView = nil;
     }
 
-    for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
+    [self.subscribers enumerateObjectsUsingBlock:^(OTMultiPartyRemote *subscriberObject, NSUInteger idx, BOOL *stop) {
         OTError *error = nil;
         OTSubscriber *subscriber = subscriberObject.subscriber;
         [subscriber.view removeFromSuperview];
@@ -206,8 +206,8 @@ static NSString* const KLogVariationFailure = @"Failure";
         subscriberObject.subscriber = nil;
         subscriberObject.subscriberView = nil;
         [self.subscribers removeObject:subscriberObject];
-    }
-    
+    }];
+
     MultiPartyLoggingWrapper *loggingWrapper = [MultiPartyLoggingWrapper sharedInstance];
     NSError *disconnectError = [self.session deregisterWithAccePack:self];
     if (!disconnectError) {
@@ -280,6 +280,20 @@ static NSString* const KLogVariationFailure = @"Failure";
     OTError *subscrciberError;
     OTSubscriber *subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
     [self.session subscribe:subscriber error:&subscrciberError];
+    
+    if (!subscrciberError) {
+        OTMultiPartyRemote *subscriberObject = [[OTMultiPartyRemote alloc] initWithSubscriber:subscriber];
+        if (!self.subscribers) {
+            self.subscribers = [[NSMutableArray alloc] init];
+        }
+        [self.subscribers addObject:subscriberObject];
+        [self notifiyAllWithSignal:OTSubscriberCreated subscriber:subscriberObject error:nil];
+    }
+    else {
+        [self notifiyAllWithSignal:OTCommunicationError
+                        subscriber:nil
+                             error:subscrciberError];
+    }
 }
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
@@ -297,6 +311,7 @@ static NSString* const KLogVariationFailure = @"Failure";
             subscriberObject.subscriber = nil;
             subscriberObject.subscriberView = nil;
             [self.subscribers removeObject:subscriberObject];
+            break;
         }
     }
 }
@@ -335,17 +350,15 @@ static NSString* const KLogVariationFailure = @"Failure";
 }
 
 - (void)subscriberDidConnectToStream:(OTSubscriber *)subscriber {
-    
-    OTMultiPartyRemote *subscriberObject = [[OTMultiPartyRemote alloc] initWithSubscriber:subscriber];
-    if (!self.subscribers) {
-        self.subscribers = [[NSMutableArray alloc] init];
+    for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
+        if (subscriberObject.subscriber == subscriber) {
+            [self notifiyAllWithSignal:OTSubscriberReady subscriber:subscriberObject error:nil];
+            break;
+        }
     }
-    [self.subscribers addObject:subscriberObject];
-    [self notifiyAllWithSignal:OTSubscriberCreated subscriber:subscriberObject error:nil];
 }
 
 - (void)subscriberDidDisconnectFromStream:(OTSubscriber *)subscriber {
-
     OTMultiPartyRemote *subscriberObject = [[OTMultiPartyRemote alloc] initWithSubscriber:subscriber];
     if ([self.subscribers containsObject:subscriberObject]) {
         [self.subscribers removeObject:subscriberObject];
@@ -357,6 +370,74 @@ static NSString* const KLogVariationFailure = @"Failure";
     
     OTMultiPartyRemote *subscriberObject = [[OTMultiPartyRemote alloc] initWithSubscriber:subscriber];
     [self notifiyAllWithSignal:OTSubscriberDestroyed subscriber:subscriberObject error:nil];
+}
+
+-(void)subscriberVideoDisabled:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
+        if (subscriberObject.subscriber == subscriber) {
+            if (reason == OTSubscriberVideoEventPublisherPropertyChanged) {
+                [self notifiyAllWithSignal:OTSubscriberVideoDisabledByPublisher
+                                subscriber:subscriberObject
+                                     error:nil];
+            }
+            else if (reason == OTSubscriberVideoEventSubscriberPropertyChanged) {
+                [self notifiyAllWithSignal:OTSubscriberVideoDisabledBySubscriber
+                                subscriber:subscriberObject
+                                     error:nil];
+            }
+            else if (reason == OTSubscriberVideoEventQualityChanged) {
+                [self notifiyAllWithSignal:OTSubscriberVideoDisabledByBadQuality
+                                subscriber:subscriberObject
+                                     error:nil];
+            }
+            break;
+        }
+    }
+}
+
+-(void)subscriberVideoEnabled:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
+        if (subscriberObject.subscriber == subscriber) {
+            if (reason == OTSubscriberVideoEventPublisherPropertyChanged) {
+                [self notifiyAllWithSignal:OTSubscriberVideoEnabledByPublisher
+                                subscriber:subscriberObject
+                                     error:nil];
+            }
+            else if (reason == OTSubscriberVideoEventSubscriberPropertyChanged) {
+                [self notifiyAllWithSignal:OTSubscriberVideoEnabledBySubscriber
+                                subscriber:subscriberObject
+                                     error:nil];
+            }
+            else if (reason == OTSubscriberVideoEventQualityChanged) {
+                [self notifiyAllWithSignal:OTSubscriberVideoEnabledByGoodQuality
+                                subscriber:subscriberObject
+                                     error:nil];
+            }
+            break;
+        }
+    }
+}
+
+- (void)subscriberVideoDisableWarning:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
+        if (subscriberObject.subscriber == subscriber) {
+            [self notifiyAllWithSignal:OTSubscriberVideoDisableWarning
+                            subscriber:subscriberObject
+                                 error:nil];
+            break;
+        }
+    }
+}
+
+- (void)subscriberVideoDisableWarningLifted:(OTSubscriberKit *)subscriber reason:(OTSubscriberVideoEventReason)reason {
+    for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
+        if (subscriberObject.subscriber == subscriber) {
+            [self notifiyAllWithSignal:OTSubscriberVideoDisableWarningLifted
+                            subscriber:subscriberObject
+                             error:nil];
+            break;
+        }
+    }
 }
 
 #pragma mark - OTVideoViewProtocol
