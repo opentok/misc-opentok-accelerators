@@ -22,9 +22,9 @@
 
   // Options hash
   var _options = {
-    apiKey: '45544902', // Replace with your OpenTok API key
-    sessionId: '2_MX40NTU0NDkwMn5-MTQ3MTk4MjgwNDY5MH53aWNieERSdUR6cmFZYmhLdG9oU1kxV0R-fg', // Replace with a generated Session ID
-    token: 'T1==cGFydG5lcl9pZD00NTU0NDkwMiZzaWc9MjlhNWMyNTI0OTc0MzRlZjZkN2FjNWI3YWMyODQ3NDk1NjA5NDMxZTpzZXNzaW9uX2lkPTJfTVg0ME5UVTBORGt3TW41LU1UUTNNVGs0TWpnd05EWTVNSDUzYVdOaWVFUlNkVVI2Y21GWlltaExkRzlvVTFreFYwUi1mZyZjcmVhdGVfdGltZT0xNDcxOTgyODA0JmV4cGlyZV90aW1lPTE0NzIwNjkyMDQmbm9uY2U9MC43NTI2MjcxNjU0ODE0ODk0NSZyb2xlPXB1Ymxpc2hlcg==',
+    apiKey: '', // Replace with your OpenTok API key
+    sessionId: '', // Replace with a generated Session ID
+    token: '',
     textChat: {
       sender: {
         alias: 'user1',
