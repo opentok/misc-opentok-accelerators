@@ -19,10 +19,17 @@
 @implementation OTMultiPartyRemote
 
 - (NSString *)userInfo {
-    if (!self.subscriber.stream.connection) {
+    if (!self.subscriber.stream) {
         return nil;
     }
     return self.subscriber.stream.connection.data;
+}
+
+- (OTStreamVideoType)videoType {
+    if (!self.subscriber.stream) {
+        return OTStreamVideoTypeCamera;
+    }
+    return self.subscriber.stream.videoType;
 }
 
 - (BOOL)isEqual:(id)object {

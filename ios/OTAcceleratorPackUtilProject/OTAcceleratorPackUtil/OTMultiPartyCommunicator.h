@@ -122,6 +122,14 @@ typedef void (^OTMultiPartyCommunicatorBlock)(OTCommunicationSignal signal, OTMu
  */
 @property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
 
+/**
+ *  A string value to indicate the custom data by the publisher.
+ */
 @property (readonly, nonatomic) NSString *userInfo;
+
+/**
+ *  A enum value to indicate whether the feed is captured from the camera or the screen.
+ */
+@property (readonly, nonatomic) OTStreamVideoType videoType;
 
 @end
