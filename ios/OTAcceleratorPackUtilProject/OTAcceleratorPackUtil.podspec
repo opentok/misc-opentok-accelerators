@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "OTAcceleratorPackUtil"
-  s.version          = "2.0.2"
+  s.version          = "1.2.3"
   s.summary          = "OpenTok Common Accelerator Session Pack permits all accelerators and samples to share the same OpenTok session."
 
   s.description      = "The Common Accelerator Session Pack is required whenever you use any of the OpenTok accelerators. The Common Accelerator Session Pack is a common layer that permits all accelerators and samples to share the same OpenTok session. The accelerator packs and sample app access the OpenTok session through the Common Accelerator Session Pack layer, which allows them to share a single OpenTok session.
@@ -17,12 +17,7 @@ On the Android and iOS mobile platforms, when you try to set a listener (Android
   s.requires_arc = true
 
   s.source_files = 'ios/OTAcceleratorPackUtilProject/OTAcceleratorPackUtil/**/*.{h,m}'
-
-  s.resource_bundles = {
-    'OTAcceleratorPackUtilBundle' => ['ios/OTAcceleratorPackUtilProject/OTAcceleratorPackUtilBundle/**/*']
-  }
-
   s.public_header_files = 'ios/OTAcceleratorPackUtilProject/OTAcceleratorPackUtil/**/*.{h}'
   s.dependency 'OTKAnalytics'
-  s.dependency 'OpenTok'
+  s.dependency 'OpenTok', '~> 2.9.1'
 end

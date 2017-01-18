@@ -13,27 +13,33 @@
 		A0127A991D34651B00CDA3F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0127A971D34651B00CDA3F5 /* Main.storyboard */; };
 		A0127A9B1D34651B00CDA3F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0127A9A1D34651B00CDA3F5 /* Assets.xcassets */; };
 		A0127A9E1D34651B00CDA3F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0127A9C1D34651B00CDA3F5 /* LaunchScreen.storyboard */; };
+		A0127AB11D34652500CDA3F5 /* OTAcceleratorPackUtil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0127AAA1D34652500CDA3F5 /* OTAcceleratorPackUtil.framework */; };
+		A0127AB21D34652500CDA3F5 /* OTAcceleratorPackUtil.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A0127AAA1D34652500CDA3F5 /* OTAcceleratorPackUtil.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A0127ABC1D34654100CDA3F5 /* OTAcceleratorPackUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127AB71D34654100CDA3F5 /* OTAcceleratorPackUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0127ABD1D34654100CDA3F5 /* OTAcceleratorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127AB81D34654100CDA3F5 /* OTAcceleratorSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0127ABE1D34654100CDA3F5 /* OTAcceleratorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127AB91D34654100CDA3F5 /* OTAcceleratorSession.m */; };
 		A0127AC31D34668100CDA3F5 /* TestSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127AC21D34668100CDA3F5 /* TestSessionViewController.m */; };
 		A0127AC81D3466AD00CDA3F5 /* FakeAccePack1.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127AC51D3466AD00CDA3F5 /* FakeAccePack1.m */; };
 		A0127AC91D3466AD00CDA3F5 /* FakeAccePack2.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127AC71D3466AD00CDA3F5 /* FakeAccePack2.m */; };
 		A0127ACC1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127ACB1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m */; };
-		A0565F1A1DF63ACB001F9032 /* TestMultipartyCommunicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0565F191DF63ACB001F9032 /* TestMultipartyCommunicatorViewController.m */; };
-		A0565F2F1DF63F62001F9032 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0565F221DF63F62001F9032 /* Info.plist */; };
-		A0565F301DF63F62001F9032 /* OTAcceleratorPackUtilBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = A0565F241DF63F62001F9032 /* OTAcceleratorPackUtilBundle.m */; };
-		A0565F311DF63F62001F9032 /* OTAcceleratorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A0565F261DF63F62001F9032 /* OTAcceleratorSession.m */; };
-		A0565F321DF63F62001F9032 /* OTMultiPartyCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0565F281DF63F62001F9032 /* OTMultiPartyCommunicator.m */; };
-		A0565F331DF63F62001F9032 /* OTOneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0565F2A1DF63F62001F9032 /* OTOneToOneCommunicator.m */; };
-		A0565F341DF63F62001F9032 /* OTVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0565F2C1DF63F62001F9032 /* OTVideoView.m */; };
-		A0565F351DF63F62001F9032 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0565F2E1DF63F62001F9032 /* UIView+Helper.m */; };
-		A0565F371DF640CD001F9032 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A0565F361DF640CD001F9032 /* Podfile */; };
-		A07C06171DEBC32200BB4FD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07C06161DEBC32200BB4FD9 /* Assets.xcassets */; };
-		A080E47E1E244CFA007972D8 /* OTCommonCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A080E47D1E244CFA007972D8 /* OTCommonCommunicator.m */; };
-		A08831221DF24A3D00F4D866 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0CDA0981DF23F060018A2BA /* Assets.xcassets */; };
-		A08831241DF24A5F00F4D866 /* OTAcceleratorPackUtilBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A08831231DF24A5F00F4D866 /* OTAcceleratorPackUtilBundle.bundle */; };
-		A0CDA0A41DF23F060018A2BA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0CDA09E1DF23F060018A2BA /* Info.plist */; };
+		A0127AD41D346D7200CDA3F5 /* OTOneToOneCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0127AD21D346D7200CDA3F5 /* OTOneToOneCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0127AD51D346D7200CDA3F5 /* OTOneToOneCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0127AD31D346D7200CDA3F5 /* OTOneToOneCommunicator.m */; };
 		A0E904EA1DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E904E91DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m */; };
+		A0E904ED1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E904EC1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m */; };
+		A0FEABFF1D73B3BF000BDDA4 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */; };
 		A0FEAC001D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */; };
+		A0FEAC011D73B3BF000BDDA4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A0FEABFE1D73B3BF000BDDA4 /* Podfile */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A0127AAF1D34652500CDA3F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0127A831D34651B00CDA3F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A0127AA91D34652500CDA3F5;
+			remoteInfo = OTAcceleratorPackUtil;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A0127AB61D34652500CDA3F5 /* Embed Frameworks */ = {
@@ -42,6 +48,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A0127AB21D34652500CDA3F5 /* OTAcceleratorPackUtil.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,7 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A0127A8B1D34651B00CDA3F5 /* OTAcceleratorPackUtil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTAcceleratorPackUtil.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0127A8B1D34651B00CDA3F5 /* OTAcceleratorPackUtilProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTAcceleratorPackUtilProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0127A8F1D34651B00CDA3F5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A0127A911D34651B00CDA3F5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A0127A921D34651B00CDA3F5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -59,6 +66,11 @@
 		A0127A9A1D34651B00CDA3F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0127A9D1D34651B00CDA3F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0127A9F1D34651B00CDA3F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0127AAA1D34652500CDA3F5 /* OTAcceleratorPackUtil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTAcceleratorPackUtil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0127AAE1D34652500CDA3F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0127AB71D34654100CDA3F5 /* OTAcceleratorPackUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAcceleratorPackUtil.h; sourceTree = "<group>"; };
+		A0127AB81D34654100CDA3F5 /* OTAcceleratorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAcceleratorSession.h; sourceTree = "<group>"; };
+		A0127AB91D34654100CDA3F5 /* OTAcceleratorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAcceleratorSession.m; sourceTree = "<group>"; };
 		A0127AC11D34668100CDA3F5 /* TestSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSessionViewController.h; sourceTree = "<group>"; };
 		A0127AC21D34668100CDA3F5 /* TestSessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSessionViewController.m; sourceTree = "<group>"; };
 		A0127AC41D3466AD00CDA3F5 /* FakeAccePack1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeAccePack1.h; sourceTree = "<group>"; };
@@ -67,44 +79,27 @@
 		A0127AC71D3466AD00CDA3F5 /* FakeAccePack2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeAccePack2.m; sourceTree = "<group>"; };
 		A0127ACA1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestOneToOneCommunicatorViewController.h; sourceTree = "<group>"; };
 		A0127ACB1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOneToOneCommunicatorViewController.m; sourceTree = "<group>"; };
-		A0565F181DF63ACB001F9032 /* TestMultipartyCommunicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMultipartyCommunicatorViewController.h; sourceTree = "<group>"; };
-		A0565F191DF63ACB001F9032 /* TestMultipartyCommunicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMultipartyCommunicatorViewController.m; sourceTree = "<group>"; };
-		A0565F221DF63F62001F9032 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A0565F231DF63F62001F9032 /* OTAcceleratorPackUtilBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAcceleratorPackUtilBundle.h; sourceTree = "<group>"; };
-		A0565F241DF63F62001F9032 /* OTAcceleratorPackUtilBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAcceleratorPackUtilBundle.m; sourceTree = "<group>"; };
-		A0565F251DF63F62001F9032 /* OTAcceleratorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTAcceleratorSession.h; sourceTree = "<group>"; };
-		A0565F261DF63F62001F9032 /* OTAcceleratorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTAcceleratorSession.m; sourceTree = "<group>"; };
-		A0565F271DF63F62001F9032 /* OTMultiPartyCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTMultiPartyCommunicator.h; sourceTree = "<group>"; };
-		A0565F281DF63F62001F9032 /* OTMultiPartyCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTMultiPartyCommunicator.m; sourceTree = "<group>"; };
-		A0565F291DF63F62001F9032 /* OTOneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTOneToOneCommunicator.h; sourceTree = "<group>"; };
-		A0565F2A1DF63F62001F9032 /* OTOneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTOneToOneCommunicator.m; sourceTree = "<group>"; };
-		A0565F2B1DF63F62001F9032 /* OTVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVideoView.h; sourceTree = "<group>"; };
-		A0565F2C1DF63F62001F9032 /* OTVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVideoView.m; sourceTree = "<group>"; };
-		A0565F2D1DF63F62001F9032 /* UIView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Helper.h"; sourceTree = "<group>"; };
-		A0565F2E1DF63F62001F9032 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Helper.m"; sourceTree = "<group>"; };
-		A0565F361DF640CD001F9032 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A07C06101DEBC2B500BB4FD9 /* OTAcceleratorPackUtilBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTAcceleratorPackUtilBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		A07C06161DEBC32200BB4FD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A080E47C1E244CFA007972D8 /* OTCommonCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTCommonCommunicator.h; sourceTree = "<group>"; };
-		A080E47D1E244CFA007972D8 /* OTCommonCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTCommonCommunicator.m; sourceTree = "<group>"; };
-		A08831231DF24A5F00F4D866 /* OTAcceleratorPackUtilBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OTAcceleratorPackUtilBundle.bundle; sourceTree = "<group>"; };
-		A0CDA0981DF23F060018A2BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A0CDA09E1DF23F060018A2BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0127AD21D346D7200CDA3F5 /* OTOneToOneCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTOneToOneCommunicator.h; sourceTree = "<group>"; };
+		A0127AD31D346D7200CDA3F5 /* OTOneToOneCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTOneToOneCommunicator.m; sourceTree = "<group>"; };
 		A0E904E81DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestOneToOneCommunicatorSwitchingViewController.h; sourceTree = "<group>"; };
 		A0E904E91DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOneToOneCommunicatorSwitchingViewController.m; sourceTree = "<group>"; };
+		A0E904EB1DBB452800270E87 /* TestOneToOneCommunicatorContentModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestOneToOneCommunicatorContentModeViewController.h; sourceTree = "<group>"; };
+		A0E904EC1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOneToOneCommunicatorContentModeViewController.m; sourceTree = "<group>"; };
 		A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OTAcceleratorPackUtil.podspec; sourceTree = "<group>"; };
+		A0FEABFE1D73B3BF000BDDA4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		300DD6EACD41C2282F550C6F /* Frameworks */ = {
+		A0127A881D34651B00CDA3F5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0127AB11D34652500CDA3F5 /* OTAcceleratorPackUtil.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0127A881D34651B00CDA3F5 /* Frameworks */ = {
+		A0127AA61D34652500CDA3F5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -117,12 +112,11 @@
 		A0127A821D34651B00CDA3F5 = {
 			isa = PBXGroup;
 			children = (
-				A0565F361DF640CD001F9032 /* Podfile */,
 				A0FEABFC1D73B3BF000BDDA4 /* CHANGELOG.md */,
 				A0FEABFD1D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec */,
-				A0565F211DF63F62001F9032 /* OTAcceleratorPackUtil */,
+				A0FEABFE1D73B3BF000BDDA4 /* Podfile */,
 				A0127A8D1D34651B00CDA3F5 /* OTAcceleratorPackUtilProject */,
-				A0CDA0971DF23F060018A2BA /* OTAcceleratorPackUtilBundle */,
+				A0127AAB1D34652500CDA3F5 /* OTAcceleratorPackUtil */,
 				A0127A8C1D34651B00CDA3F5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,8 +124,8 @@
 		A0127A8C1D34651B00CDA3F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A0127A8B1D34651B00CDA3F5 /* OTAcceleratorPackUtil.app */,
-				A07C06101DEBC2B500BB4FD9 /* OTAcceleratorPackUtilBundle.bundle */,
+				A0127A8B1D34651B00CDA3F5 /* OTAcceleratorPackUtilProject.app */,
+				A0127AAA1D34652500CDA3F5 /* OTAcceleratorPackUtil.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,7 +133,6 @@
 		A0127A8D1D34651B00CDA3F5 /* OTAcceleratorPackUtilProject */ = {
 			isa = PBXGroup;
 			children = (
-				A08831231DF24A5F00F4D866 /* OTAcceleratorPackUtilBundle.bundle */,
 				A0127A911D34651B00CDA3F5 /* AppDelegate.h */,
 				A0127A921D34651B00CDA3F5 /* AppDelegate.m */,
 				A0127A941D34651B00CDA3F5 /* ViewController.h */,
@@ -154,8 +147,8 @@
 				A0127ACB1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m */,
 				A0E904E81DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.h */,
 				A0E904E91DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m */,
-				A0565F181DF63ACB001F9032 /* TestMultipartyCommunicatorViewController.h */,
-				A0565F191DF63ACB001F9032 /* TestMultipartyCommunicatorViewController.m */,
+				A0E904EB1DBB452800270E87 /* TestOneToOneCommunicatorContentModeViewController.h */,
+				A0E904EC1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m */,
 				A0127A971D34651B00CDA3F5 /* Main.storyboard */,
 				A0127A9A1D34651B00CDA3F5 /* Assets.xcassets */,
 				A0127A9C1D34651B00CDA3F5 /* LaunchScreen.storyboard */,
@@ -173,43 +166,38 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A0565F211DF63F62001F9032 /* OTAcceleratorPackUtil */ = {
+		A0127AAB1D34652500CDA3F5 /* OTAcceleratorPackUtil */ = {
 			isa = PBXGroup;
 			children = (
-				A0565F221DF63F62001F9032 /* Info.plist */,
-				A0565F231DF63F62001F9032 /* OTAcceleratorPackUtilBundle.h */,
-				A0565F241DF63F62001F9032 /* OTAcceleratorPackUtilBundle.m */,
-				A0565F251DF63F62001F9032 /* OTAcceleratorSession.h */,
-				A0565F261DF63F62001F9032 /* OTAcceleratorSession.m */,
-				A0565F271DF63F62001F9032 /* OTMultiPartyCommunicator.h */,
-				A0565F281DF63F62001F9032 /* OTMultiPartyCommunicator.m */,
-				A0565F291DF63F62001F9032 /* OTOneToOneCommunicator.h */,
-				A0565F2A1DF63F62001F9032 /* OTOneToOneCommunicator.m */,
-				A0565F2B1DF63F62001F9032 /* OTVideoView.h */,
-				A0565F2C1DF63F62001F9032 /* OTVideoView.m */,
-				A0565F2D1DF63F62001F9032 /* UIView+Helper.h */,
-				A0565F2E1DF63F62001F9032 /* UIView+Helper.m */,
-				A080E47C1E244CFA007972D8 /* OTCommonCommunicator.h */,
-				A080E47D1E244CFA007972D8 /* OTCommonCommunicator.m */,
+				A0127AB71D34654100CDA3F5 /* OTAcceleratorPackUtil.h */,
+				A0127AB81D34654100CDA3F5 /* OTAcceleratorSession.h */,
+				A0127AB91D34654100CDA3F5 /* OTAcceleratorSession.m */,
+				A0127AD21D346D7200CDA3F5 /* OTOneToOneCommunicator.h */,
+				A0127AD31D346D7200CDA3F5 /* OTOneToOneCommunicator.m */,
+				A0127AAE1D34652500CDA3F5 /* Info.plist */,
 			);
 			path = OTAcceleratorPackUtil;
 			sourceTree = "<group>";
 		};
-		A0CDA0971DF23F060018A2BA /* OTAcceleratorPackUtilBundle */ = {
-			isa = PBXGroup;
-			children = (
-				A0CDA0981DF23F060018A2BA /* Assets.xcassets */,
-				A0CDA09E1DF23F060018A2BA /* Info.plist */,
-			);
-			path = OTAcceleratorPackUtilBundle;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		A0127AA71D34652500CDA3F5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0127ABD1D34654100CDA3F5 /* OTAcceleratorSession.h in Headers */,
+				A0127AD41D346D7200CDA3F5 /* OTOneToOneCommunicator.h in Headers */,
+				A0127ABC1D34654100CDA3F5 /* OTAcceleratorPackUtil.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		A0127A8A1D34651B00CDA3F5 /* OTAcceleratorPackUtil */ = {
+		A0127A8A1D34651B00CDA3F5 /* OTAcceleratorPackUtilProject */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0127AA21D34651B00CDA3F5 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtil" */;
+			buildConfigurationList = A0127AA21D34651B00CDA3F5 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtilProject" */;
 			buildPhases = (
 				A0127A871D34651B00CDA3F5 /* Sources */,
 				A0127A881D34651B00CDA3F5 /* Frameworks */,
@@ -219,28 +207,30 @@
 			buildRules = (
 			);
 			dependencies = (
+				A0127AB01D34652500CDA3F5 /* PBXTargetDependency */,
 			);
-			name = OTAcceleratorPackUtil;
+			name = OTAcceleratorPackUtilProject;
 			productName = OTAcceleratorPackUtilProject;
-			productReference = A0127A8B1D34651B00CDA3F5 /* OTAcceleratorPackUtil.app */;
+			productReference = A0127A8B1D34651B00CDA3F5 /* OTAcceleratorPackUtilProject.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A07C060F1DEBC2B500BB4FD9 /* OTAcceleratorPackUtilBundle */ = {
+		A0127AA91D34652500CDA3F5 /* OTAcceleratorPackUtil */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A07C06151DEBC2B500BB4FD9 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtilBundle" */;
+			buildConfigurationList = A0127AB31D34652500CDA3F5 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtil" */;
 			buildPhases = (
-				A07C060C1DEBC2B500BB4FD9 /* Sources */,
-				A07C060E1DEBC2B500BB4FD9 /* Resources */,
-				300DD6EACD41C2282F550C6F /* Frameworks */,
+				A0127AA51D34652500CDA3F5 /* Sources */,
+				A0127AA61D34652500CDA3F5 /* Frameworks */,
+				A0127AA71D34652500CDA3F5 /* Headers */,
+				A0127AA81D34652500CDA3F5 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = OTAcceleratorPackUtilBundle;
-			productName = OTAcceleratorPackUtilBundle;
-			productReference = A07C06101DEBC2B500BB4FD9 /* OTAcceleratorPackUtilBundle.bundle */;
-			productType = "com.apple.product-type.bundle";
+			name = OTAcceleratorPackUtil;
+			productName = OTAcceleratorPackUtil;
+			productReference = A0127AAA1D34652500CDA3F5 /* OTAcceleratorPackUtil.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -254,12 +244,12 @@
 					A0127A8A1D34651B00CDA3F5 = {
 						CreatedOnToolsVersion = 7.3;
 					};
-					A07C060F1DEBC2B500BB4FD9 = {
-						DevelopmentTeam = MGD69Q275W;
+					A0127AA91D34652500CDA3F5 = {
+						CreatedOnToolsVersion = 7.3;
 					};
 				};
 			};
-			buildConfigurationList = A0127A861D34651B00CDA3F5 /* Build configuration list for PBXProject "OTAcceleratorPackUtil" */;
+			buildConfigurationList = A0127A861D34651B00CDA3F5 /* Build configuration list for PBXProject "OTAcceleratorPackUtilProject" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -272,8 +262,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A0127A8A1D34651B00CDA3F5 /* OTAcceleratorPackUtil */,
-				A07C060F1DEBC2B500BB4FD9 /* OTAcceleratorPackUtilBundle */,
+				A0127A8A1D34651B00CDA3F5 /* OTAcceleratorPackUtilProject */,
+				A0127AA91D34652500CDA3F5 /* OTAcceleratorPackUtil */,
 			);
 		};
 /* End PBXProject section */
@@ -283,23 +273,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0FEAC011D73B3BF000BDDA4 /* Podfile in Resources */,
 				A0127A9E1D34651B00CDA3F5 /* LaunchScreen.storyboard in Resources */,
 				A0127A9B1D34651B00CDA3F5 /* Assets.xcassets in Resources */,
-				A0565F371DF640CD001F9032 /* Podfile in Resources */,
-				A0CDA0A41DF23F060018A2BA /* Info.plist in Resources */,
 				A0FEAC001D73B3BF000BDDA4 /* OTAcceleratorPackUtil.podspec in Resources */,
-				A08831241DF24A5F00F4D866 /* OTAcceleratorPackUtilBundle.bundle in Resources */,
 				A0127A991D34651B00CDA3F5 /* Main.storyboard in Resources */,
-				A0565F2F1DF63F62001F9032 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A07C060E1DEBC2B500BB4FD9 /* Resources */ = {
+		A0127AA81D34652500CDA3F5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A08831221DF24A3D00F4D866 /* Assets.xcassets in Resources */,
-				A07C06171DEBC32200BB4FD9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,30 +298,34 @@
 				A0127A961D34651B00CDA3F5 /* ViewController.m in Sources */,
 				A0127AC31D34668100CDA3F5 /* TestSessionViewController.m in Sources */,
 				A0127A931D34651B00CDA3F5 /* AppDelegate.m in Sources */,
-				A0565F301DF63F62001F9032 /* OTAcceleratorPackUtilBundle.m in Sources */,
-				A0565F311DF63F62001F9032 /* OTAcceleratorSession.m in Sources */,
-				A0565F1A1DF63ACB001F9032 /* TestMultipartyCommunicatorViewController.m in Sources */,
+				A0E904ED1DBB452900270E87 /* TestOneToOneCommunicatorContentModeViewController.m in Sources */,
+				A0FEABFF1D73B3BF000BDDA4 /* CHANGELOG.md in Sources */,
 				A0127A901D34651B00CDA3F5 /* main.m in Sources */,
-				A0565F331DF63F62001F9032 /* OTOneToOneCommunicator.m in Sources */,
 				A0127AC91D3466AD00CDA3F5 /* FakeAccePack2.m in Sources */,
 				A0E904EA1DBB00DD00270E87 /* TestOneToOneCommunicatorSwitchingViewController.m in Sources */,
 				A0127AC81D3466AD00CDA3F5 /* FakeAccePack1.m in Sources */,
-				A0565F341DF63F62001F9032 /* OTVideoView.m in Sources */,
-				A0565F321DF63F62001F9032 /* OTMultiPartyCommunicator.m in Sources */,
-				A0565F351DF63F62001F9032 /* UIView+Helper.m in Sources */,
-				A080E47E1E244CFA007972D8 /* OTCommonCommunicator.m in Sources */,
 				A0127ACC1D34675A00CDA3F5 /* TestOneToOneCommunicatorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A07C060C1DEBC2B500BB4FD9 /* Sources */ = {
+		A0127AA51D34652500CDA3F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0127AD51D346D7200CDA3F5 /* OTOneToOneCommunicator.m in Sources */,
+				A0127ABE1D34654100CDA3F5 /* OTAcceleratorSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A0127AB01D34652500CDA3F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A0127AA91D34652500CDA3F5 /* OTAcceleratorPackUtil */;
+			targetProxy = A0127AAF1D34652500CDA3F5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A0127A971D34651B00CDA3F5 /* Main.storyboard */ = {
@@ -451,9 +440,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OTAcceleratorPackUtilProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtil;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtilProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -463,55 +451,56 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OTAcceleratorPackUtilProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtil;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtilProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
-		A07C06131DEBC2B500BB4FD9 /* Debug */ = {
+		A0127AB41D34652500CDA3F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = MGD69Q275W;
-				INFOPLIST_FILE = OTAcceleratorPackUtilBundle/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtilBundle;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = OTAcceleratorPackUtil/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtil;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		A07C06141DEBC2B500BB4FD9 /* Release */ = {
+		A0127AB51D34652500CDA3F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = MGD69Q275W;
-				INFOPLIST_FILE = OTAcceleratorPackUtilBundle/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtilBundle;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = OTAcceleratorPackUtil/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokbox.OTAcceleratorPackUtil;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A0127A861D34651B00CDA3F5 /* Build configuration list for PBXProject "OTAcceleratorPackUtil" */ = {
+		A0127A861D34651B00CDA3F5 /* Build configuration list for PBXProject "OTAcceleratorPackUtilProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0127AA01D34651B00CDA3F5 /* Debug */,
@@ -520,7 +509,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0127AA21D34651B00CDA3F5 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtil" */ = {
+		A0127AA21D34651B00CDA3F5 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtilProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0127AA31D34651B00CDA3F5 /* Debug */,
@@ -529,11 +518,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A07C06151DEBC2B500BB4FD9 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtilBundle" */ = {
+		A0127AB31D34652500CDA3F5 /* Build configuration list for PBXNativeTarget "OTAcceleratorPackUtil" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A07C06131DEBC2B500BB4FD9 /* Debug */,
-				A07C06141DEBC2B500BB4FD9 /* Release */,
+				A0127AB41D34652500CDA3F5 /* Debug */,
+				A0127AB51D34652500CDA3F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

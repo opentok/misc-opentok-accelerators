@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A0127A8A1D34651B00CDA3F5"
-               BuildableName = "OTAcceleratorPackUtil.app"
+               BlueprintIdentifier = "A0127AA91D34652500CDA3F5"
+               BuildableName = "OTAcceleratorPackUtil.framework"
                BlueprintName = "OTAcceleratorPackUtil"
-               ReferencedContainer = "container:OTAcceleratorPackUtil.xcodeproj">
+               ReferencedContainer = "container:OTAcceleratorPackUtilProject.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0127A8A1D34651B00CDA3F5"
-            BuildableName = "OTAcceleratorPackUtil.app"
-            BlueprintName = "OTAcceleratorPackUtil"
-            ReferencedContainer = "container:OTAcceleratorPackUtil.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0127A8A1D34651B00CDA3F5"
-            BuildableName = "OTAcceleratorPackUtil.app"
+            BlueprintIdentifier = "A0127AA91D34652500CDA3F5"
+            BuildableName = "OTAcceleratorPackUtil.framework"
             BlueprintName = "OTAcceleratorPackUtil"
-            ReferencedContainer = "container:OTAcceleratorPackUtil.xcodeproj">
+            ReferencedContainer = "container:OTAcceleratorPackUtilProject.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -73,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0127A8A1D34651B00CDA3F5"
-            BuildableName = "OTAcceleratorPackUtil.app"
+            BlueprintIdentifier = "A0127AA91D34652500CDA3F5"
+            BuildableName = "OTAcceleratorPackUtil.framework"
             BlueprintName = "OTAcceleratorPackUtil"
-            ReferencedContainer = "container:OTAcceleratorPackUtil.xcodeproj">
+            ReferencedContainer = "container:OTAcceleratorPackUtilProject.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -4,24 +4,6 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
-2.0.0
------
-
-### Enhancements
-- Remove shared instance so developers can control it.
-
-1.3.0
------
-
-### Enhancements
-
-- Introduce `isRemoteAudioAvailable` and `isRemoteVideoAvailable` to have more audio and video control.
-
-### Fixes
-
-- Use `#import <objc/runtime.h>` instead of `#import <objc/objc-runtime.h>` to solve compilation error.
-- Fix a crash that `NSMutableSet` can't remove `nil`.
-
 1.2.4
 -----
 

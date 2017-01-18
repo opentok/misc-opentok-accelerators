@@ -5,7 +5,7 @@
 //
 
 #import "FakeAccePack2.h"
-#import "AppDelegate.h"
+#import <OTAcceleratorPackUtil/OTAcceleratorSession.h>
 
 @interface FakeAccePack2() <OTSessionDelegate>
 
@@ -14,11 +14,18 @@
 @implementation FakeAccePack2
 
 - (void)connect {
-    [[(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession] registerWithAccePack:self];
+    [OTAcceleratorSession registerWithAccePack:self];
 }
 
 - (void)disconnect {
-    [[(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession] deregisterWithAccePack:self];
+    [OTAcceleratorSession deregisterWithAccePack:self];
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        [OTAcceleratorSession registerWithAccePack:self];
+    }
+    return self;
 }
 
 #pragma mark - OTSessionDelegate

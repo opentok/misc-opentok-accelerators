@@ -5,10 +5,9 @@
 //
 
 #import "TestOneToOneCommunicatorSwitchingViewController.h"
-#import "AppDelegate.h"
-#import "OTOneToOneCommunicator.h"
+#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
 
-@interface TestOneToOneCommunicatorSwitchingViewController() <OTOneToOneCommunicatorDataSource>
+@interface TestOneToOneCommunicatorSwitchingViewController()<OTOneToOneCommunicatorDelegate>
 @property (weak, nonatomic) IBOutlet UIView *subscriberView;
 @property (weak, nonatomic) IBOutlet UIView *publisherView;
 @property (nonatomic) OTOneToOneCommunicator *communicator;
@@ -19,18 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.communicator = [[OTOneToOneCommunicator alloc] init];
-    self.communicator.dataSource = self;
-    [self.communicator connectWithHandler:^(OTCommunicationSignal signal, NSError *error) {
-        if (signal == OTPublisherCreated && !error) {
-            self.communicator.publisherView.frame = self.publisherView.bounds;
-            [self.publisherView addSubview:self.communicator.publisherView];
-        }
-        else if (signal == OTSubscriberReady && !error) {
-            self.communicator.subscriberView.frame = self.subscriberView.bounds;
-            [self.subscriberView addSubview:self.communicator.subscriberView];
-        }
-    }];
+    self.communicator = [OTOneToOneCommunicator sharedInstance];
+    self.communicator.delegate = self;
+    [self.communicator connect];
     
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Switch" style:UIBarButtonItemStylePlain target:self action:@selector(switchButtonPressed)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
@@ -41,21 +31,22 @@
     [self.communicator disconnect];
 }
 
-- (void)switchButtonPressed {
-    // please specify anotherTokboxer to test it
-    OTAcceleratorSession *session = [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
+- (void)oneToOneCommunicationWithSignal:(OTOneToOneCommunicationSignal)signal
+                                  error:(NSError *)error {
     
-    for (OTStream *stream in session.streams.allValues) {
-        if ([self.communicator.name isEqualToString:stream.name]) {
-            [self.communicator subscribeToStreamWithName:stream.name];
-            break;
-        }
+    if (signal == OTSessionDidConnect && !error) {
+        self.communicator.publisherView.frame = self.publisherView.bounds;
+        [self.publisherView addSubview:self.communicator.publisherView];
+    }
+    else if (signal == OTSubscriberDidConnect && !error) {
+        self.communicator.subscriberView.frame = self.subscriberView.bounds;
+        [self.subscriberView addSubview:self.communicator.subscriberView];
     }
 }
 
-#pragma mark - OTOneToOneCommunicatorDataSource
-- (OTAcceleratorSession *)sessionOfOTOneToOneCommunicator:(OTOneToOneCommunicator *)oneToOneCommunicator {
-    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
+- (void)switchButtonPressed {
+    // please specify anotherTokboxer to test it
+    [self.communicator subscribeToStreamWithName:@"anotherTokboxer"];
 }
 
 @end

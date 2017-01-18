@@ -8,6 +8,7 @@
 
 #import "FakeAccePack1.h"
 #import "FakeAccePack2.h"
+#import <OTAcceleratorPackUtil/OTOneToOneCommunicator.h>
 
 @interface TestSessionViewController ()
 @property (nonatomic) FakeAccePack1 *pack1;
