@@ -4,70 +4,46 @@
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "OTAcceleratorSession.h"
+#import "OTVideoView.h"
+#import "OTCommonCommunicator.h"
 
-typedef NS_ENUM(NSUInteger, OTOneToOneCommunicationSignal) {
-    OTSessionDidConnect = 0,
-    OTSessionDidDisconnect,
-    OTSessionDidFail,
-    OTSessionStreamCreated,
-    OTSessionStreamDestroyed,
-    OTSessionDidBeginReconnecting,
-    OTSessionDidReconnect,
-    OTPublisherDidFail,
-    OTPublisherStreamCreated,
-    OTPublisherStreamDestroyed,
-    OTSubscriberDidConnect,
-    OTSubscriberDidFail,
-    OTSubscriberVideoDisabledByPublisher,
-    OTSubscriberVideoDisabledBySubscriber,
-    OTSubscriberVideoDisabledByBadQuality,
-    OTSubscriberVideoEnabledByPublisher,
-    OTSubscriberVideoEnabledBySubscriber,
-    OTSubscriberVideoEnabledByGoodQuality,
-    OTSubscriberVideoDisableWarning,
-    OTSubscriberVideoDisableWarningLifted,
-};
 
-typedef NS_ENUM(NSInteger, OTVideoViewContentMode) {
-    OTVideoViewFill,
-    OTVideoViewFit
-};
+@class OTOneToOneCommunicator;
 
-typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal, NSError *error);
-
-@protocol OTOneToOneCommunicatorDelegate <NSObject>
-- (void)oneToOneCommunicationWithSignal:(OTOneToOneCommunicationSignal)signal
-                                  error:(NSError *)error;
+@protocol OTOneToOneCommunicatorDataSource <NSObject>
+- (OTAcceleratorSession *)sessionOfOTOneToOneCommunicator:(OTOneToOneCommunicator *)oneToOneCommunicator;
 @end
 
 @interface OTOneToOneCommunicator: NSObject
 
 /**
- *  @return Returns the shared OTOneToOneCommunicator object.
+ *  The object that acts as the data source of the communicator.
+ *
+ *  The delegate must adopt the OTOneToOneCommunicatorDataSource protocol. The delegate is not retained.
  */
-+ (instancetype)sharedInstance;
+@property (weak, nonatomic) id<OTOneToOneCommunicatorDataSource> dataSource;
+
+/**
+ *  Initialize a new `OTOneToOneCommunicator` instsance with a publisher name.
+ *
+ *  @return A new `OTOneToOneCommunicator` instsance.
+ */
+- (instancetype)initWithName:(NSString *)name;
 
 /**
  *  A string that represents the current communicator.
  *  If not specified, the value will be "system name-name specified by Setting", e.g. @"iOS-MyiPhone"
  */
-@property (nonatomic) NSString *publisherName;
-
-/**
- *  Registers to the shared session: [OTAcceleratorSession] and perform publishing/subscribing automatically.
- *
- *  @return An error to indicate whether it connects successfully, non-nil if it fails.
- */
-- (NSError *)connect;
+@property (readonly, nonatomic) NSString *name;
 
 /**
  *  An alternative connect method with a completion block handler.
  *
  *  @param handler The completion handler to call with the change.
  */
-- (void)connectWithHandler:(OTOneToOneCommunicatorBlock)handler;
+- (void)connectWithHandler:(OTCommunicatorBlock)handler;
 
 /**
  *  De-registers to the shared session: [OTAcceleratorSession] and stops publishing/subscriber.
@@ -75,13 +51,6 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *  @return An error to indicate whether it disconnects successfully, non-nil if it fails.
  */
 - (NSError *)disconnect;
-
-/**
- *  The object that acts as the delegate of the screen sharer.
- *
- *  The delegate must adopt the OTOneToOneCommunicatorDelegate protocol. The delegate is not retained.
- */
-@property (weak, nonatomic) id<OTOneToOneCommunicatorDelegate> delegate;
 
 /**
  *  A boolean value to indicate whether the call is enabled. `YES` once the publisher connects or after OTSessionDidConnect being signaled.
@@ -94,7 +63,7 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  *
  *  The subscriber view is available after OTSubscriberDidConnect being signaled.
  */
-@property (readonly, nonatomic) UIView *subscriberView;
+@property (readonly, nonatomic) OTVideoView *subscriberView;
 
 /**
  *  The scaling of the rendered video, as defined by the <OTVideoViewContentMode> enum.
@@ -104,14 +73,22 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
 @property (nonatomic) OTVideoViewContentMode subscriberVideoContentMode;
 
 /**
- *  A boolean value to indicate whether the communicator has available audio from subscription.
- *  This property will take the stream's hasAudio into account internally.
+ *  A boolean value to indicate whether the communicator has audio available.
+ */
+@property (nonatomic, readonly) BOOL isRemoteAudioAvailable;
+
+/**
+ *  A boolean value to indicate whether the communicator has video available.
+ */
+@property (nonatomic, readonly) BOOL isRemoteVideoAvailable;
+
+/**
+ *  A boolean value to indicate whether the communicator subscript to audio.
  */
 @property (nonatomic, getter=isSubscribeToAudio) BOOL subscribeToAudio;
 
 /**
- *  A boolean value to indicate whether the communicator has available video from subscription.
- *  This property will take the stream's hasVideo into account internally.
+ *  A boolean value to indicate whether the communicator subscript to video.
  */
 @property (nonatomic, getter=isSubscribeToVideo) BOOL subscribeToVideo;
 
@@ -121,7 +98,7 @@ typedef void (^OTOneToOneCommunicatorBlock)(OTOneToOneCommunicationSignal signal
  * 
  *  The publisher view is available after OTSessionDidConnect being signaled.
  */
-@property (readonly, nonatomic) UIView *publisherView;
+@property (readonly, nonatomic) OTVideoView *publisherView;
 
 /**
  *  A boolean value to indicate whether to publish audio.

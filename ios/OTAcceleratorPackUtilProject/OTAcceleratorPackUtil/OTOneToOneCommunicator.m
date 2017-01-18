@@ -6,11 +6,11 @@
 
 #import "OTOneToOneCommunicator.h"
 #import "OTAcceleratorSession.h"
+#import "OTAcceleratorPackUtilBundle.h"
 
-#import <Opentok/OpenTok.h>
 #import <OTKAnalytics/OTKLogger.h>
 
-static NSString* const KLogClientVersion = @"ios-vsol-1.1.0";
+static NSString* const KLogClientVersion = @"ios-vsol-2.0.0";
 static NSString* const kLogComponentIdentifier = @"oneToOneCommunication";
 static NSString* const KLogActionInitialize = @"Init";
 static NSString* const KLogActionStartCommunication = @"StartComm";
@@ -41,67 +41,53 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 @end
 
-@interface OTOneToOneCommunicator() <OTSessionDelegate, OTSubscriberKitDelegate, OTPublisherDelegate>
+@interface OTOneToOneCommunicator() <OTSessionDelegate, OTSubscriberKitDelegate, OTPublisherDelegate, OTVideoViewProtocol>
 @property (nonatomic) BOOL isCallEnabled;
+@property (nonatomic) NSString *name;
 @property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTPublisher *publisher;
-@property (nonatomic) OTAcceleratorSession *session;
+@property (weak, nonatomic) OTAcceleratorSession *session;
 
-@property (nonatomic) UIView *subscriberView;
-@property (nonatomic) UIView *publisherView;
+@property (nonatomic) OTVideoView *subscriberView;
+@property (nonatomic) OTVideoView *publisherView;
 
-@property (strong, nonatomic) OTOneToOneCommunicatorBlock handler;
+@property (strong, nonatomic) OTCommunicatorBlock handler;
 @end
 
 @implementation OTOneToOneCommunicator
 
-- (void)setSubscriberVideoContentMode:(OTVideoViewContentMode)subscriberVideoContentMode {
-    _subscriberVideoContentMode = subscriberVideoContentMode;
-    
-    if (self.subscriber) {
-        if (_subscriberVideoContentMode == OTVideoViewFit) {
-            self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
-        }
-        else {
-            self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
-        }
-    }
+- (void)setDataSource:(id<OTOneToOneCommunicatorDataSource>)dataSource {
+    _dataSource = dataSource;
+    _session = [_dataSource sessionOfOTOneToOneCommunicator:self];
 }
 
-+ (instancetype)sharedInstance {
+- (instancetype)init {
+    
+    return [self initWithName:[NSString stringWithFormat:@"%@-%@", [UIDevice currentDevice].systemName, [UIDevice currentDevice].name]];
+}
 
-    static OTOneToOneCommunicator *sharedInstance;
-    static dispatch_once_t onceToken;
+- (instancetype)initWithName:(NSString *)name {
     
-    if (!sharedInstance) {
-        [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
+    [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationAttempt completion:nil];
+    
+    if (self = [super init]) {
+        _name = name;
+        [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
     }
-    
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[OTOneToOneCommunicator alloc] init];
-        sharedInstance.session = [OTAcceleratorSession getAcceleratorPackSession];
-        
-        if (sharedInstance && sharedInstance.session) {
-            [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationSuccess completion:nil];
-        }
-        else {
-            [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
-        }
-    });
-    return sharedInstance;
+    else {
+        [[LoggingWrapper sharedInstance].logger logEventAction:KLogActionInitialize variation:KLogVariationFailure completion:nil];
+    }
+    return self;
 }
 
 - (NSError *)connect {
-    
-    // refresh in case of credentials update
-    self.session = [OTAcceleratorSession getAcceleratorPackSession];
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
     [loggingWrapper.logger logEventAction:KLogActionStartCommunication
                                 variation:KLogVariationAttempt
                                completion:nil];
     
-    NSError *connectError = [OTAcceleratorSession registerWithAccePack:self];
+    NSError *connectError = [self.session registerWithAccePack:self];
     if (!connectError) {
         [loggingWrapper.logger logEventAction:KLogActionStartCommunication
                                     variation:KLogVariationSuccess
@@ -116,14 +102,14 @@ static NSString* const KLogVariationFailure = @"Failure";
     return connectError;
 }
 
-- (void)connectWithHandler:(OTOneToOneCommunicatorBlock)handler {
-
+- (void)connectWithHandler:(OTCommunicatorBlock)handler {
+    
     if (!handler) return;
     
     self.handler = handler;
     NSError *error = [self connect];
     if (error) {
-        self.handler(OTSessionDidFail, error);
+        self.handler(OTCommunicationError, error);
     }
 }
 
@@ -139,24 +125,19 @@ static NSString* const KLogVariationFailure = @"Failure";
         if (error) {
             NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
+        
+        [self.publisherView clean];
         self.publisher = nil;
         self.publisherView = nil;
     }
     
     if (self.subscriber) {
         
-        OTError *error = nil;
-        [self.subscriber.view removeFromSuperview];
-        [self.session unsubscribe:self.subscriber error:&error];
-        if (error) {
-            NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
-        }
-        self.subscriber = nil;
-        self.subscriberView = nil;
+        [self cleaupSubscriber];
     }
     
     LoggingWrapper *loggingWrapper = [LoggingWrapper sharedInstance];
-    NSError *disconnectError = [OTAcceleratorSession deregisterWithAccePack:self];
+    NSError *disconnectError = [self.session deregisterWithAccePack:self];
     if (!disconnectError) {
         [loggingWrapper.logger logEventAction:KLogActionEndCommunication
                                     variation:KLogVariationSuccess
@@ -172,14 +153,10 @@ static NSString* const KLogVariationFailure = @"Failure";
     return disconnectError;
 }
 
-- (void)notifiyAllWithSignal:(OTOneToOneCommunicationSignal)signal error:(NSError *)error {
+- (void)notifiyAllWithSignal:(OTCommunicationSignal)signal error:(NSError *)error {
     
     if (self.handler) {
         self.handler(signal, error);
-    }
-    
-    if (self.delegate) {
-        [self.delegate oneToOneCommunicationWithSignal:signal error:error];
     }
 }
 
@@ -191,31 +168,29 @@ static NSString* const KLogVariationFailure = @"Failure";
                                                partnerId:@([self.session.apiKey integerValue])];
     
     if (!self.publisher) {
-        
-        if (self.publisherName) {
-            self.publisher = [[OTPublisher alloc] initWithDelegate:self name:self.publisherName];
-        }
-        else {
-            self.publisherName = [NSString stringWithFormat:@"%@-%@", [UIDevice currentDevice].systemName, [UIDevice currentDevice].name];
-            self.publisher = [[OTPublisher alloc] initWithDelegate:self name:self.publisherName];
-        }
+        self.publisher = [[OTPublisher alloc] initWithDelegate:self
+                                                          name:self.name];
     }
     
     OTError *error;
     [self.session publish:self.publisher error:&error];
     if (error) {
-        [self notifiyAllWithSignal:OTSessionDidConnect
+        [self notifiyAllWithSignal:OTCommunicationError
                              error:error];
     }
     else {
         self.isCallEnabled = YES;
-        [self notifiyAllWithSignal:OTSessionDidConnect
+        if (!self.publisherView) {
+            self.publisherView = [OTVideoView defaultPlaceHolderImageWithPublisher:self.publisher];
+            self.publisherView.delegate = self;
+        }
+        [self notifiyAllWithSignal:OTPublisherCreated
                              error:nil];
     }
 }
 
 - (void)sessionDidDisconnect:(OTSession *)session {
-    [self notifiyAllWithSignal:OTSessionDidDisconnect
+    [self notifiyAllWithSignal:OTPublisherDestroyed
                          error:nil];
 }
 
@@ -224,38 +199,27 @@ static NSString* const KLogVariationFailure = @"Failure";
     // we always subscribe one stream for this acc pack
     // please see - subscribeToStreamWithName: to switch subscription
     if (self.subscriber) {
-        NSError *unsubscribeError;
-        [self.session unsubscribe:self.subscriber error:&unsubscribeError];
-        if (unsubscribeError) {
-            NSLog(@"%@", unsubscribeError);
-        }
+        [self cleaupSubscriber];
     }
     
     OTError *subscrciberError;
     self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
-    if (self.subscriberVideoContentMode == OTVideoViewFit) {
-        self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
-    }
-    else {
-        self.subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
-    }
     [self.session subscribe:self.subscriber error:&subscrciberError];
-    [self notifiyAllWithSignal:OTSessionStreamCreated
-                         error:subscrciberError];
+    [self notifiyAllWithSignal:OTSubscriberCreated error:subscrciberError];
 }
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
-
+    
     if (self.subscriber.stream && [self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
-        [self.subscriber.view removeFromSuperview];
-        self.subscriber = nil;
-        [self notifiyAllWithSignal:OTSessionStreamDestroyed
+        
+        [self cleaupSubscriber];
+        [self notifiyAllWithSignal:OTSubscriberDestroyed
                              error:nil];
     }
 }
 
 - (void)session:(OTSession *)session didFailWithError:(OTError *)error {
-    [self notifiyAllWithSignal:OTSessionDidFail
+    [self notifiyAllWithSignal:OTCommunicationError
                          error:error];
 }
 
@@ -272,30 +236,18 @@ static NSString* const KLogVariationFailure = @"Failure";
 #pragma mark - OTPublisherDelegate
 - (void)publisher:(OTPublisherKit *)publisher didFailWithError:(OTError *)error {
     if (publisher == self.publisher) {
-        [self notifiyAllWithSignal:OTPublisherDidFail
+        [self notifiyAllWithSignal:OTCommunicationError
                              error:error];
     }
 }
 
-- (void)publisher:(OTPublisherKit*)publisher streamCreated:(OTStream*)stream {
-    if (publisher == self.publisher) {
-        [self notifiyAllWithSignal:OTPublisherStreamCreated
-                             error:nil];
-    }
-}
-
-- (void)publisher:(OTPublisherKit*)publisher streamDestroyed:(OTStream*)stream {
-    if (publisher == self.publisher) {
-        [self notifiyAllWithSignal:OTPublisherStreamDestroyed
-                             error:nil];
-    }
-}
-
 #pragma mark - OTSubscriberKitDelegate
--(void) subscriberDidConnectToStream:(OTSubscriberKit*)subscriber {
+- (void)subscriberDidConnectToStream:(OTSubscriberKit*)subscriber {
     
     if (subscriber == self.subscriber) {
-        [self notifiyAllWithSignal:OTSubscriberDidConnect
+        _subscriberView = [OTVideoView defaultPlaceHolderImageWithSubscriber:self.subscriber];
+        _subscriberView.delegate = self;
+        [self notifiyAllWithSignal:OTSubscriberReady
                              error:nil];
     }
 }
@@ -352,20 +304,29 @@ static NSString* const KLogVariationFailure = @"Failure";
 
 - (void)subscriber:(OTSubscriberKit *)subscriber didFailWithError:(OTError *)error {
     if (subscriber == self.subscriber) {
-        [self notifiyAllWithSignal:OTSubscriberDidFail
+        [self notifiyAllWithSignal:OTCommunicationError
                              error:error];
     }
 }
 
+- (void)cleaupSubscriber {
+    NSError *unsubscribeError;
+    [self.session unsubscribe:self.subscriber error:&unsubscribeError];
+    if (unsubscribeError) {
+        NSLog(@"%@", unsubscribeError);
+    }
+    [self.subscriber.view removeFromSuperview];
+    [self.subscriberView clean];
+    self.subscriber = nil;
+    self.subscriberView = nil;
+}
+
+#pragma mark - advanced
 - (NSError *)subscribeToStreamWithName:(NSString *)name {
     for (OTStream *stream in self.session.streams.allValues) {
         if ([stream.name isEqualToString:name]) {
-            NSError *unsubscribeError;
-            [self.session unsubscribe:self.subscriber error:&unsubscribeError];
-            if (unsubscribeError) {
-                NSLog(@"%@", unsubscribeError);
-            }
             
+            [self cleaupSubscriber];
             NSError *subscrciberError;
             self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
             [self.session subscribe:self.subscriber error:&subscrciberError];
@@ -379,12 +340,8 @@ static NSString* const KLogVariationFailure = @"Failure";
 - (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId {
     for (OTStream *stream in self.session.streams.allValues) {
         if ([stream.streamId isEqualToString:streamId]) {
-            NSError *unsubscribeError;
-            [self.session unsubscribe:self.subscriber error:&unsubscribeError];
-            if (unsubscribeError) {
-                NSLog(@"%@", unsubscribeError);
-            }
             
+            [self cleaupSubscriber];
             NSError *subscrciberError;
             self.subscriber = [[OTSubscriber alloc] initWithStream:stream delegate:self];
             [self.session subscribe:self.subscriber error:&subscrciberError];
@@ -395,46 +352,81 @@ static NSString* const KLogVariationFailure = @"Failure";
     return [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is no such stream with streamId: %@", streamId]}];
 }
 
-#pragma mark - Setters and Getters
-- (UIView *)subscriberView {
-    return _subscriber.view;
+#pragma mark - OTVideoViewProtocol
+- (void)placeHolderImageViewDidShowOnVideoView:(OTVideoView *)videoView {
+    
 }
 
-- (UIView *)publisherView {
-    return _publisher.view;
+- (void)placeHolderImageViewDidDismissOnVideoView:(OTVideoView *)videoView {
+    
+}
+
+#pragma mark - Setters and Getters
+
+- (OTVideoViewContentMode)subscriberVideoContentMode {
+    if (_subscriber.viewScaleBehavior) {
+        return OTVideoViewFit;
+    }
+    return OTVideoViewFill;
+}
+
+- (void)setSubscriberVideoContentMode:(OTVideoViewContentMode)subscriberVideoContentMode {
+    if (!_subscriber || !_subscriber.view) return;
+    if (subscriberVideoContentMode == OTVideoViewFit) {
+        _subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFit;
+    }
+    else {
+        _subscriber.viewScaleBehavior = OTVideoViewScaleBehaviorFill;
+    }
+}
+
+- (BOOL)isRemoteAudioAvailable {
+    if (!_subscriber) return NO;
+    return _subscriber.stream.hasAudio;
+}
+
+- (BOOL)isRemoteVideoAvailable {
+    if (!_subscriber) return NO;
+    return _subscriber.stream.hasVideo;
 }
 
 - (void)setSubscribeToAudio:(BOOL)subscribeToAudio {
+    if (!_subscriber) return;
     _subscriber.subscribeToAudio = subscribeToAudio;
 }
 
 - (BOOL)isSubscribeToAudio {
-    if (!_subscriber.stream.hasAudio) return NO;
+    if (!_subscriber) return NO;
     return _subscriber.subscribeToAudio;
 }
 
 - (void)setSubscribeToVideo:(BOOL)subscribeToVideo {
+    if (!_subscriber) return;
     _subscriber.subscribeToVideo = subscribeToVideo;
 }
 
 - (BOOL)isSubscribeToVideo {
-    if (!_subscriber.stream.hasVideo) return NO;
+    if (!_subscriber) return NO;
     return _subscriber.subscribeToVideo;
 }
 
 - (void)setPublishAudio:(BOOL)publishAudio {
+    if (!_publisher) return;
     _publisher.publishAudio = publishAudio;
 }
 
 - (BOOL)isPublishAudio {
+    if (!_publisher) return NO;
     return _publisher.publishAudio;
 }
 
 - (void)setPublishVideo:(BOOL)publishVideo {
+    if (!_publisher) return;
     _publisher.publishVideo = publishVideo;
 }
 
 - (BOOL)isPublishVideo {
+    if (!_publisher) return NO;
     return _publisher.publishVideo;
 }
 

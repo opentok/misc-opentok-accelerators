@@ -22,17 +22,26 @@
  *  @param apiKey    Your OpenTok API key.
  *  @param sessionId The session ID of this shared session.
  *  @param token     The token generated for this connection.
+ *
+ *  @return A new `OTAcceleratorSession` instsance.
  */
-+ (void)setOpenTokApiKey:(NSString *)apiKey
-               sessionId:(NSString *)sessionId
-                   token:(NSString *)token;
+- (instancetype)initWithOpenTokApiKey:(NSString *)apiKey
+                            sessionId:(NSString *)sessionId
+                                token:(NSString *)token;
 
 /**
- *  Retrieve the current shared session object.
+ *  Retrieve the current publisher objects, which are injected to a session by publish:error:.
  *
- *  @return The shared OTAcceleratorSession object, or nil if initialization fails.
+ *  @return All running publisher objects.
  */
-+ (instancetype)getAcceleratorPackSession;
+- (NSArray<OTPublisher *> *)getPublishers;
+
+/**
+ *  Retrieve the current subscribing subscriber objects, which are injected by subscribe:error:.
+ *
+ *  @return All running subscribers objects.
+ */
+- (NSArray<OTSubscriber *> *)getSubscribers;
 
 /**
  *  Register an accelerator pack under this shared session so the accelerator pack starts receiving event notifications from OpenTok.
@@ -43,7 +52,7 @@
  *
  *  @return An error to indicate whether it registers successfully, non-nil if it fails.
  */
-+ (NSError *)registerWithAccePack:(id)delegate;
+- (NSError *)registerWithAccePack:(id)delegate;
 
 /**
  *  De-register an accelerator pack from this shared session so the accelerator pack stops receiving event notifications from OpenTok.
@@ -52,7 +61,7 @@
  *
  *  @return An error to indicate whether it de-registers successfully, non-nil if it fails.
  */
-+ (NSError *)deregisterWithAccePack:(id)delegate;
+- (NSError *)deregisterWithAccePack:(id)delegate;
 
 /**
  *  Check whether a given object is a registered accelerator pack.
@@ -61,13 +70,13 @@
  *
  *  @return A boolean value to indicaet whether the given object is a registered accelerator pack.
  */
-+ (BOOL)containsAccePack:(id)delegate;
+- (BOOL)containsAccePack:(id)delegate;
 
 /**
  *  Return all registered accelerator pack.
  *
  *  @return All registered accelerator pack.
  */
-+ (NSSet<id<OTSessionDelegate>> *)getRegisters;
+- (NSSet<id<OTSessionDelegate>> *)getRegisters;
 
 @end
