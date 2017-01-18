@@ -1,9 +1,6 @@
-
-target 'OTAcceleratorPackUtilProject' do
-  pod 'OTAcceleratorPackUtil', :path => './'
-end
+project 'OTAcceleratorPackUtil.xcodeproj'
 
 target 'OTAcceleratorPackUtil' do 
-  pod 'OpenTok', '~> 2.9.0'
+  pod 'OpenTok'
   pod 'OTKAnalytics'
 end
