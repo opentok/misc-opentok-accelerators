@@ -212,9 +212,9 @@ static NSString* const KLogVariationFailure = @"Failure";
     
     if (self.subscriber.stream && [self.subscriber.stream.streamId isEqualToString:stream.streamId]) {
         
-        [self cleaupSubscriber];
         [self notifiyAllWithSignal:OTSubscriberDestroyed
                              error:nil];
+        [self cleaupSubscriber];
     }
 }
 

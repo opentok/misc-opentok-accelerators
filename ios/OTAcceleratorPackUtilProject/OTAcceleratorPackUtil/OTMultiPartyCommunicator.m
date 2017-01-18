@@ -13,9 +13,17 @@
 @interface OTMultiPartyRemote()
 @property (nonatomic) OTSubscriber *subscriber;
 @property (nonatomic) OTVideoView *subscriberView;
+@property (nonatomic) NSString *userInfo;
 @end
 
 @implementation OTMultiPartyRemote
+
+- (NSString *)userInfo {
+    if (!self.subscriber.stream.connection) {
+        return nil;
+    }
+    return self.subscriber.stream.connection.data;
+}
 
 - (BOOL)isEqual:(id)object {
     if (![object isKindOfClass:[OTMultiPartyRemote class]]) {
@@ -301,6 +309,9 @@ static NSString* const KLogVariationFailure = @"Failure";
         if (subscriberObject.subscriber.stream == stream) {
             OTError *error = nil;
             OTSubscriber *subscriber = subscriberObject.subscriber;
+            [self notifiyAllWithSignal:OTSubscriberDestroyed
+                            subscriber:subscriberObject
+                                 error:nil];
             [subscriber.view removeFromSuperview];
             [self.session unsubscribe:subscriber error:&error];
             if (error) {
@@ -311,9 +322,6 @@ static NSString* const KLogVariationFailure = @"Failure";
             subscriberObject.subscriber = nil;
             subscriberObject.subscriberView = nil;
             [self.subscribers removeObject:subscriberObject];
-            [self notifiyAllWithSignal:OTSubscriberDestroyed
-                            subscriber:subscriberObject
-                                 error:nil];
             break;
         }
     }
@@ -364,15 +372,14 @@ static NSString* const KLogVariationFailure = @"Failure";
 - (void)subscriberDidDisconnectFromStream:(OTSubscriber *)subscriber {
     OTMultiPartyRemote *subscriberObject = [[OTMultiPartyRemote alloc] initWithSubscriber:subscriber];
     if ([self.subscribers containsObject:subscriberObject]) {
+        [self notifiyAllWithSignal:OTSubscriberDestroyed subscriber:subscriberObject error:nil];
         [self.subscribers removeObject:subscriberObject];
     }
-    [self notifiyAllWithSignal:OTSubscriberDestroyed subscriber:subscriberObject error:nil];
 }
 
 - (void)subscriber:(OTSubscriber *)subscriber didFailWithError:(OTError *)error {
-    
     OTMultiPartyRemote *subscriberObject = [[OTMultiPartyRemote alloc] initWithSubscriber:subscriber];
-    [self notifiyAllWithSignal:OTSubscriberDestroyed subscriber:subscriberObject error:nil];
+    [self notifiyAllWithSignal:OTCommunicationError subscriber:subscriberObject error:nil];
 }
 
 -(void)subscriberVideoDisabled:(OTSubscriber *)subscriber reason:(OTSubscriberVideoEventReason)reason {
