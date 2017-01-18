@@ -36,10 +36,13 @@
     [self.communicator connectWithHandler:^(OTCommunicationSignal signal, NSError *error) {
         if (signal == OTPublisherCreated && !error) {
             self.communicator.publisherView.frame = self.publisherView.bounds;
+            self.communicator.publisherView.controlView.alpha = 0.8;
+            self.communicator.publisherView.controlView.frame = CGRectMake(10, 10, 50, 100);
             [self.publisherView addSubview:self.communicator.publisherView];
         }
-        else if (signal == OTSubscriberCreated && !error) {
+        else if (signal == OTSubscriberReady && !error) {
             self.communicator.subscriberView.frame = self.subscriberView.bounds;
+            self.communicator.subscriberView.controlView.backgroundColor = [UIColor blackColor];
             [self.subscriberView addSubview:self.communicator.subscriberView];
         }
     }];

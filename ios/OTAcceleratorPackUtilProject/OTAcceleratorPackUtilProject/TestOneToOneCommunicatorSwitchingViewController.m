@@ -26,7 +26,7 @@
             self.communicator.publisherView.frame = self.publisherView.bounds;
             [self.publisherView addSubview:self.communicator.publisherView];
         }
-        else if (signal == OTSubscriberCreated && !error) {
+        else if (signal == OTSubscriberReady && !error) {
             self.communicator.subscriberView.frame = self.subscriberView.bounds;
             [self.subscriberView addSubview:self.communicator.subscriberView];
         }

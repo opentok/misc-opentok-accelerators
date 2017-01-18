@@ -7,6 +7,14 @@
 #import <UIKit/UIKit.h>
 #import <OpenTok/OpenTok.h>
 
+@interface OTAudioVideoControlView : UIView
+
+@property (readonly, nonatomic) UIButton *audioButton;
+
+@property (readonly, nonatomic) UIButton *videoButton;
+
+@end
+
 @class OTVideoView;
 @protocol OTVideoViewProtocol <NSObject>
 
@@ -29,6 +37,8 @@
 + (instancetype)defaultPlaceHolderImageWithSubscriber:(OTSubscriber *)subscriber;
 
 @property (weak, nonatomic) id<OTVideoViewProtocol> delegate;
+
+@property (readonly, nonatomic) OTAudioVideoControlView *controlView;
 
 @property (nonatomic) BOOL showAudioVideoControl;
 

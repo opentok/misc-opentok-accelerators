@@ -193,7 +193,7 @@ static NSString* const KLogVariationFailure = @"Failure";
         self.publisherView = nil;
     }
 
-    [self.subscribers enumerateObjectsUsingBlock:^(OTMultiPartyRemote *subscriberObject, NSUInteger idx, BOOL *stop) {
+    for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
         OTError *error = nil;
         OTSubscriber *subscriber = subscriberObject.subscriber;
         [subscriber.view removeFromSuperview];
@@ -205,8 +205,8 @@ static NSString* const KLogVariationFailure = @"Failure";
         [subscriberObject.subscriberView clean];
         subscriberObject.subscriber = nil;
         subscriberObject.subscriberView = nil;
-        [self.subscribers removeObject:subscriberObject];
-    }];
+    }
+    [self.subscribers removeAllObjects];
 
     MultiPartyLoggingWrapper *loggingWrapper = [MultiPartyLoggingWrapper sharedInstance];
     NSError *disconnectError = [self.session deregisterWithAccePack:self];
@@ -311,6 +311,9 @@ static NSString* const KLogVariationFailure = @"Failure";
             subscriberObject.subscriber = nil;
             subscriberObject.subscriberView = nil;
             [self.subscribers removeObject:subscriberObject];
+            [self notifiyAllWithSignal:OTSubscriberDestroyed
+                            subscriber:subscriberObject
+                                 error:nil];
             break;
         }
     }

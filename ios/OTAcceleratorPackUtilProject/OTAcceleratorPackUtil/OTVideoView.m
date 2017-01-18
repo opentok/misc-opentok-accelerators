@@ -8,7 +8,7 @@
 #import "OTAcceleratorPackUtilBundle.h"
 #import "UIView+Helper.h"
 
-@interface OTAudioVideoControlView: UIView
+@interface OTAudioVideoControlView()
 @property (nonatomic) UIImage *audioImage;
 @property (nonatomic) UIImage *noAudioImage;
 @property (nonatomic) UIImage *videoImage;
@@ -182,12 +182,6 @@
     return videoView;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    self.controlView.frame = CGRectMake(10, 10, CGRectGetWidth(self.frame) * 0.1, CGRectGetHeight(self.frame) * 0.3);
-}
-
 - (void)addSubview:(UIView *)view {
     [super addSubview:view];
     if (view == _placeHolderImageView) {
@@ -206,8 +200,10 @@
                                      action:@selector(controlViewVideoButtonClicked:)
                            forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_controlView];
+        _controlView.frame = CGRectMake(10, 10, CGRectGetWidth(self.frame) * 0.1, CGRectGetHeight(self.frame) * 0.3);
     }
     else {
+        [_controlView removeFromSuperview];
         _controlView = nil;
     }
 }
