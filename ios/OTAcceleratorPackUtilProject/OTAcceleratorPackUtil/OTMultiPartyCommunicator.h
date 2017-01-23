@@ -128,6 +128,11 @@ typedef void (^OTMultiPartyCommunicatorBlock)(OTCommunicationSignal signal, OTMu
 @property (readonly, nonatomic) NSString *userInfo;
 
 /**
+ *  A string value to indicate the custom data by the stream.
+ */
+@property (readonly, nonatomic) NSString *name;
+
+/**
  *  A enum value to indicate whether the feed is captured from the camera or the screen.
  */
 @property (readonly, nonatomic) OTStreamVideoType videoType;

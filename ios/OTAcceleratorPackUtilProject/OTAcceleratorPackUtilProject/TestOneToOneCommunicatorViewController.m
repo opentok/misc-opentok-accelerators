@@ -7,6 +7,7 @@
 #import "TestOneToOneCommunicatorViewController.h"
 #import "AppDelegate.h"
 #import "OTOneToOneCommunicator.h"
+#import "UIView+Helper.h"
 
 @interface TestOneToOneCommunicatorViewController () <OTOneToOneCommunicatorDataSource>
 @property (weak, nonatomic) IBOutlet UIView *subscriberView;
@@ -30,6 +31,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.communicator disconnect];
+    self.communicator = nil;
 }
 
 - (void)startCall {
@@ -70,6 +72,20 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"SWITCH SUBSCRIBER VIDEO ON/OFF" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         self.communicator.subscribeToVideo = !self.communicator.subscribeToVideo;
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"SWITCH A/V CONTROLS MODE" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        if (!self.communicator.isCallEnabled) return;
+        
+        if (self.communicator.publisherView.controlView.isVerticalAlignment) {
+            self.communicator.publisherView.controlView.isVerticalAlignment = NO;
+            self.communicator.publisherView.controlView.frame = CGRectMake(10, 10, CGRectGetWidth(self.publisherView.frame) * 0.3, CGRectGetHeight(self.publisherView.frame) * 0.1);
+        }
+        else {
+            self.communicator.publisherView.controlView.isVerticalAlignment = YES;
+            self.communicator.publisherView.controlView.frame = CGRectMake(10, 10, CGRectGetWidth(self.publisherView.frame) * 0.1, CGRectGetHeight(self.publisherView.frame) * 0.3);
+        }
     }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
