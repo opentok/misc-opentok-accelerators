@@ -4,6 +4,10 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+### MIGRATION
+
+We will rename and migrate `acc-pack-common` iOS to `OTAcceleratorCore`[here](https://github.com/opentok/accelerator-core-ios)
+
 2.0.6
 -----
 
