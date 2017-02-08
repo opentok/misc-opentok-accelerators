@@ -1,5 +1,11 @@
 ![logo](./tokbox-logo.png)
 
+###This Repository is Deprecated. For the up-to-date repositories visit:
+####JS: https://github.com/opentok/accelerator-core-js
+####iOS: https://github.com/opentok/accelerator-core-ios
+####Android: https://github.com/opentok/accelerator-core-android
+
+
 # Common Accelerator Session Pack<br/>
 
 The Common Accelerator Session Pack is required whenever you use any of the OpenTok accelerators. The Common Accelerator Session Pack is a common layer that includes the audio-video communication logic contained in all [OpenTok One-to-One Communication Sample Apps](https://github.com/opentok/one-to-one-sample-apps), and permits all accelerators and samples to share the same OpenTok session. The accelerator packs and sample app access the OpenTok session through the Common Accelerator Session Pack layer, which allows them to share a single OpenTok session:

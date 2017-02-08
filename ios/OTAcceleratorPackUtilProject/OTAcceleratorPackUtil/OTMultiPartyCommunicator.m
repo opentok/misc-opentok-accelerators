@@ -18,11 +18,25 @@
 
 @implementation OTMultiPartyRemote
 
+- (NSString *)name {
+    if (!self.subscriber.stream) {
+        return nil;
+    }
+    return self.subscriber.stream.name;
+}
+
 - (NSString *)userInfo {
-    if (!self.subscriber.stream.connection) {
+    if (!self.subscriber.stream) {
         return nil;
     }
     return self.subscriber.stream.connection.data;
+}
+
+- (OTStreamVideoType)videoType {
+    if (!self.subscriber.stream) {
+        return OTStreamVideoTypeCamera;
+    }
+    return self.subscriber.stream.videoType;
 }
 
 - (BOOL)isEqual:(id)object {
@@ -86,7 +100,7 @@
 - (instancetype)initWithSubscriber:(OTSubscriber *)subscriber {
     if (self = [super init]) {
         _subscriber = subscriber;
-        _subscriberView = [OTVideoView defaultPlaceHolderImageWithSubscriber:self.subscriber];
+        _subscriberView = [[OTVideoView alloc] initWithSubscriber:self.subscriber];
     }
     return self;
 }
@@ -275,7 +289,7 @@ static NSString* const KLogVariationFailure = @"Failure";
     else {
         self.isCallEnabled = YES;
         if (!self.publisherView) {
-            self.publisherView = [OTVideoView defaultPlaceHolderImageWithPublisher:self.publisher];
+            self.publisherView = [[OTVideoView alloc] initWithPublisher:self.publisher];
             self.publisherView.delegate = self;
         }
         [self notifiyAllWithSignal:OTPublisherCreated
@@ -307,16 +321,11 @@ static NSString* const KLogVariationFailure = @"Failure";
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
     for (OTMultiPartyRemote *subscriberObject in self.subscribers) {
         if (subscriberObject.subscriber.stream == stream) {
-            OTError *error = nil;
             OTSubscriber *subscriber = subscriberObject.subscriber;
             [self notifiyAllWithSignal:OTSubscriberDestroyed
                             subscriber:subscriberObject
                                  error:nil];
             [subscriber.view removeFromSuperview];
-            [self.session unsubscribe:subscriber error:&error];
-            if (error) {
-                NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
-            }
             [subscriberObject.subscriberView removeFromSuperview];
             [subscriberObject.subscriberView clean];
             subscriberObject.subscriber = nil;

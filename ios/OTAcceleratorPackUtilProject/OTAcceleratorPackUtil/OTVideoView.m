@@ -15,6 +15,9 @@
 @property (nonatomic) UIImage *noVideoImage;
 @property (nonatomic) UIButton *audioButton;
 @property (nonatomic) UIButton *videoButton;
+
+@property (nonatomic) NSArray<NSLayoutConstraint *> *verticalLayoutConstraints;
+@property (nonatomic) NSArray<NSLayoutConstraint *> *horizontalLayoutConstraints;
 @end
 
 @implementation OTAudioVideoControlView
@@ -33,8 +36,152 @@
     return _noVideoImage;
 }
 
+- (void)setIsVerticalAlignment:(BOOL)isVerticalAlignment {
+    _isVerticalAlignment = isVerticalAlignment;
+    
+    // workaround, we have to remove and add in order to renew constraints layout
+    [_audioButton removeFromSuperview];
+    [_videoButton removeFromSuperview];
+    [self addSubview:_audioButton];
+    [self addSubview:_videoButton];
+    
+    if (_isVerticalAlignment) {
+        [NSLayoutConstraint deactivateConstraints:self.horizontalLayoutConstraints];
+        [NSLayoutConstraint activateConstraints:self.verticalLayoutConstraints];
+    }
+    else {
+        [NSLayoutConstraint deactivateConstraints:self.verticalLayoutConstraints];
+        [NSLayoutConstraint activateConstraints:self.horizontalLayoutConstraints];
+    }
+}
+
+- (NSArray<NSLayoutConstraint *> *)verticalLayoutConstraints {
+    
+    return @[
+             [NSLayoutConstraint constraintWithItem:_audioButton
+                                          attribute:NSLayoutAttributeTop
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton.superview
+                                          attribute:NSLayoutAttributeTop
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_audioButton
+                                          attribute:NSLayoutAttributeLeading
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton.superview
+                                          attribute:NSLayoutAttributeLeading
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_audioButton
+                                          attribute:NSLayoutAttributeTrailing
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton.superview
+                                          attribute:NSLayoutAttributeTrailing
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_audioButton
+                                          attribute:NSLayoutAttributeHeight
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton.superview
+                                          attribute:NSLayoutAttributeHeight
+                                         multiplier:0.5
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_videoButton
+                                          attribute:NSLayoutAttributeTop
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton
+                                          attribute:NSLayoutAttributeBottom
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_videoButton
+                                          attribute:NSLayoutAttributeLeft
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_videoButton.superview
+                                          attribute:NSLayoutAttributeLeft
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_videoButton
+                                          attribute:NSLayoutAttributeRight
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_videoButton.superview
+                                          attribute:NSLayoutAttributeRight
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_videoButton
+                                          attribute:NSLayoutAttributeBottom
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_videoButton.superview
+                                          attribute:NSLayoutAttributeBottom
+                                         multiplier:1.0
+                                           constant:0.0]
+             ];
+}
+
+- (NSArray<NSLayoutConstraint *> *)horizontalLayoutConstraints {
+    
+    return @[
+             [NSLayoutConstraint constraintWithItem:_audioButton
+                                          attribute:NSLayoutAttributeTop
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton.superview
+                                          attribute:NSLayoutAttributeTop
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_audioButton
+                                          attribute:NSLayoutAttributeLeading
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton.superview
+                                          attribute:NSLayoutAttributeLeading
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_audioButton
+                                          attribute:NSLayoutAttributeBottom
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton.superview
+                                          attribute:NSLayoutAttributeBottom
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_audioButton
+                                          attribute:NSLayoutAttributeWidth
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton.superview
+                                          attribute:NSLayoutAttributeWidth
+                                         multiplier:0.5
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_videoButton
+                                          attribute:NSLayoutAttributeLeading
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_audioButton
+                                          attribute:NSLayoutAttributeTrailing
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_videoButton
+                                          attribute:NSLayoutAttributeTop
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_videoButton.superview
+                                          attribute:NSLayoutAttributeTop
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_videoButton
+                                          attribute:NSLayoutAttributeTrailing
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_videoButton.superview
+                                          attribute:NSLayoutAttributeTrailing
+                                         multiplier:1.0
+                                           constant:0.0],
+             [NSLayoutConstraint constraintWithItem:_videoButton
+                                          attribute:NSLayoutAttributeBottom
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:_videoButton.superview
+                                          attribute:NSLayoutAttributeBottom
+                                         multiplier:1.0
+                                           constant:0.0]
+             ];
+}
+
 - (instancetype)init {
     if (self = [super init]) {
+        
         self.backgroundColor = [UIColor lightGrayColor];
         _audioImage = [UIImage imageNamed:@"audio" inBundle:[OTAcceleratorPackUtilBundle acceleratorPackUtilBundle] compatibleWithTraitCollection: nil];
         _videoImage = [UIImage imageNamed:@"video" inBundle:[OTAcceleratorPackUtilBundle acceleratorPackUtilBundle] compatibleWithTraitCollection: nil];
@@ -48,63 +195,7 @@
         [self addSubview:_audioButton];
         [self addSubview:_videoButton];
         
-        [NSLayoutConstraint constraintWithItem:_audioButton
-                                     attribute:NSLayoutAttributeTop
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_audioButton.superview
-                                     attribute:NSLayoutAttributeTop
-                                    multiplier:1.0
-                                      constant:0.0].active = YES;
-        [NSLayoutConstraint constraintWithItem:_audioButton
-                                     attribute:NSLayoutAttributeLeading
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_audioButton.superview
-                                     attribute:NSLayoutAttributeLeading
-                                    multiplier:1.0
-                                      constant:0.0].active = YES;
-        [NSLayoutConstraint constraintWithItem:_audioButton
-                                     attribute:NSLayoutAttributeTrailing
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_audioButton.superview
-                                     attribute:NSLayoutAttributeTrailing
-                                    multiplier:1.0
-                                      constant:0.0].active = YES;
-        [NSLayoutConstraint constraintWithItem:_audioButton
-                                     attribute:NSLayoutAttributeHeight
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_audioButton.superview
-                                     attribute:NSLayoutAttributeHeight
-                                    multiplier:0.5
-                                      constant:0.0].active = YES;
-        
-        [NSLayoutConstraint constraintWithItem:_videoButton
-                                     attribute:NSLayoutAttributeTop
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_audioButton
-                                     attribute:NSLayoutAttributeBottom
-                                    multiplier:1.0
-                                      constant:0.0].active = YES;
-        [NSLayoutConstraint constraintWithItem:_videoButton
-                                     attribute:NSLayoutAttributeLeft
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_videoButton.superview
-                                     attribute:NSLayoutAttributeLeft
-                                    multiplier:1.0
-                                      constant:0.0].active = YES;
-        [NSLayoutConstraint constraintWithItem:_videoButton
-                                     attribute:NSLayoutAttributeRight
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_videoButton.superview
-                                     attribute:NSLayoutAttributeRight
-                                    multiplier:1.0
-                                      constant:0.0].active = YES;
-        [NSLayoutConstraint constraintWithItem:_videoButton
-                                     attribute:NSLayoutAttributeBottom
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_videoButton.superview
-                                     attribute:NSLayoutAttributeBottom
-                                    multiplier:1.0
-                                      constant:0.0].active = YES;
+        self.isVerticalAlignment = YES;
     }
     return self;
 }
@@ -130,7 +221,6 @@
 @end
 
 @interface OTVideoView()
-@property (nonatomic) UIImage *placeHolderImage;
 @property (nonatomic) UIImageView *placeHolderImageView;
 @property (weak, nonatomic) OTSubscriber *subscriber;
 @property (weak, nonatomic) OTPublisher *publisher;
@@ -138,48 +228,59 @@
 @end
 
 @implementation OTVideoView
+@synthesize placeHolderImage = _placeHolderImage;
 
-+ (instancetype)defaultPlaceHolderImageWithPublisher:(OTPublisher *)publisher {
+- (instancetype)initWithPublisher:(OTPublisher *)publisher {
     if (![publisher isKindOfClass:[OTPublisher class]]) return nil;
-    OTVideoView *videoView = [[OTVideoView alloc] initWithVideoView:publisher.view
-                                                   placeHolderImage:[UIImage imageNamed:@"avatar" inBundle:[OTAcceleratorPackUtilBundle acceleratorPackUtilBundle] compatibleWithTraitCollection: nil]];
-    videoView.publisher = publisher;
-    [videoView addObserver:videoView
-                forKeyPath:@"publisher.publishVideo"
-                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                   context:nil];
-    [videoView addObserver:videoView
-                forKeyPath:@"publisher.publishAudio"
-                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                   context:nil];
     
-    [videoView updateUI:videoView.publisher.publishVideo];
-    return videoView;
+    
+    
+    if (self = [[OTVideoView alloc] initWithVideoView:publisher.view
+                                     placeHolderImage:[UIImage imageNamed:@"avatar" inBundle:[OTAcceleratorPackUtilBundle acceleratorPackUtilBundle] compatibleWithTraitCollection: nil]]) {
+        
+        _publisher = publisher;
+        [self addObserver:self
+                    forKeyPath:@"publisher.publishVideo"
+                       options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                       context:nil];
+        [self addObserver:self
+                    forKeyPath:@"publisher.publishAudio"
+                       options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                       context:nil];
+        
+        [self updateUI:_publisher.publishVideo];
+        
+    }
+    return self;
 }
 
-+ (instancetype)defaultPlaceHolderImageWithSubscriber:(OTSubscriber *)subscriber {
+- (instancetype)initWithSubscriber:(OTSubscriber *)subscriber {
     if (![subscriber isKindOfClass:[OTSubscriber class]]) return nil;
-    OTVideoView *videoView = [[OTVideoView alloc] initWithVideoView:subscriber.view
-                                                   placeHolderImage:[UIImage imageNamed:@"avatar" inBundle:[OTAcceleratorPackUtilBundle acceleratorPackUtilBundle] compatibleWithTraitCollection: nil]];
-    videoView.subscriber = subscriber;
-    [videoView addObserver:videoView
-                forKeyPath:@"subscriber.subscribeToVideo"
-                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                   context:nil];
-    [videoView addObserver:videoView
-                forKeyPath:@"subscriber.stream.hasVideo"
-                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                   context:nil];
-    [videoView addObserver:videoView
-                forKeyPath:@"subscriber.subscribeToAudio"
-                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                   context:nil];
-    [videoView addObserver:videoView
-                forKeyPath:@"subscriber.stream.hasAudio"
-                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                   context:nil];
-    [videoView updateUI:videoView.subscriber.subscribeToVideo && videoView.subscriber.stream.hasVideo];
-    return videoView;
+    
+    
+    if (self = [[OTVideoView alloc] initWithVideoView:subscriber.view
+                                     placeHolderImage:[UIImage imageNamed:@"avatar" inBundle:[OTAcceleratorPackUtilBundle acceleratorPackUtilBundle] compatibleWithTraitCollection: nil]]) {
+        
+        _subscriber = subscriber;
+        [self addObserver:self
+                    forKeyPath:@"subscriber.subscribeToVideo"
+                       options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                       context:nil];
+        [self addObserver:self
+                    forKeyPath:@"subscriber.stream.hasVideo"
+                       options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                       context:nil];
+        [self addObserver:self
+               forKeyPath:@"subscriber.subscribeToAudio"
+                  options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                  context:nil];
+        [self addObserver:self
+                    forKeyPath:@"subscriber.stream.hasAudio"
+                       options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                       context:nil];
+        [self updateUI:_subscriber.subscribeToVideo && _subscriber.stream.hasVideo];
+    }
+    return self;
 }
 
 - (void)addSubview:(UIView *)view {
@@ -208,10 +309,25 @@
     }
 }
 
+- (UIImage *)placeHolderImage {
+    if (!_placeHolderImage) {
+        _placeHolderImage = [UIImage imageNamed:@"avatar"
+                                       inBundle:[OTAcceleratorPackUtilBundle acceleratorPackUtilBundle]
+                  compatibleWithTraitCollection: nil];
+    }
+    return _placeHolderImage;
+}
+
+- (void)setPlaceHolderImage:(UIImage *)placeHolderImage {
+    _placeHolderImage = placeHolderImage;
+    self.placeHolderImageView = nil;
+    [self placeHolderImageView];
+}
+
 - (UIImageView *)placeHolderImageView {
     
     if (!_placeHolderImageView) {
-        _placeHolderImageView = [[UIImageView alloc] initWithImage: _placeHolderImage];
+        _placeHolderImageView = [[UIImageView alloc] initWithImage: self.placeHolderImage];
         _placeHolderImageView.backgroundColor = [UIColor grayColor];
         _placeHolderImageView.contentMode = UIViewContentModeScaleAspectFit;
         _placeHolderImageView.translatesAutoresizingMaskIntoConstraints = NO;

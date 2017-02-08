@@ -4,10 +4,57 @@ The changelog for `acc-pack-common` iOS.
 
 --------------------------------------
 
+### MIGRATION
+
+We will rename and migrate `acc-pack-common` iOS to `OTAcceleratorCore`[here](https://github.com/opentok/accelerator-core-ios)
+
+2.0.6
+-----
+
+### Enhancements
+- expose the name on the a subscriber remote object.
+- now you are able to choose how audio button and video button align, it's either vertical or horizontal.
+
+2.0.5
+-----
+
+### Enhancements
+- expose the video type on the a subscriber remote object.
+- expose the custom user info on the a subscriber remote object.
+
+2.0.4
+-----
+
+### Deprecated
+
+2.0.3
+-----
+
+### Deprecated
+
+2.0.2
+-----
+
+### Enhancements
+
+- make `audioButtn` and `videoButton` available in `OTVideoView`.
+
+### Fixes
+
+- correct when to send `OTSubscriberReady`.
+ 
+2.0.1
+-----
+
+### Fixes
+
+- `enumerateObjectsUsingBlock:` left something in place when it comes to removal.
+
 2.0.0
 -----
 
 ### Enhancements
+
 - Remove shared instance so developers can control it.
 
 1.3.0

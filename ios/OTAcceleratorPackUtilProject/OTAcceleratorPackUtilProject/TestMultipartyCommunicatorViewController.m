@@ -30,6 +30,7 @@
     [self.communicator connectWithHandler:^(OTCommunicationSignal signal, OTMultiPartyRemote *subscriber, NSError *error) {
         if (signal == OTPublisherCreated && !error) {
             self.communicator.publisherView.frame = self.publisherView.bounds;
+            self.communicator.publisherView.controlView.frame = CGRectMake(10, 10, 50, 100);
             [self.publisherView addSubview:self.communicator.publisherView];
         }
         else if (signal == OTSubscriberReady && !error) {
@@ -44,6 +45,8 @@
             else if (self.subscriberView3.subviews.count == 0) {
                 [self.subscriberView3 addSubview:subscriber.subscriberView];
             }
+            
+            subscriber.subscriberView.controlView.frame = CGRectMake(10, 10, 50, 100);
         }
     }];
 }

@@ -13,6 +13,8 @@
 
 @property (readonly, nonatomic) UIButton *videoButton;
 
+@property (nonatomic) BOOL isVerticalAlignment;
+
 @end
 
 @class OTVideoView;
@@ -32,9 +34,9 @@
 
 @interface OTVideoView : UIView
 
-+ (instancetype)defaultPlaceHolderImageWithPublisher:(OTPublisher *)publisher;
+- (instancetype)initWithPublisher:(OTPublisher *)publisher;
 
-+ (instancetype)defaultPlaceHolderImageWithSubscriber:(OTSubscriber *)subscriber;
+- (instancetype)initWithSubscriber:(OTSubscriber *)subscriber;
 
 @property (weak, nonatomic) id<OTVideoViewProtocol> delegate;
 
@@ -43,6 +45,8 @@
 @property (nonatomic) BOOL showAudioVideoControl;
 
 @property (nonatomic) BOOL handleAudioVideo;
+
+@property (nonatomic) UIImage *placeHolderImage;
 
 - (void)clean;
 
