@@ -1,10 +1,10 @@
 ![logo](tokbox-logo.png)
 
-# OpenTok Text Chat Accelerator Pack<br/>Version 2.0.0
+# One to One Text Chat Sample App
 
-The OpenTok Text Chat Accelerator Pack provides functionality you can add to your OpenTok applications that enables users to exchange text messages between mobile or browser-based devices.
+The OpenTok One-to-One Text Chat Sample App is an open-source solution that enables you to quickly get started in your development efforts to set up interoperable, production-quality audio/video communication and to exchange text messages between mobile or browser-based devices.
 
-With the OpenTok Text Chat sample app, you can:
+With the sample app, you can:
 
 - Initiate and manage interoperable text chat communication between two users, regardless of the devices they are using.
 - Customize the UI features and layout.
