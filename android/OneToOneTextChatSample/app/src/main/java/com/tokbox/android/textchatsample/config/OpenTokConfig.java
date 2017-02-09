@@ -10,9 +10,4 @@ public class OpenTokConfig {
     public static final String TOKEN = "";
     // Replace with your OpenTok API key
     public static final String API_KEY = "";
-
-    // Subscribe to a stream published by this client. Set to false to subscribe
-    // to other clients' streams only.
-    public static final boolean SUBSCRIBE_TO_SELF = false;
-
 }

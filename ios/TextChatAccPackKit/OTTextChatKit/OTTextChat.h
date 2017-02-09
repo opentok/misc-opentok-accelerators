@@ -29,7 +29,6 @@ typedef NS_ENUM(NSUInteger, OTTextChatMessageEventSignal) {
 };
 
 @class OTTextChat;
-@class OTTextChatConnection;
 @class OTTextChatViewController;
 
 /**

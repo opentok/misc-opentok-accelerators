@@ -78,112 +78,12 @@ While TokBox hosts [OpenTok.js](https://tokbox.com/developer/sdks/js/), you must
 
 ```
 
-### Text Chat Accelerator Pack
+### Text Chat Accelerator Pack (https://github.com/opentok/accelerator-textchat-js)
 
-The `TextChatAccPack` class in text-chat-acc-pack.js is the backbone of the text chat communication features for the app.
+## Requirements
 
-This class sets up the text chat UI views and events, and provides functions for sending, receiving, and rendering individual chat messages.
+To develop your text chat app:
 
-#### Initialization
-
-The following `options` fields are used in the `TextChatAccPack` constructor:<br/>
-
-| Feature        | Field  |
-| ------------- | ------------- |
-| Set the session. | `session`  |
-| Set the chat container. | `textChatContainer`  |
-| Sets the position of the element that displays the information for the character count within the UI. | `controlsContainer`  |
-| Set the maximum chat text length. | `limitCharacterMessage`  |
-| Set the sender alias and the sender ID of the outgoing messages. | `sender`  |
-| Set the text chat container to automatically be displayed. | `alwaysOpen`  |
-
-
-If you're using a bundler like webpack or Browserify, you can install the the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat), and import into your application:
-
-  ```javascript
-  const TextChatAccPack = require('opentok-text-chat');
-  const textChat = new TextChatAccPack(options);
-  ```
-
-
-Otherwise, the package will need to be in `global` scope to be initialized:
-
-  ```javascript
-      var _options = {
-        textChat: {
-          sender: {
-            alias: 'David',
-          },
-          limitCharacterMessage: 160,
-          controlsContainer: '#feedControls',
-          textChatContainer: '#chatContainer',
-          alwaysOpen: true
-        }
-      };
-
-      var textChatOptions = {
-       accPack: _this,
-       session: _session,
-       sender: _options.textChat.sender,
-       limitCharacterMessage: _options.textChat.limitCharacterMessage,
-       controlsContainer: _options.textChat.controlsContainer,
-       textChatContainer: _options.textChat.textChatContainer,
-       alwaysOpen: _options.textChat.alwaysOpen
-     };
-
-     _components.textChat = new TextChatAccPack(textChatOptions);
-  ```
-
-
-#### TextChatAccPack Methods
-
-The `TextChat` component defines the following methods:
-
-| Method        | Description  |
-| ------------- | ------------- |
-| `showTextChat()` | Show the text chat view.  |
-| `hideTextChat()` | Hide the text chat view.  |
-| `isDisplayed()` | Determines if the text chat accelerator pack is displayed.  |
-| `isEnabled()` | Determines if the text chat accelerator pack is enabled.  |
-
-
-For example, this line determines whether the text chat accelerator pack is displayed:
-
-  ```javascript
-  var displayed = _textChat.isDisplayed();
-  ```
-
-#### Events
-
-The `TextChat` component emits the following events:
-
-| Method        | Description  |
-| ------------- | ------------- |
-| `messageReceived ` | A new message has been received.  |
-| `messageSent ` | A new message has been sent.  |
-| `errorSendingMessage ` | An error occurred when sending a message.  |
-
-
-The following code shows how to subscribe to these events:
-
-  ```javascript
-      _accPack.registerEventListener('messageReceived', function() {
-        . . .
-      });
-
-      _accPack.registerEventListener('messageSent', function() {
-        . . .
-      });
-
-      _accPack.registerEventListener('errorSendingMessage', function() {
-        . . .
-      });
-  ```
-
-  ## Requirements
-
-  To develop your text chat app:
-
-  1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
-  2. Your project must include [jQuery](https://jquery.com/), [Moment.js](http://momentjs.com/), [timeago](http://timeago.yarp.com/), and [Underscore](http://underscorejs.org/).
-  3. There are several ways to install the Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.</li><li>Download and extract the text chat and one-to-one communication components from the [zip](https://s3.amazonaws.com/artifact.tokbox.com/solution/rel/textchat-acc-pack/JS/opentok-js-text-chat-acc-pack-2.0.0.zip) file provided by TokBox.</li></ol>
+1. Review the [OpenTok.js](https://tokbox.com/developer/sdks/js/) requirements.
+2. Your project must include [jQuery](https://jquery.com/), [Moment.js](http://momentjs.com/), [timeago](http://timeago.yarp.com/), and [Underscore](http://underscorejs.org/).
+3. Text Chat Accelerator Pack. <ol><li>Install the text chat component with [npm](https://www.npmjs.com/package/opentok-text-chat).</li><li>Run the [build.sh script](./build.sh) to install the text chat and one-to-one communication components.

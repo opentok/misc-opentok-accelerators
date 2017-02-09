@@ -1,5 +1,10 @@
 ![logo](tokbox-logo.png)
 
+###This Repository is Deprecated. For the up-to-date repositories visit:
+####JS: https://github.com/opentok/accelerator-textchat-js
+####iOS: https://github.com/opentok/accelerator-textchat-ios
+####Android: https://github.com/opentok/accelerator-textchat-android
+
 # OpenTok Text Chat Accelerator Pack<br/>Version 2.0.0
 
 The OpenTok Text Chat Accelerator Pack provides functionality you can add to your OpenTok applications that enables users to exchange text messages between mobile or browser-based devices.

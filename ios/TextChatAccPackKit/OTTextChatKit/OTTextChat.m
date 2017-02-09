@@ -17,9 +17,7 @@
 
 static NSString* const kTextChatType = @"text-chat";
 
-@interface OTTextChat() <OTSessionDelegate> {
-    OTConnection *receiverConnection;
-}
+@interface OTTextChat() <OTSessionDelegate>
 
 @property (nonatomic) OTAcceleratorSession *session;
 @property (nonatomic) OTKLogger *logger;
@@ -99,8 +97,8 @@ static NSString* const kTextChatType = @"text-chat";
     
     if (![OTTestingInfo isTesting]) {
         [self.logger logEventAction:KLogActionEnd
-                        variation:KLogVariationAttempt
-                        completion:nil];
+                          variation:KLogVariationAttempt
+                         completion:nil];
     }
     
     NSError *disconnectionError = [self.session deregisterWithAccePack:self];
@@ -108,8 +106,8 @@ static NSString* const kTextChatType = @"text-chat";
         
         if (![OTTestingInfo isTesting]) {
             [self.logger logEventAction:KLogActionEnd
-                          variation:KLogVariationFailure
-                         completion:nil];
+                              variation:KLogVariationFailure
+                             completion:nil];
         }
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:didDisConnectWithError:)]) {
@@ -175,7 +173,7 @@ static NSString* const kTextChatType = @"text-chat";
         
         [self.session signalWithType:kTextChatType
                               string:jsonString
-                          connection:receiverConnection
+                          connection:nil
                                error:&error];
         
         if (error) {
@@ -269,9 +267,6 @@ static NSString* const kTextChatType = @"text-chat";
 
 - (void)session:(OTSession*) session connectionCreated:(OTConnection*)connection {
     
-    // store receiverConnection for sending message to a point rather than boardcasting
-    receiverConnection = connection;
-    
     OTConnection *textChatConnection = session.connection;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(textChat:connectionCreated:)]) {
@@ -284,10 +279,6 @@ static NSString* const kTextChatType = @"text-chat";
 }
 
 - (void)session:(OTSession *)session connectionDestroyed:(OTConnection *)connection {
-    
-    if ([receiverConnection.connectionId isEqualToString:connection.connectionId]) {
-        receiverConnection = nil;
-    }
     
     OTConnection *textChatConnection = session.connection;
     
