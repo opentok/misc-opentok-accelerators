@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements PreviewControlFra
 
     private RelativeLayout mPreviewViewContainer;
     private RelativeLayout mRemoteViewContainer;
-    private RelativeLayout mAudioOnlyView;
+    private RelativeLayout mRemoteAudioOnlyView;
     private RelativeLayout mLocalAudioOnlyView;
     private RelativeLayout.LayoutParams layoutParamsPreview;
     private FrameLayout mTextChatContainer;
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements PreviewControlFra
         mPreviewViewContainer = (RelativeLayout) findViewById(R.id.publisherview);
         mRemoteViewContainer = (RelativeLayout) findViewById(R.id.subscriberview);
         mAlert = (TextView) findViewById(R.id.quality_warning);
-        mAudioOnlyView = (RelativeLayout) findViewById(R.id.audioOnlyView);
+        mRemoteAudioOnlyView = (RelativeLayout) findViewById(R.id.audioOnlyView);
         mLocalAudioOnlyView = (RelativeLayout) findViewById(R.id.localAudioOnlyView);
         mTextChatContainer = (FrameLayout) findViewById(R.id.textchat_fragment_container);
         mCameraFragmentContainer = (RelativeLayout) findViewById(R.id.camera_preview_fragment_container);
@@ -201,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements PreviewControlFra
             case 200:
                 mVideoPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 mAudioPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-
 
                 if (!mVideoPermission || !mAudioPermission) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -358,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements PreviewControlFra
     private void checkRemotes(){
         if ( mRemoteId != null ){
             if (!mWrapper.isReceivedMediaEnabled(mRemoteId, MediaType.VIDEO)){
-                onAudioOnly(true);
+                onRemoteAudioOnly(true);
             }
             else {
                 setRemoteView(mWrapper.getRemoteStreamStatus(mRemoteId).getView(), mRemoteId);
@@ -408,21 +407,22 @@ public class MainActivity extends AppCompatActivity implements PreviewControlFra
                 mRemoteFragment.show();
         } else { //view null --> remove view
             if (mRemoteViewContainer.getChildCount() > 0) {
-                mRemoteViewContainer.removeAllViews();
+                mRemoteViewContainer.removeViewAt(mRemoteViewContainer.getChildCount()-1);
             }
             mRemoteViewContainer.setClickable(false);
-            mAudioOnlyView.setVisibility(View.GONE);
+            mRemoteAudioOnlyView.setVisibility(View.GONE);
         }
     }
 
-    private void onAudioOnly(boolean enabled) {
-        if (enabled) {
-            mRemoteView.setVisibility(View.GONE);
-            mAudioOnlyView.setVisibility(View.VISIBLE);
-        }
-        else {
-            mAudioOnlyView.setVisibility(View.GONE);
-            mRemoteView.setVisibility(View.VISIBLE);
+    private void onRemoteAudioOnly(boolean enabled) {
+        if (mRemoteView != null) {
+            if (enabled) {
+                mRemoteView.setVisibility(View.GONE);
+                mRemoteAudioOnlyView.setVisibility(View.VISIBLE);
+            } else {
+                mRemoteAudioOnlyView.setVisibility(View.GONE);
+                mRemoteView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -523,9 +523,9 @@ public class MainActivity extends AppCompatActivity implements PreviewControlFra
                         }
 
                         if (!videoActive) {
-                            onAudioOnly(true); //video is not active
+                            onRemoteAudioOnly(true); //video is not active
                         } else {
-                            onAudioOnly(false);
+                            onRemoteAudioOnly(false);
                         }
                     }
                 }
@@ -665,7 +665,7 @@ public class MainActivity extends AppCompatActivity implements PreviewControlFra
                 //Check if there are some connected remotes
                 if ( mRemoteId != null ){
                     if (!mWrapper.isReceivedMediaEnabled(mRemoteId, MediaType.VIDEO)){
-                        onAudioOnly(true);
+                        onRemoteAudioOnly(true);
                     }
                     else {
                         setRemoteView(mRemoteView, mRemoteId);
