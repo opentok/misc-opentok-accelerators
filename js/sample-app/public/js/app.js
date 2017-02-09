@@ -1,210 +1,178 @@
-/* global AcceleratorPack CommunicationAccPack */
-(function () {
-
-  // Modules
-  var _accPack;
-  var _communication;
-
-  // OpenTok session
-  var _session;
-
-  // Application State
-  var _initialized = false;
-  var _connected = false;
-  var _callActive = false;
-  var _remoteParticipant = false;
-  var _callProps = {
-    enableLocalAudio: true,
-    enableLocalVideo: true,
-    enableRemoteAudio: true,
-    enableRemoteVideo: true,
-  };
-
-  // Options hash
-  var _options = {
-    apiKey: '', // Replace with your OpenTok API key
-    sessionId: '', // Replace with a generated Session ID
-    token: '',
-    textChat: {
-      sender: {
-        alias: 'user1',
+/* global otCore */
+const options = {
+  credentials: {
+    apiKey: "",  //Replace with your OpenTok API key 
+    sessionId: "", //Replace with a generated Session ID
+    token: "", //Replace with a generated token (from the dashboard or using an OpenTok server SDK)
+  },
+   // A container can either be a query selector or an HTMLElement
+  streamContainers: function streamContainers(pubSub, type, data) {
+    return {
+      publisher: {
+        camera: '#cameraPublisherContainer',
       },
-      limitCharacterMessage: 160,
-      controlsContainer: '#feedControls',
-      textChatContainer: '#chatContainer'
-    }
+      subscriber: {
+        camera: '#cameraSubscriberContainer',
+      },
+    }[pubSub][type];
+  },
+  controlsContainer: '#controls',
+  packages: ['textChat'],
+  communication: {
+    callProperites: null, // Using default
+  },
+  textChat: {
+    name: ['David', 'Paul', 'Emma', 'George', 'Amanda'][Math.random() * 5 | 0], // eslint-disable-line no-bitwise
+    waitingMessage: 'Messages will be delivered when other users arrive',
+    container: '#chat',
+  }
+};
+
+/** Application Logic */
+const app = () => {
+  const state = {
+    connected: false,
+    active: false,
+    publishers: null,
+    subscribers: null,
+    meta: null,
+    localAudioEnabled: true,
+    localVideoEnabled: true,
   };
 
-  /** DOM Helper Methods */
-  var _makePrimaryVideo = function (element) {
-    $(element).addClass('primary-video');
-    $(element).removeClass('secondary-video');
-  };
+  /**
+   * Update the size and position of video containers based on the number of
+   * publishers and subscribers specified in the meta property returned by otCore.
+   */
+  const updateVideoContainers = () => {
+    const { meta } = state;
+    const activeCameraSubscribers = meta ? meta.subscriber.camera : 0;
+   
+    const videoContainerClass = `App-video-container ${''}`;
+    document.getElementById('appVideoContainer').setAttribute('class', videoContainerClass);
 
-  var _makeSecondaryVideo = function (element) {
-    $(element).removeClass('primary-video');
-    $(element).addClass('secondary-video');
-  };
+    const cameraPublisherClass =
+      `video-container ${!!activeCameraSubscribers? 'small' : ''} ${!!activeCameraSubscribers? 'small' : ''}`;
+    document.getElementById('cameraPublisherContainer').setAttribute('class', cameraPublisherClass);
 
-  // Swap positions of the small and large video elements when participant joins or leaves call
-  var _swapVideoPositions = function (type) {
-
-    if (type === 'start' || type === 'joined') {
-
-      _makePrimaryVideo('#videoHolderBig');
-      _makeSecondaryVideo('#videoHolderSmall');
-
-      /**
-       * The other participant may or may not have joined the call at this point.
-       */
-      if (!!_remoteParticipant) {
-        $('#remoteControls').show();
-        $('#videoHolderBig').show();
-      }
-
-    } else if ((type === 'end' && !!_remoteParticipant) || type === 'left') {
-
-      _makePrimaryVideo('#videoHolderSmall');
-      _makeSecondaryVideo('#videoHolderBig');
-
-      $('#remoteControls').hide();
-      $('#videoHolderBig').hide();
-    }
-
-  };
-
-  var _startCall = function () {
-
-    // Start call
-    _communication.start();
-    _callActive = true;
-
-    // Update UI
-    $('#callActive').addClass('active');
-    $('#videoHolderSmall').addClass('active');
-
-    $('#enableLocalAudio').show();
-    $('#enableLocalVideo').show();
-
-    if (_remoteParticipant) {
-      _swapVideoPositions('start');
-    }
-
-  };
-
-  var _endCall = function () {
-
-    // End call
-    _communication.end();
-    _callActive = false;
-
-    // Update UI
-    $('#callActive').toggleClass('active');
-
-    $('#enableLocalAudio').hide();
-    $('#enableLocalVideo').hide();
-
-    if (_callActive || _remoteParticipant) {
-      _swapVideoPositions('end');
-    }
-
+    const cameraSubscriberClass =
+      `video-container ${!activeCameraSubscribers ? 'hidden' : ''} active-${activeCameraSubscribers}`;
+    document.getElementById('cameraSubscriberContainer').setAttribute('class', cameraSubscriberClass);
   };
 
 
-  // Toggle local or remote audio/video
-  var _toggleMediaProperties = function (type) {
+  /**
+   * Update the UI
+   * @param {String} update - 'connected', 'active', or 'meta'
+   */
+  const updateUI = (update) => {
+    const { connected, active } = state;
 
-    _callProps[type] = !_callProps[type];
-
-    _communication[type](_callProps[type]);
-
-    $(['#', type].join('')).toggleClass('disabled');
-
-  };
-
-
-  var _addEventListeners = function () {
-
-    // Call events
-    _accPack.registerEventListener('streamCreated', function (event) {
-
-      if (event.stream.videoType === 'camera') {
-        _remoteParticipant = true;
-        if (_callActive) {
-          _swapVideoPositions('joined');
+    switch (update) {
+      case 'connected':
+        if (connected) {
+          document.getElementById('connecting-mask').classList.add('hidden');
+          document.getElementById('start-mask').classList.remove('hidden');
         }
-      }
-
-    });
-
-    _accPack.registerEventListener('streamDestroyed', function (event) {
-
-      if (event.stream.videoType === 'camera') {
-        _remoteParticipant = false;
-        if (_callActive) {
-          _swapVideoPositions('left');
+        break;
+      case 'active':
+        if (active) {
+          document.getElementById('cameraPublisherContainer').classList.remove('hidden');
+          document.getElementById('start-mask').classList.add('hidden');
+          document.getElementById('controls').classList.remove('hidden');
         }
-      }
+        else {
+          document.getElementById('start-mask').classList.remove('hidden');
+          document.getElementById('controls').classList.add('hidden');
+          document.getElementById('cameraPublisherContainer').classList.add('hidden');
+          document.getElementById('toggleLocalVideo').classList.remove('muted');
+          document.getElementById('toggleLocalAudio').classList.remove('muted');
+        }
+        break;
+      case 'meta':
+        updateVideoContainers();
+        break;
+      default:
+        console.log('nothing to do, nowhere to go');
+    }
+  };
 
-    });
+  /**
+   * Update the state and UI
+   */
+  const updateState = (updates) => {
+    Object.assign(state, updates);
+    Object.keys(updates).forEach(update => updateUI(update));
+  };
 
-    // Click events for enabling/disabling audio/video
-    var controls = [
-      'enableLocalAudio',
-      'enableLocalVideo',
-      'enableRemoteAudio',
-      'enableRemoteVideo'
+  /**
+   * Start publishing video/audio and subscribe to streams
+   */
+  const startCall = () => {
+    otCore.startCall()
+      .then(({ publishers, subscribers, meta }) => {
+        updateState({ publishers, subscribers, meta, active: true });
+      }).catch(error => console.log(error));
+  };
+
+  /**
+   * Toggle publishing local audio
+   */
+  const toggleLocalAudio = () => {
+    const enabled = state.localAudioEnabled;
+    otCore.toggleLocalAudio(!enabled);
+    updateState({ localAudioEnabled: !enabled });
+    const action = enabled ? 'add' : 'remove';
+    document.getElementById('toggleLocalAudio').classList[action]('muted');
+  };
+
+  /**
+   * Toggle publishing local video
+   */
+  const toggleLocalVideo = () => {
+    const enabled = state.localVideoEnabled;
+    otCore.toggleLocalVideo(!enabled);
+    updateState({ localVideoEnabled: !enabled });
+    const action = enabled ? 'add' : 'remove';
+    document.getElementById('toggleLocalVideo').classList[action]('muted');
+  };
+
+  /**
+   * Toggle end call
+   */
+  const toggleEndCall = () => {
+    updateState({ active: false });
+    otCore.endCall();
+  };
+
+  /**
+   * Subscribe to otCore and UI events
+   */
+  const createEventListeners = () => {
+    const events = [
+      'subscribeToCamera',
+      'unsubscribeFromCamera',
     ];
-    controls.forEach(function (control) {
-      $(['#', control].join('')).on('click', function () {
-        _toggleMediaProperties(control);
-      });
-    });
+    events.forEach(event => otCore.on(event, ({ publishers, subscribers, meta }) => {
+      updateState({ publishers, subscribers, meta });
+    }));
+
+    document.getElementById('start').addEventListener('click', startCall);
+    document.getElementById('toggleLocalAudio').addEventListener('click', toggleLocalAudio);
+    document.getElementById('toggleLocalVideo').addEventListener('click', toggleLocalVideo);
+    document.getElementById('toggleEndCall').addEventListener('click', toggleEndCall);
   };
 
-  var _init = function () {
-    // Get session
-    var accPackOptions = _.pick(_options, ['apiKey', 'sessionId', 'token', 'textChat']);
-
-    _accPack = new AcceleratorPack(accPackOptions);
-    _session = _accPack.getSession();
-    _.extend(_options, _accPack.getOptions());
-
-    _session.on({
-      connectionCreated: function () {
-
-        if (_connected) {
-          return;
-        }
-
-        _connected = true;
-
-        var commOptions = _.extend({}, _options, {
-          session: _session,
-          accPack: _accPack
-        }, _accPack.getOptions());
-
-        _communication = new CommunicationAccPack(commOptions);
-        _addEventListeners();
-        _initialized = true;
-        _startCall();
-      }
-    });
+  /**
+   * Initialize otCore, connect to the session, and listen to events
+   */
+  const init = () => {
+    otCore.init(options);
+    otCore.connect().then(() => updateState({ connected: true }));
+    createEventListeners();
   };
 
-  var _connectCall = function () {
+  init();
+};
 
-    if (!_initialized) {
-      _init();
-    } else {
-      !_callActive ? _startCall() : _endCall();
-    }
-
-  };
-
-  document.addEventListener('DOMContentLoaded', function () {
-    // Start or end call
-    $('#callActive').on('click', _connectCall);
-  });
-
-}());
+document.addEventListener('DOMContentLoaded', app);
