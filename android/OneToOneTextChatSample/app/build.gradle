@@ -36,6 +36,6 @@ apply plugin: 'com.android.application'
         testCompile 'junit:junit:4.12'
         compile 'com.android.support:appcompat-v7:25.+'
         compile 'com.android.support:design:25.+'
-        compile 'com.opentok.android:opentok-accelerator-textchat:1.0.0'
+        compile 'com.opentok.android:opentok-accelerator-textchat:1.0.+'
     }
 
