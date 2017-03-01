@@ -94,22 +94,21 @@ This class sets up the screen share UI views and events, and provides functions 
 
 The following `options` fields are used in the `ScreenShareAccPack` constructor:<br/>
 
-| Feature        | Field  | Required |
-| ------------- | ------------- |
-| Set the OpenTok session  (object).| `session` |`true`|
-| Set the screen container (string). | `screenSharingContainer`  |`false`|
-| Set the Common layer API (object). | `accPack` |`false`|
-| Set the ID of the Chrome extension (string). | `extensionID` |`false`|
-| Set the download path for the FireFox extension (string). | `extentionPathFF` |`false`|
-| Set the container to append the start/stop button (string).| `controlsContainer` |`false`|
-|Set custom properties for the publisher (object)| `screenProperties`|`false`|
-|Allow screen sharing over `http` in development (boolean)| `dev`|`false`|
+ Feature        | Field  | Required
+ ------------- | ------------- | ------------
+ Set the OpenTok session  (object).| `session` |`true`
+ Set the screen container (string). | `screenSharingContainer`  |`false`
+ Set the Common layer API (object). | `accPack` |`false`
+ Set the ID of the Chrome extension (string). | `extensionID` |`false`
+ Set the download path for the FireFox extension (string). | `extentionPathFF` |`false`
+ Set the container to append the start/stop button (string).| `controlsContainer` |`false`
+Set custom properties for the publisher (object)| `screenProperties`|`false`
+Allow screen sharing over `http` in development (boolean)| `dev`|`false`
 
 
 Once you define the options, you simply create a new instance of the  `ScreenShareAccPack`:
 
-  ```javascript
-
+```javascript
       var screenShareOptions = {
        accPack: _this,
        session: _session,
@@ -119,7 +118,7 @@ Once you define the options, you simply create a new instance of the  `ScreenSha
      };
 
      var screenSharing = new ScreenShareAccPack(screenShareOptions);
-  ```
+```
 
 
 #### ScreenShareAccPack Methods
@@ -137,11 +136,11 @@ The `ScreenShareAccPack` component has the following methods:
 
 The `ScreenSharingAccPack` component emits the following events:
 
-| Event        | Description  |
-| ------------- | ------------- |
-| `startScreenSharing ` | We've started publishing/sharing the screen.  |
-| `endScreenSharing ` | We've stopped publishing/sharing the screen.  |
-| `screenSharingError ` | A screen sharing error occurred.  |
+ Event        | Description
+ ------------- | -------------
+ `startScreenSharing ` | We've started publishing/sharing the screen.
+ `endScreenSharing ` | We've stopped publishing/sharing the screen.
+ `screenSharingError ` | A screen sharing error occurred.
 
 
 If using the common layer, you can subscribe to these events by calling `registerEventListener` on  `_accPack` and providing a callback function:

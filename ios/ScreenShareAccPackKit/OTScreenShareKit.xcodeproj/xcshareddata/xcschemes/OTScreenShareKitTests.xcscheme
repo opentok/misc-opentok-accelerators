@@ -5,22 +5,6 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A09A4AA01CD02A800024C349"
-               BuildableName = "OTScreenShareAccPackKit.app"
-               BlueprintName = "OTScreenShareAccPackKit"
-               ReferencedContainer = "container:OTScreenShareAccPackKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -28,14 +12,24 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A0CFE4621D25F49D00D8449B"
+               BuildableName = "OTScreenShareKitTests.xctest"
+               BlueprintName = "OTScreenShareKitTests"
+               ReferencedContainer = "container:OTScreenShareKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A09A4AA01CD02A800024C349"
-            BuildableName = "OTScreenShareAccPackKit.app"
-            BlueprintName = "OTScreenShareAccPackKit"
-            ReferencedContainer = "container:OTScreenShareAccPackKit.xcodeproj">
+            BuildableName = "OTScreenShareKit.app"
+            BlueprintName = "OTScreenShareKit"
+            ReferencedContainer = "container:OTScreenShareKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +50,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A09A4AA01CD02A800024C349"
-            BuildableName = "OTScreenShareAccPackKit.app"
-            BlueprintName = "OTScreenShareAccPackKit"
-            ReferencedContainer = "container:OTScreenShareAccPackKit.xcodeproj">
+            BuildableName = "OTScreenShareKit.app"
+            BlueprintName = "OTScreenShareKit"
+            ReferencedContainer = "container:OTScreenShareKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,16 +64,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A09A4AA01CD02A800024C349"
-            BuildableName = "OTScreenShareAccPackKit.app"
-            BlueprintName = "OTScreenShareAccPackKit"
-            ReferencedContainer = "container:OTScreenShareAccPackKit.xcodeproj">
+            BuildableName = "OTScreenShareKit.app"
+            BlueprintName = "OTScreenShareKit"
+            ReferencedContainer = "container:OTScreenShareKit.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

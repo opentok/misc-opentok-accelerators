@@ -1,6 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "OTScreenShareKit"
-  s.version          = "1.1.6"
+  s.version          = "2.0.6"
+  s.deprecated_in_favor_of = 'OTAcceleratorCore'
   s.summary          = "OpenTok Screensharing with Annotations Accelerator Pack enables users to share their screens between mobile or browser-based devices."
 
   s.description      = "This document describes how to use the OpenTok Screensharing with Annotations Accelerator Pack for iOS. Through the exploration of the OpenTok Screensharing with Annotations Sample App, you will learn best practices for screensharing on an iOS mobile device."
@@ -13,10 +14,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'ios/ScreenShareAccPackKit/OTScreenShareKit/ScreenShare/**/*'
-
-  s.public_header_files = 'ios/ScreenShareAccPackKit/OTScreenShareKit/ScreenShare/OTScreenShareKit.h', 
-    'ios/ScreenShareAccPackKit/OTScreenShareKit/ScreenShare/OTScreenSharer.h'
+  s.source_files = 'ios/ScreenShareAccPackKit/OTScreenShareKit/**/*'
 
   s.dependency 'OTAcceleratorPackUtil'
 end

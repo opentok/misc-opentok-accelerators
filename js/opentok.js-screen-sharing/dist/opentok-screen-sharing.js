@@ -75,7 +75,7 @@
 
   // vars for the analytics logs. Internal use
   var _logEventData = {
-    clientVersion: 'js-vsol-1.0.0',
+    clientVersion: 'js-vsol-1.1.0',
     componentId: 'screenSharingAccPack',
     name: 'guidScreensharingAccPack',
     actionInitialize: 'Init',
@@ -136,7 +136,7 @@
 
   var _setupUI = function (parent) {
     $('body').append(_screenDialogsExtensions);
-    $(_this.controlsContainer).append(_screenSharingControl);
+    _this.appendControl && $(_this.controlsContainer).append(_screenSharingControl);
     $(parent).append(_screenSharingView);
   };
 
@@ -163,7 +163,16 @@
 
       var innerDeferred = $.Deferred();
 
-      var container = publisherDiv || _this.screenSharingContainer;
+      var getContainer = function () {
+        if (publisherDiv) { return publisherDiv; }
+        if (typeof _this.screenSharingContainer === 'function') {
+          return document.querySelector(_this.screenSharingContainer('publisher', 'screen'));
+        } else {
+          return _this.screenSharingContainer;
+        }
+      }
+
+      var container = getContainer();
       var properties =
         _this.localScreenProperties ||
         _this.localScreenProperties ||
@@ -413,12 +422,13 @@
   /**
    * @constructor
    * Represents a screensharing component
-   * @param {object} options
-   * @param {string} options.session
-   * @param {object} [options.accPack]
-   * @param {string} [options.extensionID]
-   * @param {string} [options.extentionPathFF]
-   * @param {string} [options.screensharingParent]
+   * @param {Object} options
+   * @param {String} options.session
+   * @param {Object} [options.accPack]
+   * @param {String} [options.extensionID]
+   * @param {String} [options.extentionPathFF]
+   * @param {String} [options.screensharingParent]
+   * @param {String | Function} [options.screensharingContainer]
    */
   var ScreenSharingAccPack = function (options) {
 
@@ -439,6 +449,7 @@
       'controlsContainer',
       'screenProperties',
       'localScreenProperties',
+      'appendControl',
       'dev',
     ];
 
@@ -447,6 +458,7 @@
       screenSharingParent: '#videoContainer',
       screenSharingContainer: document.getElementById('videoHolderSharedScreen'),
       controlsContainer: '#feedControls',
+      appendControl: true,
     }));
 
 
