@@ -8,6 +8,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -136,6 +138,10 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         //set listener to receive the communication events, and add UI to these events
         mComm.setListener(this);
         mComm.init();
+
+        //init remote annotations renderer
+        mRenderer = new AnnotationsVideoRenderer(this);
+        mComm.setRemoteScreenRenderer(mRenderer);
 
         //init controls fragments
         if (savedInstanceState == null) {
@@ -283,7 +289,6 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
-    //Get OneToOneCommunicator object
     public OneToOneCommunication getComm() {
         return mComm;
     }
@@ -292,6 +297,14 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         if (mRemoteFragment != null && mComm.isRemote()) {
             mRemoteFragment.show();
         }
+    }
+
+    public boolean isScreensharing() {
+        return isScreensharing;
+    }
+
+    public void onCallToolbar(View view) {
+        showAll();
     }
 
     //Video local button event
@@ -406,6 +419,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         mProgressDialog.dismiss();
     }
 
+    //Annotations listener events
     @Override
     public void onScreencaptureReady(Bitmap bmp) {
         saveScreencapture(bmp);
@@ -592,24 +606,15 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         }
     }
 
-    private void initRemoteFragment() {
-        mRemoteFragment = new RemoteControlFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.actionbar_remote_fragment_container, mRemoteFragment).commit();
+    @Override
+    public void onReconnected() {
+        Log.i(LOG_TAG, "The session reconnected.");
+        Toast.makeText(this, R.string.reconnected, Toast.LENGTH_LONG).show();
     }
 
-    private void initCameraFragment() {
-        mCameraFragment = new PreviewCameraFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.camera_preview_fragment_container, mCameraFragment).commit();
-    }
-
-    private void initScreenSharingFragment() {
-        mScreenSharingFragment = ScreenSharingFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
-        mScreenSharingFragment.enableAnnotations(true, mAnnotationsToolbar);
-        mScreenSharingFragment.setListener(this);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.screensharing_fragment_container, mScreenSharingFragment).commit();
+    @Override
+    public void onCameraChanged(int newCameraId) {
+        Log.i(LOG_TAG, "The camera changed. New camera id is: "+newCameraId);
     }
 
     //Audio local button event
@@ -697,9 +702,63 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
         isScreensharing = false;
     }
 
-    public void saveScreencapture(Bitmap bmp) {
+    //Private methods
+    private void initPreviewFragment() {
+        mPreviewFragment = new PreviewControlFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.actionbar_preview_fragment_container, mPreviewFragment).commit();
 
+        if (isRemoteAnnotations || isAnnotations) {
+            mPreviewFragment.enableAnnotations(true);
+        }
+    }
+
+    private void initRemoteFragment() {
+        mRemoteFragment = new RemoteControlFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.actionbar_remote_fragment_container, mRemoteFragment).commit();
+    }
+
+    private void initCameraFragment() {
+        mCameraFragment = new PreviewCameraFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.camera_preview_fragment_container, mCameraFragment).commit();
+    }
+
+    private void initScreenSharingFragment() {
+        mScreenSharingFragment = ScreenSharingFragment.newInstance(mComm.getSession(), OpenTokConfig.API_KEY);
+        mScreenSharingFragment.enableAnnotations(true, mAnnotationsToolbar);
+        mScreenSharingFragment.setListener(this);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.screensharing_fragment_container, mScreenSharingFragment).commit();
+    }
+
+    private void remoteAnnotations() {
+        try {
+            mRemoteAnnotationsView = new AnnotationsView(this, mComm.getSession(), OpenTokConfig.API_KEY, mComm.getRemote());
+            mRemoteAnnotationsView.setVideoRenderer(mRenderer);
+            mRemoteAnnotationsView.attachToolbar(mAnnotationsToolbar);
+            mRemoteAnnotationsView.setAnnotationsListener(this);
+            ((ViewGroup) mRemoteViewContainer).addView(mRemoteAnnotationsView);
+            mPreviewFragment.enableAnnotations(true);
+        } catch (Exception e) {
+            Log.i(LOG_TAG, "Exception - enableRemoteAnnotations: " + e);
+        }
+    }
+
+    private void saveScreencapture(Bitmap bmp) {
         if (bmp != null) {
+            Bitmap annotationsBmp = null;
+            Bitmap overlayBmp = null;
+            //get bmp from annotationsView
+            if ( mRemoteAnnotationsView != null ){
+                annotationsBmp= getBitmapFromView(mRemoteAnnotationsView);
+                overlayBmp = mergeBitmaps(bmp, annotationsBmp);
+            }
+            else {
+                overlayBmp = bmp;
+            }
+
             String filename;
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -711,7 +770,7 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 File file = new File(path, filename + ".jpg");
                 fOut = new FileOutputStream(file);
 
-                bmp.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+                overlayBmp.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
                 fOut.flush();
                 fOut.close();
 
@@ -724,6 +783,27 @@ public class MainActivity extends AppCompatActivity implements OneToOneCommunica
                 e.printStackTrace();
             }
         }
+    }
+
+    private Bitmap getBitmapFromView(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable =view.getBackground();
+        if (bgDrawable!=null)
+            bgDrawable.draw(canvas);
+        view.draw(canvas);
+        return returnedBitmap;
+    }
+
+    private Bitmap mergeBitmaps(Bitmap bmp1, Bitmap bmp2){
+        Bitmap bmpOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(), bmp1.getConfig());
+        bmp2 = Bitmap.createScaledBitmap(bmp2, bmp1.getWidth(), bmp1.getHeight(),
+                true);
+        Canvas canvas = new Canvas(bmpOverlay);
+        canvas.drawBitmap(bmp1, 0,0, null);
+        canvas.drawBitmap(bmp2, 0,0, null);
+
+        return bmpOverlay;
     }
 
     private void openScreenshot(File imageFile) {

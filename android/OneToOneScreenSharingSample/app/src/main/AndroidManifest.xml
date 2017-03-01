@@ -3,7 +3,7 @@
     package="com.tokbox.android.screensharingsample">
     <uses-sdk
         android:minSdkVersion="21"
-        android:targetSdkVersion="23"
+        android:targetSdkVersion="24"
         tools:overrideLibrary="com.tokbox.android.accpack.screensharing"/>
 
     <uses-permission android:name="android.permission.CAMERA" />
