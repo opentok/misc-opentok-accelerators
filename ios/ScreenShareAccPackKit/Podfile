@@ -1,0 +1,9 @@
+platform :ios, '8.0'
+
+target 'OTScreenShareKit' do
+    pod 'OTAcceleratorPackUtil'
+end
+
+target 'OTScreenShareKitTests' do
+    pod 'Kiwi'
+end
