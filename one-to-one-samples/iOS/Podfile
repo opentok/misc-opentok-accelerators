@@ -1,0 +1,7 @@
+
+platform :ios, '9.0'
+
+target 'OneToOneSample' do 
+  pod 'OTAcceleratorCore', '1.0.3'
+  pod 'SVProgressHUD'
+end

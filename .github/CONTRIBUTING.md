@@ -1,13 +1,13 @@
-# Contributing to OpenTok Annotations Accelerator Pack
+# Contributing to OpenTok One-to-One Communication Sample Apps
 
 ## Code of Conduct
 
-Please read our [Code of Conduct](./CONDUCT.md). Intolerance, disrespect, and any of form of negativity will not be tolerated.
+Please read our [Code of Conduct](https://github.com/opentok/one-to-one-sample-apps/blob/master/.github/CONDUCT.md). Intolerance, disrespect, and any of form of negativity will not be tolerated.
 
 ## Opening a new issue
 
-1. Read *the entire* [README](../README.md).
-* Search [open issues](https://github.com/opentok/annotation-acc-pack/issues) *and* [closed issues](https://github.com/opentok/annotation-acc-pack/issues?q=is%3Aissue+is%3Aclosed) to **avoid opening a duplicate issue.
+1. Read *the entire* [README](https://github.com/opentok/one-to-one-sample-apps/blob/master/README.md).
+* Search [open issues](https://github.com/opentok/one-to-one-sample-apps/issues) *and* [closed issues](https://github.com/opentok/one-to-one-sample-apps/issues?q=is%3Aissue+is%3Aclosed) to **avoid opening a duplicate issue.
 * If your issue exists and you have some new information to contribute, you may add a comment to its thread.
 * Otherwise, open a new issue with a clear title and description.
 * Provide **all** of the following information:

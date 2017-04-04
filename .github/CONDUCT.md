@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 OpenTok Code of Conduct
+=======
+**opentok/one-to-one-sample-apps** Code of Conduct
+>>>>>>> one-to-one-samples/master
 
 ## Our Pledge
 
