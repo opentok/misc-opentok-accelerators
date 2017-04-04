@@ -1,12 +1,8 @@
 //
 //  OTAnnotationTextView_Gesture.h
-//  OTAnnotationAccPackKit
 //
-//  Created by Xi Huang on 8/1/16.
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
-
-#import <OTAnnotationKit/OTAnnotationKit.h>
 
 @interface OTAnnotationTextView ()
 

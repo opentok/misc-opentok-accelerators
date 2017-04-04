@@ -91,14 +91,11 @@
 }
 
 - (IBAction)removeButtonPressed:(id)sender {
-    if (self.delegate) {
-        [self.delegate annotationEditTextViewController:self didFinishEditing:nil];
-    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - OTAnnotationTextViewDelegate
-- (void)annotationTextViewDidFinishChange:(OTAnnotationTextView *)textView {
+- (void)annotationTextViewDidAddText:(OTAnnotationTextView *)textView {
     if (textView != self.annotationTextView) return;
     
     if (self.delegate) {
@@ -107,7 +104,5 @@
     [textView setUserInteractionEnabled:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-- (void)annotationTextViewDidCancel:(OTAnnotationTextView *)textView {}
 
 @end

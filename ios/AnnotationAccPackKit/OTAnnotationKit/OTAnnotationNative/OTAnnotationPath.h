@@ -4,7 +4,7 @@
 //  Copyright © 2016 Tokbox. All rights reserved.
 //
 
-#import <OTAnnotationKit/OTAnnotatable.h>
+#import "OTAnnotatable.h"
 
 /**
  *  The class describes an annotatable point in an OTAnnotationView.
@@ -75,6 +75,13 @@
  */
 - (void)drawToPoint:(OTAnnotationPoint *)point;
 
+- (void)drawCurveToPoint:(OTAnnotationPoint *)toPoint;
+
+/**
+ *  Draw a curve line from the last point to the given point.
+ *
+ *  @param point The destination point of the line segment.
+ */
 - (void)drawCurveToPoint:(OTAnnotationPoint *)toPoint;
 
 /**

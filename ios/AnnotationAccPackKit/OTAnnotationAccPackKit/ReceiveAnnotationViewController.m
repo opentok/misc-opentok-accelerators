@@ -5,12 +5,14 @@
 //
 
 #import "ReceiveAnnotationViewController.h"
-#import <OTAnnotationKit/OTAnnotationKit.h>
-#import <OTScreenShareKit/OTScreenShareKit.h>
+#import "OTAnnotator.h"
+#import "OTOneToOneCommunicator.h"
 
-@interface ReceiveAnnotationViewController () <OTAnnotationToolbarViewDataSource>
+#import "AppDelegate.h"
+
+@interface ReceiveAnnotationViewController () <OTOneToOneCommunicatorDataSource, OTAnnotatorDataSource, OTAnnotationToolbarViewDataSource>
 @property (nonatomic) OTAnnotator *annotator;
-@property (nonatomic) OTScreenSharer *sharer;
+@property (nonatomic) OTOneToOneCommunicator *sharer;
 
 @property (weak, nonatomic) IBOutlet UIView *toolbarContainerView;
 @property (weak, nonatomic) IBOutlet UIView *shareView;
@@ -29,38 +31,39 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    self.sharer = [OTScreenSharer sharedInstance];
-    [self.sharer connectWithView:self.shareView
-                         handler:^(OTScreenShareSignal signal, NSError *error) {
+    self.sharer = [[OTOneToOneCommunicator alloc] initWithView:self.shareView];
+    self.sharer.dataSource = self;
+    __weak ReceiveAnnotationViewController *weakSelf = self;
+    [self.sharer connectWithHandler:^(OTCommunicationSignal signal, NSError *error) {
+        if (!error) {
                              
-                             if (!error) {
-                                 
-                                 if (signal == OTScreenShareSignalSessionDidConnect) {
-                                     self.sharer.publishAudio = NO;
-                                     self.sharer.subscribeToAudio = NO;
-                                     
-                                     self.annotator = [[OTAnnotator alloc] init];
-                                     [self.annotator connectWithCompletionHandler:^(OTAnnotationSignal signal, NSError *error) {
-                                         if (signal == OTAnnotationSessionDidConnect){
-                                             self.annotator.annotationScrollView.frame = self.shareView.bounds;
-                                             self.annotator.annotationScrollView.scrollView.contentSize = self.shareView.bounds.size;
-                                             [self.shareView addSubview:self.annotator.annotationScrollView];
-                                             
-                                             [self.annotator.annotationScrollView initializeToolbarView];
-                                             self.annotator.annotationScrollView.toolbarView.toolbarViewDataSource = self;
-                                             
-                                             // using frame and self.view to contain toolbarView is for having more space to interact with color picker
-                                             self.annotator.annotationScrollView.toolbarView.frame = self.toolbarContainerView.frame;
-                                             [self.view addSubview:self.annotator.annotationScrollView.toolbarView];
-                                         }
-                                     }];
-                                     
-                                     self.annotator.dataReceivingHandler = ^(NSArray *data) {
-                                         NSLog(@"%@", data);
-                                     };
-                                 }
-                             }
-                         }];
+            if (signal == OTPublisherCreated) {
+                weakSelf.sharer.publishAudio = NO;
+                weakSelf.sharer.subscribeToAudio = NO;
+
+                weakSelf.annotator = [[OTAnnotator alloc] init];
+                weakSelf.annotator.dataSource = weakSelf;
+                [weakSelf.annotator connectWithCompletionHandler:^(OTAnnotationSignal signal, NSError *error) {
+                    if (signal == OTAnnotationSessionDidConnect){
+                        weakSelf.annotator.annotationScrollView.frame = self.shareView.bounds;
+                        weakSelf.annotator.annotationScrollView.scrollView.contentSize = self.shareView.bounds.size;
+                        [self.shareView addSubview:weakSelf.annotator.annotationScrollView];
+                     
+                        [weakSelf.annotator.annotationScrollView initializeToolbarView];
+                        weakSelf.annotator.annotationScrollView.toolbarView.toolbarViewDataSource = weakSelf;
+                     
+                        // using frame and self.view to contain toolbarView is for having more space to interact with color picker
+                        weakSelf.annotator.annotationScrollView.toolbarView.frame = self.toolbarContainerView.frame;
+                        [weakSelf.view addSubview:weakSelf.annotator.annotationScrollView.toolbarView];
+                    }
+                }];
+                    
+                weakSelf.annotator.dataReceivingHandler = ^(NSArray *data) {
+                    NSLog(@"%@", data);
+                };
+            }
+        }
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -73,6 +76,14 @@
 
 - (UIView *)annotationToolbarViewForRootViewForScreenShot:(OTAnnotationToolbarView *)toolbarView {
     return self.shareView;
+}
+
+- (OTAcceleratorSession *)sessionOfOTAnnotator:(OTAnnotator *)annotator {
+    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
+}
+
+- (OTAcceleratorSession *)sessionOfOTOneToOneCommunicator:(OTOneToOneCommunicator *)oneToOneCommunicator {
+    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
 }
 
 @end

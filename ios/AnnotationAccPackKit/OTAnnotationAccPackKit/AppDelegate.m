@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
+#import "OTAcceleratorSession.h"
 
 @interface AppDelegate ()
 
@@ -15,13 +15,16 @@
 
 @implementation AppDelegate
 
+static OTAcceleratorSession *sharedSession;
+
+- (OTAcceleratorSession *)getSharedAcceleratorSession {
+    return sharedSession;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 #warning - replace your OpenTok credentials here
-    [OTAcceleratorSession setOpenTokApiKey:@"apikey"
-                                 sessionId:@"sessionid"
-                                     token:@"token"];
+    sharedSession = [[OTAcceleratorSession alloc] initWithOpenTokApiKey:<#apikey#> sessionId:<#sessionid#> token:<#token#>];
     return YES;
 }
 

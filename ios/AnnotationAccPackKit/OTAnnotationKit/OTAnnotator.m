@@ -11,7 +11,7 @@
 #define MAX_EDGE_SIZE_LIMIT 1280.0f
 #define EDGE_DIMENSION_COMMON_FACTOR 16.0f
 
-#import <OTAcceleratorPackUtil/OTAcceleratorPackUtil.h>
+#import "OTAcceleratorSession.h"
 #import "OTAnnotator.h"
 #import "OTAnnotationToolbarView_UserInterfaces.h"
 #import "UIColor+HexString.h"
@@ -33,28 +33,18 @@
 
 @implementation OTAnnotator
 
-- (instancetype)init {
-    
-    if (![OTAcceleratorSession getAcceleratorPackSession]) return nil;
-    
-    if (self = [super init]) {
-        _session = [OTAcceleratorSession getAcceleratorPackSession];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eraseButtonPressed:) name:kOTAnnotationToolbarDidPressEraseButton object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanButtonPressed:) name:kOTAnnotationToolbarDidPressCleanButton object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidAdd:) name:kOTAnnotationToolbarDidAddTextAnnotation object:nil];
-    }
-    return self;
-}
-
-- (void)dealloc {
-    [self disconnect];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void)setDataSource:(id<OTAnnotatorDataSource>)dataSource {
+    _dataSource = dataSource;
+    _session = [_dataSource sessionOfOTAnnotator:self];
 }
 
 - (NSError *)connect {
     if (!self.delegate && !self.handler) return nil;
-    return [OTAcceleratorSession registerWithAccePack:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eraseButtonPressed:) name:kOTAnnotationToolbarDidPressEraseButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanButtonPressed:) name:kOTAnnotationToolbarDidPressCleanButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidAdd:) name:kOTAnnotationToolbarDidAddTextAnnotation object:nil];
+    return [self.session registerWithAccePack:self];
 }
 
 - (void)connectWithCompletionHandler:(OTAnnotationBlock)handler {
@@ -67,7 +57,8 @@
         [self.annotationScrollView.annotationView removeAllAnnotatables];
         [self.annotationScrollView.annotationView removeAllRemoteAnnotatables];
     }
-    return [OTAcceleratorSession deregisterWithAccePack:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    return [self.session deregisterWithAccePack:self];
 }
 
 - (void)notifiyAllWithSignal:(OTAnnotationSignal)signal error:(NSError *)error {
@@ -101,10 +92,14 @@
     if (stream.videoType == OTStreamVideoTypeScreen) {
         latestScreenShareStream = stream;
     }
+    
+    if (!latestScreenShareStream) {
+        latestScreenShareStream = stream;
+    }
 }
 
 - (void)session:(OTSession *)session streamDestroyed:(OTStream *)stream {
-    if (stream.videoType == OTStreamVideoTypeScreen) {
+    if ([latestScreenShareStream.streamId isEqualToString:stream.streamId]) {
         latestScreenShareStream = nil;
     }
 }
@@ -134,12 +129,24 @@
                          error:nil];
 }
 
+- (void)cleanRemoteCanvas {
+    [self cleanButtonPressed:nil];
+}
+
 // OPENTOK SIGNALING
 - (void)session:(OTSession*)session
 receivedSignalType:(NSString*)type
  fromConnection:(OTConnection*)connection
      withString:(NSString*)string {
     
+    if (self.stopReceivingAnnotaiton) return;
+    
+    // TODO for the next person who sees this: a workaround for making the web annotation work
+    if ([type isEqualToString:@"otAnnotation_requestPlatform"]) {
+        [self.session signalWithType:@"otAnnotation_mobileScreenShare" string:[JSON stringify:@{@"platform":@"ios"}] connection:nil error:nil];
+        return;
+    }
+        
     if (![type isEqualToString:@"otAnnotation_pen"] &&
         ![type isEqualToString:@"otAnnotation_text"] &&
         ![type isEqualToString:@"otAnnotation_undo"] &&
@@ -152,7 +159,7 @@ receivedSignalType:(NSString*)type
         ![self.session.connection.connectionId isEqualToString:connection.connectionId]) {
         
         // make sure contentSize is up-to-date
-        self.annotationScrollView.scrollView.contentSize = self.annotationScrollView.bounds.size;
+//        self.annotationScrollView.scrollView.contentSize = self.annotationScrollView.bounds.size;
         
         NSArray *jsonArray = [JSON parseJSON:string];
         
@@ -198,13 +205,13 @@ receivedSignalType:(NSString*)type
             UIColor *drawingColor = [UIColor colorFromHexString:[jsonArray firstObject][@"color"]];
             CGFloat lineWidth = [[jsonArray firstObject][@"lineWidth"] floatValue];
             
-            self.annotationScrollView.annotationView.currentAnnotatable = [[OTRemoteAnnotationPath alloc] initWithStrokeColor:drawingColor
+            self.annotationScrollView.annotationView.remoteAnnotatable = [[OTRemoteAnnotationPath alloc] initWithStrokeColor:drawingColor
                                                                                                                    remoteGUID:remoteGUID];
             OTRemoteAnnotationPath *currentPath = (OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable;
             currentPath.lineWidth = lineWidth;
         }
         else {
-            self.annotationScrollView.annotationView.currentAnnotatable = [[OTRemoteAnnotationPath alloc] initWithStrokeColor:nil];
+            self.annotationScrollView.annotationView.remoteAnnotatable = [[OTRemoteAnnotationPath alloc] initWithStrokeColor:nil];
         }
         
         // draw oval
@@ -232,7 +239,7 @@ receivedSignalType:(NSString*)type
             // this is the unique property from web
             NSString *platform = json[@"platform"];
             if (platform && [platform isEqualToString:@"web"]) {
-                [self drawOnFitModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
+                [self drawOnFitModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.remoteAnnotatable];
                 continue;
             }
             
@@ -254,11 +261,11 @@ receivedSignalType:(NSString*)type
 
             if ((remoteCanvasWidth == videoWidth && remoteCanvasHeight == videoHeight) || thisCanvasAspectRatio == remoteCanvasAspectRatio) {
                 // draw on the fill mode or on the same aspect ratio
-                [self drawOnFillModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
+                [self drawOnFillModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.remoteAnnotatable];
             }
             else {
                 // draw on irregular aspect ratio
-                [self drawOnFitModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.currentAnnotatable];
+                [self drawOnFitModeWithJson:json path:(OTRemoteAnnotationPath *)self.annotationScrollView.annotationView.remoteAnnotatable];
             }
         }
     }
@@ -270,17 +277,17 @@ receivedSignalType:(NSString*)type
 
     NSString *jsonString;
     
-    if ([notification.object isMemberOfClass:[OTAnnotationPath class]] ) {
-        OTAnnotationPath *path = (OTAnnotationPath *)notification.object;
+    if ([notification.userInfo[@"annotation"] isMemberOfClass:[OTAnnotationPath class]] ) {
+        OTAnnotationPath *path = (OTAnnotationPath *)notification.userInfo[@"annotation"];
         jsonString = [JSON stringify:@[path.uuid]];
     }
-    else if ([notification.object isMemberOfClass:[OTAnnotationTextView class]]) {
+    else if ([notification.userInfo[@"annotation"] isMemberOfClass:[OTAnnotationTextView class]]) {
         jsonString = [JSON stringify:@[[NSNull null]]];
     }
     
     if (jsonString) {
         NSError *error;
-        [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_undo" string:jsonString connection:latestScreenShareStream.connection error:&error];
+        [self.session signalWithType:@"otAnnotation_undo" string:jsonString connection:latestScreenShareStream.connection error:&error];
         if (error) {
             NSLog(@"remoteEraseButtonPressed: %@", error);
         }
@@ -292,7 +299,7 @@ receivedSignalType:(NSString*)type
     if (!latestScreenShareStream) return;
     
     NSError *error;
-    [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_clear" string:nil connection:latestScreenShareStream.connection error:&error];
+    [self.session signalWithType:@"otAnnotation_clear" string:nil connection:latestScreenShareStream.connection error:&error];
     if (error) {
         NSLog(@"remoteCleanButtonPressed: %@", error);
     }
@@ -301,9 +308,9 @@ receivedSignalType:(NSString*)type
 - (void)textDidAdd:(NSNotification *)notification {
     
     if (!latestScreenShareStream) return;
-    if (![notification.object isMemberOfClass:[OTAnnotationTextView class]]) return;
+    if (![notification.userInfo[@"annotation"] isMemberOfClass:[OTAnnotationTextView class]]) return;
     
-    OTAnnotationTextView *textView = (OTAnnotationTextView *)notification.object;
+    OTAnnotationTextView *textView = (OTAnnotationTextView *)notification.userInfo[@"annotation"];
     NSDictionary *data = @{
                            @"id": latestScreenShareStream.connection.connectionId,
                            @"fromId": self.session.connection.connectionId,
@@ -322,7 +329,7 @@ receivedSignalType:(NSString*)type
     NSError *error;
     NSString *jsonString = [JSON stringify:@[data]];
     
-    [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_text" string:jsonString connection:latestScreenShareStream.connection error:&error];
+    [self.session signalWithType:@"otAnnotation_text" string:jsonString connection:latestScreenShareStream.connection error:&error];
     if (error) {
         NSLog(@"remoteCleanButtonPressed: %@", error);
     }
@@ -342,7 +349,7 @@ receivedSignalType:(NSString*)type
     // iPad aspect ratio is 4:3 = 0.75
     
     CGFloat scale = 1.0f;
-    if (thisCanvasWidth < thisCanvasHeight) {
+    if (thisCanvasWidth < thisCanvasHeight || remoteCanvasWidth < remoteCanvasHeight) {
         scale = thisCanvasHeight / remoteCanvasHeight;
     }
     else {
@@ -358,7 +365,7 @@ receivedSignalType:(NSString*)type
     
     OTAnnotationPoint *pt;
     
-    if (thisCanvasWidth < thisCanvasHeight) {
+    if (thisCanvasWidth < thisCanvasHeight || remoteCanvasWidth < remoteCanvasHeight) {
         
         // letter boxing is produced on horizontal level
         CGFloat actualDrawingFromX = fromX - (remoteCanvasWidth / 2 - self.annotationScrollView.annotationView.center.x);
@@ -378,9 +385,7 @@ receivedSignalType:(NSString*)type
     NSString *fontSizeString = json[@"font"];
     NSArray *fontSizeStringArray = [fontSizeString componentsSeparatedByString:@" "];
     NSUInteger fontSize = [[fontSizeStringArray firstObject] integerValue];
-//    NSString *remoteGUID = json[@"guid"];
     
-//    if (!text || !color || !fontSizeString || !fontSizeStringArray || fontSizeStringArray.count != 2 || !remoteGUID) return;
     if (!text || !color || !fontSizeString || !fontSizeStringArray || fontSizeStringArray.count != 2) return;
     
     OTRemoteAnnotationTextView *annotationTextView = [[OTRemoteAnnotationTextView alloc] initWithText:text
@@ -447,7 +452,7 @@ receivedSignalType:(NSString*)type
     // iPad aspect ratio is 4:3 = 0.75
     
     CGFloat scale = 1.0f;
-    if (thisCanvasWidth < thisCanvasHeight) {
+    if (thisCanvasWidth < thisCanvasHeight || remoteCanvasWidth < remoteCanvasHeight) {
         scale = thisCanvasHeight / remoteCanvasHeight;
     }
     else {
@@ -466,7 +471,7 @@ receivedSignalType:(NSString*)type
     OTAnnotationPoint *pt1;
     OTAnnotationPoint *pt2;
     
-    if (thisCanvasWidth < thisCanvasHeight) {
+    if (thisCanvasWidth < thisCanvasHeight || remoteCanvasWidth < remoteCanvasHeight) {
         
         // letter boxing is produced on horizontal level
         CGFloat actualDrawingFromX = fromX - (remoteCanvasWidth / 2 - self.annotationScrollView.annotationView.center.x);
@@ -504,6 +509,8 @@ receivedSignalType:(NSString*)type
             touchBegan:(UITouch *)touch
              withEvent:(UIEvent *)event {
     
+    if (self.stopSendingAnnotation) return;
+    
     signalingPoints = [[NSMutableArray alloc] init];
     
     // update this to ensure color property is not affected by remote annotation data
@@ -521,6 +528,8 @@ receivedSignalType:(NSString*)type
             touchMoved:(UITouch *)touch
              withEvent:(UIEvent *)event {
     
+    if (self.stopSendingAnnotation) return;
+    
     if (!signalingPoints) {
         signalingPoints = [[NSMutableArray alloc] init];
     }
@@ -532,7 +541,7 @@ receivedSignalType:(NSString*)type
     if (signalingPoints.count == 5) {
         NSError *error;
         NSString *jsonString = [JSON stringify:signalingPoints];
-        [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_pen" string:jsonString connection:latestScreenShareStream.connection error:&error];
+        [self.session signalWithType:@"otAnnotation_pen" string:jsonString connection:nil error:&error];
         
         // notify sending data
         if (self.dataReceivingHandler) {
@@ -551,6 +560,8 @@ receivedSignalType:(NSString*)type
             touchEnded:(UITouch *)touch
              withEvent:(UIEvent *)event {
     
+    if (self.stopSendingAnnotation) return;
+    
     if (signalingPoint) {
         [self signalAnnotatble:annotationView.currentAnnotatable
                          touch:touch
@@ -564,7 +575,7 @@ receivedSignalType:(NSString*)type
     
     NSError *error;
     NSString *jsonString = [JSON stringify:signalingPoints];
-    [[OTAcceleratorSession getAcceleratorPackSession] signalWithType:@"otAnnotation_pen" string:jsonString connection:latestScreenShareStream.connection error:&error];
+    [self.session signalWithType:@"otAnnotation_pen" string:jsonString connection:nil error:&error];
     
     // notify sending data
     if (self.dataReceivingHandler) {
@@ -612,6 +623,27 @@ receivedSignalType:(NSString*)type
             signalingPoint = nil;
         }
     }
+}
+
+#pragma mark - advanced
+- (NSError *)subscribeToStreamWithName:(NSString *)name {
+    for (OTStream *stream in self.session.streams.allValues) {
+        if ([stream.name isEqualToString:name]) {
+            latestScreenShareStream = stream;
+        }
+    }
+    
+    return [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is no such stream with name: %@", name]}];
+}
+
+- (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId {
+    for (OTStream *stream in self.session.streams.allValues) {
+        if ([stream.streamId isEqualToString:streamId]) {
+            latestScreenShareStream = stream;
+        }
+    }
+    
+    return [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is no such stream with streamId: %@", streamId]}];
 }
 
 @end

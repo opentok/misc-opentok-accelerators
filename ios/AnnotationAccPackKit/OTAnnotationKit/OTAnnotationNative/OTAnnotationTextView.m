@@ -17,15 +17,13 @@
     BOOL startTyping;
     BOOL isRemoteSignaling;
 }
+@property (nonatomic) UIButton *commitButton;
 @property (nonatomic) UIButton *cancelButton;
 @property (nonatomic) UIButton *rotateButton;
 @property (nonatomic) UIButton *pinchButton;
 @end
 
 @implementation OTAnnotationTextView
-
-NSString *const OTAnnotationTextViewDidFinishChangeNotification = @"OTAnnotationTextViewDidFinishChangeNotification";
-NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotationTextViewDidCancelChangeNotification";
 
 - (UIButton *)cancelButton {
     if (!_cancelButton) {
@@ -38,6 +36,23 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
         [self addSubview:_cancelButton];
     }
     return _cancelButton;
+}
+
+- (UIButton *)commitButton {
+    if (!_commitButton) {
+        _commitButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [_commitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_commitButton setBackgroundColor:[UIColor colorWithRed:118.0/255.0f green:206.0/255.0f blue:31.0/255.0f alpha:1.0]];
+        [_commitButton setImage:[UIImage imageNamed:@"checkmark" inBundle:[OTAnnotationKitBundle annotationKitBundle] compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        [_commitButton setImageEdgeInsets:UIEdgeInsetsMake(6, 6, 6, 6)];
+        _commitButton.center = CGPointMake(CGRectGetWidth(self.bounds), 0);
+        _commitButton.layer.cornerRadius = CGRectGetWidth(_commitButton.bounds) / 2;
+        _commitButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        _commitButton.layer.borderWidth = 2.0f;
+        [_commitButton addTarget:self action:@selector(commitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_commitButton];
+    }
+    return _commitButton;
 }
 
 - (void)setDraggable:(BOOL)draggable {
@@ -218,9 +233,12 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
         // set editable and selectable NO so it won't have the pop-up menu
         [self setEditable:NO];
         [self setSelectable:NO];
-        [self.annotationTextViewDelegate annotationTextViewDidFinishChange:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:OTAnnotationTextViewDidFinishChangeNotification object:self];
+        [self commitButton];
         [self cancelButton];
+        
+        if (self.annotationTextViewDelegate && [self.annotationTextViewDelegate respondsToSelector:@selector(annotationTextViewDidAddText:)]) {
+            [self.annotationTextViewDelegate annotationTextViewDidAddText:self];
+        }
     }
 }
 
@@ -235,6 +253,8 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
     self.rotatable = NO;
     
     // workaround: the text view will get cut off if we remove it directly
+    self.commitButton.hidden = YES;
+    self.commitButton = nil;
     self.cancelButton.hidden = YES;
     self.cancelButton = nil;
     
@@ -243,6 +263,7 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
     if (isRemoteSignaling) {
         [self sizeToFit];
     }
+    
     [[AnnLoggingWrapper sharedInstance].logger logEventAction:KLogActionText variation:KLogVariationSuccess completion:nil];
 }
 
@@ -254,11 +275,16 @@ NSString *const OTAnnotationTextViewDidCancelChangeNotification = @"OTAnnotation
     self.frame = newFrame;
 }
 
+- (void)commitButtonPressed:(UIButton *)sender {
+    if (self.annotationTextViewDelegate && [self.annotationTextViewDelegate respondsToSelector:@selector(annotationTextViewDidFinishEditing:)]) {
+        [self.annotationTextViewDelegate annotationTextViewDidFinishEditing:self];
+    }
+}
+
 - (void)cancelButtonPressed:(UIButton *)sender {
-    if (self.annotationTextViewDelegate) {
+    if (self.annotationTextViewDelegate && [self.annotationTextViewDelegate respondsToSelector:@selector(annotationTextViewDidCancel:)]) {
         [self.annotationTextViewDelegate annotationTextViewDidCancel:self];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:OTAnnotationTextViewDidCancelChangeNotification object:self];
     [self removeFromSuperview];
 }
 

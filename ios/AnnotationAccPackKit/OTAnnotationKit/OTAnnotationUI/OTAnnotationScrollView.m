@@ -58,17 +58,17 @@
         _scrollContentView.translatesAutoresizingMaskIntoConstraints = NO;
         [_scrollView addSubview:_scrollContentView];
         [NSLayoutConstraint constraintWithItem:_scrollContentView
-                                     attribute:NSLayoutAttributeTop
+                                     attribute:NSLayoutAttributeCenterX
                                      relatedBy:NSLayoutRelationEqual
                                         toItem:_scrollView
-                                     attribute:NSLayoutAttributeTop
+                                     attribute:NSLayoutAttributeCenterX
                                     multiplier:1.0
                                       constant:0.0].active = YES;
         [NSLayoutConstraint constraintWithItem:_scrollContentView
-                                     attribute:NSLayoutAttributeLeft
+                                     attribute:NSLayoutAttributeCenterY
                                      relatedBy:NSLayoutRelationEqual
                                         toItem:_scrollView
-                                     attribute:NSLayoutAttributeLeft
+                                     attribute:NSLayoutAttributeCenterY
                                     multiplier:1.0
                                       constant:0.0].active = YES;
         _annotationScrollViewWidth = [NSLayoutConstraint constraintWithItem:_scrollContentView

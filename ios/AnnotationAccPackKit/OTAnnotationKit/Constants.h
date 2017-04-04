@@ -7,9 +7,8 @@
 #import <UIKit/UIKit.h>
 
 static const CGFloat DefaultToolbarHeight = 50.0f;
-static const CGFloat WidthOfColorPicker = 46.0f;
-static const CGFloat HeightOfColorPicker = 46.0f;
-//static const CGFloat GapOfToolBarAndColorPicker = 10.0f;
+static const CGFloat WidthOfColorPicker = 49.0f;
+static const CGFloat HeightOfColorPicker = 49.0f;
 static const CGFloat LeadingPaddingOfAnnotationTextView = 20.0f;
 
 

@@ -4,8 +4,8 @@
 //  Copyright © 2016 Tokbox. All rights reserved.
 //
 
-#import <OTAnnotationKit/OTAnnotationPath.h>
-#import <OTAnnotationKit/OTAnnotationTextView.h>
+#import "OTAnnotationPath.h"
+#import "OTAnnotationTextView.h"
 
 /**
  *  The annotation data manager retains and maintains all annotatable objects. Internally, it's implemented as a stack for conveniently performing operations like redo and undo.

@@ -4,10 +4,10 @@
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <OTAnnotationKit/OTAnnotationView.h>
-#import <OTAnnotationKit/OTAnnotationTextView.h>
-#import <OTAnnotationKit/OTAnnotationToolbarView.h>
-#import <OTAnnotationKit/OTAnnotationDataManager.h>
+#import "OTAnnotationView.h"
+#import "OTAnnotationTextView.h"
+#import "OTAnnotationToolbarView.h"
+#import "OTAnnotationDataManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

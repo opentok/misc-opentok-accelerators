@@ -22,6 +22,7 @@
   var _accPack;
   var _session;
   var _canvas;
+  var _subscribingToMobileScreen;
   var _elements = {};
 
   /** Analytics */
@@ -78,6 +79,11 @@
 
   /** End Analytics */
 
+  // Check for DOM element or string.  Return element.
+  var _getElem = function (el) {
+    return typeof el === 'string' ? document.querySelector(el) : el;
+  };
+
   // Trigger event via common layer API
   var _triggerEvent = function (event, data) {
     if (_accPack) {
@@ -133,49 +139,64 @@
   var _resizeCanvas = function () {
     var width;
     var height;
+    var cobrowsing = !!_elements.cobrowsingImage;
+    if (cobrowsing) {
+      // Cobrowsing images are currently fixed size, so resize isn't needed
+      return;
+    }
 
-    if (!!_elements.externalWindow) {
-      var windowDimensions = {
-        width: _elements.externalWindow.innerWidth,
-        height: _elements.externalWindow.innerHeight
-      };
-
-      var computedHeight = windowDimensions.width / _aspectRatio;
-
-      if (computedHeight <= windowDimensions.height) {
-        width = windowDimensions.width;
-        height = computedHeight;
-      } else {
-        height = windowDimensions.height;
-        width = height * _aspectRatio;
-      }
-    } else {
+    if (_elements.cobrowsingImage === null) {
       var el = _elements.absoluteParent || _elements.canvasContainer;
       width = el.clientWidth;
-      height = width / (_aspectRatio);
-      if (el.clientHeight < (width / _aspectRatio)) {
-        height = el.clientHeight;
-        width = height * _aspectRatio;
+      height = el.clientHeight;
+    }
+
+    try {
+      var videoDimensions = _canvas.videoFeed.stream.videoDimensions;
+    } catch (e) {
+      console.log('OT Annotation: Annotation video stream no longer exists');
+      return;
+    }
+
+    // Override dimensions when subscribing to a mobile screen
+    if (_subscribingToMobileScreen) {
+      videoDimensions.width = width;
+      videoDimensions.height = height;
+    }
+    var origRatio = videoDimensions.width / videoDimensions.height;
+    var destRatio = width / height;
+    var calcDimensions = {
+      top: 0,
+      left: 0,
+      height: height,
+      width: width
+    };
+
+    if (!_elements.externalWindow) {
+      if (origRatio < destRatio) {
+        // height is the limiting prop, we'll get vertical bars
+        calcDimensions.width = calcDimensions.height * origRatio;
+        calcDimensions.left = (width - calcDimensions.width) / 2;
+      } else {
+        calcDimensions.height = calcDimensions.width / origRatio;
+        calcDimensions.top = (height - calcDimensions.height) / 2;
       }
     }
 
-    $(_elements.canvasContainer).css({
-      width: width,
-      height: height
-    });
+    $(_elements.canvasContainer).find('canvas').css(calcDimensions);
 
-    $(_elements.canvasContainer).find('canvas').css({
-      width: width,
-      height: height
-    });
-
-    $(_elements.canvasContainer).find('canvas').attr({
-      width: width,
-      height: height
-    });
+    $(_elements.canvasContainer).find('canvas').attr(calcDimensions);
 
     _refreshCanvas();
     _triggerEvent('resizeCanvas');
+  };
+
+  var _changeColorByIndex = function (colorIndex) {
+    _canvas.changeColorByIndex(colorIndex);
+  };
+
+  var _takeScreenShot = function () {
+    _canvas.captureScreenshot(true);
   };
 
   var _listenForResize = function () {
@@ -236,7 +257,7 @@
 
     var width = screen.width * 0.80 | 0;
     var height = width / (_aspectRatio);
-    var externalWindowHTML = '<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-type" content="text/html; charset=utf-8"><title>OpenTok Screen Sharing Solution Annotation</title><link rel="stylesheet" href="https://assets.tokbox.com/solutions/css/style.css"><style type="text/css" media="screen"> body{margin:0;background-color:rgba(0,153,203,.7);box-sizing:border-box;height:100vh}canvas{top:0;z-index:1000}.hidden{display:none}.ots-hidden{display:none !important}.main-wrap{width:100%;height:100%;-ms-box-orient:horizontal;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-moz-flex;display:-webkit-flex;display:flex;-webkit-justify-content:center;justify-content:center;-webkit-align-items:center;align-items:center}.inner-wrap{position:relative;border-radius:8px;overflow:hidden}.publisherContainer{display:block;background-color:#000;position:absolute}.publisher-wrap{height:100%;width:100%}.subscriberContainer{position:absolute;top:20px;left:20px;width:200px;height:120px;background-color:#000;border:2px solid #fff;border-radius:6px}.subscriberContainer .OT_video-poster{width:100%;height:100%;opacity:.25;background-repeat:no-repeat;background-image:url(https://static.opentok.com/webrtc/v2.8.2/images/rtc/audioonly-silhouette.svg);background-size:50%;background-position:center}.OT_video-element{height:100%;width:100%}.OT_edge-bar-item{display:none}</style></head><body> <div class="main-wrap"> <div id="annotationContainer" class="inner-wrap"></div></div><div id="toolbarContainer" class="ots-annotation-toolbar-container"> <div id="toolbar" class="toolbar-wrap"></div></div><div id="subscriberVideo" class="subscriberContainer hidden"></div><script type="text/javascript" charset="utf-8"> /** Must use double-quotes since everything must be converted to a string */ var opener; var canvas; if (!toolbar){alert("Something went wrong: You must pass an OpenTok annotation toolbar object into the window.")}else{opener=window.opener; window.onbeforeunload=window.triggerCloseEvent;}var localScreenProperties={insertMode: "append", width: "100%", height: "100%", videoSource: "window", showControls: false, style:{buttonDisplayMode: "off"}, subscribeToVideo: "true", subscribeToAudio: "false", fitMode: "contain"}; var createContainerElements=function(){var parentDiv=document.getElementById("annotationContainer"); var publisherContainer=document.createElement("div"); publisherContainer.setAttribute("id", "screenshare_publisher"); publisherContainer.classList.add("publisher-wrap"); parentDiv.appendChild(publisherContainer); return{annotation: parentDiv, publisher: publisherContainer};}; var addSubscriberVideo=function(stream){var container=document.getElementById("subscriberVideo"); var subscriber=session.subscribe(stream, container, localScreenProperties, function(error){if (error){console.log("Failed to add subscriber video", error);}container.classList.remove("hidden");});}; if (navigator.userAgent.indexOf("Firefox") !==-1){var ghost=window.open("about:blank"); ghost.focus(); ghost.close();}</script></body></html>';
+    var externalWindowHTML = '<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-type" content="text/html; charset=utf-8"><title>OpenTok Screen Sharing Solution Annotation</title><link rel="stylesheet" href="https://assets.tokbox.com/solutions/css/style.css"><style type="text/css" media="screen"> body{margin:0;background-color:rgba(0,153,203,.7);box-sizing:border-box;height:100vh}canvas{top:0;z-index:1000}.hidden{display:none}.ots-hidden{display:none !important}.main-wrap{width:100%;height:100%;-ms-box-orient:horizontal;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-moz-flex;display:-webkit-flex;display:flex;-webkit-justify-content:center;justify-content:center;-webkit-align-items:center;align-items:center}.inner-wrap{position:relative;border-radius:8px;overflow:hidden}.publisherContainer{display:block;background-color:#000;position:absolute}.publisher-wrap{height:100%;width:100%}.subscriberContainer{position:absolute;display:flex;top:20px;left:20px;width:200px;height:120px;background-color:#000;border:2px solid #fff;border-radius:6px}.subscriberContainer .OT_video-poster{width:100%;height:100%;opacity:.25;background-repeat:no-repeat;background-image:url(https://static.opentok.com/webrtc/v2.8.2/images/rtc/audioonly-silhouette.svg);background-size:50%;background-position:center}.OT_video-element{height:100%;width:100%}.OT_edge-bar-item{display:none}</style></head><body> <div class="main-wrap"> <div id="annotationContainer" class="inner-wrap"></div></div><div id="toolbarContainer" class="ots-annotation-toolbar-container"> <div id="toolbar" class="toolbar-wrap"></div></div><div id="subscriberVideo" class="subscriberContainer hidden"></div><script type="text/javascript" charset="utf-8"> /** Must use double-quotes since everything must be converted to a string */ var opener; var canvas; if (!toolbar){alert("Something went wrong: You must pass an OpenTok annotation toolbar object into the window.")}else{opener=window.opener; window.onbeforeunload=window.triggerCloseEvent;}var localScreenProperties={insertMode: "append", width: "100%", height: "100%", videoSource: "window", showControls: false, style:{buttonDisplayMode: "off"}, subscribeToVideo: "true", subscribeToAudio: "false", fitMode: "contain"}; var createContainerElements=function(){var parentDiv=document.getElementById("annotationContainer"); var publisherContainer=document.createElement("div"); publisherContainer.setAttribute("id", "screenshare_publisher"); publisherContainer.classList.add("publisher-wrap"); parentDiv.appendChild(publisherContainer); return{annotation: parentDiv, publisher: publisherContainer};}; var addSubscriberVideo=function(stream){var container=document.getElementById("subscriberVideo"); var subscriber=session.subscribe(stream, container, localScreenProperties, function(error){if (error){console.log("Failed to add subscriber video", error);}container.classList.remove("hidden");});}; if (navigator.userAgent.indexOf("Firefox") !==-1){var ghost=window.open("about:blank"); ghost.focus(); ghost.close();}</script></body></html>';
 
     /* eslint-disable max-len */
     var windowFeatures = [
@@ -289,10 +310,31 @@
 
   // Remove the toolbar and cancel event listeners
   var _removeToolbar = function () {
+    _canvas.onClearAnnotation();
     $(_elements.resizeSubject).off('resize', _resizeCanvas);
     toolbar.remove();
-    if (!_elements.externalWindow) {
-      $('#annotationToolbarContainer').remove();
+    $('#annotationToolbarContainer').remove();
+  };
+
+  // Determine whether or not the subscriber stream is from a mobile device
+  var _requestPlatformData = function (pubSub, mobileInitiator) {
+    if (!!pubSub.stream) {
+      _session.signal({
+        type: 'otAnnotation_requestPlatform',
+        to: pubSub.stream.connection,
+      });
+
+      _session.on('signal:otAnnotation_mobileScreenShare', function (event) {
+        var platform = event.data ? JSON.parse(event.data).platform : null;
+        var isMobile = (platform == 'ios' || platform === 'android');
+        _subscribingToMobileScreen = isMobile;
+        _canvas.onMobileScreenShare(isMobile);
+      });
+    }
+
+    if (mobileInitiator) {
+      _subscribingToMobileScreen = true;
+      _canvas.onMobileScreenShare(true);
     }
   };
 
@@ -334,8 +376,9 @@
    * @ param {object} container - The parent container for the canvas element
    * @ param {object} options
    * @param {object} options.canvasContainer - The id of the parent for the annotation canvas
-   * @param {object} [options.externalWindow] - Reference to the annotation window if publishing
-   * @param {array} [options.absoluteParent] - Reference element for resize if other than container
+   * @param {object | string} [options.externalWindow] - Reference to the annotation window (or query selector) if publishing
+   * @param {array | string} [options.absoluteParent] - Reference to element (or query selector) for resize if other than container
+   * * @param {Boolean} [options.mobileInitiator] - Is cobrowsing being initiated by a mobile device
    */
   var linkCanvas = function (pubSub, container, options) {
     /**
@@ -345,16 +388,16 @@
      * exist, we are watching the canvas belonging to the party viewing the
      * shared screen
      */
-    _elements.resizeSubject = _.property('externalWindow')(options) || window;
-    _elements.externalWindow = _.property('externalWindow')(options) || null;
-    _elements.absoluteParent = _.property('absoluteParent')(options) || null;
-    _elements.canvasContainer = container;
-
+    _elements.resizeSubject = _getElem(_.property('externalWindow')(options) || window);
+    _elements.externalWindow = _getElem(_.property('externalWindow')(options) || null);
+    _elements.absoluteParent = _getElem(_.property('absoluteParent')(options) || null);
+    _elements.cobrowsingImage = _getElem(_.property('cobrowsingImage')(options) || null);
+    _elements.canvasContainer = _getElem(container);
 
     // The canvas object
     _canvas = new OTSolution.Annotations({
       feed: pubSub,
-      container: container,
+      container: _elements.canvasContainer,
       externalWindow: _elements.externalWindow
     });
 
@@ -367,7 +410,7 @@
       };
 
     _canvas.onScreenCapture(onScreenCapture);
-
+    _requestPlatformData(pubSub, options && options.mobileInitiator);
 
     var context = _elements.externalWindow ? _elements.externalWindow : window;
     // The canvas DOM element
@@ -384,6 +427,18 @@
    */
   var resizeCanvas = function () {
     _resizeCanvas();
+  };
+
+  /**
+   * Change the annotation color of the toolbar passing the colorIndex
+   * @param {Integer} colorIndex - The color index number
+   */
+  var changeColorByIndex = function (colorIndex) {
+    _changeColorByIndex(colorIndex);
+  };
+
+  var takeScreenShot = function () {
+    _takeScreenShot();
   };
 
   /**
@@ -455,8 +510,10 @@
     resizeCanvas: resizeCanvas,
     addSubscriberToExternalWindow: addSubscriberToExternalWindow,
     end: end,
-    hideToolbar:hideToolbar,
-    showToolbar:showToolbar
+    hideToolbar: hideToolbar,
+    showToolbar: showToolbar,
+    changeColorByIndex: changeColorByIndex,
+    takeScreenShot: takeScreenShot
   };
 
   if (typeof exports === 'object') {

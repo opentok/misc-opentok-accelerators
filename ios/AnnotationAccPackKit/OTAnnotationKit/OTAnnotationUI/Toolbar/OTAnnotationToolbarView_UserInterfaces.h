@@ -4,12 +4,12 @@
 //  Copyright © 2016 Tokbox, Inc. All rights reserved.
 //
 
-#import <OTAnnotationKit/OTAnnotationKit.h>
 #import "OTAnnotationColorPickerView.h"
 
 @interface OTAnnotationToolbarView ()
 
 @property (nonatomic) UIView *selectionShadowView;
 @property (nonatomic) OTAnnotationColorPickerView *colorPickerView;
+@property (nonatomic) UIView *separatorView;
 
 @end

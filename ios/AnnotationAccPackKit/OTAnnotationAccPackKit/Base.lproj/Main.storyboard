@@ -236,7 +236,7 @@
         <!--Annotation Blank Canvas View Controller-->
         <scene sceneID="ZtL-S5-q6c">
             <objects>
-                <viewController id="R9q-5p-Ess" customClass="AnnotationBlankCanvasViewController" customModule="OTAnnotationAccPackKit" sceneMemberID="viewController">
+                <viewController id="R9q-5p-Ess" customClass="AnnotationBlankCanvasViewController" customModule="OTAnnotationKit" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jq1-rb-0bQ"/>
                         <viewControllerLayoutGuide type="bottom" id="LLm-Fn-0hI"/>
@@ -270,7 +270,7 @@
         <!--Annotation Manual View Controller-->
         <scene sceneID="sE0-E8-tbK">
             <objects>
-                <viewController id="yI3-fP-JXQ" customClass="AnnotationManualViewController" customModule="OTAnnotationAccPackKit" sceneMemberID="viewController">
+                <viewController id="yI3-fP-JXQ" customClass="AnnotationManualViewController" customModule="OTAnnotationKit" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8c3-xR-fGb"/>
                         <viewControllerLayoutGuide type="bottom" id="g0G-Yc-un2"/>
@@ -288,7 +288,7 @@
         <!--Annotation Imported View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AnnotationImportedViewController" customModule="OTAnnotationAccPackKit" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AnnotationImportedViewController" customModule="OTAnnotationKit" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gmQ-u1-LyW"/>
                         <viewControllerLayoutGuide type="bottom" id="u5a-xz-356"/>
@@ -347,7 +347,7 @@
         <!--Annotation On Screen View Controller-->
         <scene sceneID="8d3-ef-AcU">
             <objects>
-                <viewController id="sn5-nb-njR" customClass="AnnotationOnScreenViewController" customModule="OTAnnotationAccPackKit" sceneMemberID="viewController">
+                <viewController id="sn5-nb-njR" customClass="AnnotationOnScreenViewController" customModule="OTAnnotationKit" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6t5-YC-WWH"/>
                         <viewControllerLayoutGuide type="bottom" id="fSb-Za-SW8"/>

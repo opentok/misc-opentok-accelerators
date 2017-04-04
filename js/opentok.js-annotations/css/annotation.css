@@ -1,4 +1,3 @@
-
 /*Annotation Styles*/
 
 .ots-annotation-toolbar-container {
@@ -193,4 +192,44 @@
 .ots-annotation-toolbar-container .OT_subpanel.shapes .annotation-btn.arrow {
     background-image: url(https://assets.tokbox.com/solutions/images/annotation-arrow.png);
     background-size: 6.5px 23.5px;
+}
+
+.ots-annotation-prompt {
+    background-color: rgba(1, 1, 1, 0.5);
+    width: 200px;
+    border-radius: 5px;
+}
+
+.ots-annotation-prompt span {
+    display: block;
+    float: left;
+    width: 100px;
+    height: 40px;
+    font-size: 12px;
+    padding: 10px;
+    color: white;
+    line-height: 20px;
+}
+
+.ots-annotation-prompt .dismiss-btn {
+    display: block;
+    width: 40px;
+    height: 36px;
+    background-image: url(https://assets.tokbox.com/solutions/images/annotation-trash.png);
+    float: left;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 65%;
+}
+
+.ots-annotation-prompt .confirm-btn {
+    display: block;
+    width: 40px;
+    height: 36px;
+    background-image: url(https://assets.tokbox.com/solutions/images/annotation-confirm.png);
+    float: right;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 70%;
 }

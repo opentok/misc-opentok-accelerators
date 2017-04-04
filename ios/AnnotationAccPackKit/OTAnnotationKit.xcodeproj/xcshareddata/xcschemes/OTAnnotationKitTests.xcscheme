@@ -5,22 +5,6 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A0E9FA9D1D403C7000460599"
-               BuildableName = "Distribution"
-               BlueprintName = "Distribution"
-               ReferencedContainer = "container:OTAnnotationAccPackKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -28,7 +12,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A0AB576C1D2C392D00F8410B"
+               BuildableName = "OTAnnotationKitTests.xctest"
+               BlueprintName = "OTAnnotationKitTests"
+               ReferencedContainer = "container:OTAnnotationKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A0DB6E471D230BC900E14C86"
+            BuildableName = "OTAnnotationKit.app"
+            BlueprintName = "OTAnnotationKit"
+            ReferencedContainer = "container:OTAnnotationKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -42,15 +45,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0E9FA9D1D403C7000460599"
-            BuildableName = "Distribution"
-            BlueprintName = "Distribution"
-            ReferencedContainer = "container:OTAnnotationAccPackKit.xcodeproj">
+            BlueprintIdentifier = "A0DB6E471D230BC900E14C86"
+            BuildableName = "OTAnnotationKit.app"
+            BlueprintName = "OTAnnotationKit"
+            ReferencedContainer = "container:OTAnnotationKit.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -63,10 +67,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0E9FA9D1D403C7000460599"
-            BuildableName = "Distribution"
-            BlueprintName = "Distribution"
-            ReferencedContainer = "container:OTAnnotationAccPackKit.xcodeproj">
+            BlueprintIdentifier = "A0DB6E471D230BC900E14C86"
+            BuildableName = "OTAnnotationKit.app"
+            BlueprintName = "OTAnnotationKit"
+            ReferencedContainer = "container:OTAnnotationKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

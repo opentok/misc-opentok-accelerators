@@ -9,6 +9,7 @@
 @class OTAnnotationColorPickerView;
 
 @interface OTAnnotationColorPickerViewButton : UIButton
+- (instancetype)initWithWhiteBorder;
 @end
 
 /**

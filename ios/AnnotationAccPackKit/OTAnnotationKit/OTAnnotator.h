@@ -5,7 +5,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <OTAnnotationKit/OTAnnotationScrollView.h>
+#import "OTAcceleratorSession.h"
+#import "OTAnnotationScrollView.h"
 
 typedef NS_ENUM(NSUInteger, OTAnnotationSignal) {
     OTAnnotationSessionDidConnect = 0,
@@ -24,6 +25,12 @@ typedef void (^OTAnnotationDataSendingBlock)(NSArray *data, NSError * error);
 typedef void (^OTAnnotationDataReceivingBlock)(NSArray *data);
 
 @class OTAnnotator;
+
+@protocol OTAnnotatorDataSource <NSObject>
+- (OTAcceleratorSession *)sessionOfOTAnnotator:(OTAnnotator *)annotator;
+@end
+
+
 @protocol AnnotationDelegate <NSObject>
 
 - (void)annotator:(OTAnnotator *)annotator
@@ -39,11 +46,11 @@ typedef void (^OTAnnotationDataReceivingBlock)(NSArray *data);
 @interface OTAnnotator : NSObject
 
 /**
- *  Initialize a new `OTAnnotator` instsance.
+ *  The object that acts as the data source of the text chat.
  *
- *  @return A new `OTAnnotator` instsance.
+ *  The delegate must adopt the OTAnnotatorDataSource protocol. The delegate is not retained.
  */
-- (instancetype)init;
+@property (weak, nonatomic) id<OTAnnotatorDataSource> dataSource;
 
 /**
  *  Registers to the shared session: [OTAcceleratorSession] and connect.
@@ -93,5 +100,26 @@ typedef void (^OTAnnotationDataReceivingBlock)(NSArray *data);
  *  ******************************************************************************************
  */
 @property (readonly, nonatomic) OTAnnotationScrollView *annotationScrollView;
+
+@property (nonatomic) BOOL stopSendingAnnotation;
+
+@property (nonatomic) BOOL stopReceivingAnnotaiton;
+
+- (void)cleanRemoteCanvas;
+
+#pragma mark - advanced
+/**
+ *  Manually subscribe to a stream with a specfieid name.
+ *
+ *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
+ */
+- (NSError *)subscribeToStreamWithName:(NSString *)name;
+
+/**
+ *  Manually subscribe to a stream with a specfieid stream id.
+ *
+ *  @return An error to indicate whether it subscribes successfully, non-nil if it fails.
+ */
+- (NSError *)subscribeToStreamWithStreamId:(NSString *)streamId;
 
 @end
