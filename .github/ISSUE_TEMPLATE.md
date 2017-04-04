@@ -1,13 +1,8 @@
 ## New issue checklist
 <!-- Before submitting this issue, make sure you have done the following -->
 
-<<<<<<< HEAD
-- [ ] I have read all of the [`README`](../README.md) 
-- [ ] I have searched [existing issues](https://github.com/opentok/annotation-acc-pack/issues?q=is%3Aissue+sort%3Acreated-desc) and **this is not a duplicate**.
-=======
-- [ ] I have read all of the [`README`](https://github.com/opentok/one-to-one-sample-apps/blob/master/README.md) 
-- [ ] I have searched [existing issues](https://github.com/opentok/one-to-one-sample-apps/issues?q=is%3Aissue+sort%3Acreated-desc) and **this is not a duplicate**.
->>>>>>> one-to-one-samples/master
+- [ ] I have read all of the [`README`](https://github.com/opentok/screensharing-annotation-acc-pack/blob/develop/README.md) 
+- [ ] I have searched [existing issues](https://github.com/opentok/screensharing-annotation-acc-pack/issues?utf8=%E2%9C%93&q=is%3Aissue+sort%3Acreated-desc+) and **this is not a duplicate**.
 
 ### General information
 
