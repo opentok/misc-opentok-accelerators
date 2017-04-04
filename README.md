@@ -1,7 +1,11 @@
+# Miscellaneous OpenTok Accelerators Packs
 
-![logo](./tokbox-logo.png)
+Various OpenTok Accelerators packs for JS, Android and iOS. These are out-of-date.
 
-### This Repository is Deprecated. For the up-to-date repositories visit:
-#### JS: https://github.com/opentok/accelerator-annotation-js
-#### iOS: https://github.com/opentok/accelerator-annotation-ios
-#### Android: https://github.com/opentok/accelerator-annotation-android
+* Accelerator Pack Common
+
+* Text Chat Accelerator Pack
+
+* ScreenSharing Accelerator Pack
+
+* Annotations Accelerator Pack
