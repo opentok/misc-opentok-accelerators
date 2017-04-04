@@ -1,4 +1,4 @@
-# Contributing to OpenTok Text Chat Accelerator Pack
+# Contributing to OpenTok Annotations Accelerator Pack
 
 ## Code of Conduct
 
@@ -7,7 +7,7 @@ Please read our [Code of Conduct](./CONDUCT.md). Intolerance, disrespect, and an
 ## Opening a new issue
 
 1. Read *the entire* [README](../README.md).
-* Search [open issues](https://github.com/opentok/textchat-acc-pack/issues) *and* [closed issues](https://github.com/opentok/textchat-acc-pack/issues?q=is%3Aissue+is%3Aclosed) to **avoid opening a duplicate issue.
+* Search [open issues](https://github.com/opentok/annotation-acc-pack/issues) *and* [closed issues](https://github.com/opentok/annotation-acc-pack/issues?q=is%3Aissue+is%3Aclosed) to **avoid opening a duplicate issue.
 * If your issue exists and you have some new information to contribute, you may add a comment to its thread.
 * Otherwise, open a new issue with a clear title and description.
 * Provide **all** of the following information:
